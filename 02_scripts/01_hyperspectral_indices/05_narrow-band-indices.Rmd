@@ -1,0 +1,64 @@
+---
+title: "Calculate all possible narrow band indices"
+output: html_notebook
+editor_options: 
+  chunk_output_type: inline
+---
+
+# Information about this script
+
+This script accounts for either local (laptop) or server (MCCOY) runs. Path is adjusted using object `prefix`
+
+Since this is an `.Rmd` file it cannot simply be called using `source()` or `Rscript` (server). 
+
+Instead, please use the [custom function `runAllChunks()`](http://stackoverflow.com/a/24754637/4185785) inside an R console with the `.Rmd` file as input. 
+It is recommended to put this function into your .Rprofile to have it available whenever you start an R session.
+
+**Attention** 
+
+This script uses the function `nbi_raster()` which is a custom function and only available from the developtment version of `hsdar` on Github: `devtools::install_github("pat-s/hsdar")`.
+
+```{r}
+pacman::p_load(raster, hsdar, pbapply, parallel, tidyverse, here, magrittr)
+```
+
+# Load wavelength and rasters
+
+```{r}
+wavelength <- readRDS("/home/shares/data/LIFE/mod/hyperspectral/wavelength.Rds")
+
+list.files("/home/shares/data/LIFE/mod/hyperspectral/atm-cropped", 
+           pattern = ".tif$", full.names = TRUE) %>%
+  lapply(function(x) brick(x)) %>% 
+  lapply(function(x) HyperSpecRaster(x, wavelength)) -> hyperspecs
+```
+
+# account for use on local laptop or server
+```{r}
+if (detectCores() > 10) {
+  cores <- 28
+} else (cores <- 1)
+```
+
+# do calculation of narrow band indices
+
+Band names will be calculated automatically by function `nbi_raster`
+
+Takes 190 GB RAM on server when being parallalized.
+
+Runtime per plot between 5 - 27 minutes.
+
+Largest file: 24 GB
+
+```{r}
+## Calculate NBI
+# hyperspecs <- list(hyperspecs[[1]])
+
+hyperspecs %>% 
+  pblapply(function(x) 
+    nbi_raster(x, filename = gsub(".tif", ".grd", 
+                                  "/home/shares/data/LIFE/mod/hyperspectral/narrow-band-indices/",
+                                         "narrow-band-indices-", basename(x@file@name))), cl = cores) 
+```
+
+

@@ -1,0 +1,49 @@
+---
+title: "Preprocessing of raw data"
+author: "Patrick Schratz"
+output:
+  html_notebook:
+    code_folding: none
+    fig_width: 10
+    highlight: haddock
+    number_sections: yes
+    toc: yes
+---
+
+# Load packages
+
+```{r}
+library(purrr)
+library(here)
+library(readr)
+library(tibble)
+library(glue)
+library(raster)
+```
+
+# Read data
+
+Reading in data from .txt files and exporting them as a Geopackage (.gpkg).
+
+## Survey data
+
+```{r}
+names = c("laukiz1", "laukiz2", "luiando", "oiartzun")
+
+map(names, 
+    ~ as_tibble(read.table(file = glue("/data/patrick/mod/survey_data/2016/{.x}.txt"), 
+                           sep = "\t", dec = ",", header = TRUE))) %>% 
+  set_names(names) -> data_all
+```
+
+## Vegetation indices
+
+```{r}
+map(names,
+    ~ brick(glue("/data/patrick/mod/hyperspectral/all-veg-indices/all-veg-indices-{.x}.gri"))) %>% 
+  set_names(names) -> indices_all
+```
+
+## Narrow band indices
+
+# Bind indices to response

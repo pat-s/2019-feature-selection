@@ -1,0 +1,543 @@
+---
+title: "R Notebook"
+output: html_notebook
+editor_options: 
+  chunk_output_type: inline
+---
+
+# Information about this script
+
+This script accounts for either local (laptop) or server (MCCOY) runs. Path is adjusted using object `prefix`
+
+Since this is an `.Rmd` file it cannot simply be called using `source()` or `Rscript` (server). 
+
+Instead, please use the [custom function `runAllChunks()`](http://stackoverflow.com/a/24754637/4185785) inside an R console with the `.Rmd` file as input. 
+It is recommended to put this function into your .Rprofile to have it available whenever you start an R session.
+
+# Load packages
+
+```{r}
+library(sf)
+library(raster)
+library(magrittr)
+library(here)
+library(purrr)
+library(dplyr)
+```
+
+# Read all atmoshperic corrected hyperspectral images
+
+```{r}
+map(list.files("/data/patrick/raw/hyperspectral/ATM", 
+                    full.names = TRUE, pattern = ".tif$"),
+    ~ brick(.x)) -> data_atm
+
+all.plots <- st_read("/home/shares/data/LIFE/mod/plots/location/all.plots.shp") %>% mutate(Name = as.character(Name))
+```
+
+# Read plot locations
+
+```{r}
+st_read("/data/patrick/mod/plots/location/all.plots.shp") %>% 
+  mutate(Name = as.character(Name)) -> plot_locations
+```
+
+# Load plots by name and perform renaming and subsetting for each
+
+Names are extracted from the first three digits in the file name
+e.g. B101 -> Plot 'Busturi- axpe' (see README for LUT)
+
+1. Change plot shp CRS to HS CRS (faster than changing the CRS of large raster)
+2. Crop HS by plot shp
+3. Apply UTM Zone 30 CRS
+4. Save cropped raster
+
+## Busturi- axpe (Code B101)
+```{r}
+busturi1 <- raster::brick(files[[1]])
+
+all.plots %>% 
+  filter(Name == "a busturi-axpe") %>% 
+  st_transform("+proj=utm +zone=30 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs") %>% 
+  as("Spatial") -> plot.shp
+
+busturi1 <- raster::crop(busturi1, plot.shp)
+busturi1 <- raster::mask(busturi1, plot.shp)
+busturi1 <- raster::projectRaster(busturi1, crs = "+proj=utm +zone=30 +datum=WGS84 +units=m +no_defs")
+
+raster::writeRaster(busturi1, "/home/shares/data/LIFE/mod/hyperspectral/atm-cropped/busturi.tif",
+                    overwrite = TRUE)
+```
+
+## Laukiz 1, Laukiz 2, Laukiz 3 (Code B103)
+
+```{r}
+## Laukiz I
+laukiz1 <- raster::brick(files[[2]])
+
+all.plots %>% 
+  filter(Name == "Laukiz I") %>% 
+  st_transform("+proj=utm +zone=30 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs") %>% 
+  as("Spatial") -> plot.shp
+
+laukiz1 <- raster::crop(laukiz1, plot.shp)
+laukiz1 <- raster::mask(laukiz1, plot.shp)
+laukiz1 <- raster::projectRaster(laukiz1, crs = "+proj=utm +zone=30 +datum=WGS84 +units=m +no_defs")
+
+raster::writeRaster(laukiz1, "/home/shares/data/LIFE/mod/hyperspectral/atm-cropped/laukiz1.tif",
+                    progress = "text", overwrite = TRUE)
+
+## Laukiz II
+laukiz2 <- raster::brick(files[[2]])
+
+all.plots %>% 
+  filter(Name == "Laukiz II") %>% 
+  st_transform("+proj=utm +zone=30 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs") %>% 
+  as("Spatial") -> plot.shp
+
+laukiz2 <- raster::crop(laukiz2, plot.shp)
+laukiz2 <- raster::mask(laukiz2, plot.shp)
+laukiz2 <- raster::projectRaster(laukiz2, crs = "+proj=utm +zone=30 +datum=WGS84 +units=m +no_defs")
+
+raster::writeRaster(laukiz2, "/home/shares/data/LIFE/mod/hyperspectral/atm-cropped/laukiz2.tif",
+                    progress = "text", overwrite = TRUE)
+
+## Laukiz III
+laukiz3 <- raster::brick(files[[2]])
+
+all.plots %>% 
+  filter(Name == "Laukiz III") %>% 
+  st_transform("+proj=utm +zone=30 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs") %>% 
+  as("Spatial") -> plot.shp
+
+laukiz3 <- raster::crop(laukiz3, plot.shp)
+laukiz3 <- raster::mask(laukiz3, plot.shp)
+laukiz3 <- raster::projectRaster(laukiz3, crs = "+proj=utm +zone=30 +datum=WGS84 +units=m +no_defs")
+
+raster::writeRaster(laukiz3, "/home/shares/data/LIFE/mod/hyperspectral/atm-cropped/laukiz3.tif",
+                    progress = "text", overwrite = TRUE)
+
+```
+
+## Altube (Code B111 and B211)
+
+```{r}
+altube <- raster::brick(files[[3]])
+
+all.plots %>% 
+  filter(Name == "a altube") %>% 
+  st_transform("+proj=utm +zone=30 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs") %>% 
+  as("Spatial") -> plot.shp
+
+altube <- raster::crop(altube, plot.shp)
+altube <- raster::mask(altube, plot.shp)
+altube <- raster::projectRaster(altube, crs = "+proj=utm +zone=30 +datum=WGS84 +units=m +no_defs")
+
+raster::writeRaster(altube, "/home/shares/data/LIFE/mod/hyperspectral/atm-cropped/altube.tif", 
+                    progress = "text", overwrite = TRUE) 
+```
+
+## Barazar (Code B113)
+
+```{r}
+barazar <- raster::brick(files[[4]]) 
+
+all.plots %>% 
+  filter(Name == "a barazar") %>% 
+  st_transform("+proj=utm +zone=30 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs") %>% 
+  as("Spatial") -> plot.shp
+
+barazar <- raster::crop(barazar, plot.shp)
+barazar <- raster::mask(barazar, plot.shp)
+barazar <- raster::projectRaster(barazar, crs = "+proj=utm +zone=30 +datum=WGS84 +units=m +no_defs")
+
+raster::writeRaster(barazar, "/home/shares/data/LIFE/mod/hyperspectral/atm-cropped/barazar.tif",
+                    progress = "text", overwrite = TRUE)
+```
+
+## Laricio defol. Urkiola (Code B114)
+
+```{r}
+Laricio.defol.urkiola <- raster::brick(files[[5]])
+
+all.plots %>% 
+  filter(Name == "Laricio defol. Urkiola.") %>% 
+  st_transform("+proj=utm +zone=30 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs") %>% 
+  as("Spatial") -> plot.shp
+
+Laricio.defol.urkiola <- raster::crop(Laricio.defol.urkiola, plot.shp)
+Laricio.defol.urkiola <- raster::mask(Laricio.defol.urkiola, plot.shp)
+Laricio.defol.urkiola <- raster::projectRaster(Laricio.defol.urkiola, crs = "+proj=utm +zone=30 +datum=WGS84 +units=m +no_defs")
+
+raster::writeRaster(Laricio.defol.urkiola, "/home/shares/data/LIFE/mod/hyperspectral/atm-cropped/laricio-defol-urkiola.tif",
+                    progress = "text", overwrite = TRUE)
+```
+
+## Aguinaga pinaster radiata (Code B123)
+
+```{r}
+aguinaga.pinaster.radiata <- raster::brick(files[[6]])
+
+all.plots %>% 
+  filter(Name == "aguinaga pinaster radiata") %>% 
+  st_transform("+proj=utm +zone=30 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs") %>% 
+  as("Spatial") -> plot.shp
+
+aguinaga.pinaster.radiata <- raster::crop(aguinaga.pinaster.radiata, plot.shp)
+aguinaga.pinaster.radiata <- raster::mask(aguinaga.pinaster.radiata, plot.shp)
+aguinaga.pinaster.radiata <- raster::projectRaster(aguinaga.pinaster.radiata, crs = "+proj=utm +zone=30 +datum=WGS84 +units=m +no_defs")
+
+raster::writeRaster(aguinaga.pinaster.radiata, "/home/shares/data/LIFE/mod/hyperspectral/atm-cropped/aguinaga-pinaster-radiata.tif",
+                    progress = "text", overwrite = TRUE)
+```
+
+## Oiartzun (Code B124)
+
+```{r}
+oiartzun <- raster::brick(files[[7]])
+
+all.plots %>% 
+  filter(Name == "Oiartzun") %>% 
+  st_transform("+proj=utm +zone=30 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs") %>% 
+  as("Spatial") -> plot.shp
+
+oiartzun <- raster::crop(oiartzun, plot.shp)
+oiartzun <- raster::mask(oiartzun, plot.shp)
+oiartzun <- raster::projectRaster(oiartzun, crs = "+proj=utm +zone=30 +datum=WGS84 +units=m +no_defs")
+
+raster::writeRaster(oiartzun, "/home/shares/data/LIFE/mod/hyperspectral/atm-cropped/oiartzun.tif",
+                    progress = "text", overwrite = TRUE)
+```
+
+## Pinast. Arza (Code B204)
+
+```{r}
+pinast.arza <- raster::brick(files[[8]])
+
+all.plots %>% 
+  filter(Name == "Pinast. Arza") %>% 
+  st_transform("+proj=utm +zone=30 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs") %>% 
+  as("Spatial") -> plot.shp
+
+pinast.arza <- raster::crop(pinast.arza, plot.shp)
+pinast.arza <- raster::mask(pinast.arza, plot.shp)
+pinast.arza <- raster::projectRaster(pinast.arza, crs = "+proj=utm +zone=30 +datum=WGS84 +units=m +no_defs") 
+
+raster::writeRaster(pinast.arza, "/home/shares/data/LIFE/mod/hyperspectral/atm-cropped/pinast-arza.tif",
+                    progress = "text", overwrite = TRUE) 
+```
+
+## Pinas. Santa Koloma (Code B205)
+
+```{r}
+pinas.santa.koloma <- raster::brick(files[[9]])
+
+all.plots %>% 
+  filter(Name == "Pinas. Santa Koloma") %>% 
+  st_transform("+proj=utm +zone=30 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs") %>% 
+  as("Spatial") -> plot.shp
+
+pinas.santa.koloma <- raster::crop(pinas.santa.koloma, plot.shp)
+pinas.santa.koloma <- raster::mask(pinas.santa.koloma, plot.shp)
+pinas.santa.koloma <- raster::projectRaster(pinas.santa.koloma, crs = "+proj=utm +zone=30 +datum=WGS84 +units=m +no_defs")
+
+raster::writeRaster(pinas.santa.koloma, "/home/shares/data/LIFE/mod/hyperspectral/atm-cropped/pinas-santa-koloma.tif",
+                    progress = "text", overwrite = TRUE)
+```
+
+## Rad. Menagaray 1 and Rad. Mengaray 2 (Code B206)
+
+```{r}
+## Rad. Menagaray 1
+rad.menagaray.1 <- raster::brick(files[[10]])
+
+all.plots %>% 
+  filter(Name == "Rad. Menagaray 1") %>% 
+  st_transform("+proj=utm +zone=30 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs") %>% 
+  as("Spatial") -> plot.shp
+
+rad.menagaray.1 <- raster::crop(rad.menagaray.1, plot.shp)
+rad.menagaray.1 <- raster::mask(rad.menagaray.1, plot.shp)
+rad.menagaray.1 <- raster::projectRaster(rad.menagaray.1, crs = "+proj=utm +zone=30 +datum=WGS84 +units=m +no_defs")
+
+raster::writeRaster(rad.menagaray.1, "/home/shares/data/LIFE/mod/hyperspectral/atm-cropped/rad-menagaray-1.tif",
+                    progress = "text", overwrite = TRUE)
+
+## Rad. Menagaray 2
+rad.menagaray.2 <- raster::brick(files[[10]])
+
+all.plots %>% 
+  filter(Name == "Rad. Menagaray 2") %>% 
+  st_transform("+proj=utm +zone=30 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs") %>% 
+  as("Spatial") -> plot.shp
+
+rad.menagaray.2 <- raster::crop(rad.menagaray.2, plot.shp)
+rad.menagaray.2 <- raster::mask(rad.menagaray.2, plot.shp)
+rad.menagaray.2 <- raster::projectRaster(rad.menagaray.2, crs = "+proj=utm +zone=30 +datum=WGS84 +units=m +no_defs")
+
+raster::writeRaster(rad.menagaray.2, "/home/shares/data/LIFE/mod/hyperspectral/atm-cropped/rad-menagaray-2.tif",
+                    progress = "text", overwrite = TRUE) 
+```
+
+## Ayala_aiara / Luiando (Code B207)
+
+```{r}
+ayala.aiara <- raster::brick(files[[11]])
+
+all.plots %>% 
+  filter(Name == "Ayala/Aiara") %>% 
+  st_transform("+proj=utm +zone=30 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs") %>% 
+  as("Spatial") -> plot.shp
+
+ayala.aiara <- raster::crop(ayala.aiara, plot.shp)
+ayala.aiara <- raster::mask(ayala.aiara, plot.shp)
+ayala.aiara <- raster::projectRaster(ayala.aiara, crs = "+proj=utm +zone=30 +datum=WGS84 +units=m +no_defs")
+
+raster::writeRaster(ayala.aiara, "/home/shares/data/LIFE/mod/hyperspectral/atm-cropped/ayala-aiara.tif",
+                    progress = "text", overwrite = TRUE)
+```
+
+## Silvest. Nograro (Code B208)
+
+```{r}
+silvest.nograro <- raster::brick(files[[12]])
+
+all.plots %>% 
+  filter(Name == "Silvest. Nograro") %>% 
+  st_transform("+proj=utm +zone=30 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs") %>% 
+  as("Spatial") -> plot.shp
+
+silvest.nograro <- raster::crop(silvest.nograro, plot.shp)
+silvest.nograro <- raster::mask(silvest.nograro, plot.shp)
+silvest.nograro <- raster::projectRaster(silvest.nograro, crs = "+proj=utm +zone=30 +datum=WGS84 +units=m +no_defs")
+
+raster::writeRaster(silvest.nograro, "/home/shares/data/LIFE/mod/hyperspectral/atm-cropped/silvest-nograro.tif",
+                    progress = "text", overwrite = TRUE)
+```
+
+## Caranca (Code B209)
+
+```{r}
+caranca <- raster::brick(files[[13]])
+
+all.plots %>% 
+  filter(Name == "a caranca") %>% 
+  st_transform("+proj=utm +zone=30 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs") %>% 
+  as("Spatial") -> plot.shp
+
+caranca <- raster::crop(caranca, plot.shp)
+caranca <- raster::mask(caranca, plot.shp)
+caranca <- raster::projectRaster(caranca, crs = "+proj=utm +zone=30 +datum=WGS84 +units=m +no_defs")
+
+raster::writeRaster(caranca, "/home/shares/data/LIFE/mod/hyperspectral/atm-cropped/caranca.tif",
+                    progress = "text", overwrite = TRUE)
+```
+
+## Picea Abornicano (Code B210)
+
+```{r}
+picea.abornicano <- raster::brick(files[[14]])
+
+all.plots %>% 
+  filter(Name == "Picea Abornicano") %>% 
+  st_transform("+proj=utm +zone=30 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs") %>% 
+  as("Spatial") -> plot.shp
+
+picea.abornicano <- raster::crop(picea.abornicano, plot.shp)
+picea.abornicano <- raster::mask(picea.abornicano, plot.shp)
+picea.abornicano <- raster::projectRaster(picea.abornicano, crs = "+proj=utm +zone=30 +datum=WGS84 +units=m +no_defs")
+
+raster::writeRaster(picea.abornicano, "/home/shares/data/LIFE/mod/hyperspectral/atm-cropped/picea-abornicano.tif",
+                    progress = "text", overwrite = TRUE)
+```
+
+## Douglas 1 and Douglas 2 and Rad. Altube (Code B212)
+
+Code 211 bzw. file[[15]] == Altube
+
+```{r}
+## douglas 1
+douglas.1 <- raster::brick(files[[16]])
+
+all.plots %>% 
+  filter(Name == "douglas 1") %>% 
+  st_transform("+proj=utm +zone=30 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs") %>% 
+  as("Spatial") -> plot.shp
+
+douglas.1 <- raster::crop(douglas.1, plot.shp)
+douglas.1 <- raster::mask(douglas.1, plot.shp)
+douglas.1 <- raster::projectRaster(douglas.1, crs = "+proj=utm +zone=30 +datum=WGS84 +units=m +no_defs")
+
+raster::writeRaster(douglas.1, "/home/shares/data/LIFE/mod/hyperspectral/atm-cropped/douglas.1.tif",
+                    progress = "text", overwrite = TRUE)
+
+## douglas 2
+douglas.2 <- raster::brick(files[[16]])
+
+all.plots %>% 
+  filter(Name == "douglas 2") %>% 
+  st_transform("+proj=utm +zone=30 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs") %>% 
+  as("Spatial") -> plot.shp
+
+douglas.2 <- raster::crop(douglas.2, plot.shp)
+douglas.2 <- raster::mask(douglas.2, plot.shp)
+douglas.2 <- raster::projectRaster(douglas.2, crs = "+proj=utm +zone=30 +datum=WGS84 +units=m +no_defs")
+
+raster::writeRaster(douglas.2, "/home/shares/data/LIFE/mod/hyperspectral/atm-cropped/douglas-2.tif",
+                    progress = "text", overwrite = TRUE)
+
+## rad. altube
+rad.altube <- raster::brick(files[[16]])
+
+all.plots %>% 
+  filter(Name == "Rad. Altube") %>% 
+  st_transform("+proj=utm +zone=30 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs") %>% 
+  as("Spatial") -> plot.shp
+
+rad.altube <- raster::crop(rad.altube, plot.shp)
+rad.altube <- raster::mask(rad.altube, plot.shp)
+rad.altube <- raster::projectRaster(rad.altube, crs = "+proj=utm +zone=30 +datum=WGS84 +units=m +no_defs")
+
+raster::writeRaster(rad.altube, "/home/shares/data/LIFE/mod/hyperspectral/atm-cropped/rad-altube.tif",
+                    progress = "text", overwrite = TRUE)
+```
+
+
+
+## Otxandio and Laricio defol. Olaeta (Code B215)
+
+```{r}
+## otxandio
+otxandio <- raster::brick(files[[17]])
+
+all.plots %>% 
+  filter(Name == "a otxandio") %>% 
+  st_transform("+proj=utm +zone=30 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs") %>% 
+  as("Spatial") -> plot.shp
+
+otxandio <- raster::crop(otxandio, plot.shp)
+otxandio <- raster::mask(otxandio, plot.shp)
+otxandio <- raster::projectRaster(otxandio, crs = "+proj=utm +zone=30 +datum=WGS84 +units=m +no_defs")
+
+raster::writeRaster(otxandio, "/home/shares/data/LIFE/mod/hyperspectral/atm-cropped/otxandio.tif",
+                    progress = "text", overwrite = TRUE)
+
+## Laricio defol. Olaeta
+laricio.defol.olaeta <- raster::brick(files[[17]])
+
+all.plots %>% 
+  filter(Name == "Laricio defol. Olaeta. pol") %>% 
+  st_transform("+proj=utm +zone=30 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs") %>% 
+  as("Spatial") -> plot.shp
+
+laricio.defol.olaeta <- raster::crop(laricio.defol.olaeta, plot.shp)
+laricio.defol.olaeta <- raster::mask(laricio.defol.olaeta, plot.shp)
+laricio.defol.olaeta <- raster::projectRaster(laricio.defol.olaeta, crs = "+proj=utm +zone=30 +datum=WGS84 +units=m +no_defs")
+
+raster::writeRaster(laricio.defol.olaeta, "/home/shares/data/LIFE/mod/hyperspectral/atm-cropped/laricio-defol-olaeta.tif",
+                    progress = "text", overwrite = TRUE)
+```
+
+
+## Douglas Legutio (Code B317 and B318)
+Here B317 is taken
+```{r}
+douglas.legutio <- raster::brick(files[[18]])
+
+all.plots %>% 
+  filter(Name == "Douglas Legutio") %>% 
+  st_transform("+proj=utm +zone=30 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs") %>% 
+  as("Spatial") -> plot.shp
+
+douglas.legutio <- raster::crop(douglas.legutio, plot.shp)
+douglas.legutio <- raster::mask(douglas.legutio, plot.shp)
+douglas.legutio <- raster::projectRaster(douglas.legutio, crs = "+proj=utm +zone=30 +datum=WGS84 +units=m +no_defs")
+
+raster::writeRaster(douglas.legutio, "/home/shares/data/LIFE/mod/hyperspectral/atm-cropped/douglas-legutio.tif",
+                    progress = "text", overwrite = TRUE)
+```
+## Laricio Gatzaga (Code B319)
+
+```{r}
+laricio.gatzaga <- raster::brick(files[[20]])
+
+all.plots %>% 
+  filter(Name == "Laricio defol.Gatzaga") %>% 
+  st_transform("+proj=utm +zone=30 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs") %>% 
+  as("Spatial") -> plot.shp
+
+laricio.gatzaga <- raster::crop(laricio.gatzaga, plot.shp)
+laricio.gatzaga <- raster::mask(laricio.gatzaga, plot.shp)
+laricio.gatzaga <- raster::projectRaster(laricio.gatzaga, crs = "+proj=utm +zone=30 +datum=WGS84 +units=m +no_defs")
+
+raster::writeRaster(laricio.gatzaga, "/home/shares/data/LIFE/mod/hyperspectral/atm-cropped/laricio.gatzaga.tif",
+                    progress = "text", overwrite = TRUE)
+```
+## Azaceta (Code B320)
+
+```{r}
+azaceta <- raster::brick(files[[21]])
+
+all.plots %>% 
+  filter(Name == "a azaceta") %>% 
+  st_transform("+proj=utm +zone=30 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs") %>% 
+  as("Spatial") -> plot.shp
+
+azaceta <- raster::crop(azaceta, plot.shp)
+azaceta <- raster::mask(azaceta, plot.shp)
+azaceta <- raster::projectRaster(azaceta, crs = "+proj=utm +zone=30 +datum=WGS84 +units=m +no_defs")
+
+raster::writeRaster(azaceta, "/home/shares/data/LIFE/mod/hyperspectral/atm-cropped/azaceta.tif",
+                    progress = "text", overwrite = TRUE)
+```
+## Gipuzkoa and Sequoia Legorreta (Code B321)
+
+```{r}
+## gipuzkoa
+gipuzkoa <- raster::brick(files[[22]])
+
+all.plots %>% 
+  filter(Name == "a gipuzkoa") %>% 
+  st_transform("+proj=utm +zone=30 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs") %>% 
+  as("Spatial") -> plot.shp
+
+gipuzkoa <- raster::crop(gipuzkoa, plot.shp)
+gipuzkoa <- raster::mask(gipuzkoa, plot.shp)
+gipuzkoa <- raster::projectRaster(gipuzkoa, crs = "+proj=utm +zone=30 +datum=WGS84 +units=m +no_defs")
+
+raster::writeRaster(gipuzkoa, "/home/shares/data/LIFE/mod/hyperspectral/atm-cropped/gipuzkoa.tif",
+                    progress = "text", overwrite = TRUE)
+
+## Sequoia Legorreta
+sequoia.legorreta <- raster::brick(files[[22]])
+
+all.plots %>% 
+  filter(Name == "Sequoia Legorreta") %>% 
+  st_transform("+proj=utm +zone=30 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs") %>% 
+  as("Spatial") -> plot.shp
+
+sequoia.legorreta <- raster::crop(sequoia.legorreta, plot.shp)
+sequoia.legorreta <- raster::mask(sequoia.legorreta, plot.shp)
+sequoia.legorreta <- raster::projectRaster(sequoia.legorreta, crs = "+proj=utm +zone=30 +datum=WGS84 +units=m +no_defs")
+
+raster::writeRaster(sequoia.legorreta, "/home/shares/data/LIFE/mod/hyperspectral/atm-cropped/sequoia.legorreta.tif",
+                    progress = "text", overwrite = TRUE)
+```
+## Douglas Albiztur (Code B322)
+
+```{r}
+douglas.albiztur <- raster::brick(files[[23]])
+
+all.plots %>% 
+  filter(Name == "Douglas Albiztur") %>% 
+  st_transform("+proj=utm +zone=30 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs") %>% 
+  as("Spatial") -> plot.shp
+
+douglas.albiztur <- raster::crop(douglas.albiztur, plot.shp)
+douglas.albiztur <- raster::mask(douglas.albiztur, plot.shp)
+douglas.albiztur <- raster::projectRaster(douglas.albiztur, crs = "+proj=utm +zone=30 +datum=WGS84 +units=m +no_defs")
+
+raster::writeRaster(douglas.albiztur, "/home/shares/data/LIFE/mod/hyperspectral/atm-cropped/douglas-albiztur.tif",
+                    progress = "text", overwrite = TRUE)
+```
+
