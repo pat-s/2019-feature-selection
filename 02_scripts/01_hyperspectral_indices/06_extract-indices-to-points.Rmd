@@ -1,21 +1,26 @@
 ---
 title: "Extract indices to points"
-output: html_notebook
-editor_options: 
-chunk_output_type: inline
+output: 
+  bookdown::html_document2:
+    toc: true
+    toc_float: true
 ---
 
-# Information about this script
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      cache = TRUE)
+```
 
-This script accounts for either local (laptop) or server (MCCOY) runs. Path is adjusted using object `prefix`
 
-Since this is an `.Rmd` file it cannot simply be called using `source()` or `Rscript` (server). 
-
-Instead, please use the [custom function `runAllChunks()`](http://stackoverflow.com/a/24754637/4185785) inside an R console with the `.Rmd` file as input. 
-It is recommended to put this function into your .Rprofile to have it available whenever you start an R session.
-
-```{r}
-pacman::p_load(raster, sf, here, magrittr, tidyverse, pbapply, parallel)
+```{r, results='hide'}
+library(raster)
+devtools::install_github("pat-s/hsdar")
+library(hsdar)
+library(pbmcapply)
+library(glue)
+library(magrittr)
+library(sf)
+library(purrr)
 ```
 
 # Laukiz1

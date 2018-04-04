@@ -1,65 +1,60 @@
 ---
-title: "R Notebook"
-output: html_notebook
-editor_options: 
-  chunk_output_type: inline
+title: "Create NDVI raster files for each plot"
+output: 
+  bookdown::html_document2:
+    toc: true
+    toc_float: true
 ---
 
-# Information about this script
-
-This script accounts for either local (laptop) or server (MCCOY) runs. Path is adjusted using object `prefix`
-
-Since this is an `.Rmd` file it cannot simply be called using `source()` or `Rscript` (server). 
-
-Instead, please use the [custom function `runAllChunks()`](http://stackoverflow.com/a/24754637/4185785) inside an R console with the `.Rmd` file as input. 
-It is recommended to put this function into your .Rprofile to have it available whenever you start an R session.
-
-```{r}
-pacman::p_load(raster, hsdar, here, pbapply, parallel)
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      cache = TRUE)
 ```
 
-# specify wavelength 
-
-```{r}
-wavelength <- readRDS("/home/shares/data/LIFE/mod/hyperspectral/wavelength.Rds")
+```{r, results='hide'}
+library(raster)
+devtools::install_github("pat-s/hsdar")
+library(hsdar)
+library(pbmcapply)
+library(glue)
+library(magrittr)
+library(purrr)
 ```
 
-# read rasters (cropped by plot) 
+# Specify wavelength 
+
+```{r}
+wavelength = readRDS("/data/patrick/mod/hyperspectral/wavelength.Rds")
+```
+
+# Read rasters (cropped by plot) 
 
 ## list files
 
 ```{r}
-files <- list.files("/home/shares/data/LIFE/mod/hyperspectral/atm-cropped", 
-                    pattern = ".tif$", full.names = TRUE)
+list.files("/data/patrick/mod/hyperspectral/atm-cropped", 
+                    pattern = ".tif$", full.names = TRUE) %>% 
+  map(~ brick(.x)) -> spectral_data
 ```
 
-## read in files as "RasterBrick"
+# Coerce to class "HyperSpecRaster"
 
 ```{r}
-spectral_data <- lapply(files, function(x) brick(x))
+hyperspecs = map(spectral_data, function(x) HyperSpecRaster(x, wavelength))
 ```
 
-# make class "HyperSpecRaster"
-```{r}
-hyperspecs <- lapply(spectral_data, function(x) hsdar::HyperSpecRaster(x, wavelength))
-```
+# Calculate NDVI in parallel
 
-# account for use on local laptop or server
-```{r}
-if (parallel::detectCores() > 10) {
-  cores <- 28
-} else (cores <- 1)
-```
+* Assign to `tmp` to prevent list printing to console
+* Use 'NDVI2' as formula 
 
-# calculate NDVI
-
-assign to object to prevent list printing to console ### use 'NDVI2' as formula 
-```{r}
-pboptions(style = 1, type = "timer")
-tmp <- pblapply(hyperspecs, function(x) 
-  vegindex(x, "NDVI2", filename = paste0("/home/shares/data/LIFE/mod/hyperspectral/ndvi/", "ndvi2-",
-                                         basename(x@file@name)),
-           bnames = "NDVI"), cl = cores)
+```{r, cache=FALSE}
+tmp <- pbmclapply(hyperspecs, function(x) 
+  vegindex(x, "NDVI2", 
+           filename = glue("/data/patrick/mod/hyperspectral/ndvi/ndvi2-{name}",
+                           name = basename(x@file@name)),
+           bnames = "NDVI"), mc.cores = 28)
+rm(tmp)
 ```
 
 

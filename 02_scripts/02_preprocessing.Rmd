@@ -19,6 +19,11 @@ library(readr)
 library(tibble)
 library(glue)
 library(raster)
+library(sf)
+library(dplyr)
+library(tidyr)
+library(magrittr)
+library(stringr)
 ```
 
 # Read data
@@ -32,18 +37,86 @@ names = c("laukiz1", "laukiz2", "luiando", "oiartzun")
 
 map(names, 
     ~ as_tibble(read.table(file = glue("/data/patrick/mod/survey_data/2016/{.x}.txt"), 
-                           sep = "\t", dec = ",", header = TRUE))) %>% 
-  set_names(names) -> data_all
+                           sep = "\t", dec = ",", header = TRUE,
+                           stringsAsFactors = FALSE, 
+                           na.strings=c("")))) %>% 
+  set_names(names) %>% 
+  map(~ rename_all(.x, tolower)) -> data_tbl
 ```
+
+Laukiz2 has no coordinate info in the txt file. We need to read the shapefile and join them.
+
+### Join Laukiz2 coords
+
+```{r}
+laukiz2_coords = st_read("/data/patrick/raw/survey_data/2016/laukiz2/arboles/Laukiz2_arboles_ETRS89.shp")
+
+data_tbl$laukiz2 = left_join(data_tbl$laukiz2, laukiz2_coords, 
+                             by = c("num.arbol" = "id_arbol"))
+```
+
+Drop observations with no coordinate information.
+
+```{r}
+data_tbl %<>% 
+  map(~ drop_na(.x, c("x", "y")))
+```
+
+Coerce to `sf` objects.
+
+```{r}
+map(data_tbl, ~ st_as_sf(.x, coords = c("x", "y"))) -> data_sf
+```
+
+Select variables related to defoliation.
+
+```{r}
+data_sf %<>% 
+  map(~ select(.x, contains("def")))
+```
+
+Laukiz2 needs some clean up:
+
+"no" -> 0
+"*" -> NA
+Coerce from chr to int.
+Calculate "deftot" which is the mean of all three parts (bottom, mid, top).
+
+`rowSums` will thrown an error due to the "geometry" column so we need to add `drop = TRUE`.
+
+```{r}
+data_sf$laukiz2 %<>% 
+  mutate(x..de.defoliacion.parte.media = 
+           replace(.$x..de.defoliacion.parte.media, 
+                   .$x..de.defoliacion.parte.media == "no", "0")) %>% 
+  mutate(x..defoliacion.en.punta = 
+           replace(.$x..defoliacion.en.punta, 
+                   .$x..defoliacion.en.punta == "no", "0")) %>% 
+  mutate(x..defoliacion.base = 
+           replace(.$x..defoliacion.base,
+                   .$x..defoliacion.base == "no", "0")) %>% 
+  mutate(x..defoliacion.base = 
+           replace(.$x..defoliacion.base,
+                   .$x..defoliacion.base == "*", NA)) %>% 
+  mutate_if(is.character, as.numeric) %>% 
+  mutate(deftot = as.integer(rowMeans(.[, 1:3, drop = TRUE], na.rm = TRUE)))
+```
+
 
 ## Vegetation indices
 
 ```{r}
 map(names,
     ~ brick(glue("/data/patrick/mod/hyperspectral/all-veg-indices/all-veg-indices-{.x}.gri"))) %>% 
-  set_names(names) -> indices_all
+  set_names(names) -> veg_indices_all
 ```
 
 ## Narrow band indices
+
+```{r}
+map(names,
+    ~ brick(glue("/data/patrick/mod/hyperspectral/narrow-band-indices/narrow-band-indices-{.x}.gri"))) %>% 
+  set_names(names) -> nbi_indices_all
+```
 
 # Bind indices to response

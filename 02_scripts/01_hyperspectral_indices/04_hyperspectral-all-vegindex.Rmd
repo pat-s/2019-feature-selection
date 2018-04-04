@@ -1,69 +1,50 @@
 ---
 title: "Calculate all possible vegetation indices that the `hsdar` package offers."
-output: html_notebook
-editor_options: 
-  chunk_output_type: inline
+output: 
+  bookdown::html_document2:
+    toc: true
+    toc_float: true
 ---
 
-# Information about this script
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      cache = TRUE)
+```
 
-This script accounts for either local (laptop) or server (MCCOY) runs. Path is adjusted using object `prefix`
-
-Since this is an `.Rmd` file it cannot simply be called using `source()` or `Rscript` (server). 
-
-Instead, please use the [custom function `runAllChunks()`](http://stackoverflow.com/a/24754637/4185785) inside an R console with the `.Rmd` file as input. 
-It is recommended to put this function into your .Rprofile to have it available whenever you start an R session.
+# Load packages
 
 ```{r}
-pacman::p_load(raster, hsdar, pbapply, parallel, rasterFunctions, tidyverse)
+library(raster)
+library(hsdar)
+library(pbmcapply)
+library(magrittr)
+library(purrr)
+library(glue)
 ```
 
 # Specify wavelength
 
 ```{r}
-wavelength <- readRDS("/home/shares/data/LIFE/mod/hyperspectral/wavelength.Rds")
+wavelength <- readRDS("/data/patrick/mod/hyperspectral/wavelength.Rds")
 ```
 
-# List files
+## list files
 
 ```{r}
-files <- list.files("/home/shares/data/LIFE/mod/hyperspectral/atm-cropped", 
-                    pattern = ".tif$", full.names = TRUE)
+list.files("/data/patrick/mod/hyperspectral/atm-cropped", 
+                    pattern = ".tif$", full.names = TRUE) %>% 
+  map(~ brick(.x)) -> spectral_data
 ```
 
-# read in files as "RasterBrick"
+# Coerce to class "HyperSpecRaster"
+
 ```{r}
-spectral_data <- lapply(files, function(x) brick(x))
+hyperspecs = map(spectral_data, function(x) HyperSpecRaster(x, wavelength))
 ```
 
-# make class "HyperSpecRaster"
+# Specify indices
 
 ```{r}
-hyperspecs <- lapply(spectral_data, function(x) hsdar::HyperSpecRaster(x, wavelength))
-```
-
-# account for use on local laptop or server
-```{r}
-if (detectCores() > 10) {
-  cores <- 28
-} else (cores <- 1)
-```
-
-# do calculation 
-
-Runtime server: ~ 1 min
-Runtime MBP: ~ 10 mins
-
-Writing files as `.gri` files because this format preserves layer names. TIFF format does not!!
-Layer names are changed using the `bnames` argument of function `rasterFunctions::hsdar.vegIndex()`.
-
-Specify vegetation indices. 
-
-```{r}
-# subset for test purposes
-# hyperspecs <- list(hyperspecs[[17]])
-
-
 # specify which indices to calculate WITH DERIVATION INDICES
 indices <- c("Boochs", "Boochs2","CARI", "Carter", "Carter2", "Carter3", "Carter4", "Carter5",
              "Carter6", "CI", "CI2", "ClAInt", "CRI1", "CRI2", "CRI3", "CRI4",
@@ -81,18 +62,18 @@ indices <- c("Boochs", "Boochs2","CARI", "Carter", "Carter2", "Carter3", "Carter
 # length(indices)
 ```
 
-# do veg. indices calculation
+# Calculate vegetation indices
 
-```{r }
-hyperspecs %>% 
-  pblapply(function(x) 
-    vegindex(x, indices, filename = 
-             gsub(".tif", ".grd", 
-                  "/home/shares/data/LIFE/mod/hyperspectral/all-veg-indices/",
-                    "all-veg-indices-", basename(x@file@name)), na.rm = T,
-             bnames = indices), cl = cores) -> rasters
+Writing files as `.gri` files because this format preserves layer names. TIFF format does not!!
+Layer names are changed using the `bnames` argument of function `rasterFunctions::hsdar.vegIndex()`.
 
-# mapview(tmp[[1]])
+```{r, cache=FALSE}
+tmp <- pbmclapply(hyperspecs, function(x) 
+  vegindex(x, indices, 
+           filename = 
+             str_replace(glue("/data/patrick/mod/hyperspectral/all-veg-indices/{name}",
+                              name = basename(x@file@name)), ".tif", ".grd"), 
+           na.rm = TRUE, bnames = indices), mc.cores = 28)
 ```
 
 

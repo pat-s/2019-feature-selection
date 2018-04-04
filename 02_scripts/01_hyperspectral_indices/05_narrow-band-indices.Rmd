@@ -1,46 +1,51 @@
 ---
 title: "Calculate all possible narrow band indices"
-output: html_notebook
-editor_options: 
-  chunk_output_type: inline
+output: 
+  bookdown::html_document2:
+    toc: true
+    toc_float: true
 ---
 
-# Information about this script
-
-This script accounts for either local (laptop) or server (MCCOY) runs. Path is adjusted using object `prefix`
-
-Since this is an `.Rmd` file it cannot simply be called using `source()` or `Rscript` (server). 
-
-Instead, please use the [custom function `runAllChunks()`](http://stackoverflow.com/a/24754637/4185785) inside an R console with the `.Rmd` file as input. 
-It is recommended to put this function into your .Rprofile to have it available whenever you start an R session.
-
-**Attention** 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      cache = TRUE)
+```
 
 This script uses the function `nbi_raster()` which is a custom function and only available from the developtment version of `hsdar` on Github: `devtools::install_github("pat-s/hsdar")`.
 
-```{r}
-pacman::p_load(raster, hsdar, pbapply, parallel, tidyverse, here, magrittr)
+```{r, results='hide'}
+library(raster)
+devtools::install_github("pat-s/hsdar")
+library(hsdar)
+library(pbmcapply)
+library(glue)
+library(magrittr)
+library(purrr)
 ```
 
-# Load wavelength and rasters
+# Specify wavelength 
 
 ```{r}
-wavelength <- readRDS("/home/shares/data/LIFE/mod/hyperspectral/wavelength.Rds")
-
-list.files("/home/shares/data/LIFE/mod/hyperspectral/atm-cropped", 
-           pattern = ".tif$", full.names = TRUE) %>%
-  lapply(function(x) brick(x)) %>% 
-  lapply(function(x) HyperSpecRaster(x, wavelength)) -> hyperspecs
+wavelength = readRDS("/data/patrick/mod/hyperspectral/wavelength.Rds")
 ```
 
-# account for use on local laptop or server
+# Read rasters (cropped by plot) 
+
+## list files
+
 ```{r}
-if (detectCores() > 10) {
-  cores <- 28
-} else (cores <- 1)
+list.files("/data/patrick/mod/hyperspectral/atm-cropped", 
+                    pattern = ".tif$", full.names = TRUE) %>% 
+  map(~ brick(.x)) -> spectral_data
 ```
 
-# do calculation of narrow band indices
+# Coerce to class "HyperSpecRaster"
+
+```{r}
+hyperspecs = map(spectral_data, function(x) HyperSpecRaster(x, wavelength))
+```
+
+# Create narrow band indices
 
 Band names will be calculated automatically by function `nbi_raster`
 
@@ -50,15 +55,15 @@ Runtime per plot between 5 - 27 minutes.
 
 Largest file: 24 GB
 
-```{r}
-## Calculate NBI
-# hyperspecs <- list(hyperspecs[[1]])
-
-hyperspecs %>% 
-  pblapply(function(x) 
-    nbi_raster(x, filename = gsub(".tif", ".grd", 
-                                  "/home/shares/data/LIFE/mod/hyperspectral/narrow-band-indices/",
-                                         "narrow-band-indices-", basename(x@file@name))), cl = cores) 
+```{r, cache=FALSE}
+tmp <- pbmclapply(hyperspecs, function(x)  
+  nbi_raster(x,
+             filename = str_replace(glue("/data/patrick/mod/hyperspectral/",
+                             "narrow-band-indices/narrow-band-indices-{name}",
+                             name = basename(x@file@name)), ".tif", ".grd"), mc.cores = 15)) 
+rm(tmp)
 ```
 
-
+```{r}
+sessionInfo()
+```

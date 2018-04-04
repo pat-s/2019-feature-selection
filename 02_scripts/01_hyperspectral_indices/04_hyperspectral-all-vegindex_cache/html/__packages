@@ -1,0 +1,14 @@
+base
+sp
+raster
+rgdal
+rootSolve
+signal
+lattice
+ggplot2
+caret
+hsdar
+future
+pbmcapply
+magrittr
+purrr

@@ -31,7 +31,13 @@ Source: https://tamino.wordpress.com/2011/02/12/ridge-regression/
 >
 > We pay a price for this. The new estimates are no longer unbiased, their expected values are not equal to the true values. Generally they tend to underestimate the true values. However, the variance of this new estimate can be so much lower than that of the least-squares estimator, that the total expected mean squared error is also less — and that makes it (in a certain sense) a “better” estimator, surely a better-behaved one.
 
+## L2 vs L1
 
+* Can be split into L1/L2 regularization and L1/L2 loss function.
+* L1 also called "lasso"
+* L2 also called "ridge"
+* Loss function = function to estimate errors (residual sum of squares)
+* regularization function = Penalization of coefficients
 
 **R packages**
 
@@ -40,3 +46,4 @@ Source: https://tamino.wordpress.com/2011/02/12/ridge-regression/
 * `penalized` (orphaned)
 * `elasticnet` (last update 2012)
 * `foba` (from 2008, probably outdated)
+* `liblineaR` (from 2017, wrapper around C++ liblinear)

@@ -1,248 +1,157 @@
 ---
 title: "NDVI analysis of hyperspectral data"
-output: html_notebook
-editor_options: 
-  chunk_output_type: inline
+output: 
+  bookdown::html_document2:
+    toc: true
+    toc_float: true
 ---
-# Data & packages
 
-Loads list of 28 cropped (to respective plot) atmospherical corrected hyperspectral images.  
-See R script `hs.ndvi.R` for multicore creation. 
-
-Move to chunk 'hsdar package' if file exists!
-```{r}
-pacman::p_load(rgdal, raster, mapview, hsdar, rio, ggplot2, colorRamps)
-
-if (file.exists("/home/shares/data/LIFE/mod/hyperspectral/atm-cropped/all-cropped.rds")) {
-  files <- as.list(rio::import("/home/shares/data/LIFE/mod/hyperspectral/atm-cropped/all-cropped.rds"))
-} else {
-  files <- list.files("/home/shares/data/LIFE/mod/hyperspectral/atm-cropped/", 
-                    pattern = ".tif$", full.names = TRUE)
-
-  files1 <- lapply(files, function(x) raster::brick(x))
-}
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      cache = TRUE)
 ```
 
-Define 'Get values row by row' (vignette `raster::functions`)
-* x = multy layer Raster file (applying `brick()`)
-* a = value to add to existing value
-```{r}
-source(here("R/helper.funs/get.values.row.by.row.R"))
-```
-
-# Get values from all raster files (bricks!) using `lapply`
-```{r}
-# files_atm <- lapply(files_atm, function(x) f8(x, 0, progress = "text"))
-# saveRDS(files_atm, here("R/tmp/files_atm_with_values.rda")
-files_atm <- readRDS("/home/patrick/PhD/R/tmp/files_atm_with_values.rda")
-```
-
-Get wavelengths out of README table (http://datascienceplus.com/extracting-tables-from-pdfs-in-r-using-the-tabulizer-package/)
-
-Does not work because wavelength table on page 10 of README is not a table but an image...
-```{r}
-# devtools::install_github("ropenscilabs/tabulizer")
-# devtools::install_github("ropenscilabs/tabulizerjars")
-
-# library(tabulizer)
-
-# tabs <- extract_tables("/home/shares/data/original/hyperspectral/0_README_spanish.pdf", pages = 10)
-```
-
-# hsdar package
-```{r}
-# specify wavelength of each band
-wavelength <- c(404.08, 408.5, 412.92, 417.36, 421.81, 426.27, 430.73, 435.20, 
-                439.69, 444.18, 448.68, 453.18, 457.69, 462.22, 466.75, 471.29,
-                475.83, 480.39, 484.95, 489.52, 494.09, 498.68, 503.26, 507.86,
-                512.47, 517.08, 521.70, 526.32, 530.95, 535.58, 540.23, 544.88,
-                549.54, 554.20, 558.86, 563.54, 568.22, 572.90, 577.60, 582.29,
-                586.99, 591.70, 596.41, 601.13, 605.85, 610.58, 615.31, 620.05,
-                624.79, 629.54, 634.29, 639.04, 643.80, 648.56, 653.33, 658.10,
-                662.88, 667.66, 672.44, 677.23, 682.02, 686.81, 691.60, 696.40,
-                701.21, 706.01, 710.82, 715.64, 720.45, 725.27, 730.09, 734.91,
-                739.73, 744.56, 749.39, 754.22, 759.05, 763.89, 768.72, 773.56, 
-                778.40, 783.24, 788.08, 792.93, 797.77, 802.62, 807.47, 812.32,
-                817.17, 822.02, 826.87, 831.72, 836.57, 841.42, 846.28, 851.13,
-                855.98, 860.83, 865.69, 870.54, 875.39, 880.24, 885.09, 889.94,
-                894.79, 899.64, 904.49, 909.34, 914.18, 919.03, 923.87, 928.71,
-                933.55, 938.39, 943.23, 948.07, 952.90, 957.73, 962.56, 967.39,
-                972.22, 977.04, 981.87, 986.68, 991.50, 996.31)
-```
-
-
-Read in raster data either using `rgdal` or `raster` package. 
-`raster` seems to be prefered but `rgdal` is a lot faster in reading values
+# Load packages
 
 ```{r}
-## create HyperSpecRaster file
-# ra <- hsdar::HyperSpecRaster(files_atm[[1]], wavelength)
-# tr <- blockSize(ra)
-
-##  create SpecLib file
-# spectral_data1 <- f8(files1[[1]], 0, progress = "text")
-
-# speclib <- hsdar::speclib(spectral_data, wavelength)
-```
-
-plot spectral signature
-```{r}
-# plot(spectral_data, main = "Default Plot")
-
-# plot(spectral_data, FUN = "median") # not working
-```
-
-Visualize NDVI
-```{r}
-mapview::mapview(spectral_data1, zcol = "ndvi", maxpixels = 4664960, na.color = "white")
+library(purrr)
+library(magrittr)
+library(pbmcapply)
+library(raster)
+library(rasterVis)
+library(viridis)
+library(gridExtra)
+library(tools)
+library(stringr)
+library(tibble)
+library(dplyr)
+library(ggplot2)
 ```
 
 # NDVI analysis
 
-## Read in files
+Note: Names of raster objects will always have a dot in it which cannot be replaced by a dash or a whitespace.
 
-1. List files
-2. Read in using `rgdal::readGDAL`
-3. Get filenames
-4. Rename `band1` to `NDVI` and label SpGrDaFr with plot name
-4. Get pixel count of each file
-5. Create DF with one NDVI column and a factor column with filenames
+That is the reason why we set the names in `levelplot_mod()`.
+
 ```{r}
-files.list <- list.files("/home/shares/data/LIFE/mod/hyperspectral/ndvi", 
-                    pattern = "ndvi2.*\\.tif", full.names = TRUE)
+ndvi_data <- list.files("/data/patrick/mod/hyperspectral/ndvi",
+  pattern = "ndvi2.*\\.tif", full.names = TRUE
+) %>%
+  map(~ raster(.x)) %>%
+  map(~ projectRaster(.x, crs = "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs")) %>%
+  map(~ set_names(.x, gsub(".", " ", str_sub(names(.x), 7), fixed = T)))
 
-files.ndvi <- lapply(files.list, function(x) rgdal::readGDAL(x, silent = TRUE))
-# rename band name to 'NDVI'
-for (i in seq_along(files.ndvi)) {
-  colnames(files.ndvi[[i]]@data) <- "NDVI"
-  
+names_ndvi_data <- map_chr(ndvi_data, names) %>%
+  map_chr(~ str_replace_all(.x, "\\.", " ")) %>%
+  map_chr(toTitleCase)
+```
+
+```{r}
+levelplot_mod <- function(x, names_raster) {
+  levelplot(
+    x,
+    main = names_raster,
+    margin = FALSE,
+    pretty = TRUE, 
+    colorkey = list(
+      width = 0.75, 
+      space = "right",
+      labels = list(
+        at = seq(-1, 1,
+          by = 0.2
+        ),
+        font = 4
+      ), 
+      axis.line = list(col = "black")
+    ),
+    par.strip.text = list(col = "white", cex = 1.2),
+    par.settings = list(
+      axis.line = list(col = "transparent"), 
+      strip.background = list(col = "black")
+    ),
+    col.regions = viridis,
+    at = seq(-1, 1, len = 101)
+  )
 }
+```
 
-names.file <- sapply(files.list, function(x) basename(x))
-# label SpGrDaFr with plot name
-names(files.ndvi) <- names.file
+```{r}
+ndvi_plots <- map2(ndvi_data, names_ndvi_data, ~ levelplot_mod(.x, .y))
+```
 
-pixel.count <- sapply(files.ndvi, function(x) length(x@data$NDVI))
+## Plot 1-9
 
-ndvi.all <- c()
-ndvi.all <- unlist(lapply(files.ndvi, function(x) append(ndvi.all, x@data$NDVI)))
+```{r}
+grid.arrange(grobs = ndvi_plots[c(1:9)], ncol = 3)
+```
 
-plot.names <- c()
-for (i in seq_along(names.file)) {
-  plot.names <- append(plot.names, rep(basename(names.file[i]), pixel.count[i]))
-}
+## Plot 10-19
 
-df <- data.frame(NDVI = ndvi.all,
-                 plot = as.factor(plot.names))
+```{r}
+grid.arrange(grobs = ndvi_plots[c(10:19)], ncol = 3)
+```
 
-# remove NA rows
-df <- df[complete.cases(df),]
+## Plot 20:28
+
+```{r}
+grid.arrange(grobs = ndvi_plots[c(20:28)], ncol = 3)
+```
+
+## Plot demonstration plots
+
+```{r}
+grid.arrange(grobs = ndvi_plots[c(15, 16, 18, 19)], ncol = 2)
 ```
 
 ## Plot NDVI histograms
 
+Note: Hernani is missing as we have no hyperspectral coverage for that plot.
+
 ```{r}
-ndvi.histograms <- ggplot(df, aes(NDVI)) +
-  #geom_histogram() + 
-  # normalize y-axis of each facet http://stackoverflow.com/questions/16339204/normalizing-faceted-histograms-separately-in-ggplot2
-  geom_histogram(aes(y = (..count..)/tapply(..count..,..PANEL..,sum)[..PANEL..])) + 
-  facet_wrap(~ plot) + 
-  ylab("Percentage pixel count") + 
-  xlab("NDVI (0.25 to 1)") + 
-  scale_x_continuous(limits = c(0.25, 1)) + 
-  cowplot::background_grid()
+plot_values_comb <- map(ndvi_data, ~ as_tibble(.x@data@values)) %>%
+  map2(names_ndvi_data, ~ mutate(.x, Name = .y)) %>%
+  map(na.omit) %>%
+  reduce(full_join, by = c("value", "Name"))
+
+plot_values_comb %<>%
+  mutate(Name = as.factor(Name))
+
+colnames(plot_values_comb) <- c("NDVI", "name")
+```
+
+Normalize y-axis of each facet: http://stackoverflow.com/questions/16339204/normalizing-faceted-histograms-separately-in-ggplot2
+
+```{r}
+ndvi_histograms <- ggplot(plot_values_comb, aes(x = NDVI)) +
+  geom_histogram(aes(y = (..count..) / tapply(..count.., ..PANEL.., sum)[..PANEL..])) +
+  facet_wrap(~ name) +
+  ylab("Percentage pixel count") +
+  xlab("NDVI (-1 to 1)") +
+  scale_x_continuous(limits = c(-1, 1)) +
+  hrbrthemes::theme_ipsum_rc()
 ```
 
 ## Count pixels per plot (size 1m^2)
+
 ```{r}
-table(df$plot)
+plot_values_comb %>%
+  group_by(name) %>%
+  count() %>%
+  arrange(desc(n))
 ```
 
 ## Quantiles 
 
 Biased towards low values (non-forest pixels)
+
 ```{r}
-stats::quantile(df$NDVI)
+quantile(plot_values_comb$NDVI)
 ```
 
 ```{r}
-boxplot(df$NDVI)
+boxplot(plot_values_comb$NDVI)
 ```
 
-```{r}
-color <- colorRamps::green2red(2)
-rasterVis::levelplot(files.ndvi[[4]])
-mapview::mapView(as.raster(files.ndvi[[4]]), zcol = "NDVI", na.color = "blue", color = color)
-```
 
-## plot NDVI rasters
-```{r}
-# convert to raster layer for plotting
-files.ndvi.raster <- lapply(files.ndvi, function(x) raster::raster(x))
-#set names
-for (i in seq_along(files.ndvi.raster)) {
-  files.ndvi.raster[[i]]@file@name <- names(files.ndvi)[i]
-}
-
-# using mapview
-list.plots <- lapply(files.ndvi.raster, function(x) mapview::mapview(x, use.layer.names = TRUE, na.color = "white"))
-# using rasterVis::levelplot
-list.plots <- lapply(files.ndvi.raster, function(x) rasterVis::levelplot(x,
-                                                                         main = x@file@name,
-                                                                         margin = FALSE,
-                                                                         pretty = TRUE,
-                                                                         col.regions = rev(colorRamps::green2red(400)), 
-                                                                         at = seq(0.5, 1, len = 101))
-)
-
-gridExtra::grid.arrange(list.plots[[1]], list.plots[[2]], list.plots[[3]], 
-                                        list.plots[[4]], list.plots[[5]], list.plots[[6]],
-                                        list.plots[[7]], list.plots[[8]], list.plots[[9]],
-                                        ncol = 3)
-
-gridExtra::grid.arrange(list.plots[[10]], list.plots[[11]], list.plots[[12]],
-                                        list.plots[[13]], list.plots[[14]], list.plots[[15]],
-                                        list.plots[[16]], list.plots[[17]], list.plots[[18]],
-                                        ncol = 3)
-
-gridExtra::grid.arrange(list.plots[[19]], list.plots[[20]], list.plots[[21]],
-                                        list.plots[[22]], list.plots[[23]], list.plots[[24]], 
-                                        list.plots[[25]], list.plots[[26]], list.plots[[27]], 
-                                        list.plots[[28]],
-                                        ncol = 3)
-
-```
-
-## save NDVI raster plots
-
-```{r}
-png("/home/patrick/PhD/figs/hyperspectral/ndvi/ndvi2.plots.1.png", width = 16.51, height = 12.07, units = "in", res = 300)
-gridExtra::grid.arrange(list.plots[[1]], list.plots[[2]], list.plots[[3]], 
-                                        list.plots[[4]], list.plots[[5]], list.plots[[6]],
-                                        list.plots[[7]], list.plots[[8]], list.plots[[9]],
-                                        ncol = 3)
-dev.off()
-
-png("/home/patrick/PhD/figs/hyperspectral/ndvi/ndvi2.plots.2.png", width = 16.51, height = 12.07, units = "in", res = 300)
-gridExtra::grid.arrange(list.plots[[10]], list.plots[[11]], list.plots[[12]],
-                                        list.plots[[13]], list.plots[[14]], list.plots[[15]],
-                                        list.plots[[16]], list.plots[[17]], list.plots[[18]],
-                                        ncol = 3)
-dev.off()
-
-png("/home/patrick/PhD/figs/hyperspectral/ndvi/ndvi2.plots.3.png", width = 16.51, height = 12.07, units = "in", res = 300)
-gridExtra::grid.arrange(list.plots[[19]], list.plots[[20]], list.plots[[21]],
-                                        list.plots[[22]], list.plots[[23]], list.plots[[24]], 
-                                        list.plots[[25]], list.plots[[26]], list.plots[[27]], 
-                                        list.plots[[28]],
-                                        ncol = 3)
-dev.off()
-```
-
-## save ndvi histograms
-```{r}
-png("/home/patrick/PhD/figs/hyperspectral/ndvi/ndvi.histograms.normalized.png", width = 16.51, height = 12.07, units = "in", res = 300)
-ndvi.histograms
-dev.off()
-```
 
