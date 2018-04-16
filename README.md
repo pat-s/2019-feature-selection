@@ -17,6 +17,17 @@ From 2016 we only have data from the "demonstration plots". "Hernani" is missing
 
 ## Ridge regression
 
+Books:
+* Elements of statistical learning Friedman Hastie
+* James et al (2013) An Introduction to Statistical Learning (p 215+)
+
+> However, as λ → ∞, the impact of
+> the shrinkage penalty grows, and the ridge regression coefficient estimates
+> will approach zero.
+> Unlike least squares, which generates only one set of co-
+> efficient estimates, ridge regression will produce a different set of coefficient
+> estimates, β̂λ R , for each value of λ.
+
 Source: https://onlinecourses.science.psu.edu/stat857/node/155
 
 > Motivation: too many predictors
@@ -31,12 +42,24 @@ Source: https://tamino.wordpress.com/2011/02/12/ridge-regression/
 >
 > We pay a price for this. The new estimates are no longer unbiased, their expected values are not equal to the true values. Generally they tend to underestimate the true values. However, the variance of this new estimate can be so much lower than that of the least-squares estimator, that the total expected mean squared error is also less — and that makes it (in a certain sense) a “better” estimator, surely a better-behaved one.
 
+### Summary
+
+* Bias-variance tradeoff to minimize the loss function (e.g. error measure MSE) -> At some point the variance does not decrease anymore but bias increases highly (see Figure 6.5 in James et al). CV finds the optimal value between regularization and flexibility to minimize the loss function as a function of bias and variance
+* regularization is achieved by shrinking the coefficients towards zero. By this, bias is increased and variance reduced
+* When n(pred) is high, the least squares estimate is extremly variable -> reducing variance by L2 penalization at the cost of an increased bias
+
+### Difference to LASSO (L1)
+
+* Ridge will always include all predictors and shrink them but never set them to zero
+* Lasso actucally shrinks coefficients towards zero which is similar to "best subset selection"
+* Thereofore, Lasso produces "sparse" models and performans "variable selection" as some predictors are set to zero
+
 ## L2 vs L1
 
 * Can be split into L1/L2 regularization and L1/L2 loss function.
 * L1 also called "lasso"
 * L2 also called "ridge"
-* Loss function = function to estimate errors (residual sum of squares)
+* Loss function = function to estimate residuals (residual sum of squares)
 * regularization function = Penalization of coefficients
 
 **R packages**
