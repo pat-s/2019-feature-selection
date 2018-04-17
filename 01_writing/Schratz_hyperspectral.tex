@@ -1,0 +1,197 @@
+%%%% using 'arara' 4.0
+% arara: xelatex: {synctex: yes, interaction: nonstopmode}
+% arara: bibtex
+% arara: xelatex: {synctex: yes, interaction: nonstopmode}
+% arara: xelatex: {synctex: yes, interaction: nonstopmode}
+
+% arara: indent: {overwrite: yes}
+
+% arara: clean: { extensions: [aux, bcf, cod, blg, lof, lot, out, toc, log, xml, bak0 ] }
+
+\documentclass[review]{elsarticle}
+
+% Figures Links, mittig und rechts platzieren
+\usepackage[export]{adjustbox}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{amsmath}
+
+% prevents that appendices are moved behind references
+\usepackage{placeins}
+
+\usepackage[nolist]{acronym}
+
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{float}
+
+% enable linking to subsubsection
+\setcounter{secnumdepth}{3}
+
+% various symbols, e.g. \degree
+\usepackage{gensymb}
+
+\usepackage[hidelinks]{hyperref}
+
+\usepackage{lineno}
+\modulolinenumbers[5]
+
+% set autoref abbr for appendix
+\newcommand*{\Appendixautorefname}{appendix}
+
+\journal{Journal "Remote Sensing of environment"}
+
+% line breaks in table cells
+\newcommand{\specialcell}[2][l]{%
+  \begin{tabular}[#1]{@{}l@{}}#2\end{tabular}}
+
+% tilde
+\newcommand{\mytilde}{\raise.17ex\hbox{$\scriptstyle\mathtt{\sim}$}}
+
+%% APA style
+\bibliographystyle{model5-names}\biboptions{authoryear}
+
+\begin{document}
+
+\begin{frontmatter}
+
+	\title{title}
+
+	%% Group authors per affiliation:
+	\author[FSU]{Patrick Schratz}
+	\cortext[mycorrespondingauthor]{Corresponding author}
+	\ead{patrick.schratz@uni-jena.de}
+
+	\author[FSU]{Jannes Muenchow}
+	\author[NEIKER]{Eugenia Iturritxa}
+	%\author[TUDO]{Jakob Richter}
+	\author[FSU]{Alexander Brenning}
+
+	\address[FSU]{Department of Geography, GIScience group, Grietgasse 6, 07743, Jena, Germany}
+	%\address[NEIKER]{NEIKER, Granja Modelo –Arkaute, Apdo. 46, 01080 Vitoria-Gasteiz, Arab, Spain}
+	%\address[TUDO]{Department of Statistics, TU Dortmund University, Germany}
+
+	\begin{abstract}
+
+	\end{abstract}
+
+	\begin{keyword}
+		hyperspectral imagery \sep statistical learning \sep spatial cross-validation
+	\end{keyword}
+
+\end{frontmatter}
+
+\linenumbers
+
+% längste Abkürzung steht hier!!! in eckigen Klammern
+\begin{acronym}[AUROC]
+
+	% geringerer Zeilenabstand
+	%\setlength{\itemsep}{-\parsep}
+	\acro{ANN}{Artificial Neural Network}
+	\acro{AUROC}{Area Under the Receiver Operating Characteristics Curve}
+	\acro{BRT}{Boosted Regression Trees}
+	\acro{CART}{Classification and Regression Trees}
+	\acro{CV}{cross-validation}
+	\acro{ENM}{Environmental Niche Modeling}
+	\acro{FPR}{False Positive Rate}
+	\acro{GAM}{Generalized Additive Model}
+	\acro{GBM}{Gradient Boosting Machine}
+	\acro{GLM}{Generalized Linear Model}
+	\acro{ICGC}{Institut Cartografic i Geologic de Catalunya}
+	\acro{IQR}{Interquartile Range}
+	\acro{WKNN}{Weighted $k$-nearest neighbor}
+	\acro{MARS}{Multivariate Adaptive Regression Splines}
+	\acro{MEM}{Maximum Entropy Model}
+	\acro{NBI}{Narrow Band Index}
+	\acro{LOWESS}{Locally Weighted Scatter Plot Smoothing}
+	\acro{PISR}{Potential Incoming Solar Radiation}
+	\acro{RBF}{Radial Basis Function}
+	\acro{RF}{Random Forest}
+	\acro{SDM}{Species Distribution Modeling}
+	\acro{SVM}{Support Vector Machines}
+	\acro{TPR}{True Positive Rate}
+\end{acronym}
+
+\section{Introduction}
+\label{sec:intro}
+
+\section{Data and study area}
+
+
+
+\cite{Brenning2012}
+
+% \begin{figure} [t!]
+% 	\begin{center}
+% 		\makebox[\textwidth]{\includegraphics[width=\textwidth] {../../04_figures/01_data/study_area.pdf}}
+% 		\caption[Study area]{Spatial distribution of tree observations within the Basque Country, northern Spain, showing infection state by \textit{Diplodia sapinea}.}
+% 		\label{fig: study_area}
+% 	\end{center}
+% \end{figure}
+
+\subsection{Hyperspectral data}
+
+The airborne hyperspectral data was acquired on September 28th and October 5th 2016 around 12 am.
+The images were taken by an AISAEAGLE-II sensor from the \ac{ICGC}.
+All preprocessing steps (geometric, radiometric, atmospheric) have been conducted by \ac{ICGC}.
+
+Additional information is provided in Table 1:
+
+% parameter limits
+\begin{table}[b!]
+\centering
+\caption[t]{Specifications of hyperspectral data.}
+\begingroup\footnotesize
+\begin{tabular}{ll}
+	\\
+	Characteristic         & Value                               \\
+	\hline
+	Geometric resolution   & 1 m                                 \\
+	Radiometric resolution & 12 bit                              \\
+	Spectral resolution    & 126 bands (404.08 nm - 996.31 nm)   \\
+	Correction:            & Radiometric, geometric, atmospheric
+\end{tabular}
+\endgroup
+\label{tab:hyperparameter_limits}
+\end{table}
+
+
+
+\section{Methods}
+
+\subsection{Index calculation}
+
+% link to PDF with veg indeces
+All vegetation indices (90 total) suitable for the wavelength range of the hyperspectral data that are offered by the \texttt{hsdar} package have been calculated.
+Additionally, all possible \ac{NBI} were calculated from the data using the following formula:
+
+\begin{equation}
+	NBI_{i,j} = \frac{B_{i} - B_{j}}{B_{i} + B_{j}}
+\end{equation}
+
+\noindent
+where $i$ and $j$ are the respective band numbers.
+
+To account for geometric offsets, we calculated every index five times using a buffer from 1 - 5 meter around the centroid of the respective tree.
+The mean value of all pixels touched by the buffer was assigned as the final value for each index.
+The exact number of contributing pixels of an index cannot be determined as it depends on the location of the tree within the pixel grid.
+If a tree is located at the border of a pixel, the same buffer (e.g. 3 m) will include more pixels than if the point is located at the center of a pixel.
+Also, if a tree is located at the border of the image data, some directions of the buffer may not contain values.
+Missing values were removed from the mean value calculation.
+However, the bigger the buffer size, the more pixels are represented by the index value.
+In total, 7875 possible \ac{NBI}s have been calculated for each buffer size summing up to 39375 indices.
+The same applies to the vegetation indices which sum up to 450 indices leading to a total number of 39825 indices per tree.
+
+
+
+\subsection{Ridge regression}
+
+
+
+\section*{References}
+
+\bibliography{Biblio_hyperspectral}
+
+\end{document}
