@@ -7,10 +7,10 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE,
-                      cache = TRUE)
+knitr::opts_chunk$set(echo = TRUE)
 ```
 
+# Load packages
 
 ```{r, results='hide'}
 library(raster)
@@ -21,396 +21,89 @@ library(glue)
 library(magrittr)
 library(sf)
 library(purrr)
+library(dplyr)
 ```
 
-# Laukiz1
+The points to which the indices are extracted to are cleaned in the file "02_preprocessing.Rmd".
 
-## Load points
+# Create function
 
-```{r}
-st_read("/home/shares/data/LIFE/mod/tree-per-tree/laukiz1/laukiz1.shp", 
-        quiet = TRUE) %>% 
-  as("Spatial") -> laukiz1_points
-```
-
-## Load rasters
+See step-by-step example for Laukiz 1 below.
 
 ```{r}
-laukiz1_veg_indices <- brick("/home/shares/data/LIFE/mod/hyperspectral/all-veg-indices/all-veg-indices-laukiz1")
-```
-
-```{r}
-laukiz1_nbi <- brick("/home/shares/data/LIFE/mod/hyperspectral/narrow-band-indices/narrow-band-indices-laukiz1")
-```
-
-## Extract values to points
-
-### Veg indices 
-
-Buffer size: 
-
-* 1m
-* 2m
-* 3m
-* 4m
-* 5m
-
-```{r}
-out_veg <- lapply(seq_along(1:5), function(x) 
-  raster::extract(laukiz1_veg_indices, laukiz1_points, buffer = x, 
-                  fun = mean, df = TRUE))
-```
-
-Label output names according to buffer size
-
-```{r}
-out_veg <- lapply(seq_along(out_veg), function(x) 
-  setNames(out_veg[[x]], paste0("bf", x, "_", colnames(out_veg[[x]]))))
-```
-
-### NBI
-
-This might take a while - nested parallelization here! 
-Only outer parallelization: 1 hour 
-
-This can only be run on a server infrastructure! This code uses 8*5 = 40 + 5 = 45 cores!
-
-NOTE 05 April: Nested parallelization causes some weird errors for Laukiz2 and does not really speed up the processing. 
-I think we are better of using only outer parallelization here.
-
-```{r}
-if (detectCores() > 45 ) {
+extract_to_plot = function(plot_name, buffer, cores, bf_name) {
+  points = st_read(glue("/data/patrick/mod/tree-per-tree/2016/{plot_name}/{plot_name}.gpkg"),
+          quiet = TRUE)
   
-  Sys.time <- Sys.time()
+  ras_veg_indices <- brick(glue("/data/patrick/mod/hyperspectral/all-veg-indices/{plot_name}.grd"))
   
-  out_nbi <- pblapply(seq_along(1:5), function(x) {
-    #beginCluster(8) # assigning 8 cores to each parallelized `extract` call -> 40 cores total because 8*5
-    raster::extract(laukiz1_nbi, laukiz1_points, buffer = x, 
-                    fun = mean, df = TRUE) } , cl = 5)
+  ras_nbi <- brick(glue("/data/patrick/mod/hyperspectral/narrow-band-indices/narrow-band-indices-{plot_name}.grd"))
   
-  print(Sys.time() - Sys.time)
-} else {
-  stop("please run this script on a server with more than 45 cores!")
+  # calculate buffered veg index
+  out_veg <- pbmclapply(buffer, function(x) 
+    raster::extract(ras_veg_indices, points, buffer = x, 
+                    fun = mean, df = TRUE,
+                    na.rm = TRUE), mc.cores = cores)
+  
+  out_veg %<>% 
+    map2(seq_along(buffer), ~ setNames(.x, glue("bf", .y, "_{name}", 
+                                             name = names(out_veg[[.y]]))))
+  
+  out_nbi <- pbmclapply(buffer, function(x)
+    raster::extract(ras_nbi, points, buffer = x,
+                    fun = mean, df = TRUE,
+                    na.rm = TRUE) , mc.cores = cores)
+
+  out_nbi %<>%
+    map2(seq_along(buffer), ~ setNames(.x, glue("bf", .y, "_{name}",
+                                             name = names(out_nbi[[.y]]))))
+
+  # merge all data frames (buffers)
+  all_veg <- bind_cols(out_veg)
+  
+  all_nbi <- bind_cols(out_nbi)
+  
+  points %<>% 
+    bind_cols(all_veg) %>% 
+    bind_cols(all_nbi)
+  
+  # .rda file (data frame)
+  points %>% 
+    saveRDS(glue("/data/patrick/mod/tree-per-tree/2016/{plot_name}/all-indices-{plot_name}_{bf_name}.rda"))
 }
 ```
 
-### Bind to points
+# Process
+
+## Buffer: 2
 
 ```{r}
-# merge all data frames
-df_out <- bind_cols(out_veg)
-
-df_out1 <- bind_cols(out_nbi)
-
-laukiz1_points %>% 
-  st_as_sf() %>% 
-  bind_cols(df_out) %>% 
-  bind_cols(df_out1) -> laukiz1_points
+pbmclapply(c("laukiz1", "laukiz2", "oiartzun", "luiando"), 
+           function(x) extract_to_plot(x, 2, cores = 1, "bf2"), 
+           mc.cores = 4)
 ```
 
-## Save files
-
-```{r}
-# .rda file (data frame)
-as.data.frame(laukiz1_points) %>% 
-  saveRDS("/home/shares/data/LIFE/mod/tree-per-tree/laukiz1/all-indices-laukiz1.rda")
-```
-
-# Laukiz2
-
-## Load points
-
-```{r}
-print("Starting Laukiz2")
-```
-
-
-```{r}
-st_read("/home/shares/data/LIFE/mod/tree-per-tree/laukiz2/laukiz2.shp", 
-        quiet = TRUE) %>% 
-  as("Spatial") -> laukiz2_points
-```
-
-## Load rasters
-
-```{r}
-laukiz2_veg_indices <- brick("/home/shares/data/LIFE/mod/hyperspectral/all-veg-indices/all-veg-indices-laukiz2")
-```
-
-```{r}
-laukiz2_nbi <- brick("/home/shares/data/LIFE/mod/hyperspectral/narrow-band-indices/narrow-band-indices-laukiz2")
-```
-
-## Extract values to points
-
-### Veg indices 
-
-Buffer size: 
-
-* 1m
-* 2m
-* 3m
-* 4m
-* 5m
-
-```{r}
-out_veg <- lapply(seq_along(1:5), function(x) 
-  raster::extract(laukiz2_veg_indices, laukiz2_points, buffer = x, 
-                  fun = mean, df = TRUE))
-```
-
-Label output names according to buffer size
-
-```{r}
-out_veg <- lapply(seq_along(out_veg), function(x) 
-  setNames(out_veg[[x]], paste0("bf", x, "_", colnames(out_veg[[x]]))))
-```
-
-### NBI
-
-This might take a while - nested parallelization here! 
-Only outer parallelization: 1 hour 
-
-This can only be run on a server infrastructure! This code uses 8*5 = 40 + 5 = 45 cores! 
-
-NOTE 05 April: Neste parallelization causes some weird errors for Laukiz2 and does not really speed up the processing. 
-I think we are better of using only outer parallelization here.
-
-```{r}
-if (detectCores() > 45 ) {
-  
-  Sys.time <- Sys.time()
-  
-  out_nbi <- pblapply(seq_along(1:5), function(x) {
-    #beginCluster(8) # assigning 8 cores to each parallelized `extract` call -> 40 cores total because 8*5
-    raster::extract(laukiz2_nbi, laukiz2_points, buffer = x, 
-                    fun = mean, df = TRUE) } , cl = 5)
-  #endCluster()
-  print(Sys.time() - Sys.time)
-} else {
-  stop("please run this script on a server with more than 45 cores!")
-}
-
-### local debugging code
-# out_nbi <- raster::extract(laukiz2_nbi, laukiz2_points, buffer = 2, 
-#                            fun = mean, df = TRUE)
-```
-
-### Bind to points
-
-```{r}
-# merge all data frames
-df_out <- bind_cols(out_veg)
-
-df_out1 <- bind_cols(out_nbi)
-
-laukiz2_points %>% 
-  st_as_sf() %>% 
-  bind_cols(df_out) %>% 
-  bind_cols(df_out1) -> laukiz2_points
-```
-
-## Save files
-
-```{r}
-# .rda file (data frame)
-as.data.frame(laukiz2_points) %>% 
-  saveRDS("/home/shares/data/LIFE/mod/tree-per-tree/laukiz2/all-indices-laukiz2.rda")
-```
-
-# Oiartzun
-
-## Load points
-
-```{r}
-print("Starting oiartzun")
-```
-
-
-```{r}
-st_read("/home/shares/data/LIFE/mod/tree-per-tree/oiartzun/oiartzun.shp", 
-        quiet = TRUE) %>% 
-  as("Spatial") -> oiartzun_points
-```
-
-## Load rasters
-
-```{r}
-oiartzun_veg_indices <- brick("/home/shares/data/LIFE/mod/hyperspectral/all-veg-indices/all-veg-indices-oiartzun")
-```
-
-```{r}
-oiartzun_nbi <- brick("/home/shares/data/LIFE/mod/hyperspectral/narrow-band-indices/narrow-band-indices-oiartzun")
-```
-
-## Extract values to points
-
-### Veg indices 
-
-Buffer size: 
-
-* 1m
-* 2m
-* 3m
-* 4m
-* 5m
-
-```{r}
-out_veg <- lapply(seq_along(1:5), function(x) 
-  raster::extract(oiartzun_veg_indices, oiartzun_points, buffer = x, 
-                  fun = mean, df = TRUE))
-```
-
-Label output names according to buffer size
-
-```{r}
-out_veg <- lapply(seq_along(out_veg), function(x) 
-  setNames(out_veg[[x]], paste0("bf", x, "_", colnames(out_veg[[x]]))))
-```
-
-### NBI
-
-This might take a while - nested parallelization here! 
-Only outer parallelization: 1 hour 
-
-This can only be run on a server infrastructure! This code uses 8*5 = 40 + 5 = 45 cores!
-
-NOTE 05 April: Neste parallelization causes some weird errors for Laukiz2 and does not really speed up the processing. 
-I think we are better of using only outer parallelization here.
-
-```{r}
-if (detectCores() > 45 ) {
-  
-  Sys.time <- Sys.time()
-  
-  out_nbi <- pblapply(seq_along(1:5), function(x) {
-    #beginCluster(8) # assigning 8 cores to each parallelized `extract` call -> 40 cores total because 8*5
-    raster::extract(oiartzun_nbi, oiartzun_points, buffer = x, 
-                    fun = mean, df = TRUE) } , cl = cores)
-  
-  print(Sys.time() - Sys.time)
-} else {
-  stop("please run this script on a server with more than 45 cores!")
-}
-```
-
-### Bind to points
-
-```{r}
-# merge all data frames
-df_out <- bind_cols(out_veg)
-
-df_out1 <- bind_cols(out_nbi)
-
-oiartzun_points %>% 
-  st_as_sf() %>% 
-  bind_cols(df_out) %>% 
-  bind_cols(df_out1) -> oiartzun_points
-```
-
-## Save files
-
-```{r}
-# .rda file (data frame)
-as.data.frame(oiartzun_points) %>% 
-  saveRDS("/home/shares/data/LIFE/mod/tree-per-tree/oiartzun/all-indices-oiartzun.rda")
-```
-
-# Luiando
-
-## Load points
-
-```{r}
-print("Starting luiando")
-```
-
-
-```{r}
-st_read("/home/shares/data/LIFE/mod/tree-per-tree/luiando/luiando.shp", 
-        quiet = TRUE) %>% 
-  as("Spatial") -> luiando_points
-```
-
-## Load rasters
-
-```{r}
-luiando_veg_indices <- brick("/home/shares/data/LIFE/mod/hyperspectral/all-veg-indices/all-veg-indices-ayala-aiara") 
-```
-
-```{r}
-luiando_nbi <- brick("/home/shares/data/LIFE/mod/hyperspectral/narrow-band-indices/narrow-band-indices-ayala-aiara")
-```
-
-## Extract values to points
-
-### Veg indices 
-
-Buffer size: 
-
-* 1m
-* 2m
-* 3m
-* 4m
-* 5m
-
-```{r}
-out_veg <- lapply(seq_along(1:5), function(x) 
-  raster::extract(luiando_veg_indices, luiando_points, buffer = x, 
-                  fun = mean, df = TRUE))
-```
-
-Label output names according to buffer size
-
-```{r}
-out_veg <- lapply(seq_along(out_veg), function(x) 
-  setNames(out_veg[[x]], paste0("bf", x, "_", colnames(out_veg[[x]]))))
-```
-
-### NBI
-
-This might take a while - nested parallelization here! 
-Only outer parallelization: 1 hour 
-
-This can only be run on a server infrastructure! This code uses 8*5 = 40 + 5 = 45 cores! 
-
-NOTE 05 April: Neste parallelization causes some weird errors for Laukiz2 and does not really speed up the processing. 
-I think we are better of using only outer parallelization here.
-
-```{r}
-if (detectCores() > 45 ) {
-  
-  Sys.time <- Sys.time()
-  
-  out_nbi <- pblapply(seq_along(1:5), function(x) {
-    #beginCluster(8) # assigning 8 cores to each parallelized `extract` call -> 40 cores total because 8*5
-    raster::extract(luiando_nbi, luiando_points, buffer = x, 
-                    fun = mean, df = TRUE) } , cl = cores)
-  
-  print(Sys.time() - Sys.time)
-} else {
-  stop("please run this script on a server with more than 45 cores!")
-}
-```
-
-### Bind to points
-
-```{r}
-# merge all data frames
-df_out <- bind_cols(out_veg)
-
-df_out1 <- bind_cols(out_nbi)
-
-luiando_points %>% 
-  st_as_sf() %>% 
-  bind_cols(df_out) %>% 
-  bind_cols(df_out1) -> luiando_points
-```
-
-## Save files
-
-```{r}
-# .rda file (data frame)
-as.data.frame(luiando_points) %>% 
-  saveRDS("/home/shares/data/LIFE/mod/tree-per-tree/luiando/all-indices-luiando.rda")
-```
-
+<!-- ## Buffer: 1 - 10 -->
+
+<!-- ```{r} -->
+<!-- pbmclapply(c("laukiz1", "laukiz2", "oiartzun", "luiando"),  -->
+<!--            function(x) extract_to_plot(x, seq(1:10), cores = 10, "bf1-10"),  -->
+<!--            mc.cores = 4) -->
+<!-- ``` -->
+
+<!-- ## Buffer: 1,5,10,15,20 -->
+
+<!-- ```{r} -->
+<!-- pbmclapply(c("laukiz1", "laukiz2", "oiartzun", "luiando"),  -->
+<!--            function(x) extract_to_plot(x, c(1, 5, 10, 15, 20), cores = 5, "bf1-5-10-15-20"),  -->
+<!--            mc.cores = 4) -->
+<!-- ``` -->
+
+<!-- ## Buffer: 1, 10, 20, 30, 40, 50 -->
+
+<!-- ```{r} -->
+<!-- pbmclapply(c("laukiz1", "laukiz2", "oiartzun", "luiando"),  -->
+<!--            function(x) extract_to_plot(x, c(1, 10, 20, 30, 40, 50), cores = 6,  -->
+<!--                                        "bf1-10-20-30-40-50"),  -->
+<!--            mc.cores = 2) # due to RAM consumption -->
+<!-- ``` -->

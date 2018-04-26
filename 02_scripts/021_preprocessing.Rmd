@@ -1,0 +1,146 @@
+---
+title: "02-preprocessing"
+output: 
+  bookdown::html_document2:
+    toc: true
+    toc_float: true
+---
+
+# Load packages
+
+```{r}
+library(purrr)
+library(here)
+library(readr)
+library(tibble)
+library(glue)
+library(raster)
+library(sf)
+library(dplyr)
+library(tidyr)
+library(magrittr)
+library(stringr)
+library(fs)
+library(pbmcapply)
+library(data.table)
+```
+
+# Read data
+
+Reading in data from .txt files and exporting them as a Geopackage (.gpkg).
+
+## Survey data
+
+```{r}
+names <- c("laukiz1", "laukiz2", "luiando", "oiartzun")
+
+map(
+  names,
+  ~ as_tibble(read.table(
+    file = glue("/data/patrick/mod/survey_data/2016/{.x}.txt"),
+    sep = "\t", dec = ",", header = TRUE,
+    stringsAsFactors = FALSE,
+    na.strings = c("")
+  ))
+) %>%
+  set_names(names) %>%
+  map(~ rename_all(.x, tolower)) -> data_tbl
+```
+
+Laukiz2 has no coordinate info in the txt file. We need to read the shapefile and join them.
+
+### Join Laukiz2 coords
+
+```{r}
+laukiz2_coords <- st_read("/data/patrick/raw/survey_data/2016/laukiz2/arboles/Laukiz2_arboles_ETRS89.shp")
+
+data_tbl$laukiz2 <- left_join(data_tbl$laukiz2, laukiz2_coords,
+  by = c("num.arbol" = "id_arbol")
+)
+```
+
+Drop observations with no coordinate information.
+
+```{r}
+data_tbl %<>%
+  map(~ drop_na(.x, c("x", "y")))
+```
+
+Coerce to `sf` objects.
+
+```{r}
+map(data_tbl, ~ st_as_sf(.x, coords = c("x", "y"))) -> data_sf
+```
+
+Select variables related to defoliation.
+
+```{r}
+data_sf %<>%
+  map(~ dplyr::select(.x, contains("def")))
+```
+
+Laukiz2 needs some clean up:
+
+"no" -> 0
+"*" -> NA
+Coerce from chr to int.
+Calculate "deftot" which is the mean of all three parts (bottom, mid, top).
+
+`rowSums` will thrown an error due to the "geometry" column so we need to add `drop = TRUE`.
+
+```{r}
+data_sf$laukiz2 %<>%
+  mutate(
+    x..de.defoliacion.parte.media =
+      replace(
+        .$x..de.defoliacion.parte.media,
+        .$x..de.defoliacion.parte.media == "no", "0"
+      )
+  ) %>%
+  mutate(
+    x..defoliacion.en.punta =
+      replace(
+        .$x..defoliacion.en.punta,
+        .$x..defoliacion.en.punta == "no", "0"
+      )
+  ) %>%
+  mutate(
+    x..defoliacion.base =
+      replace(
+        .$x..defoliacion.base,
+        .$x..defoliacion.base == "no", "0"
+      )
+  ) %>%
+  mutate(
+    x..defoliacion.base =
+      replace(
+        .$x..defoliacion.base,
+        .$x..defoliacion.base == "*", NA
+      )
+  ) %>%
+  mutate_if(is.character, as.numeric) %>%
+  mutate(deftot = as.integer(rowMeans(.[, 1:3, drop = TRUE], na.rm = TRUE))) %>%
+  drop_na(deftot) %>%
+  select(deftot, geometry)
+```
+
+# Write clean data as .gpkg
+
+Writing to cifs mounts is currently not working so we have to copy and delete the files.
+
+```{r}
+# write
+walk2(data_sf, seq_along(data_sf), ~ write_sf(.x, glue(here("{name}.gpkg"),
+  name = names(data_sf[.y])
+)))
+
+# copy
+walk(names(data_sf), ~ file_copy(glue(here("{.x}.gpkg")),
+  glue("/data/patrick/mod/tree-per-tree/2016/{.x}/{.x}.gpkg"),
+  overwrite = TRUE
+))
+
+# delete
+walk(names(data_sf), ~ file_delete(glue(here("{.x}.gpkg"))))
+```
+

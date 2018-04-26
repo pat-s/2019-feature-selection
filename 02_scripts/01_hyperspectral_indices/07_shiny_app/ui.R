@@ -193,7 +193,7 @@ body <- dashboardBody(
           br(),
           "<b>Correction:</b> Radiometric, geometric, atmospheric",
           br(),
-          "<b>Aquisition date:</b> 29 - 30 September 2016"
+          "<b>Acquisition date:</b> 29 - 30 September 2016"
         )), color = "black",
         value = "Metadata information", icon = icon("calendar")
       )

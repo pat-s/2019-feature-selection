@@ -1,0 +1,78 @@
+---
+title: "02-preprocessing"
+output: 
+  bookdown::html_document2:
+    toc: true
+    toc_float: true
+---
+
+# Load packages
+
+```{r}
+library(purrr)
+library(tibble)
+library(glue)
+library(dplyr)
+library(tidyr)
+library(magrittr)
+library(sf)
+library(pbmcapply)
+library(data.table)
+```
+
+# Read points with indices
+
+Read the clean points with all extracted indices for each plot.
+Indices are extracted in script `01_hyperspectral/06_extract_indices_*`.
+
+```{r}
+data = map(c("laukiz1", "laukiz2", "luiando", "oiartzun"), ~ readRDS(glue("/data/patrick/mod/tree-per-tree/2016/{.x}/all-indices-{.x}_bf2.rda")))
+```
+
+# Remove columns with NA values and "ID" columns
+
+Ref: https://stackoverflow.com/questions/41343900/remove-row-columns-with-any-all-nan-values/41343980#41343980
+
+```{r}
+data %<>% 
+  map(~ dplyr::select(.x, -contains("_ID"))) %>% 
+  map(~ as.data.table(.x)) %>% 
+  map(~ Filter(function(x) !any(is.na(x)), .x))
+```
+
+# Extract coordinates
+
+The scaling of variables won't work with the `geom` column attached.
+So we need to safe the coordinates, remove them and attach them afterwards again.
+Coordinates are needed for the spatial partitioning during modeling.
+
+```{r}
+coords = map(data, ~ st_as_sf(.x, crs = 32630)) %>% 
+  map(~ as.data.frame(st_coordinates(.x)))
+coords = saveRDS(coords, "/data/patrick/mod/hyperspectral/data_clean_with_indices/data_clean_standardized_bf2-coords.rda")
+data %<>% 
+  map(~ st_as_sf(.x, crs = 32630)) %>% 
+  map(~ st_set_geometry(.x, NULL)) 
+```
+
+# Standardize variables
+
+```{r}
+# data %<>% 
+#   pbmclapply(function(x) mutate_at(x, .funs = scale, 
+#                    .vars = vars(-deftot)),
+#              mc.cores = 4
+#       )
+# saveRDS(data, "/data/patrick/mod/hyperspectral/data_clean_with_indices/data_clean_standardized_bf1.rda")
+
+# data.table so much faster
+data %<>% 
+  pbmclapply(function(x) {
+    cols = names(x)[2:length(names(x))]
+    x[, (cols) := lapply(.SD, scale), .SDcols=cols]
+  }, mc.cores = 4
+      )
+saveRDS(data, "/data/patrick/mod/hyperspectral/data_clean_with_indices/data_clean_standardized_bf2.rda")
+```
+
+

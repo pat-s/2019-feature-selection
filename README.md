@@ -15,6 +15,39 @@ From 2016 we only have data from the "demonstration plots". "Hernani" is missing
 
 2017: All 28 plots.
 
+NOTE: After preprocessing we decided to drop Luiando because (for unknown reason) more than 1800 indices could not be computed for this plot.
+These will most likely be NBI indices.
+However, to merge the data of the plots into one dataset we need to have a data for the same indices across all plots and we do not want to drop 1800 indices.
+
+
+## Workflow
+
+1. Compute 90 vegetation indices + 75** normalized ratio indices for each plot
+2. Extract to trees with a buffer size of 2 (~ canopy width)
+3. Method comparison (Lasso, Ridge, Elasticnet) for each plot (different plot structures)
+4. Apply winning method to merged dataset of all plots ("supermodel")
+  1. Performance using block based spCV (plot base)
+5. In case of Lasso winning: Visualize RMSE with x number of variables
+6. Inspect most important predictors of winning model
+
+5 fold 5 fold nested CV (2 reps)
+
+Model/Plot  | Lasso  | Ridge  | Elasticnet |
+--|      ---|---     |---     |--
+Laukiz 1  | 82.19  |   |  80.88 |
+Laukiz 2  |   |   |   |
+Luiando   |   |   |   |
+Oiartzun  |   |   |   |
+
+10 fold 10 fold nested CV (2 reps)
+
+Model/Plot  | Lasso  | Ridge  | Elasticnet |
+--|      ---|---     |---     |--
+Laukiz 1  |   |   |  |
+Laukiz 2  |   |   |   |
+Luiando   |   |   |   |
+Oiartzun  |   |   |   |
+|   |   |   |   |
 ## Ridge regression
 
 Books:
@@ -52,7 +85,7 @@ Source: https://tamino.wordpress.com/2011/02/12/ridge-regression/
 
 * Ridge will always include all predictors and shrink them but never set them to zero
 * Lasso actucally shrinks coefficients towards zero which is similar to "best subset selection"
-* Thereofore, Lasso produces "sparse" models and performans "variable selection" as some predictors are set to zero
+* Thereofore, Lasso produces "sparse" models and performs "variable selection" as some predictors are set to zero
 
 ## L2 vs L1
 
@@ -61,6 +94,10 @@ Source: https://tamino.wordpress.com/2011/02/12/ridge-regression/
 * L2 also called "ridge"
 * Loss function = function to estimate residuals (residual sum of squares)
 * regularization function = Penalization of coefficients
+* Comparison:
+  - https://stats.stackexchange.com/questions/179611/why-cant-ridge-regression-provide-better-interpretability-than-lasso
+  - https://stats.stackexchange.com/questions/331782/if-only-prediction-is-of-interest-why-use-lasso-over-ridge?rq=1
+  - https://www4.stat.ncsu.edu/~post/josh/LASSO_Ridge_Elastic_Net_-_Examples.html#generate-data-2
 
 **R packages**
 
