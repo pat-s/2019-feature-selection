@@ -119,7 +119,7 @@ resa_glmnet <- mlr::resample(tune_wrapper, task,
                              resampling = outer, extract = getTuneResult,
                              show.info = TRUE, measures = list(rmse))
 parallelStop()
-saveRDS(resa_glmnet, "/data/patrick/mod/hyperspectral/spcv/laukiz1_ridge.rda")
+saveRDS(resa_glmnet, "/data/patrick/mod/hyperspectral/spcv/laukiz1_ridge_bf2_10folds.rda")
 ```
 
 #### TuneParams
@@ -127,14 +127,14 @@ saveRDS(resa_glmnet, "/data/patrick/mod/hyperspectral/spcv/laukiz1_ridge.rda")
 ```{r}
 configureMlr(on.learner.error = "warn", on.error.dump = TRUE)
 library(parallelMap)
-parallelStart(mode = "multicore", level = "mlr.tuneParams", cpus = 40,
+parallelStart(mode = "multicore", level = "mlr.tuneParams", cpus = 48,
               mc.set.seed = TRUE) # only parallelize the tuning
 set.seed(12345)
 params_tuned_glmnet = tuneParams(lrn_glmnet, task = task, resampling = inner,
                                  par.set = ps_glmnet, control = ctrl, 
                                  measure = list(rmse))
 parallelStop()
-saveRDS("/data/patrick/mod/tmp/tuning_hyperspectral/tuning_bf1_ridge.rda")
+saveRDS(params_tuned_glmnet, "/data/patrick/mod/tmp/tuning_hyperspectral/tuning_bf2_ridge.rda")
 ```
 
 #### Tuned results
@@ -145,7 +145,7 @@ As we will always use the complete dataset, this should be the best value.
 ```{r}
 lrn_glmnet_tuned <- makeLearner("regr.glmnet",
                                 alpha = 0,
-                                s = 1810,
+                                s = 7500,
                                 standardize = FALSE, 
                                 intercept = FALSE)
 
@@ -156,13 +156,14 @@ Inspect the highest absolute coefficients (positive and negative).
 The first entry is the intercept and is therefore left out.
 
 ```{r}
-tibble(index = rownames(as.matrix(coef(glmnet_train_tuned$learner.model, s = 1810))), 
-       coef = as.vector(as.matrix(coef(glmnet_train_tuned$learner.model, s = 1810)))) %>% 
+tibble(index = rownames(as.matrix(coef(glmnet_train_tuned$learner.model, s = 7610))), 
+       coef = as.vector(as.matrix(coef(glmnet_train_tuned$learner.model, s = 7610)))) %>% 
   arrange(desc(coef))
 ```
+
 ```{r}
-tibble(index = rownames(as.matrix(coef(glmnet_train_tuned$learner.model, s = 1810))), 
-       coef = as.vector(as.matrix(coef(glmnet_train_tuned$learner.model, s = 1810)))) %>% 
+tibble(index = rownames(as.matrix(coef(glmnet_train_tuned$learner.model, s = 7610))), 
+       coef = as.vector(as.matrix(coef(glmnet_train_tuned$learner.model, s = 7610)))) %>% 
   arrange(coef)
 ```
 
@@ -211,7 +212,7 @@ ps_glmnet <- makeParamSet(makeNumericParam("s", lower = 0.07, upper = 7.7))
 
 ```{r}
 ctrl <- makeTuneControlRandom(maxit = 200)
-inner <- makeResampleDesc("SpCV", iters = 5)
+inner <- makeResampleDesc("SpCV", iters = 10)
 ```
 
 #### SpCV
@@ -223,7 +224,7 @@ tune_wrapper <- makeTuneWrapper(lrn_glmnet, resampling = inner, par.set = ps_glm
 ```
 
 ```{r}
-outer <- makeResampleDesc("SpRepCV", folds = 5, reps = 2)
+outer <- makeResampleDesc("SpRepCV", folds = 10, reps = 2)
 ```
 
 ```{r}
@@ -237,7 +238,7 @@ resa_glmnet <- mlr::resample(tune_wrapper, task,
                              show.info = TRUE, measures = list(rmse))
 
 parallelStop()
-saveRDS(resa_glmnet, "/data/patrick/mod/hyperspectral/spcv/laukiz1_lasso.rda")
+saveRDS(resa_glmnet, "/data/patrick/mod/hyperspectral/spcv/laukiz1_lasso_bf2_10folds.rda")
 ```
 
 #### TuneParams
@@ -357,7 +358,7 @@ resa_glmnet <- mlr::resample(tune_wrapper, task,
                              show.info = TRUE, measures = list(rmse))
 
 parallelStop()
-saveRDS(resa_glmnet, "/data/patrick/mod/hyperspectral/spcv/laukiz1_elasticnet")
+saveRDS(resa_glmnet, "/data/patrick/mod/hyperspectral/spcv/laukiz1_elasticnet_bf2_10folds.rda")
 ```
 
 #### TuneParams

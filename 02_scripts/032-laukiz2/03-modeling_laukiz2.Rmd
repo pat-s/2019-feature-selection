@@ -46,7 +46,7 @@ coords = coords[[2]]
 # Create task
 
 ```{r}
-task = makeRegrTask(id = "laukiz1", data = data, 
+task = makeRegrTask(id = "laukiz2", data = data, 
                     target = "deftot", coordinates = coords)
 ```
 
@@ -74,10 +74,11 @@ The highest coefficients are most important for the model (if all variables are 
 # predict.type for 'auc' (AUROC)
 lrn_glmnet <- makeLearner("regr.glmnet",
                           alpha = 0,
-                          standardize = FALSE)
+                          standardize = FALSE,
+                          intercept = FALSE)
                           #lambda = sort(seq(0, 5, length.out = 100), decreasing = T))
-getHyperPars(lrn_glmnet)
-getParamSet(lrn_glmnet)
+# getHyperPars(lrn_glmnet)
+# getParamSet(lrn_glmnet)
 ```
 
 To find a suitable tuning space for `s`, Julia recommends to do a simple `train()` call and check the range of the chosen `lambda`.
@@ -88,27 +89,12 @@ summary(glmnet_train$learner.model$lambda)
 ```
 
 ```{r}
-ps_glmnet <- makeParamSet(makeNumericParam("s", lower = 30, upper = 3300))
+ps_glmnet <- makeParamSet(makeNumericParam("s", lower = 102, upper = 10228))
 ```
 
 ```{r}
-ctrl <- makeTuneControlRandom(maxit = 500)
-inner <- makeResampleDesc("SpCV", iters = 5)
-```
-
-#### TuneParams
-
-```{r}
-configureMlr(on.learner.error = "warn", on.error.dump = TRUE)
-library(parallelMap)
-parallelStart(mode = "multicore", level = "mlr.tuneParams", cpus = 40,
-              mc.set.seed = TRUE) # only parallelize the tuning
-set.seed(12345)
-params_tuned_glmnet = tuneParams(lrn_glmnet, task = task, resampling = inner,
-                                 par.set = ps_glmnet, control = ctrl, 
-                                 measure = list(rmse))
-parallelStop()
-saveRDS("/data/patrick/mod/tmp/tuning_hyperspectral/tuning_bf1_ridge.rda")
+ctrl <- makeTuneControlRandom(maxit = 200)
+inner <- makeResampleDesc("SpCV", iters = 10)
 ```
 
 #### SpCV
@@ -133,7 +119,22 @@ resa_glmnet <- mlr::resample(tune_wrapper, task,
                              resampling = outer, extract = getTuneResult,
                              show.info = TRUE, measures = list(rmse))
 parallelStop()
-saveRDS(resa_glmnet, "/data/patrick/mod/hyperspectral/spcv/laukiz1_ridge.rda")
+saveRDS(resa_glmnet, "/data/patrick/mod/hyperspectral/spcv/laukiz2_ridge_bf2_10folds.rda")
+```
+
+#### TuneParams
+
+```{r}
+configureMlr(on.learner.error = "warn", on.error.dump = TRUE)
+library(parallelMap)
+parallelStart(mode = "multicore", level = "mlr.tuneParams", cpus = 48,
+              mc.set.seed = TRUE) # only parallelize the tuning
+set.seed(12345)
+params_tuned_glmnet = tuneParams(lrn_glmnet, task = task, resampling = inner,
+                                 par.set = ps_glmnet, control = ctrl, 
+                                 show.info = TRUE, measure = list(rmse))
+parallelStop()
+saveRDS(params_tuned_glmnet, "/data/patrick/mod/tmp/tuning_hyperspectral/tuning_bf2_ridge.rda")
 ```
 
 #### Tuned results
@@ -205,26 +206,12 @@ summary(glmnet_train$learner.model$lambda)
 ```
 
 ```{r}
-ps_glmnet <- makeParamSet(makeNumericParam("s", lower = 0.03, upper = 3.3))
+ps_glmnet <- makeParamSet(makeNumericParam("s", lower = 0.1, upper = 10.2))
 ```
 
 ```{r}
-ctrl <- makeTuneControlRandom(maxit = 500)
-inner <- makeResampleDesc("SpCV", iters = 5)
-```
-
-#### TuneParams
-
-```{r}
-configureMlr(on.learner.error = "warn", on.error.dump = TRUE)
-library(parallelMap)
-parallelStart(mode = "multicore", level = "mlr.tuneParams", cpus = 40,
-              mc.set.seed = TRUE) # only parallelize the tuning
-set.seed(12345)
-params_tuned_glmnet = tuneParams(lrn_glmnet, task = task, resampling = inner,
-                                 par.set = ps_glmnet, control = ctrl, 
-                                 measure = list(rmse))
-parallelStop()
+ctrl <- makeTuneControlRandom(maxit = 200)
+inner <- makeResampleDesc("SpCV", iters = 10)
 ```
 
 #### SpCV
@@ -241,7 +228,7 @@ outer <- makeResampleDesc("SpRepCV", folds = 10, reps = 2)
 
 ```{r}
 library(parallelMap)
-parallelStart(mode = "multicore", level = "mlr.tuneParams", cpus = 40,
+parallelStart(mode = "multicore", level = "mlr.tuneParams", cpus = 48,
               mc.set.seed = TRUE) # only parallelize the tuning
 
 set.seed(12345)
@@ -250,7 +237,21 @@ resa_glmnet <- mlr::resample(tune_wrapper, task,
                              show.info = TRUE, measures = list(rmse))
 
 parallelStop()
-saveRDS(resa_glmnet, "/data/patrick/mod/hyperspectral/spcv/laukiz1_lasso.rda")
+saveRDS(resa_glmnet, "/data/patrick/mod/hyperspectral/spcv/laukiz2_lasso_bf2_10folds.rda")
+```
+
+#### TuneParams
+
+```{r}
+configureMlr(on.learner.error = "warn", on.error.dump = TRUE)
+library(parallelMap)
+parallelStart(mode = "multicore", level = "mlr.tuneParams", cpus = 40,
+              mc.set.seed = TRUE) # only parallelize the tuning
+set.seed(12345)
+params_tuned_glmnet = tuneParams(lrn_glmnet, task = task, resampling = inner,
+                                 par.set = ps_glmnet, control = ctrl, 
+                                 measure = list(rmse))
+parallelStop()
 ```
 
 #### Tuned results
@@ -321,29 +322,16 @@ summary(glmnet_train$learner.model$lambda)
 ```
 
 For the elasticnet we also tune `alpha`.
+As we have both penalties, we just use the lower and uppper maxima from both Lasso and Ridge.
 
 ```{r}
-ps_glmnet <- makeParamSet(makeNumericParam("s", lower = 0.03, upper = 3.3),
+ps_glmnet <- makeParamSet(makeNumericParam("s", lower = 0.1, upper = 10228),
                           makeNumericParam("alpha", lower = 0, upper = 1))
 ```
 
 ```{r}
 ctrl <- makeTuneControlRandom(maxit = 200)
-inner <- makeResampleDesc("SpCV", iters = 5)
-```
-
-#### TuneParams
-
-```{r}
-configureMlr(on.learner.error = "warn", on.error.dump = TRUE)
-library(parallelMap)
-parallelStart(mode = "multicore", level = "mlr.tuneParams", cpus = 40,
-              mc.set.seed = TRUE) # only parallelize the tuning
-set.seed(12345)
-params_tuned_glmnet = tuneParams(lrn_glmnet, task = task, resampling = inner,
-                                 par.set = ps_glmnet, control = ctrl, 
-                                 measure = list(rmse))
-parallelStop()
+inner <- makeResampleDesc("SpCV", iters = 10)
 ```
 
 #### SpCV
@@ -369,7 +357,21 @@ resa_glmnet <- mlr::resample(tune_wrapper, task,
                              show.info = TRUE, measures = list(rmse))
 
 parallelStop()
-saveRDS(resa_glmnet, "/data/patrick/mod/hyperspectral/spcv/laukiz1_elasticnet")
+saveRDS(resa_glmnet, "/data/patrick/mod/hyperspectral/spcv/laukiz2_elasticnet.rda")
+```
+
+#### TuneParams
+
+```{r}
+configureMlr(on.learner.error = "warn", on.error.dump = TRUE)
+library(parallelMap)
+parallelStart(mode = "multicore", level = "mlr.tuneParams", cpus = 48,
+              mc.set.seed = TRUE) # only parallelize the tuning
+set.seed(12345)
+params_tuned_glmnet = tuneParams(lrn_glmnet, task = task, resampling = inner,
+                                 par.set = ps_glmnet, control = ctrl, 
+                                 measure = list(rmse))
+parallelStop()
 ```
 
 #### Tuned results

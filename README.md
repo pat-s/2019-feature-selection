@@ -39,15 +39,18 @@ Laukiz 2  |   |   |   |
 Luiando   |   |   |   |
 Oiartzun  |   |   |   |
 
-10 fold 10 fold nested CV (2 reps)
+10 fold/10 fold nested CV (2 reps)
+
+For "all plots" plot-wise CV at the performance level (4 plots) and SpCV with 10 folds at the tuning level.
 
 Model/Plot  | Lasso  | Ridge  | Elasticnet |
 --|      ---|---     |---     |--
-Laukiz 1  |   |   |  |
-Laukiz 2  |   |   |   |
-Luiando   |   |   |   |
-Oiartzun  |   |   |   |
-|   |   |   |   |
+Laukiz 1  | 146.114  | 87.76  | 134.31
+Laukiz 2  | 30.54  | 30.54  |  37.16
+Luiando   | 74.84  | 76.08  | 74.79
+Oiartzun  | 327.93  | 106.65  | 260.38
+All Plots |  58.39 | 58.09  | 58.27  
+
 ## Ridge regression
 
 Books:
