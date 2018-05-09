@@ -15,10 +15,6 @@ From 2016 we only have data from the "demonstration plots". "Hernani" is missing
 
 2017: All 28 plots.
 
-NOTE: After preprocessing we decided to drop Luiando because (for unknown reason) more than 1800 indices could not be computed for this plot.
-These will most likely be NBI indices.
-However, to merge the data of the plots into one dataset we need to have a data for the same indices across all plots and we do not want to drop 1800 indices.
-
 
 ## Workflow
 
@@ -45,11 +41,27 @@ For "all plots" plot-wise CV at the performance level (4 plots) and SpCV with 10
 
 Model/Plot  | Lasso  | Ridge  | Elasticnet |
 --|      ---|---     |---     |--
-Laukiz 1  | 146.114  | 87.76  | 134.31
+Laukiz 1  | 146.33  | 87.76  | 135.58
 Laukiz 2  | 30.54  | 30.54  |  37.16
 Luiando   | 74.84  | 76.08  | 74.79
 Oiartzun  | 327.93  | 106.65  | 260.38
-All Plots |  58.39 | 58.09  | 58.27  
+All Plots |  56.88 | 55.88  | 56.76
+
+Best coefficients:
+
+| Laukiz 1 | Laukiz 2 | Luiando | Oiartzun  | all plots
+-- | --- | -- | --- |
+  |   |   | b95-b93 (1.5e-36)   | b23-b18 (-0.0090)   | b78-b77 (0.058)
+  |   |   | b109-b106 (1.4e-36) | b23-b19 (-0.0074)   | b115-b113 (0.054)
+  |   |   | b92-b95 (1.4e-36)   | b99-b98 (0.0073)    | b82-b77 (0.052)
+  |   |   | b114-b6 (-1.2e-36)  | b23-b20 (-0.0070)   | b79-b77 (0.049)
+  |   |   | b96-b93 (1.2e-36)   | b10-b8 (-0.0063)    | b80-b77 (0.049)
+  |   |   | b116-b6 (-1.2e-36)  | b102-b98 (0.0062)   | b81-b77 (0.049)
+  |   |   | b114-b5 (-1.2e-36)  | b124-b115 (0.0062)  | b81-b78 (-0.048)
+  |   |   | b115-b114 (1.2e-36) | b23-b15 (-0.0060)   | b124-b115 (-0.047)
+  |   |   | b95-b91 (1.1e-36)   | b126-b115 (-0.0060) | b23-b20 (-0.047)
+  |   |   | b114-b8 (-1.1e-36)  | b118-b115 (-0.0059) | b80-b78 (-0.046)
+
 
 ## Ridge regression
 

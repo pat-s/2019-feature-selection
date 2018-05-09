@@ -10,7 +10,7 @@ output:
 
 ```{r, results='hide'}
 devtools::install_github("tidyverse/ggplot2")
-devtools::install_github("pat-s/mlr@blocking_visualization")
+devtools::install_github("mlr-org/mlr@blocking")
 
 library(mlr)
 library(glue)
@@ -48,6 +48,14 @@ data = as_tibble(rbindlist(data, fill = TRUE))
 data = Filter(function(x) !any(is.na(x)), data)
 coords = as_tibble(rbindlist(coords))
 ```
+
+Save the indices shared by all plots so that we can subset the single plots to use the same indices
+
+```{r}
+indices_shared = names(data)
+saveRDS(indices_shared, "/data/patrick/mod/hyperspectral/data_clean_with_indices/indices-shared-by-all-plots-bf2.rda")
+```
+
 
 # Create task
 
@@ -101,7 +109,7 @@ ps_glmnet <- makeParamSet(makeNumericParam("s", lower = 35, upper = 3559))
 
 ```{r}
 ctrl <- makeTuneControlRandom(maxit = 200)
-inner <- makeResampleDesc("CV", iters = 3)
+inner <- makeResampleDesc("Blocking")
 ```
 
 #### SpCV
@@ -113,7 +121,7 @@ tune_wrapper <- makeTuneWrapper(lrn_glmnet, resampling = inner, par.set = ps_glm
 ```
 
 ```{r}
-outer <- makeResampleDesc("RepCV", folds = 4, reps = 2)
+# outer <- makeResampleDesc("RepCV", folds = 4, reps = 2)
 outer <- makeResampleDesc("Blocking")
 ```
 
@@ -127,7 +135,7 @@ resa_glmnet <- mlr::resample(tune_wrapper, task,
                              resampling = outer, extract = getTuneResult,
                              show.info = TRUE, measures = list(rmse))
 parallelStop()
-saveRDS(resa_glmnet, "/data/patrick/mod/hyperspectral/spcv/all_plots_ridge_bf2_10folds.rda")
+saveRDS(resa_glmnet, "/data/patrick/mod/hyperspectral/spcv/all_plots_ridge_bf2_10folds_blocking.rda")
 ```
 
 #### Visualize partitions
@@ -150,7 +158,7 @@ params_tuned_glmnet = tuneParams(lrn_glmnet, task = task, resampling = inner,
                                  par.set = ps_glmnet, control = ctrl, 
                                  show.info = TRUE, measure = list(rmse))
 parallelStop()
-saveRDS(params_tuned_glmnet, "/data/patrick/mod/tmp/tuning_hyperspectral/tuning_bf2_ridge.rda")
+saveRDS(params_tuned_glmnet, "/data/patrick/mod/tmp/tuning_hyperspectral/tuning_bf2_ridge_blocking.rda")
 ```
 
 #### Tuned results
@@ -161,7 +169,7 @@ As we will always use the complete dataset, this should be the best value.
 ```{r}
 lrn_glmnet_tuned <- makeLearner("regr.glmnet",
                                 alpha = 0,
-                                s = 1810,
+                                s = 875,
                                 standardize = FALSE, 
                                 intercept = FALSE)
 
@@ -172,13 +180,14 @@ Inspect the highest absolute coefficients (positive and negative).
 The first entry is the intercept and is therefore left out.
 
 ```{r}
-tibble(index = rownames(as.matrix(coef(glmnet_train_tuned$learner.model, s = 1810))), 
-       coef = as.vector(as.matrix(coef(glmnet_train_tuned$learner.model, s = 1810)))) %>% 
+tibble(index = rownames(as.matrix(coef(glmnet_train_tuned$learner.model, s = 875))), 
+       coef = as.vector(as.matrix(coef(glmnet_train_tuned$learner.model, s = 875)))) %>% 
   arrange(desc(coef))
 ```
+
 ```{r}
-tibble(index = rownames(as.matrix(coef(glmnet_train_tuned$learner.model, s = 1810))), 
-       coef = as.vector(as.matrix(coef(glmnet_train_tuned$learner.model, s = 1810)))) %>% 
+tibble(index = rownames(as.matrix(coef(glmnet_train_tuned$learner.model, s = 875))), 
+       coef = as.vector(as.matrix(coef(glmnet_train_tuned$learner.model, s = 875)))) %>% 
   arrange(coef)
 ```
 
@@ -228,6 +237,7 @@ ps_glmnet <- makeParamSet(makeNumericParam("s", lower = 0.03, upper = 3.5))
 ```{r}
 ctrl <- makeTuneControlRandom(maxit = 200)
 inner <- makeResampleDesc("SpCV", iters = 10)
+inner <- makeResampleDesc("Blocking")
 ```
 
 #### SpCV
@@ -253,7 +263,7 @@ resa_glmnet <- mlr::resample(tune_wrapper, task,
                              show.info = TRUE, measures = list(rmse))
 
 parallelStop()
-saveRDS(resa_glmnet, "/data/patrick/mod/hyperspectral/spcv/all_plots_lasso_bf2_10folds.rda")
+saveRDS(resa_glmnet, "/data/patrick/mod/hyperspectral/spcv/all_plots_lasso_bf2_10folds_blocking.rda")
 ```
 
 #### TuneParams
@@ -293,6 +303,7 @@ tibble(index = rownames(as.matrix(coef(glmnet_train_tuned$learner.model, s = 181
        coef = as.vector(as.matrix(coef(glmnet_train_tuned$learner.model, s = 1810)))) %>% 
   arrange(desc(coef))
 ```
+
 ```{r}
 tibble(index = rownames(as.matrix(coef(glmnet_train_tuned$learner.model, s = 1810))), 
        coef = as.vector(as.matrix(coef(glmnet_train_tuned$learner.model, s = 1810)))) %>% 
@@ -347,7 +358,7 @@ ps_glmnet <- makeParamSet(makeNumericParam("s", lower = 0.03, upper = 3559),
 
 ```{r}
 ctrl <- makeTuneControlRandom(maxit = 200)
-inner <- makeResampleDesc("SpCV", iters = 10)
+inner <- makeResampleDesc("Blocking")
 ```
 
 #### SpCV
@@ -373,7 +384,7 @@ resa_glmnet <- mlr::resample(tune_wrapper, task,
                              show.info = TRUE, measures = list(rmse))
 
 parallelStop()
-saveRDS(resa_glmnet, "/data/patrick/mod/hyperspectral/spcv/all_plots_elasticnet.rda")
+saveRDS(resa_glmnet, "/data/patrick/mod/hyperspectral/spcv/all_plots_elasticnet_blocking.rda")
 ```
 
 #### TuneParams

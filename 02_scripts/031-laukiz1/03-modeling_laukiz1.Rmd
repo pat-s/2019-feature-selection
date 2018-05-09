@@ -43,6 +43,15 @@ data = data[[1]]
 coords = coords[[1]]
 ```
 
+Subset to indices shared by all plots.
+
+```{r}
+indices_shared = readRDS("/data/patrick/mod/hyperspectral/data_clean_with_indices/indices-shared-by-all-plots-bf2.rda")
+
+data %<>% 
+  select(indices_shared)
+```
+
 # Create task
 
 ```{r}
@@ -89,7 +98,7 @@ summary(glmnet_train$learner.model$lambda)
 ```
 
 ```{r}
-ps_glmnet <- makeParamSet(makeNumericParam("s", lower = 77, upper = 7700))
+ps_glmnet <- makeParamSet(makeNumericParam("s", lower = 102, upper = 10228))
 ```
 
 ```{r}
@@ -207,7 +216,7 @@ summary(glmnet_train$learner.model$lambda)
 ```
 
 ```{r}
-ps_glmnet <- makeParamSet(makeNumericParam("s", lower = 0.07, upper = 7.7))
+ps_glmnet <- makeParamSet(makeNumericParam("s", lower = 0.1, upper = 10.3))
 ```
 
 ```{r}
@@ -326,7 +335,7 @@ For the elasticnet we also tune `alpha`.
 As we have both penalties, we just use the lower and uppper maxima from both Lasso and Ridge.
 
 ```{r}
-ps_glmnet <- makeParamSet(makeNumericParam("s", lower = 0.07, upper = 7700),
+ps_glmnet <- makeParamSet(makeNumericParam("s", lower = 0.1, upper = 10228),
                           makeNumericParam("alpha", lower = 0, upper = 1))
 ```
 

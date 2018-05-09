@@ -91,10 +91,10 @@
   <mapcanvas name="theMapCanvas" annotationsVisible="1">
     <units>degrees</units>
     <extent>
-      <xmin>-3.31138936815997686</xmin>
-      <ymin>42.92392861063937204</ymin>
-      <xmax>-1.6711491462338155</xmax>
-      <ymax>43.30117700374459133</ymax>
+      <xmin>-1.84743374016685169</xmin>
+      <ymin>43.26448684469243489</ymin>
+      <xmax>-1.84102655179995245</xmax>
+      <ymax>43.2659604712280057</ymax>
     </extent>
     <rotation>0</rotation>
     <destinationsrs>
@@ -489,7 +489,7 @@ def my_form_open(dialog, layer, feature):
       <previewExpression>OBJECTID</previewExpression>
       <mapTip></mapTip>
     </maplayer>
-    <maplayer geometry="Point" simplifyMaxScale="1" type="vector" labelsEnabled="1" simplifyAlgorithm="0" simplifyLocal="1" simplifyDrawingHints="0" minScale="1e+8" autoRefreshTime="0" maxScale="0" refreshOnNotifyMessage="" autoRefreshEnabled="0" refreshOnNotifyEnabled="0" readOnly="0" simplifyDrawingTol="1" hasScaleBasedVisibilityFlag="0">
+    <maplayer geometry="Point" simplifyMaxScale="1" type="vector" labelsEnabled="0" simplifyAlgorithm="0" simplifyLocal="1" simplifyDrawingHints="0" minScale="1e+8" autoRefreshTime="0" maxScale="0" refreshOnNotifyMessage="" autoRefreshEnabled="0" refreshOnNotifyEnabled="0" readOnly="0" simplifyDrawingTol="1" hasScaleBasedVisibilityFlag="0">
       <extent>
         <xmin>500342.54509769525611773</xmin>
         <ymin>4771427.28143206145614386</ymin>
@@ -1193,10 +1193,10 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer geometry="Polygon" simplifyMaxScale="1" type="vector" labelsEnabled="1" simplifyAlgorithm="0" simplifyLocal="1" simplifyDrawingHints="1" minScale="1e+8" autoRefreshTime="0" maxScale="0" refreshOnNotifyMessage="" autoRefreshEnabled="0" refreshOnNotifyEnabled="0" readOnly="0" simplifyDrawingTol="1" hasScaleBasedVisibilityFlag="0">
       <extent>
-        <xmin>500300</xmin>
-        <ymin>4771390</ymin>
-        <xmax>593825</xmax>
-        <ymax>4800220</ymax>
+        <xmin>500300.19573962799040601</xmin>
+        <ymin>4771392.04176274966448545</ymin>
+        <xmax>593762.15307464997749776</xmax>
+        <ymax>4800220.72252743970602751</ymax>
       </extent>
       <id>location_demonstration_plots_test_59a73508_3e2b_4712_8f52_78ba08446d2a</id>
       <datasource>../../../../../../../../lossa/data_mccoy_kirk_scotty/patrick/mod/plots/location/location_demonstration_plots.gpkg</datasource>
@@ -1278,7 +1278,7 @@ def my_form_open(dialog, layer, feature):
               <prop k="joinstyle" v="bevel"/>
               <prop k="line_color" v="255,0,0,255"/>
               <prop k="line_style" v="solid"/>
-              <prop k="line_width" v="1"/>
+              <prop k="line_width" v="0"/>
               <prop k="line_width_unit" v="MM"/>
               <prop k="offset" v="0"/>
               <prop k="offset_map_unit_scale" v="3x:0,0,0,0,0,0"/>
@@ -1300,7 +1300,7 @@ def my_form_open(dialog, layer, feature):
       </renderer-v2>
       <labeling type="simple">
         <settings>
-          <text-style fieldName="Name" fontUnderline="0" fontWeight="57" fontStrikeout="0" fontFamily="Cantarell" isExpression="0" textOpacity="1" fontSizeMapUnitScale="3x:0,0,0,0,0,0" previewBkgrdColor="#000000" fontWordSpacing="0" fontSizeUnit="Point" fontLetterSpacing="0" multilineHeight="1" useSubstitutions="0" namedStyle="Medium" textColor="0,0,0,255" blendMode="0" fontItalic="0" fontCapitals="0" fontSize="15">
+          <text-style fieldName="Name" fontUnderline="0" fontWeight="50" fontStrikeout="0" fontFamily="Cantarell" isExpression="0" textOpacity="1" fontSizeMapUnitScale="3x:0,0,0,0,0,0" previewBkgrdColor="#000000" fontWordSpacing="0" fontSizeUnit="Point" fontLetterSpacing="0" multilineHeight="1" useSubstitutions="0" namedStyle="Regular" textColor="0,0,0,255" blendMode="0" fontItalic="0" fontCapitals="0" fontSize="15">
             <text-buffer bufferSizeMapUnitScale="3x:0,0,0,0,0,0" bufferSize="1" bufferBlendMode="0" bufferSizeUnits="MM" bufferColor="255,255,255,255" bufferNoFill="1" bufferOpacity="1" bufferDraw="0" bufferJoinStyle="128"/>
             <background shapeOffsetY="0" shapeSizeY="0.5" shapeDraw="1" shapeOffsetUnit="MM" shapeJoinStyle="64" shapeBlendMode="0" shapeRadiiY="0" shapeSizeType="0" shapeSizeUnit="MM" shapeOffsetMapUnitScale="3x:0,0,0,0,0,0" shapeRadiiX="0" shapeSVGFile="" shapeRotationType="0" shapeSizeMapUnitScale="3x:0,0,0,0,0,0" shapeSizeX="0.5" shapeType="0" shapeBorderWidth="0" shapeRadiiUnit="MM" shapeBorderWidthMapUnitScale="3x:0,0,0,0,0,0" shapeRadiiMapUnitScale="3x:0,0,0,0,0,0" shapeBorderColor="128,128,128,255" shapeRotation="0" shapeBorderWidthUnit="MM" shapeOffsetX="0" shapeFillColor="255,255,255,255" shapeOpacity="1"/>
             <shadow shadowOffsetGlobal="1" shadowOffsetAngle="135" shadowColor="0,0,0,255" shadowOffsetDist="1" shadowOpacity="0.7" shadowDraw="0" shadowRadiusAlphaOnly="0" shadowUnder="0" shadowOffsetUnit="MM" shadowScale="100" shadowOffsetMapUnitScale="3x:0,0,0,0,0,0" shadowRadius="1.5" shadowBlendMode="6" shadowRadiusUnit="MM" shadowRadiusMapUnitScale="3x:0,0,0,0,0,0"/>
@@ -1319,7 +1319,9 @@ def my_form_open(dialog, layer, feature):
         </settings>
       </labeling>
       <customproperties>
-        <property value="fid" key="dualview/previewExpressions"/>
+        <property key="dualview/previewExpressions">
+          <value>fid</value>
+        </property>
         <property value="0" key="embeddedWidgets/count"/>
         <property key="variableNames"/>
         <property key="variableValues"/>
@@ -1371,12 +1373,20 @@ def my_form_open(dialog, layer, feature):
             </config>
           </editWidget>
         </field>
+        <field name="geom_new">
+          <editWidget type="">
+            <config>
+              <Option/>
+            </config>
+          </editWidget>
+        </field>
       </fieldConfiguration>
       <aliases>
         <alias name="" index="0" field="fid"/>
         <alias name="" index="1" field="Name"/>
         <alias name="" index="2" field="Dscrptn"/>
         <alias name="" index="3" field="Size[h]"/>
+        <alias name="" index="4" field="geom_new"/>
       </aliases>
       <excludeAttributesWMS/>
       <excludeAttributesWFS/>
@@ -1385,23 +1395,26 @@ def my_form_open(dialog, layer, feature):
         <default applyOnUpdate="0" field="Name" expression=""/>
         <default applyOnUpdate="0" field="Dscrptn" expression=""/>
         <default applyOnUpdate="0" field="Size[h]" expression=""/>
+        <default applyOnUpdate="0" field="geom_new" expression=""/>
       </defaults>
       <constraints>
         <constraint constraints="3" notnull_strength="1" exp_strength="0" unique_strength="1" field="fid"/>
         <constraint constraints="0" notnull_strength="0" exp_strength="0" unique_strength="0" field="Name"/>
         <constraint constraints="0" notnull_strength="0" exp_strength="0" unique_strength="0" field="Dscrptn"/>
         <constraint constraints="0" notnull_strength="0" exp_strength="0" unique_strength="0" field="Size[h]"/>
+        <constraint constraints="0" notnull_strength="0" exp_strength="0" unique_strength="0" field="geom_new"/>
       </constraints>
       <constraintExpressions>
         <constraint desc="" exp="" field="fid"/>
         <constraint desc="" exp="" field="Name"/>
         <constraint desc="" exp="" field="Dscrptn"/>
         <constraint desc="" exp="" field="Size[h]"/>
+        <constraint desc="" exp="" field="geom_new"/>
       </constraintExpressions>
       <attributeactions>
         <defaultAction value="{00000000-0000-0000-0000-000000000000}" key="Canvas"/>
       </attributeactions>
-      <attributetableconfig sortExpression="" sortOrder="0" actionWidgetStyle="dropDown">
+      <attributetableconfig sortExpression="&quot;fid&quot;" sortOrder="0" actionWidgetStyle="dropDown">
         <columns>
           <column name="fid" type="field" width="-1" hidden="0"/>
           <column name="Name" type="field" width="-1" hidden="0"/>
@@ -3173,7 +3186,7 @@ def my_form_open(dialog, layer, feature):
         <LabelFont description="Fira Code,15,-1,5,75,0,0,0,0,0,Bold" style="Bold"/>
         <FontColor green="0" red="0" blue="0"/>
       </LayoutItem>
-      <LayoutItem id="" halign="1" zValue="14" labelText="&#xa;&#xa;CRS: EPSG 4326 (WGS 84)&#xa;&#xa;Laukiz 1: 0.52 ha, n=559&#xa;Laukiz 2: 1.26 ha, n=382&#xa;Luiando:  0.46 ha, n=301&#xa;Oiartzun: 1.22 ha, n=499&#xa;" marginY="3" groupUuid="" positionLock="false" valign="32" frame="true" opacity="1" uuid="{164f59fb-d40d-4817-a002-ec10f75ae90a}" referencePoint="0" position="184.372,0.35,mm" templateUuid="{164f59fb-d40d-4817-a002-ec10f75ae90a}" background="false" size="62.1162,43.2593,mm" outlineWidthM="0.7,mm" type="65641" frameJoinStyle="miter" positionOnPage="184.372,0.35,mm" htmlState="0" excludeFromExports="0" blendMode="0" itemRotation="0" visibility="1" marginX="2">
+      <LayoutItem id="" halign="1" zValue="14" labelText="&#xa;&#xa;CRS: EPSG 4326 (WGS 84)&#xa;&#xa;Laukiz 1: 0.36 ha, n=559&#xa;Laukiz 2: 1.44 ha, n=382&#xa;Luiando:  0.39 ha, n=301&#xa;Oiartzun: 0.53 ha, n=499&#xa;" marginY="3" groupUuid="" positionLock="false" valign="32" frame="true" opacity="1" uuid="{164f59fb-d40d-4817-a002-ec10f75ae90a}" referencePoint="0" position="184.372,0.35,mm" templateUuid="{164f59fb-d40d-4817-a002-ec10f75ae90a}" background="false" size="62.1162,43.2593,mm" outlineWidthM="0.7,mm" type="65641" frameJoinStyle="miter" positionOnPage="184.372,0.35,mm" htmlState="0" excludeFromExports="0" blendMode="0" itemRotation="0" visibility="1" marginX="2">
         <FrameColor green="0" red="0" alpha="255" blue="0"/>
         <BackgroundColor green="255" red="255" alpha="255" blue="255"/>
         <LayoutObject>
@@ -4795,6 +4808,7 @@ def my_form_open(dialog, layer, feature):
         </LayoutObject>
         <Extent xmax="-1.84275344897971527" ymax="43.2664059240595904" ymin="43.26388462390249146" xmin="-1.84681212728138533"/>
         <LayerSet>
+          <Layer name="centroids_demonstration_plots" source="/mnt/lossa/data_mccoy_kirk_scotty/patrick/mod/plots/location/centroids_demonstration_plots.shp" provider="ogr">centroids_demonstration_plots_ac43a88b_d69f_4338_8d54_bb600a798a7d</Layer>
           <Layer name="location_demonstration_plots test copy" source="/mnt/lossa/data_mccoy_kirk_scotty/patrick/mod/plots/location/location_demonstration_plots.gpkg" provider="ogr">location_demonstration_plots_test_59a73508_3e2b_4712_8f52_78ba08446d2a</Layer>
           <Layer name="laukiz2" source="/mnt/lossa/data_mccoy_kirk_scotty/patrick/mod/tree-per-tree/2016/laukiz2/laukiz2.gpkg" provider="ogr">laukiz2_5a06d5ca_778f_44ed_9cd1_e511853159a9</Layer>
           <Layer name="laukiz1" source="/mnt/lossa/data_mccoy_kirk_scotty/patrick/mod/tree-per-tree/2016/laukiz1/laukiz1.gpkg" provider="ogr">laukiz1_a2c20a42_c294_4029_b9df_494ea5f1a7a2</Layer>
@@ -4807,7 +4821,7 @@ def my_form_open(dialog, layer, feature):
           <LayerStyle name="Bing Aerial" layerid="Bing_Aerial_98368064_41da_4ee4_940d_594787eca393" source="crs=EPSG:3857&amp;format&amp;type=xyz&amp;url=http://ecn.t3.tiles.virtualearth.net/tiles/a%7Bq%7D.jpeg?g%3D1&amp;zmax=18&amp;zmin=0" provider="wms">
             <qgis minScale="1e+8" maxScale="0" version="3.0.2-Girona" hasScaleBasedVisibilityFlag="0">
               <pipe>
-                <rasterrenderer type="singlebandcolordata" alphaBand="-1" opacity="1" band="1">
+                <rasterrenderer type="singlebandcolordata" opacity="1" alphaBand="-1" band="1">
                   <rasterTransparency/>
                   <minMaxOrigin>
                     <limits>None</limits>
@@ -4826,11 +4840,11 @@ def my_form_open(dialog, layer, feature):
             </qgis>
           </LayerStyle>
           <LayerStyle name="Study_area_new" layerid="Study_area_new20180205160426241" source="/mnt/lossa/data_mccoy_kirk_scotty/patrick/raw/boundaries/basque-country/Study_area_new.shp" provider="ogr">
-            <qgis simplifyMaxScale="1" simplifyLocal="1" simplifyAlgorithm="0" labelsEnabled="0" simplifyDrawingHints="1" minScale="1e+8" maxScale="0" version="3.0.2-Girona" readOnly="0" simplifyDrawingTol="1" hasScaleBasedVisibilityFlag="0">
+            <qgis simplifyMaxScale="1" labelsEnabled="0" simplifyAlgorithm="0" simplifyLocal="1" simplifyDrawingHints="1" minScale="1e+8" maxScale="0" version="3.0.2-Girona" readOnly="0" simplifyDrawingTol="1" hasScaleBasedVisibilityFlag="0">
               <renderer-v2 type="singleSymbol" forceraster="0" symbollevels="0" enableorderby="0">
                 <symbols>
-                  <symbol clip_to_extent="1" name="0" type="fill" alpha="1">
-                    <layer pass="0" enabled="1" class="SimpleLine" locked="0">
+                  <symbol name="0" clip_to_extent="1" type="fill" alpha="1">
+                    <layer enabled="1" pass="0" class="SimpleLine" locked="0">
                       <prop k="capstyle" v="square"/>
                       <prop k="customdash" v="5;2"/>
                       <prop k="customdash_map_unit_scale" v="3x:0,0,0,0,0,0"/>
@@ -4868,7 +4882,7 @@ def my_form_open(dialog, layer, feature):
               <featureBlendMode>0</featureBlendMode>
               <layerOpacity>1</layerOpacity>
               <SingleCategoryDiagramRenderer diagramType="Histogram" attributeLegend="1">
-                <DiagramCategory lineSizeScale="3x:0,0,0,0,0,0" diagramOrientation="Up" scaleBasedVisibility="0" lineSizeType="MM" penAlpha="255" scaleDependency="Area" penWidth="0" barWidth="5" backgroundColor="#ffffff" rotationOffset="270" opacity="1" minimumSize="0" maxScaleDenominator="1e+8" backgroundAlpha="255" sizeScale="3x:0,0,0,0,0,0" minScaleDenominator="-2.14748e+9" enabled="0" height="15" penColor="#000000" labelPlacementMethod="XHeight" width="15" sizeType="MM">
+                <DiagramCategory lineSizeScale="3x:0,0,0,0,0,0" diagramOrientation="Up" scaleBasedVisibility="0" lineSizeType="MM" penAlpha="255" scaleDependency="Area" penWidth="0" barWidth="5" backgroundColor="#ffffff" rotationOffset="270" opacity="1" maxScaleDenominator="1e+8" minimumSize="0" backgroundAlpha="255" sizeScale="3x:0,0,0,0,0,0" enabled="0" minScaleDenominator="-2.14748e+9" height="15" penColor="#000000" labelPlacementMethod="XHeight" width="15" sizeType="MM">
                   <fontProperties description="Noto Sans,10,-1,0,50,0,0,0,0,0" style=""/>
                   <attribute label="" color="#000000" field=""/>
                 </DiagramCategory>
@@ -4991,12 +5005,206 @@ def my_form_open(dialog, layer, feature):
               <layerGeometryType>2</layerGeometryType>
             </qgis>
           </LayerStyle>
-          <LayerStyle name="laukiz1" layerid="laukiz1_a2c20a42_c294_4029_b9df_494ea5f1a7a2" source="/mnt/lossa/data_mccoy_kirk_scotty/patrick/mod/tree-per-tree/2016/laukiz1/laukiz1.gpkg" provider="ogr">
-            <qgis simplifyMaxScale="1" simplifyLocal="1" simplifyAlgorithm="0" labelsEnabled="0" simplifyDrawingHints="0" minScale="1e+8" maxScale="0" version="3.0.2-Girona" readOnly="0" simplifyDrawingTol="1" hasScaleBasedVisibilityFlag="0">
+          <LayerStyle name="centroids_demonstration_plots" layerid="centroids_demonstration_plots_ac43a88b_d69f_4338_8d54_bb600a798a7d" source="/mnt/lossa/data_mccoy_kirk_scotty/patrick/mod/plots/location/centroids_demonstration_plots.shp" provider="ogr">
+            <qgis simplifyMaxScale="1" labelsEnabled="0" simplifyAlgorithm="0" simplifyLocal="1" simplifyDrawingHints="0" minScale="1e+8" maxScale="0" version="3.0.2-Girona" readOnly="0" simplifyDrawingTol="1" hasScaleBasedVisibilityFlag="0">
               <renderer-v2 type="singleSymbol" forceraster="0" symbollevels="0" enableorderby="0">
                 <symbols>
-                  <symbol clip_to_extent="1" name="0" type="marker" alpha="1">
-                    <layer pass="0" enabled="1" class="SimpleMarker" locked="0">
+                  <symbol name="0" clip_to_extent="1" type="marker" alpha="1">
+                    <layer enabled="1" pass="0" class="SimpleMarker" locked="0">
+                      <prop k="angle" v="0"/>
+                      <prop k="color" v="255,0,0,255"/>
+                      <prop k="horizontal_anchor_point" v="1"/>
+                      <prop k="joinstyle" v="bevel"/>
+                      <prop k="name" v="circle"/>
+                      <prop k="offset" v="0,0"/>
+                      <prop k="offset_map_unit_scale" v="3x:0,0,0,0,0,0"/>
+                      <prop k="offset_unit" v="MM"/>
+                      <prop k="outline_color" v="35,35,35,255"/>
+                      <prop k="outline_style" v="solid"/>
+                      <prop k="outline_width" v="0"/>
+                      <prop k="outline_width_map_unit_scale" v="3x:0,0,0,0,0,0"/>
+                      <prop k="outline_width_unit" v="MM"/>
+                      <prop k="scale_method" v="diameter"/>
+                      <prop k="size" v="3"/>
+                      <prop k="size_map_unit_scale" v="3x:0,0,0,0,0,0"/>
+                      <prop k="size_unit" v="MM"/>
+                      <prop k="vertical_anchor_point" v="1"/>
+                      <data_defined_properties>
+                        <Option type="Map">
+                          <Option name="name" type="QString" value=""/>
+                          <Option name="properties"/>
+                          <Option name="type" type="QString" value="collection"/>
+                        </Option>
+                      </data_defined_properties>
+                    </layer>
+                  </symbol>
+                </symbols>
+                <rotation/>
+                <sizescale/>
+              </renderer-v2>
+              <labeling type="simple">
+                <settings>
+                  <text-style fieldName="Name" fontUnderline="0" fontWeight="57" fontStrikeout="0" isExpression="0" fontFamily="Cantarell" textOpacity="1" fontSizeMapUnitScale="3x:0,0,0,0,0,0" previewBkgrdColor="#ffffff" fontWordSpacing="0" fontSizeUnit="Point" fontLetterSpacing="0" useSubstitutions="0" multilineHeight="1" namedStyle="Medium" textColor="0,0,0,255" blendMode="0" fontItalic="0" fontCapitals="0" fontSize="10">
+                    <text-buffer bufferSizeMapUnitScale="3x:0,0,0,0,0,0" bufferSize="1" bufferBlendMode="0" bufferSizeUnits="MM" bufferColor="255,255,255,255" bufferNoFill="1" bufferOpacity="1" bufferDraw="0" bufferJoinStyle="128"/>
+                    <background shapeOffsetY="0" shapeSizeY="0" shapeDraw="1" shapeOffsetUnit="MM" shapeBlendMode="0" shapeJoinStyle="64" shapeRadiiY="0" shapeSizeType="0" shapeSizeUnit="MM" shapeOffsetMapUnitScale="3x:0,0,0,0,0,0" shapeRadiiX="0" shapeSVGFile="" shapeRotationType="0" shapeSizeMapUnitScale="3x:0,0,0,0,0,0" shapeSizeX="0" shapeType="0" shapeBorderWidth="0" shapeRadiiUnit="MM" shapeBorderWidthMapUnitScale="3x:0,0,0,0,0,0" shapeRadiiMapUnitScale="3x:0,0,0,0,0,0" shapeBorderColor="128,128,128,255" shapeRotation="0" shapeBorderWidthUnit="MM" shapeOffsetX="0" shapeFillColor="255,255,255,255" shapeOpacity="1"/>
+                    <shadow shadowOffsetGlobal="1" shadowOffsetAngle="135" shadowColor="0,0,0,255" shadowOffsetDist="1" shadowOpacity="0.7" shadowDraw="0" shadowRadiusAlphaOnly="0" shadowUnder="0" shadowOffsetUnit="MM" shadowScale="100" shadowOffsetMapUnitScale="3x:0,0,0,0,0,0" shadowRadius="1.5" shadowBlendMode="6" shadowRadiusUnit="MM" shadowRadiusMapUnitScale="3x:0,0,0,0,0,0"/>
+                    <substitutions/>
+                  </text-style>
+                  <text-format leftDirectionSymbol="&lt;" plussign="0" multilineAlign="3" reverseDirectionSymbol="0" placeDirectionSymbol="0" formatNumbers="0" wrapChar="" rightDirectionSymbol=">" decimals="3" addDirectionSymbol="0"/>
+                  <placement maxCurvedCharAngleOut="-25" preserveRotation="1" priority="5" centroidWhole="0" offsetUnits="MM" maxCurvedCharAngleIn="25" labelOffsetMapUnitScale="3x:0,0,0,0,0,0" quadOffset="4" placementFlags="10" offsetType="0" centroidInside="0" predefinedPositionOrder="TR,TL,BR,BL,R,L,TSR,BSR" placement="6" rotationAngle="0" distUnits="MM" fitInPolygonOnly="0" distMapUnitScale="3x:0,0,0,0,0,0" repeatDistance="0" xOffset="0" repeatDistanceUnits="MM" yOffset="0" repeatDistanceMapUnitScale="3x:0,0,0,0,0,0" dist="3"/>
+                  <rendering obstacle="1" displayAll="0" scaleMin="0" upsidedownLabels="0" obstacleFactor="1" fontMaxPixelSize="10000" mergeLines="0" zIndex="0" maxNumLabels="2000" obstacleType="0" fontMinPixelSize="3" limitNumLabels="0" fontLimitPixelSize="0" scaleMax="0" labelPerPart="0" minFeatureSize="0" drawLabels="1" scaleVisibility="0"/>
+                  <dd_properties>
+                    <Option type="Map">
+                      <Option name="name" type="QString" value=""/>
+                      <Option name="properties"/>
+                      <Option name="type" type="QString" value="collection"/>
+                    </Option>
+                  </dd_properties>
+                </settings>
+              </labeling>
+              <customproperties>
+                <property value="0" key="embeddedWidgets/count"/>
+                <property key="variableNames"/>
+                <property key="variableValues"/>
+              </customproperties>
+              <blendMode>0</blendMode>
+              <featureBlendMode>0</featureBlendMode>
+              <layerOpacity>1</layerOpacity>
+              <SingleCategoryDiagramRenderer diagramType="Histogram" attributeLegend="1">
+                <DiagramCategory lineSizeScale="3x:0,0,0,0,0,0" diagramOrientation="Up" scaleBasedVisibility="0" lineSizeType="MM" penAlpha="255" scaleDependency="Area" penWidth="0" barWidth="5" backgroundColor="#ffffff" rotationOffset="270" opacity="1" maxScaleDenominator="1e+8" minimumSize="0" backgroundAlpha="255" sizeScale="3x:0,0,0,0,0,0" enabled="0" minScaleDenominator="0" height="15" penColor="#000000" labelPlacementMethod="XHeight" width="15" sizeType="MM">
+                  <fontProperties description="Fira Sans,10,-1,0,57,0,0,0,0,0,Medium" style="Medium"/>
+                  <attribute label="" color="#000000" field=""/>
+                </DiagramCategory>
+              </SingleCategoryDiagramRenderer>
+              <DiagramLayerSettings zIndex="0" placement="0" linePlacementFlags="18" dist="0" priority="0" showAll="1" obstacle="0">
+                <properties>
+                  <Option type="Map">
+                    <Option name="name" type="QString" value=""/>
+                    <Option name="properties"/>
+                    <Option name="type" type="QString" value="collection"/>
+                  </Option>
+                </properties>
+              </DiagramLayerSettings>
+              <fieldConfiguration>
+                <field name="fid">
+                  <editWidget type="TextEdit">
+                    <config>
+                      <Option/>
+                    </config>
+                  </editWidget>
+                </field>
+                <field name="Name">
+                  <editWidget type="TextEdit">
+                    <config>
+                      <Option/>
+                    </config>
+                  </editWidget>
+                </field>
+                <field name="Dscrptn">
+                  <editWidget type="TextEdit">
+                    <config>
+                      <Option/>
+                    </config>
+                  </editWidget>
+                </field>
+                <field name="Size[h]">
+                  <editWidget type="TextEdit">
+                    <config>
+                      <Option/>
+                    </config>
+                  </editWidget>
+                </field>
+              </fieldConfiguration>
+              <aliases>
+                <alias name="" index="0" field="fid"/>
+                <alias name="" index="1" field="Name"/>
+                <alias name="" index="2" field="Dscrptn"/>
+                <alias name="" index="3" field="Size[h]"/>
+              </aliases>
+              <excludeAttributesWMS/>
+              <excludeAttributesWFS/>
+              <defaults>
+                <default applyOnUpdate="0" field="fid" expression=""/>
+                <default applyOnUpdate="0" field="Name" expression=""/>
+                <default applyOnUpdate="0" field="Dscrptn" expression=""/>
+                <default applyOnUpdate="0" field="Size[h]" expression=""/>
+              </defaults>
+              <constraints>
+                <constraint constraints="0" notnull_strength="0" exp_strength="0" unique_strength="0" field="fid"/>
+                <constraint constraints="0" notnull_strength="0" exp_strength="0" unique_strength="0" field="Name"/>
+                <constraint constraints="0" notnull_strength="0" exp_strength="0" unique_strength="0" field="Dscrptn"/>
+                <constraint constraints="0" notnull_strength="0" exp_strength="0" unique_strength="0" field="Size[h]"/>
+              </constraints>
+              <constraintExpressions>
+                <constraint desc="" exp="" field="fid"/>
+                <constraint desc="" exp="" field="Name"/>
+                <constraint desc="" exp="" field="Dscrptn"/>
+                <constraint desc="" exp="" field="Size[h]"/>
+              </constraintExpressions>
+              <attributeactions>
+                <defaultAction value="{00000000-0000-0000-0000-000000000000}" key="Canvas"/>
+              </attributeactions>
+              <attributetableconfig sortExpression="" sortOrder="0" actionWidgetStyle="dropDown">
+                <columns>
+                  <column name="fid" type="field" width="-1" hidden="0"/>
+                  <column name="Name" type="field" width="-1" hidden="0"/>
+                  <column name="Dscrptn" type="field" width="-1" hidden="0"/>
+                  <column name="Size[h]" type="field" width="-1" hidden="0"/>
+                  <column type="actions" width="-1" hidden="1"/>
+                </columns>
+              </attributetableconfig>
+              <editform>/mnt/mccoy/home/patrick/PhD/papers/03_hyperspectral/03_figures/data</editform>
+              <editforminit/>
+              <editforminitcodesource>0</editforminitcodesource>
+              <editforminitfilepath/>
+              <editforminitcode><![CDATA[# -*- coding: utf-8 -*-
+"""
+QGIS forms can have a Python function that is called when the form is
+opened.
+
+Use this function to add extra logic to your forms.
+
+Enter the name of the function in the "Python Init function"
+field.
+An example follows:
+"""
+from qgis.PyQt.QtWidgets import QWidget
+
+def my_form_open(dialog, layer, feature):
+	geom = feature.geometry()
+	control = dialog.findChild(QWidget, "MyLineEdit")
+]]></editforminitcode>
+              <featformsuppress>0</featformsuppress>
+              <editorlayout>generatedlayout</editorlayout>
+              <editable>
+                <field name="Dscrptn" editable="1"/>
+                <field name="Name" editable="1"/>
+                <field name="Size[h]" editable="1"/>
+                <field name="fid" editable="1"/>
+              </editable>
+              <labelOnTop>
+                <field name="Dscrptn" labelOnTop="0"/>
+                <field name="Name" labelOnTop="0"/>
+                <field name="Size[h]" labelOnTop="0"/>
+                <field name="fid" labelOnTop="0"/>
+              </labelOnTop>
+              <widgets/>
+              <conditionalstyles>
+                <rowstyles/>
+                <fieldstyles/>
+              </conditionalstyles>
+              <expressionfields/>
+              <previewExpression>fid</previewExpression>
+              <mapTip/>
+              <layerGeometryType>0</layerGeometryType>
+            </qgis>
+          </LayerStyle>
+          <LayerStyle name="laukiz1" layerid="laukiz1_a2c20a42_c294_4029_b9df_494ea5f1a7a2" source="/mnt/lossa/data_mccoy_kirk_scotty/patrick/mod/tree-per-tree/2016/laukiz1/laukiz1.gpkg" provider="ogr">
+            <qgis simplifyMaxScale="1" labelsEnabled="0" simplifyAlgorithm="0" simplifyLocal="1" simplifyDrawingHints="0" minScale="1e+8" maxScale="0" version="3.0.2-Girona" readOnly="0" simplifyDrawingTol="1" hasScaleBasedVisibilityFlag="0">
+              <renderer-v2 type="singleSymbol" forceraster="0" symbollevels="0" enableorderby="0">
+                <symbols>
+                  <symbol name="0" clip_to_extent="1" type="marker" alpha="1">
+                    <layer enabled="1" pass="0" class="SimpleMarker" locked="0">
                       <prop k="angle" v="0"/>
                       <prop k="color" v="253,231,37,255"/>
                       <prop k="horizontal_anchor_point" v="1"/>
@@ -5037,7 +5245,7 @@ def my_form_open(dialog, layer, feature):
               <featureBlendMode>0</featureBlendMode>
               <layerOpacity>1</layerOpacity>
               <SingleCategoryDiagramRenderer diagramType="Histogram" attributeLegend="1">
-                <DiagramCategory lineSizeScale="3x:0,0,0,0,0,0" diagramOrientation="Up" scaleBasedVisibility="0" lineSizeType="MM" penAlpha="255" scaleDependency="Area" penWidth="0" barWidth="5" backgroundColor="#ffffff" rotationOffset="270" opacity="1" minimumSize="0" maxScaleDenominator="1e+8" backgroundAlpha="255" sizeScale="3x:0,0,0,0,0,0" minScaleDenominator="0" enabled="0" height="15" penColor="#000000" labelPlacementMethod="XHeight" width="15" sizeType="MM">
+                <DiagramCategory lineSizeScale="3x:0,0,0,0,0,0" diagramOrientation="Up" scaleBasedVisibility="0" lineSizeType="MM" penAlpha="255" scaleDependency="Area" penWidth="0" barWidth="5" backgroundColor="#ffffff" rotationOffset="270" opacity="1" maxScaleDenominator="1e+8" minimumSize="0" backgroundAlpha="255" sizeScale="3x:0,0,0,0,0,0" enabled="0" minScaleDenominator="0" height="15" penColor="#000000" labelPlacementMethod="XHeight" width="15" sizeType="MM">
                   <fontProperties description="Fira Sans,10,-1,0,57,0,0,0,0,0,Medium" style="Medium"/>
                   <attribute label="" color="#000000" field=""/>
                 </DiagramCategory>
@@ -5138,11 +5346,11 @@ def my_form_open(dialog, layer, feature):
             </qgis>
           </LayerStyle>
           <LayerStyle name="laukiz2" layerid="laukiz2_5a06d5ca_778f_44ed_9cd1_e511853159a9" source="/mnt/lossa/data_mccoy_kirk_scotty/patrick/mod/tree-per-tree/2016/laukiz2/laukiz2.gpkg" provider="ogr">
-            <qgis simplifyMaxScale="1" simplifyLocal="1" simplifyAlgorithm="0" labelsEnabled="0" simplifyDrawingHints="0" minScale="1e+8" maxScale="0" version="3.0.2-Girona" readOnly="0" simplifyDrawingTol="1" hasScaleBasedVisibilityFlag="0">
+            <qgis simplifyMaxScale="1" labelsEnabled="0" simplifyAlgorithm="0" simplifyLocal="1" simplifyDrawingHints="0" minScale="1e+8" maxScale="0" version="3.0.2-Girona" readOnly="0" simplifyDrawingTol="1" hasScaleBasedVisibilityFlag="0">
               <renderer-v2 type="singleSymbol" forceraster="0" symbollevels="0" enableorderby="0">
                 <symbols>
-                  <symbol clip_to_extent="1" name="0" type="marker" alpha="1">
-                    <layer pass="0" enabled="1" class="SimpleMarker" locked="0">
+                  <symbol name="0" clip_to_extent="1" type="marker" alpha="1">
+                    <layer enabled="1" pass="0" class="SimpleMarker" locked="0">
                       <prop k="angle" v="0"/>
                       <prop k="color" v="253,231,37,255"/>
                       <prop k="horizontal_anchor_point" v="1"/>
@@ -5175,6 +5383,9 @@ def my_form_open(dialog, layer, feature):
                 <sizescale/>
               </renderer-v2>
               <customproperties>
+                <property key="dualview/previewExpressions">
+                  <value>fid</value>
+                </property>
                 <property value="0" key="embeddedWidgets/count"/>
                 <property key="variableNames"/>
                 <property key="variableValues"/>
@@ -5183,7 +5394,7 @@ def my_form_open(dialog, layer, feature):
               <featureBlendMode>0</featureBlendMode>
               <layerOpacity>1</layerOpacity>
               <SingleCategoryDiagramRenderer diagramType="Histogram" attributeLegend="1">
-                <DiagramCategory lineSizeScale="3x:0,0,0,0,0,0" diagramOrientation="Up" scaleBasedVisibility="0" lineSizeType="MM" penAlpha="255" scaleDependency="Area" penWidth="0" barWidth="5" backgroundColor="#ffffff" rotationOffset="270" opacity="1" minimumSize="0" maxScaleDenominator="1e+8" backgroundAlpha="255" sizeScale="3x:0,0,0,0,0,0" minScaleDenominator="0" enabled="0" height="15" penColor="#000000" labelPlacementMethod="XHeight" width="15" sizeType="MM">
+                <DiagramCategory lineSizeScale="3x:0,0,0,0,0,0" diagramOrientation="Up" scaleBasedVisibility="0" lineSizeType="MM" penAlpha="255" scaleDependency="Area" penWidth="0" barWidth="5" backgroundColor="#ffffff" rotationOffset="270" opacity="1" maxScaleDenominator="1e+8" minimumSize="0" backgroundAlpha="255" sizeScale="3x:0,0,0,0,0,0" enabled="0" minScaleDenominator="0" height="15" penColor="#000000" labelPlacementMethod="XHeight" width="15" sizeType="MM">
                   <fontProperties description="Fira Sans,10,-1,0,57,0,0,0,0,0,Medium" style="Medium"/>
                   <attribute label="" color="#000000" field=""/>
                 </DiagramCategory>
@@ -5284,11 +5495,11 @@ def my_form_open(dialog, layer, feature):
             </qgis>
           </LayerStyle>
           <LayerStyle name="location_demonstration_plots test copy" layerid="location_demonstration_plots_test_59a73508_3e2b_4712_8f52_78ba08446d2a" source="/mnt/lossa/data_mccoy_kirk_scotty/patrick/mod/plots/location/location_demonstration_plots.gpkg" provider="ogr">
-            <qgis simplifyMaxScale="1" simplifyLocal="1" simplifyAlgorithm="0" labelsEnabled="1" simplifyDrawingHints="1" minScale="1e+8" maxScale="0" version="3.0.2-Girona" readOnly="0" simplifyDrawingTol="1" hasScaleBasedVisibilityFlag="0">
+            <qgis simplifyMaxScale="1" labelsEnabled="1" simplifyAlgorithm="0" simplifyLocal="1" simplifyDrawingHints="1" minScale="1e+8" maxScale="0" version="3.0.2-Girona" readOnly="0" simplifyDrawingTol="1" hasScaleBasedVisibilityFlag="0">
               <renderer-v2 type="singleSymbol" forceraster="0" symbollevels="0" enableorderby="0">
                 <symbols>
-                  <symbol clip_to_extent="1" name="0" type="fill" alpha="1">
-                    <layer pass="0" enabled="1" class="SimpleLine" locked="0">
+                  <symbol name="0" clip_to_extent="1" type="fill" alpha="1">
+                    <layer enabled="0" pass="0" class="SimpleLine" locked="0">
                       <prop k="capstyle" v="square"/>
                       <prop k="customdash" v="5;2"/>
                       <prop k="customdash_map_unit_scale" v="3x:0,0,0,0,0,0"/>
@@ -5297,7 +5508,7 @@ def my_form_open(dialog, layer, feature):
                       <prop k="joinstyle" v="bevel"/>
                       <prop k="line_color" v="255,0,0,255"/>
                       <prop k="line_style" v="solid"/>
-                      <prop k="line_width" v="1"/>
+                      <prop k="line_width" v="0"/>
                       <prop k="line_width_unit" v="MM"/>
                       <prop k="offset" v="0"/>
                       <prop k="offset_map_unit_scale" v="3x:0,0,0,0,0,0"/>
@@ -5319,14 +5530,14 @@ def my_form_open(dialog, layer, feature):
               </renderer-v2>
               <labeling type="simple">
                 <settings>
-                  <text-style fieldName="Name" fontUnderline="0" fontWeight="57" fontStrikeout="0" isExpression="0" fontFamily="Fira Sans" textOpacity="1" fontSizeMapUnitScale="3x:0,0,0,0,0,0" previewBkgrdColor="#000000" fontWordSpacing="0" fontSizeUnit="Point" fontLetterSpacing="0" useSubstitutions="0" multilineHeight="1" namedStyle="Medium" textColor="0,0,0,255" blendMode="0" fontCapitals="0" fontItalic="0" fontSize="15">
-                    <text-buffer bufferSizeMapUnitScale="3x:0,0,0,0,0,0" bufferSize="1" bufferBlendMode="0" bufferColor="255,255,255,255" bufferSizeUnits="MM" bufferNoFill="1" bufferOpacity="1" bufferDraw="0" bufferJoinStyle="128"/>
-                    <background shapeOffsetY="0" shapeSizeY="0.5" shapeDraw="1" shapeOffsetUnit="MM" shapeBlendMode="0" shapeJoinStyle="64" shapeRadiiY="0" shapeSizeType="0" shapeSizeUnit="MM" shapeOffsetMapUnitScale="3x:0,0,0,0,0,0" shapeRadiiX="0" shapeSVGFile="" shapeRotationType="0" shapeSizeMapUnitScale="3x:0,0,0,0,0,0" shapeSizeX="0.5" shapeType="0" shapeBorderWidth="0" shapeBorderWidthMapUnitScale="3x:0,0,0,0,0,0" shapeRadiiUnit="MM" shapeRadiiMapUnitScale="3x:0,0,0,0,0,0" shapeBorderColor="128,128,128,255" shapeRotation="0" shapeBorderWidthUnit="MM" shapeOffsetX="0" shapeFillColor="255,255,255,255" shapeOpacity="1"/>
-                    <shadow shadowOffsetGlobal="1" shadowColor="0,0,0,255" shadowOffsetAngle="135" shadowOffsetDist="1" shadowOpacity="0.7" shadowDraw="0" shadowRadiusAlphaOnly="0" shadowScale="100" shadowOffsetUnit="MM" shadowUnder="0" shadowOffsetMapUnitScale="3x:0,0,0,0,0,0" shadowBlendMode="6" shadowRadius="1.5" shadowRadiusMapUnitScale="3x:0,0,0,0,0,0" shadowRadiusUnit="MM"/>
+                  <text-style fieldName="Name" fontUnderline="0" fontWeight="50" fontStrikeout="0" isExpression="0" fontFamily="Cantarell" textOpacity="1" fontSizeMapUnitScale="3x:0,0,0,0,0,0" previewBkgrdColor="#000000" fontWordSpacing="0" fontSizeUnit="Point" fontLetterSpacing="0" useSubstitutions="0" multilineHeight="1" namedStyle="Regular" textColor="0,0,0,255" blendMode="0" fontItalic="0" fontCapitals="0" fontSize="15">
+                    <text-buffer bufferSizeMapUnitScale="3x:0,0,0,0,0,0" bufferSize="1" bufferBlendMode="0" bufferSizeUnits="MM" bufferColor="255,255,255,255" bufferNoFill="1" bufferOpacity="1" bufferDraw="0" bufferJoinStyle="128"/>
+                    <background shapeOffsetY="0" shapeSizeY="0.5" shapeDraw="1" shapeOffsetUnit="MM" shapeBlendMode="0" shapeJoinStyle="64" shapeRadiiY="0" shapeSizeType="0" shapeSizeUnit="MM" shapeOffsetMapUnitScale="3x:0,0,0,0,0,0" shapeRadiiX="0" shapeSVGFile="" shapeRotationType="0" shapeSizeMapUnitScale="3x:0,0,0,0,0,0" shapeSizeX="0.5" shapeType="0" shapeBorderWidth="0" shapeRadiiUnit="MM" shapeBorderWidthMapUnitScale="3x:0,0,0,0,0,0" shapeRadiiMapUnitScale="3x:0,0,0,0,0,0" shapeBorderColor="128,128,128,255" shapeRotation="0" shapeBorderWidthUnit="MM" shapeOffsetX="0" shapeFillColor="255,255,255,255" shapeOpacity="1"/>
+                    <shadow shadowOffsetGlobal="1" shadowOffsetAngle="135" shadowColor="0,0,0,255" shadowOffsetDist="1" shadowOpacity="0.7" shadowDraw="0" shadowRadiusAlphaOnly="0" shadowUnder="0" shadowOffsetUnit="MM" shadowScale="100" shadowOffsetMapUnitScale="3x:0,0,0,0,0,0" shadowRadius="1.5" shadowBlendMode="6" shadowRadiusUnit="MM" shadowRadiusMapUnitScale="3x:0,0,0,0,0,0"/>
                     <substitutions/>
                   </text-style>
-                  <text-format leftDirectionSymbol="&lt;" plussign="0" multilineAlign="4294967295" reverseDirectionSymbol="0" formatNumbers="0" placeDirectionSymbol="0" decimals="3" wrapChar="" rightDirectionSymbol=">" addDirectionSymbol="0"/>
-                  <placement maxCurvedCharAngleOut="-25" preserveRotation="1" priority="6" centroidWhole="0" offsetUnits="MM" maxCurvedCharAngleIn="25" labelOffsetMapUnitScale="3x:0,0,0,0,0,0" quadOffset="4" placementFlags="10" offsetType="0" centroidInside="0" predefinedPositionOrder="TR,TL,BR,BL,R,L,TSR,BSR" placement="7" rotationAngle="0" distUnits="MM" distMapUnitScale="3x:0,0,0,0,0,0" fitInPolygonOnly="0" repeatDistance="0" repeatDistanceUnits="MM" xOffset="5.6" yOffset="-50" repeatDistanceMapUnitScale="3x:0,0,0,0,0,0" dist="2"/>
+                  <text-format leftDirectionSymbol="&lt;" plussign="0" multilineAlign="4294967295" reverseDirectionSymbol="0" placeDirectionSymbol="0" formatNumbers="0" wrapChar="" rightDirectionSymbol=">" decimals="3" addDirectionSymbol="0"/>
+                  <placement maxCurvedCharAngleOut="-25" preserveRotation="1" priority="6" centroidWhole="0" offsetUnits="MM" maxCurvedCharAngleIn="25" labelOffsetMapUnitScale="3x:0,0,0,0,0,0" quadOffset="4" placementFlags="10" offsetType="0" centroidInside="0" predefinedPositionOrder="TR,TL,BR,BL,R,L,TSR,BSR" placement="7" rotationAngle="0" distUnits="MM" fitInPolygonOnly="0" distMapUnitScale="3x:0,0,0,0,0,0" repeatDistance="0" xOffset="5.6" repeatDistanceUnits="MM" yOffset="-50" repeatDistanceMapUnitScale="3x:0,0,0,0,0,0" dist="2"/>
                   <rendering obstacle="1" displayAll="0" scaleMin="0" upsidedownLabels="0" obstacleFactor="1" fontMaxPixelSize="10000" mergeLines="0" zIndex="0" maxNumLabels="2000" obstacleType="0" fontMinPixelSize="3" limitNumLabels="0" fontLimitPixelSize="0" scaleMax="0" labelPerPart="0" minFeatureSize="0" drawLabels="1" scaleVisibility="0"/>
                   <dd_properties>
                     <Option type="Map">
@@ -5347,7 +5558,7 @@ def my_form_open(dialog, layer, feature):
               <featureBlendMode>0</featureBlendMode>
               <layerOpacity>1</layerOpacity>
               <SingleCategoryDiagramRenderer diagramType="Histogram" attributeLegend="1">
-                <DiagramCategory lineSizeScale="3x:0,0,0,0,0,0" diagramOrientation="Up" scaleBasedVisibility="0" lineSizeType="MM" penAlpha="255" scaleDependency="Area" penWidth="0" barWidth="5" backgroundColor="#ffffff" rotationOffset="270" opacity="1" minimumSize="0" maxScaleDenominator="1e+8" backgroundAlpha="255" sizeScale="3x:0,0,0,0,0,0" minScaleDenominator="0" enabled="0" height="15" penColor="#000000" labelPlacementMethod="XHeight" width="15" sizeType="MM">
+                <DiagramCategory lineSizeScale="3x:0,0,0,0,0,0" diagramOrientation="Up" scaleBasedVisibility="0" lineSizeType="MM" penAlpha="255" scaleDependency="Area" penWidth="0" barWidth="5" backgroundColor="#ffffff" rotationOffset="270" opacity="1" maxScaleDenominator="1e+8" minimumSize="0" backgroundAlpha="255" sizeScale="3x:0,0,0,0,0,0" enabled="0" minScaleDenominator="0" height="15" penColor="#000000" labelPlacementMethod="XHeight" width="15" sizeType="MM">
                   <fontProperties description="Fira Sans,10,-1,0,57,0,0,0,0,0,Medium" style="Medium"/>
                   <attribute label="" color="#000000" field=""/>
                 </DiagramCategory>
@@ -5476,11 +5687,11 @@ def my_form_open(dialog, layer, feature):
             </qgis>
           </LayerStyle>
           <LayerStyle name="luiando" layerid="luiando_f5140553_9274_4b18_8bf6_e8f3013cce4d" source="/mnt/lossa/data_mccoy_kirk_scotty/patrick/mod/tree-per-tree/2016/luiando/luiando.shp" provider="ogr">
-            <qgis simplifyMaxScale="1" simplifyLocal="1" simplifyAlgorithm="0" labelsEnabled="0" simplifyDrawingHints="0" minScale="1e+8" maxScale="0" version="3.0.2-Girona" readOnly="0" simplifyDrawingTol="1" hasScaleBasedVisibilityFlag="0">
+            <qgis simplifyMaxScale="1" labelsEnabled="0" simplifyAlgorithm="0" simplifyLocal="1" simplifyDrawingHints="0" minScale="1e+8" maxScale="0" version="3.0.2-Girona" readOnly="0" simplifyDrawingTol="1" hasScaleBasedVisibilityFlag="0">
               <renderer-v2 type="singleSymbol" forceraster="0" symbollevels="0" enableorderby="0">
                 <symbols>
-                  <symbol clip_to_extent="1" name="0" type="marker" alpha="1">
-                    <layer pass="0" enabled="1" class="SimpleMarker" locked="0">
+                  <symbol name="0" clip_to_extent="1" type="marker" alpha="1">
+                    <layer enabled="1" pass="0" class="SimpleMarker" locked="0">
                       <prop k="angle" v="0"/>
                       <prop k="color" v="253,231,37,255"/>
                       <prop k="horizontal_anchor_point" v="1"/>
@@ -5521,7 +5732,7 @@ def my_form_open(dialog, layer, feature):
               <featureBlendMode>0</featureBlendMode>
               <layerOpacity>1</layerOpacity>
               <SingleCategoryDiagramRenderer diagramType="Histogram" attributeLegend="1">
-                <DiagramCategory lineSizeScale="3x:0,0,0,0,0,0" diagramOrientation="Up" scaleBasedVisibility="0" lineSizeType="MM" penAlpha="255" scaleDependency="Area" penWidth="0" barWidth="5" backgroundColor="#ffffff" rotationOffset="270" opacity="1" minimumSize="0" maxScaleDenominator="1e+8" backgroundAlpha="255" sizeScale="3x:0,0,0,0,0,0" minScaleDenominator="0" enabled="0" height="15" penColor="#000000" labelPlacementMethod="XHeight" width="15" sizeType="MM">
+                <DiagramCategory lineSizeScale="3x:0,0,0,0,0,0" diagramOrientation="Up" scaleBasedVisibility="0" lineSizeType="MM" penAlpha="255" scaleDependency="Area" penWidth="0" barWidth="5" backgroundColor="#ffffff" rotationOffset="270" opacity="1" maxScaleDenominator="1e+8" minimumSize="0" backgroundAlpha="255" sizeScale="3x:0,0,0,0,0,0" enabled="0" minScaleDenominator="0" height="15" penColor="#000000" labelPlacementMethod="XHeight" width="15" sizeType="MM">
                   <fontProperties description="Fira Sans,10,-1,0,57,0,0,0,0,0,Medium" style="Medium"/>
                   <attribute label="" color="#000000" field=""/>
                 </DiagramCategory>
@@ -5675,7 +5886,7 @@ def my_form_open(dialog, layer, feature):
                   <column type="actions" width="-1" hidden="1"/>
                 </columns>
               </attributetableconfig>
-              <editform/>
+              <editform>/mnt/mccoy/home/patrick/PhD/papers/03_hyperspectral/03_figures/data</editform>
               <editforminit/>
               <editforminitcodesource>0</editforminitcodesource>
               <editforminitfilepath/>
@@ -5734,11 +5945,11 @@ def my_form_open(dialog, layer, feature):
             </qgis>
           </LayerStyle>
           <LayerStyle name="oiartzun" layerid="oiartzun_5392b1b1_32aa_49ac_8901_c7f46660c552" source="/mnt/lossa/data_mccoy_kirk_scotty/patrick/mod/tree-per-tree/2016/oiartzun/oiartzun.shp" provider="ogr">
-            <qgis simplifyMaxScale="1" simplifyLocal="1" simplifyAlgorithm="0" labelsEnabled="0" simplifyDrawingHints="0" minScale="1e+8" maxScale="0" version="3.0.2-Girona" readOnly="0" simplifyDrawingTol="1" hasScaleBasedVisibilityFlag="0">
+            <qgis simplifyMaxScale="1" labelsEnabled="0" simplifyAlgorithm="0" simplifyLocal="1" simplifyDrawingHints="0" minScale="1e+8" maxScale="0" version="3.0.2-Girona" readOnly="0" simplifyDrawingTol="1" hasScaleBasedVisibilityFlag="0">
               <renderer-v2 type="singleSymbol" forceraster="0" symbollevels="0" enableorderby="0">
                 <symbols>
-                  <symbol clip_to_extent="1" name="0" type="marker" alpha="1">
-                    <layer pass="0" enabled="1" class="SimpleMarker" locked="0">
+                  <symbol name="0" clip_to_extent="1" type="marker" alpha="1">
+                    <layer enabled="1" pass="0" class="SimpleMarker" locked="0">
                       <prop k="angle" v="0"/>
                       <prop k="color" v="253,231,37,255"/>
                       <prop k="horizontal_anchor_point" v="1"/>
@@ -5779,7 +5990,7 @@ def my_form_open(dialog, layer, feature):
               <featureBlendMode>0</featureBlendMode>
               <layerOpacity>1</layerOpacity>
               <SingleCategoryDiagramRenderer diagramType="Histogram" attributeLegend="1">
-                <DiagramCategory lineSizeScale="3x:0,0,0,0,0,0" diagramOrientation="Up" scaleBasedVisibility="0" lineSizeType="MM" penAlpha="255" scaleDependency="Area" penWidth="0" barWidth="5" backgroundColor="#ffffff" rotationOffset="270" opacity="1" minimumSize="0" maxScaleDenominator="1e+8" backgroundAlpha="255" sizeScale="3x:0,0,0,0,0,0" minScaleDenominator="0" enabled="0" height="15" penColor="#000000" labelPlacementMethod="XHeight" width="15" sizeType="MM">
+                <DiagramCategory lineSizeScale="3x:0,0,0,0,0,0" diagramOrientation="Up" scaleBasedVisibility="0" lineSizeType="MM" penAlpha="255" scaleDependency="Area" penWidth="0" barWidth="5" backgroundColor="#ffffff" rotationOffset="270" opacity="1" maxScaleDenominator="1e+8" minimumSize="0" backgroundAlpha="255" sizeScale="3x:0,0,0,0,0,0" enabled="0" minScaleDenominator="0" height="15" penColor="#000000" labelPlacementMethod="XHeight" width="15" sizeType="MM">
                   <fontProperties description="Fira Sans,10,-1,0,57,0,0,0,0,0,Medium" style="Medium"/>
                   <attribute label="" color="#000000" field=""/>
                 </DiagramCategory>
@@ -5945,7 +6156,7 @@ def my_form_open(dialog, layer, feature):
                   <column type="actions" width="-1" hidden="1"/>
                 </columns>
               </attributetableconfig>
-              <editform/>
+              <editform>/mnt/mccoy/home/patrick/PhD/papers/03_hyperspectral/03_figures/data</editform>
               <editforminit/>
               <editforminitcodesource>0</editforminitcodesource>
               <editforminitfilepath/>
@@ -6085,6 +6296,7 @@ def my_form_open(dialog, layer, feature):
         </LayoutObject>
         <Extent xmax="-2.99415929725983565" ymax="43.0964907730554927" ymin="43.09466310501336039" xmin="-2.99738627364672849"/>
         <LayerSet>
+          <Layer name="centroids_demonstration_plots" source="/mnt/lossa/data_mccoy_kirk_scotty/patrick/mod/plots/location/centroids_demonstration_plots.shp" provider="ogr">centroids_demonstration_plots_ac43a88b_d69f_4338_8d54_bb600a798a7d</Layer>
           <Layer name="location_demonstration_plots test copy" source="/mnt/lossa/data_mccoy_kirk_scotty/patrick/mod/plots/location/location_demonstration_plots.gpkg" provider="ogr">location_demonstration_plots_test_59a73508_3e2b_4712_8f52_78ba08446d2a</Layer>
           <Layer name="laukiz2" source="/mnt/lossa/data_mccoy_kirk_scotty/patrick/mod/tree-per-tree/2016/laukiz2/laukiz2.gpkg" provider="ogr">laukiz2_5a06d5ca_778f_44ed_9cd1_e511853159a9</Layer>
           <Layer name="laukiz1" source="/mnt/lossa/data_mccoy_kirk_scotty/patrick/mod/tree-per-tree/2016/laukiz1/laukiz1.gpkg" provider="ogr">laukiz1_a2c20a42_c294_4029_b9df_494ea5f1a7a2</Layer>
@@ -6097,7 +6309,7 @@ def my_form_open(dialog, layer, feature):
           <LayerStyle name="Bing Aerial" layerid="Bing_Aerial_98368064_41da_4ee4_940d_594787eca393" source="crs=EPSG:3857&amp;format&amp;type=xyz&amp;url=http://ecn.t3.tiles.virtualearth.net/tiles/a%7Bq%7D.jpeg?g%3D1&amp;zmax=18&amp;zmin=0" provider="wms">
             <qgis minScale="1e+8" maxScale="0" version="3.0.2-Girona" hasScaleBasedVisibilityFlag="0">
               <pipe>
-                <rasterrenderer type="singlebandcolordata" alphaBand="-1" opacity="1" band="1">
+                <rasterrenderer type="singlebandcolordata" opacity="1" alphaBand="-1" band="1">
                   <rasterTransparency/>
                   <minMaxOrigin>
                     <limits>None</limits>
@@ -6116,11 +6328,11 @@ def my_form_open(dialog, layer, feature):
             </qgis>
           </LayerStyle>
           <LayerStyle name="Study_area_new" layerid="Study_area_new20180205160426241" source="/mnt/lossa/data_mccoy_kirk_scotty/patrick/raw/boundaries/basque-country/Study_area_new.shp" provider="ogr">
-            <qgis simplifyMaxScale="1" simplifyLocal="1" simplifyAlgorithm="0" labelsEnabled="0" simplifyDrawingHints="1" minScale="1e+8" maxScale="0" version="3.0.2-Girona" readOnly="0" simplifyDrawingTol="1" hasScaleBasedVisibilityFlag="0">
+            <qgis simplifyMaxScale="1" labelsEnabled="0" simplifyAlgorithm="0" simplifyLocal="1" simplifyDrawingHints="1" minScale="1e+8" maxScale="0" version="3.0.2-Girona" readOnly="0" simplifyDrawingTol="1" hasScaleBasedVisibilityFlag="0">
               <renderer-v2 type="singleSymbol" forceraster="0" symbollevels="0" enableorderby="0">
                 <symbols>
-                  <symbol clip_to_extent="1" name="0" type="fill" alpha="1">
-                    <layer pass="0" enabled="1" class="SimpleLine" locked="0">
+                  <symbol name="0" clip_to_extent="1" type="fill" alpha="1">
+                    <layer enabled="1" pass="0" class="SimpleLine" locked="0">
                       <prop k="capstyle" v="square"/>
                       <prop k="customdash" v="5;2"/>
                       <prop k="customdash_map_unit_scale" v="3x:0,0,0,0,0,0"/>
@@ -6158,7 +6370,7 @@ def my_form_open(dialog, layer, feature):
               <featureBlendMode>0</featureBlendMode>
               <layerOpacity>1</layerOpacity>
               <SingleCategoryDiagramRenderer diagramType="Histogram" attributeLegend="1">
-                <DiagramCategory lineSizeScale="3x:0,0,0,0,0,0" diagramOrientation="Up" scaleBasedVisibility="0" lineSizeType="MM" penAlpha="255" scaleDependency="Area" penWidth="0" barWidth="5" backgroundColor="#ffffff" rotationOffset="270" opacity="1" minimumSize="0" maxScaleDenominator="1e+8" backgroundAlpha="255" sizeScale="3x:0,0,0,0,0,0" minScaleDenominator="-2.14748e+9" enabled="0" height="15" penColor="#000000" labelPlacementMethod="XHeight" width="15" sizeType="MM">
+                <DiagramCategory lineSizeScale="3x:0,0,0,0,0,0" diagramOrientation="Up" scaleBasedVisibility="0" lineSizeType="MM" penAlpha="255" scaleDependency="Area" penWidth="0" barWidth="5" backgroundColor="#ffffff" rotationOffset="270" opacity="1" maxScaleDenominator="1e+8" minimumSize="0" backgroundAlpha="255" sizeScale="3x:0,0,0,0,0,0" enabled="0" minScaleDenominator="-2.14748e+9" height="15" penColor="#000000" labelPlacementMethod="XHeight" width="15" sizeType="MM">
                   <fontProperties description="Noto Sans,10,-1,0,50,0,0,0,0,0" style=""/>
                   <attribute label="" color="#000000" field=""/>
                 </DiagramCategory>
@@ -6281,12 +6493,206 @@ def my_form_open(dialog, layer, feature):
               <layerGeometryType>2</layerGeometryType>
             </qgis>
           </LayerStyle>
-          <LayerStyle name="laukiz1" layerid="laukiz1_a2c20a42_c294_4029_b9df_494ea5f1a7a2" source="/mnt/lossa/data_mccoy_kirk_scotty/patrick/mod/tree-per-tree/2016/laukiz1/laukiz1.gpkg" provider="ogr">
-            <qgis simplifyMaxScale="1" simplifyLocal="1" simplifyAlgorithm="0" labelsEnabled="0" simplifyDrawingHints="0" minScale="1e+8" maxScale="0" version="3.0.2-Girona" readOnly="0" simplifyDrawingTol="1" hasScaleBasedVisibilityFlag="0">
+          <LayerStyle name="centroids_demonstration_plots" layerid="centroids_demonstration_plots_ac43a88b_d69f_4338_8d54_bb600a798a7d" source="/mnt/lossa/data_mccoy_kirk_scotty/patrick/mod/plots/location/centroids_demonstration_plots.shp" provider="ogr">
+            <qgis simplifyMaxScale="1" labelsEnabled="0" simplifyAlgorithm="0" simplifyLocal="1" simplifyDrawingHints="0" minScale="1e+8" maxScale="0" version="3.0.2-Girona" readOnly="0" simplifyDrawingTol="1" hasScaleBasedVisibilityFlag="0">
               <renderer-v2 type="singleSymbol" forceraster="0" symbollevels="0" enableorderby="0">
                 <symbols>
-                  <symbol clip_to_extent="1" name="0" type="marker" alpha="1">
-                    <layer pass="0" enabled="1" class="SimpleMarker" locked="0">
+                  <symbol name="0" clip_to_extent="1" type="marker" alpha="1">
+                    <layer enabled="1" pass="0" class="SimpleMarker" locked="0">
+                      <prop k="angle" v="0"/>
+                      <prop k="color" v="255,0,0,255"/>
+                      <prop k="horizontal_anchor_point" v="1"/>
+                      <prop k="joinstyle" v="bevel"/>
+                      <prop k="name" v="circle"/>
+                      <prop k="offset" v="0,0"/>
+                      <prop k="offset_map_unit_scale" v="3x:0,0,0,0,0,0"/>
+                      <prop k="offset_unit" v="MM"/>
+                      <prop k="outline_color" v="35,35,35,255"/>
+                      <prop k="outline_style" v="solid"/>
+                      <prop k="outline_width" v="0"/>
+                      <prop k="outline_width_map_unit_scale" v="3x:0,0,0,0,0,0"/>
+                      <prop k="outline_width_unit" v="MM"/>
+                      <prop k="scale_method" v="diameter"/>
+                      <prop k="size" v="3"/>
+                      <prop k="size_map_unit_scale" v="3x:0,0,0,0,0,0"/>
+                      <prop k="size_unit" v="MM"/>
+                      <prop k="vertical_anchor_point" v="1"/>
+                      <data_defined_properties>
+                        <Option type="Map">
+                          <Option name="name" type="QString" value=""/>
+                          <Option name="properties"/>
+                          <Option name="type" type="QString" value="collection"/>
+                        </Option>
+                      </data_defined_properties>
+                    </layer>
+                  </symbol>
+                </symbols>
+                <rotation/>
+                <sizescale/>
+              </renderer-v2>
+              <labeling type="simple">
+                <settings>
+                  <text-style fieldName="Name" fontUnderline="0" fontWeight="57" fontStrikeout="0" isExpression="0" fontFamily="Cantarell" textOpacity="1" fontSizeMapUnitScale="3x:0,0,0,0,0,0" previewBkgrdColor="#ffffff" fontWordSpacing="0" fontSizeUnit="Point" fontLetterSpacing="0" useSubstitutions="0" multilineHeight="1" namedStyle="Medium" textColor="0,0,0,255" blendMode="0" fontItalic="0" fontCapitals="0" fontSize="10">
+                    <text-buffer bufferSizeMapUnitScale="3x:0,0,0,0,0,0" bufferSize="1" bufferBlendMode="0" bufferSizeUnits="MM" bufferColor="255,255,255,255" bufferNoFill="1" bufferOpacity="1" bufferDraw="0" bufferJoinStyle="128"/>
+                    <background shapeOffsetY="0" shapeSizeY="0" shapeDraw="1" shapeOffsetUnit="MM" shapeBlendMode="0" shapeJoinStyle="64" shapeRadiiY="0" shapeSizeType="0" shapeSizeUnit="MM" shapeOffsetMapUnitScale="3x:0,0,0,0,0,0" shapeRadiiX="0" shapeSVGFile="" shapeRotationType="0" shapeSizeMapUnitScale="3x:0,0,0,0,0,0" shapeSizeX="0" shapeType="0" shapeBorderWidth="0" shapeRadiiUnit="MM" shapeBorderWidthMapUnitScale="3x:0,0,0,0,0,0" shapeRadiiMapUnitScale="3x:0,0,0,0,0,0" shapeBorderColor="128,128,128,255" shapeRotation="0" shapeBorderWidthUnit="MM" shapeOffsetX="0" shapeFillColor="255,255,255,255" shapeOpacity="1"/>
+                    <shadow shadowOffsetGlobal="1" shadowOffsetAngle="135" shadowColor="0,0,0,255" shadowOffsetDist="1" shadowOpacity="0.7" shadowDraw="0" shadowRadiusAlphaOnly="0" shadowUnder="0" shadowOffsetUnit="MM" shadowScale="100" shadowOffsetMapUnitScale="3x:0,0,0,0,0,0" shadowRadius="1.5" shadowBlendMode="6" shadowRadiusUnit="MM" shadowRadiusMapUnitScale="3x:0,0,0,0,0,0"/>
+                    <substitutions/>
+                  </text-style>
+                  <text-format leftDirectionSymbol="&lt;" plussign="0" multilineAlign="3" reverseDirectionSymbol="0" placeDirectionSymbol="0" formatNumbers="0" wrapChar="" rightDirectionSymbol=">" decimals="3" addDirectionSymbol="0"/>
+                  <placement maxCurvedCharAngleOut="-25" preserveRotation="1" priority="5" centroidWhole="0" offsetUnits="MM" maxCurvedCharAngleIn="25" labelOffsetMapUnitScale="3x:0,0,0,0,0,0" quadOffset="4" placementFlags="10" offsetType="0" centroidInside="0" predefinedPositionOrder="TR,TL,BR,BL,R,L,TSR,BSR" placement="6" rotationAngle="0" distUnits="MM" fitInPolygonOnly="0" distMapUnitScale="3x:0,0,0,0,0,0" repeatDistance="0" xOffset="0" repeatDistanceUnits="MM" yOffset="0" repeatDistanceMapUnitScale="3x:0,0,0,0,0,0" dist="3"/>
+                  <rendering obstacle="1" displayAll="0" scaleMin="0" upsidedownLabels="0" obstacleFactor="1" fontMaxPixelSize="10000" mergeLines="0" zIndex="0" maxNumLabels="2000" obstacleType="0" fontMinPixelSize="3" limitNumLabels="0" fontLimitPixelSize="0" scaleMax="0" labelPerPart="0" minFeatureSize="0" drawLabels="1" scaleVisibility="0"/>
+                  <dd_properties>
+                    <Option type="Map">
+                      <Option name="name" type="QString" value=""/>
+                      <Option name="properties"/>
+                      <Option name="type" type="QString" value="collection"/>
+                    </Option>
+                  </dd_properties>
+                </settings>
+              </labeling>
+              <customproperties>
+                <property value="0" key="embeddedWidgets/count"/>
+                <property key="variableNames"/>
+                <property key="variableValues"/>
+              </customproperties>
+              <blendMode>0</blendMode>
+              <featureBlendMode>0</featureBlendMode>
+              <layerOpacity>1</layerOpacity>
+              <SingleCategoryDiagramRenderer diagramType="Histogram" attributeLegend="1">
+                <DiagramCategory lineSizeScale="3x:0,0,0,0,0,0" diagramOrientation="Up" scaleBasedVisibility="0" lineSizeType="MM" penAlpha="255" scaleDependency="Area" penWidth="0" barWidth="5" backgroundColor="#ffffff" rotationOffset="270" opacity="1" maxScaleDenominator="1e+8" minimumSize="0" backgroundAlpha="255" sizeScale="3x:0,0,0,0,0,0" enabled="0" minScaleDenominator="0" height="15" penColor="#000000" labelPlacementMethod="XHeight" width="15" sizeType="MM">
+                  <fontProperties description="Fira Sans,10,-1,0,57,0,0,0,0,0,Medium" style="Medium"/>
+                  <attribute label="" color="#000000" field=""/>
+                </DiagramCategory>
+              </SingleCategoryDiagramRenderer>
+              <DiagramLayerSettings zIndex="0" placement="0" linePlacementFlags="18" dist="0" priority="0" showAll="1" obstacle="0">
+                <properties>
+                  <Option type="Map">
+                    <Option name="name" type="QString" value=""/>
+                    <Option name="properties"/>
+                    <Option name="type" type="QString" value="collection"/>
+                  </Option>
+                </properties>
+              </DiagramLayerSettings>
+              <fieldConfiguration>
+                <field name="fid">
+                  <editWidget type="TextEdit">
+                    <config>
+                      <Option/>
+                    </config>
+                  </editWidget>
+                </field>
+                <field name="Name">
+                  <editWidget type="TextEdit">
+                    <config>
+                      <Option/>
+                    </config>
+                  </editWidget>
+                </field>
+                <field name="Dscrptn">
+                  <editWidget type="TextEdit">
+                    <config>
+                      <Option/>
+                    </config>
+                  </editWidget>
+                </field>
+                <field name="Size[h]">
+                  <editWidget type="TextEdit">
+                    <config>
+                      <Option/>
+                    </config>
+                  </editWidget>
+                </field>
+              </fieldConfiguration>
+              <aliases>
+                <alias name="" index="0" field="fid"/>
+                <alias name="" index="1" field="Name"/>
+                <alias name="" index="2" field="Dscrptn"/>
+                <alias name="" index="3" field="Size[h]"/>
+              </aliases>
+              <excludeAttributesWMS/>
+              <excludeAttributesWFS/>
+              <defaults>
+                <default applyOnUpdate="0" field="fid" expression=""/>
+                <default applyOnUpdate="0" field="Name" expression=""/>
+                <default applyOnUpdate="0" field="Dscrptn" expression=""/>
+                <default applyOnUpdate="0" field="Size[h]" expression=""/>
+              </defaults>
+              <constraints>
+                <constraint constraints="0" notnull_strength="0" exp_strength="0" unique_strength="0" field="fid"/>
+                <constraint constraints="0" notnull_strength="0" exp_strength="0" unique_strength="0" field="Name"/>
+                <constraint constraints="0" notnull_strength="0" exp_strength="0" unique_strength="0" field="Dscrptn"/>
+                <constraint constraints="0" notnull_strength="0" exp_strength="0" unique_strength="0" field="Size[h]"/>
+              </constraints>
+              <constraintExpressions>
+                <constraint desc="" exp="" field="fid"/>
+                <constraint desc="" exp="" field="Name"/>
+                <constraint desc="" exp="" field="Dscrptn"/>
+                <constraint desc="" exp="" field="Size[h]"/>
+              </constraintExpressions>
+              <attributeactions>
+                <defaultAction value="{00000000-0000-0000-0000-000000000000}" key="Canvas"/>
+              </attributeactions>
+              <attributetableconfig sortExpression="" sortOrder="0" actionWidgetStyle="dropDown">
+                <columns>
+                  <column name="fid" type="field" width="-1" hidden="0"/>
+                  <column name="Name" type="field" width="-1" hidden="0"/>
+                  <column name="Dscrptn" type="field" width="-1" hidden="0"/>
+                  <column name="Size[h]" type="field" width="-1" hidden="0"/>
+                  <column type="actions" width="-1" hidden="1"/>
+                </columns>
+              </attributetableconfig>
+              <editform>/mnt/mccoy/home/patrick/PhD/papers/03_hyperspectral/03_figures/data</editform>
+              <editforminit/>
+              <editforminitcodesource>0</editforminitcodesource>
+              <editforminitfilepath/>
+              <editforminitcode><![CDATA[# -*- coding: utf-8 -*-
+"""
+QGIS forms can have a Python function that is called when the form is
+opened.
+
+Use this function to add extra logic to your forms.
+
+Enter the name of the function in the "Python Init function"
+field.
+An example follows:
+"""
+from qgis.PyQt.QtWidgets import QWidget
+
+def my_form_open(dialog, layer, feature):
+	geom = feature.geometry()
+	control = dialog.findChild(QWidget, "MyLineEdit")
+]]></editforminitcode>
+              <featformsuppress>0</featformsuppress>
+              <editorlayout>generatedlayout</editorlayout>
+              <editable>
+                <field name="Dscrptn" editable="1"/>
+                <field name="Name" editable="1"/>
+                <field name="Size[h]" editable="1"/>
+                <field name="fid" editable="1"/>
+              </editable>
+              <labelOnTop>
+                <field name="Dscrptn" labelOnTop="0"/>
+                <field name="Name" labelOnTop="0"/>
+                <field name="Size[h]" labelOnTop="0"/>
+                <field name="fid" labelOnTop="0"/>
+              </labelOnTop>
+              <widgets/>
+              <conditionalstyles>
+                <rowstyles/>
+                <fieldstyles/>
+              </conditionalstyles>
+              <expressionfields/>
+              <previewExpression>fid</previewExpression>
+              <mapTip/>
+              <layerGeometryType>0</layerGeometryType>
+            </qgis>
+          </LayerStyle>
+          <LayerStyle name="laukiz1" layerid="laukiz1_a2c20a42_c294_4029_b9df_494ea5f1a7a2" source="/mnt/lossa/data_mccoy_kirk_scotty/patrick/mod/tree-per-tree/2016/laukiz1/laukiz1.gpkg" provider="ogr">
+            <qgis simplifyMaxScale="1" labelsEnabled="0" simplifyAlgorithm="0" simplifyLocal="1" simplifyDrawingHints="0" minScale="1e+8" maxScale="0" version="3.0.2-Girona" readOnly="0" simplifyDrawingTol="1" hasScaleBasedVisibilityFlag="0">
+              <renderer-v2 type="singleSymbol" forceraster="0" symbollevels="0" enableorderby="0">
+                <symbols>
+                  <symbol name="0" clip_to_extent="1" type="marker" alpha="1">
+                    <layer enabled="1" pass="0" class="SimpleMarker" locked="0">
                       <prop k="angle" v="0"/>
                       <prop k="color" v="253,231,37,255"/>
                       <prop k="horizontal_anchor_point" v="1"/>
@@ -6327,7 +6733,7 @@ def my_form_open(dialog, layer, feature):
               <featureBlendMode>0</featureBlendMode>
               <layerOpacity>1</layerOpacity>
               <SingleCategoryDiagramRenderer diagramType="Histogram" attributeLegend="1">
-                <DiagramCategory lineSizeScale="3x:0,0,0,0,0,0" diagramOrientation="Up" scaleBasedVisibility="0" lineSizeType="MM" penAlpha="255" scaleDependency="Area" penWidth="0" barWidth="5" backgroundColor="#ffffff" rotationOffset="270" opacity="1" minimumSize="0" maxScaleDenominator="1e+8" backgroundAlpha="255" sizeScale="3x:0,0,0,0,0,0" minScaleDenominator="0" enabled="0" height="15" penColor="#000000" labelPlacementMethod="XHeight" width="15" sizeType="MM">
+                <DiagramCategory lineSizeScale="3x:0,0,0,0,0,0" diagramOrientation="Up" scaleBasedVisibility="0" lineSizeType="MM" penAlpha="255" scaleDependency="Area" penWidth="0" barWidth="5" backgroundColor="#ffffff" rotationOffset="270" opacity="1" maxScaleDenominator="1e+8" minimumSize="0" backgroundAlpha="255" sizeScale="3x:0,0,0,0,0,0" enabled="0" minScaleDenominator="0" height="15" penColor="#000000" labelPlacementMethod="XHeight" width="15" sizeType="MM">
                   <fontProperties description="Fira Sans,10,-1,0,57,0,0,0,0,0,Medium" style="Medium"/>
                   <attribute label="" color="#000000" field=""/>
                 </DiagramCategory>
@@ -6428,11 +6834,11 @@ def my_form_open(dialog, layer, feature):
             </qgis>
           </LayerStyle>
           <LayerStyle name="laukiz2" layerid="laukiz2_5a06d5ca_778f_44ed_9cd1_e511853159a9" source="/mnt/lossa/data_mccoy_kirk_scotty/patrick/mod/tree-per-tree/2016/laukiz2/laukiz2.gpkg" provider="ogr">
-            <qgis simplifyMaxScale="1" simplifyLocal="1" simplifyAlgorithm="0" labelsEnabled="0" simplifyDrawingHints="0" minScale="1e+8" maxScale="0" version="3.0.2-Girona" readOnly="0" simplifyDrawingTol="1" hasScaleBasedVisibilityFlag="0">
+            <qgis simplifyMaxScale="1" labelsEnabled="0" simplifyAlgorithm="0" simplifyLocal="1" simplifyDrawingHints="0" minScale="1e+8" maxScale="0" version="3.0.2-Girona" readOnly="0" simplifyDrawingTol="1" hasScaleBasedVisibilityFlag="0">
               <renderer-v2 type="singleSymbol" forceraster="0" symbollevels="0" enableorderby="0">
                 <symbols>
-                  <symbol clip_to_extent="1" name="0" type="marker" alpha="1">
-                    <layer pass="0" enabled="1" class="SimpleMarker" locked="0">
+                  <symbol name="0" clip_to_extent="1" type="marker" alpha="1">
+                    <layer enabled="1" pass="0" class="SimpleMarker" locked="0">
                       <prop k="angle" v="0"/>
                       <prop k="color" v="253,231,37,255"/>
                       <prop k="horizontal_anchor_point" v="1"/>
@@ -6465,6 +6871,9 @@ def my_form_open(dialog, layer, feature):
                 <sizescale/>
               </renderer-v2>
               <customproperties>
+                <property key="dualview/previewExpressions">
+                  <value>fid</value>
+                </property>
                 <property value="0" key="embeddedWidgets/count"/>
                 <property key="variableNames"/>
                 <property key="variableValues"/>
@@ -6473,7 +6882,7 @@ def my_form_open(dialog, layer, feature):
               <featureBlendMode>0</featureBlendMode>
               <layerOpacity>1</layerOpacity>
               <SingleCategoryDiagramRenderer diagramType="Histogram" attributeLegend="1">
-                <DiagramCategory lineSizeScale="3x:0,0,0,0,0,0" diagramOrientation="Up" scaleBasedVisibility="0" lineSizeType="MM" penAlpha="255" scaleDependency="Area" penWidth="0" barWidth="5" backgroundColor="#ffffff" rotationOffset="270" opacity="1" minimumSize="0" maxScaleDenominator="1e+8" backgroundAlpha="255" sizeScale="3x:0,0,0,0,0,0" minScaleDenominator="0" enabled="0" height="15" penColor="#000000" labelPlacementMethod="XHeight" width="15" sizeType="MM">
+                <DiagramCategory lineSizeScale="3x:0,0,0,0,0,0" diagramOrientation="Up" scaleBasedVisibility="0" lineSizeType="MM" penAlpha="255" scaleDependency="Area" penWidth="0" barWidth="5" backgroundColor="#ffffff" rotationOffset="270" opacity="1" maxScaleDenominator="1e+8" minimumSize="0" backgroundAlpha="255" sizeScale="3x:0,0,0,0,0,0" enabled="0" minScaleDenominator="0" height="15" penColor="#000000" labelPlacementMethod="XHeight" width="15" sizeType="MM">
                   <fontProperties description="Fira Sans,10,-1,0,57,0,0,0,0,0,Medium" style="Medium"/>
                   <attribute label="" color="#000000" field=""/>
                 </DiagramCategory>
@@ -6574,11 +6983,11 @@ def my_form_open(dialog, layer, feature):
             </qgis>
           </LayerStyle>
           <LayerStyle name="location_demonstration_plots test copy" layerid="location_demonstration_plots_test_59a73508_3e2b_4712_8f52_78ba08446d2a" source="/mnt/lossa/data_mccoy_kirk_scotty/patrick/mod/plots/location/location_demonstration_plots.gpkg" provider="ogr">
-            <qgis simplifyMaxScale="1" simplifyLocal="1" simplifyAlgorithm="0" labelsEnabled="1" simplifyDrawingHints="1" minScale="1e+8" maxScale="0" version="3.0.2-Girona" readOnly="0" simplifyDrawingTol="1" hasScaleBasedVisibilityFlag="0">
+            <qgis simplifyMaxScale="1" labelsEnabled="1" simplifyAlgorithm="0" simplifyLocal="1" simplifyDrawingHints="1" minScale="1e+8" maxScale="0" version="3.0.2-Girona" readOnly="0" simplifyDrawingTol="1" hasScaleBasedVisibilityFlag="0">
               <renderer-v2 type="singleSymbol" forceraster="0" symbollevels="0" enableorderby="0">
                 <symbols>
-                  <symbol clip_to_extent="1" name="0" type="fill" alpha="1">
-                    <layer pass="0" enabled="1" class="SimpleLine" locked="0">
+                  <symbol name="0" clip_to_extent="1" type="fill" alpha="1">
+                    <layer enabled="0" pass="0" class="SimpleLine" locked="0">
                       <prop k="capstyle" v="square"/>
                       <prop k="customdash" v="5;2"/>
                       <prop k="customdash_map_unit_scale" v="3x:0,0,0,0,0,0"/>
@@ -6587,7 +6996,7 @@ def my_form_open(dialog, layer, feature):
                       <prop k="joinstyle" v="bevel"/>
                       <prop k="line_color" v="255,0,0,255"/>
                       <prop k="line_style" v="solid"/>
-                      <prop k="line_width" v="1"/>
+                      <prop k="line_width" v="0"/>
                       <prop k="line_width_unit" v="MM"/>
                       <prop k="offset" v="0"/>
                       <prop k="offset_map_unit_scale" v="3x:0,0,0,0,0,0"/>
@@ -6609,14 +7018,14 @@ def my_form_open(dialog, layer, feature):
               </renderer-v2>
               <labeling type="simple">
                 <settings>
-                  <text-style fieldName="Name" fontUnderline="0" fontWeight="57" fontStrikeout="0" isExpression="0" fontFamily="Fira Sans" textOpacity="1" fontSizeMapUnitScale="3x:0,0,0,0,0,0" previewBkgrdColor="#000000" fontWordSpacing="0" fontSizeUnit="Point" fontLetterSpacing="0" useSubstitutions="0" multilineHeight="1" namedStyle="Medium" textColor="0,0,0,255" blendMode="0" fontCapitals="0" fontItalic="0" fontSize="15">
-                    <text-buffer bufferSizeMapUnitScale="3x:0,0,0,0,0,0" bufferSize="1" bufferBlendMode="0" bufferColor="255,255,255,255" bufferSizeUnits="MM" bufferNoFill="1" bufferOpacity="1" bufferDraw="0" bufferJoinStyle="128"/>
-                    <background shapeOffsetY="0" shapeSizeY="0.5" shapeDraw="1" shapeOffsetUnit="MM" shapeBlendMode="0" shapeJoinStyle="64" shapeRadiiY="0" shapeSizeType="0" shapeSizeUnit="MM" shapeOffsetMapUnitScale="3x:0,0,0,0,0,0" shapeRadiiX="0" shapeSVGFile="" shapeRotationType="0" shapeSizeMapUnitScale="3x:0,0,0,0,0,0" shapeSizeX="0.5" shapeType="0" shapeBorderWidth="0" shapeBorderWidthMapUnitScale="3x:0,0,0,0,0,0" shapeRadiiUnit="MM" shapeRadiiMapUnitScale="3x:0,0,0,0,0,0" shapeBorderColor="128,128,128,255" shapeRotation="0" shapeBorderWidthUnit="MM" shapeOffsetX="0" shapeFillColor="255,255,255,255" shapeOpacity="1"/>
-                    <shadow shadowOffsetGlobal="1" shadowColor="0,0,0,255" shadowOffsetAngle="135" shadowOffsetDist="1" shadowOpacity="0.7" shadowDraw="0" shadowRadiusAlphaOnly="0" shadowScale="100" shadowOffsetUnit="MM" shadowUnder="0" shadowOffsetMapUnitScale="3x:0,0,0,0,0,0" shadowBlendMode="6" shadowRadius="1.5" shadowRadiusMapUnitScale="3x:0,0,0,0,0,0" shadowRadiusUnit="MM"/>
+                  <text-style fieldName="Name" fontUnderline="0" fontWeight="50" fontStrikeout="0" isExpression="0" fontFamily="Cantarell" textOpacity="1" fontSizeMapUnitScale="3x:0,0,0,0,0,0" previewBkgrdColor="#000000" fontWordSpacing="0" fontSizeUnit="Point" fontLetterSpacing="0" useSubstitutions="0" multilineHeight="1" namedStyle="Regular" textColor="0,0,0,255" blendMode="0" fontItalic="0" fontCapitals="0" fontSize="15">
+                    <text-buffer bufferSizeMapUnitScale="3x:0,0,0,0,0,0" bufferSize="1" bufferBlendMode="0" bufferSizeUnits="MM" bufferColor="255,255,255,255" bufferNoFill="1" bufferOpacity="1" bufferDraw="0" bufferJoinStyle="128"/>
+                    <background shapeOffsetY="0" shapeSizeY="0.5" shapeDraw="1" shapeOffsetUnit="MM" shapeBlendMode="0" shapeJoinStyle="64" shapeRadiiY="0" shapeSizeType="0" shapeSizeUnit="MM" shapeOffsetMapUnitScale="3x:0,0,0,0,0,0" shapeRadiiX="0" shapeSVGFile="" shapeRotationType="0" shapeSizeMapUnitScale="3x:0,0,0,0,0,0" shapeSizeX="0.5" shapeType="0" shapeBorderWidth="0" shapeRadiiUnit="MM" shapeBorderWidthMapUnitScale="3x:0,0,0,0,0,0" shapeRadiiMapUnitScale="3x:0,0,0,0,0,0" shapeBorderColor="128,128,128,255" shapeRotation="0" shapeBorderWidthUnit="MM" shapeOffsetX="0" shapeFillColor="255,255,255,255" shapeOpacity="1"/>
+                    <shadow shadowOffsetGlobal="1" shadowOffsetAngle="135" shadowColor="0,0,0,255" shadowOffsetDist="1" shadowOpacity="0.7" shadowDraw="0" shadowRadiusAlphaOnly="0" shadowUnder="0" shadowOffsetUnit="MM" shadowScale="100" shadowOffsetMapUnitScale="3x:0,0,0,0,0,0" shadowRadius="1.5" shadowBlendMode="6" shadowRadiusUnit="MM" shadowRadiusMapUnitScale="3x:0,0,0,0,0,0"/>
                     <substitutions/>
                   </text-style>
-                  <text-format leftDirectionSymbol="&lt;" plussign="0" multilineAlign="4294967295" reverseDirectionSymbol="0" formatNumbers="0" placeDirectionSymbol="0" decimals="3" wrapChar="" rightDirectionSymbol=">" addDirectionSymbol="0"/>
-                  <placement maxCurvedCharAngleOut="-25" preserveRotation="1" priority="6" centroidWhole="0" offsetUnits="MM" maxCurvedCharAngleIn="25" labelOffsetMapUnitScale="3x:0,0,0,0,0,0" quadOffset="4" placementFlags="10" offsetType="0" centroidInside="0" predefinedPositionOrder="TR,TL,BR,BL,R,L,TSR,BSR" placement="7" rotationAngle="0" distUnits="MM" distMapUnitScale="3x:0,0,0,0,0,0" fitInPolygonOnly="0" repeatDistance="0" repeatDistanceUnits="MM" xOffset="5.6" yOffset="-50" repeatDistanceMapUnitScale="3x:0,0,0,0,0,0" dist="2"/>
+                  <text-format leftDirectionSymbol="&lt;" plussign="0" multilineAlign="4294967295" reverseDirectionSymbol="0" placeDirectionSymbol="0" formatNumbers="0" wrapChar="" rightDirectionSymbol=">" decimals="3" addDirectionSymbol="0"/>
+                  <placement maxCurvedCharAngleOut="-25" preserveRotation="1" priority="6" centroidWhole="0" offsetUnits="MM" maxCurvedCharAngleIn="25" labelOffsetMapUnitScale="3x:0,0,0,0,0,0" quadOffset="4" placementFlags="10" offsetType="0" centroidInside="0" predefinedPositionOrder="TR,TL,BR,BL,R,L,TSR,BSR" placement="7" rotationAngle="0" distUnits="MM" fitInPolygonOnly="0" distMapUnitScale="3x:0,0,0,0,0,0" repeatDistance="0" xOffset="5.6" repeatDistanceUnits="MM" yOffset="-50" repeatDistanceMapUnitScale="3x:0,0,0,0,0,0" dist="2"/>
                   <rendering obstacle="1" displayAll="0" scaleMin="0" upsidedownLabels="0" obstacleFactor="1" fontMaxPixelSize="10000" mergeLines="0" zIndex="0" maxNumLabels="2000" obstacleType="0" fontMinPixelSize="3" limitNumLabels="0" fontLimitPixelSize="0" scaleMax="0" labelPerPart="0" minFeatureSize="0" drawLabels="1" scaleVisibility="0"/>
                   <dd_properties>
                     <Option type="Map">
@@ -6637,7 +7046,7 @@ def my_form_open(dialog, layer, feature):
               <featureBlendMode>0</featureBlendMode>
               <layerOpacity>1</layerOpacity>
               <SingleCategoryDiagramRenderer diagramType="Histogram" attributeLegend="1">
-                <DiagramCategory lineSizeScale="3x:0,0,0,0,0,0" diagramOrientation="Up" scaleBasedVisibility="0" lineSizeType="MM" penAlpha="255" scaleDependency="Area" penWidth="0" barWidth="5" backgroundColor="#ffffff" rotationOffset="270" opacity="1" minimumSize="0" maxScaleDenominator="1e+8" backgroundAlpha="255" sizeScale="3x:0,0,0,0,0,0" minScaleDenominator="0" enabled="0" height="15" penColor="#000000" labelPlacementMethod="XHeight" width="15" sizeType="MM">
+                <DiagramCategory lineSizeScale="3x:0,0,0,0,0,0" diagramOrientation="Up" scaleBasedVisibility="0" lineSizeType="MM" penAlpha="255" scaleDependency="Area" penWidth="0" barWidth="5" backgroundColor="#ffffff" rotationOffset="270" opacity="1" maxScaleDenominator="1e+8" minimumSize="0" backgroundAlpha="255" sizeScale="3x:0,0,0,0,0,0" enabled="0" minScaleDenominator="0" height="15" penColor="#000000" labelPlacementMethod="XHeight" width="15" sizeType="MM">
                   <fontProperties description="Fira Sans,10,-1,0,57,0,0,0,0,0,Medium" style="Medium"/>
                   <attribute label="" color="#000000" field=""/>
                 </DiagramCategory>
@@ -6766,11 +7175,11 @@ def my_form_open(dialog, layer, feature):
             </qgis>
           </LayerStyle>
           <LayerStyle name="luiando" layerid="luiando_f5140553_9274_4b18_8bf6_e8f3013cce4d" source="/mnt/lossa/data_mccoy_kirk_scotty/patrick/mod/tree-per-tree/2016/luiando/luiando.shp" provider="ogr">
-            <qgis simplifyMaxScale="1" simplifyLocal="1" simplifyAlgorithm="0" labelsEnabled="0" simplifyDrawingHints="0" minScale="1e+8" maxScale="0" version="3.0.2-Girona" readOnly="0" simplifyDrawingTol="1" hasScaleBasedVisibilityFlag="0">
+            <qgis simplifyMaxScale="1" labelsEnabled="0" simplifyAlgorithm="0" simplifyLocal="1" simplifyDrawingHints="0" minScale="1e+8" maxScale="0" version="3.0.2-Girona" readOnly="0" simplifyDrawingTol="1" hasScaleBasedVisibilityFlag="0">
               <renderer-v2 type="singleSymbol" forceraster="0" symbollevels="0" enableorderby="0">
                 <symbols>
-                  <symbol clip_to_extent="1" name="0" type="marker" alpha="1">
-                    <layer pass="0" enabled="1" class="SimpleMarker" locked="0">
+                  <symbol name="0" clip_to_extent="1" type="marker" alpha="1">
+                    <layer enabled="1" pass="0" class="SimpleMarker" locked="0">
                       <prop k="angle" v="0"/>
                       <prop k="color" v="253,231,37,255"/>
                       <prop k="horizontal_anchor_point" v="1"/>
@@ -6811,7 +7220,7 @@ def my_form_open(dialog, layer, feature):
               <featureBlendMode>0</featureBlendMode>
               <layerOpacity>1</layerOpacity>
               <SingleCategoryDiagramRenderer diagramType="Histogram" attributeLegend="1">
-                <DiagramCategory lineSizeScale="3x:0,0,0,0,0,0" diagramOrientation="Up" scaleBasedVisibility="0" lineSizeType="MM" penAlpha="255" scaleDependency="Area" penWidth="0" barWidth="5" backgroundColor="#ffffff" rotationOffset="270" opacity="1" minimumSize="0" maxScaleDenominator="1e+8" backgroundAlpha="255" sizeScale="3x:0,0,0,0,0,0" minScaleDenominator="0" enabled="0" height="15" penColor="#000000" labelPlacementMethod="XHeight" width="15" sizeType="MM">
+                <DiagramCategory lineSizeScale="3x:0,0,0,0,0,0" diagramOrientation="Up" scaleBasedVisibility="0" lineSizeType="MM" penAlpha="255" scaleDependency="Area" penWidth="0" barWidth="5" backgroundColor="#ffffff" rotationOffset="270" opacity="1" maxScaleDenominator="1e+8" minimumSize="0" backgroundAlpha="255" sizeScale="3x:0,0,0,0,0,0" enabled="0" minScaleDenominator="0" height="15" penColor="#000000" labelPlacementMethod="XHeight" width="15" sizeType="MM">
                   <fontProperties description="Fira Sans,10,-1,0,57,0,0,0,0,0,Medium" style="Medium"/>
                   <attribute label="" color="#000000" field=""/>
                 </DiagramCategory>
@@ -6965,7 +7374,7 @@ def my_form_open(dialog, layer, feature):
                   <column type="actions" width="-1" hidden="1"/>
                 </columns>
               </attributetableconfig>
-              <editform/>
+              <editform>/mnt/mccoy/home/patrick/PhD/papers/03_hyperspectral/03_figures/data</editform>
               <editforminit/>
               <editforminitcodesource>0</editforminitcodesource>
               <editforminitfilepath/>
@@ -7024,11 +7433,11 @@ def my_form_open(dialog, layer, feature):
             </qgis>
           </LayerStyle>
           <LayerStyle name="oiartzun" layerid="oiartzun_5392b1b1_32aa_49ac_8901_c7f46660c552" source="/mnt/lossa/data_mccoy_kirk_scotty/patrick/mod/tree-per-tree/2016/oiartzun/oiartzun.shp" provider="ogr">
-            <qgis simplifyMaxScale="1" simplifyLocal="1" simplifyAlgorithm="0" labelsEnabled="0" simplifyDrawingHints="0" minScale="1e+8" maxScale="0" version="3.0.2-Girona" readOnly="0" simplifyDrawingTol="1" hasScaleBasedVisibilityFlag="0">
+            <qgis simplifyMaxScale="1" labelsEnabled="0" simplifyAlgorithm="0" simplifyLocal="1" simplifyDrawingHints="0" minScale="1e+8" maxScale="0" version="3.0.2-Girona" readOnly="0" simplifyDrawingTol="1" hasScaleBasedVisibilityFlag="0">
               <renderer-v2 type="singleSymbol" forceraster="0" symbollevels="0" enableorderby="0">
                 <symbols>
-                  <symbol clip_to_extent="1" name="0" type="marker" alpha="1">
-                    <layer pass="0" enabled="1" class="SimpleMarker" locked="0">
+                  <symbol name="0" clip_to_extent="1" type="marker" alpha="1">
+                    <layer enabled="1" pass="0" class="SimpleMarker" locked="0">
                       <prop k="angle" v="0"/>
                       <prop k="color" v="253,231,37,255"/>
                       <prop k="horizontal_anchor_point" v="1"/>
@@ -7069,7 +7478,7 @@ def my_form_open(dialog, layer, feature):
               <featureBlendMode>0</featureBlendMode>
               <layerOpacity>1</layerOpacity>
               <SingleCategoryDiagramRenderer diagramType="Histogram" attributeLegend="1">
-                <DiagramCategory lineSizeScale="3x:0,0,0,0,0,0" diagramOrientation="Up" scaleBasedVisibility="0" lineSizeType="MM" penAlpha="255" scaleDependency="Area" penWidth="0" barWidth="5" backgroundColor="#ffffff" rotationOffset="270" opacity="1" minimumSize="0" maxScaleDenominator="1e+8" backgroundAlpha="255" sizeScale="3x:0,0,0,0,0,0" minScaleDenominator="0" enabled="0" height="15" penColor="#000000" labelPlacementMethod="XHeight" width="15" sizeType="MM">
+                <DiagramCategory lineSizeScale="3x:0,0,0,0,0,0" diagramOrientation="Up" scaleBasedVisibility="0" lineSizeType="MM" penAlpha="255" scaleDependency="Area" penWidth="0" barWidth="5" backgroundColor="#ffffff" rotationOffset="270" opacity="1" maxScaleDenominator="1e+8" minimumSize="0" backgroundAlpha="255" sizeScale="3x:0,0,0,0,0,0" enabled="0" minScaleDenominator="0" height="15" penColor="#000000" labelPlacementMethod="XHeight" width="15" sizeType="MM">
                   <fontProperties description="Fira Sans,10,-1,0,57,0,0,0,0,0,Medium" style="Medium"/>
                   <attribute label="" color="#000000" field=""/>
                 </DiagramCategory>
@@ -7235,7 +7644,7 @@ def my_form_open(dialog, layer, feature):
                   <column type="actions" width="-1" hidden="1"/>
                 </columns>
               </attributetableconfig>
-              <editform/>
+              <editform>/mnt/mccoy/home/patrick/PhD/papers/03_hyperspectral/03_figures/data</editform>
               <editforminit/>
               <editforminitcodesource>0</editforminitcodesource>
               <editforminitfilepath/>
@@ -7375,6 +7784,7 @@ def my_form_open(dialog, layer, feature):
         </LayoutObject>
         <Extent xmax="-2.92746750726008198" ymax="43.35514799238345063" ymin="43.35227027787323806" xmin="-2.93222626442574708"/>
         <LayerSet>
+          <Layer name="centroids_demonstration_plots" source="/mnt/lossa/data_mccoy_kirk_scotty/patrick/mod/plots/location/centroids_demonstration_plots.shp" provider="ogr">centroids_demonstration_plots_ac43a88b_d69f_4338_8d54_bb600a798a7d</Layer>
           <Layer name="location_demonstration_plots test copy" source="/mnt/lossa/data_mccoy_kirk_scotty/patrick/mod/plots/location/location_demonstration_plots.gpkg" provider="ogr">location_demonstration_plots_test_59a73508_3e2b_4712_8f52_78ba08446d2a</Layer>
           <Layer name="laukiz2" source="/mnt/lossa/data_mccoy_kirk_scotty/patrick/mod/tree-per-tree/2016/laukiz2/laukiz2.gpkg" provider="ogr">laukiz2_5a06d5ca_778f_44ed_9cd1_e511853159a9</Layer>
           <Layer name="laukiz1" source="/mnt/lossa/data_mccoy_kirk_scotty/patrick/mod/tree-per-tree/2016/laukiz1/laukiz1.gpkg" provider="ogr">laukiz1_a2c20a42_c294_4029_b9df_494ea5f1a7a2</Layer>
@@ -7387,7 +7797,7 @@ def my_form_open(dialog, layer, feature):
           <LayerStyle name="Bing Aerial" layerid="Bing_Aerial_98368064_41da_4ee4_940d_594787eca393" source="crs=EPSG:3857&amp;format&amp;type=xyz&amp;url=http://ecn.t3.tiles.virtualearth.net/tiles/a%7Bq%7D.jpeg?g%3D1&amp;zmax=18&amp;zmin=0" provider="wms">
             <qgis minScale="1e+8" maxScale="0" version="3.0.2-Girona" hasScaleBasedVisibilityFlag="0">
               <pipe>
-                <rasterrenderer type="singlebandcolordata" alphaBand="-1" opacity="1" band="1">
+                <rasterrenderer type="singlebandcolordata" opacity="1" alphaBand="-1" band="1">
                   <rasterTransparency/>
                   <minMaxOrigin>
                     <limits>None</limits>
@@ -7406,11 +7816,11 @@ def my_form_open(dialog, layer, feature):
             </qgis>
           </LayerStyle>
           <LayerStyle name="Study_area_new" layerid="Study_area_new20180205160426241" source="/mnt/lossa/data_mccoy_kirk_scotty/patrick/raw/boundaries/basque-country/Study_area_new.shp" provider="ogr">
-            <qgis simplifyMaxScale="1" simplifyLocal="1" simplifyAlgorithm="0" labelsEnabled="0" simplifyDrawingHints="1" minScale="1e+8" maxScale="0" version="3.0.2-Girona" readOnly="0" simplifyDrawingTol="1" hasScaleBasedVisibilityFlag="0">
+            <qgis simplifyMaxScale="1" labelsEnabled="0" simplifyAlgorithm="0" simplifyLocal="1" simplifyDrawingHints="1" minScale="1e+8" maxScale="0" version="3.0.2-Girona" readOnly="0" simplifyDrawingTol="1" hasScaleBasedVisibilityFlag="0">
               <renderer-v2 type="singleSymbol" forceraster="0" symbollevels="0" enableorderby="0">
                 <symbols>
-                  <symbol clip_to_extent="1" name="0" type="fill" alpha="1">
-                    <layer pass="0" enabled="1" class="SimpleLine" locked="0">
+                  <symbol name="0" clip_to_extent="1" type="fill" alpha="1">
+                    <layer enabled="1" pass="0" class="SimpleLine" locked="0">
                       <prop k="capstyle" v="square"/>
                       <prop k="customdash" v="5;2"/>
                       <prop k="customdash_map_unit_scale" v="3x:0,0,0,0,0,0"/>
@@ -7448,7 +7858,7 @@ def my_form_open(dialog, layer, feature):
               <featureBlendMode>0</featureBlendMode>
               <layerOpacity>1</layerOpacity>
               <SingleCategoryDiagramRenderer diagramType="Histogram" attributeLegend="1">
-                <DiagramCategory lineSizeScale="3x:0,0,0,0,0,0" diagramOrientation="Up" scaleBasedVisibility="0" lineSizeType="MM" penAlpha="255" scaleDependency="Area" penWidth="0" barWidth="5" backgroundColor="#ffffff" rotationOffset="270" opacity="1" minimumSize="0" maxScaleDenominator="1e+8" backgroundAlpha="255" sizeScale="3x:0,0,0,0,0,0" minScaleDenominator="-2.14748e+9" enabled="0" height="15" penColor="#000000" labelPlacementMethod="XHeight" width="15" sizeType="MM">
+                <DiagramCategory lineSizeScale="3x:0,0,0,0,0,0" diagramOrientation="Up" scaleBasedVisibility="0" lineSizeType="MM" penAlpha="255" scaleDependency="Area" penWidth="0" barWidth="5" backgroundColor="#ffffff" rotationOffset="270" opacity="1" maxScaleDenominator="1e+8" minimumSize="0" backgroundAlpha="255" sizeScale="3x:0,0,0,0,0,0" enabled="0" minScaleDenominator="-2.14748e+9" height="15" penColor="#000000" labelPlacementMethod="XHeight" width="15" sizeType="MM">
                   <fontProperties description="Noto Sans,10,-1,0,50,0,0,0,0,0" style=""/>
                   <attribute label="" color="#000000" field=""/>
                 </DiagramCategory>
@@ -7571,12 +7981,206 @@ def my_form_open(dialog, layer, feature):
               <layerGeometryType>2</layerGeometryType>
             </qgis>
           </LayerStyle>
-          <LayerStyle name="laukiz1" layerid="laukiz1_a2c20a42_c294_4029_b9df_494ea5f1a7a2" source="/mnt/lossa/data_mccoy_kirk_scotty/patrick/mod/tree-per-tree/2016/laukiz1/laukiz1.gpkg" provider="ogr">
-            <qgis simplifyMaxScale="1" simplifyLocal="1" simplifyAlgorithm="0" labelsEnabled="0" simplifyDrawingHints="0" minScale="1e+8" maxScale="0" version="3.0.2-Girona" readOnly="0" simplifyDrawingTol="1" hasScaleBasedVisibilityFlag="0">
+          <LayerStyle name="centroids_demonstration_plots" layerid="centroids_demonstration_plots_ac43a88b_d69f_4338_8d54_bb600a798a7d" source="/mnt/lossa/data_mccoy_kirk_scotty/patrick/mod/plots/location/centroids_demonstration_plots.shp" provider="ogr">
+            <qgis simplifyMaxScale="1" labelsEnabled="0" simplifyAlgorithm="0" simplifyLocal="1" simplifyDrawingHints="0" minScale="1e+8" maxScale="0" version="3.0.2-Girona" readOnly="0" simplifyDrawingTol="1" hasScaleBasedVisibilityFlag="0">
               <renderer-v2 type="singleSymbol" forceraster="0" symbollevels="0" enableorderby="0">
                 <symbols>
-                  <symbol clip_to_extent="1" name="0" type="marker" alpha="1">
-                    <layer pass="0" enabled="1" class="SimpleMarker" locked="0">
+                  <symbol name="0" clip_to_extent="1" type="marker" alpha="1">
+                    <layer enabled="1" pass="0" class="SimpleMarker" locked="0">
+                      <prop k="angle" v="0"/>
+                      <prop k="color" v="255,0,0,255"/>
+                      <prop k="horizontal_anchor_point" v="1"/>
+                      <prop k="joinstyle" v="bevel"/>
+                      <prop k="name" v="circle"/>
+                      <prop k="offset" v="0,0"/>
+                      <prop k="offset_map_unit_scale" v="3x:0,0,0,0,0,0"/>
+                      <prop k="offset_unit" v="MM"/>
+                      <prop k="outline_color" v="35,35,35,255"/>
+                      <prop k="outline_style" v="solid"/>
+                      <prop k="outline_width" v="0"/>
+                      <prop k="outline_width_map_unit_scale" v="3x:0,0,0,0,0,0"/>
+                      <prop k="outline_width_unit" v="MM"/>
+                      <prop k="scale_method" v="diameter"/>
+                      <prop k="size" v="3"/>
+                      <prop k="size_map_unit_scale" v="3x:0,0,0,0,0,0"/>
+                      <prop k="size_unit" v="MM"/>
+                      <prop k="vertical_anchor_point" v="1"/>
+                      <data_defined_properties>
+                        <Option type="Map">
+                          <Option name="name" type="QString" value=""/>
+                          <Option name="properties"/>
+                          <Option name="type" type="QString" value="collection"/>
+                        </Option>
+                      </data_defined_properties>
+                    </layer>
+                  </symbol>
+                </symbols>
+                <rotation/>
+                <sizescale/>
+              </renderer-v2>
+              <labeling type="simple">
+                <settings>
+                  <text-style fieldName="Name" fontUnderline="0" fontWeight="57" fontStrikeout="0" isExpression="0" fontFamily="Cantarell" textOpacity="1" fontSizeMapUnitScale="3x:0,0,0,0,0,0" previewBkgrdColor="#ffffff" fontWordSpacing="0" fontSizeUnit="Point" fontLetterSpacing="0" useSubstitutions="0" multilineHeight="1" namedStyle="Medium" textColor="0,0,0,255" blendMode="0" fontItalic="0" fontCapitals="0" fontSize="10">
+                    <text-buffer bufferSizeMapUnitScale="3x:0,0,0,0,0,0" bufferSize="1" bufferBlendMode="0" bufferSizeUnits="MM" bufferColor="255,255,255,255" bufferNoFill="1" bufferOpacity="1" bufferDraw="0" bufferJoinStyle="128"/>
+                    <background shapeOffsetY="0" shapeSizeY="0" shapeDraw="1" shapeOffsetUnit="MM" shapeBlendMode="0" shapeJoinStyle="64" shapeRadiiY="0" shapeSizeType="0" shapeSizeUnit="MM" shapeOffsetMapUnitScale="3x:0,0,0,0,0,0" shapeRadiiX="0" shapeSVGFile="" shapeRotationType="0" shapeSizeMapUnitScale="3x:0,0,0,0,0,0" shapeSizeX="0" shapeType="0" shapeBorderWidth="0" shapeRadiiUnit="MM" shapeBorderWidthMapUnitScale="3x:0,0,0,0,0,0" shapeRadiiMapUnitScale="3x:0,0,0,0,0,0" shapeBorderColor="128,128,128,255" shapeRotation="0" shapeBorderWidthUnit="MM" shapeOffsetX="0" shapeFillColor="255,255,255,255" shapeOpacity="1"/>
+                    <shadow shadowOffsetGlobal="1" shadowOffsetAngle="135" shadowColor="0,0,0,255" shadowOffsetDist="1" shadowOpacity="0.7" shadowDraw="0" shadowRadiusAlphaOnly="0" shadowUnder="0" shadowOffsetUnit="MM" shadowScale="100" shadowOffsetMapUnitScale="3x:0,0,0,0,0,0" shadowRadius="1.5" shadowBlendMode="6" shadowRadiusUnit="MM" shadowRadiusMapUnitScale="3x:0,0,0,0,0,0"/>
+                    <substitutions/>
+                  </text-style>
+                  <text-format leftDirectionSymbol="&lt;" plussign="0" multilineAlign="3" reverseDirectionSymbol="0" placeDirectionSymbol="0" formatNumbers="0" wrapChar="" rightDirectionSymbol=">" decimals="3" addDirectionSymbol="0"/>
+                  <placement maxCurvedCharAngleOut="-25" preserveRotation="1" priority="5" centroidWhole="0" offsetUnits="MM" maxCurvedCharAngleIn="25" labelOffsetMapUnitScale="3x:0,0,0,0,0,0" quadOffset="4" placementFlags="10" offsetType="0" centroidInside="0" predefinedPositionOrder="TR,TL,BR,BL,R,L,TSR,BSR" placement="6" rotationAngle="0" distUnits="MM" fitInPolygonOnly="0" distMapUnitScale="3x:0,0,0,0,0,0" repeatDistance="0" xOffset="0" repeatDistanceUnits="MM" yOffset="0" repeatDistanceMapUnitScale="3x:0,0,0,0,0,0" dist="3"/>
+                  <rendering obstacle="1" displayAll="0" scaleMin="0" upsidedownLabels="0" obstacleFactor="1" fontMaxPixelSize="10000" mergeLines="0" zIndex="0" maxNumLabels="2000" obstacleType="0" fontMinPixelSize="3" limitNumLabels="0" fontLimitPixelSize="0" scaleMax="0" labelPerPart="0" minFeatureSize="0" drawLabels="1" scaleVisibility="0"/>
+                  <dd_properties>
+                    <Option type="Map">
+                      <Option name="name" type="QString" value=""/>
+                      <Option name="properties"/>
+                      <Option name="type" type="QString" value="collection"/>
+                    </Option>
+                  </dd_properties>
+                </settings>
+              </labeling>
+              <customproperties>
+                <property value="0" key="embeddedWidgets/count"/>
+                <property key="variableNames"/>
+                <property key="variableValues"/>
+              </customproperties>
+              <blendMode>0</blendMode>
+              <featureBlendMode>0</featureBlendMode>
+              <layerOpacity>1</layerOpacity>
+              <SingleCategoryDiagramRenderer diagramType="Histogram" attributeLegend="1">
+                <DiagramCategory lineSizeScale="3x:0,0,0,0,0,0" diagramOrientation="Up" scaleBasedVisibility="0" lineSizeType="MM" penAlpha="255" scaleDependency="Area" penWidth="0" barWidth="5" backgroundColor="#ffffff" rotationOffset="270" opacity="1" maxScaleDenominator="1e+8" minimumSize="0" backgroundAlpha="255" sizeScale="3x:0,0,0,0,0,0" enabled="0" minScaleDenominator="0" height="15" penColor="#000000" labelPlacementMethod="XHeight" width="15" sizeType="MM">
+                  <fontProperties description="Fira Sans,10,-1,0,57,0,0,0,0,0,Medium" style="Medium"/>
+                  <attribute label="" color="#000000" field=""/>
+                </DiagramCategory>
+              </SingleCategoryDiagramRenderer>
+              <DiagramLayerSettings zIndex="0" placement="0" linePlacementFlags="18" dist="0" priority="0" showAll="1" obstacle="0">
+                <properties>
+                  <Option type="Map">
+                    <Option name="name" type="QString" value=""/>
+                    <Option name="properties"/>
+                    <Option name="type" type="QString" value="collection"/>
+                  </Option>
+                </properties>
+              </DiagramLayerSettings>
+              <fieldConfiguration>
+                <field name="fid">
+                  <editWidget type="TextEdit">
+                    <config>
+                      <Option/>
+                    </config>
+                  </editWidget>
+                </field>
+                <field name="Name">
+                  <editWidget type="TextEdit">
+                    <config>
+                      <Option/>
+                    </config>
+                  </editWidget>
+                </field>
+                <field name="Dscrptn">
+                  <editWidget type="TextEdit">
+                    <config>
+                      <Option/>
+                    </config>
+                  </editWidget>
+                </field>
+                <field name="Size[h]">
+                  <editWidget type="TextEdit">
+                    <config>
+                      <Option/>
+                    </config>
+                  </editWidget>
+                </field>
+              </fieldConfiguration>
+              <aliases>
+                <alias name="" index="0" field="fid"/>
+                <alias name="" index="1" field="Name"/>
+                <alias name="" index="2" field="Dscrptn"/>
+                <alias name="" index="3" field="Size[h]"/>
+              </aliases>
+              <excludeAttributesWMS/>
+              <excludeAttributesWFS/>
+              <defaults>
+                <default applyOnUpdate="0" field="fid" expression=""/>
+                <default applyOnUpdate="0" field="Name" expression=""/>
+                <default applyOnUpdate="0" field="Dscrptn" expression=""/>
+                <default applyOnUpdate="0" field="Size[h]" expression=""/>
+              </defaults>
+              <constraints>
+                <constraint constraints="0" notnull_strength="0" exp_strength="0" unique_strength="0" field="fid"/>
+                <constraint constraints="0" notnull_strength="0" exp_strength="0" unique_strength="0" field="Name"/>
+                <constraint constraints="0" notnull_strength="0" exp_strength="0" unique_strength="0" field="Dscrptn"/>
+                <constraint constraints="0" notnull_strength="0" exp_strength="0" unique_strength="0" field="Size[h]"/>
+              </constraints>
+              <constraintExpressions>
+                <constraint desc="" exp="" field="fid"/>
+                <constraint desc="" exp="" field="Name"/>
+                <constraint desc="" exp="" field="Dscrptn"/>
+                <constraint desc="" exp="" field="Size[h]"/>
+              </constraintExpressions>
+              <attributeactions>
+                <defaultAction value="{00000000-0000-0000-0000-000000000000}" key="Canvas"/>
+              </attributeactions>
+              <attributetableconfig sortExpression="" sortOrder="0" actionWidgetStyle="dropDown">
+                <columns>
+                  <column name="fid" type="field" width="-1" hidden="0"/>
+                  <column name="Name" type="field" width="-1" hidden="0"/>
+                  <column name="Dscrptn" type="field" width="-1" hidden="0"/>
+                  <column name="Size[h]" type="field" width="-1" hidden="0"/>
+                  <column type="actions" width="-1" hidden="1"/>
+                </columns>
+              </attributetableconfig>
+              <editform>/mnt/mccoy/home/patrick/PhD/papers/03_hyperspectral/03_figures/data</editform>
+              <editforminit/>
+              <editforminitcodesource>0</editforminitcodesource>
+              <editforminitfilepath/>
+              <editforminitcode><![CDATA[# -*- coding: utf-8 -*-
+"""
+QGIS forms can have a Python function that is called when the form is
+opened.
+
+Use this function to add extra logic to your forms.
+
+Enter the name of the function in the "Python Init function"
+field.
+An example follows:
+"""
+from qgis.PyQt.QtWidgets import QWidget
+
+def my_form_open(dialog, layer, feature):
+	geom = feature.geometry()
+	control = dialog.findChild(QWidget, "MyLineEdit")
+]]></editforminitcode>
+              <featformsuppress>0</featformsuppress>
+              <editorlayout>generatedlayout</editorlayout>
+              <editable>
+                <field name="Dscrptn" editable="1"/>
+                <field name="Name" editable="1"/>
+                <field name="Size[h]" editable="1"/>
+                <field name="fid" editable="1"/>
+              </editable>
+              <labelOnTop>
+                <field name="Dscrptn" labelOnTop="0"/>
+                <field name="Name" labelOnTop="0"/>
+                <field name="Size[h]" labelOnTop="0"/>
+                <field name="fid" labelOnTop="0"/>
+              </labelOnTop>
+              <widgets/>
+              <conditionalstyles>
+                <rowstyles/>
+                <fieldstyles/>
+              </conditionalstyles>
+              <expressionfields/>
+              <previewExpression>fid</previewExpression>
+              <mapTip/>
+              <layerGeometryType>0</layerGeometryType>
+            </qgis>
+          </LayerStyle>
+          <LayerStyle name="laukiz1" layerid="laukiz1_a2c20a42_c294_4029_b9df_494ea5f1a7a2" source="/mnt/lossa/data_mccoy_kirk_scotty/patrick/mod/tree-per-tree/2016/laukiz1/laukiz1.gpkg" provider="ogr">
+            <qgis simplifyMaxScale="1" labelsEnabled="0" simplifyAlgorithm="0" simplifyLocal="1" simplifyDrawingHints="0" minScale="1e+8" maxScale="0" version="3.0.2-Girona" readOnly="0" simplifyDrawingTol="1" hasScaleBasedVisibilityFlag="0">
+              <renderer-v2 type="singleSymbol" forceraster="0" symbollevels="0" enableorderby="0">
+                <symbols>
+                  <symbol name="0" clip_to_extent="1" type="marker" alpha="1">
+                    <layer enabled="1" pass="0" class="SimpleMarker" locked="0">
                       <prop k="angle" v="0"/>
                       <prop k="color" v="253,231,37,255"/>
                       <prop k="horizontal_anchor_point" v="1"/>
@@ -7617,7 +8221,7 @@ def my_form_open(dialog, layer, feature):
               <featureBlendMode>0</featureBlendMode>
               <layerOpacity>1</layerOpacity>
               <SingleCategoryDiagramRenderer diagramType="Histogram" attributeLegend="1">
-                <DiagramCategory lineSizeScale="3x:0,0,0,0,0,0" diagramOrientation="Up" scaleBasedVisibility="0" lineSizeType="MM" penAlpha="255" scaleDependency="Area" penWidth="0" barWidth="5" backgroundColor="#ffffff" rotationOffset="270" opacity="1" minimumSize="0" maxScaleDenominator="1e+8" backgroundAlpha="255" sizeScale="3x:0,0,0,0,0,0" minScaleDenominator="0" enabled="0" height="15" penColor="#000000" labelPlacementMethod="XHeight" width="15" sizeType="MM">
+                <DiagramCategory lineSizeScale="3x:0,0,0,0,0,0" diagramOrientation="Up" scaleBasedVisibility="0" lineSizeType="MM" penAlpha="255" scaleDependency="Area" penWidth="0" barWidth="5" backgroundColor="#ffffff" rotationOffset="270" opacity="1" maxScaleDenominator="1e+8" minimumSize="0" backgroundAlpha="255" sizeScale="3x:0,0,0,0,0,0" enabled="0" minScaleDenominator="0" height="15" penColor="#000000" labelPlacementMethod="XHeight" width="15" sizeType="MM">
                   <fontProperties description="Fira Sans,10,-1,0,57,0,0,0,0,0,Medium" style="Medium"/>
                   <attribute label="" color="#000000" field=""/>
                 </DiagramCategory>
@@ -7718,11 +8322,11 @@ def my_form_open(dialog, layer, feature):
             </qgis>
           </LayerStyle>
           <LayerStyle name="laukiz2" layerid="laukiz2_5a06d5ca_778f_44ed_9cd1_e511853159a9" source="/mnt/lossa/data_mccoy_kirk_scotty/patrick/mod/tree-per-tree/2016/laukiz2/laukiz2.gpkg" provider="ogr">
-            <qgis simplifyMaxScale="1" simplifyLocal="1" simplifyAlgorithm="0" labelsEnabled="0" simplifyDrawingHints="0" minScale="1e+8" maxScale="0" version="3.0.2-Girona" readOnly="0" simplifyDrawingTol="1" hasScaleBasedVisibilityFlag="0">
+            <qgis simplifyMaxScale="1" labelsEnabled="0" simplifyAlgorithm="0" simplifyLocal="1" simplifyDrawingHints="0" minScale="1e+8" maxScale="0" version="3.0.2-Girona" readOnly="0" simplifyDrawingTol="1" hasScaleBasedVisibilityFlag="0">
               <renderer-v2 type="singleSymbol" forceraster="0" symbollevels="0" enableorderby="0">
                 <symbols>
-                  <symbol clip_to_extent="1" name="0" type="marker" alpha="1">
-                    <layer pass="0" enabled="1" class="SimpleMarker" locked="0">
+                  <symbol name="0" clip_to_extent="1" type="marker" alpha="1">
+                    <layer enabled="1" pass="0" class="SimpleMarker" locked="0">
                       <prop k="angle" v="0"/>
                       <prop k="color" v="253,231,37,255"/>
                       <prop k="horizontal_anchor_point" v="1"/>
@@ -7755,6 +8359,9 @@ def my_form_open(dialog, layer, feature):
                 <sizescale/>
               </renderer-v2>
               <customproperties>
+                <property key="dualview/previewExpressions">
+                  <value>fid</value>
+                </property>
                 <property value="0" key="embeddedWidgets/count"/>
                 <property key="variableNames"/>
                 <property key="variableValues"/>
@@ -7763,7 +8370,7 @@ def my_form_open(dialog, layer, feature):
               <featureBlendMode>0</featureBlendMode>
               <layerOpacity>1</layerOpacity>
               <SingleCategoryDiagramRenderer diagramType="Histogram" attributeLegend="1">
-                <DiagramCategory lineSizeScale="3x:0,0,0,0,0,0" diagramOrientation="Up" scaleBasedVisibility="0" lineSizeType="MM" penAlpha="255" scaleDependency="Area" penWidth="0" barWidth="5" backgroundColor="#ffffff" rotationOffset="270" opacity="1" minimumSize="0" maxScaleDenominator="1e+8" backgroundAlpha="255" sizeScale="3x:0,0,0,0,0,0" minScaleDenominator="0" enabled="0" height="15" penColor="#000000" labelPlacementMethod="XHeight" width="15" sizeType="MM">
+                <DiagramCategory lineSizeScale="3x:0,0,0,0,0,0" diagramOrientation="Up" scaleBasedVisibility="0" lineSizeType="MM" penAlpha="255" scaleDependency="Area" penWidth="0" barWidth="5" backgroundColor="#ffffff" rotationOffset="270" opacity="1" maxScaleDenominator="1e+8" minimumSize="0" backgroundAlpha="255" sizeScale="3x:0,0,0,0,0,0" enabled="0" minScaleDenominator="0" height="15" penColor="#000000" labelPlacementMethod="XHeight" width="15" sizeType="MM">
                   <fontProperties description="Fira Sans,10,-1,0,57,0,0,0,0,0,Medium" style="Medium"/>
                   <attribute label="" color="#000000" field=""/>
                 </DiagramCategory>
@@ -7864,11 +8471,11 @@ def my_form_open(dialog, layer, feature):
             </qgis>
           </LayerStyle>
           <LayerStyle name="location_demonstration_plots test copy" layerid="location_demonstration_plots_test_59a73508_3e2b_4712_8f52_78ba08446d2a" source="/mnt/lossa/data_mccoy_kirk_scotty/patrick/mod/plots/location/location_demonstration_plots.gpkg" provider="ogr">
-            <qgis simplifyMaxScale="1" simplifyLocal="1" simplifyAlgorithm="0" labelsEnabled="1" simplifyDrawingHints="1" minScale="1e+8" maxScale="0" version="3.0.2-Girona" readOnly="0" simplifyDrawingTol="1" hasScaleBasedVisibilityFlag="0">
+            <qgis simplifyMaxScale="1" labelsEnabled="1" simplifyAlgorithm="0" simplifyLocal="1" simplifyDrawingHints="1" minScale="1e+8" maxScale="0" version="3.0.2-Girona" readOnly="0" simplifyDrawingTol="1" hasScaleBasedVisibilityFlag="0">
               <renderer-v2 type="singleSymbol" forceraster="0" symbollevels="0" enableorderby="0">
                 <symbols>
-                  <symbol clip_to_extent="1" name="0" type="fill" alpha="1">
-                    <layer pass="0" enabled="1" class="SimpleLine" locked="0">
+                  <symbol name="0" clip_to_extent="1" type="fill" alpha="1">
+                    <layer enabled="0" pass="0" class="SimpleLine" locked="0">
                       <prop k="capstyle" v="square"/>
                       <prop k="customdash" v="5;2"/>
                       <prop k="customdash_map_unit_scale" v="3x:0,0,0,0,0,0"/>
@@ -7877,7 +8484,7 @@ def my_form_open(dialog, layer, feature):
                       <prop k="joinstyle" v="bevel"/>
                       <prop k="line_color" v="255,0,0,255"/>
                       <prop k="line_style" v="solid"/>
-                      <prop k="line_width" v="1"/>
+                      <prop k="line_width" v="0"/>
                       <prop k="line_width_unit" v="MM"/>
                       <prop k="offset" v="0"/>
                       <prop k="offset_map_unit_scale" v="3x:0,0,0,0,0,0"/>
@@ -7899,14 +8506,14 @@ def my_form_open(dialog, layer, feature):
               </renderer-v2>
               <labeling type="simple">
                 <settings>
-                  <text-style fieldName="Name" fontUnderline="0" fontWeight="57" fontStrikeout="0" isExpression="0" fontFamily="Fira Sans" textOpacity="1" fontSizeMapUnitScale="3x:0,0,0,0,0,0" previewBkgrdColor="#000000" fontWordSpacing="0" fontSizeUnit="Point" fontLetterSpacing="0" useSubstitutions="0" multilineHeight="1" namedStyle="Medium" textColor="0,0,0,255" blendMode="0" fontCapitals="0" fontItalic="0" fontSize="15">
-                    <text-buffer bufferSizeMapUnitScale="3x:0,0,0,0,0,0" bufferSize="1" bufferBlendMode="0" bufferColor="255,255,255,255" bufferSizeUnits="MM" bufferNoFill="1" bufferOpacity="1" bufferDraw="0" bufferJoinStyle="128"/>
-                    <background shapeOffsetY="0" shapeSizeY="0.5" shapeDraw="1" shapeOffsetUnit="MM" shapeBlendMode="0" shapeJoinStyle="64" shapeRadiiY="0" shapeSizeType="0" shapeSizeUnit="MM" shapeOffsetMapUnitScale="3x:0,0,0,0,0,0" shapeRadiiX="0" shapeSVGFile="" shapeRotationType="0" shapeSizeMapUnitScale="3x:0,0,0,0,0,0" shapeSizeX="0.5" shapeType="0" shapeBorderWidth="0" shapeBorderWidthMapUnitScale="3x:0,0,0,0,0,0" shapeRadiiUnit="MM" shapeRadiiMapUnitScale="3x:0,0,0,0,0,0" shapeBorderColor="128,128,128,255" shapeRotation="0" shapeBorderWidthUnit="MM" shapeOffsetX="0" shapeFillColor="255,255,255,255" shapeOpacity="1"/>
-                    <shadow shadowOffsetGlobal="1" shadowColor="0,0,0,255" shadowOffsetAngle="135" shadowOffsetDist="1" shadowOpacity="0.7" shadowDraw="0" shadowRadiusAlphaOnly="0" shadowScale="100" shadowOffsetUnit="MM" shadowUnder="0" shadowOffsetMapUnitScale="3x:0,0,0,0,0,0" shadowBlendMode="6" shadowRadius="1.5" shadowRadiusMapUnitScale="3x:0,0,0,0,0,0" shadowRadiusUnit="MM"/>
+                  <text-style fieldName="Name" fontUnderline="0" fontWeight="50" fontStrikeout="0" isExpression="0" fontFamily="Cantarell" textOpacity="1" fontSizeMapUnitScale="3x:0,0,0,0,0,0" previewBkgrdColor="#000000" fontWordSpacing="0" fontSizeUnit="Point" fontLetterSpacing="0" useSubstitutions="0" multilineHeight="1" namedStyle="Regular" textColor="0,0,0,255" blendMode="0" fontItalic="0" fontCapitals="0" fontSize="15">
+                    <text-buffer bufferSizeMapUnitScale="3x:0,0,0,0,0,0" bufferSize="1" bufferBlendMode="0" bufferSizeUnits="MM" bufferColor="255,255,255,255" bufferNoFill="1" bufferOpacity="1" bufferDraw="0" bufferJoinStyle="128"/>
+                    <background shapeOffsetY="0" shapeSizeY="0.5" shapeDraw="1" shapeOffsetUnit="MM" shapeBlendMode="0" shapeJoinStyle="64" shapeRadiiY="0" shapeSizeType="0" shapeSizeUnit="MM" shapeOffsetMapUnitScale="3x:0,0,0,0,0,0" shapeRadiiX="0" shapeSVGFile="" shapeRotationType="0" shapeSizeMapUnitScale="3x:0,0,0,0,0,0" shapeSizeX="0.5" shapeType="0" shapeBorderWidth="0" shapeRadiiUnit="MM" shapeBorderWidthMapUnitScale="3x:0,0,0,0,0,0" shapeRadiiMapUnitScale="3x:0,0,0,0,0,0" shapeBorderColor="128,128,128,255" shapeRotation="0" shapeBorderWidthUnit="MM" shapeOffsetX="0" shapeFillColor="255,255,255,255" shapeOpacity="1"/>
+                    <shadow shadowOffsetGlobal="1" shadowOffsetAngle="135" shadowColor="0,0,0,255" shadowOffsetDist="1" shadowOpacity="0.7" shadowDraw="0" shadowRadiusAlphaOnly="0" shadowUnder="0" shadowOffsetUnit="MM" shadowScale="100" shadowOffsetMapUnitScale="3x:0,0,0,0,0,0" shadowRadius="1.5" shadowBlendMode="6" shadowRadiusUnit="MM" shadowRadiusMapUnitScale="3x:0,0,0,0,0,0"/>
                     <substitutions/>
                   </text-style>
-                  <text-format leftDirectionSymbol="&lt;" plussign="0" multilineAlign="4294967295" reverseDirectionSymbol="0" formatNumbers="0" placeDirectionSymbol="0" decimals="3" wrapChar="" rightDirectionSymbol=">" addDirectionSymbol="0"/>
-                  <placement maxCurvedCharAngleOut="-25" preserveRotation="1" priority="6" centroidWhole="0" offsetUnits="MM" maxCurvedCharAngleIn="25" labelOffsetMapUnitScale="3x:0,0,0,0,0,0" quadOffset="4" placementFlags="10" offsetType="0" centroidInside="0" predefinedPositionOrder="TR,TL,BR,BL,R,L,TSR,BSR" placement="7" rotationAngle="0" distUnits="MM" distMapUnitScale="3x:0,0,0,0,0,0" fitInPolygonOnly="0" repeatDistance="0" repeatDistanceUnits="MM" xOffset="5.6" yOffset="-50" repeatDistanceMapUnitScale="3x:0,0,0,0,0,0" dist="2"/>
+                  <text-format leftDirectionSymbol="&lt;" plussign="0" multilineAlign="4294967295" reverseDirectionSymbol="0" placeDirectionSymbol="0" formatNumbers="0" wrapChar="" rightDirectionSymbol=">" decimals="3" addDirectionSymbol="0"/>
+                  <placement maxCurvedCharAngleOut="-25" preserveRotation="1" priority="6" centroidWhole="0" offsetUnits="MM" maxCurvedCharAngleIn="25" labelOffsetMapUnitScale="3x:0,0,0,0,0,0" quadOffset="4" placementFlags="10" offsetType="0" centroidInside="0" predefinedPositionOrder="TR,TL,BR,BL,R,L,TSR,BSR" placement="7" rotationAngle="0" distUnits="MM" fitInPolygonOnly="0" distMapUnitScale="3x:0,0,0,0,0,0" repeatDistance="0" xOffset="5.6" repeatDistanceUnits="MM" yOffset="-50" repeatDistanceMapUnitScale="3x:0,0,0,0,0,0" dist="2"/>
                   <rendering obstacle="1" displayAll="0" scaleMin="0" upsidedownLabels="0" obstacleFactor="1" fontMaxPixelSize="10000" mergeLines="0" zIndex="0" maxNumLabels="2000" obstacleType="0" fontMinPixelSize="3" limitNumLabels="0" fontLimitPixelSize="0" scaleMax="0" labelPerPart="0" minFeatureSize="0" drawLabels="1" scaleVisibility="0"/>
                   <dd_properties>
                     <Option type="Map">
@@ -7927,7 +8534,7 @@ def my_form_open(dialog, layer, feature):
               <featureBlendMode>0</featureBlendMode>
               <layerOpacity>1</layerOpacity>
               <SingleCategoryDiagramRenderer diagramType="Histogram" attributeLegend="1">
-                <DiagramCategory lineSizeScale="3x:0,0,0,0,0,0" diagramOrientation="Up" scaleBasedVisibility="0" lineSizeType="MM" penAlpha="255" scaleDependency="Area" penWidth="0" barWidth="5" backgroundColor="#ffffff" rotationOffset="270" opacity="1" minimumSize="0" maxScaleDenominator="1e+8" backgroundAlpha="255" sizeScale="3x:0,0,0,0,0,0" minScaleDenominator="0" enabled="0" height="15" penColor="#000000" labelPlacementMethod="XHeight" width="15" sizeType="MM">
+                <DiagramCategory lineSizeScale="3x:0,0,0,0,0,0" diagramOrientation="Up" scaleBasedVisibility="0" lineSizeType="MM" penAlpha="255" scaleDependency="Area" penWidth="0" barWidth="5" backgroundColor="#ffffff" rotationOffset="270" opacity="1" maxScaleDenominator="1e+8" minimumSize="0" backgroundAlpha="255" sizeScale="3x:0,0,0,0,0,0" enabled="0" minScaleDenominator="0" height="15" penColor="#000000" labelPlacementMethod="XHeight" width="15" sizeType="MM">
                   <fontProperties description="Fira Sans,10,-1,0,57,0,0,0,0,0,Medium" style="Medium"/>
                   <attribute label="" color="#000000" field=""/>
                 </DiagramCategory>
@@ -8056,11 +8663,11 @@ def my_form_open(dialog, layer, feature):
             </qgis>
           </LayerStyle>
           <LayerStyle name="luiando" layerid="luiando_f5140553_9274_4b18_8bf6_e8f3013cce4d" source="/mnt/lossa/data_mccoy_kirk_scotty/patrick/mod/tree-per-tree/2016/luiando/luiando.shp" provider="ogr">
-            <qgis simplifyMaxScale="1" simplifyLocal="1" simplifyAlgorithm="0" labelsEnabled="0" simplifyDrawingHints="0" minScale="1e+8" maxScale="0" version="3.0.2-Girona" readOnly="0" simplifyDrawingTol="1" hasScaleBasedVisibilityFlag="0">
+            <qgis simplifyMaxScale="1" labelsEnabled="0" simplifyAlgorithm="0" simplifyLocal="1" simplifyDrawingHints="0" minScale="1e+8" maxScale="0" version="3.0.2-Girona" readOnly="0" simplifyDrawingTol="1" hasScaleBasedVisibilityFlag="0">
               <renderer-v2 type="singleSymbol" forceraster="0" symbollevels="0" enableorderby="0">
                 <symbols>
-                  <symbol clip_to_extent="1" name="0" type="marker" alpha="1">
-                    <layer pass="0" enabled="1" class="SimpleMarker" locked="0">
+                  <symbol name="0" clip_to_extent="1" type="marker" alpha="1">
+                    <layer enabled="1" pass="0" class="SimpleMarker" locked="0">
                       <prop k="angle" v="0"/>
                       <prop k="color" v="253,231,37,255"/>
                       <prop k="horizontal_anchor_point" v="1"/>
@@ -8101,7 +8708,7 @@ def my_form_open(dialog, layer, feature):
               <featureBlendMode>0</featureBlendMode>
               <layerOpacity>1</layerOpacity>
               <SingleCategoryDiagramRenderer diagramType="Histogram" attributeLegend="1">
-                <DiagramCategory lineSizeScale="3x:0,0,0,0,0,0" diagramOrientation="Up" scaleBasedVisibility="0" lineSizeType="MM" penAlpha="255" scaleDependency="Area" penWidth="0" barWidth="5" backgroundColor="#ffffff" rotationOffset="270" opacity="1" minimumSize="0" maxScaleDenominator="1e+8" backgroundAlpha="255" sizeScale="3x:0,0,0,0,0,0" minScaleDenominator="0" enabled="0" height="15" penColor="#000000" labelPlacementMethod="XHeight" width="15" sizeType="MM">
+                <DiagramCategory lineSizeScale="3x:0,0,0,0,0,0" diagramOrientation="Up" scaleBasedVisibility="0" lineSizeType="MM" penAlpha="255" scaleDependency="Area" penWidth="0" barWidth="5" backgroundColor="#ffffff" rotationOffset="270" opacity="1" maxScaleDenominator="1e+8" minimumSize="0" backgroundAlpha="255" sizeScale="3x:0,0,0,0,0,0" enabled="0" minScaleDenominator="0" height="15" penColor="#000000" labelPlacementMethod="XHeight" width="15" sizeType="MM">
                   <fontProperties description="Fira Sans,10,-1,0,57,0,0,0,0,0,Medium" style="Medium"/>
                   <attribute label="" color="#000000" field=""/>
                 </DiagramCategory>
@@ -8255,7 +8862,7 @@ def my_form_open(dialog, layer, feature):
                   <column type="actions" width="-1" hidden="1"/>
                 </columns>
               </attributetableconfig>
-              <editform/>
+              <editform>/mnt/mccoy/home/patrick/PhD/papers/03_hyperspectral/03_figures/data</editform>
               <editforminit/>
               <editforminitcodesource>0</editforminitcodesource>
               <editforminitfilepath/>
@@ -8314,11 +8921,11 @@ def my_form_open(dialog, layer, feature):
             </qgis>
           </LayerStyle>
           <LayerStyle name="oiartzun" layerid="oiartzun_5392b1b1_32aa_49ac_8901_c7f46660c552" source="/mnt/lossa/data_mccoy_kirk_scotty/patrick/mod/tree-per-tree/2016/oiartzun/oiartzun.shp" provider="ogr">
-            <qgis simplifyMaxScale="1" simplifyLocal="1" simplifyAlgorithm="0" labelsEnabled="0" simplifyDrawingHints="0" minScale="1e+8" maxScale="0" version="3.0.2-Girona" readOnly="0" simplifyDrawingTol="1" hasScaleBasedVisibilityFlag="0">
+            <qgis simplifyMaxScale="1" labelsEnabled="0" simplifyAlgorithm="0" simplifyLocal="1" simplifyDrawingHints="0" minScale="1e+8" maxScale="0" version="3.0.2-Girona" readOnly="0" simplifyDrawingTol="1" hasScaleBasedVisibilityFlag="0">
               <renderer-v2 type="singleSymbol" forceraster="0" symbollevels="0" enableorderby="0">
                 <symbols>
-                  <symbol clip_to_extent="1" name="0" type="marker" alpha="1">
-                    <layer pass="0" enabled="1" class="SimpleMarker" locked="0">
+                  <symbol name="0" clip_to_extent="1" type="marker" alpha="1">
+                    <layer enabled="1" pass="0" class="SimpleMarker" locked="0">
                       <prop k="angle" v="0"/>
                       <prop k="color" v="253,231,37,255"/>
                       <prop k="horizontal_anchor_point" v="1"/>
@@ -8359,7 +8966,7 @@ def my_form_open(dialog, layer, feature):
               <featureBlendMode>0</featureBlendMode>
               <layerOpacity>1</layerOpacity>
               <SingleCategoryDiagramRenderer diagramType="Histogram" attributeLegend="1">
-                <DiagramCategory lineSizeScale="3x:0,0,0,0,0,0" diagramOrientation="Up" scaleBasedVisibility="0" lineSizeType="MM" penAlpha="255" scaleDependency="Area" penWidth="0" barWidth="5" backgroundColor="#ffffff" rotationOffset="270" opacity="1" minimumSize="0" maxScaleDenominator="1e+8" backgroundAlpha="255" sizeScale="3x:0,0,0,0,0,0" minScaleDenominator="0" enabled="0" height="15" penColor="#000000" labelPlacementMethod="XHeight" width="15" sizeType="MM">
+                <DiagramCategory lineSizeScale="3x:0,0,0,0,0,0" diagramOrientation="Up" scaleBasedVisibility="0" lineSizeType="MM" penAlpha="255" scaleDependency="Area" penWidth="0" barWidth="5" backgroundColor="#ffffff" rotationOffset="270" opacity="1" maxScaleDenominator="1e+8" minimumSize="0" backgroundAlpha="255" sizeScale="3x:0,0,0,0,0,0" enabled="0" minScaleDenominator="0" height="15" penColor="#000000" labelPlacementMethod="XHeight" width="15" sizeType="MM">
                   <fontProperties description="Fira Sans,10,-1,0,57,0,0,0,0,0,Medium" style="Medium"/>
                   <attribute label="" color="#000000" field=""/>
                 </DiagramCategory>
@@ -8525,7 +9132,7 @@ def my_form_open(dialog, layer, feature):
                   <column type="actions" width="-1" hidden="1"/>
                 </columns>
               </attributetableconfig>
-              <editform/>
+              <editform>/mnt/mccoy/home/patrick/PhD/papers/03_hyperspectral/03_figures/data</editform>
               <editforminit/>
               <editforminitcodesource>0</editforminitcodesource>
               <editforminitfilepath/>

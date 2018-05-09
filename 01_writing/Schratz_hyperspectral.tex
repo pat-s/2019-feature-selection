@@ -104,7 +104,7 @@
 	\acro{WKNN}{Weighted $k$-nearest neighbor}
 	\acro{MARS}{Multivariate Adaptive Regression Splines}
 	\acro{MEM}{Maximum Entropy Model}
-	\acro{NBI}{Narrow Band Index}
+	\acro{NRI}{Normalized Ratio Index}
 	\acro{LOWESS}{Locally Weighted Scatter Plot Smoothing}
 	\acro{PISR}{Potential Incoming Solar Radiation}
 	\acro{RBF}{Radial Basis Function}
@@ -119,6 +119,25 @@
 
 \section{Data and study area}
 
+\subsection{Ground data}
+% Describe Plots
+
+The four \textit{Pinus radiata} plots Laukiz 1, Laukiz 2, Luiando and Oiartzun are located in the northern part of the Basque Country (\autoref{fig:study_area}).
+Laukiz 1 has the most trees (n = 559) while Laukiz 2 has largest area size.
+All plots besides Luiando are located nearby the coast.
+The data was collected in September 2016.
+
+% Show Map
+
+\begin{figure} [t!]
+	\begin{center}
+		\makebox[\textwidth]{\includegraphics[width=\textwidth] {../03_figures/data/study_area_hyperspectral.pdf}}
+		\caption{Information about the plot locations, the area of hyperspectral coverage and the number of trees per plot.}
+		\label{fig:study_area}
+	\end{center}
+\end{figure}
+
+% describe the hyperspectral data
 
 
 \cite{Brenning2012}
@@ -133,7 +152,7 @@
 
 \subsection{Hyperspectral data}
 
-The airborne hyperspectral data was acquired on September 28th and October 5th 2016 around 12 am.
+The airborne hyperspectral data was acquired during two flight campaigns on September 28th and October 5th 2016, both around 12 am.
 The images were taken by an AISAEAGLE-II sensor from the \ac{ICGC}.
 All preprocessing steps (geometric, radiometric, atmospheric) have been conducted by \ac{ICGC}.
 
@@ -161,34 +180,66 @@ Additional information is provided in Table 1:
 
 \section{Methods}
 
-\subsection{Index calculation}
+\subsection{Derivation of indices}
 
 % link to PDF with veg indeces
 All vegetation indices (90 total) suitable for the wavelength range of the hyperspectral data that are offered by the \texttt{hsdar} package have been calculated.
-Additionally, all possible \ac{NBI} were calculated from the data using the following formula:
+Additionally, all possible \ac{NRI} were calculated from the data using the formula:
 
 \begin{equation}
-	NBI_{i,j} = \frac{B_{i} - B_{j}}{B_{i} + B_{j}}
+	NRI_{i,j} = \frac{B_{i} - B_{j}}{B_{i} + B_{j}}
 \end{equation}
 
 \noindent
 where $i$ and $j$ are the respective band numbers.
 
-To account for geometric offsets, we calculated every index five times using a buffer from 1 - 5 meter around the centroid of the respective tree.
+%To account for geometric offsets, we calculated every index five times using a buffer from 1 - 5 meter around the centroid of the respective tree.
+To account for geometric offsets, we used a buffer of 2 meters around the centroid of the respective tree.
 The mean value of all pixels touched by the buffer was assigned as the final value for each index.
+Missing values were removed from the mean value calculation.
+In total, 7875 \ac{NRI}s have been calculated ($\frac{125*126}{2}$).
+Some indices returned \texttt{NA} values for some observations and were removed from the dataset, leaving a total of 7471 indices that were available for all plots without missing values.
+Note that due to the mass of variables we cannot state which indices in detail have been removed.
+
+\subsection{Penalized regression}
+
+Penalized regression was used to account for the large amount of highly correlated predictor variables.
+The aim was to find the indices that best explain defoliation within the plots.
+
+Due to the amount of highly correlated predictors in the dataset, the independence assumption of the predictors is violated.
+To compensate for that, penalized regression penalizes the coefficients.
+This leads to a substantial decrease in variance and better predictive performance.
+However, it also results in biased coefficients that cannot be used for statistical inference anymore.
+The resulting coefficients can be seen as a measure of variable importance.
+The penalization terms that have been used in this work are explained in the following sections.
+
+\subsubsection{L1 Penalization}
+
+\subsubsection{L2 Penalization}
+
+\subsubsection{Elasticnet}
+
+\subsection{Modeling}
+
+The first step was to decide which penalization term works best for the given data.
+A nested 10-fold spatial \ac{CV} was conducted on every single plot and for the merged dataset, we ran a plot-based \ac{CV} for both performance evaluation and hyperparameter tuning.
+% show plot of spatial partitioning for both?
+This means that three out of the 4 plots formed the training set while the test set consisted of the remaining plot.
+
+Next, we applied the winning method (Ridge) again on the plots and the merged dataset to find the most important coefficients for every plot.
+Hyperparameter tuning of
+
+% Points to mention
+% * All penalization methods are suited for different kinds of dataset structures
+% * Find out which one works best on average and then use this method to create create models for prediction and variable importance
+
+\section{Discussion}
+
+\subsection{Index derivation}
+
 The exact number of contributing pixels of an index cannot be determined as it depends on the location of the tree within the pixel grid.
 If a tree is located at the border of a pixel, the same buffer (e.g. 3 m) will include more pixels than if the point is located at the center of a pixel.
 Also, if a tree is located at the border of the image data, some directions of the buffer may not contain values.
-Missing values were removed from the mean value calculation.
-However, the bigger the buffer size, the more pixels are represented by the index value.
-In total, 7875 possible \ac{NBI}s have been calculated for each buffer size summing up to 39375 indices.
-The same applies to the vegetation indices which sum up to 450 indices leading to a total number of 39825 indices per tree.
-
-
-
-\subsection{Ridge regression}
-
-
 
 \section*{References}
 

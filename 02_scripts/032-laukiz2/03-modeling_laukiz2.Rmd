@@ -43,6 +43,15 @@ data = data[[2]]
 coords = coords[[2]]
 ```
 
+Subset to indices shared by all plots.
+
+```{r}
+indices_shared = readRDS("/data/patrick/mod/hyperspectral/data_clean_with_indices/indices-shared-by-all-plots-bf2.rda")
+
+data %<>% 
+  select(indices_shared)
+```
+
 # Create task
 
 ```{r}
@@ -145,7 +154,7 @@ As we will always use the complete dataset, this should be the best value.
 ```{r}
 lrn_glmnet_tuned <- makeLearner("regr.glmnet",
                                 alpha = 0,
-                                s = 1810,
+                                s = 7690,
                                 standardize = FALSE, 
                                 intercept = FALSE)
 
@@ -156,13 +165,14 @@ Inspect the highest absolute coefficients (positive and negative).
 The first entry is the intercept and is therefore left out.
 
 ```{r}
-tibble(index = rownames(as.matrix(coef(glmnet_train_tuned$learner.model, s = 1810))), 
-       coef = as.vector(as.matrix(coef(glmnet_train_tuned$learner.model, s = 1810)))) %>% 
+tibble(index = rownames(as.matrix(coef(glmnet_train_tuned$learner.model, s = 7690))), 
+       coef = as.vector(as.matrix(coef(glmnet_train_tuned$learner.model, s = 7690)))) %>% 
   arrange(desc(coef))
 ```
+
 ```{r}
-tibble(index = rownames(as.matrix(coef(glmnet_train_tuned$learner.model, s = 1810))), 
-       coef = as.vector(as.matrix(coef(glmnet_train_tuned$learner.model, s = 1810)))) %>% 
+tibble(index = rownames(as.matrix(coef(glmnet_train_tuned$learner.model, s = 7690))), 
+       coef = as.vector(as.matrix(coef(glmnet_train_tuned$learner.model, s = 7690)))) %>% 
   arrange(coef)
 ```
 
