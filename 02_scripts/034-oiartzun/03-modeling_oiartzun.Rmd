@@ -216,7 +216,7 @@ summary(glmnet_train$learner.model$lambda)
 ```
 
 ```{r}
-ps_glmnet <- makeParamSet(makeNumericParam("s", lower = 0.05, upper = 5.5))
+ps_glmnet <- makeParamSet(makeNumericParam("s", lower = 0.01, upper = 1.5))
 ```
 
 ```{r}
@@ -335,7 +335,7 @@ For the elasticnet we also tune `alpha`.
 As we have both penalties, we just use the lower and uppper maxima from both Lasso and Ridge.
 
 ```{r}
-ps_glmnet <- makeParamSet(makeNumericParam("s", lower = 0.05, upper = 5525),
+ps_glmnet <- makeParamSet(makeNumericParam("s", lower = 0.01, upper = 5525),
                           makeNumericParam("alpha", lower = 0, upper = 1))
 ```
 

@@ -40,7 +40,7 @@
 % set autoref abbr for appendix
 \newcommand*{\Appendixautorefname}{appendix}
 
-\journal{Journal "Remote Sensing of environment"}
+\journal{Journal "Remote Sensing of Environment"}
 
 % line breaks in table cells
 \newcommand{\specialcell}[2][l]{%
@@ -105,10 +105,14 @@
 	\acro{MARS}{Multivariate Adaptive Regression Splines}
 	\acro{MEM}{Maximum Entropy Model}
 	\acro{NRI}{Normalized Ratio Index}
+	\acro{OLS}{Ordinary Least Squares}
 	\acro{LOWESS}{Locally Weighted Scatter Plot Smoothing}
 	\acro{PISR}{Potential Incoming Solar Radiation}
 	\acro{RBF}{Radial Basis Function}
 	\acro{RF}{Random Forest}
+	\acro{RMSE}{Root Mean Square Error}
+	\acro{RR}{Ridge Regression}
+	\acro{RSS}{Residual Sum of Squares}
 	\acro{SDM}{Species Distribution Modeling}
 	\acro{SVM}{Support Vector Machines}
 	\acro{TPR}{True Positive Rate}
@@ -203,35 +207,119 @@ Note that due to the mass of variables we cannot state which indices in detail h
 
 \subsection{Penalized regression}
 
-Penalized regression was used to account for the large amount of highly correlated predictor variables.
-The aim was to find the indices that best explain defoliation within the plots.
+The aim of this work was to find the indices that best explain defoliation within the plots.
+We used penalized regression to account for the large amount of highly correlated predictor variables.
+In a standard \ac{OLS} regression one of the assumptions is that the predictor variables should be independent when minimizing the \ac{RSS} \citep{Bare1981, Hastie2001}:
 
-Due to the amount of highly correlated predictors in the dataset, the independence assumption of the predictors is violated.
-To compensate for that, penalized regression penalizes the coefficients.
-This leads to a substantial decrease in variance and better predictive performance.
-However, it also results in biased coefficients that cannot be used for statistical inference anymore.
-The resulting coefficients can be seen as a measure of variable importance.
-The penalization terms that have been used in this work are explained in the following sections.
+\begin{equation}
+	RSS = \sum_{i=1}^{n} \left(y_{i} - \beta_{0} - \sum_{j=1}^{p} \beta_{j} x_{ij} \right) ^{2}
+\end{equation}
 
-\subsubsection{L1 Penalization}
+where $\beta_{0}$ is the intercept, $\beta_{i}$ the coefficient, $x_{ij}$ the predictor variable and $y_{i}$ the response variable.
 
-\subsubsection{L2 Penalization}
+If this assumption is violated, regression coefficients can be highly biased.
+They can even show the wrong sign and are very sensitive to adding new independent variables or data points to the model.
+These points reduce the robustness and performance of \ac{OLS} regression when dealing with multicollinearity.
+One approach to overcome these limitations is to penalize the coefficients.
+This method leads to a substantial decrease in variance and better predictive performance compared to \ac{OLS} regression.
+However, it also sacrifies the assumption of unbiased coefficients.
+Hence, the resulting coefficients cannot be used for statistical inference but should be interpreted as a measure of variable importance.
 
-\subsubsection{Elasticnet}
+
+\subsubsection{The ridge penalty}
+
+In \ac{RR} (also called $\ell_{2}$ penalization) the assumption of unbiased coefficients is given up in favor of higher predictive accuracy and reduced variance \citep{Hastie2001}.
+Coefficients are standardized and penalized for their size.
+When minimizing the \ac{RSS}, \ac{RR} adds a penalization term $\lambda \sum_{j=1}^{p}\beta_{j}^{2}$ to the equation:
+
+\begin{equation}
+	RSS = \sum_{i=1}^{n} \left(y_{i} - \beta_{0} - \sum_{j=1}^{p} \beta_{j} x_{ij} \right) ^{2} + \lambda \sum_{j=1}^{p}\beta_{j}^{2}
+\end{equation}
+
+where $\lambda >= 0$ is a tuning parameter responsible for the magnitude of penalization.
+To make the second term (usually referred to as the \textit{shrinkage penalty}) of this equation small, the coefficients $\beta_{j}$ need to become small.
+Unlike to Lasso however, predictors are not removed from the final model and will always be $\beta_{j} >= 0$.
+Hence, $\lambda$ has the effect of shrinking the coefficients when minimizing the \ac{RSS}.
+For $\lambda = 0$, no penalization is done and standard \ac{OLS} applies \citep{James2013}.
+The \textit{shrinkage penalty} is only applied to the coefficients and not to the intercept.
+Also, while \ac{OLS} generates only one set of coefficient estimates, \ac{RR} will create multiple sets for every value of $\lambda$.
+In summary, the advantage of \ac{RR} is based on the bias-variance tradeoff: For $\lambda\to\infty$, the flexibility of the fit is reduced leading to a decrease in variance of the coefficients but also introduces a (substantial) bias.
+For $\lambda = 0$, the variance is high but coefficients are unbiased \citep{James2013}.
+
+\subsubsection{The lasso penalty}
+
+While the Ridge penalty $\lambda \sum_{j=1}^{p}\beta_{j}^{2}$ shrinks the coefficients, it does not exclude any predictor from the model by setting the coefficient to zero.
+This is what the Lasso penalty (also called $\ell_{1}$) does: It works similar to a "best subset selection" approach by only keeping the most important variables in the model and reducing the coefficients of unimportant ones down to zero.
+This is done by a different \textit{shrinkage penalty} $\lambda \sum_{j=1}^{p} \mid\beta_{j}\mid$ that is added to the \ac{OLS} term when minimizing the \ac{RSS}:
+
+\begin{equation}
+	RSS = \sum_{i=1}^{n} \left(y_{i} - \beta_{0} - \sum_{j=1}^{p} \beta_{j} x_{ij} \right) ^{2} + \lambda \sum_{j=1}^{p} \mid\beta_{j}\mid
+\end{equation}
+
+Subsequently, Lasso is performing variable selection and results in a sparse model that has the advantage of a simplied interpretability compared to Ridge models.
+However, coeffcients are still biased due to penalization \citep{Hastie2001, James2013}.
+
+\subsubsection{The elasticnet penalty}
+
+The idea of the \textit{elasticnet penalty} is to combine both penalties Lasso and Ridge and weight these by a parameter $\alpha$ that that needs to be optimized.
+It was introduced by \cite{Zou2005} with the idea to combine the advantages of both penalty terms.
+The \textit{elasticnet penalty} is written as
+
+\begin{equation}
+	\lambda \sum_{j=1}^{p} \alpha\beta_{j}^{2} + (1 - \alpha) \mid\beta_{j}\mid
+\end{equation}
+
+where $\alpha$ weights the contribution of either the Lasso or Ridge penalty.
+For $\alpha = 0.5$ both are weighted equally.
+When $\alpha = 0$ only Ridge is used and for $\alpha = 1$ only Lasso applies \citep{Hastie2001}.
 
 \subsection{Modeling}
 
-The first step was to decide which penalization term works best for the given data.
-A nested 10-fold spatial \ac{CV} was conducted on every single plot and for the merged dataset, we ran a plot-based \ac{CV} for both performance evaluation and hyperparameter tuning.
-% show plot of spatial partitioning for both?
-This means that three out of the 4 plots formed the training set while the test set consisted of the remaining plot.
+\subsubsection{Selecting the best penalty}
 
-Next, we applied the winning method (Ridge) again on the plots and the merged dataset to find the most important coefficients for every plot.
-Hyperparameter tuning of
+As the introduced penalties behave different depending on the characteristics of the dataset, we first conducted a nested 10-fold spatial \ac{CV} to find the best method among those three.
+The comparison was applied to all of the four plots using \ac{RMSE} as the error measure.
+For both the performance evaluation and hyperparameter tuning a spatial sampling using $k$-means clustering was used \citep{sperrorest}.
+
+\subsubsection{Extracting the most important variables}
+
+Next, we applied the winning method (\ac{RR}) on all plots and additionally to the merged dataset of all plots to find the most important coefficients of every setup.
+Hyperparameter tuning of $\lambda$ was done using again a spatial sampling again for the single plots.
+For the merged dataset we used a plot-based sampling approach: One plot serves as the test partition while the remaining plots form the training set.
+This approach has the advantage of a spatially independent test partition but also comes with the limitation of estimating the performance on a single repetition only as the restriction to the plot-level leaves no opportunity to create multiple resampling instances.
+
+\subsubsection{Linking the variables to plot characteristics}
+
+To interpret the outcomes of the models on a plot level, we linked the winning variables of each to attributes of the dataset that describe the underlying plot characteristics.
+For example, a plot which a low tree density might inherit more information from the bare ground in the calculdated indices while a plot with a very high tree density might in contrast contain information from multiple trees.
 
 % Points to mention
 % * All penalization methods are suited for different kinds of dataset structures
 % * Find out which one works best on average and then use this method to create create models for prediction and variable importance
+
+\section{Results}
+
+\subsection{Comparison of penalties}
+
+% parameter limits
+\begin{table}[b!]
+\centering
+\caption[t]{Predictive performances of lasso, ridge and elasticnet penalties on the single plots and the merged dataset using \ac{RMSE} as the error measure.}
+\begingroup\footnotesize
+\begin{tabular}{llll}
+	\\
+	Plot/Penalty & Lasso  & Ridge  & Elasticnet \\
+	\hline
+	Laukiz 1     & 146.33 & 87.76  & 135.58     \\
+	Laukiz 2     & 146.33 & 87.76  & 135.58     \\
+	Luiando      &        &        &            \\
+	Oiartzun     &        & 106.65 &            \\
+	All Plots    & 56.88  & 55.88  & 56.76      \\
+	\bottomrule
+\end{tabular}
+\endgroup
+\label{tab:penalty_comparison}
+\end{table}
 
 \section{Discussion}
 
