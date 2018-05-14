@@ -46,7 +46,7 @@ extract_to_plot = function(plot_name, buffer, cores, bf_name) {
                     na.rm = TRUE), mc.cores = cores)
   
   out_veg %<>% 
-    map2(seq_along(buffer), ~ setNames(.x, glue("bf", .y, "_{name}", 
+    map2(seq_along(buffer), ~ setNames(.x, glue("bf{buffer}_{name}", 
                                              name = names(out_veg[[.y]]))))
   
   out_nbi <- pbmclapply(buffer, function(x)

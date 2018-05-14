@@ -49,7 +49,7 @@ Subset to indices shared by all plots.
 indices_shared = readRDS("/data/patrick/mod/hyperspectral/data_clean_with_indices/indices-shared-by-all-plots-bf2.rda")
 
 data %<>% 
-  select(indices_shared)
+  dplyr::select(indices_shared)
 ```
 
 # Create task
@@ -115,7 +115,7 @@ tune_wrapper <- makeTuneWrapper(lrn_glmnet, resampling = inner, par.set = ps_glm
 ```
 
 ```{r}
-outer <- makeResampleDesc("SpRepCV", folds = 10, reps = 2)
+outer <- makeResampleDesc("SpRepCV", folds = 10, reps = 20)
 ```
 
 ```{r}
@@ -129,6 +129,7 @@ resa_glmnet <- mlr::resample(tune_wrapper, task,
                              show.info = TRUE, measures = list(rmse))
 parallelStop()
 saveRDS(resa_glmnet, "/data/patrick/mod/hyperspectral/spcv/laukiz1_ridge_bf2_10folds.rda")
+resa_glmnet = readRDS("/data/patrick/mod/hyperspectral/spcv/laukiz1_ridge_bf2_10folds.rda")
 ```
 
 #### TuneParams
@@ -165,14 +166,14 @@ Inspect the highest absolute coefficients (positive and negative).
 The first entry is the intercept and is therefore left out.
 
 ```{r}
-tibble(index = rownames(as.matrix(coef(glmnet_train_tuned$learner.model, s = 7610))), 
-       coef = as.vector(as.matrix(coef(glmnet_train_tuned$learner.model, s = 7610)))) %>% 
+tibble(index = rownames(as.matrix(coef(glmnet_train_tuned$learner.model, s = 7500))), 
+       coef = as.vector(as.matrix(coef(glmnet_train_tuned$learner.model, s = 7500)))) %>% 
   arrange(desc(coef))
 ```
 
 ```{r}
-tibble(index = rownames(as.matrix(coef(glmnet_train_tuned$learner.model, s = 7610))), 
-       coef = as.vector(as.matrix(coef(glmnet_train_tuned$learner.model, s = 7610)))) %>% 
+tibble(index = rownames(as.matrix(coef(glmnet_train_tuned$learner.model, s = 7500))), 
+       coef = as.vector(as.matrix(coef(glmnet_train_tuned$learner.model, s = 7500)))) %>% 
   arrange(coef)
 ```
 
@@ -233,7 +234,7 @@ tune_wrapper <- makeTuneWrapper(lrn_glmnet, resampling = inner, par.set = ps_glm
 ```
 
 ```{r}
-outer <- makeResampleDesc("SpRepCV", folds = 10, reps = 2)
+outer <- makeResampleDesc("SpRepCV", folds = 10, reps = 20)
 ```
 
 ```{r}
@@ -248,6 +249,7 @@ resa_glmnet <- mlr::resample(tune_wrapper, task,
 
 parallelStop()
 saveRDS(resa_glmnet, "/data/patrick/mod/hyperspectral/spcv/laukiz1_lasso_bf2_10folds.rda")
+resa_glmnet = readRDS("/data/patrick/mod/hyperspectral/spcv/laukiz1_lasso_bf2_10folds.rda")
 ```
 
 #### TuneParams
@@ -353,7 +355,7 @@ tune_wrapper <- makeTuneWrapper(lrn_glmnet, resampling = inner, par.set = ps_glm
 ```
 
 ```{r}
-outer <- makeResampleDesc("SpRepCV", folds = 10, reps = 2)
+outer <- makeResampleDesc("SpRepCV", folds = 10, reps = 20)
 ```
 
 ```{r}
@@ -368,6 +370,7 @@ resa_glmnet <- mlr::resample(tune_wrapper, task,
 
 parallelStop()
 saveRDS(resa_glmnet, "/data/patrick/mod/hyperspectral/spcv/laukiz1_elasticnet_bf2_10folds.rda")
+resa_glmnet = readRDS("/data/patrick/mod/hyperspectral/spcv/laukiz1_elasticnet_bf2_10folds.rda")
 ```
 
 #### TuneParams

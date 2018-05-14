@@ -261,7 +261,7 @@ However, coeffcients are still biased due to penalization \citep{Hastie2001, Jam
 
 \subsubsection{The elasticnet penalty}
 
-The idea of the \textit{elasticnet penalty} is to combine both penalties Lasso and Ridge and weight these by a parameter $\alpha$ that that needs to be optimized.
+The \textit{elasticnet penalty} combines both penalties Lasso and Ridge by weighting them with a parameter $\alpha$ that needs to be optimized.
 It was introduced by \cite{Zou2005} with the idea to combine the advantages of both penalty terms.
 The \textit{elasticnet penalty} is written as
 
@@ -278,20 +278,31 @@ When $\alpha = 0$ only Ridge is used and for $\alpha = 1$ only Lasso applies \ci
 \subsubsection{Selecting the best penalty}
 
 As the introduced penalties behave different depending on the characteristics of the dataset, we first conducted a nested 10-fold spatial \ac{CV} to find the best method among those three.
-The comparison was applied to all of the four plots using \ac{RMSE} as the error measure.
+The model comparison was applied to all of the four plots using \ac{RMSE} as the error measure.
 For both the performance evaluation and hyperparameter tuning a spatial sampling using $k$-means clustering was used \citep{sperrorest}.
+For the tuning, 200 random search iterations were used.
+The limits of the tuning space for $\lambda$ were set to the internally calculated (data driven) limits of the R package \texttt{glmnet}.
 
-\subsubsection{Extracting the most important variables}
+\subsubsection{Extraction of the most important variables}
 
-Next, we applied the winning method (\ac{RR}) on all plots and additionally to the merged dataset of all plots to find the most important coefficients of every setup.
-Hyperparameter tuning of $\lambda$ was done using again a spatial sampling again for the single plots.
-For the merged dataset we used a plot-based sampling approach: One plot serves as the test partition while the remaining plots form the training set.
-This approach has the advantage of a spatially independent test partition but also comes with the limitation of estimating the performance on a single repetition only as the restriction to the plot-level leaves no opportunity to create multiple resampling instances.
+Next, we applied the winning method (\ac{RR}) on all plots.
+Hyperparameter tuning of $\lambda$ for the full dataset was again done using a spatial sampling.
+The ten highest coefficients (both positive and negative) were extracted and reported.
 
-\subsubsection{Linking the variables to plot characteristics}
+\subsubsection{Linking variables to plot characteristics}
 
-To interpret the outcomes of the models on a plot level, we linked the winning variables of each to attributes of the dataset that describe the underlying plot characteristics.
-For example, a plot which a low tree density might inherit more information from the bare ground in the calculdated indices while a plot with a very high tree density might in contrast contain information from multiple trees.
+To interpret the outcomes of the models on a plot level, we linked the winning variables of each to dataset attributes that describe the underlying plot characteristics.
+For example, a plot which a low tree density might inherit more information from the bare ground in the calculated indices while a plot with a very high tree density might in contrast contain information from multiple trees.
+Also, the overall level of defoliation for the whole plot might possibly have an effect how well an index is able to describe the situation.
+
+\subsubsection{Creation of a super model with all observations}
+
+After the plot level analysis, we merged all observations into a single dataset and fitted another \ac{RR} model.
+We used a block-level based spatial \ac{CV} for this setup.
+For a total number of $m$ folds ($n$ = number of plots), every plot is once the test set while the training is done on the remaining ones.
+This ensures that the test set is fully spatially independent from the training set.
+Tuning was also performned on the block level within the training set on $n - 1$ folds using 200 random search iterations.
+Due to the fixing of the indices on a plot level, varying those to use multiple repetitions is not possible.
 
 % Points to mention
 % * All penalization methods are suited for different kinds of dataset structures
@@ -299,7 +310,7 @@ For example, a plot which a low tree density might inherit more information from
 
 \section{Results}
 
-\subsection{Comparison of penalties}
+\subsection{Predictive performances}
 
 % parameter limits
 \begin{table}[b!]
@@ -310,15 +321,34 @@ For example, a plot which a low tree density might inherit more information from
 	\\
 	Plot/Penalty & Lasso  & Ridge  & Elasticnet \\
 	\hline
-	Laukiz 1     & 146.33 & 87.76  & 135.58     \\
-	Laukiz 2     & 146.33 & 87.76  & 135.58     \\
-	Luiando      &        &        &            \\
-	Oiartzun     &        & 106.65 &            \\
+	Laukiz 1     & 146.33 & 89.89  & 135.58     \\
+	Laukiz 2     & 172.70 & 30.37  & 37.07      \\
+	Luiando      & 74.85  & 76.02  & 74.77      \\
+	Oiartzun     & 327.93 & 106.65 & 260.38     \\
 	All Plots    & 56.88  & 55.88  & 56.76      \\
 	\bottomrule
 \end{tabular}
 \endgroup
 \label{tab:penalty_comparison}
+\end{table}
+
+
+\begin{table}[b!]
+\centering
+\caption[t]{Predictive performance of \ac{RR} using the merged dataset (supermodel) and observations on a plot level only (single plot) with \ac{RMSE} as the error measure.}
+\begingroup\footnotesize
+\begin{tabular}{lll}
+	\\
+	Plot     & Supermodel (Block CV) & Single plot (SpCV) \\
+	\hline
+	Laukiz 1 & 58.95                 & 89.89              \\
+	Laukiz 2 & 27.94                 & 30.37              \\
+	Luiando  & 69.72                 & 76.02              \\
+	Oiartzun & 58.09                 & 106.65             \\
+	\bottomrule
+\end{tabular}
+\endgroup
+\label{tab:supermodel_performance}
 \end{table}
 
 \section{Discussion}
@@ -328,6 +358,33 @@ For example, a plot which a low tree density might inherit more information from
 The exact number of contributing pixels of an index cannot be determined as it depends on the location of the tree within the pixel grid.
 If a tree is located at the border of a pixel, the same buffer (e.g. 3 m) will include more pixels than if the point is located at the center of a pixel.
 Also, if a tree is located at the border of the image data, some directions of the buffer may not contain values.
+
+\subsection{Variable importance}
+
+% variable importance
+\begin{table}[b!]
+\centering
+\caption[t]{The ten highest coefficient estimates for every plot and the merged dataset.}
+\begingroup\footnotesize
+\begin{tabular}{lllll}
+	\\
+	Laukiz 1           & Laukiz 2           & Luiando             & Oiartzun            & All Plots          \\
+	\hline
+	b80-b77 (0.0089)   & b89-b84 (0.0093)   & b95-b93 (1.5e-36)   & b23-b18 (-0.0090)   & b78-b77 (0.058)    \\
+	b81-b77 (0.0079)   & b89-b87 (0.0086)   & b109-b106 (1.4e-36) & b23-b19 (-0.0074)   & b115-b113 (0.054)  \\
+	b78-b77 (0.0079)   & b89-b88 (0.0086)   & b92-b95 (1.4e-36)   & b99-b98 (0.0073)    & b82-b77 (0.052)    \\
+	b77-b76 (-0.0078)  & b108-b104 (0.0084) & b114-b6 (-1.2e-36)  & b23-b20 (-0.0070)   & b79-b77 (0.049)    \\
+	b79-b77 (0.0077)   & b89-b85 (0.0083)   & b96-b93 (1.2e-36)   & b10-b8 (-0.0063)    & b80-b77 (0.049)    \\
+	Datt3 (-0.71)      & b92-b84 (0.0083)   & b116-b6 (-1.2e-36)  & b102-b98 (0.0062)   & b81-b77 (0.049)    \\
+	b41-b25 (0.0070)   & b89-b83 (0.0081)   & b114-b5 (-1.2e-36)  & b124-b115 (0.0062)  & b81-b78 (-0.048)   \\
+	b116-b113 (0.0068) & b89-b86 (0.0080)   & b115-b114 (1.2e-36) & b23-b15 (-0.0060)   & b124-b115 (-0.047) \\
+	b82-b77 (0.0068)   & b92-b88 (0.0080)   & b95-b91 (1.1e-36)   & b126-b115 (-0.0060) & b23-b20 (-0.047)   \\
+	b77-b75 (-0.0068)  & b108-b96 (0.0079)  & b114-b8 (-1.1e-36)  & b118-b115 (-0.0059) & b80-b78 (-0.046)   \\
+	\bottomrule
+\end{tabular}
+\endgroup
+\label{tab:variable-importance}
+\end{table}
 
 \section*{References}
 

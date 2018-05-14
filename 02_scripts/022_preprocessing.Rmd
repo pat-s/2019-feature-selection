@@ -63,7 +63,7 @@ data %<>%
 #                    .vars = vars(-deftot)),
 #              mc.cores = 4
 #       )
-# saveRDS(data, "/data/patrick/mod/hyperspectral/data_clean_with_indices/data_clean_standardized_bf1.rda")
+# saveRDS(data, "/data/patrick/mod/hyperspectral/data_clean_with_indices/data_clean_standardized_bf2.rda")
 
 # data.table so much faster
 data %<>% 

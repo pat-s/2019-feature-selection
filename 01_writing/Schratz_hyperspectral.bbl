@@ -15,8 +15,9 @@
 \bibitem[{Bare \& Hann(1981)}]{Bare1981}
 \bibinfo{author}{Bare, B.~B.}, \& \bibinfo{author}{Hann, D.}
   (\bibinfo{year}{1981}).
-\newblock \bibinfo{title}{Applications of ridge regression in forestry}, .
-\newblock {\it \bibinfo{volume}{27}\/}, \bibinfo{pages}{339--348}.
+\newblock \bibinfo{title}{Applications of ridge regression in forestry}.
+\newblock {\it \bibinfo{journal}{Forest Science}\/},  {\it
+  \bibinfo{volume}{27}\/}, \bibinfo{pages}{339--348}.
 %Type = Inproceedings
 \bibitem[{Brenning(2012)}]{sperrorest}
 \bibinfo{author}{Brenning, A.} (\bibinfo{year}{2012}).

@@ -1,0 +1,141 @@
+---
+title: "04-plot characteristics"
+output: 
+  bookdown::html_document2:
+    toc: true
+    toc_float: true
+---
+
+# Load packages
+
+```{r, results='hide'}
+devtools::install_github("tidyverse/ggplot2")
+devtools::install_github("mlr-org/mlr@blocking")
+
+library(dplyr)
+library(tibble)
+library(purrr)
+library(magrittr)
+library(data.table)
+library(raster)
+library(ggplot2)
+library(hrbrthemes)
+library(cowplot)
+```
+
+# Read data
+
+Variables per plot:
+
+Lauki1: 7594
+Laukiz2: 7594
+Oiartzun: 7841
+Luiando: 7471
+
+Why is there such a huge difference in the number of indices without NAs for the plots?
+
+```{r}
+data <- readRDS("/data/patrick/mod/hyperspectral/data_clean_with_indices/data_clean_standardized_bf2.rda")
+coords <- readRDS("/data/patrick/mod/hyperspectral/data_clean_with_indices/data_clean_standardized_bf2-coords.rda")
+```
+
+# Merge into one dataset
+
+Leaving out Luiando (see README for reason).
+
+```{r}
+data <- as_tibble(rbindlist(data, fill = TRUE)) # combine all plots
+data <- Filter(function(x) !any(is.na(x)), data) # filter out columsn containing NA
+coords <- as_tibble(rbindlist(coords))
+data %<>%
+  mutate(plot = factor(rep(c("Laukiz 1", "Laukiz 2", "Luiando", "Oiartzun"), c(559, 382, 301, 499))))
+```
+
+# Mean defoliation per plot
+
+```{r}
+data %>%
+  group_by(plot) %>%
+  summarise(mean(deftot))
+```
+
+```{r}
+data %>%
+  group_by(plot) %>%
+  ggplot(aes(y = deftot, x = plot)) +
+  geom_boxplot() +
+  theme_ipsum_rc()
+```
+
+# Point density
+
+In Meters.
+
+```{r}
+plots <- list("Laukiz 1", "Laukiz 2", "Luiando", "Oiartzun")
+
+dist <- map(plots, ~ {
+  coords_laukiz1 <- coords %>%
+    mutate(plot = factor(rep(c("Laukiz 1", "Laukiz 2", "Luiando", "Oiartzun"), c(559, 382, 301, 499)))) %>%
+    filter(plot == .x) %>%
+    dplyr::select(-plot)
+
+  laukiz1_points <- SpatialPoints(coords = coords_laukiz1, proj4string = CRS("+proj=utm +zone=30 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"))
+
+  distance <- mean(as.dist(pointDistance(laukiz1_points, allpairs = TRUE, lonlat = FALSE)))
+})
+set_names(dist, plots)
+```
+
+# Scatterplots
+
+Visualize RMSE vs plot characteristics
+
+```{r}
+df <- tibble(
+  plot = factor(c("Laukiz 1", "Laukiz 2", "Luiando", "Oiartzun")),
+  rmse = c(89.89, 30.37, 76.02, 106.65),
+  point_dens = c(34.34, 62.51, 33.76, 35.01),
+  mean_defol = c(53.22, 17.73, 68.35, 44.63)
+) 
+```
+
+## RMSE vs point dens
+
+```{r}
+rmse_dens <- ggplot(df, aes(x = point_dens, y = rmse)) +
+  geom_point(aes(color = plot), shape = 19) +
+  labs(x = "Mean point density (m)", y = "RMSE") +
+  theme_ipsum_rc() +
+  theme(legend.position = "none") +
+  theme(plot.margin = unit(c(6,0,6,0), "pt"))
+```
+
+## RMSE vs mean defol
+
+```{r}
+rmse_defol <- ggplot(df, aes(x = mean_defol, y = rmse)) +
+  geom_point(aes(color = plot), shape = 19) +
+  labs(x = "Mean defoliation (%)", y = "RMSE") +
+  theme_ipsum_rc() +
+  theme(legend.position = "none") +
+  theme(plot.margin = unit(c(6,0,6,0), "pt"))
+```
+
+## Plot
+
+### Legend
+
+```{r}
+legend <- ggplot(df, aes(x = mean_defol, y = rmse)) +
+  geom_point(aes(color = plot), shape = 19) +
+  labs(x = "Mean defoliation (%)", y = "RMSE", color = "Plot") +
+  theme_ipsum_rc()
+legend <- get_legend(legend)
+```
+
+### Grid
+
+```{r}
+plot_grid(rmse_dens, legend, rmse_defol, ncol = 3, rel_widths = c(1, .3, 1))
+```
