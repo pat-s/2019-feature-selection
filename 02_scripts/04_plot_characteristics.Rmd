@@ -21,6 +21,10 @@ library(raster)
 library(ggplot2)
 library(hrbrthemes)
 library(cowplot)
+library(here)
+library(ggpubr)
+library(ggsci)
+library(ggrepel)
 ```
 
 # Read data
@@ -60,11 +64,37 @@ data %>%
 ```
 
 ```{r}
-data %>%
+boxplot_defol = data %>%
   group_by(plot) %>%
-  ggplot(aes(y = deftot, x = plot)) +
-  geom_boxplot() +
-  theme_ipsum_rc()
+  ggboxplot(
+    x = "plot", y = "deftot", color = "plot",
+    add = "jitter", add.params = list(size = "deftot")
+  ) +
+  scale_size(range = c(0.5, 0.5)) +
+  annotate("text",
+    label = expression(bold(atop("n = 559", bar(x)~"= 53.23"))), x = 1, 
+    y = 112, size = 3, colour = "#BC3C29", fontface = 2
+  ) +
+  annotate("text",
+    label = expression(bold(atop("n = 382", bar(x)~"= 17.73"))), x = 2, 
+    y = 112, size = 3, colour = "#0072B5", fontface = 2
+  ) +
+  annotate("text",
+    label = expression(bold(atop("n = 301", bar(x)~"= 68.36"))), x = 3, 
+    y = 112, size = 3, colour = "#E18727", fontface = 2
+  ) +
+  annotate("text",
+    label = expression(bold(atop("n = 499", bar(x)~"= 44.64"))), x = 4, 
+    y = 112, size = 3, colour = "#20854E", fontface = 2
+  ) +
+  scale_color_nejm() +
+  theme(legend.position = "none") +
+  labs(y = "Total defoliation per tree (%)", x = "Plot")
+boxplot_defol
+```
+
+```{r}
+save_plot(here("03_figures/results/boxplot_defol.png"), boxplot_defol)
 ```
 
 # Point density
@@ -97,29 +127,61 @@ df <- tibble(
   rmse = c(89.89, 30.37, 76.02, 106.65),
   point_dens = c(34.34, 62.51, 33.76, 35.01),
   mean_defol = c(53.22, 17.73, 68.35, 44.63)
-) 
+)
 ```
 
 ## RMSE vs point dens
 
 ```{r}
 rmse_dens <- ggplot(df, aes(x = point_dens, y = rmse)) +
-  geom_point(aes(color = plot), shape = 19) +
+  geom_point(aes(color = plot), shape = 19, size = 3) +
   labs(x = "Mean point density (m)", y = "RMSE") +
-  theme_ipsum_rc() +
-  theme(legend.position = "none") +
-  theme(plot.margin = unit(c(6,0,6,0), "pt"))
+  theme_ipsum_rc(
+    axis_title_size = 22,
+    axis_title_just = "c"
+  ) +
+  scale_color_nejm() +
+  theme(
+    plot.margin = unit(c(6, 0, 6, 0), "pt"),
+    legend.position = "none",
+    axis.text = element_text(size = 20),
+    legend.text = element_text(size = 20),
+    axis.title.y = element_text(margin = margin(
+      t = 0, r = 15,
+      b = 0, l = 0
+    )),
+    axis.title.x = element_text(margin = margin(
+      t = 15, r = 0,
+      b = 0, l = 0
+    ))
+  )
 ```
 
 ## RMSE vs mean defol
 
 ```{r}
 rmse_defol <- ggplot(df, aes(x = mean_defol, y = rmse)) +
-  geom_point(aes(color = plot), shape = 19) +
+  geom_point(aes(color = plot), shape = 19, size = 3) +
   labs(x = "Mean defoliation (%)", y = "RMSE") +
-  theme_ipsum_rc() +
-  theme(legend.position = "none") +
-  theme(plot.margin = unit(c(6,0,6,0), "pt"))
+  theme_ipsum_rc(
+    axis_title_size = 22,
+    axis_title_just = "c"
+  ) +
+  scale_color_nejm() +
+  theme(
+    plot.margin = unit(c(6, 0, 6, 0), "pt"),
+    legend.position = "none",
+    axis.text = element_text(size = 20),
+    legend.text = element_text(size = 20),
+    axis.title.y = element_text(margin = margin(
+      t = 0, r = 15,
+      b = 0, l = 0
+    )),
+    axis.title.x = element_text(margin = margin(
+      t = 15, r = 0,
+      b = 0, l = 0
+    ))
+  )
 ```
 
 ## Plot
@@ -128,14 +190,58 @@ rmse_defol <- ggplot(df, aes(x = mean_defol, y = rmse)) +
 
 ```{r}
 legend <- ggplot(df, aes(x = mean_defol, y = rmse)) +
-  geom_point(aes(color = plot), shape = 19) +
+  geom_point(aes(color = plot), shape = 19, size = 3) +
   labs(x = "Mean defoliation (%)", y = "RMSE", color = "Plot") +
-  theme_ipsum_rc()
+  theme_ipsum_rc(
+    axis_title_size = 16,
+    axis_title_just = "c"
+  ) +
+  scale_color_nejm() +
+  theme(
+    axis.text = element_text(size = 20),
+    legend.text = element_text(size = 20),
+    legend.title = element_text(size = 20),
+    axis.title.y = element_text(margin = margin(
+      t = 0, r = 15,
+      b = 0, l = 0
+    ))
+  )
 legend <- get_legend(legend)
 ```
 
 ### Grid
 
 ```{r}
-plot_grid(rmse_dens, legend, rmse_defol, ncol = 3, rel_widths = c(1, .3, 1))
+plots_grid <- plot_grid(rmse_dens, legend, rmse_defol, ncol = 3, rel_widths = c(1, .3, 1))
 ```
+
+```{r}
+save_plot(here("03_figures/results/mean-defol_mean-point-dens.png"), plots_grid, ncol = 3)
+```
+
+# PNG to PDF conversion
+
+Converts all pngs in the specified folder to pdfs. 
+`&&` makes the "convert" call conditional on `cd`.
+`exec` reduces memory waste of shell.
+Uses "GNU parallel" library for parallel jobs and the `convert` function from the `ImageMagick` library.
+
+```{r png to pdf, echo = FALSE, eval = FALSE}
+# system("cd /home/patrick/PhD/papers/03_hyperspectral/03_figures/data && exec ls -1 *.png |
+#        parallel convert '{}' '{.}.pdf'")
+
+system("cd /home/patrick/PhD/papers/03_hyperspectral/03_figures/results/ && exec ls -1 *.png | 
+       parallel convert '{}' '{.}.pdf'")
+
+# copy to presentation folder
+# file_copy("/home/patrick/PhD/papers/01_model_comparison/04_figures/02_results/cv_boxplots_final.png",
+#           "/home/patrick/PhD/presentations/paper1/figs/cv_boxplots_final.png",
+#           overwrite = TRUE)
+```
+
+# Session Info
+
+```{r}
+sessionInfo()
+```
+

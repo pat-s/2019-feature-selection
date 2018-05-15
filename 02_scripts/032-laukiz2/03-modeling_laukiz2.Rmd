@@ -132,6 +132,17 @@ saveRDS(resa_glmnet, "/data/patrick/mod/hyperspectral/spcv/laukiz2_ridge_bf2_10f
 resa_glmnet = readRDS("/data/patrick/mod/hyperspectral/spcv/laukiz2_ridge_bf2_10folds.rda")
 ```
 
+Calculate repetition mean
+
+```{r}
+resa_glmnet = readRDS("/data/patrick/mod/hyperspectral/spcv/laukiz2_ridge_bf2_10folds.rda")
+resa_glmnet$measures.test %>% 
+  dplyr::mutate(rep = rep(1:20, times = 1, each = 10)) %>% 
+  group_by(rep) %>% 
+  summarise_at("rmse", mean) %>% 
+  summarise(mean(rmse), sd(rmse))
+```
+
 #### TuneParams
 
 ```{r}
@@ -249,7 +260,17 @@ resa_glmnet <- mlr::resample(tune_wrapper, task,
 
 parallelStop()
 saveRDS(resa_glmnet, "/data/patrick/mod/hyperspectral/spcv/laukiz2_lasso_bf2_10folds.rda")
+```
+
+Calculate repetition mean
+
+```{r}
 resa_glmnet = readRDS("/data/patrick/mod/hyperspectral/spcv/laukiz2_lasso_bf2_10folds.rda")
+resa_glmnet$measures.test %>% 
+  dplyr::mutate(rep = rep(1:20, times = 1, each = 10)) %>% 
+  group_by(rep) %>% 
+  summarise_at("rmse", mean) %>% 
+  summarise(mean(rmse), sd(rmse))
 ```
 
 #### TuneParams
@@ -370,7 +391,17 @@ resa_glmnet <- mlr::resample(tune_wrapper, task,
 
 parallelStop()
 saveRDS(resa_glmnet, "/data/patrick/mod/hyperspectral/spcv/laukiz2_elasticnet.rda")
+```
+
+Calculate repetition mean
+
+```{r}
 resa_glmnet = readRDS("/data/patrick/mod/hyperspectral/spcv/laukiz2_elasticnet.rda")
+resa_glmnet$measures.test %>% 
+  dplyr::mutate(rep = rep(1:20, times = 1, each = 10)) %>% 
+  group_by(rep) %>% 
+  summarise_at("rmse", mean) %>% 
+  summarise(mean(rmse), sd(rmse))
 ```
 
 #### TuneParams
@@ -386,6 +417,7 @@ params_tuned_glmnet = tuneParams(lrn_glmnet, task = task, resampling = inner,
                                  measure = list(rmse))
 parallelStop()
 ```
+
 
 #### Tuned results
 

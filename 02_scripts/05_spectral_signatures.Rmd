@@ -11,10 +11,10 @@ output:
 ```{r, results='hide'}
 install.packages("hsdar")
 library(hsdar)
-library(ggplotify)
 library(cowplot)
 library(magrittr)
 library(purrr)
+library(here)
 ```
 
 ```{r}
@@ -50,51 +50,51 @@ speclibs <- map(spectral_data, ~ speclib(.x, wavelength))
 # plots = map2(speclibs, c("Laukiz 1", "Laukiz 2", "Luiando", "Oiartzun"), 
 #              ~ plot(.x, main = .y)) 
 
+png(here("03_figures/results/spectral_signatures.png"))
+par(mfrow = c(2,2), mar = c(5,4,2,1))
+
 plot(speclibs[[1]], main = "Laukiz 1", ylim = c(0, 350))
-abline(v = 773.56, new = FALSE, col = "darkgreen")
-abline(v = 725, new = FALSE, col = "blue")
-text("Band 80\n (773 nm)", x = 550, y = 330, col = "darkgreen")
-text("Band 70\n (725 nm)", x = 450, y = 330, col = "blue")
+abline(v = 773.56, new = FALSE, col = "#BC3C29") # 80
+#text("Band 80\n (773 nm)", x = 550, y = 330, col = "darkgreen")
 
 plot(speclibs[[2]], main = "Laukiz 2", ylim = c(0, 350))
-abline(v = 773.56, new = FALSE, col = "darkgreen")
-abline(v = 725, new = FALSE, col = "blue")
-text("Band 80\n (773 nm)", x = 550, y = 330, col = "darkgreen")
-text("Band 70\n (725 nm)", x = 450, y = 330, col = "blue")
+abline(v = 817.17, new = FALSE, col = "#0072B5") # 89
+#text("Band 89\n (817 nm)", x = 550, y = 330, col = "darkgreen")
 
 plot(speclibs[[3]], main = "Luiando", ylim = c(0, 350))
-abline(v = 773.56, new = FALSE, col = "darkgreen")
-abline(v = 725, new = FALSE, col = "blue")
-text("Band 80\n (773 nm)", x = 550, y = 330, col = "darkgreen")
-text("Band 70\n (725 nm)", x = 450, y = 330, col = "blue")
+abline(v = 846.28, new = FALSE, col = "#E18727") # 95
+# text("Band 70\n (725 nm)", x = 450, y = 330, col = "blue")
 
 plot(speclibs[[4]], main = "Oiartzun", ylim = c(0, 350))
-abline(v = 773.56, new = FALSE, col = "darkgreen")
-abline(v = 725, new = FALSE, col = "blue")
-text("Band 80\n (773 nm)", x = 550, y = 330, col = "darkgreen")
-text("Band 70\n (725 nm)", x = 450, y = 330, col = "blue")
+abline(v = 503.26, new = FALSE, col = "#20854E") # 23
+# text("Band 70\n (725 nm)", x = 450, y = 330, col = "blue")
+dev.off()
 
-
-
-
-p = recordPlot()
-
-test = as.ggplot(~p)
-
-plot.new() 
-p
-
-plot(speclibs[[1]], main = "Laukiz 1", ylim = c(0, 350)); abline(v = 500, new=FALSE)
-  
-p1 = as.ggplot(~plot(speclibs[[1]], main = "Laukiz 1", ylim = c(0, 350)))
-
-p2 = as.ggplot(~plot(speclibs[[2]], main = "Laukiz 2", ylim = c(0, 350)))
-p3 = as.ggplot(~plot(speclibs[[3]], main = "Luiando", ylim = c(0, 350)))
-p4 = as.ggplot(~plot(speclibs[[4]], main = "Oiartzun", ylim = c(0, 350)))
+par(mfrow = c(1,1))
 ```
 
+# PNG to PDF conversion
+
+Converts all pngs in the specified folder to pdfs. 
+`&&` makes the "convert" call conditional on `cd`.
+`exec` reduces memory waste of shell.
+Uses "GNU parallel" library for parallel jobs and the `convert` function from the `ImageMagick` library.
+
+```{r png to pdf, echo = FALSE, eval = FALSE}
+# system("cd /home/patrick/PhD/papers/03_hyperspectral/03_figures/data && exec ls -1 *.png | 
+#        parallel convert '{}' '{.}.pdf'")
+
+system("cd /home/patrick/PhD/papers/03_hyperspectral/03_figures/results/ && exec ls -1 *.png | 
+       parallel convert '{}' '{.}.pdf'")
+
+# copy to presentation folder
+# file_copy("/home/patrick/PhD/papers/01_model_comparison/04_figures/02_results/cv_boxplots_final.png",
+#           "/home/patrick/PhD/presentations/paper1/figs/cv_boxplots_final.png",
+#           overwrite = TRUE)
+```
+
+# Session Info
 
 ```{r}
-plot_grid(p1, p2, p3, p4, ncol = 2)
+sessionInfo()
 ```
-

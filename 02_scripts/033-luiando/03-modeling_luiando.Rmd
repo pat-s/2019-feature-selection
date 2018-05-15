@@ -115,7 +115,7 @@ tune_wrapper <- makeTuneWrapper(lrn_glmnet, resampling = inner, par.set = ps_glm
 ```
 
 ```{r}
-outer <- makeResampleDesc("SpRepCV", folds = 10, reps = 2)
+outer <- makeResampleDesc("SpRepCV", folds = 10, reps = 20)
 ```
 
 ```{r}
@@ -233,7 +233,7 @@ tune_wrapper <- makeTuneWrapper(lrn_glmnet, resampling = inner, par.set = ps_glm
 ```
 
 ```{r}
-outer <- makeResampleDesc("SpRepCV", folds = 10, reps = 2)
+outer <- makeResampleDesc("SpRepCV", folds = 10, reps = 20)
 ```
 
 ```{r}
@@ -353,7 +353,7 @@ tune_wrapper <- makeTuneWrapper(lrn_glmnet, resampling = inner, par.set = ps_glm
 ```
 
 ```{r}
-outer <- makeResampleDesc("SpRepCV", folds = 10, reps = 2)
+outer <- makeResampleDesc("SpRepCV", folds = 10, reps = 20)
 ```
 
 ```{r}
