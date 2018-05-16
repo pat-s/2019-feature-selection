@@ -135,7 +135,14 @@ resa_glmnet <- mlr::resample(tune_wrapper, task,
                              show.info = TRUE, measures = list(rmse))
 parallelStop()
 saveRDS(resa_glmnet, "/data/patrick/mod/hyperspectral/spcv/all_plots_ridge_bf2_10folds_blocking.rda")
+```
+
+Calculate repetition mean
+
+```{r}
 resa_glmnet = readRDS("/data/patrick/mod/hyperspectral/spcv/all_plots_ridge_bf2_10folds_blocking.rda")
+resa_glmnet$measures.test %>% 
+  summarise(mean(rmse), sd(rmse))
 ```
 
 #### Visualize partitions
@@ -264,6 +271,14 @@ resa_glmnet <- mlr::resample(tune_wrapper, task,
 
 parallelStop()
 saveRDS(resa_glmnet, "/data/patrick/mod/hyperspectral/spcv/all_plots_lasso_bf2_10folds_blocking.rda")
+```
+
+Calculate repetition mean
+
+```{r}
+resa_glmnet = readRDS("/data/patrick/mod/hyperspectral/spcv/all_plots_lasso_bf2_10folds_blocking.rda")
+resa_glmnet$measures.test %>% 
+  summarise(mean(rmse), sd(rmse))
 ```
 
 #### TuneParams

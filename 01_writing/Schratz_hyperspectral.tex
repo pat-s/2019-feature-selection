@@ -296,13 +296,13 @@ The ten highest coefficients (both positive and negative) were extracted and rep
 \begingroup\footnotesize
 \begin{tabular}{llll}
 	\\
-	Plot/Penalty   & Lasso         & Ridge        & Elasticnet    \\
+	Plot/Penalty   & Lasso         & Ridge         & Elasticnet    \\
 	\hline
-	Laukiz 1       & 133.15 (4.66) & 86.71 (2.96) & 121.04 (4.15) \\
-	Laukiz 2       & 91.93 (6.78)  & 29.73 (0.38) & 47.18 (13.70) \\
-	Luiando        & 74.85         & 76.02        & 74.77         \\
-	Oiartzun       & 327.93        & 106.65       & 260.38        \\
-	Merged dataset & 56.88         & 55.88        & 56.76         \\
+	Laukiz 1       & 133.15 (4.66) & 86.71 (2.96)  & 121.04 (4.15) \\
+	Laukiz 2       & 91.93 (6.78)  & 29.73 (0.38)  & 47.18 (13.70) \\
+	Luiando        & 74.83 (0.311) & 75.95 (0.23)  & 74.74 (0.29)  \\
+	Oiartzun       & 327.93        & 106.65        & 260.38        \\
+	Merged dataset & 54.80 (17.58) & 53.67 (17.95) & 54.66 (17.67) \\
 	\bottomrule
 \end{tabular}
 \endgroup
@@ -387,9 +387,15 @@ Laukiz 2 shows a mean tree density of 62.51 m \autoref{fig:rmse_defol_dens}) whi
 The magnitude of difference for \ac{RR} compared to the other penalties for the plots in which \ac{RR} showed the best performance ranges between XX and XX percent.
 For the merged dataset, all penalties show a similar mean predictive performance that outperform all single plot models besides the Laukiz 2 model.
 
+% single models vs supermodel
 When comparing the mean predictive performance of the plot level model against the performance of the super model at the plot level (when the respective plot served as the test set), the supermodel also outperforms the Laukiz 2 model (27.94 vs 30.37 RMSE) (\autoref{tab:supermodel_performance}).
 
 The worst performance of the supermodel on the fold level is reported for Luiando (69.72 RMSE) while for the single plot models Oiartzun shows the highest error (106.65 RMSE).
+
+% RMSE vs defol and point dens
+Laukiz 2 showed contrary results compared to all other plots when linking \ac{RMSE} against mean defoliation and mean point density (\autoref{fig:rmse_defol_dens}).
+Laukiz 1, Luiando and Oiartzun show almost identical values in terms of point density (34.35m, 33.77m, 35.01m).
+Due to the high similarity, these should be interpreted as a group and not as single values.
 
 % rmse vs defol and point dens
 \begin{figure} [b!]
@@ -400,15 +406,12 @@ The worst performance of the supermodel on the fold level is reported for Luiand
 	\end{center}
 \end{figure}
 
-\section{Discussion}
+\subsubsection{Variable importance}
 
-\subsection{Index derivation}
-
-The exact number of contributing pixels of an index cannot be determined as it depends on the location of the tree within the pixel grid.
-If a tree is located at the border of a pixel, the same buffer (e.g. 3 m) will include more pixels than if the point is located at the center of a pixel.
-Also, if a tree is located at the border of the image data, some directions of the buffer may not contain values.
-
-\subsection{Variable importance}
+\ac{NRI}s using bands in the wavelength range of 770 nm - 820 nm (band 80 - band 89), which belongs to the infrared region, appear most often among the ten highest coefficient estimates across all plots (\autoref{tab:variable-importance}).
+Only one vegeation index (Datt3) showed up among the most important predictors (Laukiz 1).
+Luiando and Oiartzun also prefered bands with longer (938.39 nm (band 114) - 996.31 nm (band 126)) and shorter wavelengths (480.30 nm (band 18) - 503.26 (band 23)).
+The first range again belongs to the infrared region while the second is within the region of the visible light, transitioning from blue to green.
 
 % variable importance
 \begin{table}[b!]
@@ -434,6 +437,25 @@ Also, if a tree is located at the border of the image data, some directions of t
 \endgroup
 \label{tab:variable-importance}
 \end{table}
+
+\section{Discussion}
+
+\subsection{Index derivation}
+
+The exact number of contributing pixels to the final index value of an observations cannot be determined as it depends on the location of the tree within the pixel grid.
+If a tree is located at the border of a pixel, a buffer of e.g. three meters will include more pixels than if the point is located at the center of a pixel.
+Also, if a tree is located at the border of the plot, some directions of the buffer will not contain image values.
+
+\subsection{Plot characteristics}
+
+For Laukiz1, Luiando and Oiartzun \ac{RMSE} seems to increase with a higher point density on a first look.
+However, the point densities of these plots are very similar (33.7 m - 35.01 m) and should be interpreted as a group instead of single values.
+Comparing this group to Laukiz 2, which has point density of 62 m, the error decreases with a higher point density.
+Linking the error against the mean defoliation of a plot does not lead to a clear conclusion:
+While Laukiz1, Luiando and Oiartzun give the impression of a decreasing RMSE when defoliation increases, Laukiz 2 clearly shows that a plot with a low defoliation can results in a low RMSE estimate (\autoref{fig:rmse_defol_dens}).
+
+\subsection{Variable importance}
+
 
 \section*{References}
 
