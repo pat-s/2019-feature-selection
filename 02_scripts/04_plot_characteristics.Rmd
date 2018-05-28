@@ -63,6 +63,29 @@ data %>%
   summarise(mean(deftot))
 ```
 
+# Coefficient of variation
+
+```{r}
+data %>%
+  group_by(plot) %>%
+  summarise((sd(deftot) / mean(deftot)) * 100)
+```
+
+#  sd / skewness
+
+```{r}
+data %>%
+  group_by(plot) %>%
+  summarise(((sd(deftot) / mean(deftot)) * 100) / skewness(deftot))
+```
+
+
+```{r}
+data %>%
+  group_by(plot) %>%
+  summarise(sd(deftot))
+```
+
 ```{r}
 boxplot_defol = data %>%
   group_by(plot) %>%
@@ -126,7 +149,9 @@ df <- tibble(
   plot = factor(c("Laukiz 1", "Laukiz 2", "Luiando", "Oiartzun")),
   rmse = c(89.89, 30.37, 76.02, 106.65),
   point_dens = c(34.34, 62.51, 33.76, 35.01),
-  mean_defol = c(53.22, 17.73, 68.35, 44.63)
+  mean_defol = c(53.22, 17.73, 68.35, 44.63),
+  cov_defol = c(44.88707	, 115.78180	, 12.17709	, 83.18840),
+  sd_skewness = c(-55.077546, 67.232146, -3.187733	, -401.564010)
 )
 ```
 
@@ -157,12 +182,12 @@ rmse_dens <- ggplot(df, aes(x = point_dens, y = rmse)) +
   )
 ```
 
-## RMSE vs mean defol
+## RMSE vs coef of variation
 
 ```{r}
-rmse_defol <- ggplot(df, aes(x = mean_defol, y = rmse)) +
+rmse_defol <- ggplot(df, aes(x = sd_skewness, y = rmse)) +
   geom_point(aes(color = plot), shape = 19, size = 3) +
-  labs(x = "Mean defoliation (%)", y = "RMSE") +
+  labs(x = "Coefficient of variation (%) / Skewness", y = "RMSE") +
   theme_ipsum_rc(
     axis_title_size = 22,
     axis_title_just = "c"
