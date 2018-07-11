@@ -10,6 +10,7 @@ output:
 
 ```{r, results='hide'}
 library(mlr)
+library(mlrMBO)
 library(glue)
 library(sf)
 library(dplyr)
@@ -18,6 +19,8 @@ library(purrr)
 library(magrittr)
 library(data.table)
 library(pbmcapply)
+library(stringr)
+library(ggpubr)
 ```
 
 # Read data
@@ -56,7 +59,7 @@ data %<>%
 
 ```{r}
 task = makeRegrTask(id = "laukiz1", data = data, 
-                    target = "deftot", coordinates = coords)
+                    target = "defoliation", coordinates = coords)
 ```
 
 # Modeling
@@ -98,11 +101,16 @@ summary(glmnet_train$learner.model$lambda)
 ```
 
 ```{r}
-ps_glmnet <- makeParamSet(makeNumericParam("s", lower = 102, upper = 10228))
+ps_glmnet <- makeParamSet(makeNumericParam("s", lower = 78, upper = 7879))
 ```
 
 ```{r}
-ctrl <- makeTuneControlRandom(maxit = 200)
+ctrl = makeMBOControl(propose.points = 1L)
+ctrl = setMBOControlTermination(ctrl, iters = 70L)
+ctrl = setMBOControlInfill(ctrl, crit = crit.ei)
+ctrl = setMBOControlMultiPoint(ctrl, method = "cl", cl.lie = min)
+tune.ctrl = makeTuneControlMBO(mbo.control = ctrl,
+                               mbo.design = generateDesign(n = 30, par.set =  ps_glmnet))
 inner <- makeResampleDesc("SpCV", iters = 10)
 ```
 
@@ -110,7 +118,7 @@ inner <- makeResampleDesc("SpCV", iters = 10)
 
 ```{r}
 tune_wrapper <- makeTuneWrapper(lrn_glmnet, resampling = inner, par.set = ps_glmnet,
-                                control = ctrl, show.info = TRUE,
+                                control = tune.ctrl, show.info = TRUE,
                                 measures = list(rmse))
 ```
 
@@ -120,7 +128,7 @@ outer <- makeResampleDesc("SpRepCV", folds = 10, reps = 20)
 
 ```{r}
 library(parallelMap)
-parallelStart(mode = "multicore", level = "mlr.tuneParams", cpus = 40,
+parallelStart(mode = "multicore", level = "mlr.resample", cpus = 20,
               mc.set.seed = TRUE) # only parallelize the tuning
 
 set.seed(12345)
@@ -153,7 +161,7 @@ parallelStart(mode = "multicore", level = "mlr.tuneParams", cpus = 48,
               mc.set.seed = TRUE) # only parallelize the tuning
 set.seed(12345)
 params_tuned_glmnet = tuneParams(lrn_glmnet, task = task, resampling = inner,
-                                 par.set = ps_glmnet, control = ctrl, 
+                                 par.set = ps_glmnet, control = tune.ctrl, 
                                  measure = list(rmse))
 parallelStop()
 saveRDS(params_tuned_glmnet, "/data/patrick/mod/tmp/tuning_hyperspectral/tuning_bf2_ridge.rda")
@@ -197,6 +205,97 @@ plot(glmnet_train_tuned$learner.model, "lambda")
 plot(coef(glmnet_train_tuned$learner.model))
 ```
 
+#### Important spectral regions
+
+Get the first 100 most important indices.
+We take the absolute value of the coefficient to consider both sides.
+
+We only take the top 100 indices so that the result is not cluttered by mid-ranged indices summping up in the end-result.
+Apparently, we have 56 unique bands within the top 100 indices.
+
+```{r}
+tibble(index = rownames(as.matrix(coef(glmnet_train_tuned$learner.model, s = 7500))), 
+       coef = abs(as.vector(as.matrix(coef(glmnet_train_tuned$learner.model, s = 7500))))) %>% 
+  arrange(desc(coef)) %>% 
+  mutate(coef = coef) -> top_inds_rr_laukiz1
+saveRDS(top_inds_rr_laukiz1, "/data/patrick/mod/hyperspectral/top-inds/top_inds_rr_laukiz1.rda")
+```
+
+Remove the "bf2" information and filter out NRI only.
+
+```{r}
+top_inds_rr_laukiz1 %<>% 
+  mutate(index = str_sub(index, 9, 15)) %>% 
+  filter(str_detect(index, "b"))
+```
+
+Standardize the coefficients
+
+```{r}
+top_inds_rr_laukiz1 %<>% 
+  mutate(coef = as.numeric((coef / min(coef)) * coef))
+```
+
+Extract all band numbers. 
+
+```{r}
+top_inds_rr_laukiz1 %>% 
+  dplyr::select(index) %>% 
+  str_match_all("[0-9]+") %>% 
+  flatten() %>% 
+  as.numeric() -> all_bands_rr
+```
+
+```{r}
+hist(all_bands_rr)
+```
+
+Now add a weight to all bands.
+Starting from 100-2 depending on the score.
+why 2? Because we only have 198 values because we removed one vegetation index.
+
+```{r}
+tibble(band = all_bands_rr, weight = rep(top_inds_rr_laukiz1$coef, times = 1, each = 2)) %>% 
+  group_by(band) %>% 
+  summarise(score = sum(weight)) %>% 
+  mutate(band = band) %>% 
+  arrange(desc(score)) -> tibble_most_imp
+```
+
+Classify the bands into spectral regions
+
+1 - 60: visible (404 - 680)
+61 - 71: red edge (680 - 730)
+72 - 126: NIR (730 - 996)
+
+
+```{r}
+tibble_most_imp %<>% 
+  mutate(group = as.factor(case_when(band <= 60 ~ "Visible (404 - 680)", 
+                           (band >= 61 & band <= 71) ~ "Red Edge (680 - 730)",
+                           band >= 72 ~ "NIR (730 - 996)"))) %>% 
+  arrange(desc(score)) %>% 
+  mutate(band = as.factor(band))
+```
+
+centered by the mean of the scaled coefficients.
+
+```{r}
+ggdotchart(tibble_most_imp, x = "band", y = "score",                              # Color by groups
+           sorting = "descending",                       # Sort value in descending order
+           add = "segments",                             # Add segments from y = 0 to dots
+           color = "group",
+           palette = "nejm",
+           group = "score",
+           combine = T,
+           rotate = TRUE,                                # Rotate vertically
+           dot.size = 1,                                 # Large dot size
+           #label = round(tibble_most_imp$sum),                        # Add mpg values as dot labels
+           ggtheme = theme_pubr(base_size = 9, margin = FALSE)) + 
+  labs(y = "Score", color = "Spectral regions")
+```
+
+
 ### Lasso
 
 We only need to tune `s`: https://github.com/mlr-org/mlr/issues/1030#issuecomment-233677172
@@ -229,11 +328,16 @@ summary(glmnet_train$learner.model$lambda)
 ```
 
 ```{r}
-ps_glmnet <- makeParamSet(makeNumericParam("s", lower = 0.1, upper = 10.3))
+ps_glmnet <- makeParamSet(makeNumericParam("s", lower = 0.07, upper = 7.87))
 ```
 
 ```{r}
-ctrl <- makeTuneControlRandom(maxit = 200)
+ctrl = makeMBOControl(propose.points = 1L)
+ctrl = setMBOControlTermination(ctrl, iters = 70L)
+ctrl = setMBOControlInfill(ctrl, crit = crit.ei)
+ctrl = setMBOControlMultiPoint(ctrl, method = "cl", cl.lie = min)
+tune.ctrl = makeTuneControlMBO(mbo.control = ctrl,
+                               mbo.design = generateDesign(n = 30, par.set =  ps_glmnet))
 inner <- makeResampleDesc("SpCV", iters = 10)
 ```
 
@@ -241,7 +345,7 @@ inner <- makeResampleDesc("SpCV", iters = 10)
 
 ```{r}
 tune_wrapper <- makeTuneWrapper(lrn_glmnet, resampling = inner, par.set = ps_glmnet,
-                                control = ctrl, show.info = TRUE,
+                                control = tune.ctrl, show.info = TRUE,
                                 measures = list(rmse))
 ```
 
@@ -251,7 +355,7 @@ outer <- makeResampleDesc("SpRepCV", folds = 10, reps = 20)
 
 ```{r}
 library(parallelMap)
-parallelStart(mode = "multicore", level = "mlr.tuneParams", cpus = 48,
+parallelStart(mode = "multicore", level = "mlr.resample", cpus = 10,
               mc.set.seed = TRUE) # only parallelize the tuning
 
 set.seed(12345)
@@ -261,7 +365,6 @@ resa_glmnet <- mlr::resample(tune_wrapper, task,
 
 parallelStop()
 saveRDS(resa_glmnet, "/data/patrick/mod/hyperspectral/spcv/laukiz1_lasso_bf2_10folds.rda")
-resa_glmnet = readRDS("/data/patrick/mod/hyperspectral/spcv/laukiz1_lasso_bf2_10folds.rda")
 ```
 
 Calculate repetition mean
@@ -284,7 +387,7 @@ parallelStart(mode = "multicore", level = "mlr.tuneParams", cpus = 40,
               mc.set.seed = TRUE) # only parallelize the tuning
 set.seed(12345)
 params_tuned_glmnet = tuneParams(lrn_glmnet, task = task, resampling = inner,
-                                 par.set = ps_glmnet, control = ctrl, 
+                                 par.set = ps_glmnet, control = tune.ctrl, 
                                  measure = list(rmse))
 parallelStop()
 ```
@@ -296,7 +399,7 @@ As we will always use the complete dataset, this should be the best value.
 
 ```{r}
 lrn_glmnet_tuned <- makeLearner("regr.glmnet",
-                                alpha = 0,
+                                alpha = 1,
                                 s = 1810,
                                 standardize = FALSE, 
                                 intercept = FALSE)
@@ -312,6 +415,7 @@ tibble(index = rownames(as.matrix(coef(glmnet_train_tuned$learner.model, s = 181
        coef = as.vector(as.matrix(coef(glmnet_train_tuned$learner.model, s = 1810)))) %>% 
   arrange(desc(coef))
 ```
+
 ```{r}
 tibble(index = rownames(as.matrix(coef(glmnet_train_tuned$learner.model, s = 1810))), 
        coef = as.vector(as.matrix(coef(glmnet_train_tuned$learner.model, s = 1810)))) %>% 
@@ -360,12 +464,17 @@ For the elasticnet we also tune `alpha`.
 As we have both penalties, we just use the lower and uppper maxima from both Lasso and Ridge.
 
 ```{r}
-ps_glmnet <- makeParamSet(makeNumericParam("s", lower = 0.1, upper = 10228),
+ps_glmnet <- makeParamSet(makeNumericParam("s", lower = 0.07, upper = 7879),
                           makeNumericParam("alpha", lower = 0, upper = 1))
 ```
 
 ```{r}
-ctrl <- makeTuneControlRandom(maxit = 200)
+ctrl = makeMBOControl(propose.points = 1L)
+ctrl = setMBOControlTermination(ctrl, iters = 70L)
+ctrl = setMBOControlInfill(ctrl, crit = crit.ei)
+ctrl = setMBOControlMultiPoint(ctrl, method = "cl", cl.lie = min)
+tune.ctrl = makeTuneControlMBO(mbo.control = ctrl,
+                               mbo.design = generateDesign(n = 30, par.set =  ps_glmnet))
 inner <- makeResampleDesc("SpCV", iters = 10)
 ```
 
@@ -373,7 +482,7 @@ inner <- makeResampleDesc("SpCV", iters = 10)
 
 ```{r}
 tune_wrapper <- makeTuneWrapper(lrn_glmnet, resampling = inner, par.set = ps_glmnet,
-                                control = ctrl, show.info = TRUE,
+                                control = tune.ctrl, show.info = TRUE,
                                 measures = list(rmse))
 ```
 
@@ -383,7 +492,7 @@ outer <- makeResampleDesc("SpRepCV", folds = 10, reps = 20)
 
 ```{r}
 library(parallelMap)
-parallelStart(mode = "multicore", level = "mlr.tuneParams", cpus = 40,
+parallelStart(mode = "multicore", level = "mlr.resample", cpus = 10,
               mc.set.seed = TRUE) # only parallelize the tuning
 
 set.seed(12345)
@@ -415,7 +524,7 @@ parallelStart(mode = "multicore", level = "mlr.tuneParams", cpus = 48,
               mc.set.seed = TRUE) # only parallelize the tuning
 set.seed(12345)
 params_tuned_glmnet = tuneParams(lrn_glmnet, task = task, resampling = inner,
-                                 par.set = ps_glmnet, control = ctrl, 
+                                 par.set = ps_glmnet, control = tune.ctrl, 
                                  measure = list(rmse))
 parallelStop()
 ```
@@ -443,6 +552,7 @@ tibble(index = rownames(as.matrix(coef(glmnet_train_tuned$learner.model, s = 181
        coef = as.vector(as.matrix(coef(glmnet_train_tuned$learner.model, s = 1810)))) %>% 
   arrange(desc(coef))
 ```
+
 ```{r}
 tibble(index = rownames(as.matrix(coef(glmnet_train_tuned$learner.model, s = 1810))), 
        coef = as.vector(as.matrix(coef(glmnet_train_tuned$learner.model, s = 1810)))) %>% 

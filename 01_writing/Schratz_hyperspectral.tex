@@ -26,6 +26,16 @@
 \usepackage{multirow}
 \usepackage{float}
 
+\graphicspath{{../03_figures/results/}{./}{../03_figures/data/}} 
+
+% enable paragraph as 4th level https://tex.stackexchange.com/questions/60209/how-to-add-an-extra-level-of-sections-with-headings-below-subsubsection
+\usepackage{titlesec}
+\setcounter{secnumdepth}{4}
+\titleformat{\paragraph}
+{\normalfont\small\bfseries}{\theparagraph}{1em}{}
+\titlespacing*{\paragraph}
+{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
 % enable linking to subsubsection
 \setcounter{secnumdepth}{3}
 
@@ -77,7 +87,7 @@
 	\end{abstract}
 
 	\begin{keyword}
-		hyperspectral imagery \sep statistical learning \sep spatial cross-validation
+		hyperspectral imagery \sep penalized regression \sep machine-learning \sep variable importance \sep spatial cross-validation
 	\end{keyword}
 
 \end{frontmatter}
@@ -123,36 +133,21 @@
 
 \section{Data and study area}
 
-\subsection{Ground data}
+\subsection{In-situ data}
 % Describe Plots
 
 The four \textit{Pinus radiata} plots Laukiz 1, Laukiz 2, Luiando and Oiartzun are located in the northern part of the Basque Country (\autoref{fig:study_area}).
-Laukiz 1 has the most trees (n = 559) while Laukiz 2 has largest area size.
+Oiartzun has the most observations (n = 529) while Laukiz 2 has largest area size.
 All plots besides Luiando are located nearby the coast.
 The data was collected in September 2016.
 
-% Show Map
-
 \begin{figure} [t!]
 	\begin{center}
-		\makebox[\textwidth]{\includegraphics[width=\textwidth] {../03_figures/data/study_area_hyperspectral.pdf}}
+		\makebox[\textwidth]{\includegraphics[width=\textwidth] {study_area_hyperspectral.pdf}}
 		\caption{Information about the plot locations, the area of hyperspectral coverage and the number of trees per plot.}
 		\label{fig:study_area}
 	\end{center}
 \end{figure}
-
-% describe the hyperspectral data
-
-
-\cite{Brenning2012}
-
-% \begin{figure} [t!]
-% 	\begin{center}
-% 		\makebox[\textwidth]{\includegraphics[width=\textwidth] {../../04_figures/01_data/study_area.pdf}}
-% 		\caption[Study area]{Spatial distribution of tree observations within the Basque Country, northern Spain, showing infection state by \textit{Diplodia sapinea}.}
-% 		\label{fig: study_area}
-% 	\end{center}
-% \end{figure}
 
 \subsection{Hyperspectral data}
 
@@ -180,13 +175,11 @@ Additional information is provided in Table 1:
 \label{tab:hyperparameter_limits}
 \end{table}
 
-
-
 \section{Methods}
 
 \subsection{Derivation of indices}
 
-% link to PDF with veg indeces
+% link to PDF with veg indices
 All vegetation indices (90 total) suitable for the wavelength range of the hyperspectral data and offered by the \texttt{hsdar} package have been calculated.
 Additionally, all possible \ac{NRI} were calculated from the data using the formula:
 
@@ -201,30 +194,20 @@ where $i$ and $j$ are the respective band numbers.
 To account for geometric offsets, we used a buffer of 2 meters around the centroid of the respective tree.
 The mean value of all pixels touched by the buffer was assigned as the final value for each index.
 Missing values were removed from the mean value calculation.
-In total, 7875 \ac{NRI}s have been calculated ($\frac{125*126}{2}$).
-Some indices returned \texttt{NA} values for some observations and were removed from the dataset, leaving a total of 7471 indices that were available for all plots without missing values.
-Note that due to the mass of variables we cannot state which indices in detail have been removed.
+In total, 7875 Normalized Ratio Indices NRI have been calculated ($\frac{125*126}{2}$).
+Some indices returned \texttt{NA} values for some observations and were removed from the dataset, leaving a total of 7471 variables without missing values.
 
-\subsection{Penalized regression}
+\subsection{Exploratory plot characteristics}
 
-The aim of this work was to find the indices that best explain defoliation within the plots.
-We used penalized regression to account for the large amount of highly correlated predictor variables.
-In a standard \ac{OLS} regression one of the assumptions is that the predictor variables should be independent when minimizing the \ac{RSS} \citep{Bare1981, Hastie2001}:
+To get a better impression on the infection state of the four plots, an exploratory data analysis was done.
+The distribution of the response variable \texttt{defoliation} was visualized as well as the spectral signatures of each plot.
 
-\begin{equation}
-	RSS = \sum_{i=1}^{n} \left(y_{i} - \beta_{0} - \sum_{j=1}^{p} \beta_{j} x_{ij} \right) ^{2}
-\end{equation}
+\subsection{Benchmarking of algorithms}
 
-where $\beta_{0}$ is the intercept, $\beta_{i}$ the coefficient, $x_{ij}$ the predictor variable and $y_{i}$ the response variable.
-
-If this assumption is violated, regression coefficients can be highly biased.
-They can even show the wrong sign and are very sensitive to adding new independent variables or data points to the model.
-These points reduce the robustness and performance of \ac{OLS} regression when dealing with multicollinearity.
-One approach to overcome these limitations is to penalize the coefficients.
-This method leads to a substantial decrease in variance and better predictive performance compared to \ac{OLS} regression.
-However, it also sacrifies the assumption of unbiased coefficients.
-Hence, the resulting coefficients cannot be used for statistical inference but should be interpreted as a measure of variable importance.
-
+Multiple algorithms were benchmarked on predictive performance to find the best performing one.
+Besides well-known machine-learning algorithms like \ac{RF} and \ac{SVM} we also used \textit{xgboost} due to its promising results in recent machine-learning competitions.
+To expand the algorithm selection even more, we also used penalized L2 (Ridge) regression.
+This algorithm is able to account for the high correlation between the predictors by penalizing the estimated coefficients of the fitted model.
 
 \subsubsection{The ridge penalty}
 
@@ -246,103 +229,45 @@ Also, while \ac{OLS} generates only one set of coefficient estimates, \ac{RR} wi
 In summary, the advantage of \ac{RR} is based on the bias-variance tradeoff: For $\lambda\to\infty$, the flexibility of the fit is reduced leading to a decrease in variance of the coefficients but also introduces a (substantial) bias.
 For $\lambda = 0$, the variance is high but coefficients are unbiased \citep{James2013}.
 
-\subsubsection{The lasso penalty}
+\subsubsection{Performance estimation}
 
-While the Ridge penalty $\lambda \sum_{j=1}^{p}\beta_{j}^{2}$ shrinks the coefficients, it does not exclude any predictor from the model by setting the coefficient to zero.
-This is what the Lasso penalty (also called $\ell_{1}$) does: It works similar to a "best subset selection" approach by only keeping the most important variables in the model and reducing the coefficients of unimportant ones down to zero.
-This is done by a different \textit{shrinkage penalty} $\lambda \sum_{j=1}^{p} \mid\beta_{j}\mid$ that is added to the \ac{OLS} term when minimizing the \ac{RSS}:
+The algorithms were benchmarked using a spatial \ac{CV} on the plot level.
+The dataset was split into four folds, each fold representing one plot.
+Algorithms were trained on three out of four plots and evaluated on the remaining plot.
+Hyperparameter tuning was also performend on the plot level: Each respective training set, consisting of observations from three plots, was again split into three partitions to estimate the best performing hyperparameter set.
 
-\begin{equation}
-	RSS = \sum_{i=1}^{n} \left(y_{i} - \beta_{0} - \sum_{j=1}^{p} \beta_{j} x_{ij} \right) ^{2} + \lambda \sum_{j=1}^{p} \mid\beta_{j}\mid
-\end{equation}
+% figure visualizing the folds
 
-Subsequently, Lasso is performing variable selection and results in a sparse model that has the advantage of a simplied interpretability compared to Ridge models.
-However, coeffcients are still biased due to penalization \citep{Hastie2001, James2013}.
+\subsection{Variable importance}
 
-\subsubsection{The elasticnet penalty}
+We aimed to find indices that contribute most when predicting defoliation.
+Permutation-based variable importance was applied on the best performing algorithm.
 
-The \textit{elasticnet penalty} combines both penalties Lasso and Ridge by weighting them with a parameter $\alpha$ that needs to be optimized.
-It was introduced by \cite{Zou2005} with the idea to combine the advantages of both penalty terms.
-The \textit{elasticnet penalty} is written as
+% partial dependence plots??
 
-\begin{equation}
-	\lambda \sum_{j=1}^{p} \alpha\beta_{j}^{2} + (1 - \alpha) \mid\beta_{j}\mid
-\end{equation}
 
-where $\alpha$ weights the contribution of either the Lasso or Ridge penalty.
-For $\alpha = 0.5$ both are weighted equally.
-When $\alpha = 0$ only Ridge is used and for $\alpha = 1$ only Lasso applies \citep{Hastie2001}.
+\section{Results}
 
-\subsection{Modeling}
-
-\subsubsection{Selecting the best penalty}
-
-As the introduced penalties behave different depending on the characteristics of the dataset, we first conducted a nested 10-fold spatial \ac{CV} to find the best method among those three.
-The model comparison was applied to all of the four plots using \ac{RMSE} as the error measure.
-For both the performance evaluation and hyperparameter tuning a spatial sampling using $k$-means clustering was used \citep{sperrorest}.
-For the tuning, 200 random search iterations were used.
-The limits of the tuning space for $\lambda$ were set to the internally calculated (data driven) limits of the R package \texttt{glmnet}.
-
-\subsubsection{Extraction of the most important variables}
-
-Next, we applied the winning method (\ac{RR}) on all plots.
-Hyperparameter tuning of $\lambda$ for the full dataset was again done using a spatial sampling.
-The ten highest coefficients (both positive and negative) were extracted and reported.
-
-% parameter limits
+% Performance estimates
 \begin{table}[b!]
 \centering
-\caption[t]{10-fold 20-times repeated spatial \ac{CV} performances of lasso, ridge and elasticnet penalties on the plot level and the merged dataset using \ac{RMSE} as the error measure. Values show the overall mean and standard deviation at the repetition level.}
+\caption[t]{Four-fold spatial \ac{CV} performances of RF, RR, SVM and xgboost using \ac{RMSE} as the error measure. 
+Mean and standard deviation are shown.}
 \begingroup\footnotesize
 \begin{tabular}{llll}
 	\\
-	Plot/Penalty   & Lasso         & Ridge         & Elasticnet    \\
+	RF            & RR            & SVM           & xgboost \\
 	\hline
-	Laukiz 1       & 133.15 (4.66) & 86.71 (2.96)  & 121.04 (4.15) \\
-	Laukiz 2       & 91.93 (6.78)  & 29.73 (0.38)  & 47.18 (13.70) \\
-	Luiando        & 74.83 (0.311) & 75.95 (0.23)  & 74.74 (0.29)  \\
-	Oiartzun       & 327.93        & 106.65        & 260.38        \\
-	Merged dataset & 54.80 (17.58) & 53.67 (17.95) & 54.66 (17.67) \\
+	54.80 (17.58) & 53.67 (17.95) & 54.66 (17.67) &         \\
 	\bottomrule
 \end{tabular}
 \endgroup
 \label{tab:penalty_comparison}
 \end{table}
 
-\subsubsection{Linking variables to plot characteristics}
-
-To interpret the outcomes of the models on a plot level, we linked the winning variables of each to dataset attributes that describe the underlying plot characteristics.
-For example, a plot which a low tree density might inherit more information from the bare ground in the calculated indices while a plot with a very high tree density might in contrast contain information from multiple trees.
-Also, the overall level of defoliation for the whole plot might possibly have an effect how well an index is able to describe the situation.
-
-\subsubsection{Creation of a super model with all observations}
-
-After the plot level analysis, we merged all observations into a single dataset and fitted another \ac{RR} model.
-We used a block-level based spatial \ac{CV} for this setup.
-For a total number of $m$ folds ($n$ = number of plots), every plot is once the test set while the training is done on the remaining ones.
-This ensures that the test set is fully spatially independent from the training set.
-Tuning was also performned on the block level within the training set on $n - 1$ folds using 200 random search iterations.
-Due to the fixing of the indices on a plot level, varying those to use multiple repetitions is not possible.
-The idea behind fitting a supermodel is that this model includes information from all plots rather than just from a single plot.
-This may possibly reduce the predictive error and create a more robust model.
-
-% Points to mention
-% * All penalization methods are suited for different kinds of dataset structures
-% * Find out which one works best on average and then use this method to create create models for prediction and variable importance
-
 \section{Results}
 
-\subsection{Plot characteristics}
-
-Luiando shows the highest defoliation ($\bar{x} = 68.36 \%$) among the plots while Laukiz 2 is the healthiest ($\bar{x} = 17.73 \%$) (\autoref{fig:defol_boxplots}).
-Laukiz 1 and Oiartzun both show a medium defoliation level around 50 \%.
-Oiartzun consists mainly of trees that show either a very high level of defoliation ($70 \% <=$) or none at all.
-Laukiz 1 shows an evenly distributed level of defoliation across the entire plot.
-
-The high defoliation level of Luiando and Oiartzun is also visible in the spectral signatures of the plots (\autoref{fig:spectral_signatures}).
-Both plots show lower mean reflectance values around the wavelength range 800 nm - 1000 nm compared to Laukiz 1 and Laukiz 2.
-Oiartzun is almost completely missing the reflectance drop at around 815 nm that is visible for all other plots but instead shows a higher magnitude for the reflectance increase at around 920 nm.
-Laukiz 2 shows a mean tree density of 62.51 m \autoref{fig:rmse_defol_dens}) while all other plots are more dense (34.35 (Laukiz 1), 33.77 (Luiando), 35.02 (Oiartzun)) (\autoref{fig:rmse_defol_dens}).
+\subsection{Exploratory data analysis}
 
 % defoliation boxplots
 \begin{figure} [t!]
@@ -362,6 +287,16 @@ Laukiz 2 shows a mean tree density of 62.51 m \autoref{fig:rmse_defol_dens}) whi
 		\label{fig:spectral_signatures}
 	\end{center}
 \end{figure}
+
+Luiando shows the highest defoliation ($\bar{x} = 68.36 \%$) among the plots while Laukiz 2 is the healthiest ($\bar{x} = 17.73 \%$) (\autoref{fig:defol_boxplots}).
+Laukiz 1 and Oiartzun both show a medium defoliation level around 50 \%.
+Oiartzun consists mainly of trees that show either a very high level of defoliation ($70 \% <=$) or none at all.
+Laukiz 1 shows an evenly distributed level of defoliation across the entire plot.
+
+The high defoliation level of Luiando and Oiartzun is also visible in the spectral signatures of the plots (\autoref{fig:spectral_signatures}).
+Both plots show lower mean reflectance values around the wavelength range 800 nm - 1000 nm compared to Laukiz 1 and Laukiz 2.
+Oiartzun is almost completely missing the reflectance drop at around 815 nm that is visible for all other plots but instead shows a higher magnitude for the reflectance increase at around 920 nm.
+Laukiz 2 shows a mean tree density of 62.51 m \autoref{fig:rmse_defol_dens}) while all other plots are more dense (34.35 (Laukiz 1), 33.77 (Luiando), 35.02 (Oiartzun)) (\autoref{fig:rmse_defol_dens}).
 
 \subsection{Predictive performance}
 
@@ -392,17 +327,16 @@ When comparing the mean predictive performance of the plot level model against t
 
 The worst performance of the supermodel on the fold level is reported for Luiando (69.72 RMSE) while for the single plot models Oiartzun shows the highest error (106.65 RMSE).
 
-% RMSE vs defol and point dens
-Laukiz 2 showed contrary results compared to all other plots when linking \ac{RMSE} against mean defoliation and mean point density (\autoref{fig:rmse_defol_dens}).
-Laukiz 1, Luiando and Oiartzun show almost identical values in terms of point density (34.35m, 33.77m, 35.01m).
-Due to the high similarity, these should be interpreted as a group and not as single values.
+% RMSE vs CV and point dens
+Laukiz 2 showed contrary results compared to all other plots when linking \ac{RMSE} against coefficient of variation and mean point density (\autoref{fig:rmse_defol_dens}).
+Comparing RMSE against $CV/skewness$ shows a $log_{2}(-x)$ relationship.
 
 % rmse vs defol and point dens
 \begin{figure} [b!]
 	\begin{center}
-		\makebox[\textwidth]{\includegraphics[width=\textwidth] {../03_figures/results/mean-defol_mean-point-dens.pdf}}
-		\caption{RMSE vs. mean defoliation and point density}
-		\label{fig:rmse_defol_dens}
+		\makebox[\textwidth]{\includegraphics[width=\textwidth] {../03_figures/results/plot-characteristics.pdf}}
+		\caption{RMSE vs. mean point density, coefficient of variation and coefficient of variation / skewness.}
+		\label{fig:plot-characteristics}
 	\end{center}
 \end{figure}
 
@@ -438,6 +372,15 @@ The first range again belongs to the infrared region while the second is within 
 \label{tab:variable-importance}
 \end{table}
 
+% band importance
+\begin{figure} [b!]
+	\begin{center}
+		\makebox[\textwidth]{\includegraphics[angle=90, height = 0.95\textheight] {../03_figures/results/important-bands_boxplot.pdf}}
+		\caption{test}
+		\label{fig:important-bands}
+	\end{center}
+\end{figure}
+
 \section{Discussion}
 
 \subsection{Index derivation}
@@ -448,11 +391,12 @@ Also, if a tree is located at the border of the plot, some directions of the buf
 
 \subsection{Plot characteristics}
 
-For Laukiz1, Luiando and Oiartzun \ac{RMSE} seems to increase with a higher point density on a first look.
+For Laukiz1, Luiando and Oiartzun \ac{RMSE} seems to increase with a higher point density at a first glance.
 However, the point densities of these plots are very similar (33.7 m - 35.01 m) and should be interpreted as a group instead of single values.
-Comparing this group to Laukiz 2, which has point density of 62 m, the error decreases with a higher point density.
-Linking the error against the mean defoliation of a plot does not lead to a clear conclusion:
-While Laukiz1, Luiando and Oiartzun give the impression of a decreasing RMSE when defoliation increases, Laukiz 2 clearly shows that a plot with a low defoliation can results in a low RMSE estimate (\autoref{fig:rmse_defol_dens}).
+With Laukiz2 being completely off from the other plots in terms of mean point density, no pattern can be extracted from this result.
+Linking RMSE vs coefficient of variation shows the same relationship as linking against mean point density.
+The interesting $log_{2}(-x)$ relationship for RMSE vs. coefficient of variation / skewness should be interpreted with caution: The sample size of four plots is not representative to make general statements here.
+This finding should be verified with more observations in future studies.
 
 \subsection{Variable importance}
 

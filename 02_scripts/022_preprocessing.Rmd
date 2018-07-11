@@ -33,10 +33,17 @@ data = map(c("laukiz1", "laukiz2", "luiando", "oiartzun"), ~ readRDS(glue("/data
 
 Ref: https://stackoverflow.com/questions/41343900/remove-row-columns-with-any-all-nan-values/41343980#41343980
 
+luiando has some NA obs that need to be removed, otherwise the whole column will be removed by `Filter()`
+
 ```{r}
+data[[3]] %<>% 
+  na.omit()
+
 data %<>% 
   map(~ dplyr::select(.x, -contains("_ID"))) %>% 
   map(~ as.data.table(.x)) %>% 
+  #map(~ na.omit(.x)) %>% # some obs in luiando are NA after extraction
+  map(~ dplyr::select(.x, -tree.number, -decoloration, -canker, -diameter, -height)) %>% 
   map(~ Filter(function(x) !any(is.na(x)), .x))
 ```
 

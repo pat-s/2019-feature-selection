@@ -10,6 +10,7 @@ output:
 
 ```{r, results='hide'}
 library(mlr)
+library(mlrMBO)
 library(glue)
 library(sf)
 library(dplyr)
@@ -56,7 +57,7 @@ data %<>%
 
 ```{r}
 task = makeRegrTask(id = "laukiz2", data = data, 
-                    target = "deftot", coordinates = coords)
+                    target = "defoliation", coordinates = coords)
 ```
 
 # Modeling
@@ -102,7 +103,12 @@ ps_glmnet <- makeParamSet(makeNumericParam("s", lower = 102, upper = 10228))
 ```
 
 ```{r}
-ctrl <- makeTuneControlRandom(maxit = 200)
+ctrl = makeMBOControl(propose.points = 1L)
+ctrl = setMBOControlTermination(ctrl, iters = 70L)
+ctrl = setMBOControlInfill(ctrl, crit = crit.ei)
+ctrl = setMBOControlMultiPoint(ctrl, method = "cl", cl.lie = min)
+tune.ctrl = makeTuneControlMBO(mbo.control = ctrl,
+                               mbo.design = generateDesign(n = 30, par.set =  ps_glmnet))
 inner <- makeResampleDesc("SpCV", iters = 10)
 ```
 
@@ -110,7 +116,7 @@ inner <- makeResampleDesc("SpCV", iters = 10)
 
 ```{r}
 tune_wrapper <- makeTuneWrapper(lrn_glmnet, resampling = inner, par.set = ps_glmnet,
-                                control = ctrl, show.info = TRUE,
+                                control = tune.ctrl, show.info = TRUE,
                                 measures = list(rmse))
 ```
 
@@ -120,7 +126,7 @@ outer <- makeResampleDesc("SpRepCV", folds = 10, reps = 20)
 
 ```{r}
 library(parallelMap)
-parallelStart(mode = "multicore", level = "mlr.tuneParams", cpus = 40,
+parallelStart(mode = "multicore", level = "mlr.resample", cpus = 40,
               mc.set.seed = TRUE) # only parallelize the tuning
 
 set.seed(12345)
@@ -152,7 +158,7 @@ parallelStart(mode = "multicore", level = "mlr.tuneParams", cpus = 48,
               mc.set.seed = TRUE) # only parallelize the tuning
 set.seed(12345)
 params_tuned_glmnet = tuneParams(lrn_glmnet, task = task, resampling = inner,
-                                 par.set = ps_glmnet, control = ctrl, 
+                                 par.set = ps_glmnet, control = tune.ctrl, 
                                  show.info = TRUE, measure = list(rmse))
 parallelStop()
 saveRDS(params_tuned_glmnet, "/data/patrick/mod/tmp/tuning_hyperspectral/tuning_bf2_ridge.rda")
@@ -196,6 +202,21 @@ plot(glmnet_train_tuned$learner.model, "lambda")
 plot(coef(glmnet_train_tuned$learner.model))
 ```
 
+#### Important spectral regions
+
+Get the first 100 most important indices.
+We take the absolute value of the coefficient to consider both sides.
+
+We only take the top 100 indices so that the result is not cluttered by mid-ranged indices summping up in the end-result.
+
+```{r}
+tibble(index = rownames(as.matrix(coef(glmnet_train_tuned$learner.model, s = 7690))), 
+       coef = abs(as.vector(as.matrix(coef(glmnet_train_tuned$learner.model, s = 7690))))) %>% 
+  arrange(desc(coef)) %>% 
+  mutate(coef = coef) -> top_inds_rr_laukiz2
+saveRDS(top_inds_rr_laukiz2, "/data/patrick/mod/hyperspectral/top-inds/top_inds_rr_laukiz2.rda")
+```
+
 ### Lasso
 
 We only need to tune `s`: https://github.com/mlr-org/mlr/issues/1030#issuecomment-233677172
@@ -232,7 +253,12 @@ ps_glmnet <- makeParamSet(makeNumericParam("s", lower = 0.1, upper = 10.2))
 ```
 
 ```{r}
-ctrl <- makeTuneControlRandom(maxit = 200)
+ctrl = makeMBOControl(propose.points = 1L)
+ctrl = setMBOControlTermination(ctrl, iters = 70L)
+ctrl = setMBOControlInfill(ctrl, crit = crit.ei)
+ctrl = setMBOControlMultiPoint(ctrl, method = "cl", cl.lie = min)
+tune.ctrl = makeTuneControlMBO(mbo.control = ctrl,
+                               mbo.design = generateDesign(n = 30, par.set =  ps_glmnet))
 inner <- makeResampleDesc("SpCV", iters = 10)
 ```
 
@@ -240,7 +266,7 @@ inner <- makeResampleDesc("SpCV", iters = 10)
 
 ```{r}
 tune_wrapper <- makeTuneWrapper(lrn_glmnet, resampling = inner, par.set = ps_glmnet,
-                                control = ctrl, show.info = TRUE,
+                                control = tune.ctrl, show.info = TRUE,
                                 measures = list(rmse))
 ```
 
@@ -250,7 +276,7 @@ outer <- makeResampleDesc("SpRepCV", folds = 10, reps = 20)
 
 ```{r}
 library(parallelMap)
-parallelStart(mode = "multicore", level = "mlr.tuneParams", cpus = 48,
+parallelStart(mode = "multicore", level = "mlr.resample", cpus = 20,
               mc.set.seed = TRUE) # only parallelize the tuning
 
 set.seed(12345)
@@ -282,7 +308,7 @@ parallelStart(mode = "multicore", level = "mlr.tuneParams", cpus = 40,
               mc.set.seed = TRUE) # only parallelize the tuning
 set.seed(12345)
 params_tuned_glmnet = tuneParams(lrn_glmnet, task = task, resampling = inner,
-                                 par.set = ps_glmnet, control = ctrl, 
+                                 par.set = ps_glmnet, control = tune.ctrl, 
                                  measure = list(rmse))
 parallelStop()
 ```
@@ -363,7 +389,12 @@ ps_glmnet <- makeParamSet(makeNumericParam("s", lower = 0.1, upper = 10228),
 ```
 
 ```{r}
-ctrl <- makeTuneControlRandom(maxit = 200)
+ctrl = makeMBOControl(propose.points = 1L)
+ctrl = setMBOControlTermination(ctrl, iters = 70L)
+ctrl = setMBOControlInfill(ctrl, crit = crit.ei)
+ctrl = setMBOControlMultiPoint(ctrl, method = "cl", cl.lie = min)
+tune.ctrl = makeTuneControlMBO(mbo.control = ctrl,
+                               mbo.design = generateDesign(n = 30, par.set =  ps_glmnet))
 inner <- makeResampleDesc("SpCV", iters = 10)
 ```
 
@@ -371,7 +402,7 @@ inner <- makeResampleDesc("SpCV", iters = 10)
 
 ```{r}
 tune_wrapper <- makeTuneWrapper(lrn_glmnet, resampling = inner, par.set = ps_glmnet,
-                                control = ctrl, show.info = TRUE,
+                                control = tune.ctrl, show.info = TRUE,
                                 measures = list(rmse))
 ```
 
@@ -381,7 +412,7 @@ outer <- makeResampleDesc("SpRepCV", folds = 10, reps = 20)
 
 ```{r}
 library(parallelMap)
-parallelStart(mode = "multicore", level = "mlr.tuneParams", cpus = 40,
+parallelStart(mode = "multicore", level = "mlr.resample", cpus = 10,
               mc.set.seed = TRUE) # only parallelize the tuning
 
 set.seed(12345)
@@ -413,7 +444,7 @@ parallelStart(mode = "multicore", level = "mlr.tuneParams", cpus = 48,
               mc.set.seed = TRUE) # only parallelize the tuning
 set.seed(12345)
 params_tuned_glmnet = tuneParams(lrn_glmnet, task = task, resampling = inner,
-                                 par.set = ps_glmnet, control = ctrl, 
+                                 par.set = ps_glmnet, control = tune.ctrl, 
                                  measure = list(rmse))
 parallelStop()
 ```
@@ -442,6 +473,7 @@ tibble(index = rownames(as.matrix(coef(glmnet_train_tuned$learner.model, s = 181
        coef = as.vector(as.matrix(coef(glmnet_train_tuned$learner.model, s = 1810)))) %>% 
   arrange(desc(coef))
 ```
+
 ```{r}
 tibble(index = rownames(as.matrix(coef(glmnet_train_tuned$learner.model, s = 1810))), 
        coef = as.vector(as.matrix(coef(glmnet_train_tuned$learner.model, s = 1810)))) %>% 
@@ -454,4 +486,53 @@ plot(glmnet_train_tuned$learner.model, "lambda")
 
 ```{r}
 plot(coef(glmnet_train_tuned$learner.model))
+```
+
+### SVM
+
+```{r}
+lrn_ksvm <- makeLearner("regr.ksvm",
+                        kernel = "rbfdot")
+```
+
+```{r}
+ps_svm <- makeParamSet(makeNumericParam("C", lower = -15, upper = 15,
+                                        trafo = function(x) 2 ^ x),
+                       makeNumericParam("sigma", lower = -15, upper = 15,
+                                        trafo = function(x) 2 ^ x))
+```
+
+```{r}
+ctrl = makeMBOControl(propose.points = 1L)
+ctrl = setMBOControlTermination(ctrl, iters = 70L)
+ctrl = setMBOControlInfill(ctrl, crit = crit.ei)
+ctrl = setMBOControlMultiPoint(ctrl, method = "cl", cl.lie = min)
+tune.ctrl = makeTuneControlMBO(mbo.control = ctrl,
+                               mbo.design = generateDesign(n = 30, par.set = ps_svm))
+inner <- makeResampleDesc("SpCV", iters = 10)
+```
+
+#### SpCV
+
+```{r}
+tune_wrapper <- makeTuneWrapper(lrn_ksvm, resampling = inner, par.set = ps_svm,
+                                control = tune.ctrl, show.info = TRUE,
+                                measures = list(rmse))
+```
+
+```{r}
+outer <- makeResampleDesc("SpRepCV", folds = 10, reps = 20)
+```
+
+```{r}
+library(parallelMap)
+parallelStart(mode = "multicore", cpus = 40, level = "mlrMBO.feval",
+              mc.set.seed = TRUE) # only parallelize the tuning
+set.seed(12345)
+resa_svm <- mlr::resample(tune_wrapper, task,
+                          resampling = outer, extract = getTuneResult,
+                          show.info = TRUE, measures = list(rmse))
+
+parallelStop()
+saveRDS(resa_svm, "/data/patrick/mod/hyperspectral/spcv/laukiz2_svm.rda")
 ```

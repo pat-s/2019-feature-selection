@@ -1,0 +1,347 @@
+---
+title: "06-Important bands"
+output: 
+  bookdown::html_document2:
+    toc: true
+    toc_float: true
+---
+
+# Load packages
+
+```{r, results='hide'}
+library(ggpubr)
+library(dplyr)
+library(stringr)
+library(purrr)
+library(glue)
+library(cowplot)
+```
+
+Read data
+
+```{r}
+ls = map(c("laukiz1", "laukiz2", "luiando", "oiartzun", "all_plots"), 
+         ~ readRDS(glue("/data/patrick/mod/hyperspectral/top-inds/top_inds_rr_{name}.rda", name = .x)))
+```
+
+#### Important spectral regions
+
+Remove the "bf2" information and filter out NRI only.
+
+```{r}
+ls_inds = map(ls, ~ 
+                .x %<>% 
+                mutate(index = str_sub(index, 9, 17)) %>% 
+                filter(str_detect(index, "b"))
+)
+```
+
+Bring all plots on the same scale (0 -1)
+
+```{r}
+ls_inds %<>% 
+  map(~ .x %<>% 
+        mutate(coef = coef / max(coef)))
+```
+
+Extract all band numbers. 
+
+```{r}
+ls_all_bands_rr =
+  map(ls_inds, ~ .x %<>% 
+        dplyr::select(index) %>% 
+        str_match_all("[0-9]+") %>% 
+        flatten() %>% 
+        as.numeric())
+```
+
+Ok, bands 1-4 did not make it into the data (NA problems).
+
+```{r}
+map(ls_all_bands_rr, ~ .x %>% as.factor() %>% levels(.))
+```
+
+Create a tibble with the coefficients and the band numbers.
+
+```{r}
+ls_tibble_most_imp_all = map2(ls_inds, ls_all_bands_rr, ~
+                            tibble(band = .y, weight = rep(.x$coef, times = 1, each = 2))
+)
+```
+
+Create a tibble with the coefficients and the band numbers.
+
+```{r}
+ls_tibble_most_imp_sum = map2(ls_inds, ls_all_bands_rr, ~
+                            tibble(band = .y, weight = rep(.x$coef, times = 1, each = 2)) %>% 
+                            group_by(band) %>% 
+                            summarise(score = sum(weight)) %>% 
+                            mutate(band = band) %>% 
+                            arrange(desc(score))
+)
+```
+
+Classify the bands into spectral regions
+
+1 - 60: visible (404 - 680)
+61 - 71: red edge (680 - 730)
+72 - 126: NIR (730 - 996)
+
+```{r}
+ls_tibble_most_imp_sum %<>% 
+  map(~ .x %<>% 
+        mutate(group = as.factor(case_when(band <= 60 ~ "Visible (404 nm - 680 nm)", 
+                                           (band >= 61 & band <= 71) ~ "Red Edge (680 nm - 730 nm)",
+                                           band >= 72 ~ "NIR (730 nm  - 996 nm)"))) %>% 
+        arrange(desc(score))
+  ) 
+```
+
+```{r}
+ls_barplot = map2(ls_tibble_most_imp_sum, c("Laukiz 1", 
+                                           "Laukiz 2", 
+                                           "Luiando", 
+                                           "Oiartzun", 
+                                           "All Plots"), ~ 
+                       ggbarplot(.x, x = "band", y = "score",                              # Color by groups
+                                 add = "segments",                             # Add segments from y = 0 to dots
+                                 fill = "group",
+                                 color = "group",
+                                 palette = "nejm",
+                                 group = "band",
+                                 title = .y,                              # Rotate vertically
+                                 dot.size = 0.5,    
+                                 width = 0.5,
+                                 ylim = c(0, 50),# Large dot size
+                                 ggtheme = theme_pubr(base_size = 4, margin = TRUE,
+                                                      legend = "none")) + 
+                       labs(y = "Score", color = "Spectral region") + 
+                       scale_x_discrete(breaks = seq(0, 120, 20),
+                                          labels = seq(0, 120, 20))
+)
+```
+
+```{r}
+legend_bar = ggbarplot(ls_tibble_most_imp_sum[[1]], x = "band", y = "score",                              # Color by groups
+                                 add = "segments",                             # Add segments from y = 0 to dots
+                                 fill = "group",
+                                 palette = "nejm",
+                                 group = "band",                            # Rotate vertically                    
+                                 ggtheme = theme_pubr(base_size = 5, margin = TRUE,
+                                                      legend = "right")) + 
+                       labs(y = "Score", fill = "Spectral region")
+```
+
+## Barplot
+
+```{r}
+legend_plot_bar <- get_legend(legend_bar)
+ls_barplot[[6]] = legend_plot_bar
+plot_gridded_bar = plot_grid(plotlist = ls_barplot, ncol = 3)
+save_plot(plot_gridded_bar,
+          filename = here::here("03_figures/results/important-bands_barplot.png"))
+```
+
+## Boxplot
+
+Classify the bands into spectral regions
+
+1 - 60: visible (404 - 680)
+61 - 71: red edge (680 - 730)
+72 - 126: NIR (730 - 996)
+
+```{r}
+ls_tibble_most_imp_all %<>% 
+  map(~ .x %<>% 
+        mutate(group = as.factor(case_when(band <= 60 ~ "Visible (404 nm - 680 nm)", 
+                                           (band >= 61 & band <= 71) ~ "Red Edge (680 nm - 730 nm)",
+                                           band >= 72 ~ "NIR (730 nm  - 996 nm)"))) %>% 
+        arrange(desc(weight))
+  ) 
+```
+
+```{r}
+ls_boxplot = map2(ls_tibble_most_imp_all, c("Laukiz 1", 
+                                           "Laukiz 2", 
+                                           "Luiando", 
+                                           "Oiartzun", 
+                                           "All Plots"), ~ 
+                       ggboxplot(.x, x = "band", y = "weight",                              # Color by groups
+                                 #add = "segments",                             # Add segments from y = 0 to dots
+                                 #fill = "group",
+                                 color = "group",
+                                 palette = "nejm",
+                                 group = "band",
+                                 title = .y,                              # Rotate vertically
+                                 width = 0.4,
+                                 size = 0.1,
+                                 outlier.size = 0.01,
+                                 #size = 0.1, # Large dot size
+                                 ggtheme = theme_pubr(base_size = 4, margin = TRUE,
+                                                      legend = "none")) + 
+                       labs(y = "Score", color = "Spectral region") + 
+                       scale_x_discrete(breaks = seq(5, 125, 20),
+                                          labels = seq(5, 125, 20))
+)
+```
+
+```{r}
+legend_box = ggboxplot(ls_tibble_most_imp_all[[1]], x = "band", y = "weight",                              # Color by groups
+                                 #add = "segments",                             # Add segments from y = 0 to dots
+                                 color = "group",
+                                 palette = "nejm",
+                                 group = "band",                            # Rotate vertically                    
+                                 ggtheme = theme_pubr(base_size = 5, margin = TRUE,
+                                                      legend = "right")) + 
+                       labs(y = "Score", color = "Spectral region")
+```
+
+```{r}
+legend_plot_box <- get_legend(legend_box)
+ls_boxplot[[6]] = legend_plot_box
+plot_gridded_box = plot_grid(plotlist = ls_boxplot, ncol = 3)
+save_plot(plot_gridded_box, base_width = 12,
+          filename = here::here("03_figures/results/important-bands_boxplot.png"))
+```
+
+## Top 50 indices only
+
+Works only if the data arriving here was subsetted before, i.e. contains only the top XX bands.
+Subsetting happens in the respective plot files, e.g. 03-modeling-laukiz1.Rmd.
+
+Classify the bands into spectral regions
+
+1 - 60: visible (404 - 680)
+61 - 71: red edge (680 - 730)
+72 - 126: NIR (730 - 996)
+
+```{r}
+ls_tibble_most_imp %<>% 
+  map(~ .x %<>% 
+        mutate(group = as.factor(case_when(band <= 60 ~ "Visible (404 nm - 680 nm)", 
+                                           (band >= 61 & band <= 71) ~ "Red Edge (680 nm - 730 nm)",
+                                           band >= 72 ~ "NIR (730 nm  - 996 nm)"))) %>% 
+        arrange(desc(score)) %>% 
+        mutate(band = as.factor(band))
+  )
+```
+
+```{r}
+ls_dotplots = map2(ls_tibble_most_imp, c("Laukiz 1 (bands = 56)", 
+                                         "Laukiz 2 (bands = 41)", 
+                                         "Luiando (bands = 61)", 
+                                         "Oiartzun (bands = 79)", 
+                                         "All Plots (bands = 76)"), ~ 
+                     ggdotchart(.x, x = "band", y = "score",                              # Color by groups
+                                sorting = "descending",                       # Sort value in descending order
+                                add = "segments",                             # Add segments from y = 0 to dots
+                                color = "group",
+                                palette = "nejm",
+                                position = position_dodge(1),
+                                group = "band",
+                                title = .y,
+                                rotate = FALSE,                                # Rotate vertically
+                                dot.size = 0.5,                                 # Large dot size
+                                ggtheme = theme_pubr(base_size = 4, margin = TRUE,
+                                                     legend = "none")) + 
+                     labs(y = "Score", color = "Spectral region")
+)
+
+# adjust colors for Laukiz2 because "Red Edge" level is missing and hence the colors are different
+ls_dotplots[[2]] = ls_dotplots[[2]] + 
+  scale_color_manual(values = c("#619CFF", "#F8766D"))
+```
+
+```{r}
+legend = ggdotchart(ls_tibble_most_imp[[1]], x = "band", y = "score",                              # Color by groups
+                    sorting = "descending",                       # Sort value in descending order
+                    add = "segments",                             # Add segments from y = 0 to dots
+                    color = "group",
+                    palette = "nejm",
+                    group = "score",
+                    rotate = TRUE,                                # Rotate vertically
+                    dot.size = 0.5,                                 # Large dot size
+                    #label = round(tibble_most_imp$sum),                        # Add mpg values as dot labels
+                    ggtheme = theme_pubr(base_size = 3, margin = FALSE,
+                                         legend = "right")) + 
+  labs(y = "Score", color = "Spectral region")
+```
+
+
+```{r}
+legend_plot <- get_legend(legend)
+ls_dotplots[[6]] = legend_plot
+plot_gridded = plot_grid(plotlist = ls_dotplots, ncol = 3)
+save_plot(plot_gridded,
+          filename = here::here("03_figures/results/important-bands.png"))
+```
+
+## Boxplot
+
+```{r}
+as_tibble(data.table::rbindlist(ls_tibble_most_imp)) %>% 
+  mutate(plot = factor(rep(c("Laukiz 1", "Laukiz 2", "Luiando", "Oiartzun", "All Plots"), 
+                           c(56, 41, 61, 79, 76)))) %>% 
+  mutate(band = as.numeric(as.character(band))) %>% 
+  group_by(plot) %>%
+  ggboxplot(
+    x = "plot", y = "band", color = "plot",
+    add = "jitter")
+```
+
+```{r}
+as_tibble(data.table::rbindlist(ls_tibble_most_imp)) %>% 
+  mutate(plot = factor(rep(c("Laukiz 1", "Laukiz 2", "Luiando", "Oiartzun", "All Plots"), 
+                           c(56, 41, 61, 79, 76)))) %>% 
+  ggdotchart(x = "band", y = "score",                              # Color by groups
+             sorting = "descending",                       # Sort value in descending order
+             add = "segments",                             # Add segments from y = 0 to dots
+             color = "group",
+             palette = "nejm",
+             group = "band",
+             facet.by = "plot",
+             rotate = F,                                # Rotate vertically
+             dot.size = 0.5,                                 # Large dot size
+             #label = round(tibble_most_imp$sum),                        # Add mpg values as dot labels
+             ggtheme = theme_pubr(base_size = 4, margin = FALSE,
+                                  legend = "right")) + 
+  labs(y = "Score", color = "Spectral region")
+```
+
+## Histogram
+
+```{r}
+as_tibble(data.table::rbindlist(ls_tibble_most_imp)) %>% 
+  mutate(plot = factor(rep(c("Laukiz 1", "Laukiz 2", "Luiando", "Oiartzun", "All Plots"), 
+                           c(56, 41, 61, 79, 76)))) %>% 
+  mutate(band = as.numeric(as.character(band))) %>% 
+  group_by(plot) %>%
+  ggbarplot(
+    x = "band", y = "score", color = "plot")
+```
+
+# PNG to PDF conversion
+
+Converts all pngs in the specified folder to pdfs. 
+`&&` makes the "convert" call conditional on `cd`.
+`exec` reduces memory waste of shell.
+Uses "GNU parallel" library for parallel jobs and the `convert` function from the `ImageMagick` library.
+
+```{r png to pdf, echo = FALSE, eval = FALSE}
+# system("cd /home/patrick/PhD/papers/03_hyperspectral/03_figures/data && exec ls -1 *.png |
+#        parallel convert '{}' '{.}.pdf'")
+
+system("cd /home/patrick/PhD/papers/03_hyperspectral/03_figures/results/ && exec ls -1 *.png | 
+       parallel convert '{}' '{.}.pdf'")
+
+# copy to presentation folder
+# file_copy("/home/patrick/PhD/papers/01_model_comparison/04_figures/02_results/cv_boxplots_final.png",
+#           "/home/patrick/PhD/presentations/paper1/figs/cv_boxplots_final.png",
+#           overwrite = TRUE)
+```
+
+# Session Info
+
+```{r}
+sessionInfo()
+```

@@ -10,6 +10,7 @@ output:
 
 ```{r, results='hide'}
 library(mlr)
+library(mlrMBO)
 library(glue)
 library(sf)
 library(dplyr)
@@ -49,14 +50,14 @@ Subset to indices shared by all plots.
 indices_shared = readRDS("/data/patrick/mod/hyperspectral/data_clean_with_indices/indices-shared-by-all-plots-bf2.rda")
 
 data %<>% 
-  select(indices_shared)
+  dplyr::select(indices_shared)
 ```
 
 # Create task
 
 ```{r}
 task = makeRegrTask(id = "oiartzun", data = data, 
-                    target = "deftot", coordinates = coords)
+                    target = "defoliation", coordinates = coords)
 ```
 
 # Modeling
@@ -85,7 +86,7 @@ lrn_glmnet <- makeLearner("regr.glmnet",
                           alpha = 0,
                           standardize = FALSE,
                           intercept = FALSE)
-                          #lambda = sort(seq(0, 5, length.out = 100), decreasing = T))
+#lambda = sort(seq(0, 5, length.out = 100), decreasing = T))
 # getHyperPars(lrn_glmnet)
 # getParamSet(lrn_glmnet)
 ```
@@ -98,11 +99,16 @@ summary(glmnet_train$learner.model$lambda)
 ```
 
 ```{r}
-ps_glmnet <- makeParamSet(makeNumericParam("s", lower = 55, upper = 5525))
+ps_glmnet <- makeParamSet(makeNumericParam("s", lower = 31, upper = 3187))
 ```
 
 ```{r}
-ctrl <- makeTuneControlRandom(maxit = 200)
+ctrl = makeMBOControl(propose.points = 1L)
+ctrl = setMBOControlTermination(ctrl, iters = 70L)
+ctrl = setMBOControlInfill(ctrl, crit = crit.ei)
+ctrl = setMBOControlMultiPoint(ctrl, method = "cl", cl.lie = min)
+tune.ctrl = makeTuneControlMBO(mbo.control = ctrl,
+                               mbo.design = generateDesign(n = 30, par.set =  ps_glmnet))
 inner <- makeResampleDesc("SpCV", iters = 10)
 ```
 
@@ -110,17 +116,17 @@ inner <- makeResampleDesc("SpCV", iters = 10)
 
 ```{r}
 tune_wrapper <- makeTuneWrapper(lrn_glmnet, resampling = inner, par.set = ps_glmnet,
-                                control = ctrl, show.info = TRUE,
+                                control = tune.ctrl, show.info = TRUE,
                                 measures = list(rmse))
 ```
 
 ```{r}
-outer <- makeResampleDesc("SpRepCV", folds = 10, reps = 20)
+outer <- makeResampleDesc("SpRepCV", folds = 10, reps = 10)
 ```
 
 ```{r}
 library(parallelMap)
-parallelStart(mode = "multicore", level = "mlr.tuneParams", cpus = 40,
+parallelStart(mode = "multicore", level = "mlr.resample", cpus = 20,
               mc.set.seed = TRUE) # only parallelize the tuning
 
 set.seed(12345)
@@ -140,7 +146,7 @@ parallelStart(mode = "multicore", level = "mlr.tuneParams", cpus = 48,
               mc.set.seed = TRUE) # only parallelize the tuning
 set.seed(12345)
 params_tuned_glmnet = tuneParams(lrn_glmnet, task = task, resampling = inner,
-                                 par.set = ps_glmnet, control = ctrl, 
+                                 par.set = ps_glmnet, control = tune.ctrl, 
                                  show.info = TRUE, measure = list(rmse))
 parallelStop()
 saveRDS(params_tuned_glmnet, "/data/patrick/mod/tmp/tuning_hyperspectral/tuning_bf2_ridge.rda")
@@ -158,30 +164,45 @@ lrn_glmnet_tuned <- makeLearner("regr.glmnet",
                                 standardize = FALSE, 
                                 intercept = FALSE)
 
-glmnet_train_tuned = mlr::train(lrn_glmnet_tuned, task)
+glmnet_train_tuned_oiartzun = mlr::train(lrn_glmnet_tuned, task)
 ```
 
 Inspect the highest absolute coefficients (positive and negative).
 The first entry is the intercept and is therefore left out.
 
 ```{r}
-tibble(index = rownames(as.matrix(coef(glmnet_train_tuned$learner.model, s = 5460))), 
-       coef = as.vector(as.matrix(coef(glmnet_train_tuned$learner.model, s = 5460)))) %>% 
+tibble(index = rownames(as.matrix(coef(glmnet_train_tuned_oiartzun$learner.model, s = 5460))), 
+       coef = as.vector(as.matrix(coef(glmnet_train_tuned_oiartzun$learner.model, s = 5460)))) %>% 
   arrange(desc(coef))
 ```
 
 ```{r}
-tibble(index = rownames(as.matrix(coef(glmnet_train_tuned$learner.model, s = 5460))), 
-       coef = as.vector(as.matrix(coef(glmnet_train_tuned$learner.model, s = 5460)))) %>% 
+tibble(index = rownames(as.matrix(coef(glmnet_train_tuned_oiartzun$learner.model, s = 5460))), 
+       coef = as.vector(as.matrix(coef(glmnet_train_tuned_oiartzun$learner.model, s = 5460)))) %>% 
   arrange(coef)
 ```
 
 ```{r}
-plot(glmnet_train_tuned$learner.model, "lambda")
+plot(glmnet_train_tuned_oiartzun$learner.model, "lambda")
 ```
 
 ```{r}
-plot(coef(glmnet_train_tuned$learner.model))
+plot(coef(glmnet_train_tuned_oiartzun$learner.model))
+```
+
+#### Important spectral regions
+
+Get the first 100 most important indices.
+We take the absolute value of the coefficient to consider both sides.
+
+We only take the top 100 indices so that the result is not cluttered by mid-ranged indices summping up in the end-result.
+
+```{r}
+tibble(index = rownames(as.matrix(coef(glmnet_train_tuned_oiartzun$learner.model, s = 5460))), 
+       coef = abs(as.vector(as.matrix(coef(glmnet_train_tuned_oiartzun$learner.model, s = 5460))))) %>% 
+  arrange(desc(coef)) %>% 
+  mutate(coef = coef) -> top_inds_rr_oiartzun
+saveRDS(top_inds_rr_oiartzun, "/data/patrick/mod/hyperspectral/top-inds/top_inds_rr_oiartzun.rda")
 ```
 
 ### Lasso
@@ -216,11 +237,16 @@ summary(glmnet_train$learner.model$lambda)
 ```
 
 ```{r}
-ps_glmnet <- makeParamSet(makeNumericParam("s", lower = 0.01, upper = 1.5))
+ps_glmnet <- makeParamSet(makeNumericParam("s", lower = 0.03, upper = 3.18))
 ```
 
 ```{r}
-ctrl <- makeTuneControlRandom(maxit = 200)
+ctrl = makeMBOControl(propose.points = 1L)
+ctrl = setMBOControlTermination(ctrl, iters = 70L)
+ctrl = setMBOControlInfill(ctrl, crit = crit.ei)
+ctrl = setMBOControlMultiPoint(ctrl, method = "cl", cl.lie = min)
+tune.ctrl = makeTuneControlMBO(mbo.control = ctrl,
+                               mbo.design = generateDesign(n = 30, par.set =  ps_glmnet))
 inner <- makeResampleDesc("SpCV", iters = 10)
 ```
 
@@ -228,7 +254,7 @@ inner <- makeResampleDesc("SpCV", iters = 10)
 
 ```{r}
 tune_wrapper <- makeTuneWrapper(lrn_glmnet, resampling = inner, par.set = ps_glmnet,
-                                control = ctrl, show.info = TRUE,
+                                control = tune.ctrl, show.info = TRUE,
                                 measures = list(rmse))
 ```
 
@@ -238,7 +264,7 @@ outer <- makeResampleDesc("SpRepCV", folds = 10, reps = 20)
 
 ```{r}
 library(parallelMap)
-parallelStart(mode = "multicore", level = "mlr.tuneParams", cpus = 48,
+parallelStart(mode = "multicore", level = "mlr.resample", cpus = 10,
               mc.set.seed = TRUE) # only parallelize the tuning
 
 set.seed(12345)
@@ -259,7 +285,7 @@ parallelStart(mode = "multicore", level = "mlr.tuneParams", cpus = 40,
               mc.set.seed = TRUE) # only parallelize the tuning
 set.seed(12345)
 params_tuned_glmnet = tuneParams(lrn_glmnet, task = task, resampling = inner,
-                                 par.set = ps_glmnet, control = ctrl, 
+                                 par.set = ps_glmnet, control = tune.ctrl, 
                                  measure = list(rmse))
 parallelStop()
 ```
@@ -276,29 +302,29 @@ lrn_glmnet_tuned <- makeLearner("regr.glmnet",
                                 standardize = FALSE, 
                                 intercept = FALSE)
 #lambda = sort(seq(0, 5, length.out = 100), decreasing = T))
-glmnet_train_tuned = mlr::train(lrn_glmnet_tuned, task)
+glmnet_train_tuned_oiartzun = mlr::train(lrn_glmnet_tuned, task)
 ```
 
 Inspect the highest absolute coefficients (positive and negative).
 The first entry is the intercept and is therefore left out.
 
 ```{r}
-tibble(index = rownames(as.matrix(coef(glmnet_train_tuned$learner.model, s = 1810))), 
-       coef = as.vector(as.matrix(coef(glmnet_train_tuned$learner.model, s = 1810)))) %>% 
+tibble(index = rownames(as.matrix(coef(glmnet_train_tuned_oiartzun$learner.model, s = 1810))), 
+       coef = as.vector(as.matrix(coef(glmnet_train_tuned_oiartzun$learner.model, s = 1810)))) %>% 
   arrange(desc(coef))
 ```
 ```{r}
-tibble(index = rownames(as.matrix(coef(glmnet_train_tuned$learner.model, s = 1810))), 
-       coef = as.vector(as.matrix(coef(glmnet_train_tuned$learner.model, s = 1810)))) %>% 
+tibble(index = rownames(as.matrix(coef(glmnet_train_tuned_oiartzun$learner.model, s = 1810))), 
+       coef = as.vector(as.matrix(coef(glmnet_train_tuned_oiartzun$learner.model, s = 1810)))) %>% 
   arrange(coef)
 ```
 
 ```{r}
-plot(glmnet_train_tuned$learner.model, "norm")
+plot(glmnet_train_tuned_oiartzun$learner.model, "norm")
 ```
 
 ```{r}
-plot(coef(glmnet_train_tuned$learner.model))
+plot(coef(glmnet_train_tuned_oiartzun$learner.model))
 ```
 
 ### Elasticnet
@@ -340,7 +366,12 @@ ps_glmnet <- makeParamSet(makeNumericParam("s", lower = 0.01, upper = 5525),
 ```
 
 ```{r}
-ctrl <- makeTuneControlRandom(maxit = 200)
+ctrl = makeMBOControl(propose.points = 1L)
+ctrl = setMBOControlTermination(ctrl, iters = 70L)
+ctrl = setMBOControlInfill(ctrl, crit = crit.ei)
+ctrl = setMBOControlMultiPoint(ctrl, method = "cl", cl.lie = min)
+tune.ctrl = makeTuneControlMBO(mbo.control = ctrl,
+                               mbo.design = generateDesign(n = 30, par.set =  ps_glmnet))
 inner <- makeResampleDesc("SpCV", iters = 10)
 ```
 
@@ -348,7 +379,7 @@ inner <- makeResampleDesc("SpCV", iters = 10)
 
 ```{r}
 tune_wrapper <- makeTuneWrapper(lrn_glmnet, resampling = inner, par.set = ps_glmnet,
-                                control = ctrl, show.info = TRUE,
+                                control = tune.ctrl, show.info = TRUE,
                                 measures = list(rmse))
 ```
 
@@ -358,7 +389,7 @@ outer <- makeResampleDesc("SpRepCV", folds = 10, reps = 20)
 
 ```{r}
 library(parallelMap)
-parallelStart(mode = "multicore", level = "mlr.tuneParams", cpus = 40,
+parallelStart(mode = "multicore", level = "mlr.resample", cpus = 40,
               mc.set.seed = TRUE) # only parallelize the tuning
 
 set.seed(12345)
@@ -379,7 +410,7 @@ parallelStart(mode = "multicore", level = "mlr.tuneParams", cpus = 48,
               mc.set.seed = TRUE) # only parallelize the tuning
 set.seed(12345)
 params_tuned_glmnet = tuneParams(lrn_glmnet, task = task, resampling = inner,
-                                 par.set = ps_glmnet, control = ctrl, 
+                                 par.set = ps_glmnet, control = tune.ctrl, 
                                  measure = list(rmse))
 parallelStop()
 ```
@@ -396,27 +427,27 @@ lrn_glmnet_tuned <- makeLearner("regr.glmnet",
                                 standardize = FALSE, 
                                 intercept = FALSE)
 #lambda = sort(seq(0, 5, length.out = 100), decreasing = T))
-glmnet_train_tuned = mlr::train(lrn_glmnet_tuned, task)
+glmnet_train_tuned_oiartzun = mlr::train(lrn_glmnet_tuned, task)
 ```
 
 Inspect the highest absolute coefficients (positive and negative).
 The first entry is the intercept and is therefore left out.
 
 ```{r}
-tibble(index = rownames(as.matrix(coef(glmnet_train_tuned$learner.model, s = 1810))), 
-       coef = as.vector(as.matrix(coef(glmnet_train_tuned$learner.model, s = 1810)))) %>% 
+tibble(index = rownames(as.matrix(coef(glmnet_train_tuned_oiartzun$learner.model, s = 1810))), 
+       coef = as.vector(as.matrix(coef(glmnet_train_tuned_oiartzun$learner.model, s = 1810)))) %>% 
   arrange(desc(coef))
 ```
 ```{r}
-tibble(index = rownames(as.matrix(coef(glmnet_train_tuned$learner.model, s = 1810))), 
-       coef = as.vector(as.matrix(coef(glmnet_train_tuned$learner.model, s = 1810)))) %>% 
+tibble(index = rownames(as.matrix(coef(glmnet_train_tuned_oiartzun$learner.model, s = 1810))), 
+       coef = as.vector(as.matrix(coef(glmnet_train_tuned_oiartzun$learner.model, s = 1810)))) %>% 
   arrange(coef)
 ```
 
 ```{r}
-plot(glmnet_train_tuned$learner.model, "lambda")
+plot(glmnet_train_tuned_oiartzun$learner.model, "lambda")
 ```
 
 ```{r}
-plot(coef(glmnet_train_tuned$learner.model))
+plot(coef(glmnet_train_tuned_oiartzun$learner.model))
 ```

@@ -9,7 +9,6 @@ output:
 # Load packages
 
 ```{r, results='hide'}
-devtools::install_github("tidyverse/ggplot2")
 devtools::install_github("mlr-org/mlr@blocking")
 
 library(dplyr)
@@ -52,7 +51,8 @@ data <- as_tibble(rbindlist(data, fill = TRUE)) # combine all plots
 data <- Filter(function(x) !any(is.na(x)), data) # filter out columsn containing NA
 coords <- as_tibble(rbindlist(coords))
 data %<>%
-  mutate(plot = factor(rep(c("Laukiz 1", "Laukiz 2", "Luiando", "Oiartzun"), c(559, 382, 301, 499))))
+  mutate(plot = factor(rep(c("Laukiz 1", "Laukiz 2", "Luiando", "Oiartzun"), 
+                           c(479, 451, 291, 529))))
 ```
 
 # Mean defoliation per plot
@@ -60,7 +60,7 @@ data %<>%
 ```{r}
 data %>%
   group_by(plot) %>%
-  summarise(mean(deftot))
+  summarise(mean(defoliation))
 ```
 
 # Coefficient of variation
@@ -68,7 +68,7 @@ data %>%
 ```{r}
 data %>%
   group_by(plot) %>%
-  summarise((sd(deftot) / mean(deftot)) * 100)
+  summarise((sd(defoliation) / mean(defoliation)) * 100)
 ```
 
 #  sd / skewness
@@ -76,38 +76,37 @@ data %>%
 ```{r}
 data %>%
   group_by(plot) %>%
-  summarise(((sd(deftot) / mean(deftot)) * 100) / skewness(deftot))
+  summarise(((sd(defoliation) / mean(defoliation)) * 100) / e1071::skewness(defoliation))
 ```
-
 
 ```{r}
 data %>%
   group_by(plot) %>%
-  summarise(sd(deftot))
+  summarise(sd(defoliation))
 ```
 
 ```{r}
 boxplot_defol = data %>%
   group_by(plot) %>%
   ggboxplot(
-    x = "plot", y = "deftot", color = "plot",
-    add = "jitter", add.params = list(size = "deftot")
+    x = "plot", y = "defoliation", color = "plot",
+    add = "jitter", add.params = list(size = "defoliation")
   ) +
   scale_size(range = c(0.5, 0.5)) +
   annotate("text",
-    label = expression(bold(atop("n = 559", bar(x)~"= 53.23"))), x = 1, 
+    label = expression(bold(atop("n = 479", bar(x)~"= 55.96"))), x = 1, 
     y = 112, size = 3, colour = "#BC3C29", fontface = 2
   ) +
   annotate("text",
-    label = expression(bold(atop("n = 382", bar(x)~"= 17.73"))), x = 2, 
+    label = expression(bold(atop("n = 451", bar(x)~"= 13.54"))), x = 2, 
     y = 112, size = 3, colour = "#0072B5", fontface = 2
   ) +
   annotate("text",
-    label = expression(bold(atop("n = 301", bar(x)~"= 68.36"))), x = 3, 
+    label = expression(bold(atop("n = 291", bar(x)~"= 68.44"))), x = 3, 
     y = 112, size = 3, colour = "#E18727", fontface = 2
   ) +
   annotate("text",
-    label = expression(bold(atop("n = 499", bar(x)~"= 44.64"))), x = 4, 
+    label = expression(bold(atop("n = 529", bar(x)~"= 69.22"))), x = 4, 
     y = 112, size = 3, colour = "#20854E", fontface = 2
   ) +
   scale_color_nejm() +
@@ -128,14 +127,16 @@ In Meters.
 plots <- list("Laukiz 1", "Laukiz 2", "Luiando", "Oiartzun")
 
 dist <- map(plots, ~ {
-  coords_laukiz1 <- coords %>%
-    mutate(plot = factor(rep(c("Laukiz 1", "Laukiz 2", "Luiando", "Oiartzun"), c(559, 382, 301, 499)))) %>%
+  coords <- coords %>%
+    mutate(plot = factor(rep(c("Laukiz 1", "Laukiz 2", "Luiando", "Oiartzun"), 
+                             c(479, 451, 291, 529)))) %>%
     filter(plot == .x) %>%
     dplyr::select(-plot)
 
-  laukiz1_points <- SpatialPoints(coords = coords_laukiz1, proj4string = CRS("+proj=utm +zone=30 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"))
+  points <- SpatialPoints(coords = coords, 
+                          proj4string = CRS("+proj=utm +zone=30 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"))
 
-  distance <- mean(as.dist(pointDistance(laukiz1_points, allpairs = TRUE, lonlat = FALSE)))
+  distance <- mean(as.dist(pointDistance(points, allpairs = TRUE, lonlat = FALSE)))
 })
 set_names(dist, plots)
 ```
@@ -182,12 +183,39 @@ rmse_dens <- ggplot(df, aes(x = point_dens, y = rmse)) +
   )
 ```
 
+## RMSE vs coef of variation / skewness
+
+```{r}
+rmse_defol_cov_sk <- ggplot(df, aes(x = sd_skewness, y = rmse)) +
+  geom_point(aes(color = plot), shape = 19, size = 3) +
+  labs(x = "CV (%) / Skewness", y = "") +
+  theme_ipsum_rc(
+    axis_title_size = 22,
+    axis_title_just = "c"
+  ) +
+  scale_color_nejm() +
+  theme(
+    plot.margin = unit(c(6, 0, 6, 0), "pt"),
+    legend.position = "none",
+    axis.text = element_text(size = 20),
+    legend.text = element_text(size = 20),
+    axis.title.y = element_text(margin = margin(
+      t = 0, r = 15,
+      b = 0, l = 0
+    )),
+    axis.title.x = element_text(margin = margin(
+      t = 15, r = 0,
+      b = 0, l = 0
+    ))
+  )
+```
+
 ## RMSE vs coef of variation
 
 ```{r}
-rmse_defol <- ggplot(df, aes(x = sd_skewness, y = rmse)) +
+rmse_defol_cov <- ggplot(df, aes(x = cov_defol, y = rmse)) +
   geom_point(aes(color = plot), shape = 19, size = 3) +
-  labs(x = "Coefficient of variation (%) / Skewness", y = "RMSE") +
+  labs(x = "CV (%)", y = "") +
   theme_ipsum_rc(
     axis_title_size = 22,
     axis_title_just = "c"
@@ -237,11 +265,16 @@ legend <- get_legend(legend)
 ### Grid
 
 ```{r}
+prow = plot_grid(rmse_dens, rmse_defol_cov, rmse_defol_cov_sk,  align = 'vh', nrow = 1)
+plots_grid <- plot_grid(prow, legend, rel_widths = c(3, .3))
+```
+
+```{r}
 plots_grid <- plot_grid(rmse_dens, legend, rmse_defol, ncol = 3, rel_widths = c(1, .3, 1))
 ```
 
 ```{r}
-save_plot(here("03_figures/results/mean-defol_mean-point-dens.png"), plots_grid, ncol = 3)
+save_plot(here("03_figures/results/plot-characteristics.png"), plots_grid, ncol = 4)
 ```
 
 # PNG to PDF conversion

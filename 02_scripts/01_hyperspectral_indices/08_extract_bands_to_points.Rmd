@@ -1,0 +1,106 @@
+---
+title: "Extract indices to points"
+output: 
+  bookdown::html_document2:
+    toc: true
+    toc_float: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Load packages
+
+```{r, results='hide'}
+library(raster)
+devtools::install_github("pat-s/hsdar")
+library(hsdar)
+library(pbmcapply)
+library(glue)
+library(magrittr)
+library(sf)
+library(purrr)
+library(dplyr)
+library(furrr)
+```
+
+The points to which the indices are extracted to are cleaned in the file "02_preprocessing.Rmd".
+
+# Create function
+
+See step-by-step example for Laukiz 1 below.
+
+```{r}
+extract_to_plot = function(plot_name, buffer, cores, bf_name) {
+  points = st_read(glue("/data/patrick/mod/tree-per-tree/2016/{plot_name}/{plot_name}.gpkg"),
+          quiet = TRUE)
+  
+  bands_ras <- brick(glue("/data/patrick/mod/hyperspectral/atm-cropped/{plot_name}.tif"))
+  
+  # calculate buffered veg index
+    
+  # plan(multiprocess)
+  # out_bands <- future_map(buffer, ~
+  #   raster::extract(bands_ras[[5:126]], points, buffer = .x, 
+  #                   fun = mean, df = TRUE,
+  #                   na.rm = TRUE),.progress = TRUE)
+  
+  out_bands <- pbmclapply(buffer, function(x)
+    raster::extract(bands_ras[[5:126]], points, buffer = x,
+                    fun = mean, df = TRUE,
+                    na.rm = TRUE), mc.cores = cores)
+  
+  out_bands %<>% 
+    map2(seq_along(buffer), ~ setNames(.x, glue("bf{buffer}_{name}", 
+                                             name = names(out_bands[[.y]]))))
+
+  # merge all data frames (buffers)
+  out_bands <- bind_cols(out_bands)
+  
+  points %<>% 
+    bind_cols(out_bands)
+  
+  # .rda file (data frame)
+  points %>% 
+    saveRDS(glue("/data/patrick/mod/tree-per-tree/2016/{plot_name}/all-bands-{plot_name}_{bf_name}.rda"))
+}
+```
+
+# Process
+
+## Buffer: 2
+
+```{r}
+# plan(multiprocess)
+# future_map(c("laukiz1", "laukiz2", "oiartzun", "luiando"), ~
+#            extract_to_plot(.x, 2, "bf2"), .progress = TRUE)
+pbmclapply(c("laukiz1", "laukiz2", "oiartzun", "luiando"), 
+           function(x) extract_to_plot(x, 2, cores = 1, "bf2"), 
+           mc.cores = 4)
+```
+
+<!-- ## Buffer: 1 - 10 -->
+
+<!-- ```{r} -->
+<!-- pbmclapply(c("laukiz1", "laukiz2", "oiartzun", "luiando"),  -->
+<!--            function(x) extract_to_plot(x, seq(1:10), cores = 10, "bf1-10"),  -->
+<!--            mc.cores = 4) -->
+<!-- ``` -->
+
+<!-- ## Buffer: 1,5,10,15,20 -->
+
+<!-- ```{r} -->
+<!-- pbmclapply(c("laukiz1", "laukiz2", "oiartzun", "luiando"),  -->
+<!--            function(x) extract_to_plot(x, c(1, 5, 10, 15, 20), cores = 5, "bf1-5-10-15-20"),  -->
+<!--            mc.cores = 4) -->
+<!-- ``` -->
+
+<!-- ## Buffer: 1, 10, 20, 30, 40, 50 -->
+
+<!-- ```{r} -->
+<!-- pbmclapply(c("laukiz1", "laukiz2", "oiartzun", "luiando"),  -->
+<!--            function(x) extract_to_plot(x, c(1, 10, 20, 30, 40, 50), cores = 6,  -->
+<!--                                        "bf1-10-20-30-40-50"),  -->
+<!--            mc.cores = 2) # due to RAM consumption -->
+<!-- ``` -->
