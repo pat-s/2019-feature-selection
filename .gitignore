@@ -11,4 +11,5 @@ packrat/lib*/
 packrat/src/*
 packrat/bundles/*
 file*.R
-*.directory
+.directory
+02_scripts/01_hyperspectral_indices/.directory
