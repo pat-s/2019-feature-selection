@@ -117,11 +117,14 @@ tune_wrapper_glmnet <- makeTuneWrapper(makeLearner("regr.glmnet",
 
 # XGBOOST
 ps_xgboost <- makeParamSet(
-  makeDiscreteParam("nrounds", values = c(10, 100, 1000, 10000)),
-  makeNumericParam("colsample_bytree", lower = 0.1, upper = 1),
-  makeNumericParam("subsample", lower = 0.1, upper = 1),
-  makeIntegerParam("max_depth", lower = 1, upper = 785),
-  makeNumericParam("gamma", lower = 0, upper = 20)
+  makeNumericParam("nrounds", lower = 0, upper = 8.64, 
+                   trafo = function (x) round(2^x * 10)),
+  makeNumericParam("colsample_bytree", lower = 0.3, upper = 0.7),
+  makeNumericParam("subsample", lower = 0.25, upper = 1),
+  makeIntegerParam("max_depth", lower = 1, upper = 10),
+  makeNumericParam("gamma", lower = 0, upper = 10),
+  makeNumericParam("eta", lower = 0.001, upper = 0.6),
+  makeNumericParam("min_child_weight", lower = 0, upper = 20)
 )
 tune.ctrl <- makeTuneControlMBO(
   mbo.control = ctrl,
@@ -130,8 +133,7 @@ tune.ctrl <- makeTuneControlMBO(
 tune_wrapper_xgboost <- makeTuneWrapper(makeLearner("regr.xgboost",
                                                     par.vals = list(
                                                       objective = "reg:linear",
-                                                      eval_metric = "error",
-                                                      eta = 0.1
+                                                      eval_metric = "error"
                                                     )
 ),
 resampling = inner, par.set = ps_xgboost,
@@ -149,7 +151,7 @@ tune.ctrl <- makeTuneControlMBO(
   mbo.control = ctrl,
   mbo.design = generateDesign(n = 30, par.set = ps_rf)
 )
-tune_wrapper_rf <- makeTuneWrapper(makeLearner("classif.ranger"),
+tune_wrapper_rf <- makeTuneWrapper(makeLearner("regr.ranger"),
                                    resampling = inner, par.set = ps_rf,
                                    control = tune.ctrl, show.info = TRUE,
                                    measures = list(rmse)

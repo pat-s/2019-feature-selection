@@ -3186,7 +3186,7 @@ def my_form_open(dialog, layer, feature):
         <LabelFont description="Fira Code,15,-1,5,75,0,0,0,0,0,Bold" style="Bold"/>
         <FontColor green="0" red="0" blue="0"/>
       </LayoutItem>
-      <LayoutItem id="" halign="1" zValue="14" labelText="&#xa;&#xa;CRS: EPSG 4326 (WGS 84)&#xa;&#xa;Laukiz 1: 0.36 ha, n=559&#xa;Laukiz 2: 1.44 ha, n=382&#xa;Luiando:  0.39 ha, n=301&#xa;Oiartzun: 0.53 ha, n=499&#xa;" marginY="3" groupUuid="" positionLock="false" valign="32" frame="true" opacity="1" uuid="{164f59fb-d40d-4817-a002-ec10f75ae90a}" referencePoint="0" position="184.372,0.35,mm" templateUuid="{164f59fb-d40d-4817-a002-ec10f75ae90a}" background="false" size="62.1162,43.2593,mm" outlineWidthM="0.7,mm" type="65641" frameJoinStyle="miter" positionOnPage="184.372,0.35,mm" htmlState="0" excludeFromExports="0" blendMode="0" itemRotation="0" visibility="1" marginX="2">
+      <LayoutItem id="" halign="1" zValue="14" labelText="&#xa;&#xa;CRS: EPSG 4326 (WGS 84)&#xa;&#xa;Laukiz 1: 0.36 ha, n = 559&#xa;Laukiz 2: 1.44 ha, n = 382&#xa;Luiando:  0.39 ha, n = 301&#xa;Oiartzun: 0.53 ha, n = 499&#xa;" marginY="3" groupUuid="" positionLock="false" valign="32" frame="true" opacity="1" uuid="{164f59fb-d40d-4817-a002-ec10f75ae90a}" referencePoint="0" position="176.487,0.35,mm" templateUuid="{164f59fb-d40d-4817-a002-ec10f75ae90a}" background="false" size="70.0019,43.2593,mm" outlineWidthM="0.7,mm" type="65641" frameJoinStyle="miter" positionOnPage="176.487,0.35,mm" htmlState="0" excludeFromExports="0" blendMode="0" itemRotation="0" visibility="1" marginX="2">
         <FrameColor green="0" red="0" alpha="255" blue="0"/>
         <BackgroundColor green="255" red="255" alpha="255" blue="255"/>
         <LayoutObject>
@@ -3221,7 +3221,7 @@ def my_form_open(dialog, layer, feature):
         <strokeColor green="0" red="0" alpha="255" blue="0"/>
         <textColor green="0" red="0" alpha="255" blue="0"/>
       </LayoutItem>
-      <LayoutItem id="" anchorPoint="0" svgBorderWidth="0.2" northOffset="0" zValue="10" groupUuid="" positionLock="false" svgBorderColor="0,0,0,255" pictureWidth="104.231" resizeMode="0" frame="false" opacity="1" uuid="{c83bd228-1765-4a6c-8317-c8e8f0fce7aa}" referencePoint="0" mapUuid="" position="79.1345,4.58615,mm" templateUuid="{c83bd228-1765-4a6c-8317-c8e8f0fce7aa}" background="false" size="117.625,34.787,mm" outlineWidthM="0.3,mm" type="65640" file="../../../01_model_comparison/04_figures/01_data/NEV-Logo-Black.png" northMode="0" frameJoinStyle="miter" positionOnPage="79.1345,4.58615,mm" svgFillColor="255,255,255,255" excludeFromExports="0" pictureHeight="34.787" blendMode="0" itemRotation="0" visibility="1" pictureRotation="0">
+      <LayoutItem id="" anchorPoint="0" svgBorderWidth="0.2" northOffset="0" zValue="10" groupUuid="" positionLock="false" svgBorderColor="0,0,0,255" pictureWidth="104.231" resizeMode="0" frame="false" opacity="1" uuid="{c83bd228-1765-4a6c-8317-c8e8f0fce7aa}" referencePoint="0" mapUuid="" position="58.8781,4.58615,mm" templateUuid="{c83bd228-1765-4a6c-8317-c8e8f0fce7aa}" background="false" size="117.625,34.787,mm" outlineWidthM="0.3,mm" type="65640" file="../../../01_model_comparison/04_figures/01_data/NEV-Logo-Black.png" northMode="0" frameJoinStyle="miter" positionOnPage="58.8781,4.58615,mm" svgFillColor="255,255,255,255" excludeFromExports="0" pictureHeight="34.787" blendMode="0" itemRotation="0" visibility="1" pictureRotation="0">
         <FrameColor green="0" red="0" alpha="255" blue="0"/>
         <BackgroundColor green="255" red="255" alpha="255" blue="255"/>
         <LayoutObject>
@@ -3254,7 +3254,7 @@ def my_form_open(dialog, layer, feature):
         <strokeColor green="0" red="0" alpha="255" blue="0"/>
         <textColor green="0" red="0" alpha="255" blue="0"/>
       </LayoutItem>
-      <LayoutItem splitLayer="0" outlineWidthM="0.7,mm" rasterBorderWidth="0" blendMode="0" itemRotation="0" positionOnPage="7.46016,0.35,mm" background="true" titleAlignment="1" frameJoinStyle="miter" uuid="{55fb7847-2fa1-4988-bbc1-2a71ce61eb57}" referencePoint="0" positionLock="false" type="65642" columnCount="1" boxSpace="2" rasterBorder="1" legendFilterByAtlas="0" resizeToContents="1" columnSpace="2" zValue="5" wrapChar="" templateUuid="{55fb7847-2fa1-4988-bbc1-2a71ce61eb57}" rasterBorderColor="0,0,0,255" frame="true" fontColor="#000000" symbolWidth="7" opacity="1" wmsLegendHeight="25" excludeFromExports="0" wmsLegendWidth="50" lineSpacing="1" position="7.46016,0.35,mm" equalColumnWidth="0" visibility="1" symbolHeight="4" map_uuid="{e0756511-2502-44b2-9a0e-c39d663feaf3}" id="" groupUuid="" size="69.1453,37.9,mm" title="Legend">
+      <LayoutItem splitLayer="0" outlineWidthM="0.7,mm" rasterBorderWidth="0" blendMode="0" itemRotation="0" positionOnPage="7.46016,0.35,mm" background="true" titleAlignment="1" frameJoinStyle="miter" uuid="{55fb7847-2fa1-4988-bbc1-2a71ce61eb57}" referencePoint="0" positionLock="false" type="65642" columnCount="1" boxSpace="2" rasterBorder="1" legendFilterByAtlas="0" resizeToContents="1" columnSpace="2" zValue="5" wrapChar="" templateUuid="{55fb7847-2fa1-4988-bbc1-2a71ce61eb57}" rasterBorderColor="0,0,0,255" frame="true" fontColor="#000000" symbolWidth="7" opacity="1" wmsLegendHeight="25" excludeFromExports="0" wmsLegendWidth="50" lineSpacing="1" position="7.46016,0.35,mm" equalColumnWidth="0" visibility="1" symbolHeight="4" map_uuid="{e0756511-2502-44b2-9a0e-c39d663feaf3}" id="" groupUuid="" size="46.5641,31.4,mm" title="Legend">
         <FrameColor green="0" red="0" alpha="255" blue="0"/>
         <BackgroundColor green="255" red="255" alpha="255" blue="255"/>
         <LayoutObject>
@@ -3294,11 +3294,6 @@ def my_form_open(dialog, layer, feature):
           <layer-tree-layer id="centroids_demonstration_plots_ac43a88b_d69f_4338_8d54_bb600a798a7d" name="centroids_demonstration_plots" providerKey="ogr" source="../../../../../../../../lossa/data_mccoy_kirk_scotty/patrick/mod/plots/location/centroids_demonstration_plots.shp" expanded="1" checked="Qt::Checked">
             <customproperties>
               <property value="Plot location" key="legend/title-label"/>
-            </customproperties>
-          </layer-tree-layer>
-          <layer-tree-layer id="location_demonstration_plots_test_59a73508_3e2b_4712_8f52_78ba08446d2a" name="location_demonstration_plots test copy" providerKey="ogr" source="../../../../../../../../lossa/data_mccoy_kirk_scotty/patrick/mod/plots/location/location_demonstration_plots.gpkg" expanded="1" checked="Qt::Checked">
-            <customproperties>
-              <property value="Area of hyperspectral data" key="legend/title-label"/>
             </customproperties>
           </layer-tree-layer>
           <layer-tree-layer id="Study_area_new20180205160426241" name="Study_area_new" providerKey="ogr" source="../../../../../../../../lossa/data_mccoy_kirk_scotty/patrick/raw/boundaries/basque-country/Study_area_new.shp" expanded="1" checked="Qt::Checked">

@@ -537,28 +537,30 @@ saveRDS(resa_svm, "/data/patrick/mod/hyperspectral/spcv/all_plots_svm_blocking.r
 lrn_xgboost <- makeLearner("regr.xgboost",
                    par.vals = list(
                      objective = "reg:linear",
-                     eval_metric = "error",
-                     eta = 0.1
+                     eval_metric = "error"
                    ))
 ```
 
 ```{r}
-ps_xgboost = makeParamSet(
-  makeDiscreteParam("nrounds", values = c(10, 100, 1000, 10000)),
-  makeNumericParam("colsample_bytree", lower=0.1, upper=1),
-  makeNumericParam("subsample", lower=0.1, upper=1),
-  makeIntegerParam("max_depth", lower=1, upper=785),
-  makeNumericParam("gamma", lower=0, upper=20)
+ps_xgboost <- makeParamSet(
+  makeIntegerParam("nrounds", lower = 0, upper = 600),
+  makeNumericParam("colsample_bytree", lower = 0.3, upper = 0.7),
+  makeNumericParam("subsample", lower = 0.25, upper = 1),
+  makeIntegerParam("max_depth", lower = 1, upper = 10),
+  makeNumericParam("gamma", lower = 0, upper = 10),
+  makeNumericParam("eta", lower = 0.001, upper = 0.6),
+  makeNumericParam("min_child_weight", lower = 0, upper = 20)
 )
 ```
 
 ```{r}
 ctrl = makeMBOControl(propose.points = 1L)
-ctrl = setMBOControlTermination(ctrl, iters = 70L)
+ctrl = setMBOControlTermination(ctrl, iters = 20L)
 ctrl = setMBOControlInfill(ctrl, crit = crit.ei)
 ctrl = setMBOControlMultiPoint(ctrl, method = "cl", cl.lie = min)
 tune.ctrl = makeTuneControlMBO(mbo.control = ctrl,
                                mbo.design = generateDesign(n = 30, par.set = ps_xgboost))
+# tune.ctrl = makeTuneControlRandom(maxit = 50)
 inner <- makeResampleDesc("Blocking")
 ```
 
@@ -576,13 +578,59 @@ outer <- makeResampleDesc("Blocking")
 
 ```{r}
 library(parallelMap)
-parallelStart(mode = "multicore", cpus = 40, level = "mlrMBO.feval",
+parallelStart(mode = "multicore", cpus = 4, level = "mlr.resample",
               mc.set.seed = TRUE) # only parallelize the tuning
 set.seed(12345)
 resa_svm <- mlr::resample(tune_wrapper, task,
                           resampling = outer, extract = getTuneResult,
                           show.info = TRUE, measures = list(rmse))
+# resa_svm <- mlr::resample(lrn_xgboost, task,
+#                           resampling = outer, 
+#                           show.info = TRUE, measures = list(rmse))
 
 parallelStop()
 saveRDS(resa_svm, "/data/patrick/mod/hyperspectral/spcv/all_plots_xgboost_blocking.rda")
+```
+
+### RF
+
+```{r}
+# RF
+ps_rf <- makeParamSet(
+  makeIntegerParam("mtry", lower = 1, upper = 3000),
+  makeIntegerParam("min.node.size", lower = 1, upper = 10),
+  makeNumericParam("sample.fraction", lower = 0.2, upper = 0.9)
+)
+ctrl <- makeMBOControl(propose.points = 1L)
+ctrl <- setMBOControlTermination(ctrl, iters = 20L)
+ctrl <- setMBOControlInfill(ctrl, crit = crit.ei)
+ctrl <- setMBOControlMultiPoint(ctrl, method = "cl", cl.lie = min)
+tune.ctrl <- makeTuneControlMBO(
+  mbo.control = ctrl,
+  mbo.design = generateDesign(n = 30, par.set = ps_rf)
+)
+inner <- makeResampleDesc("Blocking")
+
+tune_wrapper_rf <- makeTuneWrapper(makeLearner("regr.ranger"),
+                                   resampling = inner, par.set = ps_rf,
+                                   control = tune.ctrl, show.info = TRUE,
+                                   measures = list(rmse)
+)
+```
+
+```{r}
+outer <- makeResampleDesc("Blocking")
+```
+
+```{r}
+library(parallelMap)
+parallelStart(mode = "multicore", cpus = 40, level = "mlrMBO.feval",
+              mc.set.seed = TRUE) # only parallelize the tuning
+set.seed(12345)
+resa_svm <- mlr::resample(tune_wrapper_rf, task,
+                          resampling = outer, extract = getTuneResult,
+                          show.info = TRUE, measures = list(rmse))
+
+parallelStop()
+saveRDS(resa_svm, "/data/patrick/mod/hyperspectral/spcv/all_plots_rf_blocking.rda")
 ```

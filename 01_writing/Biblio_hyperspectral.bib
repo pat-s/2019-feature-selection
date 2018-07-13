@@ -1,4 +1,46 @@
 
+@article{bischlMlrMachineLearning2016,
+  volume = {17},
+  number = {170},
+  journal = {Journal of Machine Learning Research},
+  author = {Bischl, Bernd and Lang, Michel and Kotthoff, Lars and Schiffner, Julia and Richter, Jakob and Studerus, Erich and Casalicchio, Giuseppe and Jones, Zachary M.},
+  year = {2016},
+  keywords = {🔍No DOI found,R packages},
+  pages = {1-5},
+  file = {/home/pjs/Zotero/storage/NXKWPTGR/Bischl et al. - 2016 - mlr Machine Learning in R.pdf;/home/pjs/Zotero/storage/XUPQTDX3/15-066.html},
+  title = {mlr: Machine learning in {R}}
+}
+
+@article{mlrmbo,
+  archivePrefix = {arXiv},
+  eprinttype = {arxiv},
+  eprint = {1703.03373},
+  title = {{{mlrMBO}}: {{A Modular Framework}} for {{Model}}-{{Based Optimization}} of {{Expensive Black}}-{{Box Functions}}},
+  shorttitle = {{{mlrMBO}}},
+  journal = {ArXiv e-prints},
+  author = {Bischl, Bernd and Richter, Jakob and Bossek, Jakob and Horn, Daniel and Thomas, Janek and Lang, Michel},
+  month = mar,
+  year = {2017},
+  keywords = {🔍No DOI found,hyperparameter,Statistics - Machine Learning},
+  file = {/home/pjs/Zotero/storage/JXB68FKS/Bischl et al. - 2017 - mlrMBO A Modular Framework for Model-Based Optimi.pdf;/home/pjs/Zotero/storage/8J3RH32U/1703.html},
+  eprintclass = {stat}
+}
+
+@article{Jones1998,
+  title = {Efficient Global Optimization of Expensive Black-Box Functions},
+  volume = {13},
+  issn = {1573-2916},
+  doi = {10/fg68nc},
+  abstract = {In many engineering optimization problems, the number of function evaluations is severely limited by time or cost. These problems pose a special challenge to the field of global optimization, since existing methods often require more function evaluations than can be comfortably afforded. One way to address this challenge is to fit response surfaces to data collected by evaluating the objective and constraint functions at a few points. These surfaces can then be used for visualization, tradeoff analysis, and optimization. In this paper, we introduce the reader to a response surface methodology that is especially good at modeling the nonlinear, multimodal functions that often occur in engineering. We then show how these approximating functions can be used to construct an efficient global optimization algorithm with a credible stopping rule. The key to using response surfaces for global optimization lies in balancing the need to exploit the approximating surface (by sampling where it is minimized) with the need to improve the approximation (by sampling where prediction error may be high). Striking this balance requires solving certain auxiliary problems which have previously been considered intractable, but we show how these computational obstacles can be overcome.},
+  number = {4},
+  journal = {Journal of Global Optimization},
+  author = {Jones, Donald R. and Schonlau, Matthias and Welch, William J.},
+  month = dec,
+  year = {1998},
+  pages = {455-492},
+  day = {01}
+}
+
 @article{Probst2018b,
   archivePrefix = {arXiv},
   eprinttype = {arxiv},
@@ -74,7 +116,7 @@ R version 3.3.3}
 R package version 2.4.2}
 }
 
-@inproceedings{sperrorest,
+@inproceedings{Brenning2012,
   title = {Spatial Cross-Validation and Bootstrap for the Assessment of Prediction Rules in Remote Sensing: {{The R}} Package Sperrorest},
   doi = {10.1109/igarss.2012.6352393},
   booktitle = {2012 {{IEEE International Geoscience}} and {{Remote Sensing Symposium}}},
@@ -610,18 +652,6 @@ R package version 6.0-76}
   year = {2014},
   pages = {1192-1197},
   publisher = {{Wiley-Blackwell}}
-}
-
-@article{mlr,
-  title = {Mlr: {{Machine Learning}} in {{R}}},
-  volume = {17},
-  number = {170},
-  journal = {Journal of Machine Learning Research},
-  author = {Bischl, Bernd and Lang, Michel and Kotthoff, Lars and Schiffner, Julia and Richter, Jakob and Studerus, Erich and Casalicchio, Giuseppe and Jones, Zachary M.},
-  year = {2016},
-  keywords = {🔍No DOI found},
-  pages = {1-5},
-  note = {00103}
 }
 
 @article{ranger,
@@ -1800,6 +1830,38 @@ R package version 0.1.1}
   pages = {301-320},
   publisher = {{Wiley-Blackwell}},
   note = {07728}
+}
+
+@article{probstHyperparametersTuningStrategies2018,
+  archivePrefix = {arXiv},
+  eprinttype = {arxiv},
+  eprint = {1804.03515},
+  primaryClass = {cs, stat},
+  title = {Hyperparameters and {{Tuning Strategies}} for {{Random Forest}}},
+  abstract = {The random forest algorithm (RF) has several hyperparameters that have to be set by the user, e.g., the number of observations drawn randomly for each tree and whether they are drawn with or without replacement, the number of variables drawn randomly for each split, the splitting rule, the minimum number of samples that a node must contain and the number of trees. In this paper, we first provide a literature review on the parameters' influence on the prediction performance and on variable importance measures, also considering interactions between hyperparameters. It is well known that in most cases RF works reasonably well with the default values of the hyperparameters specified in software packages. Nevertheless, tuning the hyperparameters can improve the performance of RF. In the second part of this paper, after a brief overview of tuning strategies we demonstrate the application of one of the most established tuning strategies, model-based optimization (MBO). To make it easier to use, we provide the tuneRanger R package that tunes RF with MBO automatically. In a benchmark study on several datasets, we compare the prediction performance and runtime of tuneRanger with other tuning implementations in R and RF with default hyperparameters.},
+  journal = {arXiv:1804.03515 [cs, stat]},
+  author = {Probst, Philipp and Wright, Marvin and Boulesteix, Anne-Laure},
+  month = apr,
+  year = {2018},
+  keywords = {Statistics - Machine Learning,🔍No DOI found,Computer Science - Machine Learning},
+  note = {00000}
+}
+
+@inproceedings{chenXGBoostScalableTree2016,
+  address = {New York, NY, USA},
+  series = {KDD '16},
+  title = {{{XGBoost}}: {{A Scalable Tree Boosting System}}},
+  isbn = {978-1-4503-4232-2},
+  shorttitle = {{{XGBoost}}},
+  doi = {10.1145/2939672.2939785},
+  abstract = {Tree boosting is a highly effective and widely used machine learning method. In this paper, we describe a scalable end-to-end tree boosting system called XGBoost, which is used widely by data scientists to achieve state-of-the-art results on many machine learning challenges. We propose a novel sparsity-aware algorithm for sparse data and weighted quantile sketch for approximate tree learning. More importantly, we provide insights on cache access patterns, data compression and sharding to build a scalable tree boosting system. By combining these insights, XGBoost scales beyond billions of examples using far fewer resources than existing systems.},
+  booktitle = {Proceedings of the {{22Nd ACM SIGKDD International Conference}} on {{Knowledge Discovery}} and {{Data Mining}}},
+  publisher = {{ACM}},
+  author = {Chen, Tianqi and Guestrin, Carlos},
+  year = {2016},
+  keywords = {large-scale,learning,machine},
+  pages = {785--794},
+  file = {/home/pjs/Zotero/storage/4F87WJP5/Chen and Guestrin - 2016 - XGBoost A Scalable Tree Boosting System.pdf}
 }
 
 
