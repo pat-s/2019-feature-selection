@@ -115,7 +115,7 @@
 	\acro{WKNN}{Weighted $k$-nearest neighbor}
 	\acro{MARS}{Multivariate Adaptive Regression Splines}
 	\acro{MEM}{Maximum Entropy Model}
-	\acro{NRI}{Normalized Ratio Indeces}
+	\acro{NRI}{Normalized Ratio Indices}
 	\acro{OLS}{Ordinary Least Squares}
 	\acro{LOWESS}{Locally Weighted Scatter Plot Smoothing}
 	\acro{PISR}{Potential Incoming Solar Radiation}
@@ -124,6 +124,7 @@
 	\acro{RMSE}{Root Mean Square Error}
 	\acro{RR}{Ridge Regression}
 	\acro{RSS}{Residual Sum of Squares}
+	\acro{SAR}{Synthetic Aperture Radar}
 	\acro{SDM}{Species Distribution Modeling}
 	\acro{SMBO}{Sequential-based Model Optimization}
 	\acro{SVM}{Support Vector Machines}
@@ -134,39 +135,43 @@
 \label{sec:intro}
 
 % Explain how remote sensing is used in forestry (potential to map forest health)
-Remote sensing data is successfully used in forestry to monitor temporal changes across large areas REFERENCES.
-The use of SAR techniques enables scientists to estimate \ac{AGB}.
-Forest health is commonly modelled using optical data from multispectral satellites by applying temporal change detections.
-With a well-trained model, scientists are able to predict the modelled response to a large area, giving valuable information about the environmental condition of this region.
-To model forest health, usually vegetation indices are derived from the band values, i.e. band combinations that are proven to be sensitive to health changes of vegetation.
-However, the pool of possible indices is often limited due to a low spectral resolution of freely available data from multispectral sensors.
-Also, if the spatial resolution of the data is too coarse (e.g. > 5 m), the value of a pixel contains information of multiple trees and possibly even bare-ground information.
-These problems introduce bias into the data which is passed onto the fitted model, leading to non-optimal modeling results.
+Data retrieved from remote sensing satellites is successfully used in forestry to monitor temporal changes across large areas \citep{martinezdelcastilloEvaluationForestCover2015,sextonModelPropagationUncertainty2015}.
+The use of \ac{SAR} techniques enables scientists to estimate \ac{AGB} \citep{luSurveyRemoteSensingbased2016, sinhaReviewRadarRemote2015}.
+Forest health is commonly assesed using optical data from multi-/hyperspectral satellites by applying temporal change detections \citep{zhangRemoteSensingSeasonal2016}.
+With the recent success story of machine-learning methods in the field of remote sensing, modeling techniques such as \ac{RF} are frequently used to model relationships of possible triggers to forest health \citep{belgiuRandomForestRemote2016, laryMachineLearningGeosciences2016, michezClassificationRiparianForest2016}.
+
+With a robust model, predictions of the modelled response to large areas is possible, giving valuable information about the condition of this variable in unknown regions.
+To model forest health, usually few variables are extracted based on the spectral signatures of affected and unaffected trees \citep{lelongEvaluationOilPalmFungal2010}. 
+However, spectral (vegetation-)indices have shown the potential to contribute valuable information to increase predictive accuracy of forest pathogens \citep{jiangSatellitederivedVegetationIndices2014, adamczykRededgeVegetationIndices2015}. 
+
+However, the amount of possible (vegetation-)indices that could be calculated is often limited due to a low spectral resolution of freely available data from optical multispectral sensors (e.g. Sentinel-2).
+Also, there is currently no free data available from hyperspectral sensors that could be used for such studies (after the decommission of the EO-1 Hyperion satellite).
+If the spatial resolution of the data is too coarse (e.g. $> 5 m$), the value of a pixel usually contains information from multiple trees and possibly even bare-ground information.
+This makes the resulting information almost useless to be used for forest health monitoring on a tree level.
 
 % Why are we mapping defoliation?
 
-In this study we will use hyperspectral remote sensing data with a spatial resolution of one meter and 126 spectral bands to model defoliation of \textit{Pinus radiata} trees in northern Spain. 
-These trees suffer from infections of invasive pathogens such as \textit{Diplodia sapinea}, \textit{Armillaria} or \textit{Heterobasidion} leading to a spread of cankers or defoliation before the tree dies.
-The fungis are assumed to infect the trees through open wounds, possibly caused by hail damage \citep{Iturritxa2014}.
-The dieback of these trees, which are mainly used as timber, causes high economic damages in the Iberian Peninsula area.
-Remote sensing data in combination with state-of-the-art machine-learning techniques can help to constantly monitor forest health in this region using proxies such as defoliation of the tree crown.
-With this information, an increase in defoliation can serve as an early-warning indicator of a possible infection of a plot.
+In this study we will use hyperspectral data with a spatial resolution of one meter and 126 spectral bands to model the health status of Monterey Pine (\textit{Pinus radiata}) plantations in northern Spain. 
+The trees in the study area suffer from infections of invasive pathogens such as \textit{Diplodia sapinea}, \textit{Fusarium circinatum} \textit{Armillaria mellea} or \textit{Heterobasidion annosum} leading to a spread of cankers or defoliation before the tree dies \citep{mesanzaNativeRhizobacteriaBiocontrol2016, iturritxaBiocontrolFusariumCircinatum2017}.
+In-situ measurements of defoliation on a tree level are used as a proxy to model tree health.
+The fungis are assumed to infect the trees through open wounds, possibly caused by previous hail damage \citep{Iturritxa2014}.
+The dieback of these trees, which are mainly used as timber, causes high economic damages \citep{ganleyGlobalClimaticRisk2009}.
+Hyperspectral remote sensing data in combination with state-of-the-art machine-learning techniques is used to help monitoring the health status in this region by early detecting affected trees/plots.
 
 % Show importance of vegetation indices and NRI
 
-To extract the most information from the available remote sensing data, we not only calculated the most often used vegetation indices (e.g. NDVI) to link against defoliation. 
-The narrow bands of the given data enable the calculation of up to 90 vegetation indices.
-Additionally, all possible combinations of \ac{NRI} were calculated from the data and supplied to the machine-learning algorithms as predictors.
-With their ability to find patterns between the response and its predictors in the data, we hope to increase the predictive accuracy of defoliation based on remote sensing indices.
+To extract the most information from the available remote sensing data, we not only calculated the most common vegetation indices like \textit{NDVI} to link against defoliation but all possible ones within the spectral region of the data (400 nm - 1000 nm) that were implemented in the \textit{hsdar} package in R \citep{hsdar}.
+Additionally, all possible combinations of \ac{NRI} were calculated from the data and supplied to a selection of machine-learning algorithms as predictors.
+
 
 % Mention the ability of ML algs to handle highly correlated variables
 
-In this study the following objectives are addressed: 
+Specifically the following objectives are addressed: 
 
 \begin{itemize}
-	\item Checking multiple machine-learning algorithms on their ability to model defoliation of \textit{Pinus radiata} trees
-	\item Exploration of the most important indices of the model
-	\item Prediction of defoliation to plots with unknown levels of defoliation
+	\item Comparison of multiple algorithms on their performance to model defoliation of \textit{Pinus radiata} trees using highly-correlated indices
+	\item Exploration of the most important indices of the best performing model
+	\item Prediction of defoliation to \textit{Pinus radiata} plots with an unknown defoliation level
 \end{itemize}
 
 \section{Data and study area}
