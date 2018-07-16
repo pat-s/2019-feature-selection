@@ -7,8 +7,6 @@ packrat/lib*/
 .bbl
 .spl
 .log
-packrat/lib*/
-packrat/src/*
 packrat/bundles/*
 file*.R
 .directory
