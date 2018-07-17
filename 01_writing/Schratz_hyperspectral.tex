@@ -141,8 +141,8 @@ Forest health is commonly assesed using optical data from multi-/hyperspectral s
 With the recent success story of machine-learning methods in the field of remote sensing, modeling techniques such as \ac{RF} are frequently used to model relationships of possible triggers to forest health \citep{belgiuRandomForestRemote2016, laryMachineLearningGeosciences2016, michezClassificationRiparianForest2016}.
 
 With a robust model, predictions of the modelled response to large areas is possible, giving valuable information about the condition of this variable in unknown regions.
-To model forest health, usually few variables are extracted based on the spectral signatures of affected and unaffected trees \citep{lelongEvaluationOilPalmFungal2010}. 
-However, spectral (vegetation-)indices have shown the potential to contribute valuable information to increase predictive accuracy of forest pathogens \citep{jiangSatellitederivedVegetationIndices2014, adamczykRededgeVegetationIndices2015}. 
+To model forest health, usually few variables are extracted based on the spectral signatures of affected and unaffected trees \citep{lelongEvaluationOilPalmFungal2010}.
+However, spectral (vegetation-)indices have shown the potential to contribute valuable information to increase predictive accuracy of forest pathogens \citep{jiangSatellitederivedVegetationIndices2014, adamczykRededgeVegetationIndices2015}.
 
 However, the amount of possible (vegetation-)indices that could be calculated is often limited due to a low spectral resolution of freely available data from optical multispectral sensors (e.g. Sentinel-2).
 Also, there is currently no free data available from hyperspectral sensors that could be used for such studies (after the decommission of the EO-1 Hyperion satellite).
@@ -151,7 +151,7 @@ This makes the resulting information almost useless to be used for forest health
 
 % Why are we mapping defoliation?
 
-In this study we will use hyperspectral data with a spatial resolution of one meter and 126 spectral bands to model the health status of Monterey Pine (\textit{Pinus radiata}) plantations in northern Spain. 
+In this study we will use hyperspectral data with a spatial resolution of one meter and 126 spectral bands to model the health status of Monterey Pine (\textit{Pinus radiata}) plantations in northern Spain.
 The trees in the study area suffer from infections of invasive pathogens such as \textit{Diplodia sapinea}, \textit{Fusarium circinatum} \textit{Armillaria mellea} or \textit{Heterobasidion annosum} leading to a spread of cankers or defoliation before the tree dies \citep{mesanzaNativeRhizobacteriaBiocontrol2016, iturritxaBiocontrolFusariumCircinatum2017}.
 In-situ measurements of defoliation on a tree level are used as a proxy to model tree health.
 The fungis are assumed to infect the trees through open wounds, possibly caused by previous hail damage \citep{Iturritxa2014}.
@@ -166,7 +166,7 @@ Additionally, all possible combinations of \ac{NRI} were calculated from the dat
 
 % Mention the ability of ML algs to handle highly correlated variables
 
-Specifically the following objectives are addressed: 
+Specifically the following objectives are addressed:
 
 \begin{itemize}
 	\item Comparison of multiple algorithms on their performance to model defoliation of \textit{Pinus radiata} trees using highly-correlated indices
@@ -182,7 +182,8 @@ Specifically the following objectives are addressed:
 The \textit{Pinus radiata} plots of this study, named \textit{Laukiz 1}, \textit{Laukiz 2}, \textit{Luiando} and \textit{Oiartzun}, are located in the northern part of the Basque Country (\autoref{fig:study_area}).
 \textit{Oiartzun} has the most observations (n = 529) while \textit{Laukiz 2} has the largest area size (1.44 ha).
 All plots besides \textit{Luiando} are located nearby the coast (\autoref{fig:study_area}).
-The data collection took place in September 2016.
+In total 1750 observations are available (\textit{Laukiz 1} = 479, \textit{Laukiz 2} = 451, \textit{Luiando} = 291, \textit{Oiartzun} = 529).
+The data was surveyed in September 2016.
 
 \begin{figure} [t!]
 	\begin{center}
@@ -195,11 +196,10 @@ The data collection took place in September 2016.
 \subsection{Hyperspectral data}
 
 The airborne hyperspectral data was acquired during two flight campaigns on September 28th and October 5th 2016, both around 12 am.
-The images were taken by an AISAEAGLE-II sensor from the \ac{ICGC}.
-All preprocessing steps (geometric, radiometric, atmospheric) have been conducted by \ac{ICGC}.
+The images were taken using a AISAEAGLE-II sensor.
+All preprocessing steps (geometric, radiometric, atmospheric) have been conducted by the \ac{ICGC}.
 The first four bands were corrupted, leaving 122 bands with valid information.
-
-Additional data characteristics are provided in Table 1:
+Additional metadata information is available in Table 1:
 
 % parameter limits
 \begin{table}[b!]
@@ -222,7 +222,7 @@ Additional data characteristics are provided in Table 1:
 \section{Methods}
 
 For all analysis steps we used the open-source statistical programming language R \citep{R_core}.
-The algorithm implementations of the following packages have been used: \textit{xgboost} \citep{chenXGBoostScalableTree2016}, \textit{kernlab} \citep{kernlab} (Support Vector Machine), \cite{Vapnik1998}) and \textit{glmnet} \citep{glmnet} (Ridge Regression). 
+The algorithm implementations of the following packages have been used: \textit{xgboost} \citep{chenXGBoostScalableTree2016}, \textit{kernlab} \citep{kernlab} (Support Vector Machine), \cite{Vapnik1998}) and \textit{glmnet} \citep{glmnet} (Ridge Regression).
 We used the R package \textit{mlr} for all modeling related steps.
 It provides a standardized interface for a wide variety of statistical and machine-learning models in R simplifying essential modeling tasks such as hyperparameter tuning, model performance evaluation and parallelization \citep{bischlMlrMachineLearning2016}.
 
@@ -250,14 +250,14 @@ These indices were removed from the dataset, leaving a total of 7471 variables w
 \subsection{Exploratory analysis of plot characteristics}
 
 Plot characteristics like age, stand density and defoliation were analysed to show differences among the plots.
-Additionally, the spectral signatures of each plot have been visualized. 
+Additionally, the spectral signatures of each plot have been visualized.
 
 \subsection{Benchmarking of algorithms}
 
 Multiple algorithms were benchmarked on predictive performance to find the best performing one.
 Besides the well-known \ac{SVM} \citep{Vapnik1998} we also used \textit{xgboost} which is ensemble method relying on the idea of tree boosting that gained a lot of attention in recent years \citep{chenXGBoostScalableTree2016}.
 We also added penalized L2 (Ridge) regression to the algorithm collection due to its ability to handle highly correlated covariates.
-We also want to explain why we did not consider the probably most popular machine-learning algorithm, Random Forest: Due to the high number of variables model fitting times in the range hours for a single model fit were not practicable for this work. 
+The probably most popular machine-learning algorithm, Random Forest, was not considered for this study: Due to the high number of variables, model fitting times in the range hours for a single model fit were not practicable for this work.
 These high fitting times are caused by hyperparameter \texttt{mtry} which scales with the number of variables \citep{Probst2018b}.
 
 % \subsubsection{The ridge penalty}
@@ -282,10 +282,10 @@ These high fitting times are caused by hyperparameter \texttt{mtry} which scales
 
 \subsubsection{Performance estimation}
 
-The algorithms were benchmarked in two ways: 
+The algorithms were benchmarked in two ways:
 (1) Using spatial \ac{CV} for each plot using on the k-means clustering approach of \cite{Brenning2012}. To reduce runtime we used a five-fold five-times repeated CV setup.
 (2) Using spatial \ac{CV} on the plot level with each plot being the test set once. This results in four performance estimates, one for each fold.
-For (1) we only used the best performing algorithm from (2). 
+For (1) we only used the best performing algorithm from (2).
 The reason why the (2) was chosen for algorithm selection is that this model will also be used to spatially predict defoliation in other plots.
 
 % Add figure visualizing both spCV approaches
@@ -339,32 +339,32 @@ Laukiz 2 shows a mean tree density of 61.59 m \autoref{fig:rmse_defol_dens}) whi
 
 % Performance estimates
 \begin{table}[b!]
-	\centering
-	\caption[t]{Four-fold spatial \ac{CV} performances of RR, SVM and xgboost using \ac{RMSE} as the error measure. 
+\centering
+\caption[t]{Four-fold spatial \ac{CV} performances of RR, SVM and xgboost using \ac{RMSE} as the error measure.
 	Mean and standard deviation are shown.}
-	\begingroup\footnotesize
-	\begin{tabular}{llll}
-		RR            & SVM           & xgboost \\
-		\hline
-		59.10 (22.71) & 36.23 (15.73) &  &         \\
-		\bottomrule
-	\end{tabular}
-	\endgroup
-	\label{tab:penalty_comparison}
-	\end{table}
+\begingroup\footnotesize
+\begin{tabular}{llll}
+	RR            & SVM           & xgboost       \\
+	\hline
+	59.10 (22.71) & 36.23 (15.73) & 33.26 (16.61) \\
+	\bottomrule
+\end{tabular}
+\endgroup
+\label{tab:penalty_comparison}
+\end{table}
 
 \begin{table}[t!]
 \centering
-\caption[t]{Predictive performance of xgboost using the merged dataset (supermodel) and observations on a plot level only (single plot) with \ac{RMSE} as the error measure. The performance estimates for "All Plots" correspond to the fold for which the respective plot was serving as the test set. For "single plot", the values correspond to the mean value of the SpCV at the repetition level (10 folds, 20 repetitions), scored by models fitted on the data of the respective plot only.}
+\caption[t]{Predictive performance of \textit{xgboost} using all observations (All Observations ) and observations from single plots only (Single Plot Observations) with \ac{RMSE} as the error measure. The performance estimates for "All Observations" correspond to the fold for which the respective plot was serving as the test set. Column "single plot", shows the mean performances at the repetition level of a SpCV (5 folds, 5 repetitions), scored by using data of the respective plot only.}
 \begingroup\footnotesize
 \begin{tabular}{lll}
 	\\
-	Plot/Data & All Plots (Block CV) & Single plot (SpCV) \\
+	Plot/Data & All Observations (Block CV) & Single Plot Observations (SpCV)             \\
 	\hline
-	Laukiz 1  & 58.95                     & 89.89              \\
-	Laukiz 2  & 27.94                     & 30.37              \\
-	Luiando   & 69.72                     & 76.02              \\
-	Oiartzun  & 58.09                     & 106.65             \\ 
+	Laukiz 1  & 22.03                & -                              \\
+	Laukiz 2  & 51.75                & 17.37  (update to rep mean!)   \\
+	Luiando   & 13.20                & -                              \\
+	Oiartzun  & 32.97                & 14.72    (update to rep mean!) \\
 	\bottomrule
 \end{tabular}
 \endgroup
