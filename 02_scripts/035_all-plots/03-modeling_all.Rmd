@@ -9,7 +9,6 @@ output:
 # Load packages
 
 ```{r, results='hide'}
-#devtools::install_github("tidyverse/ggplot2")
 devtools::install_github("mlr-org/mlr@blocking")
 
 library(mlr)
@@ -48,7 +47,7 @@ data = Filter(function(x) !any(is.na(x)), data)
 coords = as_tibble(rbindlist(coords))
 ```
 
-Save the indices shared by all plots so that we can subset the single plots to use the same indices
+Save the indices shared by all plots so that we can subset the single plots to use the same indices.
 
 ```{r}
 indices_shared = names(data)
@@ -65,9 +64,7 @@ task = makeRegrTask(id = "all_plots", data = data,
 
 # Modeling
 
-## glmnet
-
-### Ridge
+## Ridge
 
 We only need to tune `s`: https://github.com/mlr-org/mlr/issues/1030#issuecomment-233677172
 `glmnet` fits many models during training. However, important is which `s` is chosen for prediction. 
@@ -84,14 +81,10 @@ They can be seen as a variable importance measure.
 The highest coefficients are most important for the model (if all variables are on the same scale) https://stats.stackexchange.com/a/154712/101464
 
 ```{r}
-# predict.type for 'auc' (AUROC)
 lrn_glmnet <- makeLearner("regr.glmnet",
                           alpha = 0,
                           standardize = FALSE,
                           intercept = FALSE)
-                          #lambda = sort(seq(0, 5, length.out = 100), decreasing = T))
-# getHyperPars(lrn_glmnet)
-# getParamSet(lrn_glmnet)
 ```
 
 To find a suitable tuning space for `s`, Julia recommends to do a simple `train()` call and check the range of the chosen `lambda`.
@@ -109,10 +102,14 @@ ps_glmnet <- makeParamSet(makeNumericParam("s", lower = 35, upper = 3559))
 ctrl = makeMBOControl(propose.points = 1L)
 ctrl = setMBOControlTermination(ctrl, iters = 70L)
 ctrl = setMBOControlInfill(ctrl, crit = crit.ei)
-ctrl = setMBOControlMultiPoint(ctrl, method = "cl", cl.lie = min)
 tune.ctrl = makeTuneControlMBO(mbo.control = ctrl,
-                               mbo.design = generateDesign(n = 30, par.set =  ps_glmnet))
+                               mbo.design = generateDesign(n = 30, 
+                                                           par.set =  ps_glmnet))
+```
+
+```{r}
 inner <- makeResampleDesc("Blocking")
+outer <- makeResampleDesc("Blocking")
 ```
 
 #### SpCV
@@ -124,14 +121,9 @@ tune_wrapper <- makeTuneWrapper(lrn_glmnet, resampling = inner, par.set = ps_glm
 ```
 
 ```{r}
-# outer <- makeResampleDesc("RepCV", folds = 4, reps = 2)
-outer <- makeResampleDesc("Blocking")
-```
-
-```{r}
 library(parallelMap)
 parallelStart(mode = "multicore", level = "mlrMBO.feval", cpus = 40,
-              mc.set.seed = TRUE) # only parallelize the tuning
+              mc.set.seed = TRUE) 
 
 set.seed(12345)
 resa_glmnet <- mlr::resample(tune_wrapper, task,
@@ -163,7 +155,7 @@ cowplot::plot_grid(plotlist = plot[["Plots"]], ncol = 4, nrow = 1, labels = plot
 configureMlr(on.learner.error = "warn", on.error.dump = TRUE)
 library(parallelMap)
 parallelStart(mode = "multicore", level = "mlr.tuneParams", cpus = 48,
-              mc.set.seed = TRUE) # only parallelize the tuning
+              mc.set.seed = TRUE) 
 set.seed(12345)
 params_tuned_glmnet = tuneParams(lrn_glmnet, task = task, resampling = inner,
                                  par.set = ps_glmnet, control = tune.ctrl, 
@@ -225,264 +217,7 @@ tibble(index = rownames(as.matrix(coef(glmnet_train_tuned$learner.model, s = 875
 saveRDS(top_inds_rr_all_plots, "/data/patrick/mod/hyperspectral/top-inds/top_inds_rr_all_plots.rda")
 ```
 
-### Lasso
-
-We only need to tune `s`: https://github.com/mlr-org/mlr/issues/1030#issuecomment-233677172
-`glmnet` fits many models during training. However, important is which `s` is chosen for prediction. 
-The value of `s` determines which trained model will be chosen.
-If `s` != `lambda`, linear interpolation or refitting is applied.
-
-To find a suitable tuning space for `s`, Julia recommends to do a simple `train()` call and check the range of the chosen `lambda` values.
-
-Besides tuning with `mlr`, we could use `cv-glmnet()` to find a suitable `lambda` value for a given dataset.
-However, we would do a random partitioning instead of a spatial partitioning here.
-
-Coefficients of ridge regression should not be used for inference as they are biased. 
-They can be seen as a variable importance measure then? The highest coefficients are most important for the model (if all variables are on the same scale) https://stats.stackexchange.com/a/154712/101464
-
-```{r}
-lrn_glmnet <- makeLearner("regr.glmnet",
-                          alpha = 1,
-                          standardize = FALSE,
-                          intercept = FALSE)
-# getHyperPars(lrn_glmnet)
-# getParamSet(lrn_glmnet)
-```
-
-To find a suitable tuning space for `s`, Julia recommends to do a simple `train()` call and check the range of the chosen `lambda`.
-
-```{r}
-glmnet_train = mlr::train(lrn_glmnet, task)
-summary(glmnet_train$learner.model$lambda)
-```
-
-```{r}
-ps_glmnet <- makeParamSet(makeNumericParam("s", lower = 0.03, upper = 3.5))
-```
-
-```{r}
-ctrl = makeMBOControl(propose.points = 1L)
-ctrl = setMBOControlTermination(ctrl, iters = 70L)
-ctrl = setMBOControlInfill(ctrl, crit = crit.ei)
-ctrl = setMBOControlMultiPoint(ctrl, method = "cl", cl.lie = min)
-tune.ctrl = makeTuneControlMBO(mbo.control = ctrl,
-                               mbo.design = generateDesign(n = 30, par.set =  ps_glmnet))
-inner <- makeResampleDesc("SpCV", iters = 10)
-inner <- makeResampleDesc("Blocking")
-```
-
-#### SpCV
-
-```{r}
-tune_wrapper <- makeTuneWrapper(lrn_glmnet, resampling = inner, par.set = ps_glmnet,
-                                control = tune.ctrl, show.info = TRUE,
-                                measures = list(rmse))
-```
-
-```{r}
-outer <- makeResampleDesc("Blocking")
-```
-
-```{r}
-library(parallelMap)
-parallelStart(mode = "multicore", level = "mlr.resample", cpus = 48,
-              mc.set.seed = TRUE) # only parallelize the tuning
-
-set.seed(12345)
-resa_glmnet <- mlr::resample(tune_wrapper, task,
-                             resampling = outer, extract = getTuneResult,
-                             show.info = TRUE, measures = list(rmse))
-
-parallelStop()
-saveRDS(resa_glmnet, "/data/patrick/mod/hyperspectral/spcv/all_plots_lasso_bf2_10folds_blocking.rda")
-```
-
-Calculate repetition mean
-
-```{r}
-resa_glmnet = readRDS("/data/patrick/mod/hyperspectral/spcv/all_plots_lasso_bf2_10folds_blocking.rda")
-resa_glmnet$measures.test %>% 
-  summarise(mean(rmse), sd(rmse))
-```
-
-#### TuneParams
-
-```{r}
-configureMlr(on.learner.error = "warn", on.error.dump = TRUE)
-library(parallelMap)
-parallelStart(mode = "multicore", level = "mlr.tuneParams", cpus = 40,
-              mc.set.seed = TRUE) # only parallelize the tuning
-set.seed(12345)
-params_tuned_glmnet = tuneParams(lrn_glmnet, task = task, resampling = inner,
-                                 par.set = ps_glmnet, control = tune.ctrl, 
-                                 measure = list(rmse))
-parallelStop()
-```
-
-#### Tuned results
-
-We use the `s` value from the tuning. 
-As we will always use the complete dataset, this should be the best value.
-
-```{r}
-lrn_glmnet_tuned <- makeLearner("regr.glmnet",
-                                alpha = 0,
-                                s = 1810,
-                                standardize = FALSE, 
-                                intercept = FALSE)
-#lambda = sort(seq(0, 5, length.out = 100), decreasing = T))
-glmnet_train_tuned = mlr::train(lrn_glmnet_tuned, task)
-```
-
-Inspect the highest absolute coefficients (positive and negative).
-The first entry is the intercept and is therefore left out.
-
-```{r}
-tibble(index = rownames(as.matrix(coef(glmnet_train_tuned$learner.model, s = 1810))), 
-       coef = as.vector(as.matrix(coef(glmnet_train_tuned$learner.model, s = 1810)))) %>% 
-  arrange(desc(coef))
-```
-
-```{r}
-tibble(index = rownames(as.matrix(coef(glmnet_train_tuned$learner.model, s = 1810))), 
-       coef = as.vector(as.matrix(coef(glmnet_train_tuned$learner.model, s = 1810)))) %>% 
-  arrange(coef)
-```
-
-```{r}
-plot(glmnet_train_tuned$learner.model, "norm")
-```
-
-```{r}
-plot(coef(glmnet_train_tuned$learner.model))
-```
-
-### Elasticnet
-
-We only need to tune `s`: https://github.com/mlr-org/mlr/issues/1030#issuecomment-233677172
-`glmnet` fits many models during training. However, important is which `s` is chosen for prediction. 
-The value of `s` determines which trained model will be chosen.
-If `s` != `lambda`, linear interpolation or refitting is applied.
-
-To find a suitable tuning space for `s`, Julia recommends to do a simple `train()` call and check the range of the chosen `lambda` values.
-
-Besides tuning with `mlr`, we could use `cv-glmnet()` to find a suitable `lambda` value for a given dataset.
-However, we would do a random partitioning instead of a spatial partitioning here.
-
-Coefficients of ridge regression should not be used for inference as they are biased. 
-They can be seen as a variable importance measure then? The highest coefficients are most important for the model (if all variables are on the same scale) https://stats.stackexchange.com/a/154712/101464
-
-```{r}
-lrn_glmnet <- makeLearner("regr.glmnet",
-                          standardize = FALSE,
-                          intercept = FALSE)
-#getHyperPars(lrn_glmnet)
-#getParamSet(lrn_glmnet)
-```
-
-To find a suitable tuning space for `s`, Julia recommends to do a simple `train()` call and check the range of the chosen `lambda`.
-
-```{r}
-glmnet_train = mlr::train(lrn_glmnet, task)
-summary(glmnet_train$learner.model$lambda)
-```
-
-For the elasticnet we also tune `alpha`.
-As we have both penalties, we just use the lower and uppper maxima from both Lasso and Ridge.
-
-```{r}
-ps_glmnet <- makeParamSet(makeNumericParam("s", lower = 0.03, upper = 3559),
-                          makeNumericParam("alpha", lower = 0, upper = 1))
-```
-
-```{r}
-ctrl = makeMBOControl(propose.points = 1L)
-ctrl = setMBOControlTermination(ctrl, iters = 70L)
-ctrl = setMBOControlInfill(ctrl, crit = crit.ei)
-ctrl = setMBOControlMultiPoint(ctrl, method = "cl", cl.lie = min)
-tune.ctrl = makeTuneControlMBO(mbo.control = ctrl,
-                               mbo.design = generateDesign(n = 30, par.set = ps_glmnet))
-inner <- makeResampleDesc("Blocking")
-```
-
-#### SpCV
-
-```{r}
-tune_wrapper <- makeTuneWrapper(lrn_glmnet, resampling = inner, par.set = ps_glmnet,
-                                control = tune.ctrl, show.info = TRUE,
-                                measures = list(rmse))
-```
-
-```{r}
-outer <- makeResampleDesc("Blocking")
-```
-
-```{r}
-library(parallelMap)
-parallelStart(mode = "multicore", level = "mlr.resample", cpus = 40,
-              mc.set.seed = TRUE) # only parallelize the tuning
-
-set.seed(12345)
-resa_glmnet <- mlr::resample(tune_wrapper, task,
-                             resampling = outer, extract = getTuneResult,
-                             show.info = TRUE, measures = list(rmse))
-
-parallelStop()
-saveRDS(resa_glmnet, "/data/patrick/mod/hyperspectral/spcv/all_plots_elasticnet_blocking.rda")
-```
-
-#### TuneParams
-
-```{r}
-configureMlr(on.learner.error = "warn", on.error.dump = TRUE)
-library(parallelMap)
-parallelStart(mode = "multicore", level = "mlr.tuneParams", cpus = 48,
-              mc.set.seed = TRUE) # only parallelize the tuning
-set.seed(12345)
-params_tuned_glmnet = tuneParams(lrn_glmnet, task = task, resampling = inner,
-                                 par.set = ps_glmnet, control = tune.ctrl, 
-                                 measure = list(rmse))
-parallelStop()
-```
-
-#### Tuned results
-
-We use the `s` value from the tuning. 
-As we will always use the complete dataset, this should be the best value.
-
-```{r}
-lrn_glmnet_tuned <- makeLearner("regr.glmnet",
-                                alpha = 0,
-                                s = 1810,
-                                standardize = FALSE, 
-                                intercept = FALSE)
-#lambda = sort(seq(0, 5, length.out = 100), decreasing = T))
-glmnet_train_tuned = mlr::train(lrn_glmnet_tuned, task)
-```
-
-Inspect the highest absolute coefficients (positive and negative).
-The first entry is the intercept and is therefore left out.
-
-```{r}
-tibble(index = rownames(as.matrix(coef(glmnet_train_tuned$learner.model, s = 1810))), 
-       coef = as.vector(as.matrix(coef(glmnet_train_tuned$learner.model, s = 1810)))) %>% 
-  arrange(desc(coef))
-```
-```{r}
-tibble(index = rownames(as.matrix(coef(glmnet_train_tuned$learner.model, s = 1810))), 
-       coef = as.vector(as.matrix(coef(glmnet_train_tuned$learner.model, s = 1810)))) %>% 
-  arrange(coef)
-```
-
-```{r}
-plot(glmnet_train_tuned$learner.model, "lambda")
-```
-
-```{r}
-plot(coef(glmnet_train_tuned$learner.model))
-```
-
-### SVM
+## SVM
 
 ```{r}
 lrn_ksvm <- makeLearner("regr.ksvm",
@@ -531,7 +266,7 @@ parallelStop()
 saveRDS(resa_svm, "/data/patrick/mod/hyperspectral/spcv/all_plots_svm_blocking.rda")
 ```
 
-### xgboost
+## xgboost
 
 ```{r}
 lrn_xgboost <- makeLearner("regr.xgboost",
@@ -543,7 +278,7 @@ lrn_xgboost <- makeLearner("regr.xgboost",
 
 ```{r}
 ps_xgboost <- makeParamSet(
-  makeIntegerParam("nrounds", lower = 0, upper = 600),
+  makeIntegerParam("nrounds", lower = 10, upper = 600),
   makeNumericParam("colsample_bytree", lower = 0.3, upper = 0.7),
   makeNumericParam("subsample", lower = 0.25, upper = 1),
   makeIntegerParam("max_depth", lower = 1, upper = 10),
@@ -557,11 +292,14 @@ ps_xgboost <- makeParamSet(
 ctrl = makeMBOControl(propose.points = 1L)
 ctrl = setMBOControlTermination(ctrl, iters = 20L)
 ctrl = setMBOControlInfill(ctrl, crit = crit.ei)
-ctrl = setMBOControlMultiPoint(ctrl, method = "cl", cl.lie = min)
 tune.ctrl = makeTuneControlMBO(mbo.control = ctrl,
-                               mbo.design = generateDesign(n = 30, par.set = ps_xgboost))
-# tune.ctrl = makeTuneControlRandom(maxit = 50)
+                               mbo.design = generateDesign(n = 30, 
+                                                           par.set = ps_xgboost))
+```
+
+```{r}
 inner <- makeResampleDesc("Blocking")
+outer <- makeResampleDesc("Blocking")
 ```
 
 #### SpCV
@@ -572,27 +310,37 @@ tune_wrapper <- makeTuneWrapper(lrn_xgboost, resampling = inner, par.set = ps_xg
                                 measures = list(rmse))
 ```
 
-```{r}
-outer <- makeResampleDesc("Blocking")
-```
+If we parallelize the tuning using `level = "mlrMBO.feval"` for some unknown reason everything stalls after the first outer fold.
+That's why the parallelization takes place on the resample level.
 
 ```{r}
 library(parallelMap)
 parallelStart(mode = "multicore", cpus = 4, level = "mlr.resample",
-              mc.set.seed = TRUE) # only parallelize the tuning
+              mc.set.seed = TRUE)
 set.seed(12345)
 resa_svm <- mlr::resample(tune_wrapper, task,
                           resampling = outer, extract = getTuneResult,
                           show.info = TRUE, measures = list(rmse))
-# resa_svm <- mlr::resample(lrn_xgboost, task,
-#                           resampling = outer, 
-#                           show.info = TRUE, measures = list(rmse))
-
 parallelStop()
 saveRDS(resa_svm, "/data/patrick/mod/hyperspectral/spcv/all_plots_xgboost_blocking.rda")
 ```
 
-### RF
+#### Tuning
+
+```{r}
+configureMlr(on.learner.error = "warn", on.error.dump = TRUE)
+library(parallelMap)
+parallelStart(mode = "multicore", level = "mlrMBO.feval", cpus = 48,
+              mc.set.seed = TRUE)
+set.seed(12345)
+xgboost_tuned = tuneParams(lrn_xgboost, task = task, resampling = inner,
+                           par.set = ps_xgboost, control = tune.ctrl, 
+                           show.info = TRUE, measure = list(rmse))
+parallelStop()
+saveRDS(xgboost_tuned, "/data/patrick/mod/tmp/tuning_hyperspectral/xgboost_tuned_blocking.rda")
+```
+
+## RF
 
 ```{r}
 # RF
