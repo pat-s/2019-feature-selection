@@ -58,6 +58,11 @@ data %<>%
 # Mean defoliation per plot
 
 ```{r}
+mean_defol = data %>%
+  group_by(plot) %>%
+  summarise(mean(defoliation)) %>% 
+  pull(.)
+
 data %>%
   group_by(plot) %>%
   summarise(mean(defoliation))
@@ -66,6 +71,11 @@ data %>%
 # Coefficient of variation
 
 ```{r}
+cov_defol = data %>%
+  group_by(plot) %>%
+  summarise((sd(defoliation) / mean(defoliation)) * 100) %>% 
+  pull(.)
+
 data %>%
   group_by(plot) %>%
   summarise((sd(defoliation) / mean(defoliation)) * 100)
@@ -74,12 +84,21 @@ data %>%
 #  sd / skewness
 
 ```{r}
+sd_skewness_defol = data %>%
+  group_by(plot) %>%
+  summarise(((sd(defoliation) / mean(defoliation)) * 100) / e1071::skewness(defoliation)) %>% pull(.)
+
 data %>%
   group_by(plot) %>%
   summarise(((sd(defoliation) / mean(defoliation)) * 100) / e1071::skewness(defoliation))
 ```
 
 ```{r}
+sd_defol = data %>%
+  group_by(plot) %>%
+  summarise(sd(defoliation)) %>% 
+  pull(.)
+
 data %>%
   group_by(plot) %>%
   summarise(sd(defoliation))
@@ -139,20 +158,42 @@ dist <- map(plots, ~ {
   distance <- mean(as.dist(pointDistance(points, allpairs = TRUE, lonlat = FALSE)))
 })
 set_names(dist, plots)
+
+dist_plots = unlist(dist)
 ```
 
 # Scatterplots
 
 Visualize RMSE vs plot characteristics
 
+## Load CV results
+
+```{r}
+laukiz1 = readRDS("/data/patrick/mod/hyperspectral/spcv/laukiz1_xgboost.rda")
+laukiz2 = readRDS("/data/patrick/mod/hyperspectral/spcv/laukiz2_xgboost.rda")
+luiando = readRDS("/data/patrick/mod/hyperspectral/spcv/luiando_xgboost.rda")
+oiartzun = readRDS("/data/patrick/mod/hyperspectral/spcv/oiartzun_xgboost.rda")
+
+models <- list(laukiz1, laukiz2, luiando, oiartzun)
+
+results_reps <- map(models, ~ .x$measures.test %>% 
+                      dplyr::mutate(rep = rep(1:5, times = 1, each = 5)) %>% 
+                      group_by(rep) %>% 
+                      summarise_at("rmse", mean),
+)
+results_reps <- set_names(results_reps, 
+                          c("laukiz1", "laukiz2", "luiando", "oiartzun"))
+```
+
+
 ```{r}
 df <- tibble(
   plot = factor(c("Laukiz 1", "Laukiz 2", "Luiando", "Oiartzun")),
-  rmse = c(89.89, 30.37, 76.02, 106.65),
-  point_dens = c(34.34, 62.51, 33.76, 35.01),
-  mean_defol = c(53.22, 17.73, 68.35, 44.63),
-  cov_defol = c(44.88707	, 115.78180	, 12.17709	, 83.18840),
-  sd_skewness = c(-55.077546, 67.232146, -3.187733	, -401.564010)
+  rmse = c(mean(results_reps$laukiz1), mean(results_reps$laukiz2), mean(results_reps$luiando), mean(results_reps$oiartzun)),
+  point_dens = dist_plots,
+  mean_defol = mean_defol,
+  cov_defol = cov_defol,
+  sd_skewness = sd_skewness_defol
 )
 ```
 

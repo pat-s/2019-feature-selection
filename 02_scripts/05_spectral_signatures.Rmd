@@ -19,7 +19,8 @@ library(here)
 
 ```{r}
 list.files("/data/patrick/mod/hyperspectral/atm-cropped", 
-                    pattern = "laukiz[0-2].tif$|luiando.tif$|oiartzun.tif$", full.names = TRUE) %>% 
+                    pattern = "laukiz[0-2].tif$|luiando.tif$|oiartzun.tif$", 
+           full.names = TRUE) %>% 
   map(~ brick(.x)) -> spectral_data
 ```
 

@@ -13,6 +13,7 @@ devtools::install_github("mlr-org/mlr@blocking")
 
 library(mlr)
 library(mlrMBO)
+library(iml)
 library(glue)
 library(sf)
 library(dplyr)
@@ -21,6 +22,7 @@ library(purrr)
 library(magrittr)
 library(data.table)
 library(pbmcapply)
+library(ggpubr)
 ```
 
 # Read data
@@ -338,6 +340,94 @@ xgboost_tuned = tuneParams(lrn_xgboost, task = task, resampling = inner,
                            show.info = TRUE, measure = list(rmse))
 parallelStop()
 saveRDS(xgboost_tuned, "/data/patrick/mod/tmp/tuning_hyperspectral/xgboost_tuned_blocking.rda")
+```
+
+#### Train
+
+```{r}
+xgboost_tuned = readRDS("/data/patrick/mod/tmp/tuning_hyperspectral/xgboost_tuned_blocking.rda")
+
+lrn_xgboost = setHyperPars(makeLearner("regr.xgboost"), 
+                           par.vals = xgboost_tuned$x)
+m = train(lrn_xgboost, task)
+saveRDS(m, "/data/patrick/mod/hyperspectral/prediction/xgboost_trained_tuned.rda")
+```
+
+### Variable importance
+
+#### mlr
+
+We can either use the Feat Imp from `xgboost` by calling `getFeatureImportance()` directly on the fitted model or calculate it again using permutation via `generateFeatureImportanceData()`.
+
+```{r}
+# 5h 30 min
+var_imp = generateFeatureImportanceData(task, learner = lrn_xgboost, 
+                                        measure = rmse, nmc = 2)
+saveRDS(var_imp, "/data/patrick/mod/hyperspectral/variable-importance/bf2_ncm2.rda")
+
+
+var_imp$res = tidyr::gather(var_imp$res, "index", "feat.imp")
+var_imp$res %>% 
+  arrange(desc(feat.imp)) %>% 
+  slice(1:30) %>% 
+  ggdotchart(x = "index", y = "feat.imp",                              # Color by groups
+             sorting = "asc",                       # Sort value in descending order
+             add = "segments",                             # Add segments from y = 0 to dots
+             #color = "index",
+             palette = "nejm",
+             #position = position_dodge(1),
+             group = "index",
+             #title = .y,
+             rotate = T,                                # Rotate vertically
+             dot.size = 0.5,                                 # Large dot size
+             ggtheme = theme_pubr(base_size = 6, margin = F,
+                                  legend = "none")) + 
+  labs(y = "Score", color = "Spectral region")
+```
+
+Visualize top 30 indices
+
+```{r}
+imp.xgb = getFeatureImportance(m) 
+imp.xgb$res = tidyr::gather(imp.xgb$res, "index", "feat.imp")
+
+imp.xgb$res %>% 
+  arrange(desc(feat.imp)) %>% 
+  slice(1:30) %>% 
+  ggdotchart(x = "index", y = "feat.imp",                              # Color by groups
+             sorting = "asc",                       # Sort value in descending order
+             add = "segments",                             # Add segments from y = 0 to dots
+             #color = "index",
+             palette = "nejm",
+             #position = position_dodge(1),
+             group = "index",
+             #title = .y,
+             rotate = T,                                # Rotate vertically
+             dot.size = 0.5,                                 # Large dot size
+             ggtheme = theme_pubr(base_size = 6, margin = F,
+                                  legend = "none")) + 
+  labs(y = "Score", color = "Spectral region")
+```
+```{r}
+ggsave(here::here("03_figures/results/var-imp-xgboost.png"), height = 3,
+       width = 5)
+```
+
+#### iml
+
+```{r}
+X = task$env$data[which(names(task$env$data) != "defoliation")]
+predictor = Predictor$new(m, data = X, y = task$env$data$defoliation)
+imp = FeatureImp$new(predictor, loss = "rmse")
+```
+
+Partial influence
+
+```{r}
+X = task$env$data[which(names(task$env$data) != "defoliation")]
+predictor = Predictor$new(m, data = X, y = task$env$data$defoliation)
+pdp.obj = Partial$new(predictor, feature = "bf2_EVI")
+pdp.obj$plot()
 ```
 
 ## RF

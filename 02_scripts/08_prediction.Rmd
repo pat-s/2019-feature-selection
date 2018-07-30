@@ -1,0 +1,77 @@
+---
+title: "08-prediction"
+output: 
+  bookdown::html_document2:
+    toc: true
+    toc_float: true
+---
+
+# Load packages
+
+```{r, results='hide'}
+library(purrr)
+library(raster)
+library(furrr)
+```
+
+# Load model
+
+```{r}
+mod = readRDS("/data/patrick/mod/hyperspectral/prediction/xgboost_trained_tuned.rda")
+```
+
+# Load vegetation indices
+
+```{r}
+files = list.files("/data/patrick/mod/hyperspectral/all-veg-indices", 
+                   pattern = ".grd", full.names = TRUE)
+
+veg_inds = map(files, ~ brick(.))
+```
+
+## Format veg inds to sf objects
+
+So that we have a data.frame with coordinates. 
+
+```{r}
+plan(multicore)
+veg_inds %<>% 
+  future_map(~ as(., "SpatialPixelsDataFrame")) %>% 
+  future_map(~ st_as_sf(.))
+```
+
+# Load NBI
+
+```{r}
+files_nbi = list.files("/data/patrick/mod/hyperspectral/narrow-band-indices/", 
+                   pattern = ".grd", full.names = TRUE)
+
+nri = map(files_nbi, ~ brick(.))
+```
+
+## Format NRI to sf objects
+
+So that we have a data.frame with coordinates. 
+
+```{r}
+plan(multicore, workers = 5)
+nri %<>% 
+  future_map(~ as(., "SpatialPixelsDataFrame"), .progress = TRUE) %>% 
+  future_map(~ st_as_sf(.), .progress = TRUE)
+```
+
+# Name list elements
+
+```{r}
+names = map_chr(files, ~ tools::file_path_sans_ext(basename(.)))
+
+nri %<>% 
+  set_names(names)
+
+veg_inds %<>% 
+  set_names(names)
+```
+
+
+# Combine NRI and veg inds
+
