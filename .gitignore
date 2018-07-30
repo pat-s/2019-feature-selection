@@ -11,3 +11,4 @@ packrat/bundles/*
 file*.R
 .directory
 02_scripts/01_hyperspectral_indices/.directory
+jobs*.R
