@@ -12,6 +12,8 @@ output:
 library(purrr)
 library(raster)
 library(furrr)
+library(sf)
+library(pbmcapply)
 ```
 
 # Load model
@@ -40,13 +42,13 @@ veg_inds %<>%
   future_map(~ st_as_sf(.))
 ```
 
-# Load NBI
+# Load NRI
 
 ```{r}
-files_nbi = list.files("/data/patrick/mod/hyperspectral/narrow-band-indices/", 
+files_nri = list.files("/data/patrick/mod/hyperspectral/narrow-band-indices/", 
                    pattern = ".grd", full.names = TRUE)
 
-nri = map(files_nbi, ~ brick(.))
+nri = map(files_nri, ~ brick(.))
 ```
 
 ## Format NRI to sf objects
@@ -54,10 +56,9 @@ nri = map(files_nbi, ~ brick(.))
 So that we have a data.frame with coordinates. 
 
 ```{r}
-plan(multicore, workers = 5)
 nri %<>% 
-  future_map(~ as(., "SpatialPixelsDataFrame"), .progress = TRUE) %>% 
-  future_map(~ st_as_sf(.), .progress = TRUE)
+  pbmclapply(function(x) as(x, "SpatialPixelsDataFrame"), mc.cores = 2) %>% 
+  pbmclapply(function(x) st_as_sf(x), mc.cores = 2)
 ```
 
 # Name list elements

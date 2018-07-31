@@ -360,10 +360,11 @@ saveRDS(m, "/data/patrick/mod/hyperspectral/prediction/xgboost_trained_tuned.rda
 We can either use the Feat Imp from `xgboost` by calling `getFeatureImportance()` directly on the fitted model or calculate it again using permutation via `generateFeatureImportanceData()`.
 
 ```{r}
+m = readRDS("/data/patrick/mod/hyperspectral/prediction/xgboost_trained_tuned.rda")
 # 5h 30 min
 var_imp = generateFeatureImportanceData(task, learner = lrn_xgboost, 
-                                        measure = rmse, nmc = 2)
-saveRDS(var_imp, "/data/patrick/mod/hyperspectral/variable-importance/bf2_ncm2.rda")
+                                        measure = rmse, nmc = 50)
+saveRDS(var_imp, "/data/patrick/mod/hyperspectral/variable-importance/bf2_ncm50rda")
 
 
 var_imp$res = tidyr::gather(var_imp$res, "index", "feat.imp")
@@ -408,6 +409,7 @@ imp.xgb$res %>%
                                   legend = "none")) + 
   labs(y = "Score", color = "Spectral region")
 ```
+
 ```{r}
 ggsave(here::here("03_figures/results/var-imp-xgboost.png"), height = 3,
        width = 5)

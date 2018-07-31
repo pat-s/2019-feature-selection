@@ -174,6 +174,8 @@ laukiz2 = readRDS("/data/patrick/mod/hyperspectral/spcv/laukiz2_xgboost.rda")
 luiando = readRDS("/data/patrick/mod/hyperspectral/spcv/luiando_xgboost.rda")
 oiartzun = readRDS("/data/patrick/mod/hyperspectral/spcv/oiartzun_xgboost.rda")
 
+all_plots = readRDS("/data/patrick/mod/hyperspectral/spcv/all_plots_xgboost_blocking.rda")
+
 models <- list(laukiz1, laukiz2, luiando, oiartzun)
 
 results_reps <- map(models, ~ .x$measures.test %>% 
@@ -189,7 +191,7 @@ results_reps <- set_names(results_reps,
 ```{r}
 df <- tibble(
   plot = factor(c("Laukiz 1", "Laukiz 2", "Luiando", "Oiartzun")),
-  rmse = c(mean(results_reps$laukiz1), mean(results_reps$laukiz2), mean(results_reps$luiando), mean(results_reps$oiartzun)),
+  rmse = c(mean(results_reps$laukiz1$rmse), mean(results_reps$laukiz2$rmse), mean(results_reps$luiando$rmse), mean(results_reps$oiartzun$rmse)),
   point_dens = dist_plots,
   mean_defol = mean_defol,
   cov_defol = cov_defol,
@@ -278,6 +280,22 @@ rmse_defol_cov <- ggplot(df, aes(x = cov_defol, y = rmse)) +
   )
 ```
 
+## Differences between models (single vs super)
+
+```{r}
+# laukiz1
+all_plots$measures.test$rmse[3] - mean(results_reps$laukiz1$rmse)
+
+# laukiz2
+all_plots$measures.test$rmse[4] - mean(results_reps$laukiz2$rmse)
+
+# luiando
+all_plots$measures.test$rmse[2] - mean(results_reps$luiando$rmse)
+
+# oiartzun
+all_plots$measures.test$rmse[1] - mean(results_reps$oiartzun$rmse)
+```
+
 ## Plot
 
 ### Legend
@@ -306,16 +324,16 @@ legend <- get_legend(legend)
 ### Grid
 
 ```{r}
-prow = plot_grid(rmse_dens, rmse_defol_cov, rmse_defol_cov_sk,  align = 'vh', nrow = 1)
-plots_grid <- plot_grid(prow, legend, rel_widths = c(3, .3))
+prow = plot_grid(rmse_dens, rmse_defol_cov,  align = 'vh', nrow = 1)
+plots_grid <- plot_grid(prow, legend, rel_widths = c(2, .5))
 ```
 
 ```{r}
-plots_grid <- plot_grid(rmse_dens, legend, rmse_defol, ncol = 3, rel_widths = c(1, .3, 1))
+#plots_grid <- plot_grid(rmse_dens, legend, rmse_defol, ncol = 3, rel_widths = c(1, .3, 1))
 ```
 
 ```{r}
-save_plot(here("03_figures/results/plot-characteristics.png"), plots_grid, ncol = 4)
+save_plot(here("03_figures/results/plot-characteristics.png"), plots_grid, ncol = 3)
 ```
 
 # PNG to PDF conversion
