@@ -1,0 +1,289 @@
+\begin{thebibliography}{27}
+\expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
+\providecommand{\url}[1]{\texttt{#1}}
+\providecommand{\href}[2]{#2}
+\providecommand{\path}[1]{#1}
+\providecommand{\DOIprefix}{doi:}
+\providecommand{\ArXivprefix}{arXiv:}
+\providecommand{\URLprefix}{URL: }
+\providecommand{\Pubmedprefix}{pmid:}
+\providecommand{\doi}[1]{\href{http://dx.doi.org/#1}{\path{#1}}}
+\providecommand{\Pubmed}[1]{\href{pmid:#1}{\path{#1}}}
+\providecommand{\bibinfo}[2]{#2}
+\ifx\xfnm\relax \def\xfnm[#1]{\unskip,\space#1}\fi
+%Type = Article
+\bibitem[{Adamczyk \& Osberger(2015)}]{adamczykRededgeVegetationIndices2015}
+\bibinfo{author}{Adamczyk, J.}, \& \bibinfo{author}{Osberger, A.}
+  (\bibinfo{year}{2015}).
+\newblock \bibinfo{title}{Red-edge vegetation indices for detecting and
+  assessing disturbances in {{Norway}} spruce dominated mountain forests}.
+\newblock {\it \bibinfo{journal}{International Journal of Applied Earth
+  Observation and Geoinformation}\/},  {\it \bibinfo{volume}{37}\/},
+  \bibinfo{pages}{90--99}. \DOIprefix\doi{10/f64b6c}.
+%Type = Article
+\bibitem[{Belgiu \& Dr{\u a}gu{\c t}(2016)}]{belgiuRandomForestRemote2016}
+\bibinfo{author}{Belgiu, M.}, \& \bibinfo{author}{Dr{\u a}gu{\c t}, L.}
+  (\bibinfo{year}{2016}).
+\newblock \bibinfo{title}{Random forest in remote sensing: {{A}} review of
+  applications and future directions}.
+\newblock {\it \bibinfo{journal}{ISPRS Journal of Photogrammetry and Remote
+  Sensing}\/},  {\it \bibinfo{volume}{114}\/}, \bibinfo{pages}{24--31}.
+  \DOIprefix\doi{10/f8ndk8}.
+%Type = Article
+\bibitem[{Bergstra \& Bengio(2012)}]{Bergstra2012}
+\bibinfo{author}{Bergstra, J.}, \& \bibinfo{author}{Bengio, Y.}
+  (\bibinfo{year}{2012}).
+\newblock \bibinfo{title}{Random {{Search}} for {{Hyper}}-parameter
+  {{Optimization}}}.
+\newblock {\it \bibinfo{journal}{J. Mach. Learn. Res.}\/},  {\it
+  \bibinfo{volume}{13}\/}, \bibinfo{pages}{281--305}.
+%Type = Article
+\bibitem[{Bischl et~al.(2016)Bischl, Lang, Kotthoff, Schiffner, Richter,
+  Studerus, Casalicchio \& Jones}]{bischlMlrMachineLearning2016}
+\bibinfo{author}{Bischl, B.}, \bibinfo{author}{Lang, M.},
+  \bibinfo{author}{Kotthoff, L.}, \bibinfo{author}{Schiffner, J.},
+  \bibinfo{author}{Richter, J.}, \bibinfo{author}{Studerus, E.},
+  \bibinfo{author}{Casalicchio, G.}, \& \bibinfo{author}{Jones, Z.~M.}
+  (\bibinfo{year}{2016}).
+\newblock \bibinfo{title}{mlr: Machine learning in {R}}.
+\newblock {\it \bibinfo{journal}{Journal of Machine Learning Research}\/},
+  {\it \bibinfo{volume}{17}\/}, \bibinfo{pages}{1--5}.
+%Type = Article
+\bibitem[{Bischl et~al.(2017)Bischl, Richter, Bossek, Horn, Thomas \&
+  Lang}]{mlrMBO}
+\bibinfo{author}{Bischl, B.}, \bibinfo{author}{Richter, J.},
+  \bibinfo{author}{Bossek, J.}, \bibinfo{author}{Horn, D.},
+  \bibinfo{author}{Thomas, J.}, \& \bibinfo{author}{Lang, M.}
+  (\bibinfo{year}{2017}).
+\newblock \bibinfo{title}{{{mlrMBO}}: {{A Modular Framework}} for
+  {{Model}}-{{Based Optimization}} of {{Expensive Black}}-{{Box Functions}}}.
+\newblock {\it \bibinfo{journal}{ArXiv e-prints}\/}, .
+  \href{http://arxiv.org/abs/1703.03373}{\tt arXiv:1703.03373}.
+%Type = Inproceedings
+\bibitem[{Chen \& Guestrin(2016)}]{chenXGBoostScalableTree2016}
+\bibinfo{author}{Chen, T.}, \& \bibinfo{author}{Guestrin, C.}
+  (\bibinfo{year}{2016}).
+\newblock \bibinfo{title}{{{XGBoost}}: {{A Scalable Tree Boosting System}}}.
+\newblock In {\it \bibinfo{booktitle}{Proceedings of the {{22Nd ACM SIGKDD
+  International Conference}} on {{Knowledge Discovery}} and {{Data Mining}}}\/}
+  KDD '16 (pp. \bibinfo{pages}{785--794}).
+\newblock \bibinfo{address}{New York, NY, USA}: \bibinfo{publisher}{{ACM}}.
+\newblock \DOIprefix\doi{10.1145/2939672.2939785}.
+%Type = Article
+\bibitem[{Friedman et~al.(2010)Friedman, Hastie \& Tibshirani}]{glmnet}
+\bibinfo{author}{Friedman, J.}, \bibinfo{author}{Hastie, T.}, \&
+  \bibinfo{author}{Tibshirani, R.} (\bibinfo{year}{2010}).
+\newblock \bibinfo{title}{Regularization {{Paths}} for {{Generalized Linear
+  Models}} via {{Coordinate Descent}}}.
+\newblock {\it \bibinfo{journal}{Journal of Statistical Software}\/},  {\it
+  \bibinfo{volume}{33}\/}, \bibinfo{pages}{1--22}.
+\newblock \bibinfo{note}{05097}.
+%Type = Article
+\bibitem[{Huete et~al.(1997)Huete, Liu, Batchily \& {van
+  Leeuwen}}]{hueteComparisonVegetationIndices1997}
+\bibinfo{author}{Huete, A.~R.}, \bibinfo{author}{Liu, H.~Q.},
+  \bibinfo{author}{Batchily, K.}, \& \bibinfo{author}{{van Leeuwen}, W.}
+  (\bibinfo{year}{1997}).
+\newblock \bibinfo{title}{A comparison of vegetation indices over a global set
+  of {{TM}} images for {{EOS}}-{{MODIS}}}.
+\newblock {\it \bibinfo{journal}{Remote Sensing of Environment}\/},  {\it
+  \bibinfo{volume}{59}\/}, \bibinfo{pages}{440--451}.
+  \DOIprefix\doi{10/bgtpgv}.
+%Type = Article
+\bibitem[{Iturritxa et~al.(2014)Iturritxa, Mesanza \& Brenning}]{Iturritxa2014}
+\bibinfo{author}{Iturritxa, E.}, \bibinfo{author}{Mesanza, N.}, \&
+  \bibinfo{author}{Brenning, A.} (\bibinfo{year}{2014}).
+\newblock \bibinfo{title}{Spatial analysis of the risk of major forest diseases
+  in {{Monterey}} pine plantations}.
+\newblock {\it \bibinfo{journal}{Plant Pathology}\/},  {\it
+  \bibinfo{volume}{64}\/}, \bibinfo{pages}{880--889}.
+  \DOIprefix\doi{10/gdq9pb}.
+%Type = Article
+\bibitem[{Iturritxa et~al.(2017)Iturritxa, Trask, Mesanza, Raposo,
+  {Elvira-Recuenco} \& Patten}]{iturritxaBiocontrolFusariumCircinatum2017}
+\bibinfo{author}{Iturritxa, E.}, \bibinfo{author}{Trask, T.},
+  \bibinfo{author}{Mesanza, N.}, \bibinfo{author}{Raposo, R.},
+  \bibinfo{author}{{Elvira-Recuenco}, M.}, \& \bibinfo{author}{Patten, C.~L.}
+  (\bibinfo{year}{2017}).
+\newblock \bibinfo{title}{Biocontrol of {{Fusarium}} circinatum {{Infection}}
+  of {{Young Pinus}} radiata {{Trees}}}.
+\newblock {\it \bibinfo{journal}{Forests}\/},  {\it \bibinfo{volume}{8}\/},
+  \bibinfo{pages}{32}. \DOIprefix\doi{10/f9t3d8}.
+%Type = Article
+\bibitem[{Jiang et~al.(2014)Jiang, Wang, {de Bie}, Skidmore, Liu, Song, Zhang,
+  Wang \& Shao}]{jiangSatellitederivedVegetationIndices2014}
+\bibinfo{author}{Jiang, Y.}, \bibinfo{author}{Wang, T.}, \bibinfo{author}{{de
+  Bie}, C. A. J.~M.}, \bibinfo{author}{Skidmore, A.~K.}, \bibinfo{author}{Liu,
+  X.}, \bibinfo{author}{Song, S.}, \bibinfo{author}{Zhang, L.},
+  \bibinfo{author}{Wang, J.}, \& \bibinfo{author}{Shao, X.}
+  (\bibinfo{year}{2014}).
+\newblock \bibinfo{title}{Satellite-derived vegetation indices contribute
+  significantly to the prediction of epiphyllous liverworts}.
+\newblock {\it \bibinfo{journal}{Ecological Indicators}\/},  {\it
+  \bibinfo{volume}{38}\/}, \bibinfo{pages}{72--80}. \DOIprefix\doi{10/f5q4b4}.
+%Type = Article
+\bibitem[{Jones et~al.(1998)Jones, Schonlau \& Welch}]{Jones1998}
+\bibinfo{author}{Jones, D.~R.}, \bibinfo{author}{Schonlau, M.}, \&
+  \bibinfo{author}{Welch, W.~J.} (\bibinfo{year}{1998}).
+\newblock \bibinfo{title}{Efficient global optimization of expensive black-box
+  functions}.
+\newblock {\it \bibinfo{journal}{Journal of Global Optimization}\/},  {\it
+  \bibinfo{volume}{13}\/}, \bibinfo{pages}{455--492}.
+  \DOIprefix\doi{10/fg68nc}.
+%Type = Article
+\bibitem[{Lary et~al.(2016)Lary, Alavi, Gandomi \&
+  Walker}]{laryMachineLearningGeosciences2016}
+\bibinfo{author}{Lary, D.~J.}, \bibinfo{author}{Alavi, A.~H.},
+  \bibinfo{author}{Gandomi, A.~H.}, \& \bibinfo{author}{Walker, A.~L.}
+  (\bibinfo{year}{2016}).
+\newblock \bibinfo{title}{Machine learning in geosciences and remote sensing}.
+\newblock {\it \bibinfo{journal}{Geoscience Frontiers}\/},  {\it
+  \bibinfo{volume}{7}\/}, \bibinfo{pages}{3--10}. \DOIprefix\doi{10/f79ddn}.
+%Type = Book
+\bibitem[{Lehnert et~al.(2018)Lehnert, Meyer \& Bendix}]{hsdar}
+\bibinfo{author}{Lehnert, L.~W.}, \bibinfo{author}{Meyer, H.}, \&
+  \bibinfo{author}{Bendix, J.} (\bibinfo{year}{2018}).
+\newblock {\it \bibinfo{title}{Hsdar: {{Manage}}, Analyse and Simulate
+  Hyperspectral Data in {{R}}}\/}.
+\newblock \bibinfo{note}{R package version 0.7.1}.
+%Type = Article
+\bibitem[{Lelong et~al.(2010)Lelong, Roger, Br\'egand, Dubertret, Lanore,
+  Sitorus, Raharjo \& Caliman}]{lelongEvaluationOilPalmFungal2010}
+\bibinfo{author}{Lelong, C. C.~D.}, \bibinfo{author}{Roger, J.-M.},
+  \bibinfo{author}{Br\'egand, S.}, \bibinfo{author}{Dubertret, F.},
+  \bibinfo{author}{Lanore, M.}, \bibinfo{author}{Sitorus, N.~A.},
+  \bibinfo{author}{Raharjo, D.~A.}, \& \bibinfo{author}{Caliman, J.-P.}
+  (\bibinfo{year}{2010}).
+\newblock \bibinfo{title}{Evaluation of {{Oil}}-{{Palm Fungal Disease
+  Infestation}} with {{Canopy Hyperspectral Reflectance Data}}}.
+\newblock {\it \bibinfo{journal}{Sensors}\/},  {\it \bibinfo{volume}{10}\/},
+  \bibinfo{pages}{734--747}. \DOIprefix\doi{10/bb8wm6}.
+%Type = Article
+\bibitem[{Lu et~al.(2016)Lu, Chen, Wang, Liu, Li \&
+  Moran}]{luSurveyRemoteSensingbased2016}
+\bibinfo{author}{Lu, D.}, \bibinfo{author}{Chen, Q.}, \bibinfo{author}{Wang,
+  G.}, \bibinfo{author}{Liu, L.}, \bibinfo{author}{Li, G.}, \&
+  \bibinfo{author}{Moran, E.} (\bibinfo{year}{2016}).
+\newblock \bibinfo{title}{A survey of remote sensing-based aboveground biomass
+  estimation methods in forest ecosystems}.
+\newblock {\it \bibinfo{journal}{International Journal of Digital Earth}\/},
+  {\it \bibinfo{volume}{9}\/}, \bibinfo{pages}{63--105}.
+  \DOIprefix\doi{10/gdthzv}.
+%Type = Article
+\bibitem[{{Martinez del Castillo} et~al.(2015){Martinez del Castillo},
+  {Garc\'ia-Martin}, Longares~Aladr\'en \& {de
+  Luis}}]{martinezdelcastilloEvaluationForestCover2015}
+\bibinfo{author}{{Martinez del Castillo}, E.},
+  \bibinfo{author}{{Garc\'ia-Martin}, A.}, \bibinfo{author}{Longares~Aladr\'en,
+  L.~A.}, \& \bibinfo{author}{{de Luis}, M.} (\bibinfo{year}{2015}).
+\newblock \bibinfo{title}{Evaluation of forest cover change using remote
+  sensing techniques and landscape metrics in {{Moncayo Natural Park}}
+  ({{Spain}})}.
+\newblock {\it \bibinfo{journal}{Applied Geography}\/},  {\it
+  \bibinfo{volume}{62}\/}, \bibinfo{pages}{247--255}.
+  \DOIprefix\doi{10/gdthzt}.
+%Type = Article
+\bibitem[{Mesanza et~al.(2016)Mesanza, Iturritxa \&
+  Patten}]{mesanzaNativeRhizobacteriaBiocontrol2016}
+\bibinfo{author}{Mesanza, N.}, \bibinfo{author}{Iturritxa, E.}, \&
+  \bibinfo{author}{Patten, C.~L.} (\bibinfo{year}{2016}).
+\newblock \bibinfo{title}{Native rhizobacteria as biocontrol agents of
+  {{Heterobasidion}} annosum s.s. and {{Armillaria}} mellea infection of
+  {{Pinus}} radiata}.
+\newblock {\it \bibinfo{journal}{Biological Control}\/},  {\it
+  \bibinfo{volume}{101}\/}, \bibinfo{pages}{8--16}. \DOIprefix\doi{10/f8xnp3}.
+%Type = Article
+\bibitem[{Michez et~al.(2016)Michez, Pi\'egay, Lisein, Claessens \&
+  Lejeune}]{michezClassificationRiparianForest2016}
+\bibinfo{author}{Michez, A.}, \bibinfo{author}{Pi\'egay, H.},
+  \bibinfo{author}{Lisein, J.}, \bibinfo{author}{Claessens, H.}, \&
+  \bibinfo{author}{Lejeune, P.} (\bibinfo{year}{2016}).
+\newblock \bibinfo{title}{Classification of riparian forest species and health
+  condition using multi-temporal and hyperspatial imagery from unmanned aerial
+  system}.
+\newblock {\it \bibinfo{journal}{Environmental Monitoring and Assessment}\/},
+  {\it \bibinfo{volume}{188}\/}, \bibinfo{pages}{146}.
+  \DOIprefix\doi{10/f8q9wp}.
+%Type = Article
+\bibitem[{Probst et~al.(2018)Probst, Wright \& Boulesteix}]{Probst2018b}
+\bibinfo{author}{Probst, P.}, \bibinfo{author}{Wright, M.}, \&
+  \bibinfo{author}{Boulesteix, A.-L.} (\bibinfo{year}{2018}).
+\newblock \bibinfo{title}{Hyperparameters and {{Tuning Strategies}} for
+  {{Random Forest}}}.
+\newblock {\it \bibinfo{journal}{ArXiv e-prints}\/}, .
+  \href{http://arxiv.org/abs/1804.03515}{\tt arXiv:1804.03515}.
+\newblock \bibinfo{note}{00000}.
+%Type = Book
+\bibitem[{{R Core Team}(2017)}]{R_core}
+\bibinfo{author}{{R Core Team}} (\bibinfo{year}{2017}).
+\newblock {\it \bibinfo{title}{R: {{A Language}} and {{Environment}} for
+  {{Statistical Computing}}}\/}.
+\newblock \bibinfo{address}{Vienna, Austria}.
+\newblock \bibinfo{note}{88058 R version 3.4.4}.
+%Type = Article
+\bibitem[{Sexton et~al.(2015)Sexton, Noojipady, Anand, Song, McMahon, Huang,
+  Feng, Channan \& Townshend}]{sextonModelPropagationUncertainty2015}
+\bibinfo{author}{Sexton, J.~O.}, \bibinfo{author}{Noojipady, P.},
+  \bibinfo{author}{Anand, A.}, \bibinfo{author}{Song, X.-P.},
+  \bibinfo{author}{McMahon, S.}, \bibinfo{author}{Huang, C.},
+  \bibinfo{author}{Feng, M.}, \bibinfo{author}{Channan, S.}, \&
+  \bibinfo{author}{Townshend, J.~R.} (\bibinfo{year}{2015}).
+\newblock \bibinfo{title}{A model for the propagation of uncertainty from
+  continuous estimates of tree cover to categorical forest cover and change}.
+\newblock {\it \bibinfo{journal}{Remote Sensing of Environment}\/},  {\it
+  \bibinfo{volume}{156}\/}, \bibinfo{pages}{418--425}.
+  \DOIprefix\doi{10/f6v7zc}.
+%Type = Article
+\bibitem[{Sims \& Gamon(2002)}]{simsRelationshipsLeafPigment2002}
+\bibinfo{author}{Sims, D.~A.}, \& \bibinfo{author}{Gamon, J.~A.}
+  (\bibinfo{year}{2002}).
+\newblock \bibinfo{title}{Relationships between leaf pigment content and
+  spectral reflectance across a wide range of species, leaf structures and
+  developmental stages}.
+\newblock {\it \bibinfo{journal}{Remote Sensing of Environment}\/},  {\it
+  \bibinfo{volume}{81}\/}, \bibinfo{pages}{337--354}.
+  \DOIprefix\doi{10/fb9nnj}.
+%Type = Article
+\bibitem[{Sinha et~al.(2015)Sinha, Jeganathan, Sharma \&
+  Nathawat}]{sinhaReviewRadarRemote2015}
+\bibinfo{author}{Sinha, S.}, \bibinfo{author}{Jeganathan, C.},
+  \bibinfo{author}{Sharma, L.~K.}, \& \bibinfo{author}{Nathawat, M.~S.}
+  (\bibinfo{year}{2015}).
+\newblock \bibinfo{title}{A review of radar remote sensing for biomass
+  estimation}.
+\newblock {\it \bibinfo{journal}{International Journal of Environmental Science
+  and Technology}\/},  {\it \bibinfo{volume}{12}\/},
+  \bibinfo{pages}{1779--1792}. \DOIprefix\doi{10/gdthzw}.
+%Type = Article
+\bibitem[{Wu et~al.(2008)Wu, Niu, Tang \&
+  Huang}]{wuEstimatingChlorophyllContent2008}
+\bibinfo{author}{Wu, C.}, \bibinfo{author}{Niu, Z.}, \bibinfo{author}{Tang,
+  Q.}, \& \bibinfo{author}{Huang, W.} (\bibinfo{year}{2008}).
+\newblock \bibinfo{title}{Estimating chlorophyll content from hyperspectral
+  vegetation indices: {{Modeling}} and validation}.
+\newblock {\it \bibinfo{journal}{Agricultural and Forest Meteorology}\/},  {\it
+  \bibinfo{volume}{148}\/}, \bibinfo{pages}{1230--1241}.
+  \DOIprefix\doi{10/dhcp6r}.
+%Type = Article
+\bibitem[{{Zarco-Tejada} et~al.(2003){Zarco-Tejada}, Pushnik, Dobrowski \&
+  Ustin}]{zarco-tejadaSteadystateChlorophyllFluorescence2003}
+\bibinfo{author}{{Zarco-Tejada}, P.~J.}, \bibinfo{author}{Pushnik, J.~C.},
+  \bibinfo{author}{Dobrowski, S.}, \& \bibinfo{author}{Ustin, S.~L.}
+  (\bibinfo{year}{2003}).
+\newblock \bibinfo{title}{Steady-state chlorophyll a fluorescence detection
+  from canopy derivative reflectance and double-peak red-edge effects}.
+\newblock {\it \bibinfo{journal}{Remote Sensing of Environment}\/},  {\it
+  \bibinfo{volume}{84}\/}, \bibinfo{pages}{283--294}.
+  \DOIprefix\doi{10/c8gjtt}.
+%Type = Article
+\bibitem[{Zhang et~al.(2016)Zhang, Thapa, Ross \&
+  Gann}]{zhangRemoteSensingSeasonal2016}
+\bibinfo{author}{Zhang, K.}, \bibinfo{author}{Thapa, B.},
+  \bibinfo{author}{Ross, M.}, \& \bibinfo{author}{Gann, D.}
+  (\bibinfo{year}{2016}).
+\newblock \bibinfo{title}{Remote sensing of seasonal changes and disturbances
+  in mangrove forest: A case study from {{South Florida}}}.
+\newblock {\it \bibinfo{journal}{Ecosphere}\/},  (p. \bibinfo{pages}{e01366}).
+  \DOIprefix\doi{10.1002/ecs2.1366@10.1002/(ISSN)2150-8925.ExtremeColdSpells}.
+
+\end{thebibliography}

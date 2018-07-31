@@ -351,7 +351,7 @@ Laukiz 2 shows a mean tree density of 61.59 m \autoref{fig:rmse_defol_dens}) whi
 	\bottomrule
 \end{tabular}
 \endgroup
-\label{tab:penalty_comparison}
+\label{tab:model_comparison}
 \end{table}
 
 \begin{table}[b!]
@@ -362,62 +362,66 @@ Laukiz 2 shows a mean tree density of 61.59 m \autoref{fig:rmse_defol_dens}) whi
 	\\
 	Plot/Data & All Observations (Block CV) & Single Plot Observations (SpCV) \\
 	\hline
-	Laukiz 1  & 22.03                       & 19.18                               \\
-	Laukiz 2  & 51.75                       & 17.24      \\
-	Luiando   & 13.20                       & 8.30                             \\
-	Oiartzun  & 32.97                       & 14.40      \\
+	Laukiz 1  & 22.03                       & 19.18                           \\
+	Laukiz 2  & 51.75                       & 17.24                           \\
+	Luiando   & 13.20                       & 8.30                            \\
+	Oiartzun  & 32.97                       & 14.40                           \\
 	\bottomrule
 \end{tabular}
 \endgroup
 \label{tab:supermodel_performance}
 \end{table}
 
-\ac{RR} shows the lowest error for three out of four plots (for Luiando \textit{elasticnet} shows a slightly better performance) (\autoref{tab:penalty_comparison}).
-The magnitude of difference for \ac{RR} compared to the other penalties for the plots in which \ac{RR} showed the best performance ranges between XX and XX percent.
-For the merged dataset, all penalties show a similar mean predictive performance that outperform all single plot models besides the Laukiz 2 model.
+\subsubsection{Algorithm benchmarking}
 
-% single models vs supermodel
-When comparing the mean predictive performance of the plot level model against the performance of the super model at the plot level (when the respective plot served as the test set), the supermodel also outperforms the Laukiz 2 model (27.94 vs 30.37 RMSE) (\autoref{tab:supermodel_performance}).
+The \textit{xgboost} algorithm shows the lowest error (33.26 RMSE) when benchmarking the learners on the complete dataset of all plots (\autoref{tab:model_comparison}).
+While the SVM performance is only slightly worse (36.23 RMSE), RR shows a large drop in performance compared to xgboost (59.10 RMSE).
 
-The worst performance of the supermodel on the fold level is reported for Luiando (69.72 RMSE) while for the single plot models Oiartzun shows the highest error (106.65 RMSE).
+\subsubsection{Single models vs. super model}
 
-% RMSE vs CV and point dens
-Laukiz 2 showed contrary results compared to all other plots when linking \ac{RMSE} against coefficient of variation and mean point density (\autoref{fig:rmse_defol_dens}).
-Comparing RMSE against $CV/skewness$ shows a $log_{2}(-x)$ relationship.
+When comparing the mean predictive performance of models fitted at the plot level against the performance of the model that was fitted using all data, the plot-level models show a better performance in all cases (\autoref{tab:supermodel_performance}).
+The highest difference between both models types occurs for \textit{Laukiz2} with a difference of 34.51 RMSE.
 
-% rmse vs defol and point dens
+\subsubsection{RMSE vs. plot characteristics}
+
+\noindent An increase of the error rate was observed with an increases of descriptive plot measures such as mean point density and the coefficient of variation (based on the response \textit{defoliation}) (\autoref{fig:plot-characteristics}). 
+
 \begin{figure} [b!]
 	\begin{center}
 		\makebox[\textwidth]{\includegraphics[width=\textwidth] {plot-characteristics.pdf}}
-		\caption{RMSE vs. mean point density, coefficient of variation and coefficient of variation / skewness.}
+		\caption{RMSE vs. mean point density and coefficient of variation (defoliation).}
 		\label{fig:plot-characteristics}
 	\end{center}
 \end{figure}
 
 \subsection{Variable importance}
 
-Variable
-
-The 7 most important features are vegetation indices with \textit{EVI} \citep{hueteComparisonVegetationIndices1997} being the most important one.
+\noindent The seven most important features of the super model in this study were vegetation indices with \textit{EVI} \citep{hueteComparisonVegetationIndices1997} being the most important one (\autoref{fig:var-imp}).
 
 \begin{equation}
 	EVI = 2.5*\frac{R_{800}-R_{670}}{R_{800}-(6*R_{670})-(7.5*R_{475})+1)}
 \end{equation}
 
-Vegetation index \textit{GDVI} appears three times among the first seven features.
-This is because the \textit{hsdar} package computes the index four times, with \texttt{n} ranging from 1-4 \citep{wuEstimatingChlorophyllContent2008}:
+\noindent where $R$ = Reflectance at the respective wavelength.
+
+\bigbreak
+
+\noindent Vegetation index \textit{GDVI} appears three times among the first seven most important features (\autoref{fig:var-imp}) with different .
+This is because it was computed four times, with \texttt{n} ranging from 1 - 4 \citep{wuEstimatingChlorophyllContent2008}:
 
 \begin{equation}
 	GDVI = \frac{R_{800}^n-R_{680}^n}{R_{800}^n+R_{680}^n}
 \end{equation}
 
-The first seven features (\textit{EVI}, \textit{GDVI4}, \textit{D1}, \textit{GDVI3}, \textit{GDVI2}, \textit{mNDVI} and \textit{mSR}) show a substantial difference compared to all following variables.
+\bigbreak
 
-\begin{figure} [b!]
+\noindent The seven most important features (\textit{EVI}, \textit{GDVI4}, \textit{D1}, \textit{GDVI3}, \textit{GDVI2}, \textit{mNDVI} and \textit{mSR}) show a substantial difference compared to all following variables (\autoref{fig:var-imp}).
+
+\begin{figure} [t!]
 	\begin{center}
-		\makebox[\textwidth]{\includegraphics[angle=90, height = 0.95\textheight] {var-imp-xgboost.pdf}}
+		\makebox[\textwidth]{\includegraphics[width = 1\textwidth] {var-imp-xgboost.pdf}}
 		\caption{The 30 most important variables as estimated by the internal variable importance measure of the \textit{xgboost} algorithm. The higher the score, the more important the feature.
-			"bf2" means that a buffer of 2 meter was used to extract the variable information to the tree observation. The following pattern describes the index: "NRI" means that a normalized ratio index with the following bands was used. Features without "NBI" are vegetation indices, e.g. "bf2\_EVI"}. %An overview of the vegetation indices can be found \href{https://rdrr.io/cran/hsdar/man/vegindex.html}{here}.}
+			"bf2" means that a buffer of 2 meter was used to extract the variable information to the tree observation. "NRI" means that a normalized ratio index with the subsequent bands was calculated. Features without "NRI" prefix are vegetation indices, e.g. "bf2\_EVI".}. %An overview of the vegetation indices can be found \href{https://rdrr.io/cran/hsdar/man/vegindex.html}{here}.}
 		\label{fig:var-imp}
 	\end{center}
 \end{figure}
@@ -428,18 +432,18 @@ The first seven features (\textit{EVI}, \textit{GDVI4}, \textit{D1}, \textit{GDV
 \begingroup\footnotesize
 \begin{tabular}{llll}
 	\\
-	Acronym & Name                                    & Formula                                                                 & Reference                                   \\
+	Acronym & Name                      & Formula                                                            & Reference                                                 \\
 	\hline
-	EVI     & Enhanced vegetation index               & $2.5*\frac{R_{800}-R_{670}}{R_{800}-(6*R_{670})-(7.5*R_{475})+1)}$        & \cite{hueteComparisonVegetationIndices1997}                                       \\
-	GDVI    & Generalized DVI* & $\frac{R_{800}^n-R_{680}^n}{R_{800}^n+R_{680}^n}$                       & \cite{wuEstimatingChlorophyllContent2008}  \\
-	D1      &         Derivative Index                                & $\frac{D_{730}}{D_{706}}$                                                       & \cite{zarco-tejadaSteadystateChlorophyllFluorescence2003} \\
-	mNDVI   & Normalized DVI*  & $  \frac{R_{800}-R_{680}}{(R_{800}+R_{680}-2*R_{445}}$                       & \cite{simsRelationshipsLeafPigment2002}    \\
-	mSR     & Simple Ratio Index                      & $\frac{R_{800}-R_{445}}{R_{680}-R_{445}}$                                   & \cite{simsRelationshipsLeafPigment2002}    \\
+	EVI     & Enhanced vegetation index & $2.5*\frac{R_{800}-R_{670}}{R_{800}-(6*R_{670})-(7.5*R_{475})+1)}$ & \cite{hueteComparisonVegetationIndices1997}               \\
+	GDVI    & Generalized DVI*          & $\frac{R_{800}^n-R_{680}^n}{R_{800}^n+R_{680}^n}$                  & \cite{wuEstimatingChlorophyllContent2008}                 \\
+	D1      & Derivative Index          & $\frac{D_{730}}{D_{706}}$                                          & \cite{zarco-tejadaSteadystateChlorophyllFluorescence2003} \\
+	mNDVI   & Normalized DVI*           & $  \frac{R_{800}-R_{680}}{(R_{800}+R_{680}-2*R_{445}}$             & \cite{simsRelationshipsLeafPigment2002}                   \\
+	mSR     & Simple Ratio Index        & $\frac{R_{800}-R_{445}}{R_{680}-R_{445}}$                          & \cite{simsRelationshipsLeafPigment2002}                   \\
 	\bottomrule
 	\multicolumn{2}{l}{\small{* Difference Vegetation Index}}
 \end{tabular}
 \endgroup
-\label{tab:supermodel_performance}
+\label{tab:most_imp_vars}
 \end{table}
 
 
