@@ -239,7 +239,6 @@ Additionally, all possible \ac{NRI} were calculated from the data using the form
 \noindent
 where $i$ and $j$ are the respective band numbers.
 
-%To account for geometric offsets, we calculated every index five times using a buffer from 1 - 5 meter around the centroid of the respective tree.
 To account for geometric offsets, we used a buffer of two meters around the centroid of the respective tree.
 The mean value of all pixels touched by the buffer was assigned as the final value for each index.
 Missing values were removed from the mean value calculation.
@@ -300,7 +299,9 @@ The advantage of this tuning approach is that it substantially reduces the tunin
 
 \subsection{Variable importance}
 
-To find indices that contributed most to model performance, we used permutation-based variable importance on the best performing algorithm.
+To find indices that contributed most to model performance, we used the internal variable importance measure of the \textit{xgboost} algorithm.
+The score is calculated by taking the contribution of each feature for each tree in the fitted model.
+The higher the score of a variable, the more important it is for the fitted model when making predictions \citep{chenXGBoostScalableTree2016}.
 
 % partial dependence plots??
 
@@ -359,12 +360,12 @@ Laukiz 2 shows a mean tree density of 61.59 m \autoref{fig:rmse_defol_dens}) whi
 \begingroup\footnotesize
 \begin{tabular}{lll}
 	\\
-	Plot/Data & All Observations (Block CV) & Single Plot Observations (SpCV)             \\
+	Plot/Data & All Observations (Block CV) & Single Plot Observations (SpCV) \\
 	\hline
-	Laukiz 1  & 22.03                & -                              \\
-	Laukiz 2  & 51.75                & 17.37  (update to rep mean!)   \\
-	Luiando   & 13.20                & -                              \\
-	Oiartzun  & 32.97                & 14.72    (update to rep mean!) \\
+	Laukiz 1  & 22.03                       & -                               \\
+	Laukiz 2  & 51.75                       & 17.37  (update to rep mean!)    \\
+	Luiando   & 13.20                       & -                               \\
+	Oiartzun  & 32.97                       & 14.72    (update to rep mean!)  \\
 	\bottomrule
 \end{tabular}
 \endgroup
@@ -387,34 +388,66 @@ Comparing RMSE against $CV/skewness$ shows a $log_{2}(-x)$ relationship.
 % rmse vs defol and point dens
 \begin{figure} [b!]
 	\begin{center}
-		\makebox[\textwidth]{\includegraphics[width=\textwidth] {../03_figures/results/plot-characteristics.pdf}}
+		\makebox[\textwidth]{\includegraphics[width=\textwidth] {plot-characteristics.pdf}}
 		\caption{RMSE vs. mean point density, coefficient of variation and coefficient of variation / skewness.}
 		\label{fig:plot-characteristics}
 	\end{center}
 \end{figure}
 
-\subsubsection{Variable importance}
+\subsection{Variable importance}
 
-\ac{NRI}s using bands in the wavelength range of 770 nm - 820 nm (band 80 - band 89), which belongs to the infrared region, appear most often among the ten highest coefficient estimates across all plots (\autoref{tab:variable-importance}).
-Only one vegeation index (Datt3) showed up among the most important predictors (Laukiz 1).
-Luiando and Oiartzun also prefered bands with longer (938.39 nm (band 114) - 996.31 nm (band 126)) and shorter wavelengths (480.30 nm (band 18) - 503.26 (band 23)).
-The first range again belongs to the infrared region while the second is within the region of the visible light, transitioning from blue to green.
+Variable
 
+The 7 most important features are vegetation indices with \textit{EVI} \citep{hueteComparisonVegetationIndices1997} being the most important one.
 
-% band importance
+\begin{equation}
+	EVI = 2.5*\frac{R_{800}-R_{670}}{R_{800}-(6*R_{670})-(7.5*R_{475})+1)}
+\end{equation}
+
+Vegetation index \textit{GDVI} appears three times among the first seven features.
+This is because the \textit{hsdar} package computes the index four times, with \texttt{n} ranging from 1-4 \citep{wuEstimatingChlorophyllContent2008}:
+
+\begin{equation}
+	GDVI = \frac{R_{800}^n-R_{680}^n}{R_{800}^n+R_{680}^n}
+\end{equation}
+
+The first seven features (\textit{EVI}, \textit{GDVI4}, \textit{D1}, \textit{GDVI3}, \textit{GDVI2}, \textit{mNDVI} and \textit{mSR}) show a substantial difference compared to all following variables.
+
 \begin{figure} [b!]
 	\begin{center}
-		\makebox[\textwidth]{\includegraphics[angle=90, height = 0.95\textheight] {../03_figures/results/important-bands_boxplot.pdf}}
-		\caption{test}
-		\label{fig:important-bands}
+		\makebox[\textwidth]{\includegraphics[angle=90, height = 0.95\textheight] {var-imp-xgboost.pdf}}
+		\caption{The 30 most important variables as estimated by the internal variable importance measure of the \textit{xgboost} algorithm. The higher the score, the more important the feature.
+			"bf2" means that a buffer of 2 meter was used to extract the variable information to the tree observation. The following pattern describes the index: "NRI" means that a normalized ratio index with the following bands was used. Features without "NBI" are vegetation indices, e.g. "bf2\_EVI"}. %An overview of the vegetation indices can be found \href{https://rdrr.io/cran/hsdar/man/vegindex.html}{here}.}
+		\label{fig:var-imp}
 	\end{center}
 \end{figure}
+
+\begin{table}[t!]
+\centering
+\caption[t]{Formulas of the five most important vegetation indices of the super model. $R$ = Reflectance at wavelength, $D$ = First derivation of reflectance value at wavelength.}
+\begingroup\footnotesize
+\begin{tabular}{llll}
+	\\
+	Acronym & Name                                    & Formula                                                                 & Reference                                   \\
+	\hline
+	EVI     & Enhanced vegetation index               & $2.5*\frac{R_{800}-R_{670}}{R_{800}-(6*R_{670})-(7.5*R_{475})+1)}$        & \cite{hueteComparisonVegetationIndices1997}                                       \\
+	GDVI    & Generalized DVI* & $\frac{R_{800}^n-R_{680}^n}{R_{800}^n+R_{680}^n}$                       & \cite{wuEstimatingChlorophyllContent2008}  \\
+	D1      &         Derivative Index                                & $\frac{D_{730}}{D_{706}}$                                                       & \cite{zarco-tejadaSteadystateChlorophyllFluorescence2003} \\
+	mNDVI   & Normalized DVI*  & $  \frac{R_{800}-R_{680}}{(R_{800}+R_{680}-2*R_{445}}$                       & \cite{simsRelationshipsLeafPigment2002}    \\
+	mSR     & Simple Ratio Index                      & $\frac{R_{800}-R_{445}}{R_{680}-R_{445}}$                                   & \cite{simsRelationshipsLeafPigment2002}    \\
+	\bottomrule
+	\multicolumn{2}{l}{\small{* Difference Vegetation Index}}
+\end{tabular}
+\endgroup
+\label{tab:supermodel_performance}
+\end{table}
+
 
 \section{Discussion}
 
 \subsection{Index derivation}
 
-The exact number of contributing pixels to the final index value of an observations cannot be determined as it depends on the location of the tree within the pixel grid.
+The exact number of contributing pixels to the final index value of an observation cannot be determined as it depends on the location of the tree within the pixel grid.
 If a tree is located at the border of a pixel, a buffer of e.g. three meters will include more pixels than if the point is located at the center of a pixel.
 Also, if a tree is located at the border of the plot, some directions of the buffer will not contain image values.
 
