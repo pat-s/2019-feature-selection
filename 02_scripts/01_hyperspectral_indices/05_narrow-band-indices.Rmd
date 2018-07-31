@@ -21,6 +21,7 @@ library(pbmcapply)
 library(glue)
 library(magrittr)
 library(purrr)
+library(stringr)
 ```
 
 # Specify wavelength 
@@ -60,7 +61,8 @@ tmp <- pbmclapply(hyperspecs, function(x)
   nbi_raster(x,
              filename = str_replace(glue("/data/patrick/mod/hyperspectral/",
                              "narrow-band-indices/narrow-band-indices-{name}",
-                             name = basename(x@file@name)), ".tif", ".grd"), mc.cores = 15)) 
+                             name = basename(x@file@name)), ".tif", ".grd"),
+             bnames_prefix = "NRI"), mc.cores = 15)
 rm(tmp)
 ```
 
