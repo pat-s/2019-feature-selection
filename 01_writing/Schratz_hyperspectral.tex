@@ -339,9 +339,9 @@ Laukiz 2 shows a mean tree density of 61.59 m \autoref{fig:rmse_defol_dens}) whi
 \subsection{Predictive performance}
 
 % Performance estimates
-\begin{table}[b!]
+\begin{table}[t!]
 \centering
-\caption[t]{Four-fold spatial \ac{CV} performances of RR, SVM and xgboost using \ac{RMSE} as the error measure.
+\caption[t]{Four-fold block spatial \ac{CV} performances of RR, SVM and xgboost using \ac{RMSE} as the error measure.
 	Mean and standard deviation are shown.}
 \begingroup\footnotesize
 \begin{tabular}{llll}
@@ -354,18 +354,18 @@ Laukiz 2 shows a mean tree density of 61.59 m \autoref{fig:rmse_defol_dens}) whi
 \label{tab:penalty_comparison}
 \end{table}
 
-\begin{table}[t!]
+\begin{table}[b!]
 \centering
-\caption[t]{Predictive performance of \textit{xgboost} using all observations (All Observations ) and observations from single plots only (Single Plot Observations) with \ac{RMSE} as the error measure. The performance estimates for "All Observations" correspond to the fold for which the respective plot was serving as the test set. Column "single plot", shows the mean performances at the repetition level of a SpCV (5 folds, 5 repetitions), scored by using data of the respective plot only.}
+\caption[t]{Predictive performance of \textit{xgboost} using all observations (All Observations) and observations from specific plots only (Single Plot Observations) with \ac{RMSE} as the error measure. The performance estimates for "All Observations" correspond to the fold for which the respective plot was serving as the test set. Column "Single Plot Observations", shows the mean performances at the repetition level of a spatial CV (5 folds, 5 repetitions), scored by using data of the respective plot only.}
 \begingroup\footnotesize
 \begin{tabular}{lll}
 	\\
 	Plot/Data & All Observations (Block CV) & Single Plot Observations (SpCV) \\
 	\hline
-	Laukiz 1  & 22.03                       & -                               \\
-	Laukiz 2  & 51.75                       & 17.37  (update to rep mean!)    \\
-	Luiando   & 13.20                       & -                               \\
-	Oiartzun  & 32.97                       & 14.72    (update to rep mean!)  \\
+	Laukiz 1  & 22.03                       & 19.18                               \\
+	Laukiz 2  & 51.75                       & 17.24      \\
+	Luiando   & 13.20                       & 8.30                             \\
+	Oiartzun  & 32.97                       & 14.40      \\
 	\bottomrule
 \end{tabular}
 \endgroup
