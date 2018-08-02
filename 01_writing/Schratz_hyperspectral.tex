@@ -255,7 +255,7 @@ We also added penalized L2 (Ridge) regression to the algorithm collection due to
 The probably most popular machine-learning algorithm, Random Forest, was not considered for this study: Due to the high number of variables, model fitting times in the range hours for a single model fit were not practicable for this work.
 These high fitting times are caused by hyperparameter \texttt{mtry} which scales with the number of variables \citep{Probst2018b}.
 After the selection of the best model, we checked if the winning algorithm can achieve a similar performance when using only the most important variables compared to using all variables.
-We did not use a robust selection metric here but just selected the \texttt{n} most important variables by inspecting the importance score of the model (\autoref{fig:var-imp}). 
+We did not use a robust selection metric here but just selected the \texttt{n} most important variables by inspecting the importance score of the model (\autoref{fig:var-imp}).
 
 % \subsubsection{The ridge penalty}
 
@@ -300,6 +300,20 @@ The advantage of this tuning approach is that it substantially reduces the tunin
 To find indices that contributed most to model performance, we used the internal variable importance measure of the \textit{xgboost} algorithm.
 The score is calculated by taking the contribution of each feature for each tree in the fitted model.
 The higher the score of a variable, the more important it is for the fitted model when making predictions \citep{chenXGBoostScalableTree2016}.
+Using the internal variable importance measure from the xgboost algorithm is quite convienient since it is automatically computed during model fit.
+By contrast to other approaches such as permutation-based variable importance, it is composed out of three parts that contribute to the overall importance score:
+
+\begin{itemize}
+	\item Gain: The relative contribution of the feature to the model 
+	\item Cover metric: How often a feature was selected to be the deciding feature in a tree for a specific observation 
+	\item Frequency How often a feature occurs in all trees of the model 
+\end{itemize}
+
+The \textit{Gain} features is the most important one among the three. 
+All measures sum up to one.
+Downsides of this approach are that due to the contribution of three different parts it is complicated to understand why a specific feature was selected.
+Furthermore the importance calculation approach is only valid for this algorithm and cannot be compared to others.
+Nevertheless, as we only relied on the variable importance for this specific algorithm, using the internal xgboost approach was sufficient for this work.
 
 % partial dependence plots??
 
@@ -333,9 +347,9 @@ Laukiz 2 shows a mean tree density of 61.59 m \autoref{fig:rmse_defol_dens}) whi
 	Mean and standard deviation are shown.}
 \begingroup\footnotesize
 \begin{tabular}{llll}
-	RR            & SVM           & xgboost       \\
+	RR            & SVM           & xgboost       & xgboost (7 variables) \\
 	\hline
-	59.10 (22.71) & 36.23 (15.73) & 33.26 (16.61) \\
+	59.10 (22.71) & 36.23 (15.73) & 33.26 (16.61) &                       \\
 	\bottomrule
 \end{tabular}
 \endgroup
@@ -346,14 +360,14 @@ Laukiz 2 shows a mean tree density of 61.59 m \autoref{fig:rmse_defol_dens}) whi
 \centering
 \caption[t]{Predictive performance of \textit{xgboost} using all observations (All Observations) and observations from specific plots only (Single Plot Observations) with \ac{RMSE} as the error measure. The performance estimates for "All Observations" correspond to the fold for which the respective plot was serving as the test set. Column "Single Plot Observations", shows the mean performances at the repetition level of a spatial CV (5 folds, 5 repetitions), scored by using data of the respective plot only.}
 \begingroup\footnotesize
-\begin{tabular}{lll}
+\begin{tabular}{llll}
 	\\
-	Plot/Data & All Observations (Block CV) & Single Plot Observations (SpCV) \\
+	Plot/Data & All Observations/all variables (Block CV) & All Observations/7 variables (Block CV) & Single Plot Observations (SpCV) \\
 	\hline
-	Laukiz 1  & 22.03                       & 19.18                           \\
-	Laukiz 2  & 51.75                       & 17.24                           \\
-	Luiando   & 13.20                       & 8.30                            \\
-	Oiartzun  & 32.97                       & 14.40                           \\
+	Laukiz 1  & 22.03                                     &                                         & 19.18                           \\
+	Laukiz 2  & 51.75                                     &                                         & 17.24                           \\
+	Luiando   & 13.20                                     &                                         & 8.30                            \\
+	Oiartzun  & 32.97                                     &                                         & 14.40                           \\
 	\bottomrule
 \end{tabular}
 \endgroup
@@ -372,7 +386,7 @@ The highest difference between both models types occurs for \textit{Laukiz2} wit
 
 \subsubsection{RMSE vs. plot characteristics}
 
-\noindent An increase of the error rate was observed with an increase of descriptive plot measures such as mean point density and the coefficient of variation (based on the response \textit{defoliation}) (\autoref{fig:plot-characteristics}). 
+\noindent An increase of the error rate was observed with an increase of descriptive plot measures such as mean point density and the coefficient of variation (based on the response \textit{defoliation}) (\autoref{fig:plot-characteristics}).
 
 \begin{figure} [b!]
 	\begin{center}
@@ -454,33 +468,33 @@ Using a buffer in the first place and the fact that it is unclear how much infor
 
 Trying to relate the modeling error to plot characteristics (mean point density, CV) did not show a clear picture: For both comparisons, Laukiz 2 did not follow the pattern that was observed from the other three plots (\autoref{fig:plot-characteristics}) of having an increase in error with an increase in mean point density and CV.
 
-Having an increase in error with an increase in mean point density could be related to the buffer we used in this study. 
-If a tree is surrounded by bare ground, chances are higher that bare ground information will be included in the final index value. 
+Having an increase in error with an increase in mean point density could be related to the buffer we used in this study.
+If a tree is surrounded by bare ground, chances are higher that bare ground information will be included in the final index value.
 By contrast, if the density of trees in a plot is high, the possibility of bare ground information in the calculated index value will be small.
-The fact of having information from another tree in the final pixel value is less problematic than having bare ground information as the latter affects the final index calculation more in a negative way.  
+The fact of having information from another tree in the final pixel value is less problematic than having bare ground information as the latter affects the final index calculation more in a negative way.
 
-Nevertheless, it has to be considered that we only had four plots in this work. 
+Nevertheless, it has to be considered that we only had four plots in this work.
 To make a valid statement about a relationship between modeling error and these plot characteristics, a larger sample size of plots is needed.
 
 \subsection{Predictive Performance}
 
 \subsubsection{Algorithm benchmarking}
 
-The relatively large difference in performance between RR (59.10 RMSE) and the machine-learning models (36.23 and 33.26 RMSE) is surprising. 
+The relatively large difference in performance between RR (59.10 RMSE) and the machine-learning models (36.23 and 33.26 RMSE) is surprising.
 RR has shown promising performance results in other studies when many highly-correlated predictors were involved (REFERECES).
 However, in this study, RR was not able to achieve a sufficient performance score compared to SVM and xgboost even though its hyperparameter $\lambda$ was properly tuned using SMBO.
 
 While xgboost shows a slightly better performance than SVM, the latter has the advantage of only having two hyperparameters that need to be tuned.
 This results in a shorter runtime.
-Nevertheless, xgboost showed the best performance and was subsequently used to fit the models on the plot level and for the prediction. 
+Nevertheless, xgboost showed the best performance and was subsequently used to fit the models on the plot level and for the prediction.
 
 \subsubsection{Single models vs. super model}
 
 It is expected that models that were trained on the plot level only achieve a better performance than the global model.
-The low performance on Laukiz 2 for the super model is most likely due to the difference of this plot to all others: The fitted model on Laukiz 1, Luiando and Oiartzun is not capable of reaching a good performance on the Laukiz 2 prediction data. 
+The low performance on Laukiz 2 for the super model is most likely due to the difference of this plot to all others: The fitted model on Laukiz 1, Luiando and Oiartzun is not capable of reaching a good performance on the Laukiz 2 prediction data.
 This is not surprising as Laukiz 2 shows substantially different plot characteristics compared to all others plots in terms of CV, mean point density (\autoref{arg}) and defoliation (\autoref{fig:defol_boxplots}).
 
-The low error for Luiando (8.30 RMSE) for the plot model validates the approach of relating defoliation to vegetation indices and NRI. 
+The low error for Luiando (8.30 RMSE) for the plot model validates the approach of relating defoliation to vegetation indices and NRI.
 The overall error of the super model (33.26 RSME) is expected to decrease if more plots are available for training.
 To reach an optimal performance, the fitted model would need to include at least one instance of every plot that shows unique characteristics (i.e. here Laukiz 2 is substantially different to the others).
 Possibly more plots showing unique characteristics exists that are not integrated into the fitted model of this work.
