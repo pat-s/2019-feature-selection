@@ -459,10 +459,35 @@ If a tree is surrounded by bare ground, chances are higher that bare ground info
 By contrast, if the density of trees in a plot is high, the possibility of bare ground information in the calculated index value will be small.
 The fact of having information from another tree in the final pixel value is less problematic than having bare ground information as the latter affects the final index calculation more in a negative way.  
 
-Nevertheless, it has to be considered that we did only have four plots here. 
-To make a valid statement about a relationship between modeling error and these plot characteristics, one would need a bigger sample of plots.
+Nevertheless, it has to be considered that we only had four plots in this work. 
+To make a valid statement about a relationship between modeling error and these plot characteristics, a larger sample size of plots is needed.
+
+\subsection{Predictive Performance}
+
+\subsubsection{Algorithm benchmarking}
+
+The relatively large difference in performance between RR (59.10 RMSE) and the machine-learning models (36.23 and 33.26 RMSE) is surprising. 
+RR has shown promising performance results in other studies when many highly-correlated predictors were involved (REFERECES).
+However, in this study, RR was not able to achieve a sufficient performance score compared to SVM and xgboost even though its hyperparameter $\lambda$ was properly tuned using SMBO.
+
+While xgboost shows a slightly better performance than SVM, the latter has the advantage of only having two hyperparameters that need to be tuned.
+This results in a shorter runtime.
+Nevertheless, xgboost showed the best performance and was subsequently used to fit the models on the plot level and for the prediction. 
+
+\subsubsection{Single models vs. super model}
+
+It is expected that models that were trained on the plot level only achieve a better performance than the global model.
+The low performance on Laukiz 2 for the super model is most likely due to the difference of this plot to all others: The fitted model on Laukiz 1, Luiando and Oiartzun is not capable of reaching a good performance on the Laukiz 2 prediction data. 
+This is not surprising as Laukiz 2 shows substantially different plot characteristics compared to all others plots in terms of CV, mean point density (\autoref{arg}) and defoliation (\autoref{fig:defol_boxplots}).
+
+The low error for Luiando (8.30 RMSE) for the plot model validates the approach of relating defoliation to vegetation indices and NRI. 
+The overall error of the super model (33.26 RSME) is expected to decrease if more plots are available for training.
+To reach an optimal performance, the fitted model would need to include at least one instance of every plot that shows unique characteristics (i.e. here Laukiz 2 is substantially different to the others).
+Possibly more plots showing unique characteristics exists that are not integrated into the fitted model of this work.
 
 \subsection{Variable importance}
+
+
 
 \section{Appendix}
 
