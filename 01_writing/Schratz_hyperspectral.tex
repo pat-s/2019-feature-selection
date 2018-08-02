@@ -228,7 +228,8 @@ It provides a standardized interface for a wide variety of statistical and machi
 
 \subsection{Derivation of indices}
 
-% link to PDF with veg indices
+The idea behind calculating this amount of indices was to use the full information of the high radiometric resolution of the hyperspectral data.
+Besides vegetation indices, that have been shown to be sensitive to changes to the health status of vegetation, we were interested if NRIs of arbitrary band combinations will have a substantial positive effect on the predictive power of the fitted model.
 All vegetation indices (90 total) suitable for the wavelength range of the hyperspectral data that were available in the R package \textit{hsdar} have been calculated.
 Additionally, all possible \ac{NRI} were calculated from the data using the formula:
 
@@ -246,11 +247,6 @@ In total, 7875 Normalized Ratio Indices NRI have been calculated ($\frac{125*126
 Due to four corrupted bands and some other numerical problems, few indices returned \texttt{NA} values for some observations.
 These indices were removed from the dataset, leaving a total of 7471 variables without missing values.
 
-\subsection{Exploratory analysis of plot characteristics}
-
-Plot characteristics like age, stand density and defoliation were analysed to show differences among the plots.
-Additionally, the spectral signatures of each plot have been visualized.
-
 \subsection{Benchmarking of algorithms}
 
 Multiple algorithms were benchmarked on predictive performance to find the best performing one.
@@ -258,6 +254,8 @@ Besides the well-known \ac{SVM} \citep{Vapnik1998} we also used \textit{xgboost}
 We also added penalized L2 (Ridge) regression to the algorithm collection due to its ability to handle highly correlated covariates.
 The probably most popular machine-learning algorithm, Random Forest, was not considered for this study: Due to the high number of variables, model fitting times in the range hours for a single model fit were not practicable for this work.
 These high fitting times are caused by hyperparameter \texttt{mtry} which scales with the number of variables \citep{Probst2018b}.
+After the selection of the best model, we checked if the winning algorithm can achieve a similar performance when using only the most important variables compared to using all variables.
+We did not use a robust selection metric here but just selected the \texttt{n} most important variables by inspecting the importance score of the model (\autoref{fig:var-imp}). 
 
 % \subsubsection{The ridge penalty}
 
@@ -307,7 +305,7 @@ The higher the score of a variable, the more important it is for the fitted mode
 
 \section{Results}
 
-\subsection{Exploratory data analysis}
+\subsection{Plot characteristics}
 
 % defoliation boxplots
 \begin{figure} [t!]
@@ -315,16 +313,6 @@ The higher the score of a variable, the more important it is for the fitted mode
 		\makebox[\textwidth]{\includegraphics[width=0.7\textwidth] {boxplot_defol.pdf}}
 		\caption{Descriptive statistics of the response variable \textit{defoliation}.}
 		\label{fig:defol_boxplots}
-	\end{center}
-\end{figure}
-
-% spectral signatures
-\begin{figure} [t!]
-	\begin{center}
-		\makebox[\textwidth]{\includegraphics[width=\textwidth] {spectral_signatures.pdf}}
-		\caption{Spectral signatures (mean and standard deviation) of each plot.
-			The colored lines show the most important band for each plot, respectively: Band 80 (773nm, red), band 89 (817nm, blue), band 95 (846nm, orange), band 23 (503nm, green).}
-		\label{fig:spectral_signatures}
 	\end{center}
 \end{figure}
 
@@ -354,7 +342,7 @@ Laukiz 2 shows a mean tree density of 61.59 m \autoref{fig:rmse_defol_dens}) whi
 \label{tab:model_comparison}
 \end{table}
 
-\begin{table}[b!]
+\begin{table}[t!]
 \centering
 \caption[t]{Predictive performance of \textit{xgboost} using all observations (All Observations) and observations from specific plots only (Single Plot Observations) with \ac{RMSE} as the error measure. The performance estimates for "All Observations" correspond to the fold for which the respective plot was serving as the test set. Column "Single Plot Observations", shows the mean performances at the repetition level of a spatial CV (5 folds, 5 repetitions), scored by using data of the respective plot only.}
 \begingroup\footnotesize
@@ -384,7 +372,7 @@ The highest difference between both models types occurs for \textit{Laukiz2} wit
 
 \subsubsection{RMSE vs. plot characteristics}
 
-\noindent An increase of the error rate was observed with an increases of descriptive plot measures such as mean point density and the coefficient of variation (based on the response \textit{defoliation}) (\autoref{fig:plot-characteristics}). 
+\noindent An increase of the error rate was observed with an increase of descriptive plot measures such as mean point density and the coefficient of variation (based on the response \textit{defoliation}) (\autoref{fig:plot-characteristics}). 
 
 \begin{figure} [b!]
 	\begin{center}
@@ -406,7 +394,7 @@ The highest difference between both models types occurs for \textit{Laukiz2} wit
 
 \bigbreak
 
-\noindent Vegetation index \textit{GDVI} appears three times among the first seven most important features (\autoref{fig:var-imp}) with different .
+\noindent Vegetation index \textit{GDVI} appears three times among the first seven most important features (\autoref{fig:var-imp}) with different \texttt{n} values.
 This is because it was computed four times, with \texttt{n} ranging from 1 - 4 \citep{wuEstimatingChlorophyllContent2008}:
 
 \begin{equation}
@@ -417,7 +405,7 @@ This is because it was computed four times, with \texttt{n} ranging from 1 - 4 \
 
 \noindent The seven most important features (\textit{EVI}, \textit{GDVI4}, \textit{D1}, \textit{GDVI3}, \textit{GDVI2}, \textit{mNDVI} and \textit{mSR}) show a substantial difference compared to all following variables (\autoref{fig:var-imp}).
 
-\begin{figure} [t!]
+\begin{figure} [b!]
 	\begin{center}
 		\makebox[\textwidth]{\includegraphics[width = 1\textwidth] {var-imp-xgboost.pdf}}
 		\caption{The 30 most important variables as estimated by the internal variable importance measure of the \textit{xgboost} algorithm. The higher the score, the more important the feature.
@@ -449,23 +437,54 @@ This is because it was computed four times, with \texttt{n} ranging from 1 - 4 \
 
 \section{Discussion}
 
-\subsection{Index derivation}
+\subsection{Derivation of indices}
+
+The buffer of 2m that we used to generate the index value for each observation can be seen critical.
+When using now buffer at all, the possibility exists that a pixel value is assigned to the tree observation that does not spatially match with the tree observation.
+Using a buffer of more than 2 meters would cause information from other trees to be merged into the pixel value, blurring the actual value of the tree observation.
+Thats why using a buffer of 2m was the best compromise here in our perspective.
 
 The exact number of contributing pixels to the final index value of an observation cannot be determined as it depends on the location of the tree within the pixel grid.
-If a tree is located at the border of a pixel, a buffer of e.g. three meters will include more pixels than if the point is located at the center of a pixel.
-Also, if a tree is located at the border of the plot, some directions of the buffer will not contain image values.
+As the buffer is a circle, it depends on the exact location of a tree observation within a pixel how much surrounding pixels will be used to calculate the final pixel value.
+If a tree observation is located at the border of the plot, some directions of the buffer will not contain image values and the subsequent index value will be calculated using less pixels than if the tree observation is located in the middle of the plot.
 
-\subsection{Plot characteristics}
+Using a buffer in the first place and the fact that it is unclear how much information from other trees went into the calculation of an index value of a certain observation certainly limits the meaningfullness of the study and has to be considered when making interpretations about the outcome of this study.
 
-For Laukiz1, Luiando and Oiartzun \ac{RMSE} seems to increase with a higher point density at a first glance.
-However, the point densities of these plots are very similar (33.7 m - 35.01 m) and should be interpreted as a group instead of single values.
-With Laukiz2 being completely off from the other plots in terms of mean point density, no pattern can be extracted from this result.
-Linking RMSE vs coefficient of variation shows the same relationship as linking against mean point density.
-The interesting $log_{2}(-x)$ relationship for RMSE vs. coefficient of variation / skewness should be interpreted with caution: The sample size of four plots is not representative to make general statements here.
-This finding should be verified with more observations in future studies.
+\subsection{RMSE vs. plot characteristics}
+
+Trying to relate the modeling error to plot characteristics (mean point density, CV) did not show a clear picture: For both comparisons, Laukiz 2 did not follow the pattern that was observed from the other three plots (\autoref{fig:plot-characteristics}) of having an increase in error with an increase in mean point density and CV.
+
+Having an increase in error with an increase in mean point density could be related to the buffer we used in this study. 
+If a tree is surrounded by bare ground, chances are higher that bare ground information will be included in the final index value. 
+By contrast, if the density of trees in a plot is high, the possibility of bare ground information in the calculated index value will be small.
+The fact of having information from another tree in the final pixel value is less problematic than having bare ground information as the latter affects the final index calculation more in a negative way.  
+
+Nevertheless, it has to be considered that we did only have four plots here. 
+To make a valid statement about a relationship between modeling error and these plot characteristics, one would need a bigger sample of plots.
 
 \subsection{Variable importance}
 
+\section{Appendix}
+
+\appendix
+% https://tex.stackexchange.com/questions/248704/cross-reference-to-appendix-sections-in-elsarticle-document-class
+\gdef\thesection{\Alph{section}} % corrected redefinition of "\thesection"
+\makeatletter
+\renewcommand\@seccntformat[1]{Appendix \csname the#1\endcsname.\hspace{0.5em}}
+\makeatother
+
+\section{Spectral signatures of each plot}
+
+% spectral signatures
+\begin{figure} [H]
+	\begin{center}
+		\makebox[\textwidth]{\includegraphics[width=\textwidth] {spectral_signatures.pdf}}
+		\caption{Spectral signatures (mean and standard deviation) of each plot.}
+		\label{fig:spectral_signatures}
+	\end{center}
+\end{figure}
+
+\pagebreak
 
 \section*{References}
 
