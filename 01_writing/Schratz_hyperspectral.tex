@@ -304,16 +304,13 @@ Using the internal variable importance measure from the xgboost algorithm is qui
 By contrast to other approaches such as permutation-based variable importance, it is composed out of three parts that contribute to the overall importance score:
 
 \begin{itemize}
-	\item Gain: The relative contribution of the feature to the model 
-	\item Cover metric: How often a feature was selected to be the deciding feature in a tree for a specific observation 
-	\item Frequency How often a feature occurs in all trees of the model 
+	\item Gain: The relative contribution of the feature to the model
+	\item Cover metric: How often a feature was selected to be the deciding feature in a tree for a specific observation
+	\item Frequency How often a feature occurs in all trees of the model
 \end{itemize}
 
-The \textit{Gain} features is the most important one among the three. 
-All measures sum up to one.
-Downsides of this approach are that due to the contribution of three different parts it is complicated to understand why a specific feature was selected.
-Furthermore the importance calculation approach is only valid for this algorithm and cannot be compared to others.
-Nevertheless, as we only relied on the variable importance for this specific algorithm, using the internal xgboost approach was sufficient for this work.
+The \textit{Gain} features is the most important one among the three.
+All measures sum up to one (REFERENCE!).
 
 % partial dependence plots??
 
@@ -362,12 +359,12 @@ Laukiz 2 shows a mean tree density of 61.59 m \autoref{fig:rmse_defol_dens}) whi
 \begingroup\footnotesize
 \begin{tabular}{llll}
 	\\
-	Plot/Data & All Observations/all variables (Block CV) & All Observations/7 variables (Block CV) & Single Plot Observations (SpCV) \\
+	Plot/Data & \specialcell{All Observations/ \\{all variables (Block CV)}} & \specialcell{All Observations/         \\ {7 variables (Block CV)}} & \specialcell{Plot level observations/\\{all variables (SpCV)}} \\
 	\hline
-	Laukiz 1  & 22.03                                     &                                         & 19.18                           \\
-	Laukiz 2  & 51.75                                     &                                         & 17.24                           \\
-	Luiando   & 13.20                                     &                                         & 8.30                            \\
-	Oiartzun  & 32.97                                     &                                         & 14.40                           \\
+	Laukiz 1  & 22.03                                                                              &       21.47                         & 19.18 \\
+	Laukiz 2  & 51.75                                                                              &        49.94                        & 17.24 \\
+	Luiando   & 13.20                                                                              &       15.37                        & 8.30  \\
+	Oiartzun  & 32.97                                                                              &    17.62                            & 14.40 \\
 	\bottomrule
 \end{tabular}
 \endgroup
@@ -383,6 +380,8 @@ While the SVM performance is only slightly worse (36.23 RMSE), RR shows a large 
 
 When comparing the mean predictive performance of models fitted at the plot level against the performance of the model that was fitted using all data, the plot-level models show a better performance in all cases (\autoref{tab:supermodel_performance}).
 The highest difference between both models types occurs for \textit{Laukiz2} with a difference of 34.51 RMSE.
+
+Using only the seven most important variables (\autoref{fig:var-imp}) shows small increases in performance for Laukiz 1 and Laukiz 2, a small decrease for Luiando and almost a reduction of 50\% of the error for Oiartzun (32.97 vs. 17.62 RMSE).
 
 \subsubsection{RMSE vs. plot characteristics}
 
@@ -448,6 +447,9 @@ This is because it was computed four times, with \texttt{n} ranging from 1 - 4 \
 \label{tab:most_imp_vars}
 \end{table}
 
+The best NRI scored rank eight (band 112 and band 62).
+All further places up to rank 30 are NRIs.
+
 
 \section{Discussion}
 
@@ -488,11 +490,18 @@ While xgboost shows a slightly better performance than SVM, the latter has the a
 This results in a shorter runtime.
 Nevertheless, xgboost showed the best performance and was subsequently used to fit the models on the plot level and for the prediction.
 
+An important point that needs to be considered when interpreting the performance results is that we only related defoliation to indices derived from remote sensing data.
+Possible other cofounding factors that could possibly help in predicting defoliation were not considered.
+One example here is tree age: The older a tree the more vunerable it may be to pathogen infections causing defoliation.
+However, such predictors would not be available for a spatial prediction scenario and one of the main goals of this study is to relate defoliation to variables that are available on a larger scale (e.g. remote sensing indices).
+
+	[COMPARE ALL VARIABLES VS 7 VARIABLES]
+
 \subsubsection{Single models vs. super model}
 
 It is expected that models that were trained on the plot level only achieve a better performance than the global model.
 The low performance on Laukiz 2 for the super model is most likely due to the difference of this plot to all others: The fitted model on Laukiz 1, Luiando and Oiartzun is not capable of reaching a good performance on the Laukiz 2 prediction data.
-This is not surprising as Laukiz 2 shows substantially different plot characteristics compared to all others plots in terms of CV, mean point density (\autoref{arg}) and defoliation (\autoref{fig:defol_boxplots}).
+This is not surprising as Laukiz 2 shows substantially different plot characteristics compared to all others plots in terms of the distribution of the response variable \textit{defoliation} (\autoref{fig:defol_boxplots}) and the mean point density of trees (\autoref{fig:plot-characteristics}).
 
 The low error for Luiando (8.30 RMSE) for the plot model validates the approach of relating defoliation to vegetation indices and NRI.
 The overall error of the super model (33.26 RSME) is expected to decrease if more plots are available for training.
@@ -501,7 +510,21 @@ Possibly more plots showing unique characteristics exists that are not integrate
 
 \subsection{Variable importance}
 
+There are some downsides using the internal variable importance approach of xgboost: Due to the contribution of three different parts to the overall importance score it is complicated to understand why a specific feature was selected.
+Furthermore the importance calculation approach is only valid for this algorithm and cannot be compared to others.
+Nevertheless, as we only relied on the variable importance for this specific algorithm, using the internal xgboost approach was sufficient for this work.
 
+It is not surprising that vegetation indices are most important for the model as they are most sensitive to changes in vegetation health.
+Even though we are not specifically looking at vegetation health but at the level of defoliation, these indices seem to help the model deciding whether a tree is defoliated or not.
+The vegetation indeces could help here in two ways:
+1) Trees that show a high level of defoliation do also reflect their bad health status through the remaining foliation.
+2) Defoliated trees have more influence of bare ground information in their pixel values and will therefore be identified as defoliated by the model.
+
+Even though no NRI made it among the most important variables in this study (stating that the first seven of this study are the most important ones), it is interesting that they occupy all ranks from 8 - 30 (\autoref{fig:var-imp}).
+Our statement saying that the important indices of this study are the first seven can be seen critical as we only based the selection on a visual inspection of the variable importance results (\autoref{fig:var-imp}).
+All indices starting from rank eight do simply have a very small score.
+Nevertheless, one could also make the cut at rank five here.
+However, the break between vegetation indeces and NRI at rank eight also had an influence in setting this subjective break there.
 
 \section{Appendix}
 
