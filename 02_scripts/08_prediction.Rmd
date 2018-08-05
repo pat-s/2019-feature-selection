@@ -14,12 +14,18 @@ library(raster)
 library(furrr)
 library(sf)
 library(pbmcapply)
+library(magrittr)
+library(dplyr)
+library(data.table)
+library(rasterVis)
+library(viridis)
+library(ggpubr)
 ```
 
 # Load model
 
 ```{r}
-mod = readRDS("/data/patrick/mod/hyperspectral/prediction/xgboost_trained_tuned.rda")
+mod = readRDS("/data/patrick/mod/hyperspectral/prediction/xgboost_trained_tuned_7vars.rda")
 ```
 
 # Load vegetation indices
@@ -42,13 +48,30 @@ veg_inds %<>%
   future_map(~ st_as_sf(.))
 ```
 
-# Load NRI
+Prefix all vars with "bf2" so that they match with the names of the fitted model
 
 ```{r}
-files_nri = list.files("/data/patrick/mod/hyperspectral/narrow-band-indices/", 
-                   pattern = ".grd", full.names = TRUE)
+veg_inds %<>% 
+  map(~ select_all(.x, .funs = funs(paste0("bf2_", .))))
+```
 
-nri = map(files_nri, ~ brick(.))
+Use only the indices used for training
+
+```{r}
+veg_inds %<>% 
+  map(~ dplyr::select(.x, bf2_EVI, bf2_GDVI_4, bf2_GDVI_3, bf2_GDVI_2, 
+                      bf2_mNDVI, bf2_mSR, bf2_D1))
+```
+
+# Load NRI
+
+We only use the 7 most important variables. No NRI among them.
+
+```{r}
+# files_nri = list.files("/data/patrick/mod/hyperspectral/narrow-band-indices/", 
+#                    pattern = ".grd", full.names = TRUE)
+# 
+# nri = map(files_nri, ~ brick(.))
 ```
 
 ## Format NRI to sf objects
@@ -56,9 +79,13 @@ nri = map(files_nri, ~ brick(.))
 So that we have a data.frame with coordinates. 
 
 ```{r}
-nri %<>% 
-  pbmclapply(function(x) as(x, "SpatialPixelsDataFrame"), mc.cores = 2) %>% 
-  pbmclapply(function(x) st_as_sf(x), mc.cores = 2)
+# if (file.exists("/data/patrick/mod/hyperspectral/prediction/nri_basque.rda")) {
+#   nri = readRDS("/data/patrick/mod/hyperspectral/prediction/nri_basque.rda")
+# } else {
+#   nri %<>% 
+#     pbmclapply(function(x) as(x, "SpatialPixelsDataFrame"), mc.cores = 2) %>% 
+#     pbmclapply(function(x) st_as_sf(x), mc.cores = 2)
+# }
 ```
 
 # Name list elements
@@ -66,13 +93,159 @@ nri %<>%
 ```{r}
 names = map_chr(files, ~ tools::file_path_sans_ext(basename(.)))
 
-nri %<>% 
-  set_names(names)
+# nri %<>% 
+#   set_names(names)
 
 veg_inds %<>% 
   set_names(names)
 ```
 
+<!-- # Combine NRI and veg inds -->
 
-# Combine NRI and veg inds
+<!-- ```{r} -->
+<!-- if (file.exists("/data/patrick/mod/hyperspectral/prediction/prediction_df.rda")) { -->
+<!--   inds_combined = readRDS("/data/patrick/mod/hyperspectral/prediction/prediction_df.rda") -->
+<!-- } else { -->
+<!--   #options(future.globals.maxSize = 55000 * 1024^2) -->
+<!--   #plan(multicore, workers = 2) -->
+<!--   inds_combined = map2(veg_inds, nri, ~ st_join(.x, .y)) -->
+<!--   saveRDS(inds_combined, "/data/patrick/mod/hyperspectral/prediction/prediction_df.rda") -->
+<!-- } -->
+<!-- ``` -->
+
+<!-- Prefix all vars with "bf2" so that they match with the names of the fitted model -->
+
+<!-- ```{r} -->
+<!-- inds_combined %<>%  -->
+<!--   map(~ select_all(.x, .funs = funs(paste0("bf2_", .)))) -->
+<!-- ``` -->
+
+<!-- Use only the indices used for training -->
+
+<!-- ```{r} -->
+<!-- indices_shared = readRDS("/data/patrick/mod/hyperspectral/data_clean_with_indices/indices-shared-by-all-plots-bf2.rda") -->
+
+<!-- inds_combined %<>%  -->
+<!--   map(~ dplyr::select(.x, indices_shared)) -->
+<!-- ``` -->
+
+Extract coordinates of all plots
+
+```{r}
+pred_df_x = map(veg_inds, ~ as.integer(st_coordinates(.x)[, 1]))
+pred_df_y = map(veg_inds, ~ as.integer(st_coordinates(.x)[, 2]))
+                
+coords2 = map2(pred_df_x, pred_df_y, ~ data.frame(.x, .y))
+coords2 = map(coords2, ~ dplyr::rename(.x, x = .x, y = .y))
+```
+
+# Predict
+
+Make prediction data.frame
+
+```{r}
+veg_inds %<>% 
+  map(~ st_set_geometry(.x, NULL))
+
+saveRDS(veg_inds, "/data/patrick/mod/modeling/paper1_2018/prediction_df.rda")
+```
+
+# Standardize variables
+
+```{r}
+veg_inds %<>% 
+  map(~ as.data.table(.x)) %>% 
+  pbmclapply(function(x) {
+    cols = names(x)[2:length(names(x))]
+    x[, (cols) := lapply(.SD, scale), .SDcols=cols]
+  }, mc.cores = 28
+      ) %>% 
+  map(~ as(.x, "data.frame"))
+```
+
+```{r}
+#plan(multicore, workers = 28)
+
+# correct column order of features: https://github.com/dmlc/xgboost/issues/1809
+veg_inds %<>% 
+  map(~ .x[mod$learner.model$feature_names])
+
+pred = map(veg_inds, ~ predict(mod$learner.model, newdata = as.matrix(.x)))
+```
+
+# Combine prediction results with coords
+
+```{r}
+all = map2(coords2, pred, ~ cbind(.x, .y)) %>% 
+  map(~ rename(.x, defoliation = .y))
+```
+
+# Transfer to SPDF and export raster
+
+```{r}
+all_spdf = map(all, ~ SpatialPixelsDataFrame(points = .x[, c("x", "y")], 
+                                             data = as.data.frame(.x[, "defoliation"]), 
+                                             proj4string = CRS("+proj=utm +zone=30 +datum=WGS84 +units=m +no_defs"))) %>% 
+  map(~ set_names(.x, "defoliation"))
+
+
+# create raster objects
+raster_list <- map(all_spdf, ~ raster(.x)) 
+
+# write out names as there are some probs doing it dynamically in walk
+names = map_chr(files, ~ tools::file_path_sans_ext(basename(.x)))
+
+# WHY DOES this work??
+iwalk(raster_list, ~ writeRaster(.x, glue::glue("/data/patrick/mod/hyperspectral/prediction/defol-pred-{.y}.tif"),
+                          overwrite = TRUE)
+)
+```
+
+# Plot demonstration plots
+
+```{r}
+# lattice.options(
+#   layout.heights=list(bottom.padding=list(x=0), top.padding=list(x=0)),
+#   layout.widths=list(left.padding=list(x=0), right.padding=list(x=0))
+# )
+
+raster_list_wgs84 = map(raster_list, ~ projectRaster(.x, crs = "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs"))
+
+name = c("Laukiz 1", "Laukiz 2", "Luiando", "Oiartzun")
+
+maps = imap(raster_list_wgs84[c(15, 16, 18, 19)], ~ levelplot( 
+  .x[["defoliation"]], 
+  main = glue::glue("{tools::toTitleCase(.y)}: Predicted defoliation of trees (in %)"), 
+  margin = FALSE,                             
+  between = list(x = 0.0, y = 0.0), 
+  at = seq(30, 80, length.out = 100),
+  colorkey = list(
+    width = 0.75,                       
+    space = 'right',  
+    labels = list(#at = c(0, 25, 50, 75, 100),
+                font = 4),      
+    axis.line = list(col = 'black')
+  ),
+  par.strip.text = list(col = "white", cex = 1.2),    
+  col.regions = viridis)    
+)
+```
+
+```{r}
+png("../03_figures/results/predictions_demon_plots.png", units = "in", width = 13, height = 9.21, res = 300)
+gridExtra::grid.arrange(grobs = maps, nrow = 2, ncol = 2)
+dev.off()
+
+```
+
+## Histograms
+
+```{r}
+df_all= map(all_spdf[c(15, 16, 18, 19)], ~ as(.x, "data.frame"))
+
+hists_all = imap(df_all, ~ gghistogram(.x, x = "defoliation", 
+                                       title = tools::toTitleCase(.y)))
+
+patchwork::wrap_plots(hists_all)
+```
 

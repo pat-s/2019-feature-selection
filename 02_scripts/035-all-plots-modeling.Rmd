@@ -432,45 +432,49 @@ pdp.obj = Partial$new(predictor, feature = "bf2_EVI")
 pdp.obj$plot()
 ```
 
-## RF
+## xgboost 7 vars only
 
 ```{r}
-# RF
-ps_rf <- makeParamSet(
-  makeIntegerParam("mtry", lower = 1, upper = 3000),
-  makeIntegerParam("min.node.size", lower = 1, upper = 10),
-  makeNumericParam("sample.fraction", lower = 0.2, upper = 0.9)
-)
-ctrl <- makeMBOControl(propose.points = 1L)
-ctrl <- setMBOControlTermination(ctrl, iters = 20L)
-ctrl <- setMBOControlInfill(ctrl, crit = crit.ei)
-ctrl <- setMBOControlMultiPoint(ctrl, method = "cl", cl.lie = min)
-tune.ctrl <- makeTuneControlMBO(
-  mbo.control = ctrl,
-  mbo.design = generateDesign(n = 30, par.set = ps_rf)
-)
-inner <- makeResampleDesc("Blocking")
+data_7 = data %>% 
+  select(defoliation, bf2_EVI, bf2_GDVI_4, bf2_GDVI_3, bf2_GDVI_2, bf2_D1, bf2_mNDVI, bf2_mSR)
 
-tune_wrapper_rf <- makeTuneWrapper(makeLearner("regr.ranger"),
-                                   resampling = inner, par.set = ps_rf,
-                                   control = tune.ctrl, show.info = TRUE,
-                                   measures = list(rmse)
-)
-```
+task_7 = makeRegrTask(id = "all_plots", data = data_7, 
+                    target = "defoliation", coordinates = coords,
+                    blocking = factor(rep(1:4, c(479, 451, 291, 529))))
 
-```{r}
-outer <- makeResampleDesc("Blocking")
-```
-
-```{r}
 library(parallelMap)
-parallelStart(mode = "multicore", cpus = 40, level = "mlrMBO.feval",
-              mc.set.seed = TRUE) # only parallelize the tuning
+parallelStart(mode = "multicore", cpus = 4, level = "mlr.resample",
+              mc.set.seed = TRUE)
 set.seed(12345)
-resa_svm <- mlr::resample(tune_wrapper_rf, task,
+resa_svm <- mlr::resample(tune_wrapper, task_7,
                           resampling = outer, extract = getTuneResult,
                           show.info = TRUE, measures = list(rmse))
-
 parallelStop()
-saveRDS(resa_svm, "/data/patrick/mod/hyperspectral/spcv/all_plots_rf_blocking.rda")
+saveRDS(resa_svm, "/data/patrick/mod/hyperspectral/spcv/all_plots_xgboost_blocking_7vars.rda")
+```
+
+#### Tuning
+
+```{r}
+configureMlr(on.learner.error = "warn", on.error.dump = TRUE)
+library(parallelMap)
+parallelStart(mode = "multicore", level = "mlrMBO.feval", cpus = 48,
+              mc.set.seed = TRUE)
+set.seed(12345)
+xgboost_tuned = tuneParams(lrn_xgboost, task = task_7, resampling = inner,
+                           par.set = ps_xgboost, control = tune.ctrl, 
+                           show.info = TRUE, measure = list(rmse))
+parallelStop()
+saveRDS(xgboost_tuned, "/data/patrick/mod/tmp/tuning_hyperspectral/xgboost_tuned_blocking_7vars.rda")
+```
+
+#### Train
+
+```{r}
+xgboost_tuned = readRDS("/data/patrick/mod/tmp/tuning_hyperspectral/xgboost_tuned_blocking.rda")
+
+lrn_xgboost = setHyperPars(makeLearner("regr.xgboost"), 
+                           par.vals = xgboost_tuned$x)
+m = train(lrn_xgboost, task)
+saveRDS(m, "/data/patrick/mod/hyperspectral/prediction/xgboost_trained_tuned_7vars.rda")
 ```

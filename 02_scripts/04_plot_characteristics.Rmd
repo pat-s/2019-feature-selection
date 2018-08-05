@@ -175,6 +175,7 @@ luiando = readRDS("/data/patrick/mod/hyperspectral/spcv/luiando_xgboost.rda")
 oiartzun = readRDS("/data/patrick/mod/hyperspectral/spcv/oiartzun_xgboost.rda")
 
 all_plots = readRDS("/data/patrick/mod/hyperspectral/spcv/all_plots_xgboost_blocking.rda")
+all_plots_7vars = readRDS("/data/patrick/mod/hyperspectral/spcv/all_plots_xgboost_blocking_7vars.rda")
 
 models <- list(laukiz1, laukiz2, luiando, oiartzun)
 

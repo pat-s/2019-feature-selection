@@ -55,19 +55,19 @@ png(here("03_figures/results/spectral_signatures.png"))
 par(mfrow = c(2,2), mar = c(5,4,2,1))
 
 plot(speclibs[[1]], main = "Laukiz 1", ylim = c(0, 350))
-abline(v = 773.56, new = FALSE, col = "#BC3C29") # 80
+#abline(v = 773.56, new = FALSE, col = "#BC3C29") # 80
 #text("Band 80\n (773 nm)", x = 550, y = 330, col = "darkgreen")
 
 plot(speclibs[[2]], main = "Laukiz 2", ylim = c(0, 350))
-abline(v = 817.17, new = FALSE, col = "#0072B5") # 89
+#abline(v = 817.17, new = FALSE, col = "#0072B5") # 89
 #text("Band 89\n (817 nm)", x = 550, y = 330, col = "darkgreen")
 
 plot(speclibs[[3]], main = "Luiando", ylim = c(0, 350))
-abline(v = 846.28, new = FALSE, col = "#E18727") # 95
+#abline(v = 846.28, new = FALSE, col = "#E18727") # 95
 # text("Band 70\n (725 nm)", x = 450, y = 330, col = "blue")
 
 plot(speclibs[[4]], main = "Oiartzun", ylim = c(0, 350))
-abline(v = 503.26, new = FALSE, col = "#20854E") # 23
+#abline(v = 503.26, new = FALSE, col = "#20854E") # 23
 # text("Band 70\n (725 nm)", x = 450, y = 330, col = "blue")
 dev.off()
 
