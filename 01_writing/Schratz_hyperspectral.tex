@@ -436,8 +436,31 @@ All further places up to rank 30 are NRIs.
 
 \subsection{Spatial prediction}
 
+\begin{figure} [t!]
+	\begin{center}
+		\makebox[\textwidth]{\includegraphics[width = 1\textwidth] {predictions_demon_plots.pdf}}
+		\caption{Spatially predicted defoliation (in \%) from \textit{xgboost} of \textit{Laukiz 1}, \textit{Laukiz 2}, \textit{Luiando} and \textit{Oiartzun}.}
+		\label{fig:pred_demon_plots}
+	\end{center}
+\end{figure}
 
+\begin{figure} [t!]
+	\begin{center}
+		\makebox[\textwidth]{\includegraphics[width = 0.6\textwidth] {predictions_demon_plots_hists.pdf}}
+		\caption{Histograms of predicted defoliation (in \%) from \textit{xgboost} of \textit{Laukiz 1}, \textit{Laukiz 2}, \textit{Luiando} and \textit{Oiartzun}.}
+		\label{fig:pred_demon_plots_hists}
+	\end{center}
+\end{figure}
 
+\noindent The plots with a higher mean defoliation (\textit{Luiando} and \textit{Oiartzun}) showed a good visual separability compared to the healthier plots \textit{Laukiz 1} and \textit{Laukiz 2} (\autoref{fig:pred_demon_plots}).
+All predicted values ranged between 30 \% and 80 \% with \textit{Luiando} showing the smallest variance (\autoref{fig:pred_demon_plots_hists}). 
+
+The high error of the super model for \textit{Laukiz 2} (49.94 RMSE) is also visible in the respective histogram as most predictions range between 40 \% - 50 \% (\autoref{fig:pred_demon_plots_hists}) while in fact most trees of \textit{Laukiz 2} show an actual defoliation of around 20 \% (\autoref{fig:defol_boxplots}).
+
+For the less defoliated plots \textit{Laukiz 1} and \textit{Laukiz 2} a subtle level of separation between trees and bare ground is visible (\autoref{fig:pred_demon_plots}).
+This is not the case for the other two higher defoliated plots for which bare ground and defoliated predictions are mainly in the same value range (around 60 \% - 80 \%).
+
+[ADD FIGURE WITH SENTINEL2 PREDICTION]
 
 \section{Discussion}
 
@@ -475,7 +498,7 @@ This results in a shorter runtime.
 Nevertheless, \textit{xgboost} showed the best performance and was subsequently selected to fit the models on the plot level and for the spatial prediction.
 
 An important point that needs to be considered when interpreting the performance results is that we only related defoliation to indices derived from remote sensing data.
-Possible other cofounding factors that could possibly help in predicting defoliation were not considered.
+Possible other local variables that could help in predicting defoliation were not considered.
 One example here is tree age: The older a tree the more vulnerable it may be to pathogen infections causing defoliation.
 However, such predictors would not be available for a spatial prediction scenario and one of the main goals of this study is to relate defoliation to variables that are available on a larger scale (e.g. remote sensing indices).
 
@@ -499,7 +522,7 @@ Using a model with only a few predictors does not only simplify prediction tasks
 
 \subsection{Variable importance}
 
-There are some downsides using the internal variable importance approach of xgboost: Due to the contribution of three different parts to the overall importance score it is complicated to understand why a specific feature was selected.
+\noindent There are some downsides using the internal variable importance approach of xgboost: Due to the contribution of three different parts to the overall importance score it is complicated to understand why a specific feature was selected.
 Furthermore the importance calculation approach is only valid for this algorithm and cannot be compared to others.
 Nevertheless, as we only relied on the variable importance for this specific algorithm, using the internal xgboost approach was sufficient for this work.
 
@@ -514,6 +537,15 @@ Even though no NRI made it among the most important variables in this study (sta
 Our statement saying that the important indices of this study are the first seven can be seen critical as we only based the selection on a visual inspection of the variable importance results (\autoref{fig:var-imp}).
 The decision to make a cut between rank seven and eight was based on a combination of two facts: 1) Using only vegetation indices is easier for large scale predictions using satellites like Sentinel-2 (most NRI cannot be used with it) and 2) the drop in the importance score of the variable importance results (\autoref{fig:var-imp}).
 However, based on this statement, we could also have made the cut between rank five and 6 but including the two vegetation indices at rank six and seven will eventually improve the model and does not increase runtime.
+
+\subsection{Spatial prediction}
+
+\noindent The spatial predictions showed that the model tries to avoid making extreme predictions since most values ranged between 30 \% and 80 \%. 
+This behavior is mainly triggered by the conentration of the model on the distribution of defoliation in the \textit{Laukiz 1}, \textit{Luiando} and \textit{Oiartzun} training plots.
+This focus then causes the high prediction error for \textit{Laukiz 2} for which a lot of defoliation values actually range between 0 \% and 20 \%.
+The fitted model would need more training samples for plots that show a similar defoliation as \textit{Laukiz 2} to reach a better performance for similar plots.
+
+
 
 \section{Conclusion}
 
