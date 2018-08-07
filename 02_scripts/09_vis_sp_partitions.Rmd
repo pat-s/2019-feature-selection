@@ -19,6 +19,7 @@ library(data.table)
 library(cowplot)
 library(ggrepel)
 library(magrittr)
+library(purrr)
 ```
 
 # Visualize partitions
@@ -62,7 +63,7 @@ plist[["Plots"]] = purrr::map(plist[["Plots"]], ~ .x +
                                           min.segment.length = unit(1, "lines"),
                                           data = subset(.x$data, rownames(.x$data) %in% 
                                                           c(200, 700, 1100, 1400))) +
-                           labs(y = "", x = "") +
+                           labs(y = "", x = "") 
                            #theme(plot.margin = unit(c(0, 0, 0, 0), "cm")) +
                            #hrbrthemes::theme_ipsum_rc(plot_margin = margin(0, 0, 0, 0))
                        )
@@ -80,32 +81,44 @@ save_plot("../03_figures/data/blocking_folds.png",
 
 ## sp sp
 
+Visualize partitions for all four plots and then take only fold 1 of each.
 
 ```{r}
-data = readRDS("/data/patrick/mod/hyperspectral/data_clean_with_indices/data_clean_standardized_bf2.rda")
-coords = readRDS("/data/patrick/mod/hyperspectral/data_clean_with_indices/data_clean_standardized_bf2-coords.rda")
 
-data = data[[4]]
-coords = coords[[4]]
+all = imap(c("laukiz1", "laukiz2", "luiando", "oiartzun"), ~ {
+  data = readRDS("/data/patrick/mod/hyperspectral/data_clean_with_indices/data_clean_standardized_bf2.rda")
+  coords = readRDS("/data/patrick/mod/hyperspectral/data_clean_with_indices/data_clean_standardized_bf2-coords.rda")
+  
+  data = data[[.y]]
+  coords = coords[[.y]]
+  
+  data %<>% 
+    dplyr::select(defoliation)
+  
+  task = makeRegrTask(id = "data", data = data, 
+                      target = "defoliation", coordinates = coords)
+  
+  resamp_sp <- readRDS(glue::glue("/data/patrick/mod/hyperspectral/spcv/{.x}_xgboost.rda"))
+  
+  plist <- createSpatialResamplingPlots(task, list("SpCV" = resamp_sp),
+                                        crs = 32630, repetitions = 1, point.size = 1.5,
+                                        y.axis.breaks = c(43.3541, 43.353, 43.2648, 43.0955), 
+                                        x.axis.breaks = c(-2.93, -2.9293, -2.99577,
+                                                          -1.845),
+                                        axis.text.size = 18)
+})
 
-data %<>% 
-  dplyr::select(defoliation)
+plots = plot_grid(all[[1]][["Plots"]][[1]],
+                  all[[2]][["Plots"]][[1]],
+                  all[[3]][["Plots"]][[1]],
+                  all[[4]][["Plots"]][[1]],
+                  labels = c("Fold 1 (Laukiz 1)", "Fold 1 (Laukiz 2)",
+                             "Fold 3 (Luiando)", "Fold 4 (Oiartzun)"),
+                  nrow = 1, ncol = 4)
 
-task = makeRegrTask(id = "oiartzun", data = data, 
-                    target = "defoliation", coordinates = coords)
-
-resamp_sp <- readRDS("/data/patrick/mod/hyperspectral/spcv/luiando_xgboost.rda")
-
-plist <- createSpatialResamplingPlots(task, list("SpCV" = resamp_sp),
-                                      crs = 32630, repetitions = 1, point.size = 1.5,
-                                      #y.axis.breaks = c(42.8, 43.2), 
-                                      #x.axis.breaks = c(-2, -3),
-                                      axis.text.size = 18)
-
-plot_grid(plot)
+save_plot(plots, filename = "../03_figures/data/spcv_folds_demon_plots.png",
+          ncol = 4, nrow = 1)
 ```
-
-
 
 # for presentation
 
@@ -135,7 +148,7 @@ Uses "GNU parallel" library for parallel jobs and the `convert` function from th
 ```{r png to pdf, echo = FALSE, eval = FALSE}
 library(furrr)
 library(magick)
-imgs = list.files("/home/patrick/PhD/papers/01_model_comparison/04_figures/01_data", 
+imgs = list.files("/home/patrick/PhD/papers/03_hyperspectral/03_figures/data", 
                   pattern = ".png", full.names = TRUE)
 
 plan(multiprocess, workers = length(imgs))
