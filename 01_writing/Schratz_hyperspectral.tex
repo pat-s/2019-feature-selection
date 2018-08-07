@@ -265,10 +265,17 @@ Also, simpler models are always preferred over complex ones (REFERENCE).
 \noindent The algorithms were benchmarked in two ways:
 1) Using spatial block \ac{CV} on the plot level with each plot serving as the test set once.
 This approach results in four performance estimates, one for each fold.
-2) Using five-fold five-times repeated spatial \ac{CV} for each plot based on the k-means clustering approach of \cite{sperrorest}.
+2) Using five-fold five-times repeated spatial \ac{CV} for each plot based on the k-means clustering approach of \cite{sperrorest} (\autoref{fig:spcv}).
 As the best algorithm of 1) will be used for the spatial prediction, we first conducted the model selection on this setup and only applied the winning algorithm on 2).
 
-% Add figure visualizing both spCV approaches
+% defoliation boxplots
+\begin{figure} [b!]
+	\begin{center}
+		\makebox[\textwidth]{\includegraphics[width=1\textwidth] {spcv_folds_demon_plots.pdf}}
+		\caption{Fold 1 of the spatial partitioning using k-means clustering for \textit{Laukiz 1}, \textit{Laukiz 2}, \textit{Luiando} and \textit{Oiartzun}.}
+		\label{fig:spcv}
+	\end{center}
+\end{figure}
 
 \subsubsection{Hyperparameter tuning}
 
@@ -330,7 +337,7 @@ Both plots show lower mean reflectance values around the wavelength range 800 nm
 \begin{tabular}{llll}
 	RR            & SVM           & xgboost       & xgboost (7 variables) \\
 	\hline
-	59.10 (22.71) & 36.23 (15.73) & 33.26 (16.61) &                       \\
+	59.10 (22.71) & 36.23 (15.73) & 33.26 (16.61) & 29.59   (16.09)              \\
 	\bottomrule
 \end{tabular}
 \endgroup
@@ -453,14 +460,14 @@ All further places up to rank 30 are NRIs.
 \end{figure}
 
 \noindent The plots with a higher mean defoliation (\textit{Luiando} and \textit{Oiartzun}) showed a good visual separability compared to the healthier plots \textit{Laukiz 1} and \textit{Laukiz 2} (\autoref{fig:pred_demon_plots}).
-All predicted values ranged between 30 \% and 80 \% with \textit{Luiando} showing the smallest variance (\autoref{fig:pred_demon_plots_hists}). 
+All predicted values ranged between 30 \% and 80 \% with \textit{Luiando} showing the smallest variance (\autoref{fig:pred_demon_plots_hists}).
 
 The high error of the super model for \textit{Laukiz 2} (49.94 RMSE) is also visible in the respective histogram as most predictions range between 40 \% - 50 \% (\autoref{fig:pred_demon_plots_hists}) while in fact most trees of \textit{Laukiz 2} show an actual defoliation of around 20 \% (\autoref{fig:defol_boxplots}).
 
 For the less defoliated plots \textit{Laukiz 1} and \textit{Laukiz 2} a subtle level of separation between trees and bare ground is visible (\autoref{fig:pred_demon_plots}).
 This is not the case for the other two higher defoliated plots for which bare ground and defoliated predictions are mainly in the same value range (around 60 \% - 80 \%).
 
-[ADD FIGURE WITH SENTINEL2 PREDICTION]
+	[ADD FIGURE WITH SENTINEL2 PREDICTION]
 
 \section{Discussion}
 
@@ -540,14 +547,24 @@ However, based on this statement, we could also have made the cut between rank f
 
 \subsection{Spatial prediction}
 
-\noindent The spatial predictions showed that the model tries to avoid making extreme predictions since most values ranged between 30 \% and 80 \%. 
-This behavior is mainly triggered by the conentration of the model on the distribution of defoliation in the \textit{Laukiz 1}, \textit{Luiando} and \textit{Oiartzun} training plots.
+\noindent The spatial predictions showed that the model tries to avoid making extreme predictions since most values ranged between 30 \% and 80 \%.
+This behavior is mainly triggered by the concentration of the model on the distribution of defoliation in the \textit{Laukiz 1}, \textit{Luiando} and \textit{Oiartzun} training plots.
 This focus then causes the high prediction error for \textit{Laukiz 2} for which a lot of defoliation values actually range between 0 \% and 20 \%.
 The fitted model would need more training samples for plots that show a similar defoliation as \textit{Laukiz 2} to reach a better performance for similar plots.
 
-
-
 \section{Conclusion}
+
+\noindent In this work we used various indices derived from hyperspectral remote sensing data to estimate defoliation in northern Spain.
+In the algorithm comparison \textit{xgboost} showed the best performance among the tested ones.
+Even though \ac{RR} is able to handle highly correlated data, it was far from achieving an acceptable performance in this work.
+
+The fitted models on the plot level showed a promising performance with RMSE values between 8 and 20.
+The performance of the model containing all data was acceptable (RMSE 29.59) but can be improved by adding more observations from other plots in future studies.
+
+The spatial prediction showed a satisfying result making it possible to distinguish highly defoliated plots from plots with low defoliation easily.
+The most important indices for the fitted model were widely known vegetations indices such as EVI, GDVI or NDVI.
+It would be interesting to link the indices of this work to other indicators of forest/vegetation health in future studies and analyze their importance and the model performances.
+In summary, defoliation can be successfully used as a response variable to model forest health using remote sensing indices.
 
 \section{Appendix}
 
