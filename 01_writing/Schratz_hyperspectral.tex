@@ -16,6 +16,8 @@
 \usepackage{subcaption}
 \usepackage{amsmath}
 
+\usepackage{enumerate}
+
 % prevents that appendices are moved behind references
 \usepackage{placeins}
 
@@ -66,7 +68,7 @@
 
 \begin{frontmatter}
 
-	\title{Modeling defoliation as a proxy for tree health: A case study on Pinus Radiata trees using machine-learning and hyperspectral data}
+	\title{Modeling defoliation as a proxy for tree health: A case study using machine-learning and hyperspectral remote sensing data}
 
 	%% Group authors per affiliation:
 	\author[FSU]{Patrick Schratz}
@@ -112,9 +114,10 @@
 	\acro{GLM}{Generalized Linear Model}
 	\acro{ICGC}{Institut Cartografic i Geologic de Catalunya}
 	\acro{IQR}{Interquartile Range}
-	\acro{WKNN}{Weighted $k$-nearest neighbor}
 	\acro{MARS}{Multivariate Adaptive Regression Splines}
 	\acro{MEM}{Maximum Entropy Model}
+	\acro{NDII}{Normalized Difference Infrared Index}
+	\acro{NIR}{Near-Infrared}
 	\acro{NRI}{Normalized Ratio Indices}
 	\acro{OLS}{Ordinary Least Squares}
 	\acro{LOWESS}{Locally Weighted Scatter Plot Smoothing}
@@ -222,16 +225,17 @@ Additional metadata information is available in Table 1:
 
 \section{Methods}
 
-For all analysis steps we used the open-source statistical programming language R \citep{R_core}.
+\noindent For all analysis steps we used the open-source statistical programming language R \citep{R_core}.
 The algorithm implementations of the following packages have been used: \textit{xgboost} \citep{chenXGBoostScalableTree2016} (\textit{xgboost}), \textit{kernlab} \citep{kernlab} (Support Vector Machine) and \textit{glmnet} \citep{glmnet} (Ridge Regression).
 We used the R package \textit{mlr} for all modeling related steps.
 It provides a standardized interface for a wide variety of statistical and machine-learning models in R simplifying essential modeling tasks such as hyperparameter tuning, model performance evaluation and parallelization \citep{bischlMlrMachineLearning2016}.
+We provide the complete code and required data as a Mendeley dataset to make this work fully reproducible \citep{}.
 
 \subsection{Derivation of indices}
 
-To use the full information from the hyperspectral data, we not only calculated all possible vegetation indices that are available in the \textit{hsdar} package (90 in total) but also all possible combinations of \ac{NRI}.
-We were interested if NRIs of arbitrary band combinations will have a substantial positive effect on the predictive power of the fitted model.
-The NRI were calculated using the following formula:
+\noindent To use the full information from the hyperspectral data, we calculated all possible vegetation indices that are available in the \textit{hsdar} package (90 in total) and all possible \ac{NRI} combinations.
+We were interested if NRIs of arbitrary band combinations will have a substantial effect on the predictive power of the fitted model.
+The NRIs were calculated using the following formula:
 
 \begin{equation}
 	NRI_{i,j} = \frac{b_{i} - b_{j}}{b_{i} + b_{j}}
@@ -242,34 +246,37 @@ where $i$ and $j$ are the respective band numbers.
 
 \bigbreak
 
-To account for geometric offsets (which were reported with up to 1 m), we used a buffer of two meters around the centroid of the respective tree.
-The mean value of all pixels touched by the buffer was assigned as the final value for each index.
-Missing values were removed from the mean value calculation.
-In total, 7875 Normalized Ratio Indices NRI were calculated ($\frac{125*126}{2}$).
-Due to four corrupted bands and other numerical problems, some indices returned \texttt{NA} for specific observations.
-These indices were removed from the dataset, leaving a total of 7471 variables without missing values.
+\noindent To account for geometric offsets (which were reported with up to 1 m from \ac{ICGC}), we used a buffer of two meters around the centroid of the respective tree.
+The mean value of all pixels touched by the buffer was assigned as the final value of each index.
+In total, $\frac{125*126}{2} = 7875$ NRIs were calculated .
+Due to four corrupted bands and numerical problems for some band combinations, some indices returned \texttt{NA} for specific observations.
+We removed all indices from the dataset that showed one or more \texttt{NA} values (across all plots) since we valued a single observation more than having an additional NRI as a predictor variable.
+In total, 7471 indices had no \texttt{NA} values and were subsequently used as predictors.
 
 \subsection{Benchmarking of algorithms}
 
-Three algorithms (\textit{xgboost}, \textit{\ac{SVM}}, \textit{\ac{RR}}) were benchmarked on predictive performance.
-Besides the well-known \ac{SVM} algorithm \citep{Vapnik1998} we also used \textit{xgboost} which is ensemble method relying on the idea of tree boosting that gained a lot of attention in recent years \citep{chenXGBoostScalableTree2016}.
-We also added penalized L2 (Ridge) regression to the portfolio due to its ability to handle highly correlated covariates (REFERENCE).
-The probably most popular machine-learning algorithm, Random Forest \citep{Breiman2001}, was not considered for this study: Due to the high number of variables, model fitting times in the range hours for a single model fit were not practicable for this work.
+\noindent Three algorithms (\textit{xgboost}, \textit{\ac{SVM}}, \textit{\ac{RR}}) were benchmarked on their predictive performance.
+Besides the well-known \ac{SVM} algorithm \citep{Vapnik1998}, we also used \textit{xgboost} which is ensemble method relying on the idea of tree boosting that gained a lot of attention in recent years \citep{chenXGBoostScalableTree2016}.
+We also added penalized L2 (Ridge) regression to the portfolio due to its ability to handle highly correlated covariates \citep{hoerlRidgeRegressionBiased1970}.
+One of the most popular machine-learning algorithm, Random Forest \citep{Breiman2001}, was not considered for this study: Due to the high number of variables, model fitting times in the range hours for a single model fit were not practicable for this work.
 These high fitting times are caused by hyperparameter \texttt{mtry} which scales with the number of variables \citep{Probst2018b}.
 After the selection of the best model, we checked if the winning algorithm can achieve a similar performance when using only the most important variables compared to using all variables.
-This would simplify the spatial prediction a lot as less indices need to be computed from the data used for prediction.
-Also, simpler models are always preferred over complex ones (REFERENCE).
+A successful feature selection simplifies the spatial prediction task because the prediction dataset needs to consist of less variables.
+Furthermore, model complexity and fitting times are reduced.
 
 \subsubsection{Performance estimation}
 
 \noindent The algorithms were benchmarked in two ways:
-1) Using spatial block \ac{CV} on the plot level with each plot serving as the test set once.
-This approach results in four performance estimates, one for each fold.
-2) Using five-fold five-times repeated spatial \ac{CV} for each plot based on the k-means clustering approach of \cite{sperrorest} (\autoref{fig:spcv}).
-As the best algorithm of 1) will be used for the spatial prediction, we first conducted the model selection on this setup and only applied the winning algorithm on 2).
 
-% defoliation boxplots
-\begin{figure} [b!]
+\begin{enumerate}
+	\item Using spatial block \ac{CV} on the plot level with each plot serving as the test set once.
+	      Subsequently, four performance estimates were retrieved, one for each fold.
+	\item Using five-fold five-time repeated spatial \ac{CV} within each plot based on the k-means clustering approach of \cite{sperrorest} (\autoref{fig:spcv}).
+\end{enumerate}
+
+\noindent As we used the best algorithm of 1) for the spatial prediction, we first conducted the model selection on this setup and only applied the winning algorithm on 2).
+
+\begin{figure} [t!]
 	\begin{center}
 		\makebox[\textwidth]{\includegraphics[width=1\textwidth] {spcv_folds_demon_plots.pdf}}
 		\caption{Fold 1 of the spatial partitioning using k-means clustering for \textit{Laukiz 1}, \textit{Laukiz 2}, \textit{Luiando} and \textit{Oiartzun}.}
@@ -281,10 +288,12 @@ As the best algorithm of 1) will be used for the spatial prediction, we first co
 
 \noindent To tune the hyperparameters of the algorithms, we used \ac{SMBO} via the R package \textit{mlrMBO} \citep{mlrMBO}.
 This Bayesian approach first composes \textit{n} randomly chosen hyperparameter settings out of a user defined search space.
-After these \textit{n} tries have been evaluated, a new hyperparameter setting which is going to be evaluated next is proposed based on a surrogate model.
+After these \textit{n} tries have been evaluated, a new hyperparameter setting, which is going to be evaluated next, is proposed based on a fitted regression model.
+The regression model estimates the performance of the machine-learning method for unknown hyperparameter settings.
+Using these estimates, a new promising hyperparameter setting is proposed to be evaluated next.
 This strategy continues until a termination criterion, defined by the user, is reached \citep{Hutter2011, Jones1998}.
 In this work we used an initial design of 30 randomly composed hyperparameter settings and a termination criterion of 20 iterations, resulting in a total budget of 50 evaluated hyperparameter settings per fold.
-The advantage of this tuning approach is that it substantially reduces the tuning budget which is needed to find a setting close to the global minimum compared to methods that do not use information from previous runs such as \textit{random search} or \textit{grid search} \citep{Bergstra2012}.
+The advantage of this tuning approach is that it substantially reduces the tuning budget which is needed to find a setting close to the global minimum compared to methods that do not use information from previous runs, such as random search or grid search \citep{Bergstra2012}.
 
 \subsection{Variable importance}
 
@@ -321,32 +330,33 @@ All measures sum up to one \citep{chenXGBoostScalableTree2016}.
 \noindent \textit{Oiartzun} shows the highest defoliation ($\bar{x} = 69.22 \%$) among the plots while \textit{Laukiz 2} is the healthiest ($\bar{x} = 13.54 \%$) (\autoref{fig:defol_boxplots}).
 All plots besides \textit{Luiando} show an evenly distributed level of defoliation across the entire plot.
 
-\noindent The high overall degree of defoliation of \textit{Luiando} and \textit{Oiartzun} is also visible in the spectral signatures of the plots (\autoref{fig:spectral_signatures}).
-Both plots show lower mean reflectance values around the wavelength range 800 nm - 1000 nm compared to Laukiz 1 and Laukiz 2.
+\noindent The high degree of defoliation for \textit{Luiando} and \textit{Oiartzun} is also visible in the spectral signatures of the plots (\autoref{fig:spectral_signatures}).
+Both plots show lower mean reflectance values around the wavelength range 800 nm - 1000 nm compared to \textit{Laukiz 1} and \textit{Laukiz 2}.
 \textit{Oiartzun} is almost completely missing the reflectance drop at around 815 nm that is visible for all other plots but instead shows a higher magnitude for the reflectance increase at around 920 nm.
-\textit{Laukiz 2} shows a mean tree density of 61.59 m (\autoref{fig:plot-characteristics}) while all other plots are more dense (34.64 m (Laukiz 1), 33.01 m (Luiando), 34.96 m (Oiartzun)) (\autoref{fig:plot-characteristics}).
+
+\textit{Laukiz 2} shows a mean tree density of 61.59 m (\autoref{fig:plot-characteristics}) while all other plots have a higher density (34.64 m (Laukiz 1), 33.01 m (Luiando), 34.96 m (Oiartzun)) (\autoref{fig:plot-characteristics}).
 
 \subsection{Predictive performance}
 
 % Performance estimates
 \begin{table}[t!]
 \centering
-\caption[t]{Four-fold block spatial \ac{CV} performances of RR, SVM and xgboost using \ac{RMSE} as the error measure.
+\caption[t]{Spatial block \ac{CV} performances of \textit{RR}, \textit{SVM} and \textit{xgboost} using \ac{RMSE} as the error measure.
 	Mean and standard deviation are shown.}
 \begingroup\footnotesize
 \begin{tabular}{llll}
 	RR            & SVM           & xgboost       & xgboost (7 variables) \\
 	\hline
-	59.10 (22.71) & 36.23 (15.73) & 33.26 (16.61) & 29.59   (16.09)              \\
+	59.10 (22.71) & 36.23 (15.73) & 33.26 (16.61) & 29.59   (16.09)       \\
 	\bottomrule
 \end{tabular}
 \endgroup
 \label{tab:model_comparison}
 \end{table}
 
-\begin{table}[t!]
+\begin{table}[b!]
 \centering
-\caption[t]{Predictive performance of \textit{xgboost} using all observations and all variables (All Observations/all variables), all observations and the seven most important variables only (All Observations/7 variables) and observations from specific plots only (Plot level observation/all variables) with \ac{RMSE} as the error measure. The performance estimates for "All Observations" correspond to the fold for which the respective plot was serving as the test set. Column "Plot level observation", shows the mean RMSE estimates at the repetition level of a five-fold five-times repeated spatial CV, scored by using data of the respective plot only.}
+\caption[t]{Predictive performance of \textit{xgboost} using all observations and all variables (All Observations/all variables), all observations and the seven most important variables only (All Observations/7 variables) and observations from specific plots only (Plot level observation/all variables) with \ac{RMSE} as the error measure. The performance estimates for "All Observations" correspond to the fold for which the respective plot was serving as the test set (block CV). Column "Plot level observations", shows the mean RMSE estimates at the repetition level of a five-fold five-time repeated spatial CV, scored by using data of the respective plot only.}
 \begingroup\footnotesize
 \begin{tabular}{llll}
 	\\
@@ -369,8 +379,8 @@ While the \textit{SVM} performance was only slightly worse (36.23 RMSE), \textit
 
 \subsubsection{Single models vs. super model}
 
-\noindent When comparing the mean predictive performance of models fitted at the plot level against the performance of the model that was fitted using all data (super model), the plot-level models showed a better performance in all cases (\autoref{tab:supermodel_performance}).
-The highest difference between both model types occurred for plot \textit{Laukiz2} with a difference of 34.51 RMSE.
+\noindent Comparing the mean predictive performance of models fitted at the plot level against the performance of the model that was fitted using all data (super model), the plot-level models showed a better performance in all cases (\autoref{tab:supermodel_performance}).
+The highest difference between both datasets occurred for plot \textit{Laukiz 2} with a difference of 34.51 RMSE.
 
 Using only the seven most important variables (\autoref{fig:var-imp}) for the super model showed small increases in performance for \textit{Laukiz 1} and \textit{Laukiz 2}, a small decrease for \textit{Luiando} and almost a reduction of 50\% of the error for \textit{Oiartzun} (32.97 vs. 17.62 RMSE) (\autoref{tab:supermodel_performance}).
 
@@ -407,7 +417,7 @@ This is because it was computed four times, with \texttt{n} ranging from 1 - 4 \
 
 \bigbreak
 
-\noindent The seven most important features (\textit{EVI}, \textit{GDVI4}, \textit{D1}, \textit{GDVI3}, \textit{GDVI2}, \textit{mNDVI} and \textit{mSR}) show a substantial difference in the importance score compared to all following variables (\autoref{fig:var-imp}).
+\noindent The seven most important features (\textit{EVI}, \textit{GDVI\_4}, \textit{D1}, \textit{GDVI\_3}, \textit{GDVI\_2}, \textit{mNDVI} and \textit{mSR}) showed a substantial difference in the importance score compared to all following variables (\autoref{fig:var-imp}).
 
 \begin{figure} [b!]
 	\begin{center}
@@ -439,7 +449,7 @@ This is because it was computed four times, with \texttt{n} ranging from 1 - 4 \
 \end{table}
 
 \noindent The best NRI scored rank eight (band 112 and band 62).
-All further places up to rank 30 are NRIs.
+All further places up to rank 30 were occupied by NRIs.
 
 \subsection{Spatial prediction}
 
@@ -460,9 +470,9 @@ All further places up to rank 30 are NRIs.
 \end{figure}
 
 \noindent The plots with a higher mean defoliation (\textit{Luiando} and \textit{Oiartzun}) showed a good visual separability compared to the healthier plots \textit{Laukiz 1} and \textit{Laukiz 2} (\autoref{fig:pred_demon_plots}).
-All predicted values ranged between 30 \% and 80 \% with \textit{Luiando} showing the smallest variance (\autoref{fig:pred_demon_plots_hists}).
+All predicted values ranged between 30 \% and 80 \% defoliation with \textit{Luiando} showing the smallest variance (\autoref{fig:pred_demon_plots_hists}).
 
-The high error of the super model for \textit{Laukiz 2} (49.94 RMSE) is also visible in the respective histogram as most predictions range between 40 \% - 50 \% (\autoref{fig:pred_demon_plots_hists}) while in fact most trees of \textit{Laukiz 2} show an actual defoliation of around 20 \% (\autoref{fig:defol_boxplots}).
+The high error of the super model for \textit{Laukiz 2} (49.94 RMSE) is also visible in the respective histogram as most predictions range between a defoliation of 40 \% - 50 \% (\autoref{fig:pred_demon_plots_hists}) while in fact most trees of \textit{Laukiz 2} show an actual defoliation of around 20 \% (\autoref{fig:defol_boxplots}).
 
 For the less defoliated plots \textit{Laukiz 1} and \textit{Laukiz 2} a subtle level of separation between trees and bare ground is visible (\autoref{fig:pred_demon_plots}).
 This is not the case for the other two higher defoliated plots for which bare ground and defoliated predictions are mainly in the same value range (around 60 \% - 80 \%).
@@ -474,15 +484,15 @@ This is not the case for the other two higher defoliated plots for which bare gr
 \subsection{Derivation of indices}
 
 \noindent The buffer of 2 m that we used to generate the index value for each observation can be seen critical.
-When using no buffer at all, the possibility is high that a pixel value gets assigned to the tree observation that does not spatially match.
+When using no buffer at all, the possibility is high that a pixel value gets assigned to the tree observation that does not spatially match (due to the geometric offset of 1 m in the hyperspectral data).
 Using a buffer of more than 2 meters would increase the probability of merging information from other trees into the pixel value, blurring the actual value of the tree observation.
 Thats why in our view using a buffer of 2 m was the best compromise here.
 
-The exact number of contributing pixels to the final index value of an observation cannot be determined as it depends on the location of the tree within the pixel grid.
-As the buffer is a circle, it depends on the exact location of a tree observation within a pixel how much surrounding pixels are touched by the circle that will then be used to calculate the final pixel value.
+another critical point is that the exact number of contributing pixels to the final index value of an observation cannot be determined as it depends on the location of the tree within the pixel grid.
+As the buffer is a circle, it depends on the exact location of a tree observation within a pixel how much surrounding pixels are touched by the buffer.
 If a tree observation is located at the border of the plot, some directions of the buffer will contain no values and the subsequent index value will be calculated using less pixels than if the tree observation is located in the middle of the plot.
 
-Using a buffer in the first place and the fact that it is unclear how much information from other trees went into the calculation of an index value of a certain observation introduced a bias of an unknown magnitude into the data.
+All these points introduced a bias of an unknown magnitude into the data.
 This has to be considered when making interpretations about the outcome of this study.
 
 \subsection{RMSE vs. plot characteristics}
@@ -511,60 +521,92 @@ However, such predictors would not be available for a spatial prediction scenari
 
 \subsubsection{Single models vs. super model}
 
-It is expected that models that were trained on the plot level only achieve a better performance than the global model.
-The low performance on Laukiz 2 for the super model is most likely due to the difference of this plot to all others: The fitted model on Laukiz 1, Luiando and Oiartzun is not capable of reaching a good performance on the Laukiz 2 prediction data.
-This is not surprising as Laukiz 2 shows substantially different plot characteristics compared to all others plots in terms of the distribution of the response variable \textit{defoliation} (\autoref{fig:defol_boxplots}) and the mean point density of trees (\autoref{fig:plot-characteristics}).
+\noindent It is expected that models that were trained using observations from the respective plot only only achieve a better performance than the super model which was trained on observations from multiple plots (\autoref{tab:supermodel_performance}).
+The low performance on \textit{Laukiz 2} for the super model is most likely due to the difference of this plot to all others: The fitted model on \textit{Laukiz 1}, \textit{Luiando} and \textit{Oiartzun} is not capable of reaching a good performance when \textit{Laukiz 2} is the evaluation dataset.
+This is not surprising as \textit{Laukiz 2} shows substantially different plot characteristics compared to all others plots in terms of the distribution of the response variable \textit{defoliation} (\autoref{fig:defol_boxplots}) and the mean point density of trees (\autoref{fig:plot-characteristics}).
 
-The low error for Luiando (8.30 RMSE) for the plot model validates the approach of relating defoliation to vegetation indices and NRI.
-The overall error of the super model (33.26 RSME) is expected to decrease if more plots are available for training.
-To reach an optimal performance, the fitted model would need to include at least one instance of every plot that shows unique characteristics (i.e. here Laukiz 2 is substantially different to the others).
-Possibly more plots showing unique characteristics exists that are not integrated into the fitted model of this work.
+The low error for Luiando (8.30 RMSE) for the plot model validates the approach of relating defoliation to vegetation indices and NRIs.
+The overall error of the super model (33.26 RSME) is expected to decrease if more plots would be available for training.
+However, even if the fitted model would include at least one instance of every plot showing unique characteristics (e.g. here \textit{Laukiz 2} is substantially different to the others), the overall error would not become smaller than the error achieved when using data from the respective plot only.
 
-An interesting find is that the supermodel with only seven variables shows a better overall performance than the model with all 7471 variables (\autoref{tab:supermodel_performance}).
-This leads to the conclusion that adding as many variables as possible to a model will not necessarily improve its performance.
-In contrast, too much information can even be problematic for the model as it will have a hard time prioritizing variables.
+An interesting find is that the model with only seven variables shows a better overall performance than the model with all 7471 variables (\autoref{tab:supermodel_performance}).
+This leads to the conclusion that adding as many variables as possible to a model will not necessarily improve its performance but instead add noise to the model.
+Too much information can be problematic for a model as it will have a hard time distinguishing between noise and important information in the variables \citep{liFeatureSelectionData2017, guyonIntroductionVariableFeature2003}.
 However, to find the most important variables in the first place and to check for the performance difference, a model with all variables needs to fitted first.
-This scenario cannot be generalized and different results may occur for other datasets.
-Using a model with only a few predictors does not only simplify prediction tasks but also reduces runtime for hyperparameter tuning and performance estimation.
+Using a model with only a few predictors does not only simplify prediction tasks but also reduces runtime for hyperparameter tuning and performance estimation \citep{liuComputationalMethodsFeature2007}.
 
 \subsection{Variable importance}
 
-\noindent There are some downsides using the internal variable importance approach of xgboost: Due to the contribution of three different parts to the overall importance score it is complicated to understand why a specific feature was selected.
+\noindent There are some downsides using the internal variable importance approach of \textit{xgboost}: Due to the contribution of three different parts to the overall importance score it is complicated to understand why a specific feature was selected.
 Furthermore the importance calculation approach is only valid for this algorithm and cannot be compared to others.
-Nevertheless, as we only relied on the variable importance for this specific algorithm, using the internal xgboost approach was sufficient for this work.
+Nevertheless, as we only relied on the variable importance for this specific algorithm, using the internal \textit{xgboost} approach was sufficient for this work.
 
-It is not surprising that vegetation indices are most important for the model as they are most sensitive to changes in vegetation health.
-Even though we are not directly looking at vegetation health but using the level of defoliation as a proxy, these indices seem to help the model most deciding whether a tree is defoliated or not.
-Vegetation indices can help here in two ways:
-1) Trees that show a high level of defoliation do also reflect their bad health status through the remaining foliation.
-2) Defoliated trees have more influence of bare ground information in their pixel values and will therefore be classified as defoliated by the model.
+It is expected that vegetation indices are most important for the model as these are most sensitive to changes in vegetation health \citep{croftApplicabilityEmpiricalVegetation2014}.
+Even though we are not directly looking at vegetation health but using the level of defoliation as a proxy for tree health, vegetation indices were most important for the fitted model of this study (\autoref{fig:var-imp}).
 
-Even though no NRI made it among the most important variables in this study (stating that the first seven of this study are the most important ones), it is interesting that all ranks from 8 - 30 are occupied by NRI (\autoref{fig:var-imp}).
+\noindent Vegetation indices can help assessing defoliation in two ways:
 
-Our statement saying that the important indices of this study are the first seven can be seen critical as we only based the selection on a visual inspection of the variable importance results (\autoref{fig:var-imp}).
-The decision to make a cut between rank seven and eight was based on a combination of two facts: 1) Using only vegetation indices is easier for large scale predictions using satellites like Sentinel-2 (most NRI cannot be used with it) and 2) the drop in the importance score of the variable importance results (\autoref{fig:var-imp}).
-However, based on this statement, we could also have made the cut between rank five and 6 but including the two vegetation indices at rank six and seven will eventually improve the model and does not increase runtime.
+\begin{itemize}
+	\item Trees that show a high level of defoliation do also reflect their bad health status through the remaining foliation.
+	\item Defoliated trees have more influence of bare ground information in their pixel values and will therefore be classified as defoliated by the model.
+\end{itemize}
+
+\noindent Even though no NRI made it among the most important variables in this study (\autoref{fig:var-imp}) (stating that the first seven of this study are the most important ones), it is notable that all ranks from 8 - 30 are occupied by NRI (\autoref{fig:var-imp}).
+However, their relative importance was very small compared to the first seven ranks.
+
+Restricting the important indices of this study to the first seven ranks can be seen critical as we only based the selection on a visual inspection of the variable importance results (\autoref{fig:var-imp}).
+The decision to make a cut between rank seven and eight was based on a combination of two facts:
+
+\begin{itemize}
+	\item Using only vegetation indices is easier for large scale predictions using satellites like Sentinel-2 (most NRIs cannot be used with it because the spectral bands do not exist).
+	\item The drop in the importance score of the variable importance results (\autoref{fig:var-imp}).
+\end{itemize}
+
+\noindent However, based on these two points, we could also have made the cut between rank five and 6 but including the two vegetation indices at rank six and seven will eventually improve the model and does not increase runtime.
 
 \subsection{Spatial prediction}
 
-\noindent The spatial predictions showed that the model tries to avoid making extreme predictions since most values ranged between 30 \% and 80 \%.
-This behavior is mainly triggered by the concentration of the model on the distribution of defoliation in the \textit{Laukiz 1}, \textit{Luiando} and \textit{Oiartzun} training plots.
-This focus then causes the high prediction error for \textit{Laukiz 2} for which a lot of defoliation values actually range between 0 \% and 20 \%.
-The fitted model would need more training samples for plots that show a similar defoliation as \textit{Laukiz 2} to reach a better performance for similar plots.
+\noindent The spatial predictions showed that the model tries to avoid making extreme predictions since most values ranged between a defoliation of 30 \% and 80 \%.
+This behavior is mainly triggered by overfitting on the observations of the \textit{Laukiz 1}, \textit{Luiando} and \textit{Oiartzun} training plots.
+The overfit then causes a high prediction error for \textit{Laukiz 2} for which a lot of defoliation values actually range between 0 \% and 20 \%.
+The fitted model would need more training samples of plots with an unusual defoliation distribution to become more robust and achieve a better overall performance.
+
+\subsection{Comparison to other studies}
+
+\noindent Other studies analyzing defoliation found that reflectance differences between defoliated and 30 \% defoliated trees of up to 10\% exist in the \ac{NIR} region \citep{rengarajanModelingForestDefoliation2016}.
+This corresponds with the finding of this study that the most important variables are located in the NIR region.
+
+\cite{goodbodyDigitalAerialPhotogrammetry2018} used NDVI and structural measures in as inputs for a partial least squares analysis to model defoliation caused by the spruce budworm.
+Results showed that metrics from spectral features were most important.
+Incorporating spectral metrics could be a possible enhancement for future studies.
+
+\cite{townsendGeneralLandsatModel2012} used Landsat data to model defoliation caused by insect herbivores.
+They found that the \ac{NDII} ($\frac{Band 4 - Band 5}{Band 4 + Band 5}$) and the moisture stress index ($\frac{Band 5}{Band 4}$) gave better results than using NDVI.
+Overall, they used 10 vegetation indices derived from Landsat data.
+
+MODIS data was used by \cite{debeursEstimatingEffectGypsy2008} to model defoliation caused by the gypsy moth using vegetation indices such as NDVI, EVI, NDWI and NDII.
+
+All of these examples validate the approach of using vegetation indices to model defoliation.
+Even though the spatial resolution of the data in these studies varied between hundreds of meters (MODIS) \cite{debeursEstimatingEffectGypsy2008} and centimeters \cite{goodbodyDigitalAerialPhotogrammetry2018}, high resolution data is preferred to fit accurate models.
+Also, the importance of certain indices (e.g. NDVI, EVI) will vary based on the data and resolution.
+The finding of this work that the vegetation indices GDVI and EVI are most important for the fitted model could not be verified by other studies.
+However, the presented ones did often only use a small subset of the vegetation indices that were used in this study.
+
+We could not find a study that used recent machine-learning techniques in combination with a high amount of variables to model defoliation.
+This fact highlights the importance of this work and will hopefully encourage scientists to use machine-learning techniques, feature selection methods and a wider selection of vegetation indices when assessing defoliation in the future.
 
 \section{Conclusion}
 
-\noindent In this work we used various indices derived from hyperspectral remote sensing data to estimate defoliation in northern Spain.
+\noindent In this work we used various indices derived from hyperspectral remote sensing data to estimate defoliationas a proxy for tree health in northern Spain.
 In the algorithm comparison \textit{xgboost} showed the best performance among the tested ones.
 Even though \ac{RR} is able to handle highly correlated data, it was far from achieving an acceptable performance in this work.
 
-The fitted models on the plot level showed a promising performance with RMSE values between 8 and 20.
-The performance of the model containing all data was acceptable (RMSE 29.59) but can be improved by adding more observations from other plots in future studies.
+The fitted models on the plot level showed a promising performance with RMSE values between 8 and 20 which validated the approach of relating defoliation to remote sensing indices.
+The performance of the model containing all data (four plots) was acceptable (RMSE 29.59) but can be improved by adding more observations from other plots in future studies.
 
 The spatial prediction showed a satisfying result making it possible to distinguish highly defoliated plots from plots with low defoliation easily.
 The most important indices for the fitted model were widely known vegetations indices such as EVI, GDVI or NDVI.
-It would be interesting to link the indices of this work to other indicators of forest/vegetation health in future studies and analyze their importance and the model performances.
-In summary, defoliation can be successfully used as a response variable to model forest health using remote sensing indices.
+In future studies it would be interesting to link the indices of this work to other indicators of forest/vegetation health and analyze their importance and the model performances.
 
 \section{Appendix}
 
