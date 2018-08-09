@@ -118,7 +118,7 @@
 	\acro{MEM}{Maximum Entropy Model}
 	\acro{NDII}{Normalized Difference Infrared Index}
 	\acro{NIR}{Near-Infrared}
-	\acro{NRI}{Normalized Ratio Indices}
+	\acro{NRI}{Normalized Ratio Index}
 	\acro{OLS}{Ordinary Least Squares}
 	\acro{LOWESS}{Locally Weighted Scatter Plot Smoothing}
 	\acro{PISR}{Potential Incoming Solar Radiation}
@@ -130,7 +130,7 @@
 	\acro{SAR}{Synthetic Aperture Radar}
 	\acro{SDM}{Species Distribution Modeling}
 	\acro{SMBO}{Sequential-based Model Optimization}
-	\acro{SVM}{Support Vector Machines}
+	\acro{SVM}{Support Vector Machine}
 	\acro{TPR}{True Positive Rate}
 \end{acronym}
 
@@ -138,58 +138,50 @@
 \label{sec:intro}
 
 % Explain how remote sensing is used in forestry (potential to map forest health)
-Data retrieved from remote sensing satellites is successfully used in forestry to monitor temporal changes across large areas \citep{martinezdelcastilloEvaluationForestCover2015,sextonModelPropagationUncertainty2015}.
+\noindent Data retrieved from remote sensing satellites is successfully used in forestry to monitor temporal changes across large areas \citep{martinezdelcastilloEvaluationForestCover2015,sextonModelPropagationUncertainty2015}.
 The use of \ac{SAR} techniques enables scientists to estimate \ac{AGB} \citep{luSurveyRemoteSensingbased2016, sinhaReviewRadarRemote2015}.
-Forest health is commonly assesed using optical data from multi-/hyperspectral satellites by applying temporal change detections \citep{zhangRemoteSensingSeasonal2016}.
+Forest health is commonly assesed using optical data from multi-/hyperspectral satellites by applying either temporal change detections \citep{zhangRemoteSensingSeasonal2016} or by using vegetation indices to monitor the current state \citep{townsendGeneralLandsatModel2012}.
 With the recent success story of machine-learning methods in the field of remote sensing, modeling techniques such as \ac{RF} are frequently used to model relationships of possible triggers to forest health \citep{belgiuRandomForestRemote2016, laryMachineLearningGeosciences2016, michezClassificationRiparianForest2016}.
 
-With a robust model, predictions to large areas can be conducted, providing valuable information about the health condition of forest stands.
-One approach to model forest health is to extract information from spectral signatures of affected and unaffected trees \citep{lelongEvaluationOilPalmFungal2010}.
-Spectral (vegetation-)indices have shown the potential to provide valuable information to increase predictive accuracy of forest pathogens \citep{jiangSatellitederivedVegetationIndices2014, adamczykRededgeVegetationIndices2015}.
+With a robust model, predictions to large areas can be made, providing valuable information about the health condition of forest stands.
+One approach to model forest health is to extract information from spectral information of affected and unaffected trees \citep{lelongEvaluationOilPalmFungal2010}.
+Vegetation indices have shown the potential to provide valuable information to increase the predictive accuracy of forest pathogens \citep{jiangSatellitederivedVegetationIndices2014, adamczykRededgeVegetationIndices2015}.
 
 However, the amount of possible (vegetation-)indices that can be calculated is often limited due to a low spectral resolution of freely available data from optical multispectral sensors (e.g. Sentinel-2).
-Also, there is currently no freely available data from hyperspectral sensors that could be used for such studies (after the decommission of the EO-1 Hyperion satellite).
-If the spatial resolution of the data is too coarse (e.g. $> 5 m$), the value of a pixel usually contains information from multiple trees and possibly even bare-ground information.
-This point makes it impossible to use data from sensors like Sentinel-2 to train a model on a tree level.
+Also, there is currently no freely available data from hyperspectral sensors that could be used for such studies (after the decommission of the EO-1 Hyperion satellite in January 2017).
+To assess forest health on a tree scale, the spatial resolution of the data should be below 5 m as otherwise the value of a pixel may contain information from multiple trees and possibly even bare-ground information.
+With this limitation, data from sateillites with a coarser resolution (e.g. Sentinel-2) can be used for prediction tasks but not for training purposes of algorithms on a tree level.
 
 % Why are we mapping defoliation?
 
 In this study we will use hyperspectral data with a spatial resolution of one meter and 126 spectral bands to model the health status of Monterey Pine (\textit{Pinus radiata}) plantations in northern Spain (\autoref{fig:study_area}).
-The trees in the study area suffer from infections of invasive pathogens such as \textit{Diplodia sapinea}, \textit{Fusarium circinatum} \textit{Armillaria mellea} or \textit{Heterobasidion annosum} leading to a spread of cankers or defoliation \citep{mesanzaNativeRhizobacteriaBiocontrol2016, iturritxaBiocontrolFusariumCircinatum2017}.
-In-situ measurements of defoliation on a tree level have been collected to serve as the response variable (as a proxy for tree health).
+The trees in the study area suffer from infections of invasive pathogens such as \textit{Diplodia sapinea}, \textit{Fusarium circinatum}, \textit{Armillaria mellea} or \textit{Heterobasidion annosum} leading to a spread of cankers or defoliation \citep{mesanzaNativeRhizobacteriaBiocontrol2016, iturritxaBiocontrolFusariumCircinatum2017}.
+In-situ measurements of defoliation on a tree level (as a proxy for tree health) have been collected to serve as the response variable.
 The fungi are assumed to infect the trees through open wounds, possibly caused by previous hail damage \citep{Iturritxa2014}.
 The dieback of these trees, which are mainly used as timber, causes high economic damages \citep{ganleyGlobalClimaticRisk2009}.
-Hyperspectral remote sensing data in combination with state-of-the-art machine-learning techniques is used to help monitoring the health status in this region by early detecting affected trees/plots.
-The aim is to spatially predict the fitted model to other plots/the whole Basque Country to create a forest health map.
 
-% Show importance of vegetation indices and NRI
+We used state-of-the-art machine-learning techniques in combination with high resolution remote sensing information to model forest health on a tree level.
+Furthermore, we aimed to reduce the amount of predictors using feature selection to simplify the spatial prediction of the fitted model.
 
-To extract the most information from the available remote sensing data, we not only calculated the most common vegetation indices like \textit{NDVI} to link against defoliation but all possible ones within the spectral region of the data (400 nm - 1000 nm) that are implemented in the \textit{hsdar} package in R \citep{hsdar}.
-Additionally, all possible combinations of \ac{NRI} were calculated from the data and supplied to a selection of different algorithms (\textit{\ac{SVM}}, \textit{\ac{RR}}, \textit{xgboost}) as predictors.
-
-
-% Mention the ability of ML algs to handle highly correlated variables
-
-Specifically the following objectives are addressed:
+\noindent Specifically the following objectives were addressed:
 
 \begin{itemize}
-	\item Comparison of multiple algorithms on their performance to model defoliation of \textit{Pinus radiata} trees using highly-correlated indices
-	\item Exploration of the most important indices of the best performing model
-	\item Spatial prediction of defoliation to \textit{Pinus radiata} plots and the whole Basque Country
+	\item Performance comparison of multiple algorithms modeling defoliation of \textit{Pinus radiata} trees using highly-correlated features
+	\item Exploration of the most important variables
+	\item Spatial prediction of \textit{Pinus radiata} defoliation
 \end{itemize}
 
 \section{Data and study area}
 
 \subsection{In-situ data}
-% Describe Plots
 
-The \textit{Pinus radiata} plots of this study, namely \textit{Laukiz 1}, \textit{Laukiz 2}, \textit{Luiando} and \textit{Oiartzun}, are located in the northern part of the Basque Country (\autoref{fig:study_area}).
+\noindent The \textit{Pinus radiata} plots of this study, namely \textit{Laukiz 1}, \textit{Laukiz 2}, \textit{Luiando} and \textit{Oiartzun}, are located in the northern part of the Basque Country (\autoref{fig:study_area}).
 \textit{Oiartzun} has the most observations (n = 529) while \textit{Laukiz 2} has the largest area size (1.44 ha).
 All plots besides \textit{Luiando} are located nearby the coast (\autoref{fig:study_area}).
 In total 1750 observations are available (\textit{Laukiz 1} = 479, \textit{Laukiz 2} = 451, \textit{Luiando} = 291, \textit{Oiartzun} = 529).
 The data was surveyed in September 2016.
 
-\begin{figure} [b!]
+\begin{figure} [t!]
 	\begin{center}
 		\makebox[\textwidth]{\includegraphics[width=\textwidth] {study_area_hyperspectral.pdf}}
 		\caption{Information about the plot locations, the area of hyperspectral coverage and the number of trees per plot.}
@@ -199,14 +191,14 @@ The data was surveyed in September 2016.
 
 \subsection{Hyperspectral data}
 
-The airborne hyperspectral data was acquired during two flight campaigns on September 28th and October 5th 2016, both around 12 am.
+\noindent The airborne hyperspectral data was acquired during two flight campaigns on September 28th and October 5th 2016, both around 12 am.
 The images were taken using a AISAEAGLE-II sensor.
 All preprocessing steps (geometric, radiometric, atmospheric) have been conducted by the \ac{ICGC}.
 The first four bands are corrupted, leaving 122 bands with valid information.
 Additional metadata information is available in Table 1:
 
 % parameter limits
-\begin{table}[t!]
+\begin{table}[b!]
 \centering
 \caption[t]{Specifications of hyperspectral data.}
 \begingroup\footnotesize
@@ -229,7 +221,7 @@ Additional metadata information is available in Table 1:
 The algorithm implementations of the following packages have been used: \textit{xgboost} \citep{chenXGBoostScalableTree2016} (\textit{xgboost}), \textit{kernlab} \citep{kernlab} (Support Vector Machine) and \textit{glmnet} \citep{glmnet} (Ridge Regression).
 We used the R package \textit{mlr} for all modeling related steps.
 It provides a standardized interface for a wide variety of statistical and machine-learning models in R simplifying essential modeling tasks such as hyperparameter tuning, model performance evaluation and parallelization \citep{bischlMlrMachineLearning2016}.
-We provide the complete code and required data as a Mendeley dataset to make this work fully reproducible \citep{}.
+We provide the complete code and required data as a Mendeley dataset to make this work fully reproducible [STILL TO COME].
 
 \subsection{Derivation of indices}
 
@@ -255,9 +247,9 @@ In total, 7471 indices had no \texttt{NA} values and were subsequently used as p
 
 \subsection{Benchmarking of algorithms}
 
-\noindent Three algorithms (\textit{xgboost}, \textit{\ac{SVM}}, \textit{\ac{RR}}) were benchmarked on their predictive performance.
+\noindent Three algorithms (\textit{xgboost}, \textit{\ac{SVM}} and \textit{\ac{RR}}) were benchmarked on their predictive performance.
 Besides the well-known \ac{SVM} algorithm \citep{Vapnik1998}, we also used \textit{xgboost} which is ensemble method relying on the idea of tree boosting that gained a lot of attention in recent years \citep{chenXGBoostScalableTree2016}.
-We also added penalized L2 (Ridge) regression to the portfolio due to its ability to handle highly correlated covariates \citep{hoerlRidgeRegressionBiased1970}.
+We added penalized L2 (Ridge) regression to the portfolio due to its ability to handle highly correlated covariates \citep{hoerlRidgeRegressionBiased1970}.
 One of the most popular machine-learning algorithm, Random Forest \citep{Breiman2001}, was not considered for this study: Due to the high number of variables, model fitting times in the range hours for a single model fit were not practicable for this work.
 These high fitting times are caused by hyperparameter \texttt{mtry} which scales with the number of variables \citep{Probst2018b}.
 After the selection of the best model, we checked if the winning algorithm can achieve a similar performance when using only the most important variables compared to using all variables.
@@ -269,8 +261,7 @@ Furthermore, model complexity and fitting times are reduced.
 \noindent The algorithms were benchmarked in two ways:
 
 \begin{enumerate}
-	\item Using spatial block \ac{CV} on the plot level with each plot serving as the test set once.
-	      Subsequently, four performance estimates were retrieved, one for each fold.
+	\item Using spatial block \ac{CV} on the plot level with each plot serving as the test set once. Four performance estimates were retrieved, one for each fold.
 	\item Using five-fold five-time repeated spatial \ac{CV} within each plot based on the k-means clustering approach of \cite{sperrorest} (\autoref{fig:spcv}).
 \end{enumerate}
 
@@ -285,6 +276,7 @@ Furthermore, model complexity and fitting times are reduced.
 \end{figure}
 
 \subsubsection{Hyperparameter tuning}
+\label{meth:smbo}
 
 \noindent To tune the hyperparameters of the algorithms, we used \ac{SMBO} via the R package \textit{mlrMBO} \citep{mlrMBO}.
 This Bayesian approach first composes \textit{n} randomly chosen hyperparameter settings out of a user defined search space.
@@ -292,13 +284,14 @@ After these \textit{n} tries have been evaluated, a new hyperparameter setting, 
 The regression model estimates the performance of the machine-learning method for unknown hyperparameter settings.
 Using these estimates, a new promising hyperparameter setting is proposed to be evaluated next.
 This strategy continues until a termination criterion, defined by the user, is reached \citep{Hutter2011, Jones1998}.
+
 In this work we used an initial design of 30 randomly composed hyperparameter settings and a termination criterion of 20 iterations, resulting in a total budget of 50 evaluated hyperparameter settings per fold.
 The advantage of this tuning approach is that it substantially reduces the tuning budget which is needed to find a setting close to the global minimum compared to methods that do not use information from previous runs, such as random search or grid search \citep{Bergstra2012}.
 
 \subsection{Variable importance}
 
 \noindent To find indices that contributed most to model performance, we used the internal variable importance measure of the \textit{xgboost} algorithm.
-The score is calculated by taking the contribution of each feature for each tree in the fitted model.
+This score is calculated by taking the contribution of each feature for each tree in the fitted model.
 The higher the score of a variable, the more important it is for the fitted model when making predictions \citep{chenXGBoostScalableTree2016}.
 The variable importance measure is automatically computed during model fit.
 In contrast to other approaches such as permutation-based ones, the \textit{xgboost} score is composed out of three parts that contribute to the overall importance \citep{chenXGBoostScalableTree2016}:
@@ -334,7 +327,7 @@ All plots besides \textit{Luiando} show an evenly distributed level of defoliati
 Both plots show lower mean reflectance values around the wavelength range 800 nm - 1000 nm compared to \textit{Laukiz 1} and \textit{Laukiz 2}.
 \textit{Oiartzun} is almost completely missing the reflectance drop at around 815 nm that is visible for all other plots but instead shows a higher magnitude for the reflectance increase at around 920 nm.
 
-\textit{Laukiz 2} shows a mean tree density of 61.59 m (\autoref{fig:plot-characteristics}) while all other plots have a higher density (34.64 m (Laukiz 1), 33.01 m (Luiando), 34.96 m (Oiartzun)) (\autoref{fig:plot-characteristics}).
+\noindent \textit{Laukiz 2} shows a mean tree density of 61.59 m (\autoref{fig:plot-characteristics}) while all other plots have a higher density (34.64 m (Laukiz 1), 33.01 m (Luiando), 34.96 m (Oiartzun)) (\autoref{fig:plot-characteristics}).
 
 \subsection{Predictive performance}
 
@@ -453,7 +446,7 @@ All further places up to rank 30 were occupied by NRIs.
 
 \subsection{Spatial prediction}
 
-\begin{figure} [t!]
+\begin{figure} [b!]
 	\begin{center}
 		\makebox[\textwidth]{\includegraphics[width = 1\textwidth] {predictions_demon_plots.pdf}}
 		\caption{Spatially predicted defoliation (in \%) from \textit{xgboost} of \textit{Laukiz 1}, \textit{Laukiz 2}, \textit{Luiando} and \textit{Oiartzun}.}
@@ -477,8 +470,6 @@ The high error of the super model for \textit{Laukiz 2} (49.94 RMSE) is also vis
 For the less defoliated plots \textit{Laukiz 1} and \textit{Laukiz 2} a subtle level of separation between trees and bare ground is visible (\autoref{fig:pred_demon_plots}).
 This is not the case for the other two higher defoliated plots for which bare ground and defoliated predictions are mainly in the same value range (around 60 \% - 80 \%).
 
-	[ADD FIGURE WITH SENTINEL2 PREDICTION]
-
 \section{Discussion}
 
 \subsection{Derivation of indices}
@@ -500,17 +491,17 @@ This has to be considered when making interpretations about the outcome of this 
 \noindent Relating the modeling error to plot characteristics (mean point density, coefficient of variation) did not show a clear picture: For both comparisons, \textit{Laukiz 2} did not follow the pattern that was observed from the other three plots (\autoref{fig:plot-characteristics}) of having an increase in error with an increase in mean point density and coefficient of variation.
 
 It needs to be considered that we only looked at four plots in this work.
-To make a robust statement about a possible relationship between modeling error and plot characteristics, a larger sample size of plots is needed.
+To make a robust statement about a possible relationship between modeling error and plot characteristics, a larger sample size of plots is needed. 
 
 \subsection{Predictive Performance}
 
 \subsubsection{Algorithm benchmarking}
 
 \noindent The relatively large difference in performance between \textit{RR} (59.10 RMSE) and the machine-learning models (36.23 and 33.26 RMSE) is remarkable.
-\textit{RR} has shown promising performance results in other studies when many highly-correlated predictors were involved (REFERECES).
-However, in this study, \textit{RR} was not able to achieve a sufficient performance score compared to \textit{SVM} and \textit{xgboost} even though its hyperparameter $\lambda$ was properly tuned using SMBO.
+\textit{RR} has shown promising results in other studies when many highly-correlated predictors were involved \citep{hernandezUsingRidgeRegression2015, imaniRidgeRegressionbasedFeature2015}.
+However, in this study, \textit{RR} was not able to achieve a sufficient performance score compared to \textit{SVM} and \textit{xgboost} even though its hyperparameter $\lambda$ was properly tuned using SMBO (\autoref{meth:smbo}).
 
-While \textit{xgboost} shows a slightly better performance than \textit{SVM}, the latter has the advantage of only having two hyperparameters that need to be tuned.
+While \textit{xgboost} showed a slightly better performance than \textit{SVM}, the latter has the advantage of only having two hyperparameters that need to be tuned.
 This results in a shorter runtime.
 Nevertheless, \textit{xgboost} showed the best performance and was subsequently selected to fit the models on the plot level and for the spatial prediction.
 
