@@ -28,6 +28,9 @@
 \usepackage{multirow}
 \usepackage{float}
 
+% https://tex.stackexchange.com/questions/165115/getting-not-defining-perthousnad-and-not-defining-micro-when-compiling-beamer
+\usepackage{textcomp}
+
 \graphicspath{{../03_figures/results/}{./}{../03_figures/data/}} 
 
 % enable paragraph as 4th level https://tex.stackexchange.com/questions/60209/how-to-add-an-extra-level-of-sections-with-headings-below-subsubsection
@@ -158,7 +161,7 @@ In this study we will use hyperspectral data with a spatial resolution of one me
 The trees in the study area suffer from infections of invasive pathogens such as \textit{Diplodia sapinea}, \textit{Fusarium circinatum}, \textit{Armillaria mellea} or \textit{Heterobasidion annosum} leading to a spread of cankers or defoliation \citep{mesanzaNativeRhizobacteriaBiocontrol2016, iturritxaBiocontrolFusariumCircinatum2017}.
 In-situ measurements of defoliation on a tree level (as a proxy for tree health) have been collected to serve as the response variable.
 The fungi are assumed to infect the trees through open wounds, possibly caused by previous hail damage \citep{Iturritxa2014}.
-The dieback of these trees, which are mainly used as timber, causes high economic damages \citep{ganleyGlobalClimaticRisk2009}.
+The dieback of these trees, which are mainly used as timber, causes high economic damages \citep{Ganley2009}.
 
 We used state-of-the-art machine-learning techniques in combination with high resolution remote sensing information to model forest health on a tree level.
 Furthermore, we aimed to reduce the amount of predictors using feature selection to simplify the spatial prediction of the fitted model.
