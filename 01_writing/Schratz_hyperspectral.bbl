@@ -1,4 +1,4 @@
-\begin{thebibliography}{33}
+\begin{thebibliography}{43}
 \expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
 \providecommand{\url}[1]{\texttt{#1}}
 \providecommand{\href}[2]{#2}
@@ -89,17 +89,36 @@
 \newblock \bibinfo{address}{New York, NY, USA}: \bibinfo{publisher}{{ACM}}.
 \newblock \DOIprefix\doi{10.1145/2939672.2939785} \bibinfo{note}{01130}.
 %Type = Article
+\bibitem[{Croft et~al.(2014)Croft, Chen \&
+  Zhang}]{croftApplicabilityEmpiricalVegetation2014}
+\bibinfo{author}{Croft, H.}, \bibinfo{author}{Chen, J.~M.}, \&
+  \bibinfo{author}{Zhang, Y.} (\bibinfo{year}{2014}).
+\newblock \bibinfo{title}{The applicability of empirical vegetation indices for
+  determining leaf chlorophyll content over different leaf and canopy
+  structures}.
+\newblock {\it \bibinfo{journal}{Ecological Complexity}\/},  {\it
+  \bibinfo{volume}{17}\/}, \bibinfo{pages}{119--130}.
+  \DOIprefix\doi{10/gdxvd7}.
+%Type = Article
+\bibitem[{{de Beurs} \& Townsend(2008)}]{debeursEstimatingEffectGypsy2008}
+\bibinfo{author}{{de Beurs}, K.~M.}, \& \bibinfo{author}{Townsend, P.~A.}
+  (\bibinfo{year}{2008}).
+\newblock \bibinfo{title}{Estimating the effect of gypsy moth defoliation using
+  {{MODIS}}}.
+\newblock {\it \bibinfo{journal}{Remote Sensing of Environment}\/},  {\it
+  \bibinfo{volume}{112}\/}, \bibinfo{pages}{3983--3990}.
+  \DOIprefix\doi{10/fpqhrc}.
+%Type = Article
 \bibitem[{Friedman et~al.(2010)Friedman, Hastie \& Tibshirani}]{glmnet}
 \bibinfo{author}{Friedman, J.}, \bibinfo{author}{Hastie, T.}, \&
   \bibinfo{author}{Tibshirani, R.} (\bibinfo{year}{2010}).
-\newblock \bibinfo{title}{Regularization {{Paths}} for {{Generalized Linear
-  Models}} via {{Coordinate Descent}}}.
+\newblock \bibinfo{title}{Regularization paths for generalized linear models
+  via coordinate descent}.
 \newblock {\it \bibinfo{journal}{Journal of Statistical Software}\/},  {\it
   \bibinfo{volume}{33}\/}, \bibinfo{pages}{1--22}.
 \newblock \bibinfo{note}{05097}.
 %Type = Article
-\bibitem[{Ganley et~al.(2009)Ganley, Watt, Manning \&
-  Iturritxa}]{ganleyGlobalClimaticRisk2009}
+\bibitem[{Ganley et~al.(2009)Ganley, Watt, Manning \& Iturritxa}]{Ganley2009}
 \bibinfo{author}{Ganley, R.~J.}, \bibinfo{author}{Watt, M.~S.},
   \bibinfo{author}{Manning, L.}, \& \bibinfo{author}{Iturritxa, E.}
   (\bibinfo{year}{2009}).
@@ -108,7 +127,47 @@
 \newblock {\it \bibinfo{journal}{Canadian Journal of Forest Research}\/},  {\it
   \bibinfo{volume}{39}\/}, \bibinfo{pages}{2246--2256}.
   \DOIprefix\doi{10/bmj3nk}.
-\newblock \bibinfo{note}{00053}.
+%Type = Article
+\bibitem[{Goodbody et~al.(2018)Goodbody, Coops, Hermosilla, Tompalski,
+  McCartney \& MacLean}]{goodbodyDigitalAerialPhotogrammetry2018}
+\bibinfo{author}{Goodbody, T. R.~H.}, \bibinfo{author}{Coops, N.~C.},
+  \bibinfo{author}{Hermosilla, T.}, \bibinfo{author}{Tompalski, P.},
+  \bibinfo{author}{McCartney, G.}, \& \bibinfo{author}{MacLean, D.~A.}
+  (\bibinfo{year}{2018}).
+\newblock \bibinfo{title}{Digital aerial photogrammetry for assessing
+  cumulative spruce budworm defoliation and enhancing forest inventories at a
+  landscape-level}.
+\newblock {\it \bibinfo{journal}{ISPRS Journal of Photogrammetry and Remote
+  Sensing}\/},  {\it \bibinfo{volume}{142}\/}, \bibinfo{pages}{1--11}.
+  \DOIprefix\doi{10/gdxvfk}.
+%Type = Article
+\bibitem[{Guyon \& Elisseeff(2003)}]{guyonIntroductionVariableFeature2003}
+\bibinfo{author}{Guyon, I.}, \& \bibinfo{author}{Elisseeff, A.}
+  (\bibinfo{year}{2003}).
+\newblock \bibinfo{title}{An introduction to variable and feature selection}.
+\newblock {\it \bibinfo{journal}{Journal of Machine Learning Research}\/},
+  {\it \bibinfo{volume}{3}\/}, \bibinfo{pages}{1157--1182}.
+%Type = Article
+\bibitem[{Hernandez et~al.(2015)Hernandez, Lobos, Matus, {del Pozo}, Silva \&
+  Galleguillos}]{hernandezUsingRidgeRegression2015}
+\bibinfo{author}{Hernandez, J.}, \bibinfo{author}{Lobos, G.~A.},
+  \bibinfo{author}{Matus, I.}, \bibinfo{author}{{del Pozo}, A.},
+  \bibinfo{author}{Silva, P.}, \& \bibinfo{author}{Galleguillos, M.}
+  (\bibinfo{year}{2015}).
+\newblock \bibinfo{title}{Using {{Ridge Regression Models}} to {{Estimate Grain
+  Yield}} from {{Field Spectral Data}} in {{Bread Wheat}} ({{Triticum Aestivum
+  L}}.) {{Grown}} under {{Three Water Regimes}}}.
+\newblock {\it \bibinfo{journal}{Remote Sensing}\/},  {\it
+  \bibinfo{volume}{7}\/}, \bibinfo{pages}{2109--2126}.
+  \DOIprefix\doi{10/gdxwj9}.
+%Type = Article
+\bibitem[{Hoerl \& Kennard(1970)}]{hoerlRidgeRegressionBiased1970}
+\bibinfo{author}{Hoerl, A.~E.}, \& \bibinfo{author}{Kennard, R.~W.}
+  (\bibinfo{year}{1970}).
+\newblock \bibinfo{title}{Ridge {{Regression}}: {{Biased}} estimation for
+  nonorthogonal problems}.
+\newblock {\it \bibinfo{journal}{Technometrics}\/},  {\it
+  \bibinfo{volume}{12}\/}, \bibinfo{pages}{55--67}. \DOIprefix\doi{10/gdxvdp}.
 %Type = Article
 \bibitem[{Huete et~al.(1997)Huete, Liu, Batchily \& {van
   Leeuwen}}]{hueteComparisonVegetationIndices1997}
@@ -125,12 +184,21 @@
 \bibitem[{Hutter et~al.(2011)Hutter, Hoos \& {Leyton-Brown}}]{Hutter2011}
 \bibinfo{author}{Hutter, F.}, \bibinfo{author}{Hoos, H.~H.}, \&
   \bibinfo{author}{{Leyton-Brown}, K.} (\bibinfo{year}{2011}).
-\newblock \bibinfo{title}{Sequential {{Model}}-{{Based Optimization}} for
-  {{General Algorithm Configuration}}}.
+\newblock \bibinfo{title}{Sequential model-based optimization for general
+  algorithm configuration}.
 \newblock In {\it \bibinfo{booktitle}{Lecture {{Notes}} in {{Computer
   Science}}}\/} (pp. \bibinfo{pages}{507--523}).
 \newblock \bibinfo{publisher}{{Springer Berlin Heidelberg}}.
 \newblock \DOIprefix\doi{10.1007/978-3-642-25566-3_40} \bibinfo{note}{00678}.
+%Type = Article
+\bibitem[{Imani \& Ghassemian(2015)}]{imaniRidgeRegressionbasedFeature2015}
+\bibinfo{author}{Imani, M.}, \& \bibinfo{author}{Ghassemian, H.}
+  (\bibinfo{year}{2015}).
+\newblock \bibinfo{title}{Ridge regression-based feature extraction for
+  hyperspectral data}.
+\newblock {\it \bibinfo{journal}{International Journal of Remote Sensing}\/},
+  {\it \bibinfo{volume}{36}\/}, \bibinfo{pages}{1728--1742}.
+  \DOIprefix\doi{10/gdxwkb}.
 %Type = Article
 \bibitem[{Iturritxa et~al.(2014)Iturritxa, Mesanza \& Brenning}]{Iturritxa2014}
 \bibinfo{author}{Iturritxa, E.}, \bibinfo{author}{Mesanza, N.}, \&
@@ -147,8 +215,8 @@
   \bibinfo{author}{Mesanza, N.}, \bibinfo{author}{Raposo, R.},
   \bibinfo{author}{{Elvira-Recuenco}, M.}, \& \bibinfo{author}{Patten, C.~L.}
   (\bibinfo{year}{2017}).
-\newblock \bibinfo{title}{Biocontrol of {{Fusarium}} circinatum {{Infection}}
-  of {{Young Pinus}} radiata {{Trees}}}.
+\newblock \bibinfo{title}{Biocontrol of {{Fusarium}} circinatum infection of
+  young {{Pinus}} radiata trees}.
 \newblock {\it \bibinfo{journal}{Forests}\/},  {\it \bibinfo{volume}{8}\/},
   \bibinfo{pages}{32}. \DOIprefix\doi{10/f9t3d8}.
 \newblock \bibinfo{note}{00000}.
@@ -195,13 +263,6 @@
 \newblock {\it \bibinfo{journal}{Geoscience Frontiers}\/},  {\it
   \bibinfo{volume}{7}\/}, \bibinfo{pages}{3--10}. \DOIprefix\doi{10/f79ddn}.
 \newblock \bibinfo{note}{00069}.
-%Type = Book
-\bibitem[{Lehnert et~al.(2018)Lehnert, Meyer \& Bendix}]{hsdar}
-\bibinfo{author}{Lehnert, L.~W.}, \bibinfo{author}{Meyer, H.}, \&
-  \bibinfo{author}{Bendix, J.} (\bibinfo{year}{2018}).
-\newblock {\it \bibinfo{title}{Hsdar: {{Manage}}, Analyse and Simulate
-  Hyperspectral Data in {{R}}}\/}.
-\newblock \bibinfo{note}{00012 R package version 0.7.1}.
 %Type = Article
 \bibitem[{Lelong et~al.(2010)Lelong, Roger, Br\'egand, Dubertret, Lanore,
   Sitorus, Raharjo \& Caliman}]{lelongEvaluationOilPalmFungal2010}
@@ -210,11 +271,30 @@
   \bibinfo{author}{Lanore, M.}, \bibinfo{author}{Sitorus, N.~A.},
   \bibinfo{author}{Raharjo, D.~A.}, \& \bibinfo{author}{Caliman, J.-P.}
   (\bibinfo{year}{2010}).
-\newblock \bibinfo{title}{Evaluation of {{Oil}}-{{Palm Fungal Disease
-  Infestation}} with {{Canopy Hyperspectral Reflectance Data}}}.
+\newblock \bibinfo{title}{Evaluation of oil-palm fungal disease {{Infestation}}
+  with canopy hyperspectral reflectance data}.
 \newblock {\it \bibinfo{journal}{Sensors}\/},  {\it \bibinfo{volume}{10}\/},
   \bibinfo{pages}{734--747}. \DOIprefix\doi{10/bb8wm6}.
 \newblock \bibinfo{note}{00045}.
+%Type = Article
+\bibitem[{Li et~al.(2017)Li, Cheng, Wang, Morstatter, Trevino, Tang \&
+  Liu}]{liFeatureSelectionData2017}
+\bibinfo{author}{Li, J.}, \bibinfo{author}{Cheng, K.}, \bibinfo{author}{Wang,
+  S.}, \bibinfo{author}{Morstatter, F.}, \bibinfo{author}{Trevino, R.~P.},
+  \bibinfo{author}{Tang, J.}, \& \bibinfo{author}{Liu, H.}
+  (\bibinfo{year}{2017}).
+\newblock \bibinfo{title}{Feature selection: {{A}} data perspective}.
+\newblock {\it \bibinfo{journal}{ACM Comput. Surv.}\/},  {\it
+  \bibinfo{volume}{50}\/}, \bibinfo{pages}{94:1--94:45}.
+  \DOIprefix\doi{10/gcvjw3}.
+%Type = Book
+\bibitem[{Liu \& Motoda(2007)}]{liuComputationalMethodsFeature2007}
+\bibinfo{author}{Liu, H.}, \& \bibinfo{author}{Motoda, H.}
+  (\bibinfo{year}{2007}).
+\newblock {\it \bibinfo{title}{Computational {{Methods}} of {{Feature
+  Selection}} ({{Chapman}} \& {{Hall}}/{{Crc Data Mining}} and {{Knowledge
+  Discovery Series}})}\/}.
+\newblock \bibinfo{publisher}{{Chapman \& Hall/CRC}}.
 %Type = Article
 \bibitem[{Lu et~al.(2016)Lu, Chen, Wang, Liu, Li \&
   Moran}]{luSurveyRemoteSensingbased2016}
@@ -281,6 +361,17 @@
   {{Statistical Computing}}}\/}.
 \newblock \bibinfo{address}{Vienna, Austria}.
 \newblock \bibinfo{note}{88058 R version 3.4.4}.
+%Type = Inproceedings
+\bibitem[{Rengarajan \& Schott(2016)}]{rengarajanModelingForestDefoliation2016}
+\bibinfo{author}{Rengarajan, R.}, \& \bibinfo{author}{Schott, J.~R.}
+  (\bibinfo{year}{2016}).
+\newblock \bibinfo{title}{Modeling forest defoliation using simulated {{BRDF}}
+  and assessing its effect on reflectance and sensor reaching radiance}.
+\newblock In {\it \bibinfo{booktitle}{Remote {{Sensing}} and {{Modeling}} of
+  {{Ecosystems}} for {{Sustainability XIII}}}\/} (p. \bibinfo{pages}{997503}).
+\newblock \bibinfo{publisher}{{International Society for Optics and Photonics}}
+  volume \bibinfo{volume}{9975}.
+\newblock \DOIprefix\doi{10.1117/12.2235391}.
 %Type = Article
 \bibitem[{Sexton et~al.(2015)Sexton, Noojipady, Anand, Song, McMahon, Huang,
   Feng, Channan \& Townshend}]{sextonModelPropagationUncertainty2015}
@@ -318,6 +409,18 @@
   and Technology}\/},  {\it \bibinfo{volume}{12}\/},
   \bibinfo{pages}{1779--1792}. \DOIprefix\doi{10/gdthzw}.
 \newblock \bibinfo{note}{00043}.
+%Type = Article
+\bibitem[{Townsend et~al.(2012)Townsend, Singh, Foster, Rehberg, Kingdon,
+  Eshleman \& Seagle}]{townsendGeneralLandsatModel2012}
+\bibinfo{author}{Townsend, P.~A.}, \bibinfo{author}{Singh, A.},
+  \bibinfo{author}{Foster, J.~R.}, \bibinfo{author}{Rehberg, N.~J.},
+  \bibinfo{author}{Kingdon, C.~C.}, \bibinfo{author}{Eshleman, K.~N.}, \&
+  \bibinfo{author}{Seagle, S.~W.} (\bibinfo{year}{2012}).
+\newblock \bibinfo{title}{A general {{Landsat}} model to predict canopy
+  defoliation in broadleaf deciduous forests}.
+\newblock {\it \bibinfo{journal}{Remote Sensing of Environment}\/},  {\it
+  \bibinfo{volume}{119}\/}, \bibinfo{pages}{255--265}.
+  \DOIprefix\doi{10/fzwbdw}.
 %Type = Incollection
 \bibitem[{Vapnik(1998)}]{Vapnik1998}
 \bibinfo{author}{Vapnik, V.} (\bibinfo{year}{1998}).
