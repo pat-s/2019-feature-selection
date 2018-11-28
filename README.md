@@ -48,7 +48,7 @@ We used the 2016 data because the flight campaign was at the same time (Septembe
 
 - ~~`FSelector` methods are very slow, `FSelectorRcpp` PR open since forever~~
 - Permutation not suitable -> too costly
-- "mrmr" läuft aber auch nur relativ langsam, je nach `fw.perc` Größe
+- ~~"mrmr" läuft aber auch nur relativ langsam, je nach `fw.perc` Größe~~ -> now using "caching"
 
 Featsel methods from Drotar 2017 (check = implemented in mlr)
 
@@ -69,19 +69,42 @@ Approximation for Feature Selection and Ranking (https://arxiv.org/pdf/1804.0558
 #### Notes
 
 - Unterscheidung zwischen "Univariate FS" und "multivariate FS" -> Univariate berücksichtigt keine feature dependencies
-- Comparing prediction performance of FS methods it is clear that
-low stability of FS does not result in low prediction performance (Drotar 2015)
+- Comparing prediction performance of FS methods it is clear that low stability of FS does not result in low prediction performance (Drotar 2015)
 - The results indicate that univariate FS methods are more
 stable than multivariate methods [...] Therefore, for high dimensional databases, where many features
 are correlated or functionally related, it results in unstable behavior. (Drotar 2015)
-- Filter methods compute a score for each feature, and then select only the
-features with the best scores. Filter FS methods do not interact with classifier
-during selection process. Wrapper methods train a predictive model on subsets of
+- Filter methods compute a score for each feature, and then select only the features with the best scores. Filter FS methods do not interact with classifier during selection process. Wrapper methods train a predictive model on subsets of
 features, and select the subset with the best score. The search for subsets can be
 deterministic or random. Finally, embedded methods determine the optimal subset
 of features directly by the trained weights of the classification method [5, 6] (Dotar 2017)
-* Stability vs. performance of Filter methods (Ensemble methods seem to help in this problem)
-* Two step methods can be a solution (first filter, then featsel)
+- Stability vs. performance of Filter methods (Ensemble methods seem to help in this problem)
+- Two step methods can be a solution (first filter, then featsel)
+
+# Study design
+
+#### Welche Merkmalsgruppen?
+
+- Veg. Indices
+- Hyperspektral
+- NRIs
+	
+#### Welche Modelle:
+
+- glmet (ridge, lasso, elatic net)
+- randomforest
+- xgboost
+- svm (RBF)
+		
+#### Welche Vorverarbeitung / Filter (dabei Optimierung der Parameter)
+
+- Keine
+- einfache Filter (BB: ich würde einen einfachen nehmen)
+- Filter Kombo mit Borda (BB: eine Borda variante mit mehrern)
+- PCA	
+
+#### Was macht man mit der response (liegt in nem Intervall)
+
+- logistische transformation?
 
 ## Literature
 

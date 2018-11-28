@@ -360,11 +360,10 @@ saveRDS(m, "/data/patrick/mod/hyperspectral/prediction/xgboost_trained_tuned.rda
 We can either use the Feat Imp from `xgboost` by calling `getFeatureImportance()` directly on the fitted model or calculate it again using permutation via `generateFeatureImportanceData()`.
 
 ```{r}
-m = readRDS("/data/patrick/mod/hyperspectral/prediction/xgboost_trained_tuned.rda")
-# 5h 30 min
+# 5h 30 min with 2 nmc
 var_imp = generateFeatureImportanceData(task, learner = lrn_xgboost, 
                                         measure = rmse, nmc = 50)
-saveRDS(var_imp, "/data/patrick/mod/hyperspectral/variable-importance/bf2_ncm50rda")
+var_imp = readRDS("/data/patrick/mod/hyperspectral/variable-importance/bf2_ncm50rda")
 
 
 var_imp$res = tidyr::gather(var_imp$res, "index", "feat.imp")
@@ -389,6 +388,7 @@ var_imp$res %>%
 Visualize top 30 indices
 
 ```{r}
+m = readRDS("/data/patrick/mod/hyperspectral/prediction/xgboost_trained_tuned.rda")
 imp.xgb = getFeatureImportance(m) 
 imp.xgb$res = tidyr::gather(imp.xgb$res, "index", "feat.imp")
 
@@ -418,9 +418,23 @@ ggsave(here::here("03_figures/results/var-imp-xgboost.png"), height = 3,
 #### iml
 
 ```{r}
+model_xgboost_defol = readRDS("/data/patrick/mod/hyperspectral/prediction/xgboost_trained_tuned.rda")
+library("doParallel")
+cl = makePSOCKcluster(40)
+# Registers cluster
+registerDoParallel(cl)
+
 X = task$env$data[which(names(task$env$data) != "defoliation")]
-predictor = Predictor$new(m, data = X, y = task$env$data$defoliation)
-imp = FeatureImp$new(predictor, loss = "rmse")
+
+# correct column order of features: https://github.com/dmlc/xgboost/issues/1809
+X = X[model_xgboost_defol$learner.model$feature_names]
+
+predictor = Predictor$new(model_xgboost_defol, data = X, y = task$env$data$defoliation)
+imp = FeatureImp$new(predictor, loss = "rmse", parallel = TRUE, n.repetitions = 100)
+stopCluster(cl)
+saveRDS(imp, "/data/patrick/mod/hyperspectral/variable-importance/feature-imp-iml.rda")
+
+imp = readRDS("/data/patrick/mod/hyperspectral/variable-importance/feature-imp-iml.rda")
 ```
 
 Partial influence
@@ -478,3 +492,96 @@ lrn_xgboost = setHyperPars(makeLearner("regr.xgboost"),
 m = train(lrn_xgboost, task)
 saveRDS(m, "/data/patrick/mod/hyperspectral/prediction/xgboost_trained_tuned_7vars.rda")
 ```
+
+## xgboost feat sel and tune
+
+```{r}
+lrn_xgboost <- makeLearner("regr.xgboost",
+                   par.vals = list(
+                     objective = "reg:linear",
+                     eval_metric = "error"
+                   ))
+```
+
+```{r}
+lrn_xgboost = makeFilterWrapper(learner = lrn_xgboost,
+                                imp.learner = c("regr.xgboost"))
+```
+
+
+```{r}
+ps_xgboost_mrmr <- makeParamSet(
+  makeIntegerParam("nrounds", lower = 10, upper = 600),
+  makeNumericParam("colsample_bytree", lower = 0.3, upper = 0.7),
+  makeNumericParam("subsample", lower = 0.25, upper = 1),
+  makeIntegerParam("max_depth", lower = 1, upper = 10),
+  makeNumericParam("gamma", lower = 0, upper = 10),
+  makeNumericParam("eta", lower = 0.001, upper = 0.6),
+  makeNumericParam("min_child_weight", lower = 0, upper = 20),
+  makeDiscreteParam("fw.method", "mrmr"),
+  makeNumericParam("fw.perc", lower = 0, upper = 1)
+)
+
+ps_xgboost_permut <- makeParamSet(
+  makeIntegerParam("nrounds", lower = 10, upper = 600),
+  makeNumericParam("colsample_bytree", lower = 0.3, upper = 0.7),
+  makeNumericParam("subsample", lower = 0.25, upper = 1),
+  makeIntegerParam("max_depth", lower = 1, upper = 10),
+  makeNumericParam("gamma", lower = 0, upper = 10),
+  makeNumericParam("eta", lower = 0.001, upper = 0.6),
+  makeNumericParam("min_child_weight", lower = 0, upper = 20),
+  makeDiscreteParam("fw.method", "permutation.importance"),
+  makeNumericParam("fw.perc", lower = 0, upper = 1)
+)
+```
+
+```{r}
+ctrl = makeMBOControl(propose.points = 1L)
+ctrl = setMBOControlTermination(ctrl, iters = 20L)
+ctrl = setMBOControlInfill(ctrl, crit = crit.ei)
+tune.ctrl = makeTuneControlMBO(mbo.control = ctrl,
+                               mbo.design = generateDesign(n = 30, 
+                                                           par.set = ps_xgboost))
+```
+
+```{r}
+inner <- makeResampleDesc("Blocking")
+outer <- makeResampleDesc("Blocking")
+```
+
+### tune wrapper 
+
+```{r}
+tune_wrapper_mrmr <- makeTuneWrapper(lrn_xgboost, resampling = inner, 
+                                     par.set = ps_xgboost_mrmr,
+                                     control = tune.ctrl, show.info = TRUE,
+                                     measures = list(rmse))
+tune_wrapper_permut <- makeTuneWrapper(lrn_xgboost, resampling = inner, 
+                                       par.set = ps_xgboost_permut,
+                                       control = tune.ctrl, show.info = TRUE,
+                                       measures = list(rmse))
+```
+
+### Resample
+
+```{r}
+library(parallelMap)
+parallelStart(mode = "multicore", cpus = 30, level = "mlrMBO.feval",
+              mc.set.seed = TRUE)
+# parallelStart(mode = "multicore", cpus = 4, level = "mlr.resample",
+#               mc.set.seed = TRUE)
+set.seed(12345)
+resa_svm <- mlr::resample(tune_wrapper, task, models = FALSE,
+                          resampling = outer, 
+                          extract = function(x) list(getFeatSelResult, getTuneResult),
+                          show.info = TRUE, measures = list(rmse))
+
+benchm <- benchmark(tune_wrapper, task, models = FALSE,
+                          resampling = outer, 
+                          extract = function(x) list(getFeatSelResult, getTuneResult),
+                          show.info = TRUE, measures = list(rmse))
+
+parallelStop()
+saveRDS(resa_svm, "/data/patrick/mod/hyperspectral/spcv/all_plots_xgboost_fs_tune.rda")
+```
+
