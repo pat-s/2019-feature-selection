@@ -33,24 +33,9 @@ hyperspectral_plan$stage = "data"
 #
 # # Combine all -------------------------------------------------------------
 #
-# plan_no_reports = bind_plans(data_plan, task, learners, resampling, param_set,
-#                              tune_ctrl, tuning_wrapper, benchmark_plan, prediction)
-# # For debugging target invalidation issues: https://github.com/ropensci/drake/issues/615
-# plan_no_reports$command <- paste(
-#   "{return(TRUE)\n {",
-#   plan_no_reports$command,
-#   "}}"
-# )
-#
-# plan2 <- bind_plans(plan_no_reports, reports)
-#
-#
-#
-#
 plan = bind_plans(data_plan, download_plan, hyperspectral_plan)
 
 # set cores of targets
-#plan$resources = list(list(cores = 1, gpus = 0))
 
 plan %<>%
   mutate(resources = case_when(target == "data_hs_preprocessed" ~
@@ -60,21 +45,4 @@ plan %<>%
                                TRUE ~ list(list(cores = 1, gpus = 0)))
   )
 
-#
-# plan %<>% mutate(stage = as.factor(stage))
-#
 config = drake_config(plan)
-# config2 = drake_config(plan2)
-#
-#
-# # make(plan, keep_going = TRUE, console_log_file=stdout())
-#
-# # make(plan, targets = "bm_glm", keep_going = TRUE, console_log_file=stdout())
-#
-# # make(plan, targets = "pred_data", keep_going = TRUE, console_log_file=stdout())
-#
-# # make(plan, targets = "armillaria_data", keep_going = TRUE, console_log_file=stdout())
-#
-# # make(plan, targets = "slope", keep_going = TRUE, console_log_file=stdout())
-#
-# # make(plan, targets = "tasks", keep_going = TRUE, console_log_file=stdout(), jobs = 10)
