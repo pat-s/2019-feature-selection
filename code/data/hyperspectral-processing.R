@@ -1,5 +1,4 @@
 # crop rasters
-#future_setup1 = future_init(20)
 data_hs_preprocessed = future_pmap(list(name_id, index, name_out), ~
                                       process_hyperspec(data = data_hs_raw, id = ..1,
                                                         index = ..2, name_out = ..3,

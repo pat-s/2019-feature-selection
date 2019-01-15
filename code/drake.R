@@ -16,9 +16,9 @@ hyperspectral_plan = code_to_plan("code/data/hyperspectral-processing.R")
 # sourceDirectory("code/reports/")
 #
 sourceDirectory("code/functions/")
-# source("https://raw.githubusercontent.com/mlr-org/mlr-extralearner/master/R/RLearner_classif_gam.R")
-#
-# # grouping for visualization
+
+#  grouping for visualization -----------------------------------------------------------------------
+
 data_plan$stage = "data"
 download_plan$stage = "data"
 hyperspectral_plan$stage = "data"
@@ -30,7 +30,6 @@ hyperspectral_plan$stage = "data"
 # prediction$stage = "prediction"
 # reports$stage = "reports"
 
-#
 # # Combine all -------------------------------------------------------------
 #
 plan = bind_plans(data_plan, download_plan, hyperspectral_plan)
