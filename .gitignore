@@ -13,3 +13,4 @@ file*.R
 02_scripts/01_hyperspectral_indices/.directory
 jobs*.R
 .httr-oauth
+.drake
