@@ -3,6 +3,7 @@
 .RData
 .Ruserdata
 packrat/lib*/
+packrat/src/
 .Rprofile
 .bbl
 .spl
@@ -14,3 +15,4 @@ file*.R
 jobs*.R
 .httr-oauth
 .drake
+data
