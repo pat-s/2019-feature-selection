@@ -4,7 +4,7 @@ data_hs_preprocessed = process_hyperspec(data = data_hs_raw, plots = plot_locati
                                          id = name_id)
 
 # create hyperspec rasters from cropped rasters
-#hyperspecs = map(data_hs_preprocessed, ~ HyperSpecRaster(.x, wavelength))
+# hyperspecs = map(data_hs_preprocessed, ~ HyperSpecRaster(.x, wavelength))
 
 # calculate various indices for all plots
 ndvi_rasters = map(data_hs_preprocessed, ~ HyperSpecRaster(.x, wavelength)) %>%
@@ -19,12 +19,13 @@ nri_indices = map(data_hs_preprocessed, ~ HyperSpecRaster(.x, wavelength)) %>%
   calc_nri_indices(indices)
 
 # extract all indices to tree data
-trees_with_indices = future_map(c("laukiz1", "laukiz2", "oiartzun", "luiando"), ~
-                                  extract_indices_to_plot(.x, buffer = 2,
-                                                          bf_name = "bf2",
-                                                          tree_data = tree_per_tree,
-                                                          veg_indices = veg_indices,
-                                                          nri_indices = nri_indices))
+trees_with_indices = future_lapply(c("laukiz1", "laukiz2", "oiartzun", "luiando"), FUN = function(x) {
+  extract_indices_to_plot(x, buffer = 2,
+                          bf_name = "bf2",
+                          tree_data = tree_per_tree,
+                          veg_indices = veg_indices,
+                          nri_indices = nri_indices)
+})
 
 # extract all indices to tree data
 trees_with_bands = future_map(c("laukiz1", "laukiz2", "oiartzun", "luiando"), ~

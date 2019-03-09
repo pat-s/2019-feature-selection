@@ -1,0 +1,4 @@
+cache /home/patrick/paper-hyperspectral/.drake
+analyze environment
+analyze 26 imports: download_hyperspectral, remove_na, extract_bands_to_plot,...
+construct priority queue

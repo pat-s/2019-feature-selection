@@ -1,22 +1,22 @@
 download_trees = function(path) {
-  if (!file.exists("data/gpkg/oiartzun.gpkg")) {
+  if (!file.exists("data/gpkg/oiartzun.shp")) {
     curl_download(path,
                   destfile = glue(tempdir(), "/trees.zip"), quiet = FALSE)
     unzip(glue(tempdir(), "/trees.zip"), exdir = "data/gpkg")
   }
 
   files = map(c("laukiz1", "laukiz2", "luiando", "oiartzun"), ~
-        st_read(glue("data/gpkg/{.x}.gpkg"), quiet = TRUE))
+        st_read(glue("data/gpkg/{.x}.shp"), quiet = TRUE))
   return(files)
 }
 
 download_locations = function(path) {
-  if (!file.exists("data/gpkg/all-plots.gpkg")) {
+  if (!file.exists("data/gpkg/all-plots.shp")) {
     curl_download(path,
-                  destfile = "data/gpkg/all-plots.gpkg", quiet = FALSE)
+                  destfile = "data/gpkg/all-plots.shp", quiet = FALSE)
   }
 
-  files = st_read("data/gpkg/all-plots.gpkg") %>%
+  files = st_read("data/gpkg/all-plots.shp") %>%
     mutate(Name = as.character(ignore(Name)))
   return(files)
 }
@@ -30,6 +30,6 @@ download_hyperspectral = function(path) {
 
   files = map(list.files("data/hyperspectral",
                          full.names = TRUE, pattern = ".tif$"),
-              ~ stack(.x))
+              ~ brick(.x))
   return(files)
 }

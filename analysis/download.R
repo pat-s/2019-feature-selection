@@ -58,7 +58,8 @@ indices <- c("Boochs", "Boochs2","CARI", "Carter", "Carter2", "Carter3", "Carter
 #       plot_locations)
 
 # load tree-per-tree data
-tree_per_tree = download_trees("https://ndownloader.figshare.com/articles/7588730/versions/1")
+tree_per_tree = download_trees("https://ndownloader.figshare.com/articles/7588730/versions/1") %>%
+  set_names(c("laukiz1", "laukiz2", "luiando", "oiartzun"))
 
 # heterobasidion_data = preprocessing_custom("https://data.mendeley.com/datasets/kmy95t22fy/2/files/41deb463-d378-46da-a25e-26044ce253fe/heterobasidion-armillaria.gpkg",
 #                                            study_area = data_basque, drop_vars = "armillaria",

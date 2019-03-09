@@ -1,0 +1,297 @@
+
+R version 3.5.2 (2018-12-20) -- "Eggshell Igloo"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> clustermq:::worker("tcp://gisc:6032")
+Master: tcp://gisc:6032
+WORKER_UP to: tcp://gisc:6032
+> DO_SETUP (0.104s wait)
+token from msg: set_common_data_token
+> DO_CALL (0.000s wait)
+rgdal: version: 1.3-9, (SVN revision 794)
+ Geospatial Data Abstraction Library extensions to R successfully loaded
+ Loaded GDAL runtime: GDAL 2.3.3, released 2018/12/14
+   but rgdal build and GDAL runtime not in sync:
+   ... consider re-installing rgdal!!
+ Path to GDAL shared files: /opt/spack/opt/spack/linux-centos7-x86_64/gcc-7.3.0/gdal-2.3.3-yjyzinxu3feva2sn7p7mcruqvow6lei2/share/gdal
+ GDAL binary built with GEOS: TRUE 
+ Loaded PROJ.4 runtime: Rel. 5.0.1, April 1st, 2018, [PJ_VERSION: 501]
+ Path to PROJ.4 shared files: (autodetected)
+ Linking to sp version: 1.3-1 
+
+Attaching package: ‘signal’
+
+The following object is masked from ‘package:raster’:
+
+    resample
+
+The following objects are masked from ‘package:stats’:
+
+    filter, poly
+
+
+Attaching package: ‘caret’
+
+The following object is masked from ‘package:drake’:
+
+    progress
+
+
+###################################
+  This is hsdar 0.5.2
+  To get citation entry type
+      'citation("hsdar")'
+###################################
+
+Attaching package: ‘hsdar’
+
+The following object is masked from ‘package:raster’:
+
+    nbands
+
+Linking to GEOS 3.6.2, GDAL 2.3.3, PROJ 5.0.1
+
+Attaching package: ‘dplyr’
+
+The following object is masked from ‘package:signal’:
+
+    filter
+
+The following objects are masked from ‘package:raster’:
+
+    intersect, select, union
+
+The following objects are masked from ‘package:stats’:
+
+    filter, lag
+
+The following objects are masked from ‘package:base’:
+
+    intersect, setdiff, setequal, union
+
+
+Attaching package: ‘purrr’
+
+The following object is masked from ‘package:caret’:
+
+    lift
+
+
+Attaching package: ‘glue’
+
+The following object is masked from ‘package:dplyr’:
+
+    collapse
+
+The following object is masked from ‘package:raster’:
+
+    trim
+
+
+Attaching package: ‘R.oo’
+
+The following object is masked from ‘package:glue’:
+
+    trim
+
+The following object is masked from ‘package:rgdal’:
+
+    getDescription
+
+The following objects are masked from ‘package:raster’:
+
+    extend, trim
+
+The following object is masked from ‘package:drake’:
+
+    check
+
+The following objects are masked from ‘package:methods’:
+
+    getClasses, getMethods
+
+The following objects are masked from ‘package:base’:
+
+    attach, detach, gc, load, save
+
+
+Attaching package: ‘R.utils’
+
+The following objects are masked from ‘package:signal’:
+
+    resample, unwrap
+
+The following objects are masked from ‘package:raster’:
+
+    extract, resample
+
+The following object is masked from ‘package:drake’:
+
+    evaluate
+
+The following object is masked from ‘package:utils’:
+
+    timestamp
+
+The following objects are masked from ‘package:base’:
+
+    cat, commandArgs, getOption, inherits, isOpen, parse, warnings
+
+
+Attaching package: ‘future’
+
+The following object is masked from ‘package:caret’:
+
+    cluster
+
+The following object is masked from ‘package:raster’:
+
+    values
+
+The following object is masked from ‘package:drake’:
+
+    plan
+
+
+Attaching package: ‘magrittr’
+
+The following object is masked from ‘package:R.utils’:
+
+    extract
+
+The following object is masked from ‘package:R.oo’:
+
+    equals
+
+The following object is masked from ‘package:purrr’:
+
+    set_names
+
+The following object is masked from ‘package:raster’:
+
+    extract
+
+
+Attaching package: ‘data.table’
+
+The following object is masked from ‘package:purrr’:
+
+    transpose
+
+The following objects are masked from ‘package:dplyr’:
+
+    between, first, last
+
+The following object is masked from ‘package:raster’:
+
+    shift
+
+
+Attaching package: ‘ParamHelpers’
+
+The following object is masked from ‘package:R.utils’:
+
+    isVector
+
+The following object is masked from ‘package:raster’:
+
+    getValues
+
+
+Attaching package: ‘mlr’
+
+The following objects are masked from ‘package:R.utils’:
+
+    resample, setThreshold
+
+The following object is masked from ‘package:hsdar’:
+
+    train
+
+The following object is masked from ‘package:caret’:
+
+    train
+
+The following object is masked from ‘package:signal’:
+
+    resample
+
+The following object is masked from ‘package:raster’:
+
+    resample
+
+Finished busturi.Finished laukiz1.Finished laukiz2.Finished laukiz3.Finished altube.Finished barazar.Finished laricio-defol-urkiola.Finished aguinaga-pinaster-radiata.Finished oiartzun.Finished pinast-arza.Finished pinas-santa-koloma.Finished rad-menagaray-1.Finished rad-menagaray-2.Finished luiando.Finished silvest-nograro.Finished caranca.Finished picea-abornicano.Finished douglas-1.Finished douglas-2.Finished rad-altube.Finished otxandio.Finished laricio-defol-olaeta.Finished douglas-legutio.Finished laricio-gatzaga.Finished azaceta.Finished gipuzkoa.Finished sequoia-legorreta.Finished douglas-albiztur.Finished processing.Finished writing.Warning: target data_hs_preprocessed warnings:
+  no non-missing arguments to min; returning Inf
+  no non-missing arguments to max; returning -Inf
+  no non-missing arguments to min; returning Inf
+  no non-missing arguments to max; returning -Inf
+  no non-missing arguments to min; returning Inf
+  no non-missing arguments to max; returning -Inf
+  no non-missing arguments to min; returning Inf
+  no non-missing arguments to max; returning -Inf
+  no non-missing arguments to min; returning Inf
+  no non-missing arguments to max; returning -Inf
+  no non-missing arguments to min; returning Inf
+  no non-missing arguments to max; returning -Inf
+  no non-missing arguments to min; returning Inf
+  no non-missing arguments to max; returning -Inf
+  no non-missing arguments to min; returning Inf
+  no non-missing arguments to max; returning -Inf
+  no non-missing arguments to min; returning Inf
+  no non-missing arguments to max; returning -Inf
+  no non-missing arguments to min; returning Inf
+  no non-missing argum [... truncated]
+eval'd: drake::cmq_buildtargetmetadepsconfig
+> DO_CALL (0.000s wait)
+Warning: target veg_indices warnings:
+  When writing to other format than '.grd', layer names are not preserved
+  When writing to other format than '.grd', layer names are not preserved
+  When writing to other format than '.grd', layer names are not preserved
+  When writing to other format than '.grd', layer names are not preserved
+  When writing to other format than '.grd', layer names are not preserved
+  no non-missing arguments to min; returning Inf
+  no non-missing arguments to max; returning -Inf
+  no non-missing arguments to min; returning Inf
+  no non-missing arguments to max; returning -Inf
+  no non-missing arguments to min; returning Inf
+  no non-missing arguments to max; returning -Inf
+  no non-missing arguments to min; returning Inf
+  no non-missing arguments to max; returning -Inf
+  no non-missing arguments to min; returning Inf
+  no non-missing arguments to max; returning -Inf
+  no non-missing arguments to min; returning Inf
+  no non-missing arguments to max; returning -Inf
+  no no [... truncated]
+eval'd: drake::cmq_buildtargetmetadepsconfig
+> WORKER_WAIT (0.000s wait)
+waiting 0.05s
+> DO_CALL (0.000s wait)
+Target trees_with_indices messages:
+  Loading required namespace: sf
+  Loading required namespace: sf
+  Loading required namespace: sf
+  Loading required namespace: sf
+eval'd: drake::cmq_buildtargetmetadepsconfig
+> WORKER_STOP (0.000s wait)
+shutting down worker
+
+Total: 0 in 44.50s [user], 9.60s [system], 1120.94s [elapsed]
+Warning message:
+replacing previous import ‘gdalUtils::gdal_rasterize’ by ‘sf::gdal_rasterize’ when loading ‘mapview’ 
+> 
+> 

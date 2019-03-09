@@ -1,6 +1,7 @@
 data_ls = list("vi_nri" = trees_with_indices, "bands" = trees_with_bands)
 
-plan("multisession", workers = 2)
+plan(future.callr::callr, workers = ignore(2))
+data_clean = future_imap(data_ls, ~ remove_na(.x))
 coords = future_imap(data_ls, ~ extract_coords(.x))
 
 # Merge into one datase

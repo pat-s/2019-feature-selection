@@ -7,16 +7,16 @@ output: github_document
 [![Licence](https://img.shields.io/github/license/mashape/apistatus.svg)](http://choosealicense.com/licenses/mit/)  
 <!-- [![Travis-CI Build Status](https://travis-ci.org/pat-s/paper_hyperspectral.png?branch=master)](https://travis-ci.org/pat-s/paper_hyperspectral)  -->
 
-### Compendium URL
+**title**
 
-### Authors
+# Authors
 
 **Patrick Schratz** (patrick.schratz@gmail.com) [![](https://orcid.org/sites/default/files/images/orcid_16x16.png)](http://orcid.org/0000-0003-0748-6624)    
 Jannes Muenchow [![](https://orcid.org/sites/default/files/images/orcid_16x16.png)](http://orcid.org/0000-0001-7834-4717)   
 Bernd Bischl [![](https://orcid.org/sites/default/files/images/orcid_16x16.png)](http://orcid.org/0000-0001-6002-6980)   
 Alexander Brenning [![](https://orcid.org/sites/default/files/images/orcid_16x16.png)](http://orcid.org/0000-0001-6640-679X) 
 
-### Contents
+# Contents
 
 This repository contains the research compendium of our work on comparing algorithms across multiple feature sets and filtering methods (including ensemble filter methods).
 
@@ -34,14 +34,14 @@ This repository contains the research compendium of our work on comparing algori
 - Predict defoliation to all available plots (24) and the whole Basque Country (at 200 m resolution)
 
 
-### How to use
+# How to use
 
-#### Read the code, access the data
+## Read the code, access the data
 
 See the [`analysis`](https://github.com/pat-s/paper_hyperspectral/tree/master/analysis) directory on GitHub for the source code that generated the figures and statistical results contained in the manuscript.
 See the [`data`](https://github.com/pat-s/paper_hyperspectral/tree/master/analysis/data) directory for instructions how to access the raw data discussed in the manuscript. 
 
-#### Install the R package
+## Install the R package
 
 [![Build Status](https://travis-ci.org/pat-s/paper_hyperspectral.svg?branch=master)](https://travis-ci.org/pat-s/paper_hyperspectral)
 
@@ -72,43 +72,20 @@ Then start R in this directory and run
 
 ```{r README-1, eval = FALSE}
 packrat::restore()
-source("analysis/drake.R")
-make(plan, keep_going = TRUE, console_log_file = stdout()) 
-# use more cores with make(plan, jobs = <number of cores>)
+r_make()
 ```
 
-## Runtime
+# Runtime
 
-Predicted total runtime (based on all target runtimes ever built and stored in the internal `config` file)
+Predicted total runtime.
+The time is based on all targets that have been created so far in the project.
+Estimated time will differ depending on the CPU speed and possible availability of a HPC.
 
 ```{r README-2 }
-source("analysis/drake.R")
-predict_runtime(config, from_scratch = TRUE)
+r_predict_runtime()
 ```
 
-Acceleration when parallelizing the `make()` call
-
-```{r README-3, warning=FALSE, message=FALSE}
-time <- c()
-for (jobs in 1:10){
-time[jobs] <- predict_runtime(
-drake_config(),
-jobs = jobs,
-from_scratch = TRUE,
-known_times = build_times(targets_only = TRUE)$elapsed
-)
-}
-
-library(ggplot2)
-ggplot(data.frame(time = time / 3600, jobs = ordered(1:10), group = 1)) +
-geom_line(aes(x = jobs, y = time, group = group)) +
-scale_y_continuous(breaks = 0:10 * 4, limits = c(0, 29)) +
-ggpubr::theme_pubr() +
-xlab("jobs argument of make()") +
-ylab("Predicted runtime of make() (hours)")
-```
-
-### Licenses
+# Licenses
 
 Text: CC-BY-4.0 http://creativecommons.org/licenses/by/4.0/
 
@@ -116,7 +93,7 @@ Code: MIT http://opensource.org/licenses/MIT year: 2019, copyright holder: Patri
 
 Data: CC0 http://creativecommons.org/publicdomain/zero/1.0/ 
 
-### Notes and resources 
+# Notes and resources 
 
 * The [issues tracker](https://github.com/pat-s/paper_hyperspectral/issues) is the place to report problems or ask questions  
 
@@ -124,8 +101,7 @@ Data: CC0 http://creativecommons.org/publicdomain/zero/1.0/
 
 * The organisation of this compendium is based on the work of [Carl Boettiger](http://www.carlboettiger.info/) and [Ben Marwick](https://github.com/benmarwick).
 
-
-## Literature
+# Literature
 
 - What to do first (Feature selection or tuning): https://datascience.stackexchange.com/a/19778/24475
 - Hastie, T., Friedman, J., & Tibshirani, R. (2001). The Elements of Statistical Learning. Springer New York. https://doi.org/10.1007/978-0-387-21606-5 (Kapitel 16)
