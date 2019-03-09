@@ -3,6 +3,7 @@
 .RData
 .Ruserdata
 packrat/lib*/
+packrat/src/
 .Rprofile
 .bbl
 .spl
