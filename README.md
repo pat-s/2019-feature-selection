@@ -1,5 +1,5 @@
 
-[![Last-changedate](https://img.shields.io/badge/last%20change-2019--03--09-brightgreen.svg)](https://github.com/pat-s/paper_hyperspectral/commits/master)  
+[![Last-changedate](https://img.shields.io/badge/last%20change-2019--03--12-brightgreen.svg)](https://github.com/pat-s/paper_hyperspectral/commits/master)  
 [![minimal R
 version](https://img.shields.io/badge/R%3E%3D-3.5.0-brightgreen.svg)](https://cran.r-project.org/)  
 [![Licence](https://img.shields.io/github/license/mashape/apistatus.svg)](http://choosealicense.com/licenses/mit/)  
@@ -108,7 +108,6 @@ r_predict_runtime()
 
     ## [38;5;153mcache[39m /home/patrick/paper-hyperspectral/.drake
     ## [38;5;153manalyze[39m environment
-    ## [38;5;153manalyze[39m 26 imports: download_hyperspectral, remove_na, extract_bands_to_plot,...
     ## [38;5;153mconstruct[39m priority queue
 
     ## [1] "0s"
