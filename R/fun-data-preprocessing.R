@@ -1,21 +1,22 @@
-remove_na = function(data) {
+#' @param data `list` containing multiple data.frames
+
+clean_single_plots = function(data) {
   # Remove columns with NA values and "ID" columns
   # Ref: https://stackoverflow.com/questions/41343900/remove-row-columns-with-any-all-nan-values/41343980#41343980
   # luiando has some NA obs that need to be removed, otherwise the whole column will be removed by `Filter()`
   # for the nri_vi stack 3 more bands are removed than for the "bands" only
-  data[[3]] %<>%
-    na.omit()
+  data[[3]] %<>% na.omit()
 
   data %<>%
-    map(~ dplyr::select(data, -contains("_ID"))) %>%
-    map(~ as.data.table(data)) %>%
+    map(~ dplyr::select(.x, -contains("_ID"))) %>%
+    map(~ as.data.table(.x)) %>%
     #map(~ na.omit(.x)) %>% # some obs in luiando are NA after extraction
-    map(~ dplyr::select(data, -tree.number, -decoloration, -canker, -diameter, -height)) %>%
-    map(~ Filter(function(x) !any(is.na(x)), data))
+    map(~ dplyr::select(.x, -tree.number, -decoloration, -canker, -diameter, -height)) %>%
+    map(~ Filter(function(x) !any(is.na(x)), .x))
 
   data %<>%
-    map(~ st_as_sf(data, crs = 32630)) %>%
-    map(~ st_set_geometry(data, NULL))
+    map(~ st_as_sf(.x, crs = 32630)) %>%
+    map(~ st_set_geometry(.x, NULL))
 
   return(data)
 }
