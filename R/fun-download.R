@@ -6,7 +6,7 @@ download_trees = function(path) {
   }
 
   files = map(c("laukiz1", "laukiz2", "luiando", "oiartzun"), ~
-        st_read(glue("data/gpkg/{.x}.shp"), quiet = TRUE))
+        st_read(glue("data/gpkg/{.x}.gpkg"), quiet = TRUE))
   return(files)
 }
 
