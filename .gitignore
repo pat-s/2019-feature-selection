@@ -16,3 +16,4 @@ jobs*.R
 .httr-oauth
 .drake
 data
+exec-drake.R
