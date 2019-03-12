@@ -1,7 +1,6 @@
 process_hyperspec = function(data, id, name, index, plots, name_out) {
 
-  #plan(future.callr::callr, workers = 28)
-  plan("multisession", workers = ignore(28))
+  #plan("multisession", workers = ignore(28))
 
   # for later
   dir_create("data/hyperspectral/vi/")
@@ -88,12 +87,8 @@ extract_indices_to_plot = function(plot_name, buffer, bf_name, tree_data,
 
 extract_bands_to_plot = function(plot_name, buffer, bf_name, tree_data, hyperspectral_bands) {
 
-  plan(future::multisession, workers = ignore(15))
-
-  # calculate buffered veg index
-  # plan("multisession", workers = 4)
-  out_bands <- future_map(buffer, function(x)
-    raster::extract(hyperspectral_bands[[5:126]], tree_data, buffer = x,
+  out_bands <- map(buffer, function(x)
+    raster::extract(hyperspectral_bands[[plot_name]][[5:126]], tree_data[[plot_name]], buffer = x,
                     fun = mean, df = TRUE,
                     na.rm = TRUE))
 
@@ -104,15 +99,13 @@ extract_bands_to_plot = function(plot_name, buffer, bf_name, tree_data, hyperspe
   # merge all data frames (buffers)
   out_bands <- bind_cols(out_bands)
 
-  points %<>%
+  tree_data[[plot_name]] %<>%
     bind_cols(out_bands)
 
-  return(points)
+  return(tree_data[[plot_name]])
 }
 
 calc_veg_indices = function(hyperspecs, indices) {
-
-  plan("multisession", workers = ignore(28))
 
   veg_y <- future_lapply(seq_along(hyperspecs), FUN = function(ii)
     vegindex(hyperspecs[[ii]], indices,
@@ -121,34 +114,18 @@ calc_veg_indices = function(hyperspecs, indices) {
              bnames = indices, na.rm = TRUE)) %>%
     set_names(names(hyperspecs))
 
-  #plan("multisession", workers = 10L)
-  # plan(future.callr::callr, workers = ignore(28))
-  #
-  # future_imap(hyperspecs, ~
-  #               vegindex(.x, indices,
-  #                        filename =
-  #                          str_replace(glue("data/hyperspectral/vi/{.y}"), ".tif", ".grd"),
-  #                        na.rm = TRUE, bnames = indices))
+
 }
 
 calc_nri_indices = function(hyperspecs, indices) {
 
-  #plan("multisession", workers = 7L)
 
-  y <- lapply(seq_along(hyperspecs), FUN = function(ii)
+  y <- future_lapply(seq_along(hyperspecs), FUN = function(ii)
     nbi_raster(hyperspecs[[ii]],
                filename =
                  str_replace(glue("data/hyperspectral/nri/nri-{names(hyperspecs)[[ii]]}"), ".tif", ".grd"),
                bnames_prefix = "NRI")) %>%
     set_names(names(hyperspecs))
 
-  #plan("multisession", workers = ignore(7))
-  #plan(future.callr::callr, workers = ignore(7))
-
-  # future_imap(hyperspecs, ~
-  #               nbi_raster(.x,
-  #                          filename =
-  #                            str_replace(glue("data/hyperspectral/nri/nri-{.y}"), ".tif", ".grd"),
-  #                          bnames_prefix = "NRI"))
 }
 
