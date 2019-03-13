@@ -1,8 +1,9 @@
 # filter 7 most important variables according to xgboost variable imp Mon Mar 11 22:57:56 2019 ------------------------------
 
 data_7_most_imp = nri_vi_data %>%
-  select(defoliation, bf2_EVI, bf2_GDVI_4, bf2_GDVI_3, bf2_GDVI_2, bf2_D1, bf2_mNDVI, bf2_mSR) %>%
-  as_tibble()
+  subset(select = c(defoliation, bf2_EVI, bf2_GDVI_4, bf2_GDVI_3, bf2_GDVI_2, bf2_D1, bf2_mNDVI, bf2_mSR))
+  #dplyr::select(defoliation, bf2_EVI, bf2_GDVI_4, bf2_GDVI_3, bf2_GDVI_2, bf2_D1, bf2_mNDVI, bf2_mSR) %>%
+  #as_tibble()
 
 # trim outliers of variables Mon Mar 11 22:59:05 2019 ------------------------------
 
@@ -17,5 +18,5 @@ data_7_most_imp %<>%
 
 task_7_most_imp = makeRegrTask(id = "all_plots", data = data_7_most_imp,
                                target = "defoliation", coordinates = coords_vi_nri_clean,
-                               blocking = factor(rep(1:4, c(479, 451, 291, 529))))
+                               blocking = factor(rep(1:4, c(479, 451, 300, 529))))
 

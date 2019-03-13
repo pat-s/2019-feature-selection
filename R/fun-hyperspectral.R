@@ -1,7 +1,5 @@
 process_hyperspec = function(data, id, name, index, plots, name_out) {
 
-  #plan("multisession", workers = ignore(28))
-
   # for later
   dir_create("data/hyperspectral/vi/")
   dir_create("data/hyperspectral/ndvi/")

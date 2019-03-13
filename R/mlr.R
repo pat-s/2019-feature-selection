@@ -8,16 +8,17 @@ tune_ctrl_wrapper = function(propose.points, iters, n, param_set) {
 }
 
 
-tune_wrapper = function(level, cpus, tune.control, show.info, par.set, resampling,
+tune_wrapper = function(learner, level, cpus, tune.control, show.info, par.set, resampling,
                         measure, task) {
   configureMlr(on.learner.error = "warn", on.error.dump = TRUE)
   parallelStart(mode = "multicore", level = level, cpus = ignore(cpus),
                 mc.set.seed = TRUE)
-  set.seed(12345)
-  xgboost_tuned = tuneParams(lrn_xgboost, task = task_7, resampling = inner,
-                             par.set = ps_xgboost, control = tune.control,
+  set.seed(12345, kind = "L'Ecuyer-CMRG")
+  xgboost_tuned = tuneParams(learner, task = task, resampling = resampling,
+                             par.set = par.set, control = tune.control,
                              show.info = ignore(show.info), measure = measure)
   parallelStop()
+  return(xgboost_tuned)
 }
 
 train_wrapper = function(learner, tune_object, task) {

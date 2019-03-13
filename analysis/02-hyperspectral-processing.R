@@ -1,4 +1,5 @@
-# crop hyperspectral rasters Mon Mar 11 22:27:14 2019 ------------------------------
+# crop hyperspectral rasters Mon Mar 11 22:27:14 2019
+# ------------------------------
 
 data_hs_preprocessed = process_hyperspec(data = data_hs_raw, plots = plot_locations,
                                          name_out = name_out, index = index,
@@ -20,7 +21,7 @@ nri_indices = map(data_hs_preprocessed, ~ HyperSpecRaster(.x, wavelength)) %>%
 # extract all indices to tree data Mon Mar 11 21:58:06 2019
 # ------------------------------
 
-trees_with_indices = future_lapply(c("laukiz1", "laukiz2", "oiartzun", "luiando"), FUN = function(x) {
+trees_with_indices = lapply(c("laukiz1", "laukiz2", "oiartzun", "luiando"), FUN = function(x) {
   extract_indices_to_plot(x, buffer = 2,
                           bf_name = "bf2",
                           tree_data = tree_per_tree,
@@ -28,7 +29,7 @@ trees_with_indices = future_lapply(c("laukiz1", "laukiz2", "oiartzun", "luiando"
                           nri_indices = nri_indices)
 })
 
-trees_with_bands = future_lapply(c("laukiz1", "laukiz2", "oiartzun", "luiando"), FUN = function(x) {
+trees_with_bands = lapply(c("laukiz1", "laukiz2", "oiartzun", "luiando"), FUN = function(x) {
   extract_bands_to_plot(x, buffer = 2,
                         bf_name = "bf2",
                         tree_data = tree_per_tree,

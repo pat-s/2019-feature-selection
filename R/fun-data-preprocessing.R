@@ -5,7 +5,6 @@ clean_single_plots = function(data) {
   # Ref: https://stackoverflow.com/questions/41343900/remove-row-columns-with-any-all-nan-values/41343980#41343980
   # luiando has some NA obs that need to be removed, otherwise the whole column will be removed by `Filter()`
   # for the nri_vi stack 3 more bands are removed than for the "bands" only
-  data[[3]] %<>% na.omit()
 
   data %<>%
     map(~ dplyr::select(.x, -contains("_ID"))) %>%
@@ -30,8 +29,8 @@ extract_coords = function(data) {
   # So we need to safe the coordinates, remove them and attach them afterwards again.
   # Coordinates are needed for the spatial partitioning during modeling.
 
-  coords = map(data, ~ st_as_sf(data, crs = 32630)) %>%
-    map(~ as.data.frame(st_coordinates(data)))
+  coords = map(data, ~ st_as_sf(.x, crs = 32630)) %>%
+    map(~ as.data.frame(st_coordinates(.x)))
 
   return(coords)
 }
@@ -50,8 +49,9 @@ standardize = function(data) {
 mutate_defol = function(data) {
 
   data %<>%
-    mutate(defoliation = case_when(.data$defoliation == 0 ~ 0.001,
-                                   TRUE ~ as.numeric(defoliation)))
+    dplyr::mutate(defoliation = case_when(.data$defoliation == 0 ~ 0.001,
+                                          TRUE ~ as.numeric(.data$defoliation))
+    )
 }
 
 log_response = function(data, response) {
@@ -64,12 +64,12 @@ split_in_feature_sets = function(data, set) {
 
   if (set == "nri") {
     data_split = data[["data_vi_nri"]] %>%
-      select(matches("nri|defol"))
+      dplyr::select(matches("nri|defol"))
   } else if (set == "vi") {
     data_split = data[["data_vi_nri"]] %>%
-      select(-matches("nri"))
+      dplyr::select(-matches("nri"))
   } else if (set == "bands") {
-    data_split = data[["data_bands"]]
+    data_split = data
   }
   return(data_split)
 }
