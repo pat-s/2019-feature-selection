@@ -39,16 +39,4 @@ plan = bind_plans(data_plan, download_plan, hyperspectral_plan, learners,
 
 plan %<>% mutate(stage = as.factor(stage))
 
-options(
-  clustermq.scheduler = "slurm",
-  clustermq.template = "~/paper-hyperspectral/slurm_clustermq.tmpl"
-)
-
-# global within-target parallelism if not set specifically within a function
-#plan(future.callr::callr, workers = ignore(7))
-
-drake_config(plan, verbose = 2, targets = "train_xgboost", lazy_load = "promise", console_log_file = "log/drake.log",
-             cache_log_file = "log/cache3.log",
-             caching = "worker", template = list(log_file = "log/worker%a.log", n_cpus= 16),
-             prework = quote(future::plan(future::multisession, workers = 3)),
-             garbage_collection = TRUE, jobs = 1, parallelism = "clustermq")
+drake_config(plan, verbose = 2)
