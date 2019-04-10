@@ -1,0 +1,41 @@
+---
+title: "Creation of prediction maps"
+output: html_document
+author: "Patrick Schratz, FSU Jena"
+---
+
+```{r setup}
+knitr::opts_knit$set(base.dir = 'analysis/rmd/')
+knitr::opts_chunk$set(fig.retina=3, fig.align = 'center',
+                      out.width = "100%")
+loadd(defoliation_raster_2017, defoliation_raster_2018,
+      defoliation_df_2017, defoliation_df_2018)
+```
+
+# Defoliation evaluation {.tabset .tabset-fade}
+
+## Maps
+
+```{r defoliation-map-2017, fig.height = 5.5, fig.width = 8.5, fig.path="../../analysis/figures/", dev = c("png")}
+create_prediction_map(list(defoliation_raster_2017), "xgboost")
+```
+
+```{r defoliation-map-2018, fig.height = 5.5, fig.width = 8.5, fig.path="../../analysis/figures/", dev = c("png")}
+create_prediction_map(list(defoliation_raster_2018), "xgboost")
+```
+
+## Histograms
+
+```{r}
+ggplot(defoliation_df_2017, aes(x = defoliation)) +
+  geom_histogram() +
+  labs(x = "Defoliation (%)") +
+  theme_pubr()
+```
+
+```{r}
+ggplot(defoliation_df_2018, aes(x = defoliation)) +
+  geom_histogram() +
+  labs(x = "Defoliation (%)") +
+  theme_pubr()
+```
