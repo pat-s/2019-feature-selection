@@ -2,10 +2,10 @@
 
 data_hs_raw = download_hyperspectral("https://ndownloader.figshare.com/articles/7570958/versions/1")
 
-# plot_locations = download_locations("https://ndownloader.figshare.com/files/14090993")
+plot_locations = download_locations("https://ndownloader.figshare.com/files/14090993")
 # temo test
-plot_locations = st_read("plot_locations.gpkg") %>%
-  mutate(Name = as.character(ignore(Name)))
+# plot_locations = st_read("plot_locations.gpkg") %>%
+#   mutate(Name = as.character(ignore(Name)))
 
 name_id = c("a busturi-axpe", "Laukiz I", "Laukiz II", "Laukiz III", "a altube",
             "a barazar", "Laricio defol. Urkiola.", "aguinaga pinaster radiata",

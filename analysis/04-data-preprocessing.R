@@ -29,11 +29,11 @@ data_trim_defoliation = map(list(data_vi_nri_clean), ~ mutate_defol(.x)) %>%
 
 # split into feature sets Mon Mar 11 22:44:59 2019 ------------------------------
 
-nri_data = split_in_feature_sets(data_trim_defoliation, "nri")
+nri_data = split_into_feature_sets(data_trim_defoliation, "nri")
 
-vi_data = split_in_feature_sets(data_trim_defoliation, "vi")
+vi_data = split_into_feature_sets(data_trim_defoliation, "vi")
 
-# bands_data = split_in_feature_sets(data_trim_defoliation, "bands")
+# bands_data = split_into_feature_sets(data_trim_defoliation, "bands")
 
 nri_vi_data = cbind(nri_data, vi_data)
 
