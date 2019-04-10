@@ -6,7 +6,7 @@
 #SBATCH --cpus-per-task={{ n_cpus }}
 #SBATCH --array=1-{{ n_jobs }}
 
-cd ~/paper-hyperspectral/
+cd ~/papers/2019-feature-selection
 spack load r@3.5.2
 
 CMQ_AUTH={{ auth }} R --no-save --no-restore -e 'clustermq:::worker("{{ master }}")'
