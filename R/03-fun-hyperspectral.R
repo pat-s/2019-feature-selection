@@ -1,4 +1,18 @@
-process_hyperspec = function(data, id, name, index, plots, name_out) {
+#' @title process_hyperspec
+#' @description
+#'   Preprocessing of hyperspectral data:
+#'   - Crop to plot extent
+#'   - Mask to plot extent
+#'   - Reproject to EPSG 32630
+#' @param data (`list`)\cr Raster bricks
+#' @param id (`character`)\cr ID name
+#' @param index (`integer`)\cr Internal identifier to check which plot belongs to which image.
+#' @param plots (`sf`)\cr sf object containing the plot locations (n = 28)
+#' @param name_out (`character`)\cr Name of the plot. Used for naming of the resulting list.
+#'
+#' @name process_hyperspec
+#' @export
+process_hyperspec = function(data, id, index, plots, name_out) {
 
   # for later
   dir_create("data/hyperspectral/vi/")
@@ -7,8 +21,8 @@ process_hyperspec = function(data, id, name, index, plots, name_out) {
 
   out = future_pmap(list(id, index, name_out), ~
                       process_hyperspec_helper(data = data, id = ..1,
-                                               index = ..2, name_out = ..3,
-                                               plots = plots))
+                                               index = ..2, plots = plots,
+                                               name_out = ..3))
 
   cat("Finished processing.")
 
@@ -30,7 +44,9 @@ process_hyperspec = function(data, id, name, index, plots, name_out) {
 
 }
 
-process_hyperspec_helper <- function(data, id, name, index, plots, name_out) {
+#' @inheritParams process_hyperspec
+#' @rdname process_hyperspec
+process_hyperspec_helper <- function(data, id, index, plots, name_out) {
 
   image <- data[[index]]
 
@@ -49,7 +65,19 @@ process_hyperspec_helper <- function(data, id, name, index, plots, name_out) {
   return(image_masked)
 }
 
-extract_indices_to_plot = function(plot_name, buffer, bf_name, tree_data,
+#' @title Extract indices
+#' @description
+#'   Extract indices to trees
+#' @importFrom raster extract
+#' @importFrom purrr map2
+#' @param plot_name (`character`)\cr Name of the plot
+#' @param buffer (`integer`)\cr Buffer to use for extracing, see [raster::extract()].
+#' @param tree_data (`sf`)\cr Tree data to extract the indices into.
+#' @param veg_indices (`list`)\cr Raster bricks with veg indices
+#' @param nri_indices (`list`)\cr Raster bricks with NRI indices
+#'
+#' @export
+extract_indices_to_plot = function(plot_name, buffer, tree_data,
                                    veg_indices, nri_indices) {
 
   # calculate buffered veg index
@@ -83,7 +111,17 @@ extract_indices_to_plot = function(plot_name, buffer, bf_name, tree_data,
   return(tree_data[[plot_name]])
 }
 
-extract_bands_to_plot = function(plot_name, buffer, bf_name, tree_data, hyperspectral_bands) {
+#' @title Extract hyperspectral bands
+#' @description
+#'   Extract indices to trees
+#' @importFrom raster extract
+#' @importFrom purrr map2
+#' @inheritParams extract_indices_to_plot
+#' @param hyperspectral_bands (`list`)\cr List with Raster Bricks of hyperspectral bands
+#'
+#' @export
+extract_bands_to_plot = function(plot_name, buffer, tree_data,
+                                 hyperspectral_bands) {
 
   out_bands <- map(buffer, function(x)
     raster::extract(hyperspectral_bands[[plot_name]][[5:126]], tree_data[[plot_name]], buffer = x,
