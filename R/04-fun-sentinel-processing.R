@@ -1,10 +1,4 @@
 #' @title get_records
-#' @importFrom sf st_bbox st_as_sfc
-#' @importFrom getSpatialData set_aoi
-#' @importFrom getSpatialData getSentinel_query
-#' @importFrom getSpatialData login_CopHub
-#' @importFrom dplyr filter arrange
-#' @importFrom magrittr %>%
 #' @description Splits data into feature sets.
 #'
 #' @param aoi (`sf`)\cr Area of interest to download images for
@@ -12,7 +6,7 @@
 #' @param processing_level (`character`)\cr  Which Sentinel processing level to use
 #' @return `list` of available records
 #' @export
-get_records = function(aoi, date, processing_level) {
+get_records <- function(aoi, date, processing_level) {
 
   # Set AOI to extent of basque country
   aoi %>%
@@ -24,8 +18,9 @@ get_records = function(aoi, date, processing_level) {
   login_CopHub("be-marc", password = "ISQiwQDl")
 
   # Get records from Sentinel-2 in time range
-  records = getSentinel_query(date,
-                              platform = "Sentinel-2")
+  records <- getSentinel_query(date,
+    platform = "Sentinel-2"
+  )
 
   records %<>%
     filter(processinglevel == processing_level) %>%
@@ -35,14 +30,12 @@ get_records = function(aoi, date, processing_level) {
 }
 
 #' @title download_images
-#' @importFrom getSpatialData getSentinel_data
-#' @importFrom getSpatialData login_CopHub
 #' @description Downloads the listed Sentinel images from Copernicus Hub.
 #'
 #' @param records (`character`)\cr Names of images to download.
 #' @return `list` of available records
 #' @export
-download_images = function(records) {
+download_images <- function(records) {
   # Set working directory for getSpatial package
   set_archive("data/sentinel/image_zip")
 
@@ -50,22 +43,21 @@ download_images = function(records) {
   login_CopHub("be-marc", password = "ISQiwQDl")
 
   # Download images
-  sentinel_dataset = getSentinel_data(records, force = FALSE)
+  sentinel_dataset <- getSentinel_data(records, force = FALSE)
 }
 
 #' @title download_images
-#' @importFrom getSpatialData getSentinel_data
-#' @importFrom getSpatialData login_CopHub
 #' @description Downloads the listed Sentinel images from Copernicus Hub.
 #'
 #' @param data (`list`)\cr File names of images to unzip.
 #' @return `list` of unzipped files
 #' @export
-unzip_images = function(data) {
-
+unzip_images <- function(data) {
   data %>%
-    future_walk(~ unzip(.x, exdir = "data/sentinel/image_unzip/",
-                        overwrite = FALSE))
+    future_walk(~ unzip(.x,
+      exdir = "data/sentinel/image_unzip/",
+      overwrite = FALSE
+    ))
 
   return(list.files("data/sentinel/image_unzip/", full.names = TRUE))
 }
@@ -77,59 +69,64 @@ unzip_images = function(data) {
 #' @param image_unzip File names of unzipped images.
 #' @return `list` of stacked raster files (Bricks)
 #' @export
-stack_bands = function(records, image_unzip) {
+stack_bands <- function(records, image_unzip) {
 
   # Each thread ~ 25 GB ram
 
   # Get record filenames
-  records = records$filename
+  records <- records$filename
 
   future_walk(records, ~ {
-    scenes_10 =
+    scenes_10 <-
       list.files(paste0("data/sentinel/image_unzip/", .x),
-                 recursive = TRUE,
-                 pattern = ".*_B08_10m.jp2",
-                 full.names = TRUE) %>%
-      map(~ raster(.)) %>%
-      map(~ raster::aggregate(., fact = 2, fun = mean)) %>%
-      brick()
+        recursive = TRUE,
+        pattern = ".*_B08_10m.jp2",
+        full.names = TRUE
+      ) %>%
+        map(~ raster(.)) %>%
+        map(~ raster::aggregate(., fact = 2, fun = mean)) %>%
+        brick()
 
-    scenes_20 =
+    scenes_20 <-
       list.files(paste0("data/sentinel/image_unzip/", .x),
-                 recursive = TRUE,
-                 pattern = ".*_B(02|03|04|05|06|07|8A|11|12)_20m.jp2",
-                 full.names = TRUE) %>%
-      map(~ raster(.)) %>%
-      brick()
+        recursive = TRUE,
+        pattern = ".*_B(02|03|04|05|06|07|8A|11|12)_20m.jp2",
+        full.names = TRUE
+      ) %>%
+        map(~ raster(.)) %>%
+        brick()
 
-    scenes_60 =
-      scenes_10 =
+    scenes_60 <-
+      scenes_10 <-
       list.files(paste0("data/sentinel/image_unzip/", .x),
-                 recursive = TRUE,
-                 pattern = ".*_B08_10m.jp2",
-                 full.names = TRUE) %>%
-      map(~ raster(.)) %>%
-      map(~ raster::aggregate(., fact = 2, fun = mean)) %>%
-      brick()
+        recursive = TRUE,
+        pattern = ".*_B08_10m.jp2",
+        full.names = TRUE
+      ) %>%
+        map(~ raster(.)) %>%
+        map(~ raster::aggregate(., fact = 2, fun = mean)) %>%
+        brick()
 
-    scenes_20 =
+    scenes_20 <-
       list.files(paste0("data/sentinel/image_unzip/", .x),
-                 recursive = TRUE,
-                 pattern = ".*_B(02|03|04|05|06|07|8A|11|12)_20m.jp2",
-                 full.names = TRUE) %>%
-      map(~ raster(.)) %>%
-      brick()
+        recursive = TRUE,
+        pattern = ".*_B(02|03|04|05|06|07|8A|11|12)_20m.jp2",
+        full.names = TRUE
+      ) %>%
+        map(~ raster(.)) %>%
+        brick()
 
-    scenes_60 =
+    scenes_60 <-
       list.files(paste0("data/sentinel/image_unzip/", .x),
-                 recursive = TRUE,
-                 pattern = ".*_B(01|09)_60m.jp2",
-                 full.names = TRUE) %>%
-      map(~ raster(.)) %>%
-      map(~ raster::disaggregate(., fact = 3)) %>%
-      brick()
+        recursive = TRUE,
+        pattern = ".*_B(01|09)_60m.jp2",
+        full.names = TRUE
+      ) %>%
+        map(~ raster(.)) %>%
+        map(~ raster::disaggregate(., fact = 3)) %>%
+        brick()
 
-    ras_stack =
+    ras_stack <-
       brick(
         scenes_60[[1]],
         scenes_20[[1]],
@@ -145,35 +142,38 @@ stack_bands = function(records, image_unzip) {
         scenes_20[[9]]
       )
 
-    writeRaster(ras_stack, file_out(paste0("data/sentinel/image_stack/",
-                                           str_remove(.x, ".SAFE"), ".tif")),
-                overwrite = TRUE
+    writeRaster(ras_stack, file_out(paste0(
+      "data/sentinel/image_stack/",
+      str_remove(.x, ".SAFE"), ".tif"
+    )),
+    overwrite = TRUE
     )
   })
 
   # Return file names for drake
-  list.files("data/sentinel/image_stack/", pattern = "\\.tif",
-             full.names = TRUE)
+  list.files("data/sentinel/image_stack/",
+    pattern = "\\.tif",
+    full.names = TRUE
+  )
 }
 
 #' @title copy_cloud
 #' @description Copies the cloud mask of each image
-#' @importFrom stringr str_remove
 #'
 #' @param records (`list`)\cr `data.frame` of Sentinel-2 records from [get_records].
 #' @param image_unzip File names of unzipped images.
 #' @return `list` of stacked raster files (Bricks)
 #' @export
-copy_cloud = function(records, image_unzip) {
+copy_cloud <- function(records, image_unzip) {
 
   # Get cloud mask filenames
-  file_cloud_mask =
+  file_cloud_mask <-
     records$filename %>%
-    map(~ list.files(paste0("data/sentinel/image_unzip/", ., "/GRANULE"),
-                     recursive = TRUE,
-                     pattern = "MSK_CLOUDS_B00.gml",
-                     full.names = TRUE
-    ))
+      map(~ list.files(paste0("data/sentinel/image_unzip/", ., "/GRANULE"),
+        recursive = TRUE,
+        pattern = "MSK_CLOUDS_B00.gml",
+        full.names = TRUE
+      ))
 
   # Copy and rename
   list(file_cloud_mask, records$filename) %>%
@@ -187,72 +187,79 @@ copy_cloud = function(records, image_unzip) {
   list.files("data/sentinel/image_stack/", pattern = "\\.gml", full.names = TRUE)
 }
 
-#' @title copy_cloud
-#' @description Copies the cloud mask of each image
-#' @importFrom stringr str_remove
+#' @title mosaic_images
+#' @description Mosaics the images of a specific date
 #'
 #' @param records (`list`)\cr `data.frame` of Sentinel-2 records from [get_records].
 #' @param image_unzip File names of unzipped images.
 #' @return `list` of stacked raster files (Bricks)
 #' @export
-mosaic_images = function(records, image_stack) {
-  # Get cluster
-  future::plan(future.callr::callr, workers = 2)
+mosaic_images <- function(records, image_stack) {
 
   # Get stack filenames
-  file_stack =
+  file_stack <-
     unique(records$beginposition) %>%
-    map(~ filter(records, beginposition == .)) %>%
-    map(~ pull(., filename)) %>%
-    map(~ str_remove(., ".SAFE")) %>%
-    map_depth(2, ~ str_glue("data/sentinel/image_stack/", ., ".tif"))
+      map(~ filter(records, beginposition == .)) %>%
+      map(~ pull(., filename)) %>%
+      map(~ str_remove(., ".SAFE")) %>%
+      map_depth(2, ~ str_glue("data/sentinel/image_stack/", ., ".tif"))
 
   # Set mosaic filename
-  file_mosaic =
+  file_mosaic <-
     records$filename %>%
-    str_sub(1, 41) %>%
-    unique() %>%
-    map(~ str_glue("data/sentinel/image_mosaic/", ., ".tif"))
+      str_sub(1, 41) %>%
+      unique() %>%
+      map(~ str_glue("data/sentinel/image_mosaic/", ., ".tif"))
 
   # Build mosaic
   list(file_stack, file_mosaic) %>%
-    future_pmap(~ mosaic_rasters(as.character(.x), as.character(.y), verbose = TRUE))
+    future_pmap(~ mosaic_rasters(as.character(.x), as.character(.y),
+      verbose = TRUE
+    ))
 
-  file_mosaic
+  return(file_mosaic)
 }
 
-mosaic_clouds = function(records, cloud_stack) {
+#' @title mosaic_clouds
+#' @description Mosaics the cloud cover of a specific date
+#'
+#' @param records (`list`)\cr `data.frame` of Sentinel-2 records from [get_records].
+#' @param cloud_stack cloud stack created by [copy_cloud].
+#' @return `list` of stacked raster files (Bricks)
+#' @export
+mosaic_clouds <- function(records, cloud_stack) {
+
   # Create dummy cloud mask for mosaics without clouds
-  vec_dummy_cloud_mask =
+  vec_dummy_cloud_mask <-
     st_polygon(list(cbind(c(0, 1, 1, 0, 0), c(0, 0, 1, 1, 0)))) %>%
-    st_sfc() %>%
-    st_sf(tibble(name = "Dummy")) %>%
-    st_set_crs("+proj=utm +zone=30 +datum=WGS84 +units=m +no_defs")
+      st_sfc() %>%
+      st_sf(tibble(name = "Dummy")) %>%
+      st_set_crs("+proj=utm +zone=30 +datum=WGS84 +units=m +no_defs")
 
   # Build cloud mask mosaic
-  vec_mosaic_cloud_mask =
+  vec_mosaic_cloud_mask <-
     unique(records$beginposition) %>%
-    map(~ filter(records, beginposition == .)) %>%
-    map(~ pull(., filename)) %>%
-    map(~ str_remove(., ".SAFE")) %>%
-    map_depth(2, ~ str_glue("data/sentinel/image_stack/", ., "_cloud_mask.gpkg")) %>%
-    map_depth(2, possibly(~ st_read(., quiet = TRUE), NA)) %>%
-    map(~ purrr::discard(., function(x) all(is.na(x)))) %>%
-    map(~ do.call(rbind, .)) %>%
-    map_if(~ is.null(.), ~vec_dummy_cloud_mask) %>%
-    map(possibly(~ st_set_crs(., "+proj=utm +zone=30 +datum=WGS84 +units=m +no_defs"), NA))
+      map(~ filter(records, beginposition == .)) %>%
+      map(~ pull(., filename)) %>%
+      map(~ str_remove(., ".SAFE")) %>%
+      map_depth(2, ~ str_glue("data/sentinel/image_stack/", ., "_cloud_mask.gpkg")) %>%
+      map_depth(2, possibly(~ st_read(., quiet = TRUE), NA)) %>%
+      map(~ purrr::discard(., function(x) all(is.na(x)))) %>%
+      map(~ do.call(rbind, .)) %>%
+      map_if(~ is.null(.), ~vec_dummy_cloud_mask) %>%
+      map(possibly(~ st_set_crs(., "+proj=utm +zone=30 +datum=WGS84 +units=m +no_defs"), NA))
 
   # Set cloud mask filename
-  file_mosaic_cloud_mask =
+  file_mosaic_cloud_mask <-
     records$filename %>%
-    str_sub(1, 41) %>%
-    unique() %>%
-    map(~ str_glue("data/sentinel/image_mosaic/", ., "_cloud_mask.gpkg"))
+      str_sub(1, 41) %>%
+      unique() %>%
+      map(~ str_glue("data/sentinel/image_mosaic/", ., "_cloud_mask.gpkg"))
 
   # Write cloud mask mosaic
   list(vec_mosaic_cloud_mask, file_mosaic_cloud_mask) %>%
     pwalk(~ st_write(.x, .y))
 
   # Return for drake
-  file_mosaic_cloud_mask
+  return(file_mosaic_cloud_mask)
 }
