@@ -50,16 +50,18 @@ download_images <- function(records) {
 #' @description Downloads the listed Sentinel images from Copernicus Hub.
 #'
 #' @param data (`list`)\cr File names of images to unzip.
+#' @param pattern (`charachter`)\cr Regex pattern (year)
 #' @return `list` of unzipped files
 #' @export
-unzip_images <- function(data) {
+unzip_images <- function(data, pattern) {
   data %>%
     future_walk(~ unzip(.x,
       exdir = "data/sentinel/image_unzip/",
       overwrite = FALSE
     ))
 
-  return(list.files("data/sentinel/image_unzip/", full.names = TRUE))
+  return(list.files("data/sentinel/image_unzip/", full.names = TRUE,
+                    pattern = pattern))
 }
 
 #' @title stack_bands

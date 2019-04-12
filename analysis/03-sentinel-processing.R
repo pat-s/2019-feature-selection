@@ -25,12 +25,12 @@ records_2018 = map(list(c("2018-04-19", "2018-04-20"),
 images_zip = map(list(records_2017, records_2018), ~ download_images(.x))
 
 # unzip images ------------------------------
-images_unzip = map(images_zip, ~ unzip_images(.x))
+images_unzip = map(images_zip, c("2017", "2018"), ~ unzip_images(.x, pattern = .y))
 
 # stack bands for each image ------------------------------
 # One date takes around 25 GB RAM -> max 4 at a time
-images_stack = future_map2(list(records_2017, records_2018), images_unzip, ~
-                            stack_bands(.x, .y))
+images_stack = map2(list(records_2017, records_2018), images_unzip, ~
+                      stack_bands(.x, .y))
 
 # copy cloud covers from unziped files ------------------------------
 cloud_stack = future_map2(list(records_2017, records_2018), images_unzip, ~
