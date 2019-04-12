@@ -531,8 +531,8 @@ Requires: BH, R6, Rcpp, assertthat, glue, magrittr, pkgconfig, plogr,
 
 Package: drake
 Source: CRAN
-Version: 7.0.0
-Hash: 61b38f88d59cc44fe61fa8c8069f65d2
+Version: 7.1.0
+Hash: f16c07df9f8b9fa6eb16246be2604bde
 Requires: base64url, digest, igraph, rlang, storr
 
 Package: e1071
@@ -1460,8 +1460,8 @@ Requires: Rcpp, plyr, stringr
 
 Package: rgdal
 Source: CRAN
-Version: 1.4-2
-Hash: 06279861df899ac433cba0738717749e
+Version: 1.4-3
+Hash: 2d43c14023befdba0d0913dcef1b6be4
 Requires: sp
 
 Package: rgenoud
@@ -1777,6 +1777,13 @@ Source: CRAN
 Version: 3043.102
 Hash: bf9c128558c5730c3fbaf9ea5196e4bc
 
+Package: timevis
+Source: CRAN
+Version: 0.5
+Hash: b90a2c5c7e73e68ec09789193f94cb6e
+Requires: htmltools, htmlwidgets, jsonlite, lubridate, magrittr,
+    rmarkdown, shiny
+
 Package: tinytex
 Source: CRAN
 Version: 0.10
@@ -1841,6 +1848,12 @@ Source: CRAN
 Version: 2.0.5
 Hash: 30ff6dc4fd15cd5c4ee60c0a8ab9e4e8
 Requires: htmltools, htmlwidgets, jsonlite, magrittr
+
+Package: vistime
+Source: CRAN
+Version: 0.8.1
+Hash: 122f2d9d204f55859d24ed0faf56a683
+Requires: RColorBrewer, plotly
 
 Package: webshot
 Source: CRAN
