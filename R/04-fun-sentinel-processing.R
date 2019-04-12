@@ -86,7 +86,7 @@ stack_bands = function(records, image_unzip) {
 
   future_walk(records, ~ {
     scenes_10 =
-      list.files(paste0("/home/marc/basque/01_data/image_unzip/", .x),
+      list.files(paste0("data/sentinel/image_unzip/", .x),
                  recursive = TRUE,
                  pattern = ".*_B08_10m.jp2",
                  full.names = TRUE) %>%
@@ -95,7 +95,7 @@ stack_bands = function(records, image_unzip) {
       brick()
 
     scenes_20 =
-      list.files(paste0("/home/marc/basque/01_data/image_unzip/", .x),
+      list.files(paste0("data/sentinel/image_unzip/", .x),
                  recursive = TRUE,
                  pattern = ".*_B(02|03|04|05|06|07|8A|11|12)_20m.jp2",
                  full.names = TRUE) %>%
@@ -104,7 +104,7 @@ stack_bands = function(records, image_unzip) {
 
     scenes_60 =
       scenes_10 =
-      list.files(paste0("/home/marc/basque/01_data/image_unzip/", .x),
+      list.files(paste0("data/sentinel/image_unzip/", .x),
                  recursive = TRUE,
                  pattern = ".*_B08_10m.jp2",
                  full.names = TRUE) %>%
@@ -113,7 +113,7 @@ stack_bands = function(records, image_unzip) {
       brick()
 
     scenes_20 =
-      list.files(paste0("/home/marc/basque/01_data/image_unzip/", .x),
+      list.files(paste0("data/sentinel/image_unzip/", .x),
                  recursive = TRUE,
                  pattern = ".*_B(02|03|04|05|06|07|8A|11|12)_20m.jp2",
                  full.names = TRUE) %>%
@@ -121,7 +121,7 @@ stack_bands = function(records, image_unzip) {
       brick()
 
     scenes_60 =
-      list.files(paste0("/home/marc/basque/01_data/image_unzip/", .x),
+      list.files(paste0("data/sentinel/image_unzip/", .x),
                  recursive = TRUE,
                  pattern = ".*_B(01|09)_60m.jp2",
                  full.names = TRUE) %>%
@@ -152,7 +152,7 @@ stack_bands = function(records, image_unzip) {
   })
 
   # Return file names for drake
-  list.files("/home/marc/basque/01_data/image_stack/", pattern = "\\.tif",
+  list.files("data/sentinel/image_stack/", pattern = "\\.tif",
              full.names = TRUE)
 }
 
@@ -205,14 +205,14 @@ mosaic_images = function(records, image_stack) {
     map(~ filter(records, beginposition == .)) %>%
     map(~ pull(., filename)) %>%
     map(~ str_remove(., ".SAFE")) %>%
-    map_depth(2, ~ str_glue("/home/marc/basque/01_data/image_stack/", ., ".tif"))
+    map_depth(2, ~ str_glue("data/sentinel/image_stack/", ., ".tif"))
 
   # Set mosaic filename
   file_mosaic =
     records$filename %>%
     str_sub(1, 41) %>%
     unique() %>%
-    map(~ str_glue("/home/marc/basque/01_data/image_mosaic/", ., ".tif"))
+    map(~ str_glue("data/sentinel/image_mosaic/", ., ".tif"))
 
   # Build mosaic
   list(file_stack, file_mosaic) %>%
@@ -235,7 +235,7 @@ mosaic_clouds = function(records, cloud_stack) {
     map(~ filter(records, beginposition == .)) %>%
     map(~ pull(., filename)) %>%
     map(~ str_remove(., ".SAFE")) %>%
-    map_depth(2, ~ str_glue("/home/marc/basque/01_data/image_stack/", ., "_cloud_mask.gpkg")) %>%
+    map_depth(2, ~ str_glue("data/sentinel/image_stack/", ., "_cloud_mask.gpkg")) %>%
     map_depth(2, possibly(~ st_read(., quiet = TRUE), NA)) %>%
     map(~ purrr::discard(., function(x) all(is.na(x)))) %>%
     map(~ do.call(rbind, .)) %>%
@@ -247,7 +247,7 @@ mosaic_clouds = function(records, cloud_stack) {
     records$filename %>%
     str_sub(1, 41) %>%
     unique() %>%
-    map(~ str_glue("/home/marc/basque/01_data/image_mosaic/", ., "_cloud_mask.gpkg"))
+    map(~ str_glue("data/sentinel/image_mosaic/", ., "_cloud_mask.gpkg"))
 
   # Write cloud mask mosaic
   list(vec_mosaic_cloud_mask, file_mosaic_cloud_mask) %>%
