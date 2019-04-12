@@ -1,9 +1,14 @@
 reports_plan = drake_plan(
-  defoliation_maps = knitr::knit(
-    #opts_knit$set(base.dir = "analysis/rmd/"),
+
+  defoliation_maps = knit(
     knitr_in("analysis/rmd/defoliation-maps.Rmd"),
     output = file_out("analysis/rmd/defoliation-maps.md"), # Important: must be the output file
     quiet = TRUE),
 
-  strings_in_dots = "literals"
+  cloud_cover = knit(
+    knitr_in("analysis/rmd/cloud-cover.Rmd"),
+    output = file_out("analysis/rmd/cloud-cover.md"), # Important: must be the output file
+    quiet = TRUE)
+
 )
+

@@ -1,0 +1,77 @@
+---
+title: "Caclulcate cloud cover of scenes"
+output: html_document
+author: "Marc Becker"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_knit$set(base.dir = 'analysis/rmd/')
+knitr::opts_chunk$set(fig.retina=3, fig.align = 'center', fig.width = 6.93, fig.height = 6.13,
+                      out.width = "100%")
+
+loadd(records, aoi, cloud_mosaic)
+```
+
+```{r}
+records %<>% split(records$beginposition)
+
+# Unique dates
+date_scenes =  
+  records %>%
+  map(~ dplyr::select(., beginposition)) %>%
+  map(~ unique(.)) %>%
+  map_chr(~ str_sub(., 1, 10))
+
+# Scenes per mosaic/ date
+count_scenes =
+  records %>%
+  map_dbl(~ nrow(.))
+
+# Row number of mosaic
+row_scenes =
+  records %>%
+  map(~ dplyr::select(., relativeorbitnumber)) %>%
+  map(~ pull(.)) %>%
+  map_chr(~ unique(.))
+
+# Calculate area of aoi
+aoi_area = st_area(aoi) %>%
+  sum()
+
+# Calculate cloud cover
+cloud_scenes =
+  cloud_mosaic %>%
+  map(~ st_read(., quiet=TRUE)) %>%
+  map(~ st_set_crs(., "+proj=utm +zone=30 +datum=WGS84 +units=m +no_defs")) %>%
+  map(~ st_intersection(st_buffer(., 0), aoi)) %>%
+  map(possibly(~ st_union(.), NA)) %>%
+  map(possibly(~ st_area(.), NA)) %>%
+  map_dbl(possibly(~ sum(.), NA)) %>%
+  map_dbl(possibly(~ ./aoi_area, NA))
+
+ext_scenes =
+  records %>%
+  map(~ dplyr::select(., footprint)) %>%
+  map_depth(2, ~ st_as_sfc(.)) %>%
+  map_depth(2, ~ st_set_crs(., "+proj=longlat +datum=WGS84 +no_defs ")) %>%
+  map_depth(2, ~ st_transform(., "+proj=utm +zone=30 +datum=WGS84 +units=m +no_defs")) %>%
+  set_names(date_scenes)
+```
+
+```{r}
+tibble(date = date_scenes, row = row_scenes, count = count_scenes, clouds = cloud_scenes) %>%
+  saveRDS("scenes.rds")
+```
+
+2018-04-19 O% Check
+2018-06-23 0% Check
+2018-07-23 0% Check
+2018-08-12 0% Check
+2018-08-27 0% Check
+2018-09-01 0% Check
+2018-09-11 0% Check
+2018-09-26 2% Check
+
+```{r}
+mapView(ext_scenes[[56]]) + mapView(aoi)
+```
