@@ -1,8 +1,8 @@
 # Raw data -----------------------------------------------------------
 
-data_hs_raw = download_hyperspectral("https://ndownloader.figshare.com/articles/7570958/versions/1")
+data_hs_raw = download_hyperspectral("https://zenodo.org/record/2635404/files/hyperspectral.zip")
 
-plot_locations = download_locations("https://ndownloader.figshare.com/files/14090993")
+plot_locations = download_locations("https://zenodo.org/record/2635404/files/all-plots.gpkg")
 # temo test
 # plot_locations = st_read("plot_locations.gpkg") %>%
 #   mutate(Name = as.character(ignore(Name)))
@@ -61,7 +61,7 @@ indices <- c("Boochs", "Boochs2","CARI", "Carter", "Carter2", "Carter3", "Carter
 #       plot_locations)
 
 # load tree-per-tree data
-tree_per_tree = download_trees("https://ndownloader.figshare.com/articles/7588730/versions/1") %>%
+tree_per_tree = download_trees("https://zenodo.org/record/2635404/files/tree-in-situ-data.zip") %>%
   set_names(c("laukiz1", "laukiz2", "luiando", "oiartzun"))
 
 # heterobasidion_data = preprocessing_custom("https://data.mendeley.com/datasets/kmy95t22fy/2/files/41deb463-d378-46da-a25e-26044ce253fe/heterobasidion-armillaria.gpkg",
