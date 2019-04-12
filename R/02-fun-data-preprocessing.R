@@ -37,13 +37,6 @@ clean_single_plots = function(data) {
 #' @export
 extract_coords = function(data) {
 
-  # Extract coords ----------------------------------------------------------
-
-  # Extract coordinates
-  # The scaling of variables won't work with the `geom` column attached.
-  # So we need to safe the coordinates, remove them and attach them afterwards again.
-  # Coordinates are needed for the spatial partitioning during modeling.
-
   coords = map(data, ~ st_as_sf(.x, crs = 32630)) %>%
     map(~ as.data.frame(st_coordinates(.x)))
 
