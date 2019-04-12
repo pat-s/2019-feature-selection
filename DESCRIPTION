@@ -1,5 +1,6 @@
-Package: hyperspectral.filtering
-Title: Benchmarking of algorithms on different filtering techniques
+Package: 2019-feature-selection
+Title: Benchmarking of algorithms on different filtering
+    techniques
 Version: 0.0.0.9000
 Authors@R:
     person(given = "Patrick",
@@ -8,9 +9,38 @@ Authors@R:
            email = "patrick.schratz@gmail.com")
 Description: What the package does (one paragraph)
 License: MIT + file LICENSE
+URL: https://github.com/pat-s/2019-feature-selection
+BugReports: 
+    https://github.com/pat-s/2019-feature-selection/issues
+Imports:
+    curl,
+    data.table,
+    dplyr,
+    drake,
+    fs,
+    furrr,
+    furrr,
+    future,
+    future.apply,
+    future.callr,
+    getSpatialData,
+    ggplot2,
+    glue,
+    hsdar,
+    knitr,
+    magrittr,
+    mapview,
+    mlrCPO,
+    mlrMBO,
+    parallelMap,
+    purrr,
+    R.utils,
+    raster,
+    rgenoud,
+    sf,
+    stringr
 ByteCompile: true
 Encoding: UTF-8
 LazyData: true
+Roxygen: list(wrap = FALSE, markdown = TRUE)
 RoxygenNote: 6.1.1
-URL: https://github.com/pat-s/paper_hyperspectral
-BugReports: https://github.com/pat-s/paper_hyperspectral/issues
