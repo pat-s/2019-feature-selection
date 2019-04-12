@@ -36,22 +36,34 @@ images_stack = future_map2(list(records_2017, records_2018), images_unzip, ~
 cloud_stack = future_map2(list(records_2017, records_2018), images_unzip, ~
                             copy_cloud(.x, .y))
 
+# mosaic cloud covers of same date ------------------------------
+cloud_mosaic = future_map2(list(records_2017, records_2018), cloud_stack, ~
+                             mosaic_clouds(.x, .y))
+
 # mosaic images of the same date ------------------------------
 mosaic = future_map2(list(records_2017, records_2018), images_stack, ~
                        mosaic_images(.x, .y))
 
-# mask mosaics ------------------------------------------------------------
+# mask mosaics ------------------------------
 mosaic_masked = mask_mosaic(mosaic, cloud_mosaic, aoi)
 
-# calculate vegetation indices --------------------------------------------
+# calculate vegetation indices ------------------------------
 mosaic_vi = calculate_vi(mosaic_masked)
-ras_veg_inds = mask_vi(image_vi)
-sf_veg_inds = ras_to_sf(ras_veg_inds)
-coordinates = get_coordinates(sf_veg_inds)
-prediction_df = get_prediction_df(sf_veg_inds, model)
-defolation_df = predict_defolation(prediction_df, model, coordinates)
-defoloation_map = write_defoliation_map(defolation_df)
 
-# mosaic cloud covers of same date
-# ------------------------------
-cloud_mosaic = mosaic_clouds(records, cloud_stack)
+# create raster objects of vegetation indices ------------------------------
+ras_veg_inds = mask_vi(image_vi)
+
+# create sf objects of vegetation indices ------------------------------
+sf_veg_inds = ras_to_sf(ras_veg_inds)
+
+# get ooordinates from sf object for vegetation indices ------------------------------
+coordinates = get_coordinates(sf_veg_inds)
+
+# create prediction data ------------------------------
+prediction_df = get_prediction_df(sf_veg_inds, model)
+
+# predict defoliation ------------------------------
+defoliation_df = predict_defoliation(prediction_df, model, coordinates)
+
+# create defoliation map from predicted data ------------------------------
+defoliation_map = write_defoliation_map(defoliation_df)
