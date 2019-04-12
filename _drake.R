@@ -4,14 +4,16 @@ source("analysis/99-packages.R")
 
 download_plan = code_to_plan("analysis/01-download.R")
 hyperspectral_plan = code_to_plan("analysis/02-hyperspectral-processing.R")
+sentinel_plan = code_to_plan("analysis/03-sentinel-processing.R")
 data_plan = code_to_plan("analysis/04-data-preprocessing.R")
-learners = code_to_plan("analysis/05-modeling/learner.R")
-resampling = code_to_plan("analysis/05-modeling/resamp.R")
-param_set = code_to_plan("analysis/05-modeling/param-set.R")
-tune_ctrl = code_to_plan("analysis/05-modeling/tune-ctrl.R")
-tuning = code_to_plan("analysis/05-modeling/tune.R")
-train = code_to_plan("analysis/05-modeling/train.R")
-task = code_to_plan("analysis/05-modeling/task.R")
+learners_plan = code_to_plan("analysis/05-modeling/learner.R")
+resampling_plan = code_to_plan("analysis/05-modeling/resamp.R")
+param_set_plan = code_to_plan("analysis/05-modeling/param-set.R")
+tune_ctrl_plan = code_to_plan("analysis/05-modeling/tune-ctrl.R")
+tuning_plan = code_to_plan("analysis/05-modeling/tune.R")
+train_plan = code_to_plan("analysis/05-modeling/train.R")
+task_plan = code_to_plan("analysis/05-modeling/task.R")
+source("analysis/06-reports.R")
 #
 sourceDirectory("R")
 
@@ -21,21 +23,25 @@ download_plan$stage = "download"
 hyperspectral_plan$stage = "hyperspectral_preprocessing"
 data_plan$stage = "data"
 
-learners$stage = "modeling"
-resampling$stage = "modeling"
-param_set$stage = "modeling"
-tune_ctrl$stage = "modeling"
-tuning$stage = "modeling"
-train$stage = "modeling"
-task$stage = "modeling"
+learners_plan$stage = "modeling"
+resampling_plan$stage = "modeling"
+param_set_plan$stage = "modeling"
+tune_ctrl_plan$stage = "modeling"
+tuning_plan$stage = "modeling"
+train_plan$stage = "modeling"
+task_plan$stage = "modeling"
 # benchmark_plan$stage = "benchmark"
 # prediction$stage = "prediction"
-# reports$stage = "reports"
+reports_plan$stage = "reports"
 
 # # Combine all -------------------------------------------------------------
 #
-plan = bind_plans(data_plan, download_plan, hyperspectral_plan, learners,
-                  resampling, param_set, tune_ctrl, tuning, train, task)
+plan = bind_plans(data_plan, download_plan, hyperspectral_plan, learners_plan,
+                  resampling_plan, param_set_plan, tune_ctrl_plan, tuning_plan,
+                  train_plan, task_plan, reports_plan, sentinel_plan
+                  )
+options(clustermq.scheduler = "slurm",
+        clustermq.template = "~/papers/2019-feature-selection/slurm_clustermq.tmpl")
 
 plan %<>% mutate(stage = as.factor(stage))
 
