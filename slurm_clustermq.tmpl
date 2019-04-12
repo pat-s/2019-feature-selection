@@ -4,9 +4,10 @@
 #SBATCH --output={{ log_file | /dev/null }} # you can add .%a for array index
 #SBATCH --error={{ log_file | /dev/null }}
 #SBATCH --cpus-per-task={{ n_cpus }}
+#SBATCH --mem={{ memory }}
 #SBATCH --array=1-{{ n_jobs }}
 
-cd ~/papers/2019-feature-selection
+cd ~/papers/2019-feature-selection/
 spack load r@3.5.2
 
 CMQ_AUTH={{ auth }} R --no-save --no-restore -e 'clustermq:::worker("{{ master }}")'
