@@ -89,7 +89,7 @@ stack_bands <- function(records, image_unzip) {
       ) %>%
       map(~ raster(.)) %>%
       map(~ raster::aggregate(., fact = 2, fun = mean)) %>%
-      brick()
+      stack()
 
     scenes_20 <-
       list.files(paste0("data/sentinel/image_unzip/", .x),
@@ -98,7 +98,7 @@ stack_bands <- function(records, image_unzip) {
         full.names = TRUE
       ) %>%
       map(~ raster(.)) %>%
-      brick()
+      stack()
 
     scenes_60 <-
       scenes_10 <-
@@ -109,7 +109,7 @@ stack_bands <- function(records, image_unzip) {
       ) %>%
       map(~ raster(.)) %>%
       map(~ raster::aggregate(., fact = 2, fun = mean)) %>%
-      brick()
+      stack()
 
     scenes_20 <-
       list.files(paste0("data/sentinel/image_unzip/", .x),
@@ -118,7 +118,7 @@ stack_bands <- function(records, image_unzip) {
         full.names = TRUE
       ) %>%
       map(~ raster(.)) %>%
-      brick()
+      stack()
 
     scenes_60 <-
       list.files(paste0("data/sentinel/image_unzip/", .x),
@@ -128,10 +128,10 @@ stack_bands <- function(records, image_unzip) {
       ) %>%
       map(~ raster(.)) %>%
       map(~ raster::disaggregate(., fact = 3)) %>%
-      brick()
+      stack()
 
     ras_stack <-
-      brick(
+      stack(
         scenes_60[[1]],
         scenes_20[[1]],
         scenes_20[[2]],
