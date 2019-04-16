@@ -60,8 +60,10 @@ unzip_images <- function(data, pattern) {
       overwrite = FALSE
     ))
 
-  return(list.files("data/sentinel/image_unzip/", full.names = TRUE,
-                    pattern = pattern))
+  return(list.files("data/sentinel/image_unzip/",
+    full.names = TRUE,
+    pattern = pattern
+  ))
 }
 
 #' @title stack_bands
@@ -85,9 +87,9 @@ stack_bands <- function(records, image_unzip) {
         pattern = ".*_B08_10m.jp2",
         full.names = TRUE
       ) %>%
-        map(~ raster(.)) %>%
-        map(~ raster::aggregate(., fact = 2, fun = mean)) %>%
-        brick()
+      map(~ raster(.)) %>%
+      map(~ raster::aggregate(., fact = 2, fun = mean)) %>%
+      brick()
 
     scenes_20 <-
       list.files(paste0("data/sentinel/image_unzip/", .x),
@@ -95,8 +97,8 @@ stack_bands <- function(records, image_unzip) {
         pattern = ".*_B(02|03|04|05|06|07|8A|11|12)_20m.jp2",
         full.names = TRUE
       ) %>%
-        map(~ raster(.)) %>%
-        brick()
+      map(~ raster(.)) %>%
+      brick()
 
     scenes_60 <-
       scenes_10 <-
@@ -105,9 +107,9 @@ stack_bands <- function(records, image_unzip) {
         pattern = ".*_B08_10m.jp2",
         full.names = TRUE
       ) %>%
-        map(~ raster(.)) %>%
-        map(~ raster::aggregate(., fact = 2, fun = mean)) %>%
-        brick()
+      map(~ raster(.)) %>%
+      map(~ raster::aggregate(., fact = 2, fun = mean)) %>%
+      brick()
 
     scenes_20 <-
       list.files(paste0("data/sentinel/image_unzip/", .x),
@@ -115,8 +117,8 @@ stack_bands <- function(records, image_unzip) {
         pattern = ".*_B(02|03|04|05|06|07|8A|11|12)_20m.jp2",
         full.names = TRUE
       ) %>%
-        map(~ raster(.)) %>%
-        brick()
+      map(~ raster(.)) %>%
+      brick()
 
     scenes_60 <-
       list.files(paste0("data/sentinel/image_unzip/", .x),
@@ -124,9 +126,9 @@ stack_bands <- function(records, image_unzip) {
         pattern = ".*_B(01|09)_60m.jp2",
         full.names = TRUE
       ) %>%
-        map(~ raster(.)) %>%
-        map(~ raster::disaggregate(., fact = 3)) %>%
-        brick()
+      map(~ raster(.)) %>%
+      map(~ raster::disaggregate(., fact = 3)) %>%
+      brick()
 
     ras_stack <-
       brick(
@@ -171,11 +173,11 @@ copy_cloud <- function(records, image_unzip) {
   # Get cloud mask filenames
   file_cloud_mask <-
     records$filename %>%
-      map(~ list.files(paste0("data/sentinel/image_unzip/", ., "/GRANULE"),
-        recursive = TRUE,
-        pattern = "MSK_CLOUDS_B00.gml",
-        full.names = TRUE
-      ))
+    map(~ list.files(paste0("data/sentinel/image_unzip/", ., "/GRANULE"),
+      recursive = TRUE,
+      pattern = "MSK_CLOUDS_B00.gml",
+      full.names = TRUE
+    ))
 
   # Copy and rename
   list(file_cloud_mask, records$filename) %>%
@@ -201,17 +203,17 @@ mosaic_images <- function(records, image_stack) {
   # Get stack filenames
   file_stack <-
     unique(records$beginposition) %>%
-      map(~ filter(records, beginposition == .)) %>%
-      map(~ pull(., filename)) %>%
-      map(~ str_remove(., ".SAFE")) %>%
-      map_depth(2, ~ str_glue("data/sentinel/image_stack/", ., ".tif"))
+    map(~ filter(records, beginposition == .)) %>%
+    map(~ pull(., filename)) %>%
+    map(~ str_remove(., ".SAFE")) %>%
+    map_depth(2, ~ str_glue("data/sentinel/image_stack/", ., ".tif"))
 
   # Set mosaic filename
   file_mosaic <-
     records$filename %>%
-      str_sub(1, 41) %>%
-      unique() %>%
-      map(~ str_glue("data/sentinel/image_mosaic/", ., ".tif"))
+    str_sub(1, 41) %>%
+    unique() %>%
+    map(~ str_glue("data/sentinel/image_mosaic/", ., ".tif"))
 
   # Build mosaic
   list(file_stack, file_mosaic) %>%
@@ -234,29 +236,29 @@ mosaic_clouds <- function(records, cloud_stack) {
   # Create dummy cloud mask for mosaics without clouds
   vec_dummy_cloud_mask <-
     st_polygon(list(cbind(c(0, 1, 1, 0, 0), c(0, 0, 1, 1, 0)))) %>%
-      st_sfc() %>%
-      st_sf(tibble(name = "Dummy")) %>%
-      st_set_crs("+proj=utm +zone=30 +datum=WGS84 +units=m +no_defs")
+    st_sfc() %>%
+    st_sf(tibble(name = "Dummy")) %>%
+    st_set_crs("+proj=utm +zone=30 +datum=WGS84 +units=m +no_defs")
 
   # Build cloud mask mosaic
   vec_mosaic_cloud_mask <-
     unique(records$beginposition) %>%
-      map(~ filter(records, beginposition == .)) %>%
-      map(~ pull(., filename)) %>%
-      map(~ str_remove(., ".SAFE")) %>%
-      map_depth(2, ~ str_glue("data/sentinel/image_stack/", ., "_cloud_mask.gpkg")) %>%
-      map_depth(2, possibly(~ st_read(., quiet = TRUE), NA)) %>%
-      map(~ purrr::discard(., function(x) all(is.na(x)))) %>%
-      map(~ do.call(rbind, .)) %>%
-      map_if(~ is.null(.), ~vec_dummy_cloud_mask) %>%
-      map(possibly(~ st_set_crs(., "+proj=utm +zone=30 +datum=WGS84 +units=m +no_defs"), NA))
+    map(~ filter(records, beginposition == .)) %>%
+    map(~ pull(., filename)) %>%
+    map(~ str_remove(., ".SAFE")) %>%
+    map_depth(2, ~ str_glue("data/sentinel/image_stack/", ., "_cloud_mask.gpkg")) %>%
+    map_depth(2, possibly(~ st_read(., quiet = TRUE), NA)) %>%
+    map(~ purrr::discard(., function(x) all(is.na(x)))) %>%
+    map(~ do.call(rbind, .)) %>%
+    map_if(~ is.null(.), ~vec_dummy_cloud_mask) %>%
+    map(possibly(~ st_set_crs(., "+proj=utm +zone=30 +datum=WGS84 +units=m +no_defs"), NA))
 
   # Set cloud mask filename
   file_mosaic_cloud_mask <-
     records$filename %>%
-      str_sub(1, 41) %>%
-      unique() %>%
-      map(~ str_glue("data/sentinel/image_mosaic/", ., "_cloud_mask.gpkg"))
+    str_sub(1, 41) %>%
+    unique() %>%
+    map(~ str_glue("data/sentinel/image_mosaic/", ., "_cloud_mask.gpkg"))
 
   # Write cloud mask mosaic
   list(vec_mosaic_cloud_mask, file_mosaic_cloud_mask) %>%
