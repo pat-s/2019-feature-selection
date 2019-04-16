@@ -1,4 +1,4 @@
-Package: 2019-feature-selection
+Package: FeatureSelection
 Title: Benchmarking of algorithms on different filtering
     techniques
 Version: 0.0.0.9000
