@@ -5,21 +5,21 @@
 #'   - Removes the `sf` geometry column.
 #'
 #' @param data (`list`)\cr List containing multiple `data.frames`.
+#' @details
+#' # Remove columns with NA values and "ID" columns
+# Ref: https://stackoverflow.com/questions/41343900/remove-row-columns-with-any-all-nan-values/41343980#41343980
 #' @name data_preprocessing
 #' @export
 
 clean_single_plots = function(data) {
-  # Remove columns with NA values and "ID" columns
-  # Ref: https://stackoverflow.com/questions/41343900/remove-row-columns-with-any-all-nan-values/41343980#41343980
-  # luiando has some NA obs that need to be removed, otherwise the whole column will be removed by `Filter()`
-  # for the nri_vi stack 3 more bands are removed than for the "bands" only
 
-  data %<>%
+  browser()
+
+  data %>%
+    map(~ as_tibble(.x)) %<>%
     map(~ dplyr::select(.x, -contains("_ID"))) %>%
-    map(~ as.data.table(.x)) %>%
-    #map(~ na.omit(.x)) %>% # some obs in luiando are NA after extraction
     map(~ dplyr::select(.x, -tree.number, -decoloration, -canker, -diameter, -height)) %>%
-    map(~ Filter(function(x) !any(is.na(x)), .x))
+    map(~ select_if(.x, function(x) !any(is.na(x)))) # select all variables without NA
 
   data %<>%
     map(~ st_as_sf(.x, crs = 32630)) %>%
@@ -103,7 +103,7 @@ log_response = function(data, response) {
 #' @export
 split_into_feature_sets = function(data, feature_set) {
 
-  if (set == "nri") {
+  if (feature_set == "nri") {
     data_split = data[["data_vi_nri"]] %>%
       dplyr::select(matches("nri|defol"))
   } else if (feature_set == "vi") {
