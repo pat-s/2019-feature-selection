@@ -28,7 +28,7 @@ trees_with_indices = lapply(c("laukiz1", "laukiz2", "luiando", "oiartzun"), FUN 
                           nri_indices = nri_indices)
 })
 
-trees_with_bands = lapply(c("laukiz1", "laukiz2", "oiartzun", "luiando"), FUN = function(x) {
+trees_with_bands = lapply(c("laukiz1", "laukiz2", "luiando", "oiartzun"), FUN = function(x) {
   extract_bands_to_plot(x, buffer = 2,
                         tree_data = tree_per_tree,
                         hyperspectral_bands = data_hs_preprocessed)
