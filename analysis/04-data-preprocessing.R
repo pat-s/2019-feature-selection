@@ -11,13 +11,13 @@ data_clean_single_plots <- map(data_list_nri_vi_bands, ~ clean_single_plots(.x))
 data_clean_single_plots_coords <- map(data_list_nri_vi_bands, ~ extract_coords(.x))
 
 # Merge the dataframes of vi and nri (stored in separate lists for each plot)
-# into one dataset Mon Mar 11 22:29:37 2019 ------------------------------
+# into one dataset. Possible variables with NAs are removed again, but this is
+# actually happening in `clean_single_plots()`.
 
 data_vi_nri_clean <- as_tibble(rbindlist(data_clean_single_plots[[1]], fill = TRUE)) %>%
   Filter(function(x) !any(is.na(x)), .)
 coords_vi_nri_clean <- as_tibble(rbindlist(data_clean_single_plots_coords[[1]]))
 
-# FIXME - sehr viele NAs!
 data_bands_clean <- as_tibble(rbindlist(data_clean_single_plots[[2]], fill = TRUE)) %>%
   Filter(function(x) !any(is.na(x)), .)
 coords_bands_clean <- as_tibble(rbindlist(data_clean_single_plots_coords[[2]]))

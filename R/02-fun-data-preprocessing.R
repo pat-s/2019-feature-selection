@@ -13,9 +13,7 @@
 
 clean_single_plots = function(data) {
 
-  browser()
-
-  data %>%
+  data %<>%
     map(~ as_tibble(.x)) %<>%
     map(~ dplyr::select(.x, -contains("_ID"))) %>%
     map(~ dplyr::select(.x, -tree.number, -decoloration, -canker, -diameter, -height)) %>%
