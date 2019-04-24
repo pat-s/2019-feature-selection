@@ -21,12 +21,13 @@ download_trees = function(url) {
 #' @inheritParams download_trees
 #' @rdname download
 download_locations = function(url) {
-  if (!file.exists("data/gpkg/all-plots.shp")) {
+
+  if (!file.exists("data/gpkg/plot-locations.gpkg")) {
     curl_download(url,
-                  destfile = "data/gpkg/all-plots.shp", quiet = FALSE)
+                  destfile = "data/gpkg/plot-locations.gpkg", quiet = FALSE)
   }
 
-  files = st_read("data/gpkg/all-plots.shp") %>%
+  files = st_read("data/gpkg/plot-locations.gpkg") %>%
     mutate(Name = as.character(ignore(Name)))
   return(files)
 }
