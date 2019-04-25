@@ -17,3 +17,6 @@ clean_single_plots(data)
 \item Removes the \code{sf} geometry column.
 }
 }
+\details{
+Remove columns with NA values and "ID" columns
+}

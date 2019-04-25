@@ -4,10 +4,12 @@
 \alias{unzip_images}
 \title{download_images}
 \usage{
-unzip_images(data)
+unzip_images(data, pattern)
 }
 \arguments{
 \item{data}{(\code{list})\cr File names of images to unzip.}
+
+\item{pattern}{(\code{charachter})\cr Regex pattern (year)}
 }
 \value{
 \code{list} of unzipped files
