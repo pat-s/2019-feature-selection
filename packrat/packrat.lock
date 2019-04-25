@@ -531,8 +531,8 @@ Requires: BH, R6, Rcpp, assertthat, glue, magrittr, pkgconfig, plogr,
 
 Package: drake
 Source: CRAN
-Version: 7.1.0
-Hash: f16c07df9f8b9fa6eb16246be2604bde
+Version: 7.2.0
+Hash: 63bc67f508f01bdcc0be5e9b7926ee45
 Requires: base64url, digest, igraph, rlang, storr
 
 Package: e1071
@@ -1574,8 +1574,8 @@ Requires: RCurl, jsonlite, openssl, packrat, rstudioapi, yaml
 
 Package: rstudioapi
 Source: CRAN
-Version: 0.9.0
-Hash: e5e648a0944df6ea634d8173d09e236f
+Version: 0.10
+Hash: 63f43c6ff14d92e1d65ca6c21d45a1eb
 
 Package: rvcheck
 Source: CRAN
