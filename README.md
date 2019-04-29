@@ -1,5 +1,5 @@
 
-[![Last-changedate](https://img.shields.io/badge/last%20change-2019--03--12-brightgreen.svg)](https://github.com/pat-s/paper_hyperspectral/commits/master)  
+[![Last-changedate](https://img.shields.io/badge/last%20change-2019--04--29-brightgreen.svg)](https://github.com/pat-s/paper_hyperspectral/commits/master)  
 [![minimal R
 version](https://img.shields.io/badge/R%3E%3D-3.5.0-brightgreen.svg)](https://cran.r-project.org/)  
 [![Licence](https://img.shields.io/github/license/mashape/apistatus.svg)](http://choosealicense.com/licenses/mit/)  
@@ -95,22 +95,6 @@ Then start R in this directory and run
 packrat::restore()
 r_make()
 ```
-
-# Runtime
-
-Predicted total runtime. The time is based on all targets that have been
-created so far in the project. Estimated time will differ depending on
-the CPU speed and possible availability of a HPC.
-
-``` r
-r_predict_runtime()
-```
-
-    ## [38;5;153mcache[39m /home/patrick/paper-hyperspectral/.drake
-    ## [38;5;153manalyze[39m environment
-    ## [38;5;153mconstruct[39m priority queue
-
-    ## [1] "0s"
 
 # Licenses
 

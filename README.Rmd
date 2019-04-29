@@ -75,16 +75,6 @@ packrat::restore()
 r_make()
 ```
 
-# Runtime
-
-Predicted total runtime.
-The time is based on all targets that have been created so far in the project.
-Estimated time will differ depending on the CPU speed and possible availability of a HPC.
-
-```{r README-2 }
-r_predict_runtime()
-```
-
 # Licenses
 
 Text: CC-BY-4.0 http://creativecommons.org/licenses/by/4.0/
