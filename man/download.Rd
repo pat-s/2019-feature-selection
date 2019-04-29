@@ -5,6 +5,7 @@
 \alias{download_trees}
 \alias{download_locations}
 \alias{download_hyperspectral}
+\alias{download_forest_mask}
 \title{Download data}
 \usage{
 download_trees(url)
@@ -12,8 +13,12 @@ download_trees(url)
 download_locations(url)
 
 download_hyperspectral(url)
+
+download_forest_mask(url)
 }
 \arguments{
+\item{url}{URL to download from (usually Zenodo)}
+
 \item{url}{URL to download from (usually Zenodo)}
 }
 \description{
@@ -22,4 +27,6 @@ download_hyperspectral(url)
 \code{download_locations()}: Download plot location vector data
 
 \code{download_hyperspectral()}: Download hyperspectral data
+
+\code{download_forest_mask()}: Download the forest/non-forest mask.
 }

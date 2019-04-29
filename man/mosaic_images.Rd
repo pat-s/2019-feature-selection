@@ -9,10 +9,10 @@ mosaic_images(records, image_stack)
 \arguments{
 \item{records}{(\code{list})\cr \code{data.frame} of Sentinel-2 records from \link{get_records}.}
 
-\item{image_unzip}{File names of unzipped images.}
+\item{image_stack}{Stacked images from \link{stack_bands}.}
 }
 \value{
-\code{list} of stacked raster files (Bricks)
+\code{list} of mosaiced raster files (Bricks)
 }
 \description{
 Mosaics the images of a specific date
