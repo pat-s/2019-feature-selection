@@ -195,8 +195,8 @@ copy_cloud <- function(records, image_unzip) {
 #' @description Mosaics the images of a specific date
 #'
 #' @param records (`list`)\cr `data.frame` of Sentinel-2 records from [get_records].
-#' @param image_unzip File names of unzipped images.
-#' @return `list` of stacked raster files (Bricks)
+#' @param image_stack Stacked images from [stack_bands].
+#' @return `list` of mosaiced raster files (Bricks)
 #' @export
 mosaic_images <- function(records, image_stack) {
 
@@ -262,8 +262,259 @@ mosaic_clouds <- function(records, cloud_stack) {
 
   # Write cloud mask mosaic
   list(vec_mosaic_cloud_mask, file_mosaic_cloud_mask) %>%
-    pwalk(~ st_write(.x, .y))
+    pwalk(~ st_write(.x, .y, layer_options = "OVERWRITE=true"))
 
   # Return for drake
   return(file_mosaic_cloud_mask)
+}
+
+#' @title mask_mosaic
+#' @description Mask the mosaic
+#'
+#' @param image_mosaic (`list`)\cr File names of mosaiced images.
+#' @param cloud_mosaic `list`)\cr File names of mosaiced cloud images.
+#' @param aoi Area to be masked
+#' @param forest_mask Forest/Non-forest mask
+#' @return aoi of stacked raster files (Bricks)
+#' @export
+mask_mosaic <- function(image_mosaic, cloud_mosaic, aoi, forest_mask) {
+
+  # Read mosaic
+  ras_mosaic_stack <-
+    image_mosaic %>%
+    map(~ stack(.))
+
+  # Read cloud mask
+  vec_mosaic_cloud_mask <-
+    cloud_mosaic %>%
+    map(~ st_read(., quiet = TRUE)) %>%
+    map(~ st_set_crs(., "+proj=utm +zone=30 +datum=WGS84 +units=m +noread_defs"))
+
+  # Mask cloud with aoi
+  vec_mosaic_cloud_mask %<>%
+    future_map(~ st_crop(., aoi))
+
+  vec_mosaic_cloud_mask %<>%
+    map(function(.x) {
+      st_set_agr(.x, "constant")
+    })
+
+  # Mask mosaic with aoi
+  ras_mask <-
+    ras_mosaic_stack %>%
+    map(~ raster::crop(., aoi)) %>%
+    map(~ raster::mask(., aoi))
+
+  # Mask mosaic with clouds and forest
+  ras_mask <-
+    list(ras_mask, vec_mosaic_cloud_mask) %>%
+    pmap(~ {
+      if (nrow(.y) > 0) {
+        raster::mask(.x, as(.y, "Spatial"), inverse = TRUE)
+      } else {
+        .x
+      }
+    }) %>%
+    map(~ raster::mask(., as(st_zm(forest_mask), "Spatial")))
+
+  # Write to disk
+  list(ras_mask, image_mosaic) %>%
+    pmap(~ writeRaster(.x, paste0("data/sentinel/image_mask/", basename(.y)),
+      overwrite = TRUE
+    ))
+
+  # Return for drake
+  list.files("data/sentinel/image_mask", full.names = TRUE)
+}
+
+#' @title calculate_vi
+#' @description Calculates the following vegetation indices from the Sentinel data:
+#'  - EVI
+#'  - GDVI2
+#'  - GDVI3
+#'  - GDVI4
+#'  - MNDVI
+#'  - MSR
+#'  - D1
+#'
+#' @param image (`brick`)\cr File name of raster brick/stack.
+#' @return calculated VIs (file name)
+#' @export
+calculate_vi <- function(image) {
+  # EVI
+  image %>%
+    map(~ stack(.)) %>%
+    map(~ 2.5 * (.[[8]] / 10000 - .[[4]] / 10000) / ((.[[8]] / 10000 + 6 * .[[4]] / 10000 - 7.5 * .[[2]] / 10000) + 1)) %>%
+    stack() %>%
+    calc(fun = function(x) mean(x, na.rm = TRUE)) %>%
+    writeRaster(paste0("data/sentinel/image_vi/EVI.tif"), overwrite = TRUE)
+
+  # GDVI 2
+  image %>%
+    map(~ stack(.)) %>%
+    map(~ ((.[[8]] / 10000)^2 - (.[[4]] / 10000)^2) / ((.[[8]] / 10000)^2 + (.[[4]] / 10000)^2)) %>%
+    stack() %>%
+    calc(fun = function(x) mean(x, na.rm = TRUE)) %>%
+    writeRaster(paste0("data/sentinel/image_vi/GDVI_2.tif"), overwrite = TRUE)
+
+  # GDVI 3
+  image %>%
+    map(~ stack(.)) %>%
+    map(~ ((.[[8]] / 10000)^3 - (.[[4]] / 10000)^3) / ((.[[8]] / 10000)^3 + (.[[4]] / 10000)^3)) %>%
+    stack() %>%
+    calc(fun = function(x) mean(x, na.rm = TRUE)) %>%
+    writeRaster(paste0("data/sentinel/image_vi/GDVI_3.tif"), overwrite = TRUE)
+
+  # GDVI 4
+  image %>%
+    map(~ stack(.)) %>%
+    map(~ ((.[[8]] / 10000)^4 - (.[[4]] / 10000)^4) / ((.[[8]] / 10000)^4 + (.[[4]] / 10000)^4)) %>%
+    stack() %>%
+    calc(fun = function(x) mean(x, na.rm = TRUE)) %>%
+    writeRaster(paste0("data/sentinel/image_vi/GDVI_4.tif"), overwrite = TRUE)
+
+  # MNDVI
+  image %>%
+    map(~ stack(.)) %>%
+    map(~ (.[[8]] / 10000 - .[[4]] / 10000) / (.[[8]] / 10000 + .[[4]] / 10000 - 2 * .[[1]] / 10000)) %>%
+    stack() %>%
+    calc(fun = function(x) mean(x, na.rm = TRUE)) %>%
+    writeRaster(paste0("data/sentinel/image_vi/mNDVI.tif"), overwrite = TRUE)
+
+  # MSR
+  image %>%
+    map(~ stack(.)) %>%
+    map(~ (.[[8]] / 10000 - .[[1]] / 10000) / (.[[4]] / 10000 - .[[1]] / 10000)) %>%
+    stack() %>%
+    calc(fun = function(x) mean(x, na.rm = TRUE)) %>%
+    writeRaster(paste0("data/sentinel/image_vi/mSR.tif"), overwrite = TRUE)
+
+  # D1
+  image %>%
+    map(~ stack(.)) %>%
+    map(~ (.[[6]] / 10000) / (.[[5]] / 10000)) %>%
+    stack() %>%
+    calc(fun = function(x) mean(x, na.rm = TRUE)) %>%
+    writeRaster(paste0("data/sentinel/image_vi/D1.tif"), overwrite = TRUE)
+
+  list.files("data/sentinel/image_vi/", full.names = TRUE)
+}
+
+#' @title mask_vi
+#' @description Masks the VIs
+#'
+#' @param image_vi (`character`)\cr File name of raster brick/stack.
+#' @return masked VIs (`brick`)
+#' @export
+mask_vi <- function(image_vi) {
+
+  # Get raster
+  veg_inds <-
+    image_vi %>%
+    map(~ raster(.))
+
+  # Mask with each other
+  for (ind in veg_inds) {
+    veg_inds %<>%
+      map(~ mask(., ind))
+  }
+
+  # Get names
+  ind_names <-
+    image_vi %>%
+    map_chr(~ tools::file_path_sans_ext(basename(.)))
+
+  # Return for drake
+  veg_inds %>%
+    set_names(ind_names)
+}
+
+#' @title ras_to_sf
+#' @description Converts masked vegetation indices to `sf` objects
+#'
+#' @param data (`brick`)\cr Masked vegetation indices.
+#' @return masked VIs (`brick`)
+#' @export
+ras_to_sf <- function(data) {
+  data %<>%
+    map(~ as(., "SpatialPixelsDataFrame")) %>%
+    map(~ st_as_sf(.))
+}
+
+#' @title get_coordinates
+#' @description Extract coordinates from `sf` object
+#'
+#' @param data (`sf`)\cr Masked vegetation indices.
+#' @return masked VIs (`brick`)
+#' @export
+get_coordinates <- function(data) {
+
+  # coordinates are the same for both years, only taking first year
+  coords <- data[[1]] %>%
+    st_coordinates() %>%
+    as.data.frame() %>%
+    rename(x = X) %>%
+    rename(y = Y)
+
+  return(coords)
+}
+
+#' @title create_prediction_df
+#' @description Create the prediction data. Strips variable names and orders them.
+#'
+#' @param data (`sf`)\cr Masked vegetation indices.
+#' @param model Used for ordering the variables names (xgboost)
+#' @return (`data.frame`)
+#' @export
+create_prediction_df <- function(data, model) {
+  ind_names <-
+    names(sf_veg_inds) %>%
+    map_chr(~ paste0("bf2_", .))
+
+  prediction_df <-
+    sf_veg_inds %>%
+    map_dfc(~ st_set_geometry(., NULL)) %>%
+    set_names(ind_names)
+
+  # correct column order of features: https://github.com/dmlc/xgboost/issues/1809
+  prediction_df <- prediction_df[, model$learner.model$feature_names]
+
+  return(prediction_df)
+}
+
+#' @title predict_defoliation
+#' @description Predict defoliation for the Basque Country
+#'
+#' @param data (`data.frame`)\cr Prediction data
+#' @param model Used for ordering the variables names (xgboost)
+#' @param coordinates Coordinates of the predicted data
+#' @return (`data.frame`)
+#' @export
+predict_defoliation <- function(data, model, coordinates) {
+  pred <- predict(model$learner.model, newdata = as.matrix(prediction_df))
+  return(tibble(defoliation = pred, x = coordinates$x, y = coordinates$y))
+}
+
+#' @title write_defoliation_map
+#' @description Predict defoliation for the Basque Country
+#'
+#' @param data (`data.frame`)\cr Predictions including coordinates
+#' @param filename (`character`)\cr Filename to write
+#' @return (`character`)
+#' @export
+write_defoliation_map <- function(data, filename) {
+
+  all_spdf <- SpatialPixelsDataFrame(
+    points = defoliation__df[, c("x", "y")],
+    data = as.data.frame(defoliation__df[, "defoliation"]),
+    proj4string = CRS("+proj=utm +zone=30 +datum=WGS84 +units=m +no_defs")
+  )
+
+  raster(all_spdf) %>%
+    writeRaster(glue("data/sentinel/image_defoliation/{filename}.tif"),
+      overwrite = TRUE
+    )
+
+  # Return for drake
+  return(glue("data/sentinel/image_defoliation/{filename}.tif"))
 }
