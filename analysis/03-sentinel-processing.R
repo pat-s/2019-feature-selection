@@ -76,6 +76,6 @@ prediction_df <- future_map(sf_veg_inds, ~
 defoliation_df <- future_map(prediction_df, ~
                                predict_defoliation(.x, model, coordinates))
 
-# create defoliation map from predicted data ------------------------------
-defoliation_map <- future_map(defoliation_df, ~
-                                write_defoliation_map(.x))
+# write defoliation raster ------------------------------
+defoliation_raster <- future_map(prediction_df, ~
+                                   prediction_raster(.x))

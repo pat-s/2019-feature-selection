@@ -495,14 +495,33 @@ predict_defoliation <- function(data, model, coordinates) {
   return(tibble(defoliation = pred, x = coordinates$x, y = coordinates$y))
 }
 
+#' @title prediction_raster
+#' @description Transforms the predictions and their cooridnates into a GeoTIFF
+#'
+#' @param data (`data.frame`)\cr Predicted data
+#' @return (`brick`)
+#' @export
+prediction_raster <- function(data) {
+  all_spdf <- SpatialPixelsDataFrame(points = data[, c("x", "y")],
+                                     data = as.data.frame(data[, "defoliation"]),
+                                     proj4string = CRS("+proj=utm +zone=30 +datum=WGS84 +units=m +no_defs"))
+
+  raster(all_spdf) %>%
+    writeRaster("data/sentinel/image_defoliation/defoliation.tif",
+                overwrite = TRUE)
+
+  # Return for drake
+  return(raster(all_spdf))
+}
+
 #' @title write_defoliation_map
 #' @description Predict defoliation for the Basque Country
 #'
 #' @param data (`data.frame`)\cr Predictions including coordinates
-#' @param filename (`character`)\cr Filename to write
+#' @param algorithm (`character`)\cr Name of the algoritm
 #' @return (`character`)
 #' @export
-write_defoliation_map <- function(data, filename) {
+create_defoliation_map <- function(data, algorithm) {
 
   all_spdf <- SpatialPixelsDataFrame(
     points = defoliation__df[, c("x", "y")],
@@ -515,6 +534,21 @@ write_defoliation_map <- function(data, filename) {
       overwrite = TRUE
     )
 
+  plot = ggplot() +
+    annotation_map_tile(zoomin = -1, type = "cartolight") +
+    layer_spatial(all_spdf, aes(fill = stat(band1))) +
+    scale_fill_viridis_c(na.value = NA, name = "Defoliation of trees [%]",
+                         limits = c(35, 65)) +
+    # spatial-aware automagic scale bar
+    annotation_scale(location = "tl") +
+    # spatial-aware automagic north arrow
+    annotation_north_arrow(location = "br", which_north = "true") +
+    theme_pubr(legend = "right")  +
+    theme(legend.key.size = unit(2,"line"),
+          plot.margin = margin(1.5, 0, 1, 0)) +
+    labs(caption = glue("Algorithm: {algorithm}",
+                        " Spatial resolution: 20 m"))
+
   # Return for drake
-  return(glue("data/sentinel/image_defoliation/{filename}.tif"))
+  return(plot)
 }
