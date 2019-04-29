@@ -48,3 +48,20 @@ download_hyperspectral = function(url) {
               ~ brick(.x))
   return(files)
 }
+
+#' @title Download data
+#' @description
+#' `download_forest_mask()`: Download the forest/non-forest mask.
+#'
+#' @template url
+#' @name download
+download_forest_mask = function(url) {
+
+  if (!file.exists("data/sentinel/forest-mask.gpkg")) {
+    curl_download(url,
+                  destfile = "data/sentinel/forest-mask.gpkg", quiet = FALSE)
+  }
+
+  files = st_read("data/sentinel/forest-mask.gpkg")
+  return(files)
+}
