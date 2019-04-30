@@ -275,7 +275,7 @@ mosaic_clouds <- function(records, cloud_stack) {
 #' @param cloud_mosaic `list`)\cr File names of mosaiced cloud images.
 #' @param aoi Area to be masked
 #' @param forest_mask Forest/Non-forest mask
-#' @return aoi of stacked raster files (Bricks)
+#' @return (`list`) File names of masked mosaics for each year
 #' @export
 mask_mosaic <- function(image_mosaic, cloud_mosaic, aoi, forest_mask) {
 
@@ -323,8 +323,10 @@ mask_mosaic <- function(image_mosaic, cloud_mosaic, aoi, forest_mask) {
       overwrite = TRUE
     ))
 
-  # Return for drake
-  list.files("data/sentinel/image_mask", full.names = TRUE)
+  return(image_mosaic %>%
+    map(~ str_glue("data/sentinel/image_mask/", .))
+  )
+
 }
 
 #' @title calculate_vi

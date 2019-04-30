@@ -49,7 +49,7 @@ mosaic <- future_map2(list(records_2017, records_2018), images_stack, ~
                         mosaic_images(.x, .y))
 
 # mask mosaics ------------------------------
-mosaic_masked <- future_map2(mosaic, cloud_mosaic, ~
+mosaic_masked <- future_map2(mosaic, cloud_mosaic,  ~
                                mask_mosaic(.x, .y, aoi, forest_mask))
 
 # calculate vegetation indices ------------------------------
