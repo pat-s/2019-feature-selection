@@ -343,13 +343,20 @@ mask_mosaic <- function(image_mosaic, cloud_mosaic, aoi, forest_mask) {
 #' @return calculated VIs (file name)
 #' @export
 calculate_vi <- function(image) {
+
+  if (grepl("2017", image[1])) {
+    year = 2017
+  } else if (grepl("2018", image[1])) {
+    year = 2018
+  }
+
   # EVI
   image %>%
     map(~ stack(.)) %>%
     map(~ 2.5 * (.[[8]] / 10000 - .[[4]] / 10000) / ((.[[8]] / 10000 + 6 * .[[4]] / 10000 - 7.5 * .[[2]] / 10000) + 1)) %>%
     stack() %>%
     calc(fun = function(x) mean(x, na.rm = TRUE)) %>%
-    writeRaster(paste0("data/sentinel/image_vi/EVI.tif"), overwrite = TRUE)
+    writeRaster(glue("data/sentinel/image_vi/EVI-{year}.tif"), overwrite = TRUE)
 
   # GDVI 2
   image %>%
@@ -357,7 +364,7 @@ calculate_vi <- function(image) {
     map(~ ((.[[8]] / 10000)^2 - (.[[4]] / 10000)^2) / ((.[[8]] / 10000)^2 + (.[[4]] / 10000)^2)) %>%
     stack() %>%
     calc(fun = function(x) mean(x, na.rm = TRUE)) %>%
-    writeRaster(paste0("data/sentinel/image_vi/GDVI_2.tif"), overwrite = TRUE)
+    writeRaster(glue("data/sentinel/image_vi/GDVI_2-{year}.tif"), overwrite = TRUE)
 
   # GDVI 3
   image %>%
@@ -365,7 +372,7 @@ calculate_vi <- function(image) {
     map(~ ((.[[8]] / 10000)^3 - (.[[4]] / 10000)^3) / ((.[[8]] / 10000)^3 + (.[[4]] / 10000)^3)) %>%
     stack() %>%
     calc(fun = function(x) mean(x, na.rm = TRUE)) %>%
-    writeRaster(paste0("data/sentinel/image_vi/GDVI_3.tif"), overwrite = TRUE)
+    writeRaster(glue("data/sentinel/image_vi/GDVI_3-{year}.tif"), overwrite = TRUE)
 
   # GDVI 4
   image %>%
@@ -373,7 +380,7 @@ calculate_vi <- function(image) {
     map(~ ((.[[8]] / 10000)^4 - (.[[4]] / 10000)^4) / ((.[[8]] / 10000)^4 + (.[[4]] / 10000)^4)) %>%
     stack() %>%
     calc(fun = function(x) mean(x, na.rm = TRUE)) %>%
-    writeRaster(paste0("data/sentinel/image_vi/GDVI_4.tif"), overwrite = TRUE)
+    writeRaster(glue("data/sentinel/image_vi/GDVI_4-{year}.tif"), overwrite = TRUE)
 
   # MNDVI
   image %>%
@@ -381,7 +388,7 @@ calculate_vi <- function(image) {
     map(~ (.[[8]] / 10000 - .[[4]] / 10000) / (.[[8]] / 10000 + .[[4]] / 10000 - 2 * .[[1]] / 10000)) %>%
     stack() %>%
     calc(fun = function(x) mean(x, na.rm = TRUE)) %>%
-    writeRaster(paste0("data/sentinel/image_vi/mNDVI.tif"), overwrite = TRUE)
+    writeRaster(glue("data/sentinel/image_vi/mNDVI-{year}.tif"), overwrite = TRUE)
 
   # MSR
   image %>%
@@ -389,7 +396,7 @@ calculate_vi <- function(image) {
     map(~ (.[[8]] / 10000 - .[[1]] / 10000) / (.[[4]] / 10000 - .[[1]] / 10000)) %>%
     stack() %>%
     calc(fun = function(x) mean(x, na.rm = TRUE)) %>%
-    writeRaster(paste0("data/sentinel/image_vi/mSR.tif"), overwrite = TRUE)
+    writeRaster(glue("data/sentinel/image_vi/mSR-{year}.tif"), overwrite = TRUE)
 
   # D1
   image %>%
@@ -397,9 +404,14 @@ calculate_vi <- function(image) {
     map(~ (.[[6]] / 10000) / (.[[5]] / 10000)) %>%
     stack() %>%
     calc(fun = function(x) mean(x, na.rm = TRUE)) %>%
-    writeRaster(paste0("data/sentinel/image_vi/D1.tif"), overwrite = TRUE)
+    writeRaster(glue("data/sentinel/image_vi/D1-{year}.tif"), overwrite = TRUE)
 
-  list.files("data/sentinel/image_vi/", full.names = TRUE)
+
+  return(list(
+    list.files("data/sentinel/image_vi", full.names = TRUE,
+                         pattern = year)
+    )
+  )
 }
 
 #' @title mask_vi

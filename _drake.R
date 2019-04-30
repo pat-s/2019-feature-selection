@@ -46,10 +46,10 @@ options(clustermq.scheduler = "slurm",
 plan %<>% mutate(stage = as.factor(stage))
 
 drake_config(plan,
-             verbose = 2, targets = "hr_task", lazy_load = "promise",
+             verbose = 2, targets = "mosaic_vi", lazy_load = "promise",
              console_log_file = "log/drake.log", cache_log_file = "log/cache3.log",
              caching = "worker",
-             template = list(log_file = "log/worker%a.log", n_cpus = 16, memory = 120000),
+             template = list(log_file = "log/worker%a.log", n_cpus = 3, memory = 50000),
              prework = quote(future::plan(future::multisession, workers = 3)),
              garbage_collection = TRUE, jobs = 1, parallelism = "clustermq"
 )
