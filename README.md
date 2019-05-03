@@ -1,11 +1,13 @@
 
-[![Last-changedate](https://img.shields.io/badge/last%20change-2019--04--29-brightgreen.svg)](https://github.com/pat-s/paper_hyperspectral/commits/master)  
+[![Last-changedate](https://img.shields.io/badge/last%20change-2019--05--03-brightgreen.svg)](https://github.com/pat-s/paper_hyperspectral/commits/master)  
 [![minimal R
 version](https://img.shields.io/badge/R%3E%3D-3.5.0-brightgreen.svg)](https://cran.r-project.org/)  
 [![Licence](https://img.shields.io/github/license/mashape/apistatus.svg)](http://choosealicense.com/licenses/mit/)  
 <!-- [![Travis-CI Build Status](https://travis-ci.org/pat-s/paper_hyperspectral.png?branch=master)](https://travis-ci.org/pat-s/paper_hyperspectral)  -->
 
-**title**
+**Modeling defoliation as a proxy for tree health: Comparison of
+feature-selection methods across multiple feature sets derived from
+hyperspectral data**
 
 # Authors
 
@@ -19,6 +21,8 @@ Alexander Brenning
 [![](https://orcid.org/sites/default/files/images/orcid_16x16.png)](http://orcid.org/0000-0001-6640-679X)
 
 # Contents
+
+## Paper
 
 This repository contains the research compendium of our work on
 comparing algorithms across multiple feature sets and filtering methods
@@ -39,6 +43,23 @@ comparing algorithms across multiple feature sets and filtering methods
 
   - Predict defoliation to all available plots (24) and the whole Basque
     Country (at 200 m resolution)
+
+The following directories belong to this project
+
+  - `analysis/01-download.R`
+  - `analysis/02-hyperspectral-processing.R`
+  - `analysis/04-data-processing.R`
+  - `analysis/05-modeling/`
+
+## Other Content
+
+In addition, it contains the workflow for a sub-project: Predicting
+defoliation to the Basque Country (for the years 2017 and 2018) using
+Sentinel-2 data.
+
+The following “targets” are important for this sub-project:
+
+  - `defoliation_raster` (in `analysis/03-sentinel-processing`)
 
 # How to use
 
