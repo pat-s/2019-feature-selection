@@ -33,13 +33,14 @@ data_trim_defoliation <- map(
 
 # split into feature sets --------------------------------------------------------------------
 
-nri_data <- split_into_feature_sets(data_trim_defoliation[[1]], "nri")
+nri_data <- split_into_feature_sets(data_trim_defoliation, "nri")
 
-vi_data <- split_into_feature_sets(data_trim_defoliation[[1]], "vi")
+vi_data <- split_into_feature_sets(data_trim_defoliation, "vi")
 
-bands_data <- split_into_feature_sets(data_trim_defoliation[[2]], "bands")
+bands_data <- split_into_feature_sets(data_trim_defoliation, "bands")
 
-nri_vi_data <- cbind(nri_data, vi_data)
+nri_vi_data <- cbind(nri_data, vi_data) %>%
+  subset(select = which(!duplicated(names(.)))) # remove duplicate "defoliation" column
 
 # log transform response variable --------------------------------------------------------------------
 

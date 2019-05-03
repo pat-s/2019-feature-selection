@@ -9,7 +9,7 @@ knitr::opts_knit$set(base.dir = 'analysis/rmd/')
 knitr::opts_chunk$set(fig.retina=3, fig.align = 'center',
                       out.width = "100%")
 loadd(defoliation_raster_2017, defoliation_raster_2018,
-      defoliation_df_2017, defoliation_df_2018)
+      defoliation_df)
 ```
 
 # Defoliation evaluation {.tabset .tabset-fade}

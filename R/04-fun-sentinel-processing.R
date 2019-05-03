@@ -324,7 +324,7 @@ mask_mosaic <- function(image_mosaic, cloud_mosaic, aoi, forest_mask) {
     ))
 
   return(image_mosaic %>%
-    map(~ str_glue("data/sentinel/image_mask/", .))
+    map(~ str_glue("data/sentinel/image_mask/", basename(.)))
   )
 
 }
@@ -345,9 +345,9 @@ mask_mosaic <- function(image_mosaic, cloud_mosaic, aoi, forest_mask) {
 calculate_vi <- function(image) {
 
   if (grepl("2017", image[1])) {
-    year = 2017
+    year = "2017"
   } else if (grepl("2018", image[1])) {
-    year = 2018
+    year = "2018"
   }
 
   # EVI
