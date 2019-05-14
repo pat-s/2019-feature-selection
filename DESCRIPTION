@@ -25,6 +25,8 @@ Depends:
     future.callr,
     getSpatialData,
     ggplot2,
+    ggpubr,
+    ggspatial,
     glue,
     hsdar,
     knitr,

@@ -1,70 +1,37 @@
 ---
-title: "Creation of prediction maps"
-output: html_document
-author: "Patrick Schratz, FSU Jena"
+title: "Prediction maps of defoliation at trees"
+output: 
+  html_document: 
+    css: style.css
+    theme: readable
+    number_sections: yes
+    toc: yes
+    toc_float: true
+    toc_collapsed: true
+    df_print: tibble
+    includes:
+      in_header: header.html
+author: "Patrick Schratz, Marc Becker, Friedrich-Schiller-University Jena"
 ---
 
 
-```r
-knitr::opts_knit$set(base.dir = 'analysis/rmd/')
-knitr::opts_chunk$set(fig.retina=3, fig.align = 'center',
-                      out.width = "100%")
-
-loadd(defoliation_raster_2017, defoliation_raster_2018,
-      defoliation_df_2017, defoliation_df_2018)
-```
 
 # Defoliation evaluation {.tabset .tabset-fade}
 
-## Maps
+## Absolute defoliation {.tabset .tabset-fade}
 
+### Maps
 
-```r
-create_prediction_map(list(defoliation_raster_2017), "xgboost")
-```
-
-```
-## [[1]]
-```
-
-```
-## Zoom: 8
-```
-
-```
-## Warning: Removed 29621091 rows containing missing values (geom_raster).
-```
+#### 2017
 
 <img src="../../analysis/figures/defoliation-map-2017-1.png" title="plot of chunk defoliation-map-2017" alt="plot of chunk defoliation-map-2017" width="100%" style="display: block; margin: auto;" />
 
-
-```r
-create_prediction_map(list(defoliation_raster_2018), "xgboost")
-```
-
-```
-## [[1]]
-```
-
-```
-## Zoom: 8
-```
-
-```
-## Warning: Removed 29621091 rows containing missing values (geom_raster).
-```
+#### 2018
 
 <img src="../../analysis/figures/defoliation-map-2018-1.png" title="plot of chunk defoliation-map-2018" alt="plot of chunk defoliation-map-2018" width="100%" style="display: block; margin: auto;" />
 
-## Histograms
+### Histograms
 
-
-```r
-ggplot(defoliation_df_2017, aes(x = defoliation)) +
-  geom_histogram() +
-  labs(x = "Defoliation (%)") +
-  theme_pubr()
-```
 
 ```
 ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
@@ -73,15 +40,36 @@ ggplot(defoliation_df_2017, aes(x = defoliation)) +
 <img src="figure/unnamed-chunk-1-1.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" width="100%" style="display: block; margin: auto;" />
 
 
-```r
-ggplot(defoliation_df_2018, aes(x = defoliation)) +
-  geom_histogram() +
-  labs(x = "Defoliation (%)") +
-  theme_pubr()
-```
-
 ```
 ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
 
 <img src="figure/unnamed-chunk-2-1.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" width="100%" style="display: block; margin: auto;" />
+
+## Relative defoliation {.tabset .tabset-fade}
+
+### Maps
+
+#### 2017
+
+<img src="../../analysis/figures/defoliation-map-relative-2017-1.png" title="plot of chunk defoliation-map-relative-2017" alt="plot of chunk defoliation-map-relative-2017" width="100%" style="display: block; margin: auto;" />
+
+#### 2018
+
+<img src="../../analysis/figures/defoliation-map-relative-2018-1.png" title="plot of chunk defoliation-map-relative-2018" alt="plot of chunk defoliation-map-relative-2018" width="100%" style="display: block; margin: auto;" />
+
+### Histograms
+
+
+```
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+```
+
+<img src="figure/unnamed-chunk-3-1.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" width="100%" style="display: block; margin: auto;" />
+
+
+```
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+```
+
+<img src="figure/unnamed-chunk-4-1.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" width="100%" style="display: block; margin: auto;" />

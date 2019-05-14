@@ -49,7 +49,7 @@ mosaic <- future_map2(list(records_2017, records_2018), images_stack, ~
                         mosaic_images(.x, .y))
 
 # mask mosaics ------------------------------
-mosaic_masked <- future_map2(mosaic, cloud_mosaic,  ~
+mosaic_masked <- future_map2(mosaic, cloud_mosaic, ~
                                mask_mosaic(.x, .y, aoi, forest_mask))
 
 # calculate vegetation indices ------------------------------
@@ -61,8 +61,8 @@ ras_veg_inds <- future_map(mosaic_vi, ~
                              mask_vi(.x))
 
 # create sf objects of vegetation indices ------------------------------
-sf_veg_inds <- future_map(ras_veg_inds, ~
-                            ras_to_sf(.x))
+sf_veg_inds <- map(ras_veg_inds, ~
+                     ras_to_sf(.x))
 
 # get ooordinates from sf object for vegetation indices ------------------------------
 coordinates <- future_map(sf_veg_inds, ~
@@ -70,12 +70,20 @@ coordinates <- future_map(sf_veg_inds, ~
 
 # create prediction data ------------------------------
 prediction_df <- future_map(sf_veg_inds, ~
-                              get_prediction_df(.x, model))
+                              create_prediction_df(.x, model = train_xgboost))
 
 # predict defoliation ------------------------------
-defoliation_df <- future_map(prediction_df, ~
-                               predict_defoliation(.x, model, coordinates))
+defoliation_df <- future_map2(prediction_df, coordinates, ~
+                                predict_defoliation(.x, model = train_xgboost, .y))
 
 # write defoliation raster ------------------------------
-defoliation_raster <- future_map(prediction_df, ~
-                                   prediction_raster(.x))
+defoliation_raster <- future_map2(defoliation_df, c("2017", "2018"), ~
+                                   prediction_raster(.x, .y))
+
+# scale predicted defoliation -------------------------------------------------------
+defoliation_df_relative = future_map(defoliation_df, ~
+                                     scale_defoliation(.x))
+
+# write defoliation raster ------------------------------
+defoliation_raster_relative <- future_map2(defoliation_df_relative, c("2017", "2018"), ~
+                                            prediction_raster(.x, .y, relative = TRUE))

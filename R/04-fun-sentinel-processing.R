@@ -324,9 +324,41 @@ mask_mosaic <- function(image_mosaic, cloud_mosaic, aoi, forest_mask) {
     ))
 
   return(image_mosaic %>%
-    map(~ str_glue("data/sentinel/image_mask/", basename(.)))
-  )
+    map(~ str_glue("data/sentinel/image_mask/", basename(.))))
+}
 
+#' @title mask_vi
+#' @description Masks the VIs
+#'
+#' @param image_vi (`character`)\cr File name of raster brick/stack.
+#' @return masked VIs (`brick`)
+#' @export
+mask_vi <- function(image_vi) {
+
+  # Get raster
+  veg_inds <- image_vi %>%
+    as.list() %>%
+    flatten() %>%
+    map(~ raster(.))
+
+  # Mask with each other
+  for (ind in veg_inds) {
+    veg_inds %<>%
+      map(~ raster::mask(., ind))
+  }
+
+  return(veg_inds)
+
+  # browser()
+  # # Get names
+  # ind_names <-
+  #   image_vi %>%
+  #   as.list() %>% flatten() %>%
+  #   map_chr(~ tools::file_path_sans_ext(basename(.)))
+  #
+  # # Return for drake
+  # veg_inds %>%
+  #   set_names(ind_names)
 }
 
 #' @title calculate_vi
@@ -343,11 +375,10 @@ mask_mosaic <- function(image_mosaic, cloud_mosaic, aoi, forest_mask) {
 #' @return calculated VIs (file name)
 #' @export
 calculate_vi <- function(image) {
-
   if (grepl("2017", image[1])) {
-    year = "2017"
+    year <- "2017"
   } else if (grepl("2018", image[1])) {
-    year = "2018"
+    year <- "2018"
   }
 
   # EVI
@@ -408,39 +439,11 @@ calculate_vi <- function(image) {
 
 
   return(list(
-    list.files("data/sentinel/image_vi", full.names = TRUE,
-                         pattern = year)
+    list.files("data/sentinel/image_vi",
+      full.names = TRUE,
+      pattern = year
     )
-  )
-}
-
-#' @title mask_vi
-#' @description Masks the VIs
-#'
-#' @param image_vi (`character`)\cr File name of raster brick/stack.
-#' @return masked VIs (`brick`)
-#' @export
-mask_vi <- function(image_vi) {
-
-  # Get raster
-  veg_inds <-
-    image_vi %>%
-    map(~ raster(.))
-
-  # Mask with each other
-  for (ind in veg_inds) {
-    veg_inds %<>%
-      map(~ mask(., ind))
-  }
-
-  # Get names
-  ind_names <-
-    image_vi %>%
-    map_chr(~ tools::file_path_sans_ext(basename(.)))
-
-  # Return for drake
-  veg_inds %>%
-    set_names(ind_names)
+  ))
 }
 
 #' @title ras_to_sf
@@ -482,11 +485,13 @@ get_coordinates <- function(data) {
 #' @export
 create_prediction_df <- function(data, model) {
   ind_names <-
-    names(sf_veg_inds) %>%
-    map_chr(~ paste0("bf2_", .))
+    map_chr(data, ~ names(.x)[1]) %>%
+    map_chr(~ paste0("bf2_", .)) %>%
+    # remove year suffix
+    gsub("\\..*", "", x = .)
 
   prediction_df <-
-    sf_veg_inds %>%
+    data %>%
     map_dfc(~ st_set_geometry(., NULL)) %>%
     set_names(ind_names)
 
@@ -505,7 +510,7 @@ create_prediction_df <- function(data, model) {
 #' @return (`data.frame`)
 #' @export
 predict_defoliation <- function(data, model, coordinates) {
-  pred <- predict(model$learner.model, newdata = as.matrix(prediction_df))
+  pred <- predict(model$learner.model, newdata = as.matrix(data))
   return(tibble(defoliation = pred, x = coordinates$x, y = coordinates$y))
 }
 
@@ -513,16 +518,24 @@ predict_defoliation <- function(data, model, coordinates) {
 #' @description Transforms the predictions and their cooridnates into a GeoTIFF
 #'
 #' @param data (`data.frame`)\cr Predicted data
+#' @param year (`character`)\cr Year of the predicted values
+#' @param relative Whether the values are absolute or relative ones.
 #' @return (`brick`)
 #' @export
-prediction_raster <- function(data) {
-  all_spdf <- SpatialPixelsDataFrame(points = data[, c("x", "y")],
-                                     data = as.data.frame(data[, "defoliation"]),
-                                     proj4string = CRS("+proj=utm +zone=30 +datum=WGS84 +units=m +no_defs"))
+prediction_raster <- function(data, year, relative = NULL) {
+  all_spdf <- SpatialPixelsDataFrame(
+    points = data[, c("x", "y")],
+    data = as.data.frame(data[, "defoliation"]),
+    proj4string = CRS("+proj=utm +zone=30 +datum=WGS84 +units=m +no_defs")
+  )
 
+  if (!is.null(relative)) {
+    year = glue("{year}-relative")
+  }
   raster(all_spdf) %>%
-    writeRaster("data/sentinel/image_defoliation/defoliation.tif",
-                overwrite = TRUE)
+    writeRaster(glue("data/sentinel/image_defoliation/defoliation-{year}.tif"),
+      overwrite = TRUE
+    )
 
   # Return for drake
   return(raster(all_spdf))
@@ -533,36 +546,51 @@ prediction_raster <- function(data) {
 #'
 #' @param data (`data.frame`)\cr Predictions including coordinates
 #' @param algorithm (`character`)\cr Name of the algoritm
+#' @param limits (`integer`)\cr Y axis limits
 #' @return (`character`)
 #' @export
-create_defoliation_map <- function(data, algorithm) {
+create_defoliation_map <- function(data, algorithm, limits, title) {
+  # all_spdf <- SpatialPixelsDataFrame(
+  #   points = data[, c("x", "y")],
+  #   data = as.data.frame(data[, "defoliation"]),
+  #   proj4string = CRS("+proj=utm +zone=30 +datum=WGS84 +units=m +no_defs")
+  # )
 
-  all_spdf <- SpatialPixelsDataFrame(
-    points = defoliation__df[, c("x", "y")],
-    data = as.data.frame(defoliation__df[, "defoliation"]),
-    proj4string = CRS("+proj=utm +zone=30 +datum=WGS84 +units=m +no_defs")
-  )
-
-  raster(all_spdf) %>%
-    writeRaster(glue("data/sentinel/image_defoliation/{filename}.tif"),
-      overwrite = TRUE
-    )
-
-  plot = ggplot() +
+  plot <- ggplot() +
     annotation_map_tile(zoomin = -1, type = "cartolight") +
-    layer_spatial(all_spdf, aes(fill = stat(band1))) +
-    scale_fill_viridis_c(na.value = NA, name = "Defoliation of trees [%]",
-                         limits = c(35, 65)) +
+    layer_spatial(data, aes(fill = stat(band1))) +
+    scale_fill_viridis_c(
+      na.value = NA, name = title,
+      limits = limits
+    ) +
     # spatial-aware automagic scale bar
     annotation_scale(location = "tl") +
     # spatial-aware automagic north arrow
     annotation_north_arrow(location = "br", which_north = "true") +
-    theme_pubr(legend = "right")  +
-    theme(legend.key.size = unit(2,"line"),
-          plot.margin = margin(1.5, 0, 1, 0)) +
-    labs(caption = glue("Algorithm: {algorithm}",
-                        " Spatial resolution: 20 m"))
+    theme_pubr(legend = "right") +
+    theme(
+      legend.key.size = unit(2, "line"),
+      plot.margin = margin(1.5, 0, 1, 0)
+    ) +
+    labs(caption = glue(
+      "Algorithm: {algorithm}",
+      " Spatial resolution: 20 m"
+    ))
 
   # Return for drake
   return(plot)
+}
+
+#' @title write_defoliation_map
+#' @description Scale absolute predicted defoliation to 0 - 100
+#'
+#' @param data (`data.frame`)\cr Defoliation data.frame to scale
+#' @return (`character`)
+#' @export
+scale_defoliation <- function(data) {
+
+  data$defoliation = scale(data$defoliation, center = FALSE,
+                           scale = max(data$defoliation, na.rm = TRUE)/100)
+
+  return(data)
 }
