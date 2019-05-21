@@ -573,7 +573,7 @@ create_defoliation_map <- function(data, algorithm, limits, title) {
       plot.margin = margin(1.5, 0, 1, 0)
     ) +
     labs(caption = glue(
-      "Algorithm: {algorithm}",
+      "Algorithm: {algorithm},",
       " Spatial resolution: 20 m"
     ))
 

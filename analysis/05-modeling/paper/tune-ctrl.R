@@ -1,0 +1,5 @@
+tune.ctrl_xgboost = makeTuneControlRandom(maxit = 100L)
+tune.ctrl_svm = makeTuneControlRandom(maxit = 100L)
+tune.ctrl_rf = makeTuneControlRandom(maxit = 100L)
+tune.ctrl_ridge = makeTuneControlRandom(maxit = 100L)
+tune.ctrl_lasso = makeTuneControlRandom(maxit = 100L)
