@@ -1,0 +1,17 @@
+name: "2019-feature-selection"
+output_dir: ../docs
+navbar:
+  title: "2019-feature-selection"
+  left:
+  - text: Home
+    href: index.html
+  - text: About
+    href: about.html
+  - text: License
+    href: license.html
+output:
+  workflowr::wflow_html:
+    toc: yes
+    toc_float: yes
+    theme: cosmo
+    highlight: textmate
