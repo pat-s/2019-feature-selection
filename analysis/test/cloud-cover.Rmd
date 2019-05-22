@@ -8,12 +8,13 @@ author: "Marc Becker"
 knitr::opts_knit$set(base.dir = 'analysis/rmd/')
 knitr::opts_chunk$set(fig.retina = 3, fig.align = 'center', fig.width = 6.93, 
                       fig.height = 6.13, out.width = "100%")
+source(here::here("code/99-packages.R"))
 
 loadd(records, aoi, cloud_mosaic)
 ```
 
 ```{r}
-records %<>% split(records$beginposition)
+records %<>% split(records[[2]]$beginposition)
 
 # Unique dates
 date_scenes =  

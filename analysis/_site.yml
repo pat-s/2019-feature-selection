@@ -9,9 +9,17 @@ navbar:
     href: about.html
   - text: License
     href: license.html
+  - text: Project
+    menu:
+    - text: "Defoliation maps"
+      href: defoliation-maps.html
+  - text: Timeline
+    href: timeline.html
+
 output:
   workflowr::wflow_html:
     toc: yes
     toc_float: yes
-    theme: cosmo
+    theme: readable
     highlight: textmate
+    css: style.css
