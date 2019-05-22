@@ -426,7 +426,7 @@ div.section {
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -435,7 +435,7 @@ div.section {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -447,7 +447,7 @@ div.section {
 <strong>Last updated:</strong> 2019-05-22
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 5 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
 </p>
 <p>
 <strong>Knit directory:</strong> <code>2019-feature-selection/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
@@ -463,12 +463,12 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown is untracked by Git. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
 </div>
 </div>
 </div>
@@ -523,10 +523,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree1cbc8de5bc733f3f4370f650feb0ae8b8cefc736targetblank1cbc8dea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/1cbc8de5bc733f3f4370f650feb0ae8b8cefc736" target="_blank">1cbc8de</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree7ad5791e84360fdd8b94b6c261e6bbb72b96a6datargetblank7ad5791a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/7ad5791e84360fdd8b94b6c261e6bbb72b96a6da" target="_blank">7ad5791</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree1cbc8de5bc733f3f4370f650feb0ae8b8cefc736targetblank1cbc8dea" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree7ad5791e84360fdd8b94b6c261e6bbb72b96a6datargetblank7ad5791a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -548,9 +548,7 @@ Ignored files:
 
 Untracked files:
     Untracked:  analysis/analysis/
-    Untracked:  analysis/defoliation-maps.Rmd
     Untracked:  analysis/defoliation-maps.md
-    Untracked:  analysis/figure/
     Untracked:  analysis/figures/
     Untracked:  analysis/logo/
     Untracked:  analysis/style.css
@@ -564,7 +562,6 @@ Untracked files:
     Untracked:  code/06-benchmark-matrix.R
     Untracked:  code/07-reports.R
     Untracked:  code/99-packages.R
-    Untracked:  docs/style.css
 
 Unstaged changes:
     Modified:   R/04-fun-sentinel-processing.R
@@ -592,9 +589,7 @@ Unstaged changes:
     Deleted:    analysis/07-reports.R
     Deleted:    analysis/99-packages.R
     Modified:   analysis/_site.yml
-    Modified:   analysis/about.Rmd
     Modified:   analysis/index.Rmd
-    Modified:   analysis/license.Rmd
     Deleted:    analysis/rmd/cloud-cover.Rmd
     Deleted:    analysis/rmd/defoliation-maps.Rmd
     Deleted:    analysis/rmd/defoliation-maps.md
@@ -839,9 +834,69 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in t
 <hr>
 </div>
 <div id="versions" class="tab-pane fade">
+
 <p>
-There are no past versions. Publish this analysis with <code>wflow_publish()</code> to start tracking its development.
+These are the previous versions of the R Markdown and HTML files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view them.
 </p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/7ad5791e84360fdd8b94b6c261e6bbb72b96a6da/analysis/defoliation-maps.Rmd" target="_blank">7ad5791</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-05-22
+</td>
+<td>
+first version
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pat-s/2019-feature-selection/7ad5791e84360fdd8b94b6c261e6bbb72b96a6da/docs/defoliation-maps.html" target="_blank">7ad5791</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-05-22
+</td>
+<td>
+first version
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 <hr>
 </div>
 </div>
@@ -869,6 +924,43 @@ There are no past versions. Publish this analysis with <code>wflow_publish()</co
 [15] 38.25126 36.93972 39.12485 42.45889 38.05913 39.47527</code></pre>
 <p>Some more details on the optimization path are presented below:</p>
 <p><img src="figure/defoliation-maps.Rmd/unnamed-chunk-2-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-1">
+Past versions of unnamed-chunk-2-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/7ad5791e84360fdd8b94b6c261e6bbb72b96a6da/docs/figure/defoliation-maps.Rmd/unnamed-chunk-2-1.png" target="_blank">7ad5791</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-05-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="predicted-defoliation-relative" class="section level1">
 <h1>Predicted Defoliation (relative)</h1>
@@ -887,18 +979,166 @@ There are no past versions. Publish this analysis with <code>wflow_publish()</co
 <div id="section" class="section level4">
 <h4>2017</h4>
 <p><img src="figure/defoliation-maps.Rmd/defoliation-map-2017-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-defoliation-map-2017-1">
+Past versions of defoliation-map-2017-1.png
+</button>
+</p>
+<div id="fig-defoliation-map-2017-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/7ad5791e84360fdd8b94b6c261e6bbb72b96a6da/docs/figure/defoliation-maps.Rmd/defoliation-map-2017-1.png" target="_blank">7ad5791</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-05-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="section-1" class="section level4">
 <h4>2018</h4>
 <p><img src="figure/defoliation-maps.Rmd/defoliation-map-2018-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-defoliation-map-2018-1">
+Past versions of defoliation-map-2018-1.png
+</button>
+</p>
+<div id="fig-defoliation-map-2018-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/7ad5791e84360fdd8b94b6c261e6bbb72b96a6da/docs/figure/defoliation-maps.Rmd/defoliation-map-2018-1.png" target="_blank">7ad5791</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-05-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 </div>
 <div id="histograms" class="section level3">
 <h3>Histograms</h3>
 <p>2017</p>
 <p><img src="figure/defoliation-maps.Rmd/unnamed-chunk-4-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-1">
+Past versions of unnamed-chunk-4-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-4-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/7ad5791e84360fdd8b94b6c261e6bbb72b96a6da/docs/figure/defoliation-maps.Rmd/unnamed-chunk-4-1.png" target="_blank">7ad5791</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-05-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>2018</p>
 <p><img src="figure/defoliation-maps.Rmd/unnamed-chunk-5-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-1">
+Past versions of unnamed-chunk-5-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-5-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/7ad5791e84360fdd8b94b6c261e6bbb72b96a6da/docs/figure/defoliation-maps.Rmd/unnamed-chunk-5-1.png" target="_blank">7ad5791</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-05-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 </div>
 <div id="relative-defoliation" class="section level2 tabset tabset-fade">
@@ -908,18 +1148,166 @@ There are no past versions. Publish this analysis with <code>wflow_publish()</co
 <div id="section-2" class="section level4">
 <h4>2017</h4>
 <p><img src="figure/defoliation-maps.Rmd/defoliation-map-relative-2017-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-defoliation-map-relative-2017-1">
+Past versions of defoliation-map-relative-2017-1.png
+</button>
+</p>
+<div id="fig-defoliation-map-relative-2017-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/7ad5791e84360fdd8b94b6c261e6bbb72b96a6da/docs/figure/defoliation-maps.Rmd/defoliation-map-relative-2017-1.png" target="_blank">7ad5791</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-05-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="section-3" class="section level4">
 <h4>2018</h4>
 <p><img src="figure/defoliation-maps.Rmd/defoliation-map-relative-2018-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-defoliation-map-relative-2018-1">
+Past versions of defoliation-map-relative-2018-1.png
+</button>
+</p>
+<div id="fig-defoliation-map-relative-2018-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/7ad5791e84360fdd8b94b6c261e6bbb72b96a6da/docs/figure/defoliation-maps.Rmd/defoliation-map-relative-2018-1.png" target="_blank">7ad5791</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-05-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 </div>
 <div id="histograms-1" class="section level3">
 <h3>Histograms</h3>
 <p>2017</p>
 <p><img src="figure/defoliation-maps.Rmd/unnamed-chunk-6-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-1">
+Past versions of unnamed-chunk-6-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-6-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/7ad5791e84360fdd8b94b6c261e6bbb72b96a6da/docs/figure/defoliation-maps.Rmd/unnamed-chunk-6-1.png" target="_blank">7ad5791</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-05-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>2018</p>
 <p><img src="figure/defoliation-maps.Rmd/unnamed-chunk-7-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-1">
+Past versions of unnamed-chunk-7-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-7-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/7ad5791e84360fdd8b94b6c261e6bbb72b96a6da/docs/figure/defoliation-maps.Rmd/unnamed-chunk-7-1.png" target="_blank">7ad5791</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-05-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -986,21 +1374,21 @@ loaded via a namespace (and not attached):
  [58] tools_3.5.2        cli_1.1.0          generics_0.0.2    
  [61] devtools_2.0.1     evaluate_0.13      yaml_2.2.0        
  [64] ModelMetrics_1.2.2 processx_3.2.1     satellite_1.0.1   
- [67] nlme_3.1-137       mime_0.6           xml2_1.2.0        
- [70] compiler_3.5.2     prettymapr_0.2.2   plotly_4.8.0      
- [73] png_0.1-7          e1071_1.7-0.1      testthat_2.0.1    
- [76] RPostgreSQL_0.6-2  tibble_2.0.1       lhs_1.0.1         
- [79] stringi_1.3.1      ps_1.3.0           desc_1.2.0        
- [82] plot3D_1.1.1       Matrix_1.2-15      classInt_0.3-1    
- [85] rosm_0.2.4         pillar_1.3.1       httpuv_1.4.5.1    
- [88] R6_2.4.0           promises_1.0.1     sessioninfo_1.1.1 
- [91] codetools_0.2-16   MASS_7.3-51.1      assertthat_0.2.0  
- [94] pkgload_1.0.2      rprojroot_1.3-2    withr_2.1.2       
- [97] parallel_3.5.2     rpart_4.1-13       timeDate_3043.102 
-[100] tidyr_0.8.2        class_7.3-15       rmarkdown_1.11    
-[103] misc3d_0.8-4       mco_1.0-15.1       git2r_0.24.0      
-[106] getPass_0.2-2      shiny_1.2.0        lubridate_1.7.4   
-[109] base64enc_0.1-3   </code></pre>
+ [67] nlme_3.1-137       whisker_0.3-2      mime_0.6          
+ [70] xml2_1.2.0         compiler_3.5.2     prettymapr_0.2.2  
+ [73] plotly_4.8.0       png_0.1-7          e1071_1.7-0.1     
+ [76] testthat_2.0.1     RPostgreSQL_0.6-2  tibble_2.0.1      
+ [79] lhs_1.0.1          stringi_1.3.1      ps_1.3.0          
+ [82] desc_1.2.0         plot3D_1.1.1       Matrix_1.2-15     
+ [85] classInt_0.3-1     rosm_0.2.4         pillar_1.3.1      
+ [88] httpuv_1.4.5.1     R6_2.4.0           promises_1.0.1    
+ [91] sessioninfo_1.1.1  codetools_0.2-16   MASS_7.3-51.1     
+ [94] assertthat_0.2.0   pkgload_1.0.2      rprojroot_1.3-2   
+ [97] withr_2.1.2        parallel_3.5.2     rpart_4.1-13      
+[100] timeDate_3043.102  tidyr_0.8.2        class_7.3-15      
+[103] rmarkdown_1.11     misc3d_0.8-4       mco_1.0-15.1      
+[106] git2r_0.24.0       getPass_0.2-2      shiny_1.2.0       
+[109] lubridate_1.7.4    base64enc_0.1-3   </code></pre>
 </div>
 </div>
 </div>
