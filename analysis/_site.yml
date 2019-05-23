@@ -9,6 +9,8 @@ navbar:
     href: about.html
   - text: License
     href: license.html
+  - text: "Defoliation maps"
+    href: defoliation-maps.html
   - text: Project
     menu:
     - text: "Defoliation maps"
@@ -22,4 +24,3 @@ output:
     toc_float: yes
     theme: readable
     highlight: textmate
-    css: style.css
