@@ -1,39 +1,140 @@
-hash type name
-714931c4edd54bae import calc_nri_indices
-77d13c45c44dfdf1 import calc_veg_indices
-1bc7a0271b1b5ef2 import clean_single_plots
-63b45c9f0b88a038 target data_clean_single_plots
-d243837e7b18f365 target data_hs_preprocessed
-2717872700aee0a8 target data_hs_raw
-adcb0758e1c72957 target data_list_nri_vi_bands
-14ccfbb711755627 target data_vi_nri_clean
-0c1d2781010d7b70 import download_hyperspectral
-2fceb5d45b857157 import download_locations
-ee53be201563524b import download_trees
-701b8c1f4ede19ca import extract_bands_to_plot
-a93f582533497c6c import extract_coords
-7b3b5e23935b9889 import extract_indices_to_plot
-211f2f8733870fa5 target index
-a954110c70b56dfa target indices
-caa60a616900f8b9 import log_response
-4878e7879e0bdc36 import mutate_defol
-45bb99dd7c555194 import dplyr::filter
-36f9439f5abf9401 import dplyr::select
-de89808c3dc9a9af import raster::mask
-a164b7bda3466752 import raster::projectRaster
-598109c46df95488 import raster::crop
-425d83b9f58c448e import raster::extract
-20857a31132b968c target name_id
-12542df7c1ddf54a target name_out
-ac012d7b746626f5 target ndvi_rasters
-4cfbe16a78664112 target nri_indices
-70243774c1e6408c target plot_locations
-8e91176d31a0022f import process_hyperspec
-2173396fe52d354a import process_hyperspec_helper
-39b993c42d66c335 import remove_na
-cb8d75ee01958ee8 import split_in_feature_sets
-235dcdbe4e2a0461 target tree_per_tree
-5270e97a15a74838 target trees_with_bands
-77756d24ae30b919 target trees_with_indices
-0afa5fc4bc43705e target veg_indices
-97fd22cb49686627 target wavelength
+hash,type,name
+217b745988e1770c,target,aoi
+85a48544f1083a02,target,bands_data
+bc853286323b707b,target,bands_data_log_transformed
+714931c4edd54bae,import,calc_nri_indices
+77d13c45c44dfdf1,import,calc_veg_indices
+fa8f1eba64549490,import,calculate_vi
+611d3db6a32555fd,import,clean_single_plots
+c0006094b0f4d19c,target,cloud_mosaic
+ee2d7b141f10e21b,target,cloud_stack
+eccd4c5327d5dd6e,target,coef_regression1_large
+1cd42b8fd1bb4755,target,coef_regression1_small
+61260aab8d202b85,target,coef_regression2_large
+07ea85f8c2e2c5bf,target,coef_regression2_small
+4200ec0dcf2e3310,target,coordinates
+80910393c493dbad,target,coords_bands_clean
+80910393c493dbad,target,coords_vi_nri_clean
+33f759dc5e1054ab,import,copy_cloud
+0d480d27cac569f4,import,create_prediction_df
+bde5fcbd23ed1dbb,target,data_7_most_imp
+b73e55e81ca316f0,target,data_bands_clean
+5e6f55e0d8bed59d,target,data_clean_single_plots
+92da07b41398926b,target,data_clean_single_plots_coords
+5471544ee47cff0a,target,data_hs_preprocessed
+58118724fe3ebe88,target,data_hs_raw
+140ec0adaaa3e085,target,data_list_nri_vi_bands
+34641dfb7cb2822f,target,data_trim_defoliation
+a949668222776ae0,target,data_vi_nri_clean
+86648c59e4ba317f,target,defoliation_df
+8cb6e57132c06ca5,target,defoliation_df_relative
+4d5601941e0b5963,target,defoliation_maps
+b88bb793fac71006,target,defoliation_raster
+3ea8d2dc9b9879ac,import,defoliation_raster_2017
+3ea8d2dc9b9879ac,import,defoliation_raster_2018
+99b1f77aea4044fd,target,defoliation_raster_relative
+86648c59e4ba317f,target,defoliation_relative
+b88bb793fac71006,target,defoliation_relative_raster
+1fa0273eff93daa4,import,download_forest_mask
+2742a78f9b8b7aa5,import,download_hyperspectral
+d7fc3fb910f0c766,import,download_images
+32b653c7873b8964,import,download_locations
+89379476ff1b386a,import,download_trees
+1773fb990ed5d94d,import,extract_bands_to_plot
+e1bd657fd452326e,import,extract_coords
+7b412117eab3e707,import,extract_indices_to_plot
+d2082533db503904,target,forest_mask
+fb1009742bd1a894,import,get_coordinates
+2c0c0475f4052ae2,import,get_records
+7771907c450501b0,target,hr_task
+cff16b5868717da4,target,image_zip
+8c2ed0ecb7d89837,target,images_stack
+e5e9f4c780784010,target,images_unzip
+833ade83b44f9132,target,images_zip
+211f2f8733870fa5,target,index
+a954110c70b56dfa,target,indices
+7b6504d4c0dcceab,target,large
+caa60a616900f8b9,import,log_response
+7d24ea8b6f6189b6,target,lrn_xgboost
+5a7d2e2f16b24320,import,mask_mosaic
+cf8a6cf973e35d25,import,mask_vi
+335f1c6c8652cc84,target,mosaic
+2af1ec7bd233cc2d,import,mosaic_clouds
+bf1034e6947689be,import,mosaic_images
+28f2ea09aa027c41,target,mosaic_masked
+ed667e115f666726,target,mosaic_vi
+e820f93681848b4c,import,mutate_defol
+f4b89e63bc92af79,import,datasets::mtcars
+65fd467dabcf0969,import,dplyr::mutate
+45bb99dd7c555194,import,dplyr::filter
+36f9439f5abf9401,import,dplyr::select
+722042b9e470a2e6,import,purrr::discard
+de89808c3dc9a9af,import,raster::mask
+a164b7bda3466752,import,raster::projectRaster
+598109c46df95488,import,raster::crop
+c230b669c0da303f,import,raster::aggregate
+3e68f16b34370ffc,import,raster::disaggregate
+425d83b9f58c448e,import,raster::extract
+cc4c9cd8118d43fd,import,tools::file_path_sans_ext
+20857a31132b968c,target,name_id
+12542df7c1ddf54a,target,name_out
+de5897d3f467c5cb,target,nri_data
+5f54e2ff8de5f746,target,nri_data_log_transformed
+7ec3830cb198bc34,target,nri_indices
+d53087b003901d46,target,nri_task
+b7317c4add1057e0,target,nri_vi_data
+d6f03563c8925c1e,target,nri_vi_data_log_transformed
+ad41986137419b6f,target,nri_vi_task
+2605de2b01b4034c,import,file analysis/rmd/defoliation-maps.Rmd
+d1c87512374b2748,target,file analysis/rmd/defoliation-maps.md
+7a456ee58df699be,import,file report.Rmd
+fa9a77f4ba63574e,target,file report.md
+698db9a4ae7363aa,target,plot_locations
+49fc766151faea4d,import,predict_defoliation
+4e079892111fbefe,target,prediction_df
+135fff00b599b194,import,prediction_raster
+d9f13a99ab297d2d,import,process_hyperspec
+2707980dcb1e67dd,import,process_hyperspec_helper
+c25a242f48cc7dc6,target,ps_xgboost
+db84c9f752635a13,import,random_rows
+55037ffc61b7a6a9,import,ras_to_sf
+cb52910beca8076b,target,ras_veg_inds
+0ecd06a37cd19a11,target,records
+a95647c96660bdbc,target,records_2017
+01ce63b4eaf7fcb2,target,records_2018
+21935c86f12692e2,import,reg1
+69ade4b78f15a3f9,import,reg2
+77312f89faec84e4,target,regression1_large
+c148ec1ec3a41356,target,regression1_small
+36295cb6fe8513fa,target,regression2_large
+9f9602c882f62138,target,regression2_small
+f3bb623354b52fa1,target,report
+1e4d4ab3c5e3fa1f,target,resampl_inner
+4aaf97ef730b5c24,import,scale_defolation
+abcbd3ab7f306e62,import,scale_defoliation
+eef427c648b6fb09,target,sf_veg_inds
+f4d57e5ba38b744b,import,simulate
+78414659cd5e9997,target,small
+e712e4728274c731,import,split_into_feature_sets
+c1c7be04dff60dfc,import,stack_bands
+c4e3bc88be1588cd,target,summ_regression1_large
+4131f29341be64de,target,summ_regression1_small
+e3675bf808f09b32,target,summ_regression2_large
+591a1a2a7d4c2450,target,summ_regression2_small
+5418ca4943654b7b,target,task_7_most_imp
+471940cc7b6cdf35,import,train
+f2b7b3f133a35e91,import,train_wrapper
+d846fdd25f73ba13,target,train_xgboost
+235dcdbe4e2a0461,target,tree_per_tree
+c81ffd233b46fb5c,target,trees_with_bands
+0c4a4cb3b4756fe5,target,trees_with_indices
+3384ed490bc718d9,import,tune_ctrl_wrapper
+c0920f461e044e1c,target,tune_ctrl_xgboost
+80d5b42738f85a5a,import,tune_wrapper
+f82c015b278f42b9,target,tune_xgboost
+2d1cdedfca062625,import,unzip_images
+e61dc8288397b1eb,target,veg_indices
+6ef0f8fd3a096a3b,target,vi_data
+21a642e233cda99a,target,vi_data_log_transformed
+808f3b0ad8809215,target,vi_task
+97fd22cb49686627,target,wavelength

@@ -1,13 +1,15 @@
 ---
 title: "Timeline"
-output: html_document
-author: "Patrick Schratz, FSU Jena"
+output: workflowr::wflow_html
 ---
 
 ```{r setup, echo = FALSE}
-knitr::opts_knit$set(base.dir = 'analysis/rmd/')
-knitr::opts_chunk$set(fig.retina=3, fig.align = 'center',
-                      out.width = "100%")
+knitr::opts_chunk$set(fig.retina=3, 
+                      fig.align = 'center',
+                      out.width = "100%",
+                      echo = FALSE,
+                      message = FALSE,
+                      warning = FALSE)
 ```
 
 ```{r}
@@ -36,4 +38,3 @@ d$start = start_date + d$start * 7
 d$end = d$start + d$duration * 7
 vistime(d, linewidth = 20)
 ```
-

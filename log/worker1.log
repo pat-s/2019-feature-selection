@@ -23,16 +23,17 @@ During startup - Warning messages:
 5: Setting LC_MONETARY failed, using "C" 
 6: Setting LC_PAPER failed, using "C" 
 7: Setting LC_MEASUREMENT failed, using "C" 
-> clustermq:::worker("tcp://gisc:7016")
-Master: tcp://gisc:7016
-WORKER_UP to: tcp://gisc:7016
-> DO_SETUP (0.210s wait)
+> clustermq:::worker("tcp://edi:7710")
+Master: tcp://edi:7710
+WORKER_UP to: tcp://edi:7710
+> DO_SETUP (0.322s wait)
 token from msg: set_common_data_token
 > DO_CALL (0.000s wait)
-rgdal: version: 1.3-9, (SVN revision 794)
+
+.rgdal: version: 1.4-3, (SVN revision 828)
  Geospatial Data Abstraction Library extensions to R successfully loaded
  Loaded GDAL runtime: GDAL 2.3.3, released 2018/12/14
- Path to GDAL shared files: /opt/spack/opt/spack/linux-centos7-x86_64/gcc-7.3.0/gdal-2.3.3-yjyzinxu3feva2sn7p7mcruqvow6lei2/share/gdal
+ Path to GDAL shared files: /opt/spack/opt/spack/linux-centos7-x86_64/gcc-7.3.0/gdal-2.3.3-5664dlptnq3x6d55wcu6qzgnxohrijda/share/gdal
  GDAL binary built with GEOS: TRUE 
  Loaded PROJ.4 runtime: Rel. 5.0.1, April 1st, 2018, [PJ_VERSION: 501]
  Path to PROJ.4 shared files: (autodetected)
@@ -68,7 +69,6 @@ The following object is masked from 'package:raster':
 
     nbands
 
-Linking to GEOS 3.6.2, GDAL 2.3.3, PROJ 5.0.1
 
 Attaching package: 'dplyr'
 
@@ -88,6 +88,7 @@ The following objects are masked from 'package:base':
 
     intersect, setdiff, setequal, union
 
+Linking to GEOS 3.6.2, GDAL 2.3.3, PROJ 5.0.1
 
 Attaching package: 'purrr'
 
@@ -239,12 +240,120 @@ The following object is masked from 'package:raster':
 
     resample
 
-eval'd: drake::cmq_buildtargetmetadepsconfig
-> WORKER_STOP (0.000s wait)
-shutting down worker
 
-Total: 0 in 6.55s [user], 0.40s [system], 7.79s [elapsed]
-Warning message:
+Attaching package: 'BBmisc'
+
+The following objects are masked from 'package:R.utils':
+
+    getRelativePath, insert, isDirectory, setValue
+
+The following object is masked from 'package:glue':
+
+    collapse
+
+The following objects are masked from 'package:dplyr':
+
+    coalesce, collapse
+
+The following object is masked from 'package:base':
+
+    isFALSE
+
+
+Attaching package: 'checkmate'
+
+The following object is masked from 'package:R.utils':
+
+    asInt
+
+
+Attaching package: 'smoof'
+
+The following objects are masked from 'package:R.oo':
+
+    getDescription, getName
+
+The following object is masked from 'package:rgdal':
+
+    getDescription
+
+##  rgenoud (Version 5.8-3.0, Build Date: 2019-01-22)
+##  See http://sekhon.berkeley.edu/rgenoud for additional documentation.
+##  Please cite software as:
+##   Walter Mebane, Jr. and Jasjeet S. Sekhon. 2011.
+##   ``Genetic Optimization Using Derivatives: The rgenoud package for R.''
+##   Journal of Statistical Software, 42(11): 1-26. 
+##
+
+
+Attaching package: 'gdalUtils'
+
+The following object is masked from 'package:sf':
+
+    gdal_rasterize
+
+
+Attaching package: 'ggpubr'
+
+The following object is masked from 'package:raster':
+
+    rotate
+
+here() starts at /home/patrick/papers/2019-feature-selection
+This is workflowr version 1.3.0
+Run ?workflowr for help getting started
+During startup - Warning messages:
+1: Setting LC_CTYPE failed, using "C" 
+2: Setting LC_COLLATE failed, using "C" 
+3: Setting LC_TIME failed, using "C" 
+4: Setting LC_MESSAGES failed, using "C" 
+5: Setting LC_MONETARY failed, using "C" 
+6: Setting LC_PAPER failed, using "C" 
+7: Setting LC_MEASUREMENT failed, using "C" 
+During startup - Warning messages:
+1: Setting LC_CTYPE failed, using "C" 
+2: Setting LC_COLLATE failed, using "C" 
+3: Setting LC_TIME failed, using "C" 
+4: Setting LC_MESSAGES failed, using "C" 
+5: Setting LC_MONETARY failed, using "C" 
+6: Setting LC_PAPER failed, using "C" 
+7: Setting LC_MEASUREMENT failed, using "C" 
+During startup - Warning messages:
+1: Setting LC_CTYPE failed, using "C" 
+2: Setting LC_COLLATE failed, using "C" 
+3: Setting LC_TIME failed, using "C" 
+4: Setting LC_MESSAGES failed, using "C" 
+5: Setting LC_MONETARY failed, using "C" 
+6: Setting LC_PAPER failed, using "C" 
+7: Setting LC_MEASUREMENT failed, using "C" 
+During startup - Warning messages:
+1: Setting LC_CTYPE failed, using "C" 
+2: Setting LC_COLLATE failed, using "C" 
+3: Setting LC_TIME failed, using "C" 
+4: Setting LC_MESSAGES failed, using "C" 
+5: Setting LC_MONETARY failed, using "C" 
+6: Setting LC_PAPER failed, using "C" 
+7: Setting LC_MEASUREMENT failed, using "C" 
+During startup - Warning messages:
+1: Setting LC_CTYPE failed, using "C" 
+2: Setting LC_COLLATE failed, using "C" 
+3: Setting LC_TIME failed, using "C" 
+4: Setting LC_MESSAGES failed, using "C" 
+5: Setting LC_MONETARY failed, using "C" 
+6: Setting LC_PAPER failed, using "C" 
+7: Setting LC_MEASUREMENT failed, using "C" 
+During startup - Warning messages:
+1: Setting LC_CTYPE failed, using "C" 
+2: Setting LC_COLLATE failed, using "C" 
+3: Setting LC_TIME failed, using "C" 
+4: Setting LC_MESSAGES failed, using "C" 
+5: Setting LC_MONETARY failed, using "C" 
+6: Setting LC_PAPER failed, using "C" 
+7: Setting LC_MEASUREMENT failed, using "C" 
+[31mfail[39m defoliation_maps_wfr
+Error : Target `defoliation_maps_wfr` failed. Call `diagnose(defoliation_maps_wfr)` for details. Error message:
+  Pandoc is not installed. Please use RStudio or install pandoc manually
+In addition: Warning message:
 replacing previous import 'gdalUtils::gdal_rasterize' by 'sf::gdal_rasterize' when loading 'mapview' 
-> 
-> 
+eval'd: drake::cmq_buildtargetmetadepslayoutconfig
+slurmstepd: error: *** JOB 2965 ON c0 CANCELLED AT 2019-05-22T16:15:23 ***

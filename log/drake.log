@@ -1,3 +1,76 @@
-cache /home/patrick/paper-hyperspectral/.drake
-analyze environment
-construct priority queue
+2019-05-22 16:14:54.026267 | cache /home/patrick/papers/2019-feature-selection/.drake
+2019-05-22 16:14:54.034588 | analyze environment
+2019-05-22 16:14:55.673736 | import tune_ctrl_wrapper
+2019-05-22 16:14:55.677164 | import tune_wrapper
+2019-05-22 16:14:55.680399 | import train_wrapper
+2019-05-22 16:14:55.682375 | import download_trees
+2019-05-22 16:14:55.684504 | import calc_nri_indices
+2019-05-22 16:14:55.686581 | import get_records
+2019-05-22 16:14:55.688598 | import calc_veg_indices
+2019-05-22 16:14:55.690594 | import extract_coords
+2019-05-22 16:14:55.692501 | import copy_cloud
+2019-05-22 16:14:55.694924 | import raster::extract
+2019-05-22 16:14:55.697040 | import create_prediction_df
+2019-05-22 16:14:55.699049 | import ras_to_sf
+2019-05-22 16:14:55.701186 | import raster::mask
+2019-05-22 16:14:55.703439 | import dplyr::mutate
+2019-05-22 16:14:55.706594 | import raster::projectRaster
+2019-05-22 16:14:55.710802 | import raster::crop
+2019-05-22 16:14:55.713102 | import dplyr::filter
+2019-05-22 16:14:55.715356 | import dplyr::select
+2019-05-22 16:14:55.717340 | import download_locations
+2019-05-22 16:14:55.720033 | import mosaic_images
+2019-05-22 16:14:55.722167 | import get_coordinates
+2019-05-22 16:14:55.724059 | import unzip_images
+2019-05-22 16:14:55.725984 | import calculate_vi
+2019-05-22 16:14:55.728543 | import download_forest_mask
+2019-05-22 16:14:55.730465 | import prediction_raster
+2019-05-22 16:14:55.732476 | import download_images
+2019-05-22 16:14:55.734611 | import raster::disaggregate
+2019-05-22 16:14:55.736836 | import raster::aggregate
+2019-05-22 16:14:55.739293 | import purrr::discard
+2019-05-22 16:14:55.741350 | import download_hyperspectral
+2019-05-22 16:14:55.743357 | import predict_defoliation
+2019-05-22 16:14:55.745278 | import scale_defoliation
+2019-05-22 16:14:55.747396 | import file analysis/defoliation-maps.Rmd
+2019-05-22 16:14:55.752592 | import process_hyperspec_helper
+2019-05-22 16:14:55.756711 | import clean_single_plots
+2019-05-22 16:14:55.759241 | import mutate_defol
+2019-05-22 16:14:55.761407 | import split_into_feature_sets
+2019-05-22 16:14:55.763742 | import extract_indices_to_plot
+2019-05-22 16:14:55.766025 | import extract_bands_to_plot
+2019-05-22 16:14:55.768569 | import stack_bands
+2019-05-22 16:14:55.771337 | import mosaic_clouds
+2019-05-22 16:14:55.773892 | import mask_mosaic
+2019-05-22 16:14:55.776340 | import mask_vi
+2019-05-22 16:14:55.780442 | import process_hyperspec
+2019-05-22 16:14:55.784365 | find more outdated targets
+2019-05-22 16:14:55.804776 | find more outdated targets
+2019-05-22 16:14:55.814171 | find more outdated targets
+2019-05-22 16:14:55.823371 | find more outdated targets
+2019-05-22 16:14:55.828745 | find more outdated targets
+2019-05-22 16:14:55.835611 | find more outdated targets
+2019-05-22 16:14:55.844365 | find more outdated targets
+2019-05-22 16:14:55.853795 | find more outdated targets
+2019-05-22 16:14:55.859367 | find more outdated targets
+2019-05-22 16:14:55.866069 | find more outdated targets
+2019-05-22 16:14:55.871411 | find more outdated targets
+2019-05-22 16:14:55.876512 | find more outdated targets
+2019-05-22 16:14:55.879928 | find more outdated targets
+2019-05-22 16:14:55.883990 | find more outdated targets
+2019-05-22 16:14:55.887222 | find more outdated targets
+2019-05-22 16:14:55.902697 | find more outdated targets
+2019-05-22 16:14:55.906508 | find more outdated targets
+2019-05-22 16:14:55.911937 | find more outdated targets
+2019-05-22 16:14:55.915391 | find more outdated targets
+2019-05-22 16:14:55.916844 | find downstream outdated targets
+2019-05-22 16:14:55.919353 | isolate oudated targets
+2019-05-22 16:14:55.923446 | construct priority queue
+2019-05-22 16:14:56.308870 | setting common data
+2019-05-22 16:14:56.315410 | begin scheduling targets
+2019-05-22 16:15:12.359214 | sending common data
+2019-05-22 16:15:12.692533 | target defoliation_maps_wfr
+2019-05-22 16:15:12.697309 | build defoliation_maps_wfr on an hpc worker
+2019-05-22 16:15:23.659949 | fail defoliation_maps_wfr
+2019-05-22 16:15:23.716667 | Error: Target ` defoliation_maps_wfr ` failed. Call `diagnose( defoliation_maps_wfr )` for details. Error message:
+   Pandoc is not installed. Please use RStudio or install pandoc manually

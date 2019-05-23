@@ -15,7 +15,7 @@
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -300,6 +300,9 @@ $(document).ready(function () {
     </li>
   </ul>
 </li>
+<li>
+  <a href="timeline.html">Timeline</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -326,7 +329,7 @@ div.section {
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -335,7 +338,7 @@ div.section {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -347,7 +350,7 @@ div.section {
 <strong>Last updated:</strong> 2019-05-22
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 5 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>2019-feature-selection/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
@@ -363,22 +366,70 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+<p>The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree00ce98665a17b059922904a872aa09237f438cb4targetblank00ce986a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/00ce98665a17b059922904a872aa09237f438cb4" target="_blank">00ce986</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree00ce98665a17b059922904a872aa09237f438cb4targetblank00ce986a" class="panel-collapse collapse">
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20190522code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20190522)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20190522code" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20190522)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontreeb02b9dad24cbad37038b8534bd2a87581a47641dtargetblankb02b9daa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/b02b9dad24cbad37038b8534bd2a87581a47641d" target="_blank">b02b9da</a> </a>
+</p>
+</div>
+<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontreeb02b9dad24cbad37038b8534bd2a87581a47641dtargetblankb02b9daa" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -399,54 +450,25 @@ Ignored files:
     Ignored:    tests/
 
 Untracked files:
-    Untracked:  analysis/analysis/
-    Untracked:  analysis/defoliation-maps.md
-    Untracked:  analysis/figures/
-    Untracked:  analysis/logo/
-    Untracked:  analysis/style.css
-    Untracked:  analysis/test/
-    Untracked:  analysis/timeline.Rmd
-    Untracked:  code/01-download.R
-    Untracked:  code/02-hyperspectral-processing.R
-    Untracked:  code/03-sentinel-processing.R
-    Untracked:  code/04-data-preprocessing.R
-    Untracked:  code/05-modeling/
-    Untracked:  code/06-benchmark-matrix.R
-    Untracked:  code/07-reports.R
-    Untracked:  code/99-packages.R
+    Untracked:  docs/figure/report-defoliation.Rmd/
 
 Unstaged changes:
     Modified:   R/04-fun-sentinel-processing.R
     Modified:   R/05-mlr-project.R
     Modified:   R/fun-visualization.R
-    Modified:   _drake.R
-    Deleted:    analysis/01-download.R
-    Deleted:    analysis/02-hyperspectral-processing.R
-    Deleted:    analysis/03-sentinel-processing.R
-    Deleted:    analysis/04-data-preprocessing.R
-    Deleted:    analysis/05-modeling/paper/filter-wrapper.R
-    Deleted:    analysis/05-modeling/paper/learner.R
-    Deleted:    analysis/05-modeling/paper/param-sets.R
-    Deleted:    analysis/05-modeling/paper/resampling.R
-    Deleted:    analysis/05-modeling/paper/tune-ctrl.R
-    Deleted:    analysis/05-modeling/paper/tune-wrapper.R
-    Deleted:    analysis/05-modeling/project/learner.R
-    Deleted:    analysis/05-modeling/project/param-set.R
-    Deleted:    analysis/05-modeling/project/resamp.R
-    Deleted:    analysis/05-modeling/project/task.R
-    Deleted:    analysis/05-modeling/project/train.R
-    Deleted:    analysis/05-modeling/project/tune-ctrl.R
-    Deleted:    analysis/05-modeling/project/tune.R
-    Deleted:    analysis/06-benchmark-matrix.R
-    Deleted:    analysis/07-reports.R
-    Deleted:    analysis/99-packages.R
-    Modified:   analysis/_site.yml
-    Deleted:    analysis/rmd/cloud-cover.Rmd
-    Deleted:    analysis/rmd/defoliation-maps.Rmd
-    Deleted:    analysis/rmd/defoliation-maps.md
-    Deleted:    analysis/rmd/logo/life.jpg
-    Deleted:    analysis/rmd/style.css
-    Deleted:    analysis/rmd/timeline.Rmd
+    Modified:   analysis/index.Rmd
+    Modified:   analysis/report-defoliation.Rmd
+    Modified:   analysis/timeline.Rmd
+    Modified:   code/03-sentinel-processing.R
+    Modified:   code/05-modeling/project/learner.R
+    Modified:   code/05-modeling/project/param-set.R
+    Modified:   code/05-modeling/project/resamp.R
+    Modified:   code/05-modeling/project/task.R
+    Modified:   code/05-modeling/project/train.R
+    Modified:   code/05-modeling/project/tune-ctrl.R
+    Modified:   code/05-modeling/project/tune.R
+    Modified:   code/07-reports.R
+    Modified:   code/99-packages.R
     Modified:   inst/README.md
     Modified:   inst/cloud-cover-2018.rds
     Modified:   inst/rsync-jupiter.sh
@@ -716,6 +738,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/b02b9dad24cbad37038b8534bd2a87581a47641d/analysis/index.Rmd" target="_blank">b02b9da</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-05-22
+</td>
+<td>
+restructure for workflowr
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pat-s/2019-feature-selection/753c7aef0607380f0185bb18397280f517ba1192/docs/index.html" target="_blank">753c7ae</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-05-22
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/00ce98665a17b059922904a872aa09237f438cb4/analysis/index.Rmd" target="_blank">00ce986</a>
 </td>
 <td>
@@ -769,8 +825,51 @@ Start workflowr project.
 </div>
 </div>
 </div>
-<p>Welcome to my research website.</p>
-<p>Click on this <a href="defoliation-maps.html">link</a> to see my results.</p>
+<p><a href="https://github.com/pat-s/paper_hyperspectral/commits/master"><img src="https://img.shields.io/badge/last%20change-2019--05--22-brightgreen.svg" alt="Last-changedate" /></a> <a href="https://cran.r-project.org/"><img src="https://img.shields.io/badge/R%3E%3D-3.5.0-brightgreen.svg" alt="minimal R version" /></a> <a href="http://choosealicense.com/licenses/mit/"><img src="https://img.shields.io/github/license/mashape/apistatus.svg" alt="Licence" /></a></p>
+<p><a href="about.html">Project Description</a></p>
+<div id="results" class="section level1">
+<h1>Results</h1>
+<ul>
+<li><a href="defoliation-maps.html">Report: Defoliation</a></li>
+</ul>
+</div>
+<div id="section" class="section level1">
+<h1></h1>
+<p>Powered by <a href="https://github.com/ropensci/drake">drake</a> + <a href="https://github.com/jdblischak/workflowr">workflowr</a> + <a href="https://github.com/mlr-org/mlr">mlr</a></p>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 3.5.2 (2018-12-20)
+Platform: x86_64-pc-linux-gnu (64-bit)
+Running under: CentOS Linux 7 (Core)
+
+Matrix products: default
+BLAS/LAPACK: /opt/spack/opt/spack/linux-centos7-x86_64/gcc-7.3.0/openblas-0.3.5-zncvk4jccaqyfl4z3vszaboeps6hyzta/lib/libopenblas_zen-r0.3.5.so
+
+locale:
+ [1] LC_CTYPE=en_GB.UTF-8       LC_NUMERIC=C              
+ [3] LC_TIME=en_GB.UTF-8        LC_COLLATE=en_GB.UTF-8    
+ [5] LC_MONETARY=en_GB.UTF-8    LC_MESSAGES=en_GB.UTF-8   
+ [7] LC_PAPER=en_GB.UTF-8       LC_NAME=C                 
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+[11] LC_MEASUREMENT=en_GB.UTF-8 LC_IDENTIFICATION=C       
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+loaded via a namespace (and not attached):
+ [1] workflowr_1.3.0 Rcpp_1.0.0      digest_0.6.18   rprojroot_1.3-2
+ [5] backports_1.1.3 git2r_0.24.0    magrittr_1.5    evaluate_0.13  
+ [9] stringi_1.3.1   fs_1.2.6        whisker_0.3-2   rmarkdown_1.11 
+[13] tools_3.5.2     stringr_1.4.0   glue_1.3.0      xfun_0.5       
+[17] yaml_2.2.0      compiler_3.5.2  htmltools_0.3.6 knitr_1.21     </code></pre>
+</div>
+</div>
 
 
 <!-- Adjust MathJax settings so that all math formulae are shown using

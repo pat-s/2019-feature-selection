@@ -1,16 +1,6 @@
 ---
 title: "Prediction maps of defoliation at trees"
-output: 
-  workflowr::wflow_html:
-    css: style.css
-    theme: readable
-    number_sections: yes
-    toc: yes
-    toc_float: true
-    toc_collapsed: true
-    df_print: tibble
-    includes:
-      in_header: header.html
+output: workflowr::wflow_html
 editor_options:
   chunk_output_type: console
 author: "Patrick Schratz, Marc Becker, Friedrich-Schiller-University Jena"
@@ -195,4 +185,3 @@ system("rsync -rlptDvzog --chown=www-data:www-data --fake-super \
   -e ssh patrick@jupiter.geogr.uni-jena.de:/home/www/life-healthy-forest/action-B1-spatial-mapping/figure/report-defoliation.Rmd/"
 )
 ```
-
