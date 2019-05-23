@@ -170,18 +170,8 @@ suppressMessages(print(hist))
 ```
 
 ```{r echo = FALSE}
-# rmarkdown::render(here("analysis/rmd/defoliation-maps.md"), 
-#                   output_file = here("analysis/rmd/defoliation-maps.html"))
-```
-
-```{r echo = FALSE}
-system("rsync -rlptDvzog --chown=www-data:www-data --fake-super /home/patrick/papers/2019-feature-selection/docs/report-defoliation.html -e ssh patrick@jupiter.geogr.uni-jena.de:/home/www/life-healthy-forest/action-B1-spatial-mapping/"
-       )
-```
-
-```{r echo = FALSE}
 system("rsync -rlptDvzog --chown=www-data:www-data --fake-super \
   /home/patrick/papers/2019-feature-selection/docs/figure/defoliation-maps.Rmd/* \
-  -e ssh patrick@jupiter.geogr.uni-jena.de:/home/www/life-healthy-forest/action-B1-spatial-mapping/figure/report-defoliation.Rmd/"
+  -e ssh patrick@jupiter.geogr.uni-jena.de:/home/www/life-healthy-forest/action-B1-spatial-mapping/defoliation-maps/"
 )
 ```
