@@ -7,7 +7,7 @@ analysis/data/derived_data
 data
 .Rhistory
 rosm.cache
-log/
+log/*
 analysis/paper/submission/3/latex-source-files/elsarticle-template.synctex.gz
 analysis/paper/submission/3/latex-source-files/__latexindent_temp.tex
 analysis/paper/submission/3/latex-source-files/elsarticle-template.synctex.gz
