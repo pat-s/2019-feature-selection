@@ -1,6 +1,9 @@
 ---
 title: "Prediction maps of defoliation at trees"
-output: workflowr::wflow_html
+output: 
+  workflowr::wflow_html:
+    includes:
+      in_header: header.html
 editor_options:
   chunk_output_type: console
 author: "Patrick Schratz, Marc Becker, Friedrich-Schiller-University Jena"
