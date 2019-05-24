@@ -9,12 +9,10 @@ navbar:
     href: about.html
   - text: License
     href: license.html
-  - text: "Defoliation maps"
-    href: defoliation-maps.html
   - text: Project
     menu:
-    - text: "Defoliation maps"
-      href: defoliation-maps.html
+    - text: "Prediction of defoliation at trees"
+      href: report-defoliation.html
   - text: Timeline
     href: timeline.html
 
