@@ -528,10 +528,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree64e0c53f98f4ed9bafc0173a18dc736cbab1fbd8targetblank64e0c53a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/64e0c53f98f4ed9bafc0173a18dc736cbab1fbd8" target="_blank">64e0c53</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree70e01208c89656d504468f57549da9beb435d9d7targetblank70e0120a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/70e01208c89656d504468f57549da9beb435d9d7" target="_blank">70e0120</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree64e0c53f98f4ed9bafc0173a18dc736cbab1fbd8targetblank64e0c53a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree70e01208c89656d504468f57549da9beb435d9d7targetblank70e0120a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -542,6 +542,7 @@ Ignored files:
     Ignored:    .Rproj.user/
     Ignored:    .Ruserdata/
     Ignored:    .drake/
+    Ignored:    analysis/figure/
     Ignored:    analysis/rosm.cache/
     Ignored:    data/
     Ignored:    packrat/lib-R/
@@ -551,17 +552,11 @@ Ignored files:
     Ignored:    rosm.cache/
     Ignored:    tests/
 
-Untracked files:
-    Untracked:  docs/logo/
-
 Unstaged changes:
-    Modified:   _workflowr.yml
-    Modified:   analysis/_site.yml
-    Deleted:    analysis/logo/life.jpg
-    Deleted:    analysis/style.css
+    Modified:   analysis/timeline.Rmd
     Modified:   code/07-reports.R
-    Deleted:    docs/CNAME
-    Deleted:    docs/style.css
+    Modified:   log/drake.log
+    Modified:   log/worker1.log
 
 </code></pre>
 <p>
@@ -600,6 +595,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pat-s/2019-feature-selection/9a62e326d1ef254b19c6156fd64013c1d868ec79/docs/report-defoliation.html" target="_blank">9a62e32</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-05-24
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1218,11 +1230,6 @@ pat-s
 </table>
 </div>
 </div>
-<pre><code>Warning in system(&quot;rsync -rlptDvzog --chown=www-data:www-data --fake-super
-\n /home/patrick/papers/2019-feature-selection/docs/figure/defoliation-
-maps.Rmd/* \n -e ssh patrick@jupiter.geogr.uni-jena.de:/home/www/life-
-healthy-forest/action-B1-spatial-mapping/defoliation-maps/&quot;): error in
-running command</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
