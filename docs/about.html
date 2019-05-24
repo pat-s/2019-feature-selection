@@ -287,9 +287,6 @@ $(document).ready(function () {
 <li>
   <a href="license.html">License</a>
 </li>
-<li>
-  <a href="defoliation-maps.html">Defoliation maps</a>
-</li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     Project
@@ -298,7 +295,7 @@ $(document).ready(function () {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="defoliation-maps.html">Defoliation maps</a>
+      <a href="report-defoliation.html">Prediction of defoliation at trees</a>
     </li>
   </ul>
 </li>
@@ -349,7 +346,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2019-05-23
+<strong>Last updated:</strong> 2019-05-24
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -428,10 +425,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree6517dc74a50d352a2d0cd6cf0bcb4b69431b346ctargetblank6517dc7a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/6517dc74a50d352a2d0cd6cf0bcb4b69431b346c" target="_blank">6517dc7</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree33132afe7c16f7a9a5135c60e28b9fc5b13edccctargetblank33132afa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/33132afe7c16f7a9a5135c60e28b9fc5b13edccc" target="_blank">33132af</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree6517dc74a50d352a2d0cd6cf0bcb4b69431b346ctargetblank6517dc7a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree33132afe7c16f7a9a5135c60e28b9fc5b13edccctargetblank33132afa" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -451,7 +448,13 @@ Ignored files:
     Ignored:    rosm.cache/
     Ignored:    tests/
 
+Untracked files:
+    Untracked:  docs/logo/
+
 Unstaged changes:
+    Modified:   _workflowr.yml
+    Modified:   analysis/_site.yml
+    Deleted:    analysis/logo/life.jpg
     Modified:   analysis/report-defoliation.Rmd
     Deleted:    analysis/style.css
     Modified:   code/07-reports.R
@@ -495,6 +498,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pat-s/2019-feature-selection/ad4c6c124762eb3e688f17fda3a4dad308920a9b/docs/about.html" target="_blank">ad4c6c1</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-05-23
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 html
