@@ -10,5 +10,8 @@
 cd ~/papers/2019-feature-selection/
 spack load r@3.5.2
 
+# share pandoc
+export PATH=/opt/pandoc/:$PATH
+
 CMQ_AUTH={{ auth }} R --no-save --no-restore -e 'clustermq:::worker("{{ master }}")'
 
