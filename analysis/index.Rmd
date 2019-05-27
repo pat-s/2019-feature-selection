@@ -8,15 +8,16 @@ editor_options:
   chunk_output_type: console
 ---
 
-[![Last-changedate](https://img.shields.io/badge/last%20change-`r gsub('-', '--', Sys.Date())`-brightgreen.svg)](https://github.com/pat-s/paper_hyperspectral/commits/master)
-[![minimal R version](https://img.shields.io/badge/R%3E%3D-3.5.0-brightgreen.svg)](https://cran.r-project.org/)
-[![Licence](https://img.shields.io/github/license/mashape/apistatus.svg)](http://choosealicense.com/licenses/mit/) 
+[![Last-changedate](https://img.shields.io/badge/last%20change-`r gsub('-', '--', Sys.Date())`-brightgreen.svg)](https://github.com/pat-s/2019-feature-selection/commits/master) 
+[![minimal R version](https://img.shields.io/badge/R%3E%3D-3.5.0-brightgreen.svg)](https://cran.r-project.org/) [![Licence](https://img.shields.io/github/license/mashape/apistatus.svg)](http://choosealicense.com/licenses/mit/)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.2582969.svg)](https://doi.org/10.5281/zenodo.2582969)
 
-[Project Description](about.html)  
+This [workflowr]() site contains all information and results about this research project.
 
-# Results
+Project details can be found in the [About](about.html) page.
 
-- [Report: Defoliation](defoliation-maps.html)
+**Result shortcuts**
 
-# 
-Powered by [drake](https://github.com/ropensci/drake) + [workflowr](https://github.com/jdblischak/workflowr) + [mlr](https://github.com/mlr-org/mlr)
+1. [Prediction maps of defoliation at trees](report-defoliation.html)
+
+Powered by [drake](https://github.com/ropensci/drake) + [workflowr](https://github.com/jdblischak/workflowr) + [mlr](https://github.com/mlr-org/mlr).
