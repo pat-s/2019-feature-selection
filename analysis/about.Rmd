@@ -37,24 +37,24 @@ This repository contains the research compendium of our work on comparing algori
 
 The following directories belong to this project
 
-- `analysis/01-download.R`
-- `analysis/02-hyperspectral-processing.R`
-- `analysis/04-data-processing.R`
-- `analysis/05-modeling/`
+- `code/01-download.R`
+- `code/02-hyperspectral-processing.R`
+- `code/04-data-processing.R`
+- `code/05-modeling/`
+- `code/06-benchmark-matrix/`
+- `code/07-reports/`
 
 ## Other Content
 
-In addition, it contains the workflow for a sub-project: Predicting defoliation to the Basque Country (for the years 2017 and 2018) using Sentinel-2 data.
+In addition, this repo contains the workflow for an analysis related to the [LIFE 14 ENV/ES/000179 LIFE HEALTHY FOREST](http://www.lifehealthyforest.com/) project: Predicting defoliation at trees for the Basque Country (for the years 2017 and 2018) using Sentinel-2 data.
 
-The following "targets" are important for this sub-project:
-
-- `defoliation_raster` (in `analysis/03-sentinel-processing`)
+Target `defoliation_maps_wfr` builds are targets necessary for the final results [report](https://2019-feature-selection.pjs-web.de/report-defoliation.html).
 
 # How to use
 
 ## Read the code, access the data
 
-See the [`analysis`](https://github.com/pat-s/paper_hyperspectral/tree/master/analysis) directory on GitHub for the source code that generated the figures and statistical results contained in the manuscript.
+See the [`code`](https://github.com/pat-s/paper_hyperspectral/tree/master/analysis) directory on GitHub for the source code that generated the figures and statistical results contained in the manuscript.
 See the [`data`](https://github.com/pat-s/paper_hyperspectral/tree/master/analysis/data) directory for instructions how to access the raw data discussed in the manuscript. 
 
 ## Install the R package
@@ -91,14 +91,6 @@ packrat::restore()
 r_make()
 ```
 
-# Licenses
-
-Text: CC-BY-4.0 http://creativecommons.org/licenses/by/4.0/
-
-Code: MIT http://opensource.org/licenses/MIT year: 2019, copyright holder: Patrick Schratz
-
-Data: CC0 http://creativecommons.org/publicdomain/zero/1.0/ 
-
 # Notes and resources 
 
 * The [issues tracker](https://github.com/pat-s/paper_hyperspectral/issues) is the place to report problems or ask questions  
@@ -117,4 +109,3 @@ Data: CC0 http://creativecommons.org/publicdomain/zero/1.0/
 - Drotár, P., Šimoňák, S., Pietriková, E., Chovanec, M., Chovancová, E., Ádám, N., … Biňas, M. (2017). Comparison of Filter Techniques for Two-Step Feature Selection. COMPUTING AND INFORMATICS, 36(3), 597–617. https://doi.org/10/gbntp7
 - Drotár, P., Gazda, M., & Gazda, J. (2017). Heterogeneous ensemble feature selection based on weighted Borda count. In 2017 9th International Conference on Information Technology and Electrical Engineering (ICITEE) (pp. 1–4). https://doi.org/10.1109/ICITEED.2017.8250495
 - Nie, F., Huang, H., Cai, X., & Ding, C. H. (2010). Efficient and Robust Feature Selection via Joint \mathscrl2,1-Norms Minimization. In J. D. Lafferty, C. K. I. Williams, J. Shawe-Taylor, R. S. Zemel, & A. Culotta (Eds.), Advances in Neural Information Processing Systems 23 (pp. 1813–1821). Curran Associates, Inc. Retrieved from http://papers.nips.cc/paper/3988-efficient-and-robust-feature-selection-via-joint-l21-norms-minimization.pdf
-
