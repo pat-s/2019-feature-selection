@@ -21,3 +21,7 @@ Project details can be found in the [About](about.html) page.
 1. [Prediction maps of defoliation at trees](report-defoliation.html)
 
 Powered by [drake](https://github.com/ropensci/drake) + [workflowr](https://github.com/jdblischak/workflowr) + [mlr](https://github.com/mlr-org/mlr).
+
+# Acknowledgements
+
+This work has been supported by the the European Union "Healthy Forest" Project LIFE14 ENV/ES/000179.
