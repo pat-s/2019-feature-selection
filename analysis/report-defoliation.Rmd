@@ -173,6 +173,6 @@ suppressMessages(print(hist))
 ```
 
 ```{r echo = FALSE}
-system("rsync -rlptDvzog --chown=www-data:www-data --fake-super /home/patrick/papers/2019-feature-selection/docs/figure/report-defoliation.Rmd/defol* -e ssh patrick@jupiter.geogr.uni-jena.de:/home/www/life-healthy-forest/action-B1-spatial-mapping/defoliation-maps/"
+system("rsync -rlptDivzog --chown=*:www-data --chmod=g+r,o+r /home/patrick/papers/2019-feature-selection/docs/figure/report-defoliation.Rmd/defol* patrick@jupiter.geogr.uni-jena.de:/home/www/life-healthy-forest/action-B1-spatial-mapping/defoliation-maps/"
 )
 ```
