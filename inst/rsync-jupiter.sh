@@ -9,5 +9,5 @@ rsync -rlptDvzog --chown=www-data:www-data --fake-super \
 
 # `defoliation-maps` --------------- copy defoliation report to LIFE
 rsync -rlptDvzog --chown=www-data:www-data --fake-super \
-  /home/patrick/papers/2019-feature-selection/analysis/figures/defoliation-map* \
+  /home/patrick/papers/2019-feature-selection/docs/figures/defoliation-map* \
   -e ssh patrick@jupiter.geogr.uni-jena.de:/home/www/life-healthy-forest/action-B1-spatial-mapping/defoliation-maps/
