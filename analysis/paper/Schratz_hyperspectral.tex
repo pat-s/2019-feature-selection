@@ -181,8 +181,8 @@ To model the numeric response variable defoliation at trees model-based optimiza
 \noindent Airborne hyperspectral data with a spatial resolution of one meter and 126 spectral bands was available for four Monterey Pine (\textit{Pinus radiata}) plantations in northern Spain (\autoref{fig:study_area}).
 The trees in the study area plots suffer from infections of invasive pathogens such as \textit{Diplodia sapinea}, \textit{Fusarium circinatum}, \textit{Armillaria mellea} or \textit{Heterobasidion annosum} leading to a spread of cankers or defoliation \citep{mesanza2016, iturritxa2017}.
 In-situ measurements of defoliation at trees (as a proxy for tree health) were collected to serve as the response variable \textit{defoliation} spanning a range from 0\% - 100\%.
-The fungi are assumed to infect the trees through open wounds, possibly caused by previous hail damage \citep{Iturritxa2014}.
-The dieback of these trees, which are mainly used as timber, causes high economic damages \citep{Ganley2009}.
+The fungi are assumed to infect the trees through open wounds, possibly caused by previous hail damage \citep{iturritxa2014}.
+The dieback of these trees, which are mainly used as timber, causes high economic damages \citep{ganley2009}.
 
 \subsection{In-situ data}
 
@@ -233,8 +233,8 @@ Additional metadata information is available in \autoref{tab:hyperparameter_limi
 
 \subsection{Derivation of indices}
 % TODO: Mention different feature sets
-\noindent To use the full information from the hyperspectral data, we calculated all possible vegetation indices supported by the \textit{hsdar} package (90 in total) as well as all possible \ac{NRI} combinations.
-NRIs were calculated using the following formula:
+\noindent To use the full information from the hyperspectral data, all possible vegetation indices supported by the \textit{hsdar} package (90 in total) as well as all possible \ac{NRI} combinations were calculated.
+The following formula was used for the NRI calculation:
 
 \begin{equation}
 	NRI_{i,j} = \frac{b_{i} - b_{j}}{b_{i} + b_{j}}
@@ -245,12 +245,82 @@ where $i$ and $j$ are the respective band numbers.
 
 \bigbreak
 
-\noindent To account for geometric offsets (which were reported with up to 1 m from \ac{ICGC}), we used a buffer of two meters around the centroid of the respective tree.
-The mean value of all pixels touched by the buffer was assigned as the final value of each index.
+\noindent To account for geometric offsets (which were reported with up to 1 m from \ac{ICGC}), a buffer of two meters around the centroid of the respective tree was used.
+The mean of all pixels touched by this buffer was calculated and assigned to the observations.
 In total, $\frac{125*126}{2} = 7875$ NRIs were calculated .
-Due to four corrupted bands and numerical problems for some band combinations, some indices returned \texttt{NA} for specific observations.
-We removed all indices from the dataset that showed one or more \texttt{NA} values (across all plots) since we valued a single observation more than having an additional NRI as a predictor variable.
-In total, 7471 indices had no \texttt{NA} values and were subsequently used as predictors.
+Due to four corrupted bands and numerical calculation errors for some band combinations, a total of 7471 indices was available for each observation.
+If an index returned \texttt{NA} for one plot, the index was removed from all plots.
+This decision was based on the fact that due to the mass of available indices and the low number of observations, the latter was valued higher.
+
+\subsection{Benchmarking design}
+
+The benchmarking matrix of this study consists of the following algorithms:
+
+\begin{itemize}
+	\item  Extreme Gradient Boosting (\ac{XGBOOST})
+	\item  Random Forest (\ac{RF})
+	\item  Penalized Regression (both L1 and L2)
+	\item  Support Vector Machine (\ac{SVM})
+\end{itemize}
+
+\ac{RF} and {SVM} are well established algorithms that are widely used in environmental modeling.
+Extreme Gradient Boosting (commonly referred to as \ac{XGBOOST}) showed promising results in benchmark competitions in recent years.
+Penalized Regression is a statistical modeling technique that is capable of dealing with highly-correlated covariates by applying a penalization term which shrinks the coefficients of the model.
+The penalties are also known as LASSO (L1) and RIDGE (L2).
+The former does not allow the removal of variables from the model (penalization to zero) while the latter does.
+Both penalties can also be combined.
+The combined approach is called "elastic net".
+
+Three feature sets were used in this study:
+
+\begin{itemize}
+	\item The raw hyperspectal band information (HR, $n = 122$)
+	\item Vegetation Indices (\ac{VI}, $n = 90$)
+	\item Normalized Ratio Indices (\ac{NRI}, $n = 7471$)
+\end{itemize}
+
+An exhaustive hyperparameter tuning was applied during nested spatial \ac{CV} for all algorithms.
+Maximum Bayesian Optimization \citep{mlrmbo} was used for parameter optimization.
+This approach first composes \textit{n} randomly chosen hyperparameter settings out of a user defined search space.
+After these \textit{n} tries have been evaluated, a new hyperparameter setting, which is going to be evaluated next, is proposed based on a fitted regression model.
+The regression model estimates the performance of the machine-learning method for unknown hyperparameter settings.
+Using these estimates, a new promising hyperparameter setting is proposed to be evaluated next.
+This strategy continues until a termination criterion, defined by the user, is reached \citep{hutter2011, jones1998}.
+An initial design of 30 randomly composed hyperparameter settings and a termination criterion of 70 iterations was used, resulting in a total budget of 100 evaluated hyperparameter settings per fold.
+The advantage of this tuning approach is the substantial reduction of the tuning budget required to find a setting which is close to the global minimum
+This applies when being compared to methods that do not use information from previous runs, such as random search or grid search \citep{bergstra2012}.
+
+A spatial block nested cross-validation was chosen to reduce the influence of spatial autocorrelation as much as possible.
+Each tree plot served as one fold within the resampling setup, resulting in four folds total.
+For the inner level, $p - 1$ folds were used (with $p$ being the number of plots).
+
+\subsection{Dealing with high-dimensionality}
+% TODO talk about filter vs wrapper vs PCA
+The case of high-dimensionality in machine-learning is a research field on its own and numerous approaches were developed in recent years to optimize this case.
+% TODO talk more about the general problem and solution, maybe 1-2 sentences
+
+So called "Filter methods" are one approach.
+The basic concept relies on the ranking of all features of the dataset using certain heuristics.
+Various filter methods exist with different capabilities what feature types are supported (numeric, nominal).
+After the coveriates have been ranked by a feature method, a decision needs to be made which features to keep and which to discard.
+This step is usually done within the optimization phase of the model fitting, along with the hyperparameter tuning.
+Essentially, the goal is to find the best threshold at which the model achieves a good performance while requiring the least amount of variables.
+
+Another approach is to use algorithms that are normally used for hyperparameter optimization such as \textit{Random Search} or a \textit{Genetic Algorithm}.
+Here, first a subset of features is chosen based on the selected algorithm.
+Now the model is fitted on the data and the performance is evaluated.
+The hyperparameter tuning can only start after the feature-selection optimization has ended.
+This method is very expensive since two optimization stages need to be run.
+This approach is also referred to as "wrapper method" and was not considered in this work due to the expensive runtime.
+
+A third commonly used method is the "Principal Component Analysis".
+Here, the main components of the feature space are extracted and combined.
+Usually the first two components are taken since these contain the major information of the coveriates.
+By using the automatically estimated explained variance of the main components, the model can rely on a few features containing the condensed information of most variables of the data.
+This enables the fitting of very cheap models with a minimal loss of predictor information.
+
+% TODO mention that filter run before hyperpar tuning and are cached
+% TODO mention that the % value of the remaining features is tuned as a normal hyperpar
 
 \subsection{Feature selection methods}
 
@@ -259,12 +329,8 @@ In total, 7471 indices had no \texttt{NA} values and were subsequently used as p
 
 \subsection{Benchmarking of algorithms}
 
-\noindent Three algorithms (\textit{xgboost}, \textit{\ac{SVM}} and \textit{\ac{RR}}) were benchmarked on their predictive performance.
-Besides the well-known \ac{SVM} algorithm \citep{vapnik1998}, we also used \textit{xgboost} which is ensemble method relying on the idea of tree boosting that gained a lot of attention in recent years \citep{chen2016}.
 We added penalized L2 (Ridge) regression to the portfolio due to its ability to handle highly correlated covariates \citep{hoerl1970}.
-One of the most popular machine-learning algorithm, Random Forest \citep{breiman2001}, was not considered for this study: Due to the high number of variables, model fitting times in the range hours for a single model fit were not practicable for this work.
 These high fitting times are caused by hyperparameter \texttt{mtry} which scales with the number of variables \citep{probst2018}.
-After the selection of the best model, we checked if the winning algorithm can achieve a similar performance when using only the most important variables compared to using all variables.
 A successful feature selection simplifies the spatial prediction task because the prediction dataset needs to consist of less variables.
 Furthermore, model complexity and fitting times are reduced.
 
@@ -305,6 +371,7 @@ The algorithm implementations of the following packages have been used: \textit{
 The filter methods of the following packages were used: \textit{praznik}, \textit{fselectorrcpp}.
 The R package \textit{mlr} \citep{mlr} was used for all modeling related steps and \textit{drake} for setting up the workflow of the project.
 This study is available as a research compendium on Zenodo (\url{10.5281/zenodo.2635403}).
+
 
 \section{Results}
 
@@ -430,6 +497,6 @@ In future studies it would be interesting to link the indices of this work to ot
 
 \section*{References}
 
-\bibliography{Biblio_hyperspectral}
+\bibliography{Biblio}
 
 \end{document}
