@@ -271,6 +271,8 @@ The former does not allow the removal of variables from the model (penalization 
 Both penalties can also be combined.
 The combined approach is called "elastic net".
 
+\subsubsection{Feature sets}
+
 Three feature sets were used in this study:
 
 \begin{itemize}
@@ -278,6 +280,9 @@ Three feature sets were used in this study:
 	\item Vegetation Indices (\ac{VI}, $n = 90$)
 	\item Normalized Ratio Indices (\ac{NRI}, $n = 7471$)
 \end{itemize}
+
+
+\subsubsection{Hyperparameter Optimization}
 
 An exhaustive hyperparameter tuning was applied during nested spatial \ac{CV} for all algorithms.
 Maximum Bayesian Optimization \citep{mlrmbo} was used for parameter optimization.
@@ -290,88 +295,76 @@ An initial design of 30 randomly composed hyperparameter settings and a terminat
 The advantage of this tuning approach is the substantial reduction of the tuning budget required to find a setting which is close to the global minimum
 This applies when being compared to methods that do not use information from previous runs, such as random search or grid search \citep{bergstra2012}.
 
+\subsubsection{Spatial resampling}
+
 A spatial block nested cross-validation was chosen to reduce the influence of spatial autocorrelation as much as possible.
 Each tree plot served as one fold within the resampling setup, resulting in four folds total.
 For the inner level, $p - 1$ folds were used (with $p$ being the number of plots).
 
 \subsection{Dealing with high-dimensionality}
-% TODO talk about filter vs wrapper vs PCA
-The case of high-dimensionality in machine-learning is a research field on its own and numerous approaches were developed in recent years to optimize this case.
-% TODO talk more about the general problem and solution, maybe 1-2 sentences
+% Define "high-dimensionality"
+The usage of the term "high-dimensionality" in the machine-learning field practically means to deal with dataset that has a high amount of covariates.
+There is no clear threshold at which number the term can be applied.
+There has been an informal agreement to speak of "high-dimensonialty" if the number of variables exceeds the number of observations. REF
 
+The case of a high-dimensional dataset comes with several challenges for both model fitting and evaluation.
+There is an increase in time for fitting a model to the data.
+Possible noise maybe introduced into the model by highly-correlated variables.
+The interpretation and prediction of models containing hundreds of covariates becomes more complicated, up to to the point at which interpretation or prediction is not possible anymore.
+Especially in the last decade the amount of data increased a lot and also the environmental modeling field profited from this as well.
+Numerous approaches were developed to deal with this situation and the field of "feature selection" can be safely seen as a standalone research field.
+
+\subsubsection{Filter methods}
+
+% Filter methods
 So called "Filter methods" are one approach.
-The basic concept relies on the ranking of all features of the dataset using certain heuristics.
-Various filter methods exist with different capabilities what feature types are supported (numeric, nominal).
-After the coveriates have been ranked by a feature method, a decision needs to be made which features to keep and which to discard.
+The basic concept relies on the ranking of all features of the dataset using heuristics of the respective algorithm.
+Some are tailored towards specific types of variables (numeric or nominal data).
+After the covariates have been ranked, a decision needs to be made what features to keep and which to discard.
 This step is usually done within the optimization phase of the model fitting, along with the hyperparameter tuning.
-Essentially, the goal is to find the best threshold at which the model achieves a good performance while requiring the least amount of variables.
+Essentially, the number of covariates in the model is treated as a hyperparameter of the respective model.
+The goal is to find the threshold (usually in \% of covariates) at which the model achieves a good performance while requiring the least amount of variables.
+In well-implemented software solutions the calculations of the ranking is only done once and then cached.
+In subsequent tuning iterations the results are taken from the cache instead of being calculated again.
 
-Another approach is to use algorithms that are normally used for hyperparameter optimization such as \textit{Random Search} or a \textit{Genetic Algorithm}.
-Here, first a subset of features is chosen based on the selected algorithm.
+% Ensembe filter methods
+Besides the idea of using single filter methods to rank variables, studies showed that combining several filters using statistical operations such as "minimum", "mean" or "sum" are able to enhance the predictive performance of the resulting models.
+This aligns with the recent rise of the "ensemble" approach which was first used to combine the predictions of multiple models.
+In this work we also used one ensemble filter method based on the "Borda" aggregation.
+Here, the ranks of all single filters are summed up leading to a final ranking which consists of the ranks achieved by all filter algorithms.
+
+Most filter methods are correlation or entropy based.
+A list of all filter methods used in this work along with their respective formulas can be found in Appendix X.
+% TODO: Link appendix
+% TODO: List filter methods
+
+\subsubsection{Other approaches}
+
+% Wrapper approach
+Another approach to reduce the number of variables is to apply algorithms that are normally used for hyperparameter optimization such as \textit{Random Search} or a \textit{Genetic Algorithm}.
+Here, first a (random) subset of features is chosen based on the selected algorithm.
+In comparison to "filters", no ranking is applied here.
 Now the model is fitted on the data and the performance is evaluated.
-The hyperparameter tuning can only start after the feature-selection optimization has ended.
-This method is very expensive since two optimization stages need to be run.
-This approach is also referred to as "wrapper method" and was not considered in this work due to the expensive runtime.
+A major downside of this approach is that hyperparameter tuning can only start after the feature-selection optimization has ended.
+Hence, this method is very expensive because two optimization stages need to be run.
+In science this approach is also referred to as "wrapper method".
+It was not considered in this work due to the expensive runtime.
 
+% PCA
 A third commonly used method is the "Principal Component Analysis".
 Here, the main components of the feature space are extracted and combined.
-Usually the first two components are taken since these contain the major information of the coveriates.
-By using the automatically estimated explained variance of the main components, the model can rely on a few features containing the condensed information of most variables of the data.
-This enables the fitting of very cheap models with a minimal loss of predictor information.
-
-% TODO mention that filter run before hyperpar tuning and are cached
-% TODO mention that the % value of the remaining features is tuned as a normal hyperpar
-
-\subsection{Feature selection methods}
-
-% TODO: List filter methods
-% TODO: Explain the idea of ensemble filters
-
-\subsection{Benchmarking of algorithms}
-
-We added penalized L2 (Ridge) regression to the portfolio due to its ability to handle highly correlated covariates \citep{hoerl1970}.
-These high fitting times are caused by hyperparameter \texttt{mtry} which scales with the number of variables \citep{probst2018}.
-A successful feature selection simplifies the spatial prediction task because the prediction dataset needs to consist of less variables.
-Furthermore, model complexity and fitting times are reduced.
-
-\subsubsection{Performance estimation}
-
-\noindent The algorithms were benchmarked in two ways:
-
-\begin{enumerate}
-	\item Using spatial block \ac{CV} on the plot level with each plot serving as the test set once. Four performance estimates were retrieved, one for each fold.
-	\item Using five-fold five-time repeated spatial \ac{CV} within each plot based on the k-means clustering approach of \cite{sperrorest} (\autoref{fig:spcv}).
-\end{enumerate}
-
-\noindent As we used the best algorithm of 1) for the spatial prediction, we first conducted the model selection on this setup and only applied the winning algorithm on 2).
-
-%\begin{figure} [t!]
-%\begin{center}
-%\makebox[\textwidth]{\includegraphics[width=1\textwidth] {spcv_folds_demon_plots.pdf}}
-%\caption{Fold 1 of the spatial partitioning using k-means clustering for \textit{Laukiz 1}, \textit{Laukiz 2}, \textit{Luiando} and \textit{Oiartzun}.}
-%\label{fig:spcv}
-%\end{center}
-%\end{figure}
-
-\subsubsection{Hyperparameter tuning}
-\label{meth:smbo}
-
-\noindent To tune the hyperparameters of the algorithms, we used \ac{SMBO} via the R package \textit{mlrMBO} \citep{mlrmbo}.
-This Bayesian approach first composes \textit{n} randomly chosen hyperparameter settings out of a user defined search space.
-After these \textit{n} tries have been evaluated, a new hyperparameter setting, which is going to be evaluated next, is proposed based on a fitted regression model.
-The regression model estimates the performance of the machine-learning method for unknown hyperparameter settings.
-Using these estimates, a new promising hyperparameter setting is proposed to be evaluated next.
-This strategy continues until a termination criterion, defined by the user, is reached \citep{hutter2011, jones1998}.
-
-In this work we used an initial design of 30 randomly composed hyperparameter settings and a termination criterion of 20 iterations, resulting in a total budget of 50 evaluated hyperparameter settings per fold.
-The advantage of this tuning approach is that it substantially reduces the tuning budget which is needed to find a setting close to the global minimum compared to methods that do not use information from previous runs, such as random search or grid search \citep{bergstra2012}.
+Usually the first two components are taken since these contain the major information of the covariates.
+By using the (automatically estimated) explained variance of the main components, the model can rely on a few features containing the condensed information of most variables of the data.
+This enables a very cheap model fitting with a minimal loss of predictor information.
+However, the resulting features used in the model do not relate anymore to the raw input variables since they are a combination of multiple covariates.
+Interpretation is not possible anymore.
 
 \noindent The complete study was done using the open-source statistical programming language R \citep{rcoreteam2018}.
 The algorithm implementations of the following packages have been used: \textit{xgboost} \citep{chen2016} (\textit{xgboost}), \textit{e1071} \citep{e1071} (Support Vector Machine) and \textit{glmnet} \citep{glmnet} (Ridge Regression).
 The filter methods of the following packages were used: \textit{praznik}, \textit{fselectorrcpp}.
-The R package \textit{mlr} \citep{mlr} was used for all modeling related steps and \textit{drake} for setting up the workflow of the project.
+The R package \textit{mlr} \citep{mlr} was used for all modeling related steps.
+\textit{drake} was used for structuring the work and ensuring reproducbility.
 This study is available as a research compendium on Zenodo (\url{10.5281/zenodo.2635403}).
-
 
 \section{Results}
 
