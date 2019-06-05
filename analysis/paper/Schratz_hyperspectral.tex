@@ -231,6 +231,9 @@ Additional metadata information is available in \autoref{tab:hyperparameter_limi
 
 \section{Methods}
 
+\subsection{Exploratory data analysis}
+% TODO: Explain why this is necessary here (differentes between plots)
+
 \subsection{Derivation of indices}
 % TODO: Mention different feature sets
 \noindent To use the full information from the hyperspectral data, all possible vegetation indices supported by the \textit{hsdar} package (90 in total) as well as all possible \ac{NRI} combinations were calculated.
@@ -272,6 +275,7 @@ Both penalties can also be combined.
 The combined approach is called "elastic net".
 
 \subsubsection{Feature sets}
+% TODO: talk about the reasons behind different features sets: environmental implications
 
 Three feature sets were used in this study:
 
@@ -390,9 +394,6 @@ This study is available as a research compendium on Zenodo (\url{10.5281/zenodo.
 
 \subsection{Predictive performance}
 
-
-\subsubsection{Algorithm benchmarking}
-
 \section{Discussion}
 
 \subsection{Derivation of indices}
@@ -409,7 +410,7 @@ If a tree observation is located at the border of the plot, some directions of t
 All these points introduced a bias of an unknown magnitude into the data.
 This has to be considered when making interpretations about the outcome of this study.
 
-\subsection{RMSE vs. plot characteristics}
+\subsection{Performance vs. plot characteristics}
 
 \noindent Relating the modeling error to plot characteristics (mean point density, coefficient of variation) did not show a clear picture: For both comparisons, \textit{Laukiz 2} did not follow the pattern that was observed from the other three plots (\autoref{fig:plot-characteristics}) of having an increase in error with an increase in mean point density and coefficient of variation.
 
@@ -420,12 +421,12 @@ To make a robust statement about a possible relationship between modeling error 
 
 \subsubsection{Algorithm benchmarking}
 
-\subsection{Variable importance}
-
-\subsection{Spatial prediction}
-
+\subsection{Feature selection methods}
 
 \subsection{Comparison to other studies}
+% TODO: Mention that (probably) most environmental studies only use PCA
+% TODO: find studies comparing filter methods
+% TODO: Find studies tackling the case of defoliation
 
 \noindent Other studies analyzing defoliation found that reflectance differences between defoliated and 30 \% defoliated trees of up to 10\% exist in the \ac{NIR} region \citep{rengara2016}.
 This corresponds with the finding of this study that the most important variables are located in the NIR region.
@@ -451,7 +452,7 @@ Overall, they used 10 vegetation indices derived from Landsat data.
 %This fact highlights the importance of this work and will hopefully encourage scientists to use machine-learning techniques, feature selection methods and a wider selection of vegetation indices when assessing defoliation in the future.
 
 
-\section{Conclusion}
+\section{Outlook and conclusion}
 
 \noindent In this work we used various indices derived from hyperspectral remote sensing data to estimate defoliationas a proxy for tree health in northern Spain.
 In the algorithm comparison \textit{xgboost} showed the best performance among the tested ones.
@@ -463,6 +464,7 @@ The performance of the model containing all data (four plots) was acceptable (RM
 The spatial prediction showed a satisfying result making it possible to distinguish highly defoliated plots from plots with low defoliation easily.
 The most important indices for the fitted model were widely known vegetations indices such as EVI, GDVI or NDVI.
 In future studies it would be interesting to link the indices of this work to other indicators of forest/vegetation health and analyze their importance and the model performances.
+
 
 
 \section{Appendix}
