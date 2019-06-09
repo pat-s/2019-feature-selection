@@ -6,7 +6,7 @@
 
 % arara: indent: {overwrite: yes}
 
-% arara: clean: { extensions: [aux, bcf, cod, blg, lof, lot, out, toc, log, xml, bak0 ] }
+% arara: clean: { extensions: [aux, bcf, cod, blg, lof, lot, out, toc, xml, bak0 ] }
 
 \documentclass[review]{elsarticle}
 
@@ -119,6 +119,7 @@
 	\acro{IQR}{Interquartile Range}
 	\acro{MARS}{Multivariate Adaptive Regression Splines}
 	\acro{MEM}{Maximum Entropy Model}
+	\acro{ML}{Machine-Learning}
 	\acro{NDII}{Normalized Difference Infrared Index}
 	\acro{NIR}{Near-Infrared}
 	\acro{NRI}{Normalized Ratio Index}
@@ -142,7 +143,7 @@
 
 % Explain how remote sensing is used in forestry (potential to map forest health)
 % Link remote sensing and machine-learning
-The use of machine-learning algorithms for analyzing remote sensing data has seen a huge increase in the last decade \citep{lary2016}.
+The use of \ac{ML} algorithms for analyzing remote sensing data has seen a huge increase in the last decade \citep{lary2016}.
 Especially since the launch of the first Sentinel satellite in 2014 the amount of freely available imagery data has increased greatly.
 At the same time, the implementation and usability of algorithms (both statistical and machine-learning) has been greatly simplified in the open-source community.
 Scientists can nowadays relatively easily feed large amounts of information into complex models in a semi-automated way.
@@ -159,14 +160,13 @@ Others are only used in few studies such as Support Vector Machines \citep{clark
 Overall, the idea is to fit a robust model which can be used to make predictions to (large) unknown areas, providing valuable information about the health condition of forest stands without the need for ground-truth data in these regions.
 
 % now mention why this study is important
-However, we have the impression that the amount of (vegetation-)indices used in forest health studies could be higher, possibly leading to more valuable results.
-Possible reasons include the low spectral resolution of optical multispectral sensors, the lack of freely available hyperspectral data or the lack of knowledge about existing indices.
-% TODO: Ref for high-dim
-Another more applied issue is the fact of high-dimensionality which is introduced by the calculation of hundreds/thousands of indices.
-% TODO: Ref model interpr
-Even though ML algorithms are capable of handling possibly highly-correlated input variables, model runtime increases substantially and the interpretation of results becomes more complicated.
+In forest healh studies, it is valuable to have a lot input variables.
+When searching for possible triggers to forest health within forests, it is unclear upfront which information from the data might reveal important relationships during model fitting.
+If hyperspectral data is available, lots of indices can be derived.
+One issue that comes with this approach is the case of "high-dimensionality" \citep{trunk1979, xu2016}.
+Even though \ac{ML} algorithms are capable of handling highly-correlated input variables, the fitting time of models increases substantially and the interpretation of results becomes more complicated.
 Also, in recent years the awareness of conducting proper tuning of model hyperparameters has increased in applied modelling fields.
-In this study we addressed these challenges by focusing on the following research questions:
+The reseach questions of this study are formulated around the handling of high-dimensionality in environmental modeling:
 
 \begin{itemize}
 	\item How to handle and analyze high-dimensional data including model optimization while accounting for spatial characteristics?
@@ -174,8 +174,9 @@ In this study we addressed these challenges by focusing on the following researc
 	\item How can interpretability of the model be maintained while at the same time using all possible input data?
 \end{itemize}
 
-\noindent State-of-the-art machine-learning techniques were compared using three feature sets across different feature-selection approaches including a relatively novel approach of ensemble filters.
-To model the numeric response variable defoliation at trees model-based optimization was applied for hyperparameter tuning and a spatial block \ac{CV} was used to account for spatial autocorrelation in the data.
+\noindent State-of-the-art machine-learning techniques were compared using three feature sets with different feature-selection approaches including a relatively novel approach of ensemble filters.
+To model the numeric response variable defoliation at trees model-based optimization was applied for hyperparameter tuning.
+Spatial block \ac{CV} was used to account for spatial autocorrelation in the data.
 
 \section{Data and study area}
 \noindent Airborne hyperspectral data with a spatial resolution of one meter and 126 spectral bands was available for four Monterey Pine (\textit{Pinus radiata}) plantations in northern Spain (\autoref{fig:study_area}).
