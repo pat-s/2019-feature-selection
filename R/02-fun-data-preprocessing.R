@@ -108,7 +108,7 @@ split_into_feature_sets = function(data, feature_set) {
     data_split = data[["data_vi_nri"]] %>%
       dplyr::select(-matches("nri"))
   } else if (feature_set == "bands") {
-    data_split = data
+    data_split = data[["data_bands"]]
   }
   return(data_split)
 }
