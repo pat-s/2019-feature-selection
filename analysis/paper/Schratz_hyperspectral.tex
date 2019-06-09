@@ -142,20 +142,20 @@
 
 % Explain how remote sensing is used in forestry (potential to map forest health)
 % Link remote sensing and machine-learning
-The use of machine-learning algorithms for analyzing remote sensing data has seen a huge increase in the last decade.
-Ever since the launch of the first Sentinel satellite in 2014 the amount of freely available imagery data has increased enormously (REF).
-At the same time, the implementation of algorithms (both statistical and machine-learning) has been greatly simplified in the open-source community.
-Scientists can nowadays relively easily feed large amounts of data into complex algorithms in a semi-automated way.
-These facts combined with a high temporal and spatial coverage of input data enable the possibility to analyze temporal changes of the environment on a large scale.
+The use of machine-learning algorithms for analyzing remote sensing data has seen a huge increase in the last decade \citep{lary2016}.
+Especially since the launch of the first Sentinel satellite in 2014 the amount of freely available imagery data has increased greatly.
+At the same time, the implementation and usability of algorithms (both statistical and machine-learning) has been greatly simplified in the open-source community.
+Scientists can nowadays relatively easily feed large amounts of information into complex models in a semi-automated way.
+These points enable the possibility to analyze (temporal) changes of the environment on a large scale \citep{ma2015}.
 
 % link to forest health analysis and show exemplary studies
 The monitoring of forest ecosystems is one exemplary field that profits from these new possibilities.
-Specifically the monitoring of forest health got simplified with the ability of analyzing large scale data in efficient algorithms that are able to predict to unknown areas.
+Specifically the monitoring of forest health profited from the ability of analyzing large scale data with efficient algorithms able to predict to unknown areas \citep{hawrylo2018, mascaro2014}.
 For this task, usually optical data from multi-/hyperspectral satellites is used.
-Various indices are calculated from the data with the aim of carrying out temporal change detections \citep{zhang2016} or analyses about the forest health status for a specific date \citep{townsend2012}.
-% TODO: check if refs match context
+Various indices are calculated from the data with the aim of carrying out temporal change detections \citep{zhang2016} or conduct analyses about the current health status \citep{townsend2012}.
 Vegetation indices have shown the potential to provide valuable information for analyzing triggers to forest health \citep{jiang2014, adamczyk2015}.
-More and more studies focus on using machine-learning algorithms such as \ac{RF} \citep{belgiu2016, lary2016, michez2016}.
+Most studies focus on applying the Random Forest algorithm \ac{RF} \citep{belgiu2016, lary2016, michez2016}.
+Others are only used in few studies such as Support Vector Machines \citep{clark2018} or deep-learning algorithms such as Artifical Neural Networks \citep{ingram2005, rocha2018}.
 Overall, the idea is to fit a robust model which can be used to make predictions to (large) unknown areas, providing valuable information about the health condition of forest stands without the need for ground-truth data in these regions.
 
 % now mention why this study is important
