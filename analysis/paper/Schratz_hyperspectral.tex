@@ -306,36 +306,45 @@ A spatial block nested cross-validation was chosen to reduce the influence of sp
 Each tree plot served as one fold within the resampling setup, resulting in four folds total.
 For the inner level, $p - 1$ folds were used (with $p$ being the number of plots).
 
-\subsection{Dealing with high-dimensionality}
-% Define "high-dimensionality"
-The usage of the term "high-dimensionality" in the machine-learning field practically means to deal with dataset that has a high amount of covariates.
-There is no clear threshold at which number the term can be applied.
-There has been an informal agreement to speak of "high-dimensonialty" if the number of variables exceeds the number of observations. REF
+\subsection{Dimension reduction}
 
-The case of a high-dimensional dataset comes with several challenges for both model fitting and evaluation.
-There is an increase in time for fitting a model to the data.
-Possible noise maybe introduced into the model by highly-correlated variables.
-The interpretation and prediction of models containing hundreds of covariates becomes more complicated, up to to the point at which interpretation or prediction is not possible anymore.
-Especially in the last decade the amount of data increased a lot and also the environmental modeling field profited from this as well.
-Numerous approaches were developed to deal with this situation and the field of "feature selection" can be safely seen as a standalone research field.
+It is important to distinguish the term "dimension reduction" from "high-dimensionality".
+The former applies to the general methodology of reducing dimensions of features.
+In the modelling field this means to find the best subset of covariates which provides the most predictive power to the model.
+The latter in contrast is restricted to the case when a dataset has $p > n$ where $p$ is the number of covariates and $n$ the number of observations \citep{Hastie2001}.
+Hence, there is no absolute value at which the term can be applied, both for $n$ and $p$.
+Hence for this study the word "high-dimensionality" only applies to the experiments containing the "NRI" feature set (7470 features for 1759 observations).
+
+The case of a feature-rich dataset comes with several challenges for both model fitting and evaluation.
+
+\begin{itemize}
+  \item Fitting times of the model increase
+  \item Noise is possibly introduced into the model by highly-correlated variables \citep{johnstoneiainm2009}
+  % I think we can phrase this better
+  \item The interpretation and prediction of models containing hundreds of covariates becomes more complicated, up to to the point at which interpretation or prediction is not possible anymore \citep{johnstoneiainm2009}
+\end{itemize}
+
+Especially in the last decade the amount of environmental data increased a lot, paramount by the increased data coverage of satellites.
+The need of applying automated feature-selection methods emerges in more and more studies.
+In the following sub-sections different approaches for selecting features are introduced.
 
 \subsubsection{Filter methods}
 
 % Filter methods
 So called "Filter methods" are one approach.
-The basic concept relies on the ranking of all features of the dataset using heuristics of the respective algorithm.
-Some are tailored towards specific types of variables (numeric or nominal data).
-After the covariates have been ranked, a decision needs to be made what features to keep and which to discard.
+The concept of "Filter methods" originates on the idea of ranking features using certain heuristics of an algorithm \citep{chandrashekar2014}.
+Some filter methods are restricted towards specific types of variables (numeric or nominal data).
+After the covariates have been ranked, a decision needs to be made what features to keep and which to discard \citep{drotar2015}.
 This step is usually done within the optimization phase of the model fitting, along with the hyperparameter tuning.
 Essentially, the number of covariates in the model is treated as a hyperparameter of the respective model.
 The goal is to find the threshold (usually in \% of covariates) at which the model achieves a good performance while requiring the least amount of variables.
-In well-implemented software solutions the calculations of the ranking is only done once and then cached.
-In subsequent tuning iterations the results are taken from the cache instead of being calculated again.
+In well-implemented software solutions the calculations of the ranking is only done once and then cached \citep{mlr}.
+Hence in subsequent tuning iterations the results are loaded from the cache instead of getting calculated again.
 
 % Ensembe filter methods
-Besides the idea of using single filter methods to rank variables, studies showed that combining several filters using statistical operations such as "minimum", "mean" or "sum" are able to enhance the predictive performance of the resulting models.
-This aligns with the recent rise of the "ensemble" approach which was first used to combine the predictions of multiple models.
-In this work we also used one ensemble filter method based on the "Borda" aggregation.
+Besides the idea of using single filter methods to rank variables, studies showed that combining several filters using statistical operations such as "minimum", "mean" or "sum" are able to enhance the predictive performance of the resulting models \citep{abeel2010, drotar2017a}.
+This aligns with the recent rise of the "ensemble" approach in model fitting which uses stacking to combine the predictions of multiple models \citep{polikar2012, feurer2015}.
+In this work we also used one ensemble filter method based on the "Borda" aggregation logic \citep{drotar2017a}.
 Here, the ranks of all single filters are summed up leading to a final ranking which consists of the ranks achieved by all filter algorithms.
 
 Most filter methods are correlation or entropy based.
@@ -343,6 +352,7 @@ A list of all filter methods used in this work along with their respective formu
 % TODO: Link appendix
 % TODO: List filter methods
 
+% I grouped these two since we focus on filter methods in this study - or is this already a bit biased towards filter methods?
 \subsubsection{Other approaches}
 
 % Wrapper approach
@@ -370,6 +380,7 @@ The filter methods of the following packages were used: \textit{praznik}, \texti
 The R package \textit{mlr} \citep{mlr} was used for all modeling related steps.
 \textit{drake} was used for structuring the work and ensuring reproducbility.
 This study is available as a research compendium on Zenodo (\url{10.5281/zenodo.2635403}).
+
 
 \section{Results}
 
