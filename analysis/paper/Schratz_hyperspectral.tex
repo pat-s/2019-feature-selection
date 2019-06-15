@@ -6,7 +6,7 @@
 
 % arara: indent: {overwrite: yes}
 
-% arara: clean: { extensions: [aux, bcf, cod, blg, lof, lot, out, toc, log, xml, bak0 ] }
+% arara: clean: { extensions: [aux, bcf, cod, blg, lof, lot, out, toc, xml, bak0 ] }
 
 \documentclass[review]{elsarticle}
 
@@ -119,6 +119,7 @@
 	\acro{IQR}{Interquartile Range}
 	\acro{MARS}{Multivariate Adaptive Regression Splines}
 	\acro{MEM}{Maximum Entropy Model}
+	\acro{ML}{Machine-Learning}
 	\acro{NDII}{Normalized Difference Infrared Index}
 	\acro{NIR}{Near-Infrared}
 	\acro{NRI}{Normalized Ratio Index}
@@ -142,31 +143,30 @@
 
 % Explain how remote sensing is used in forestry (potential to map forest health)
 % Link remote sensing and machine-learning
-The use of machine-learning algorithms for analyzing remote sensing data has seen a huge increase in the last decade.
-Ever since the launch of the first Sentinel satellite in 2014 the amount of freely available imagery data has increased enormously (REF).
-At the same time, the implementation of algorithms (both statistical and machine-learning) has been greatly simplified in the open-source community.
-Scientists can nowadays relively easily feed large amounts of data into complex algorithms in a semi-automated way.
-These facts combined with a high temporal and spatial coverage of input data enable the possibility to analyze temporal changes of the environment on a large scale.
+The use of \ac{ML} algorithms for analyzing remote sensing data has seen a huge increase in the last decade \citep{lary2016}.
+Especially since the launch of the first Sentinel satellite in 2014 the amount of freely available imagery data has increased greatly.
+At the same time, the implementation and usability of algorithms (both statistical and machine-learning) has been greatly simplified in the open-source community.
+Scientists can nowadays relatively easily feed large amounts of information into complex models in a semi-automated way.
+These points enable the possibility to analyze (temporal) changes of the environment on a large scale \citep{ma2015}.
 
 % link to forest health analysis and show exemplary studies
 The monitoring of forest ecosystems is one exemplary field that profits from these new possibilities.
-Specifically the monitoring of forest health got simplified with the ability of analyzing large scale data in efficient algorithms that are able to predict to unknown areas.
+Specifically the monitoring of forest health profited from the ability of analyzing large scale data with efficient algorithms able to predict to unknown areas \citep{hawrylo2018, mascaro2014}.
 For this task, usually optical data from multi-/hyperspectral satellites is used.
-Various indices are calculated from the data with the aim of carrying out temporal change detections \citep{zhang2016} or analyses about the forest health status for a specific date \citep{townsend2012}.
-% TODO: check if refs match context
+Various indices are calculated from the data with the aim of carrying out temporal change detections \citep{zhang2016} or conduct analyses about the current health status \citep{townsend2012}.
 Vegetation indices have shown the potential to provide valuable information for analyzing triggers to forest health \citep{jiang2014, adamczyk2015}.
-More and more studies focus on using machine-learning algorithms such as \ac{RF} \citep{belgiu2016, lary2016, michez2016}.
+Most studies focus on applying the Random Forest algorithm \ac{RF} \citep{belgiu2016, lary2016, michez2016}.
+Others are only used in few studies such as Support Vector Machines \citep{clark2018} or deep-learning algorithms such as Artifical Neural Networks \citep{ingram2005, rocha2018}.
 Overall, the idea is to fit a robust model which can be used to make predictions to (large) unknown areas, providing valuable information about the health condition of forest stands without the need for ground-truth data in these regions.
 
 % now mention why this study is important
-However, we have the impression that the amount of (vegetation-)indices used in forest health studies could be higher, possibly leading to more valuable results.
-Possible reasons include the low spectral resolution of optical multispectral sensors, the lack of freely available hyperspectral data or the lack of knowledge about existing indices.
-% TODO: Ref for high-dim
-Another more applied issue is the fact of high-dimensionality which is introduced by the calculation of hundreds/thousands of indices.
-% TODO: Ref model interpr
-Even though ML algorithms are capable of handling possibly highly-correlated input variables, model runtime increases substantially and the interpretation of results becomes more complicated.
+In forest healh studies, it is valuable to have a lot input variables.
+When searching for possible triggers to forest health within forests, it is unclear upfront which information from the data might reveal important relationships during model fitting.
+If hyperspectral data is available, lots of indices can be derived.
+One issue that comes with this approach is the case of "high-dimensionality" \citep{trunk1979, xu2016}.
+Even though \ac{ML} algorithms are capable of handling highly-correlated input variables, the fitting time of models increases substantially and the interpretation of results becomes more complicated.
 Also, in recent years the awareness of conducting proper tuning of model hyperparameters has increased in applied modelling fields.
-In this study we addressed these challenges by focusing on the following research questions:
+The reseach questions of this study are formulated around the handling of high-dimensionality in environmental modeling:
 
 \begin{itemize}
 	\item How to handle and analyze high-dimensional data including model optimization while accounting for spatial characteristics?
@@ -174,8 +174,9 @@ In this study we addressed these challenges by focusing on the following researc
 	\item How can interpretability of the model be maintained while at the same time using all possible input data?
 \end{itemize}
 
-\noindent State-of-the-art machine-learning techniques were compared using three feature sets across different feature-selection approaches including a relatively novel approach of ensemble filters.
-To model the numeric response variable defoliation at trees model-based optimization was applied for hyperparameter tuning and a spatial block \ac{CV} was used to account for spatial autocorrelation in the data.
+\noindent State-of-the-art machine-learning techniques were compared using three feature sets with different feature-selection approaches including a relatively novel approach of ensemble filters.
+To model the numeric response variable defoliation at trees model-based optimization was applied for hyperparameter tuning.
+Spatial block \ac{CV} was used to account for spatial autocorrelation in the data.
 
 \section{Data and study area}
 \noindent Airborne hyperspectral data with a spatial resolution of one meter and 126 spectral bands was available for four Monterey Pine (\textit{Pinus radiata}) plantations in northern Spain (\autoref{fig:study_area}).
@@ -231,6 +232,9 @@ Additional metadata information is available in \autoref{tab:hyperparameter_limi
 
 \section{Methods}
 
+\subsection{Exploratory data analysis}
+% TODO: Explain why this is necessary here (differentes between plots)
+
 \subsection{Derivation of indices}
 % TODO: Mention different feature sets
 \noindent To use the full information from the hyperspectral data, all possible vegetation indices supported by the \textit{hsdar} package (90 in total) as well as all possible \ac{NRI} combinations were calculated.
@@ -271,6 +275,9 @@ The former does not allow the removal of variables from the model (penalization 
 Both penalties can also be combined.
 The combined approach is called "elastic net".
 
+\subsubsection{Feature sets}
+% TODO: talk about the reasons behind different features sets: environmental implications
+
 Three feature sets were used in this study:
 
 \begin{itemize}
@@ -278,6 +285,9 @@ Three feature sets were used in this study:
 	\item Vegetation Indices (\ac{VI}, $n = 90$)
 	\item Normalized Ratio Indices (\ac{NRI}, $n = 7471$)
 \end{itemize}
+
+
+\subsubsection{Hyperparameter Optimization}
 
 An exhaustive hyperparameter tuning was applied during nested spatial \ac{CV} for all algorithms.
 Maximum Bayesian Optimization \citep{mlrmbo} was used for parameter optimization.
@@ -290,86 +300,85 @@ An initial design of 30 randomly composed hyperparameter settings and a terminat
 The advantage of this tuning approach is the substantial reduction of the tuning budget required to find a setting which is close to the global minimum
 This applies when being compared to methods that do not use information from previous runs, such as random search or grid search \citep{bergstra2012}.
 
+\subsubsection{Spatial resampling}
+
 A spatial block nested cross-validation was chosen to reduce the influence of spatial autocorrelation as much as possible.
 Each tree plot served as one fold within the resampling setup, resulting in four folds total.
 For the inner level, $p - 1$ folds were used (with $p$ being the number of plots).
 
-\subsection{Dealing with high-dimensionality}
-% TODO talk about filter vs wrapper vs PCA
-The case of high-dimensionality in machine-learning is a research field on its own and numerous approaches were developed in recent years to optimize this case.
-% TODO talk more about the general problem and solution, maybe 1-2 sentences
+\subsection{Dimension reduction}
 
+It is important to distinguish the term "dimension reduction" from "high-dimensionality".
+The former applies to the general methodology of reducing dimensions of features.
+In the modelling field this means to find the best subset of covariates which provides the most predictive power to the model.
+The latter in contrast is restricted to the case when a dataset has $p > n$ where $p$ is the number of covariates and $n$ the number of observations \citep{Hastie2001}.
+Hence, there is no absolute value at which the term can be applied, both for $n$ and $p$.
+Hence for this study the word "high-dimensionality" only applies to the experiments containing the "NRI" feature set (7470 features for 1759 observations).
+
+The case of a feature-rich dataset comes with several challenges for both model fitting and evaluation.
+
+\begin{itemize}
+  \item Fitting times of the model increase
+  \item Noise is possibly introduced into the model by highly-correlated variables \citep{johnstoneiainm2009}
+  % I think we can phrase this better
+  \item The interpretation and prediction of models containing hundreds of covariates becomes more complicated, up to to the point at which interpretation or prediction is not possible anymore \citep{johnstoneiainm2009}
+\end{itemize}
+
+Especially in the last decade the amount of environmental data increased a lot, paramount by the increased data coverage of satellites.
+The need of applying automated feature-selection methods emerges in more and more studies.
+In the following sub-sections different approaches for selecting features are introduced.
+
+\subsubsection{Filter methods}
+
+% Filter methods
 So called "Filter methods" are one approach.
-The basic concept relies on the ranking of all features of the dataset using certain heuristics.
-Various filter methods exist with different capabilities what feature types are supported (numeric, nominal).
-After the coveriates have been ranked by a feature method, a decision needs to be made which features to keep and which to discard.
+The concept of "Filter methods" originates on the idea of ranking features using certain heuristics of an algorithm \citep{chandrashekar2014}.
+Some filter methods are restricted towards specific types of variables (numeric or nominal data).
+After the covariates have been ranked, a decision needs to be made what features to keep and which to discard \citep{drotar2015}.
 This step is usually done within the optimization phase of the model fitting, along with the hyperparameter tuning.
-Essentially, the goal is to find the best threshold at which the model achieves a good performance while requiring the least amount of variables.
+Essentially, the number of covariates in the model is treated as a hyperparameter of the respective model.
+The goal is to find the threshold (usually in \% of covariates) at which the model achieves a good performance while requiring the least amount of variables.
+In well-implemented software solutions the calculations of the ranking is only done once and then cached \citep{mlr}.
+Hence in subsequent tuning iterations the results are loaded from the cache instead of getting calculated again.
 
-Another approach is to use algorithms that are normally used for hyperparameter optimization such as \textit{Random Search} or a \textit{Genetic Algorithm}.
-Here, first a subset of features is chosen based on the selected algorithm.
+% Ensembe filter methods
+Besides the idea of using single filter methods to rank variables, studies showed that combining several filters using statistical operations such as "minimum", "mean" or "sum" are able to enhance the predictive performance of the resulting models \citep{abeel2010, drotar2017a}.
+This aligns with the recent rise of the "ensemble" approach in model fitting which uses stacking to combine the predictions of multiple models \citep{polikar2012, feurer2015}.
+In this work we also used one ensemble filter method based on the "Borda" aggregation logic \citep{drotar2017a}.
+Here, the ranks of all single filters are summed up leading to a final ranking which consists of the ranks achieved by all filter algorithms.
+
+Most filter methods are correlation or entropy based.
+A list of all filter methods used in this work along with their respective formulas can be found in Appendix X.
+% TODO: Link appendix
+% TODO: List filter methods
+
+% I grouped these two since we focus on filter methods in this study - or is this already a bit biased towards filter methods?
+\subsubsection{Other approaches}
+
+% Wrapper approach
+Another approach to reduce the number of variables is to apply algorithms that are normally used for hyperparameter optimization such as \textit{Random Search} or a \textit{Genetic Algorithm}.
+Here, first a (random) subset of features is chosen based on the selected algorithm.
+In comparison to "filters", no ranking is applied here.
 Now the model is fitted on the data and the performance is evaluated.
-The hyperparameter tuning can only start after the feature-selection optimization has ended.
-This method is very expensive since two optimization stages need to be run.
-This approach is also referred to as "wrapper method" and was not considered in this work due to the expensive runtime.
+A major downside of this approach is that hyperparameter tuning can only start after the feature-selection optimization has ended.
+Hence, this method is very expensive because two optimization stages need to be run.
+In science this approach is also referred to as "wrapper method".
+It was not considered in this work due to the expensive runtime.
 
+% PCA
 A third commonly used method is the "Principal Component Analysis".
 Here, the main components of the feature space are extracted and combined.
-Usually the first two components are taken since these contain the major information of the coveriates.
-By using the automatically estimated explained variance of the main components, the model can rely on a few features containing the condensed information of most variables of the data.
-This enables the fitting of very cheap models with a minimal loss of predictor information.
-
-% TODO mention that filter run before hyperpar tuning and are cached
-% TODO mention that the % value of the remaining features is tuned as a normal hyperpar
-
-\subsection{Feature selection methods}
-
-% TODO: List filter methods
-% TODO: Explain the idea of ensemble filters
-
-\subsection{Benchmarking of algorithms}
-
-We added penalized L2 (Ridge) regression to the portfolio due to its ability to handle highly correlated covariates \citep{hoerl1970}.
-These high fitting times are caused by hyperparameter \texttt{mtry} which scales with the number of variables \citep{probst2018}.
-A successful feature selection simplifies the spatial prediction task because the prediction dataset needs to consist of less variables.
-Furthermore, model complexity and fitting times are reduced.
-
-\subsubsection{Performance estimation}
-
-\noindent The algorithms were benchmarked in two ways:
-
-\begin{enumerate}
-	\item Using spatial block \ac{CV} on the plot level with each plot serving as the test set once. Four performance estimates were retrieved, one for each fold.
-	\item Using five-fold five-time repeated spatial \ac{CV} within each plot based on the k-means clustering approach of \cite{sperrorest} (\autoref{fig:spcv}).
-\end{enumerate}
-
-\noindent As we used the best algorithm of 1) for the spatial prediction, we first conducted the model selection on this setup and only applied the winning algorithm on 2).
-
-%\begin{figure} [t!]
-%\begin{center}
-%\makebox[\textwidth]{\includegraphics[width=1\textwidth] {spcv_folds_demon_plots.pdf}}
-%\caption{Fold 1 of the spatial partitioning using k-means clustering for \textit{Laukiz 1}, \textit{Laukiz 2}, \textit{Luiando} and \textit{Oiartzun}.}
-%\label{fig:spcv}
-%\end{center}
-%\end{figure}
-
-\subsubsection{Hyperparameter tuning}
-\label{meth:smbo}
-
-\noindent To tune the hyperparameters of the algorithms, we used \ac{SMBO} via the R package \textit{mlrMBO} \citep{mlrmbo}.
-This Bayesian approach first composes \textit{n} randomly chosen hyperparameter settings out of a user defined search space.
-After these \textit{n} tries have been evaluated, a new hyperparameter setting, which is going to be evaluated next, is proposed based on a fitted regression model.
-The regression model estimates the performance of the machine-learning method for unknown hyperparameter settings.
-Using these estimates, a new promising hyperparameter setting is proposed to be evaluated next.
-This strategy continues until a termination criterion, defined by the user, is reached \citep{hutter2011, jones1998}.
-
-In this work we used an initial design of 30 randomly composed hyperparameter settings and a termination criterion of 20 iterations, resulting in a total budget of 50 evaluated hyperparameter settings per fold.
-The advantage of this tuning approach is that it substantially reduces the tuning budget which is needed to find a setting close to the global minimum compared to methods that do not use information from previous runs, such as random search or grid search \citep{bergstra2012}.
+Usually the first two components are taken since these contain the major information of the covariates.
+By using the (automatically estimated) explained variance of the main components, the model can rely on a few features containing the condensed information of most variables of the data.
+This enables a very cheap model fitting with a minimal loss of predictor information.
+However, the resulting features used in the model do not relate anymore to the raw input variables since they are a combination of multiple covariates.
+Interpretation is not possible anymore.
 
 \noindent The complete study was done using the open-source statistical programming language R \citep{rcoreteam2018}.
 The algorithm implementations of the following packages have been used: \textit{xgboost} \citep{chen2016} (\textit{xgboost}), \textit{e1071} \citep{e1071} (Support Vector Machine) and \textit{glmnet} \citep{glmnet} (Ridge Regression).
 The filter methods of the following packages were used: \textit{praznik}, \textit{fselectorrcpp}.
-The R package \textit{mlr} \citep{mlr} was used for all modeling related steps and \textit{drake} for setting up the workflow of the project.
+The R package \textit{mlr} \citep{mlr} was used for all modeling related steps.
+\textit{drake} was used for structuring the work and ensuring reproducbility.
 This study is available as a research compendium on Zenodo (\url{10.5281/zenodo.2635403}).
 
 
@@ -397,9 +406,6 @@ This study is available as a research compendium on Zenodo (\url{10.5281/zenodo.
 
 \subsection{Predictive performance}
 
-
-\subsubsection{Algorithm benchmarking}
-
 \section{Discussion}
 
 \subsection{Derivation of indices}
@@ -416,7 +422,7 @@ If a tree observation is located at the border of the plot, some directions of t
 All these points introduced a bias of an unknown magnitude into the data.
 This has to be considered when making interpretations about the outcome of this study.
 
-\subsection{RMSE vs. plot characteristics}
+\subsection{Performance vs. plot characteristics}
 
 \noindent Relating the modeling error to plot characteristics (mean point density, coefficient of variation) did not show a clear picture: For both comparisons, \textit{Laukiz 2} did not follow the pattern that was observed from the other three plots (\autoref{fig:plot-characteristics}) of having an increase in error with an increase in mean point density and coefficient of variation.
 
@@ -427,12 +433,12 @@ To make a robust statement about a possible relationship between modeling error 
 
 \subsubsection{Algorithm benchmarking}
 
-\subsection{Variable importance}
-
-\subsection{Spatial prediction}
-
+\subsection{Feature selection methods}
 
 \subsection{Comparison to other studies}
+% TODO: Mention that (probably) most environmental studies only use PCA
+% TODO: find studies comparing filter methods
+% TODO: Find studies tackling the case of defoliation
 
 \noindent Other studies analyzing defoliation found that reflectance differences between defoliated and 30 \% defoliated trees of up to 10\% exist in the \ac{NIR} region \citep{rengara2016}.
 This corresponds with the finding of this study that the most important variables are located in the NIR region.
@@ -458,7 +464,7 @@ Overall, they used 10 vegetation indices derived from Landsat data.
 %This fact highlights the importance of this work and will hopefully encourage scientists to use machine-learning techniques, feature selection methods and a wider selection of vegetation indices when assessing defoliation in the future.
 
 
-\section{Conclusion}
+\section{Outlook and conclusion}
 
 \noindent In this work we used various indices derived from hyperspectral remote sensing data to estimate defoliationas a proxy for tree health in northern Spain.
 In the algorithm comparison \textit{xgboost} showed the best performance among the tested ones.
@@ -470,6 +476,7 @@ The performance of the model containing all data (four plots) was acceptable (RM
 The spatial prediction showed a satisfying result making it possible to distinguish highly defoliated plots from plots with low defoliation easily.
 The most important indices for the fitted model were widely known vegetations indices such as EVI, GDVI or NDVI.
 In future studies it would be interesting to link the indices of this work to other indicators of forest/vegetation health and analyze their importance and the model performances.
+
 
 
 \section{Appendix}
