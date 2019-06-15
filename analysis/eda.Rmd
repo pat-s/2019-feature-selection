@@ -167,7 +167,7 @@ vi_data_plot %>%
   summarise(sd(defoliation))
 ```
 
-```{r eda-17}
+```{r defoliation-distribution-plot, dev = c("png", "pdf")}
 boxplot_defol <- vi_data_plot %>%
   group_by(plot) %>%
   ggboxplot(
@@ -221,4 +221,11 @@ dist <- map(plots, ~ {
 })
 set_names(dist, plots)
 dist_plots <- unlist(dist)
+```
+
+```{r echo = FALSE}
+file_move(list.files(here("docs/figure/eda.Rmd/"), 
+                     pattern = "defoliation-distribution-plot", 
+                     full.names = TRUE),
+          here("code/98-paper/journal/"))
 ```
