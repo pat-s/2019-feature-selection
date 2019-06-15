@@ -173,19 +173,19 @@ To model the numeric response variable defoliation at trees model-based optimiza
 Spatial block \ac{CV} was used to account for spatial autocorrelation in the data.
 
 \section{Data and study area}
-\noindent Airborne hyperspectral data with a spatial resolution of one meter and 126 spectral bands was available for four Monterey Pine (\textit{Pinus radiata}) plantations in northern Spain (\autoref{fig:study_area}).
+\noindent Airborne hyperspectral data with a spatial resolution of one meter and 126 spectral bands was available for four Monterey Pine (\textit{Pinus radiata}) plantations in northern Spain.
 The trees in the study area plots suffer from infections of invasive pathogens such as \textit{Diplodia sapinea}, \textit{Fusarium circinatum}, \textit{Armillaria mellea} or \textit{Heterobasidion annosum} leading to a spread of cankers or defoliation \citep{mesanza2016, iturritxa2017}.
-In-situ measurements of defoliation at trees (as a proxy for tree health) were collected to serve as the response variable \textit{defoliation} spanning a range from 0\% - 100\%.
+In-situ measurements of defoliation at trees (as a proxy for tree health) were collected to serve as the response variable \textit{defoliation} spanning a range from 0\% - 100\% (\autoref{fig:defol-distr}).
 The fungi are assumed to infect the trees through open wounds, possibly caused by previous hail damage \citep{iturritxa2014}.
 The dieback of these trees, which are mainly used as timber, causes high economic damages \citep{ganley2009}.
 
-%\begin{figure} [t!]
-%\begin{center}
-%\makebox[\textwidth]{\includegraphics[width=\textwidth] {defoliation-distribution-plot.pdf}}
-%\caption{Distribution of defoliation at trees for plots Laukiz 1, Laukiz 2, Luiando and Oiartzun.}
-%\label{fig:defol-distr}
-%\end{center}
-%\end{figure}
+\begin{figure} [t!]
+\begin{center}
+\makebox[\textwidth]{\includegraphics[width=0.7\textwidth] {defoliation-distribution-plot-1.pdf}}
+\caption{Distribution of defoliation at trees for plots Laukiz 1, Laukiz 2, Luiando and Oiartzun.}
+\label{fig:defol-distr}
+\end{center}
+\end{figure}
 
 
 
@@ -194,16 +194,16 @@ The dieback of these trees, which are mainly used as timber, causes high economi
 \noindent The \textit{Pinus radiata} plots of this study, namely \textit{Laukiz 1}, \textit{Laukiz 2}, \textit{Luiando} and \textit{Oiartzun}, are located in the northern part of the Basque Country (\autoref{fig:study_area}).
 \textit{Oiartzun} has the most observations (n = 529) while \textit{Laukiz 2} features the largest area size (1.44 ha).
 All plots besides \textit{Luiando} are located nearby the coast (\autoref{fig:study_area}).
-In total 1750 observations are available (\textit{Laukiz 1} = 479, \textit{Laukiz 2} = 451, \textit{Luiando} = 291, \textit{Oiartzun} = 529).
+In total 1759 observations are available (\textit{Laukiz 1} = 479, \textit{Laukiz 2} = 451, \textit{Luiando} = 300, \textit{Oiartzun} = 529).
 The data was surveyed in September 2016.
 
 \begin{figure} [t!]
 	\begin{center}
 		\makebox[\textwidth]{\includegraphics[width=\textwidth] {study_area_hyperspectral.pdf}}
-		\caption{Information about plot location and size, and spatial distribution of trees.}
+		\caption{Information about location, size and spatial distribution of trees for all plots used in this study.}
 		\label{fig:study_area}
 	\end{center}
-\end{figure}
+  \end{figure}
 
 
 \subsection{Hyperspectral data}
@@ -232,19 +232,11 @@ Additional metadata information is available in \autoref{tab:hyperparameter_limi
 \label{tab:hyperparameter_limits}
 \end{table}
 
-
-
-
-
-
 \section{Methods}
-
-\subsection{Exploratory data analysis}
-% TODO: Explain why this is necessary here (differentes between plots)
 
 \subsection{Derivation of indices}
 % TODO: Mention different feature sets
-\noindent To use the full information from the hyperspectral data, all possible vegetation indices supported by the \textit{hsdar} package (90 in total) as well as all possible \ac{NRI} combinations were calculated.
+\noindent To use the full information from the hyperspectral data, all possible vegetation indices supported by the R package \textit{hsdar} (90 in total) as well as all possible \ac{NRI} combinations were calculated.
 The following formula was used for the NRI calculation:
 
 \begin{equation}
@@ -259,44 +251,44 @@ where $i$ and $j$ are the respective band numbers.
 \noindent To account for geometric offsets (which were reported with up to 1 m from \ac{ICGC}), a buffer of two meters around the centroid of the respective tree was used.
 The mean of all pixels touched by this buffer was calculated and assigned to the observations.
 In total, $\frac{125*126}{2} = 7875$ NRIs were calculated .
-Due to four corrupted bands and numerical calculation errors for some band combinations, a total of 7471 indices was available for each observation.
-If an index returned \texttt{NA} for one plot, the index was removed from all plots.
-This decision was based on the fact that due to the mass of available indices and the low number of observations, the latter was valued higher.
+Due to four corrupted bands and numerical calculation errors for some band combinations, a total of 7471 indices were available for each observation.
+All indices which contained missing values for at least one plot were removed from the dataset.
+Observations were given more importance than indices due to the mass of available \ac{NRI} indices.
 
 \subsection{Benchmarking design}
 
-The benchmarking matrix of this study consists of the following algorithms:
+\noindent The benchmarking matrix of this study consists of the following algorithms:
 
 \begin{itemize}
-	\item  Extreme Gradient Boosting (\ac{XGBOOST})
-	\item  Random Forest (\ac{RF})
+	\item  Extreme Gradient Boosting (XGBOOST)
+	\item  Random Forest (RF)
 	\item  Penalized Regression (both L1 and L2)
-	\item  Support Vector Machine (\ac{SVM})
+	\item  Support Vector Machine (SVM)
 \end{itemize}
 
-\ac{RF} and {SVM} are well established algorithms that are widely used in environmental modeling.
+
+\noindent \ac{RF} and {SVM} are well established algorithms that are widely used in environmental modeling.
 Extreme Gradient Boosting (commonly referred to as \ac{XGBOOST}) showed promising results in benchmark competitions in recent years.
-Penalized Regression is a statistical modeling technique that is capable of dealing with highly-correlated covariates by applying a penalization term which shrinks the coefficients of the model.
-The penalties are also known as LASSO (L1) and RIDGE (L2).
+Penalized Regression is a statistical modeling technique that is capable of dealing with highly-correlated covariates by applying a penalization term which shrinks the coefficients of the model \citep{hastie2001}.
+The penalties are also known as "lasso" (L1) and "ridge" (L2).
 The former does not allow the removal of variables from the model (penalization to zero) while the latter does.
 Both penalties can also be combined.
-The combined approach is called "elastic net".
+The combined approach is called "elastic net" but was not used in this work.
 
 \subsubsection{Feature sets}
 % TODO: talk about the reasons behind different features sets: environmental implications
 
-Three feature sets were used in this study:
+\noindent Three feature sets were used in this study with each representing a different way of feature-engineering:
 
 \begin{itemize}
-	\item The raw hyperspectal band information (HR, $n = 122$)
-	\item Vegetation Indices (\ac{VI}, $n = 90$)
-	\item Normalized Ratio Indices (\ac{NRI}, $n = 7471$)
+  \item The raw hyperspectal band information (HR): No feature engineering
+  \item Vegetation Indices (\ac{VI}: Expert-based feature engineering
+  \item Normalized Ratio Indices (\ac{NRI}): Automated feature-engineering
 \end{itemize}
-
 
 \subsubsection{Hyperparameter Optimization}
 
-An exhaustive hyperparameter tuning was applied during nested spatial \ac{CV} for all algorithms.
+\noindent An exhaustive hyperparameter tuning was applied during nested spatial \ac{CV} for all algorithms.
 Maximum Bayesian Optimization \citep{mlrmbo} was used for parameter optimization.
 This approach first composes \textit{n} randomly chosen hyperparameter settings out of a user defined search space.
 After these \textit{n} tries have been evaluated, a new hyperparameter setting, which is going to be evaluated next, is proposed based on a fitted regression model.
@@ -309,18 +301,20 @@ This applies when being compared to methods that do not use information from pre
 
 \subsubsection{Spatial resampling}
 
-A spatial block nested cross-validation was chosen to reduce the influence of spatial autocorrelation as much as possible.
-Each tree plot served as one fold within the resampling setup, resulting in four folds total.
-For the inner level, $p - 1$ folds were used (with $p$ being the number of plots).
+
+\noindent A spatial block nested cross-validation was chosen to reduce the influence of spatial autocorrelation as much as possible.
+Each plot served as one fold within the resampling setup, resulting in four folds total.
+For the inner level (hyperparameter tuning), $p - 1$ folds were used (with $p$ being the number of plots). REF SCHRATZ
 
 \subsection{Dimension reduction}
 
-It is important to distinguish the term "dimension reduction" from "high-dimensionality".
-The former applies to the general methodology of reducing dimensions of features.
-In the modelling field this means to find the best subset of covariates which provides the most predictive power to the model.
-The latter in contrast is restricted to the case when a dataset has $p > n$ where $p$ is the number of covariates and $n$ the number of observations \citep{Hastie2001}.
-Hence, there is no absolute value at which the term can be applied, both for $n$ and $p$.
-Hence for this study the word "high-dimensionality" only applies to the experiments containing the "NRI" feature set (7470 features for 1759 observations).
+\noindent It is important to distinguish the term "dimension reduction" from "high-dimensionality".
+The former refers to the general idea of reducing features from a dataset \citep{vandermaaten2007}.
+In modeling this means finding the best subset of covariates which provide the most predictive power to the model.
+The latter term in contrast is the definition of a dataset attribute:
+When $p > n,$ where $p$ is the number of covariates and $n$ the number of observations \citep{hastie2001}, the dataset qualifies as "high-dimensional".
+There is no absolute value at which the term can be applied, both for $n$ and $p$.
+Hence for this study the word "high-dimensionality" only applies to the experiments using the "NRI" feature set (7470 features for 1759 observations).
 
 The case of a feature-rich dataset comes with several challenges for both model fitting and evaluation.
 
@@ -328,31 +322,29 @@ The case of a feature-rich dataset comes with several challenges for both model 
 	\item Fitting times of the model increase
 	\item Noise is possibly introduced into the model by highly-correlated variables \citep{johnstoneiainm.2009}
 	      % I think we can phrase this better
-	\item The interpretation and prediction of models containing hundreds of covariates becomes more complicated, up to to the point at which interpretation or prediction is not possible anymore \citep{johnstoneiainm.2009}
+	\item Interpretation and prediction becomes more complex, up to the point at which it is not possible anymore \citep{johnstoneiainm.2009}
 \end{itemize}
 
-Especially in the last decade the amount of environmental data increased a lot, paramount by the increased data coverage of satellites.
-The need of applying automated feature-selection methods emerges in more and more studies.
-In the following sub-sections different approaches for selecting features are introduced.
+\noindent In the last decade the amount of environmental data increased a lot, paramount by the increased data coverage of satellites.
+With this the need of applying automated feature-selection methods emerged.
+In the following sections the currently most used feature selection approaches are briefly introduced.
 
 \subsubsection{Filter methods}
 
 % Filter methods
-So called "Filter methods" are one approach.
-The concept of "Filter methods" originates on the idea of ranking features using certain heuristics of an algorithm \citep{chandrashekar2014}.
+\noindent The concept of "Filter methods" originates on the idea of ranking features using certain heuristics of an algorithm \citep{chandrashekar2014}.
 Some filter methods are restricted towards specific types of variables (numeric or nominal data).
 After the covariates have been ranked, a decision needs to be made what features to keep and which to discard \citep{drotar2015}.
 This step is usually done within the optimization phase of the model fitting, along with the hyperparameter tuning.
-Essentially, the number of covariates in the model is treated as a hyperparameter of the respective model.
-The goal is to find the threshold (usually in \% of covariates) at which the model achieves a good performance while requiring the least amount of variables.
-In well-implemented software solutions the calculations of the ranking is only done once and then cached \citep{mlr}.
-Hence in subsequent tuning iterations the results are loaded from the cache instead of getting calculated again.
+Essentially, the number of covariates in the model is treated as a hyperparameter of the model.
+The goal is to optimize the number of features (using the ranked covariates) at which the model achieves the best performance.
+In well-implemented software solutions the filter calculation is only done once and then cached, saving valuable resources \citep{mlr}.
 
 % Ensembe filter methods
-Besides the idea of using single filter methods to rank variables, studies showed that combining several filters using statistical operations such as "minimum", "mean" or "sum" are able to enhance the predictive performance of the resulting models \citep{abeel2010, drotar2017a}.
-This aligns with the recent rise of the "ensemble" approach in model fitting which uses stacking to combine the predictions of multiple models \citep{polikar2012, feurer2015}.
-In this work we also used one ensemble filter method based on the "Borda" aggregation logic \citep{drotar2017a}.
-Here, the ranks of all single filters are summed up leading to a final ranking which consists of the ranks achieved by all filter algorithms.
+Besides the concept of choosing a specific filter method to rank variables, studies showed that combining several filters using statistical operations such as "minimum", "mean" or "sum" are able to enhance the predictive performance of the resulting models \citep{abeel2010, drotar2017a}.
+This aligns with the recent rise of the "ensemble" approach in machine-learning which uses stacking to combine the predictions of multiple models \citep{polikar2012, feurer2015}.
+In this work the "Borda" ensemble filter was applied \citep{drotar2017a}.
+Here, the ranking is based on the sum of all single filters.
 
 Most filter methods are correlation or entropy based.
 A list of all filter methods used in this work along with their respective formulas can be found in Appendix X.
@@ -363,66 +355,48 @@ A list of all filter methods used in this work along with their respective formu
 \subsubsection{Other approaches}
 
 % Wrapper approach
-Another approach to reduce the number of variables is to apply algorithms that are normally used for hyperparameter optimization such as \textit{Random Search} or a \textit{Genetic Algorithm}.
-Here, first a (random) subset of features is chosen based on the selected algorithm.
-In comparison to "filters", no ranking is applied here.
+\noindent Another approach to reduce the number of variables is to apply algorithms that are used for hyperparameter optimization such as "Random Search" or a "Generic Simulated Annealing".
+First a (random) subset of features is chosen based on the selected algorithm.
+In comparison to "filters", no ranking is applied in this step.
 Now the model is fitted on the data and the performance is evaluated.
-A major downside of this approach is that hyperparameter tuning can only start after the feature-selection optimization has ended.
+A disadvantage of this approach is that hyperparameter tuning can only start after the feature-selection optimization has ended.
 Hence, this method is very expensive because two optimization stages need to be run.
-In science this approach is also referred to as "wrapper method".
+In science this approach is also referred to as "wrapper method" \citep{chandrashekar2014, kohavi1997}.
 It was not considered in this work due to the expensive runtime.
 
 % PCA
-A third commonly used method is the "Principal Component Analysis".
+A third commonly used method is the "Principal Component Analysis" \citep{pearson1901, jolliffe2016}.
 Here, the main components of the feature space are extracted and combined.
 Usually the first two components are taken since these contain the major information of the covariates.
-By using the (automatically estimated) explained variance of the main components, the model can rely on a few features containing the condensed information of most variables of the data.
+By using the (automatically estimated) explained variance of the main components, the model can rely on a few features containing the majority of information available in the data.
 This enables a very cheap model fitting with a minimal loss of predictor information.
 However, the resulting features used in the model do not relate anymore to the raw input variables since they are a combination of multiple covariates.
 Interpretation is not possible anymore.
 
 \noindent The complete study was done using the open-source statistical programming language R \citep{rcoreteam2018}.
 The algorithm implementations of the following packages have been used: \textit{xgboost} \citep{chen2016} (\textit{xgboost}), \textit{e1071} \citep{e1071} (Support Vector Machine) and \textit{glmnet} \citep{glmnet} (Ridge Regression).
-The filter methods of the following packages were used: \textit{praznik}, \textit{fselectorrcpp}.
+The filter methods of the following packages were used: \textit{praznik \citep{praznik}}, \textit{FSelectorRcpp} \citep{fselectorrcpp}.
 The R package \textit{mlr} \citep{mlr} was used for all modeling related steps.
 \textit{drake} was used for structuring the work and ensuring reproducbility.
 This study is available as a research compendium on Zenodo (\url{10.5281/zenodo.2635403}).
 
 
+
 \section{Results}
 
-\subsection{Plot characteristics}
-
-%% defoliation boxplots
-%\begin{figure} [t!]
-%\begin{center}
-%\makebox[\textwidth]{\includegraphics[width=0.7\textwidth] {boxplot_defol.pdf}}
-%\caption{Descriptive statistics of the response variable \textit{defoliation}.}
-%\label{fig:defol_boxplots}
-%\end{center}
-%\end{figure}
-
-%\noindent \textit{Oiartzun} shows the highest defoliation ($\bar{x} = 69.22 \%$) among the plots while \textit{Laukiz 2} is the healthiest ($\bar{x} = 13.54 \%$) (\autoref{fig:defol_boxplots}).
-%All plots besides \textit{Luiando} show an evenly distributed level of defoliation across the entire plot.
-
-%\noindent The high degree of defoliation for \textit{Luiando} and \textit{Oiartzun} is also visible in the spectral signatures of the plots (\autoref{fig:spectral_signatures}).
-%Both plots show lower mean reflectance values around the wavelength range 800 nm - 1000 nm compared to \textit{Laukiz 1} and \textit{Laukiz 2}.
-%\textit{Oiartzun} is almost completely missing the reflectance drop at around 815 nm that is visible for all other plots but instead shows a higher magnitude for the reflectance increase at around 920 nm.
-
-%\noindent \textit{Laukiz 2} shows a mean tree density of 61.59 m (\autoref{fig:plot-characteristics}) while all other plots have a higher density (34.64 m (Laukiz 1), 33.01 m (Luiando), 34.96 m (Oiartzun)) (\autoref{fig:plot-characteristics}).
-
 \subsection{Predictive performance}
+
 
 \section{Discussion}
 
 \subsection{Derivation of indices}
 
-\noindent The buffer of 2 m that we used to generate the index value for each observation can be seen critical.
-When using no buffer at all, the possibility is high that a pixel value gets assigned to the tree observation that does not spatially match (due to the geometric offset of 1 m in the hyperspectral data).
+\noindent The decision to use a buffer of 2 m to generate the index value for each observation is questionable.
+When using no buffer at all, the possibility is high that a pixel value gets assigned to the tree observation which does not spatially match with the hyperspectral (due to the geometric offset of 1 m).
 Using a buffer of more than 2 meters would increase the probability of merging information from other trees into the pixel value, blurring the actual value of the tree observation.
 Thats why in our view using a buffer of 2 m was the best compromise here.
 
-another critical point is that the exact number of contributing pixels to the final index value of an observation cannot be determined as it depends on the location of the tree within the pixel grid.
+Another critical point is that the exact number of contributing pixels to the final index value of an observation cannot be determined as it depends on the location of the tree within the pixel grid.
 As the buffer is a circle, it depends on the exact location of a tree observation within a pixel how much surrounding pixels are touched by the buffer.
 If a tree observation is located at the border of the plot, some directions of the buffer will contain no values and the subsequent index value will be calculated using less pixels than if the tree observation is located in the middle of the plot.
 
