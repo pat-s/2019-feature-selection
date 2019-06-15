@@ -1,7 +1,7 @@
 # Random Forest -----------------------------------------------------------
 
 filter_wrapper_rf_borda  = makeFilterWrapper(lrn_rf, fw.method = "E-Borda", cache = TRUE,
-                                             fw.basal.methods = c("FSelectorRcpp_gain.ratio", "FSelectorRcpp_information.gain",
+                                             fw.base.methods = c("FSelectorRcpp_gain.ratio", "FSelectorRcpp_information.gain",
                                                                   "variance", "rank.correlation", "linear.correlation",
                                                                   "mrmr", "praznik_CMIM", "carscore"))
 
@@ -17,7 +17,7 @@ filter_wrapper_rf_carscore  = makeFilterWrapper(lrn_rf, fw.method = "carscore", 
 # XGBOOST -----------------------------------------------------------------
 
 filter_wrapper_xgboost_borda  = makeFilterWrapper(lrn_xgboost, fw.method = "E-Borda", cache = TRUE,
-                                                  fw.basal.methods = c("FSelectorRcpp_gain.ratio", "FSelectorRcpp_information.gain",
+                                                  fw.base.methods = c("FSelectorRcpp_gain.ratio", "FSelectorRcpp_information.gain",
                                                                        "variance", "rank.correlation", "linear.correlation",
                                                                        "mrmr", "praznik_CMIM", "carscore"))
 
@@ -33,7 +33,7 @@ filter_wrapper_xgboost_carscore  = makeFilterWrapper(lrn_xgboost, fw.method = "c
 # SVM ---------------------------------------------------------------------
 
 filter_wrapper_svm_borda  = makeFilterWrapper(lrn_svm, fw.method = "E-Borda", cache = TRUE,
-                                              fw.basal.methods = c("FSelectorRcpp_gain.ratio", "FSelectorRcpp_information.gain",
+                                              fw.base.methods = c("FSelectorRcpp_gain.ratio", "FSelectorRcpp_information.gain",
                                                                    "variance", "rank.correlation", "linear.correlation",
                                                                    "mrmr", "praznik_CMIM", "carscore"))
 
@@ -49,7 +49,7 @@ filter_wrapper_svm_carscore  = makeFilterWrapper(lrn_svm, fw.method = "carscore"
 # LASSO ---------------------------------------------------------------------
 
 filter_wrapper_lasso_borda  = makeFilterWrapper(lrn_lasso, fw.method = "E-Borda", cache = TRUE,
-                                                fw.basal.methods = c("FSelectorRcpp_gain.ratio", "FSelectorRcpp_information.gain",
+                                                fw.base.methods = c("FSelectorRcpp_gain.ratio", "FSelectorRcpp_information.gain",
                                                                      "variance", "rank.correlation", "linear.correlation",
                                                                      "mrmr", "praznik_CMIM", "carscore"))
 
@@ -65,7 +65,7 @@ filter_wrapper_lasso_carscore  = makeFilterWrapper(lrn_lasso, fw.method = "carsc
 # RIDGE ---------------------------------------------------------------------
 
 filter_wrapper_ridge_borda  = makeFilterWrapper(lrn_ridge, fw.method = "E-Borda", cache = TRUE,
-                                                fw.basal.methods = c("FSelectorRcpp_gain.ratio", "FSelectorRcpp_information.gain",
+                                                fw.base.methods = c("FSelectorRcpp_gain.ratio", "FSelectorRcpp_information.gain",
                                                                      "variance", "rank.correlation", "linear.correlation",
                                                                      "mrmr", "praznik_CMIM", "carscore"))
 

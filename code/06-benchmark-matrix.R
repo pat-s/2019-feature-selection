@@ -14,6 +14,7 @@ bm_plan = drake_plan(bm = target(
                 svm_cmim,
                 svm_carscore,
                 svm_no_filter,
+                svm_pca,
 
                 rf_borda,
                 rf_info.gain,
@@ -25,6 +26,7 @@ bm_plan = drake_plan(bm = target(
                 rf_cmim,
                 rf_carscore,
                 rf_no_filter,
+                rf_pca,
 
                 xgboost_borda,
                 xgboost_info.gain,
@@ -36,6 +38,7 @@ bm_plan = drake_plan(bm = target(
                 xgboost_cmim,
                 xgboost_carscore,
                 xgboost_no_filter,
+                xgboost_pca,
 
                 ridge_borda,
                 ridge_info.gain,
@@ -47,6 +50,7 @@ bm_plan = drake_plan(bm = target(
                 ridge_cmim,
                 ridge_carscore,
                 ridge_no_filter,
+                ridge_pca,
 
                 lasso_borda,
                 lasso_info.gain,
@@ -57,7 +61,8 @@ bm_plan = drake_plan(bm = target(
                 lasso_mrmr,
                 lasso_cmim,
                 lasso_carscore,
-                lasso_no_filter
+                lasso_no_filter,
+                lasso_pca
 
                 ),
     # task_name = c("vi", "nri", "hr"), # set pretty names for benchmark matrix

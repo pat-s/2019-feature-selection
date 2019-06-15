@@ -26,7 +26,7 @@ lrn_svm <- makeLearner(
 lrn_lasso <- makeLearner("regr.glmnet", id = "lasso",
                          alpha = 1,
                          standardize = FALSE,
-                         intercept = FALS
+                         intercept = FALSE
 )
 
 # RIDGE ---------------------------------------------------------------------
