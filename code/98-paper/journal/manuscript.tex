@@ -6,7 +6,7 @@
 
 % arara: indent: {overwrite: yes}
 
-% arara: clean: { extensions: [aux, bcf, cod, blg, lof, lot, out, toc, xml, bak0 ] }
+% arara: clean: { extensions: [bcf, cod, blg, lof, lot, out, toc, xml, bak0 ] }
 
 \documentclass[review]{elsarticle}
 
@@ -32,14 +32,6 @@
 \usepackage{textcomp}
 
 \graphicspath{{../03_figures/results/}{./}{../03_figures/data/}}
-
-% enable paragraph as 4th level https://tex.stackexchange.com/questions/60209/how-to-add-an-extra-level-of-sections-with-headings-below-subsubsection
-\usepackage{titlesec}
-\setcounter{secnumdepth}{4}
-\titleformat{\paragraph}
-{\normalfont\small\bfseries}{\theparagraph}{1em}{}
-\titlespacing*{\paragraph}
-{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
 
 % enable linking to subsubsection
 \setcounter{secnumdepth}{3}
@@ -136,6 +128,8 @@
 	\acro{SMBO}{Sequential-based Model Optimization}
 	\acro{SVM}{Support Vector Machine}
 	\acro{TPR}{True Positive Rate}
+	\acro{VI}{vegetation index}
+	\acro{XGBOOST}{extreme gradient boosting}
 \end{acronym}
 
 \section{Introduction}
@@ -185,13 +179,13 @@ In-situ measurements of defoliation at trees (as a proxy for tree health) were c
 The fungi are assumed to infect the trees through open wounds, possibly caused by previous hail damage \citep{iturritxa2014}.
 The dieback of these trees, which are mainly used as timber, causes high economic damages \citep{ganley2009}.
 
-\begin{figure} [t!]
-\begin{center}
-\makebox[\textwidth]{\includegraphics[width=\textwidth] {defoliation-distribution-plot.pdf}}
-\caption{Distribution of defoliation at trees for plots Laukiz 1, Laukiz 2, Luiando and Oiartzun.}
-\label{fig:defol-distr}
-\end{center}
-\end{figure}
+%\begin{figure} [t!]
+%\begin{center}
+%\makebox[\textwidth]{\includegraphics[width=\textwidth] {defoliation-distribution-plot.pdf}}
+%\caption{Distribution of defoliation at trees for plots Laukiz 1, Laukiz 2, Luiando and Oiartzun.}
+%\label{fig:defol-distr}
+%\end{center}
+%\end{figure}
 
 
 
@@ -204,11 +198,11 @@ In total 1750 observations are available (\textit{Laukiz 1} = 479, \textit{Lauki
 The data was surveyed in September 2016.
 
 \begin{figure} [t!]
-\begin{center}
-\makebox[\textwidth]{\includegraphics[width=\textwidth] {study_area_hyperspectral.pdf}}
-\caption{Information about plot location and size, and spatial distribution of trees.}
-\label{fig:study_area}
-\end{center}
+	\begin{center}
+		\makebox[\textwidth]{\includegraphics[width=\textwidth] {study_area_hyperspectral.pdf}}
+		\caption{Information about plot location and size, and spatial distribution of trees.}
+		\label{fig:study_area}
+	\end{center}
 \end{figure}
 
 
@@ -237,6 +231,7 @@ Additional metadata information is available in \autoref{tab:hyperparameter_limi
 \endgroup
 \label{tab:hyperparameter_limits}
 \end{table}
+
 
 
 
@@ -330,10 +325,10 @@ Hence for this study the word "high-dimensionality" only applies to the experime
 The case of a feature-rich dataset comes with several challenges for both model fitting and evaluation.
 
 \begin{itemize}
-  \item Fitting times of the model increase
-  \item Noise is possibly introduced into the model by highly-correlated variables \citep{johnstoneiainm2009}
-  % I think we can phrase this better
-  \item The interpretation and prediction of models containing hundreds of covariates becomes more complicated, up to to the point at which interpretation or prediction is not possible anymore \citep{johnstoneiainm2009}
+	\item Fitting times of the model increase
+	\item Noise is possibly introduced into the model by highly-correlated variables \citep{johnstoneiainm.2009}
+	      % I think we can phrase this better
+	\item The interpretation and prediction of models containing hundreds of covariates becomes more complicated, up to to the point at which interpretation or prediction is not possible anymore \citep{johnstoneiainm.2009}
 \end{itemize}
 
 Especially in the last decade the amount of environmental data increased a lot, paramount by the increased data coverage of satellites.
@@ -436,11 +431,6 @@ This has to be considered when making interpretations about the outcome of this 
 
 \subsection{Performance vs. plot characteristics}
 
-\noindent Relating the modeling error to plot characteristics (mean point density, coefficient of variation) did not show a clear picture: For both comparisons, \textit{Laukiz 2} did not follow the pattern that was observed from the other three plots (\autoref{fig:plot-characteristics}) of having an increase in error with an increase in mean point density and coefficient of variation.
-
-It needs to be considered that we only looked at four plots in this work.
-To make a robust statement about a possible relationship between modeling error and plot characteristics, a larger sample size of plots is needed.
-
 \subsection{Predictive Performance}
 
 \subsubsection{Algorithm benchmarking}
@@ -452,7 +442,7 @@ To make a robust statement about a possible relationship between modeling error 
 % TODO: find studies comparing filter methods
 % TODO: Find studies tackling the case of defoliation
 
-\noindent Other studies analyzing defoliation found that reflectance differences between defoliated and 30 \% defoliated trees of up to 10\% exist in the \ac{NIR} region \citep{rengara2016}.
+\noindent Other studies analyzing defoliation found that reflectance differences between defoliated and 30 \% defoliated trees of up to 10\% exist in the \ac{NIR} region \citep{rengarajan2016}.
 This corresponds with the finding of this study that the most important variables are located in the NIR region.
 
 \cite{goodbody2018} used NDVI and structural measures in as inputs for a partial least squares analysis to model defoliation caused by the spruce budworm.

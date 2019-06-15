@@ -1,0 +1,425 @@
+\begin{thebibliography}{38}
+\expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
+\providecommand{\url}[1]{\texttt{#1}}
+\providecommand{\href}[2]{#2}
+\providecommand{\path}[1]{#1}
+\providecommand{\DOIprefix}{doi:}
+\providecommand{\ArXivprefix}{arXiv:}
+\providecommand{\URLprefix}{URL: }
+\providecommand{\Pubmedprefix}{pmid:}
+\providecommand{\doi}[1]{\href{http://dx.doi.org/#1}{\path{#1}}}
+\providecommand{\Pubmed}[1]{\href{pmid:#1}{\path{#1}}}
+\providecommand{\bibinfo}[2]{#2}
+\ifx\xfnm\relax \def\xfnm[#1]{\unskip,\space#1}\fi
+%Type = Article
+\bibitem[{Abeel et~al.(2010)Abeel, Helleputte, {Van de Peer}, Dupont \&
+  Saeys}]{abeel2010}
+\bibinfo{author}{Abeel, T.}, \bibinfo{author}{Helleputte, T.},
+  \bibinfo{author}{{Van de Peer}, Y.}, \bibinfo{author}{Dupont, P.}, \&
+  \bibinfo{author}{Saeys, Y.} (\bibinfo{year}{2010}).
+\newblock \bibinfo{title}{Robust biomarker identification for cancer diagnosis
+  with ensemble feature selection methods}.
+\newblock {\it \bibinfo{journal}{Bioinformatics}\/},  {\it
+  \bibinfo{volume}{26}\/}, \bibinfo{pages}{392--398}.
+  \DOIprefix\doi{10/dfznxv}.
+\newblock \bibinfo{note}{00000}.
+%Type = Article
+\bibitem[{Adamczyk \& Osberger(2015)}]{adamczyk2015}
+\bibinfo{author}{Adamczyk, J.}, \& \bibinfo{author}{Osberger, A.}
+  (\bibinfo{year}{2015}).
+\newblock \bibinfo{title}{Red-edge vegetation indices for detecting and
+  assessing disturbances in {{Norway}} spruce dominated mountain forests}.
+\newblock {\it \bibinfo{journal}{International Journal of Applied Earth
+  Observation and Geoinformation}\/},  {\it \bibinfo{volume}{37}\/},
+  \bibinfo{pages}{90--99}. \DOIprefix\doi{10.1016/j.jag.2014.10.013}.
+\newblock \bibinfo{note}{00000}.
+%Type = Article
+\bibitem[{Belgiu \& Dr{\u a}gu{\c t}(2016)}]{belgiu2016}
+\bibinfo{author}{Belgiu, M.}, \& \bibinfo{author}{Dr{\u a}gu{\c t}, L.}
+  (\bibinfo{year}{2016}).
+\newblock \bibinfo{title}{Random forest in remote sensing: {{A}} review of
+  applications and future directions}.
+\newblock {\it \bibinfo{journal}{ISPRS Journal of Photogrammetry and Remote
+  Sensing}\/},  {\it \bibinfo{volume}{114}\/}, \bibinfo{pages}{24--31}.
+  \DOIprefix\doi{10.1016/j.isprsjprs.2016.01.011}.
+\newblock \bibinfo{note}{00000}.
+%Type = Article
+\bibitem[{Bergstra \& Bengio(2012)}]{bergstra2012}
+\bibinfo{author}{Bergstra, J.}, \& \bibinfo{author}{Bengio, Y.}
+  (\bibinfo{year}{2012}).
+\newblock \bibinfo{title}{Random {{Search}} for {{Hyper}}-parameter
+  {{Optimization}}}.
+\newblock {\it \bibinfo{journal}{J. Mach. Learn. Res.}\/},  {\it
+  \bibinfo{volume}{13}\/}, \bibinfo{pages}{281--305}.
+\newblock \bibinfo{note}{00000}.
+%Type = Article
+\bibitem[{Bischl et~al.(2016)Bischl, Lang, Kotthoff, Schiffner, Richter,
+  Studerus, Casalicchio \& Jones}]{mlr}
+\bibinfo{author}{Bischl, B.}, \bibinfo{author}{Lang, M.},
+  \bibinfo{author}{Kotthoff, L.}, \bibinfo{author}{Schiffner, J.},
+  \bibinfo{author}{Richter, J.}, \bibinfo{author}{Studerus, E.},
+  \bibinfo{author}{Casalicchio, G.}, \& \bibinfo{author}{Jones, Z.~M.}
+  (\bibinfo{year}{2016}).
+\newblock \bibinfo{title}{mlr: Machine learning in {R}}.
+\newblock {\it \bibinfo{journal}{Journal of Machine Learning Research}\/},
+  {\it \bibinfo{volume}{17}\/}, \bibinfo{pages}{1--5}.
+\newblock \bibinfo{note}{00000}.
+%Type = Article
+\bibitem[{Bischl et~al.(2017)Bischl, Richter, Bossek, Horn, Thomas \&
+  Lang}]{mlrmbo}
+\bibinfo{author}{Bischl, B.}, \bibinfo{author}{Richter, J.},
+  \bibinfo{author}{Bossek, J.}, \bibinfo{author}{Horn, D.},
+  \bibinfo{author}{Thomas, J.}, \& \bibinfo{author}{Lang, M.}
+  (\bibinfo{year}{2017}).
+\newblock \bibinfo{title}{{{mlrMBO}}: {{A Modular Framework}} for
+  {{Model}}-{{Based Optimization}} of {{Expensive Black}}-{{Box Functions}}}.
+\newblock {\it \bibinfo{journal}{ArXiv e-prints}\/}, .
+  \href{http://arxiv.org/abs/1703.03373}{\tt arXiv:1703.03373}.
+\newblock \bibinfo{note}{00000}.
+%Type = Article
+\bibitem[{Chandrashekar \& Sahin(2014)}]{chandrashekar2014}
+\bibinfo{author}{Chandrashekar, G.}, \& \bibinfo{author}{Sahin, F.}
+  (\bibinfo{year}{2014}).
+\newblock \bibinfo{title}{A survey on feature selection methods}.
+\newblock {\it \bibinfo{journal}{Computers \& Electrical Engineering}\/},  {\it
+  \bibinfo{volume}{40}\/}, \bibinfo{pages}{16--28}. \DOIprefix\doi{10/gdxxt7}.
+\newblock \bibinfo{note}{01259}.
+%Type = Inproceedings
+\bibitem[{Chen \& Guestrin(2016)}]{chen2016}
+\bibinfo{author}{Chen, T.}, \& \bibinfo{author}{Guestrin, C.}
+  (\bibinfo{year}{2016}).
+\newblock \bibinfo{title}{{{XGBoost}}: {{A Scalable Tree Boosting System}}}.
+\newblock In {\it \bibinfo{booktitle}{Proceedings of the {{22Nd ACM SIGKDD
+  International Conference}} on {{Knowledge Discovery}} and {{Data Mining}}}\/}
+  {{KDD}} '16 (pp. \bibinfo{pages}{785--794}).
+\newblock \bibinfo{address}{{New York, NY, USA}}: \bibinfo{publisher}{{ACM}}.
+\newblock \DOIprefix\doi{10.1145/2939672.2939785} \bibinfo{note}{00000}.
+%Type = Article
+\bibitem[{Clark et~al.(2018)Clark, {Buck-Diaz} \& Evens}]{clark2018}
+\bibinfo{author}{Clark, M.~L.}, \bibinfo{author}{{Buck-Diaz}, J.}, \&
+  \bibinfo{author}{Evens, J.} (\bibinfo{year}{2018}).
+\newblock \bibinfo{title}{Mapping of forest alliances with simulated
+  multi-seasonal hyperspectral satellite imagery}.
+\newblock {\it \bibinfo{journal}{Remote Sensing of Environment}\/},  {\it
+  \bibinfo{volume}{210}\/}, \bibinfo{pages}{490--507}.
+  \DOIprefix\doi{10/gdjpvk}.
+\newblock \bibinfo{note}{00000}.
+%Type = Article
+\bibitem[{Drot{\'a}r et~al.(2015)Drot{\'a}r, Gazda \& Sm{\'e}kal}]{drotar2015}
+\bibinfo{author}{Drot{\'a}r, P.}, \bibinfo{author}{Gazda, J.}, \&
+  \bibinfo{author}{Sm{\'e}kal, Z.} (\bibinfo{year}{2015}).
+\newblock \bibinfo{title}{An experimental comparison of feature selection
+  methods on two-class biomedical datasets}.
+\newblock {\it \bibinfo{journal}{Computers in Biology and Medicine}\/},  {\it
+  \bibinfo{volume}{66}\/}, \bibinfo{pages}{1--10}.
+  \DOIprefix\doi{10.1016/j.compbiomed.2015.08.010}.
+\newblock \bibinfo{note}{00029}.
+%Type = Inproceedings
+\bibitem[{Drot{\'a}r et~al.(2017)Drot{\'a}r, Gazda \& Gazda}]{drotar2017a}
+\bibinfo{author}{Drot{\'a}r, P.}, \bibinfo{author}{Gazda, M.}, \&
+  \bibinfo{author}{Gazda, J.} (\bibinfo{year}{2017}).
+\newblock \bibinfo{title}{Heterogeneous ensemble feature selection based on
+  weighted {{Borda}} count}.
+\newblock In {\it \bibinfo{booktitle}{2017 9th {{International Conference}} on
+  {{Information Technology}} and {{Electrical Engineering}} ({{ICITEE}})}\/}
+  (pp. \bibinfo{pages}{1--4}).
+\newblock \DOIprefix\doi{10.1109/iciteed.2017.8250495} \bibinfo{note}{00000}.
+%Type = Incollection
+\bibitem[{Feurer et~al.(2015)Feurer, Klein, Eggensperger, Springenberg, Blum \&
+  Hutter}]{feurer2015}
+\bibinfo{author}{Feurer, M.}, \bibinfo{author}{Klein, A.},
+  \bibinfo{author}{Eggensperger, K.}, \bibinfo{author}{Springenberg, J.},
+  \bibinfo{author}{Blum, M.}, \& \bibinfo{author}{Hutter, F.}
+  (\bibinfo{year}{2015}).
+\newblock \bibinfo{title}{Efficient and {{Robust Automated Machine Learning}}}.
+\newblock In \bibinfo{editor}{C.~Cortes}, \bibinfo{editor}{N.~D. Lawrence},
+  \bibinfo{editor}{D.~D. Lee}, \bibinfo{editor}{M.~Sugiyama}, \&
+  \bibinfo{editor}{R.~Garnett} (Eds.), {\it \bibinfo{booktitle}{Advances in
+  {{Neural Information Processing Systems}} 28}\/} (pp.
+  \bibinfo{pages}{2962--2970}).
+\newblock \bibinfo{publisher}{{Curran Associates, Inc.}}
+\newblock \bibinfo{note}{00000}.
+%Type = Article
+\bibitem[{Friedman et~al.(2010)Friedman, Hastie \& Tibshirani}]{glmnet}
+\bibinfo{author}{Friedman, J.}, \bibinfo{author}{Hastie, T.}, \&
+  \bibinfo{author}{Tibshirani, R.} (\bibinfo{year}{2010}).
+\newblock \bibinfo{title}{Regularization {{Paths}} for {{Generalized Linear
+  Models}} via {{Coordinate Descent}}}.
+\newblock {\it \bibinfo{journal}{Journal of Statistical Software}\/},  {\it
+  \bibinfo{volume}{33}\/}, \bibinfo{pages}{1--22}. \DOIprefix\doi{10/bb3d}.
+\newblock \bibinfo{note}{00000}.
+%Type = Article
+\bibitem[{Ganley et~al.(2009)Ganley, Watt, Manning \& Iturritxa}]{ganley2009}
+\bibinfo{author}{Ganley, R.~J.}, \bibinfo{author}{Watt, M.~S.},
+  \bibinfo{author}{Manning, L.}, \& \bibinfo{author}{Iturritxa, E.}
+  (\bibinfo{year}{2009}).
+\newblock \bibinfo{title}{A global climatic risk assessment of pitch canker
+  disease}.
+\newblock {\it \bibinfo{journal}{Canadian Journal of Forest Research}\/},  {\it
+  \bibinfo{volume}{39}\/}, \bibinfo{pages}{2246--2256}.
+  \DOIprefix\doi{10.1139/x09-131}.
+\newblock \bibinfo{note}{00000}.
+%Type = Article
+\bibitem[{Goodbody et~al.(2018)Goodbody, Coops, Hermosilla, Tompalski,
+  McCartney \& MacLean}]{goodbody2018}
+\bibinfo{author}{Goodbody, T. R.~H.}, \bibinfo{author}{Coops, N.~C.},
+  \bibinfo{author}{Hermosilla, T.}, \bibinfo{author}{Tompalski, P.},
+  \bibinfo{author}{McCartney, G.}, \& \bibinfo{author}{MacLean, D.~A.}
+  (\bibinfo{year}{2018}).
+\newblock \bibinfo{title}{Digital aerial photogrammetry for assessing
+  cumulative spruce budworm defoliation and enhancing forest inventories at a
+  landscape-level}.
+\newblock {\it \bibinfo{journal}{ISPRS Journal of Photogrammetry and Remote
+  Sensing}\/},  {\it \bibinfo{volume}{142}\/}, \bibinfo{pages}{1--11}.
+  \DOIprefix\doi{10.1016/j.isprsjprs.2018.05.012}.
+\newblock \bibinfo{note}{00000}.
+%Type = Book
+\bibitem[{Hastie et~al.(2001)Hastie, Friedman \& Tibshirani}]{Hastie2001}
+\bibinfo{author}{Hastie, T.}, \bibinfo{author}{Friedman, J.}, \&
+  \bibinfo{author}{Tibshirani, R.} (\bibinfo{year}{2001}).
+\newblock {\it \bibinfo{title}{The {{Elements}} of {{Statistical
+  Learning}}}\/}.
+\newblock \bibinfo{publisher}{{Springer New York}}.
+\newblock \DOIprefix\doi{10.1007/978-0-387-21606-5} \bibinfo{note}{00000}.
+%Type = Article
+\bibitem[{Hawry{\l}o et~al.(2018)Hawry{\l}o, Bednarz, Wezyk \&
+  Szostak}]{hawrylo2018}
+\bibinfo{author}{Hawry{\l}o, P.}, \bibinfo{author}{Bednarz, B.},
+  \bibinfo{author}{Wezyk, P.}, \& \bibinfo{author}{Szostak, M.}
+  (\bibinfo{year}{2018}).
+\newblock \bibinfo{title}{Estimating defoliation of {{Scots}} pine stands using
+  machine learning methods and vegetation indices of {{Sentinel}}-2}.
+\newblock {\it \bibinfo{journal}{European Journal of Remote Sensing}\/},  {\it
+  \bibinfo{volume}{51}\/}, \bibinfo{pages}{194--204}.
+  \DOIprefix\doi{10/gf3rbq}.
+\newblock \bibinfo{note}{00000}.
+%Type = Incollection
+\bibitem[{Hutter et~al.(2011)Hutter, Hoos \& {Leyton-Brown}}]{hutter2011}
+\bibinfo{author}{Hutter, F.}, \bibinfo{author}{Hoos, H.~H.}, \&
+  \bibinfo{author}{{Leyton-Brown}, K.} (\bibinfo{year}{2011}).
+\newblock \bibinfo{title}{Sequential model-based optimization for general
+  algorithm configuration}.
+\newblock In {\it \bibinfo{booktitle}{Lecture {{Notes}} in {{Computer
+  Science}}}\/} (pp. \bibinfo{pages}{507--523}).
+\newblock \bibinfo{publisher}{{Springer Berlin Heidelberg}}.
+\newblock \DOIprefix\doi{10.1007/978-3-642-25566-3_40} \bibinfo{note}{00000}.
+%Type = Article
+\bibitem[{Ingram et~al.(2005)Ingram, Dawson \& Whittaker}]{ingram2005}
+\bibinfo{author}{Ingram, J.~C.}, \bibinfo{author}{Dawson, T.~P.}, \&
+  \bibinfo{author}{Whittaker, R.~J.} (\bibinfo{year}{2005}).
+\newblock \bibinfo{title}{Mapping tropical forest structure in southeastern
+  {{Madagascar}} using remote sensing and artificial neural networks}.
+\newblock {\it \bibinfo{journal}{Remote Sensing of Environment}\/},  {\it
+  \bibinfo{volume}{94}\/}, \bibinfo{pages}{491--507}.
+  \DOIprefix\doi{10/bjfnb6}.
+\newblock \bibinfo{note}{00000}.
+%Type = Article
+\bibitem[{Iturritxa et~al.(2014)Iturritxa, Mesanza \& Brenning}]{iturritxa2014}
+\bibinfo{author}{Iturritxa, E.}, \bibinfo{author}{Mesanza, N.}, \&
+  \bibinfo{author}{Brenning, A.} (\bibinfo{year}{2014}).
+\newblock \bibinfo{title}{Spatial analysis of the risk of major forest diseases
+  in {{Monterey}} pine plantations}.
+\newblock {\it \bibinfo{journal}{Plant Pathology}\/},  {\it
+  \bibinfo{volume}{64}\/}, \bibinfo{pages}{880--889}.
+  \DOIprefix\doi{10.1111/ppa.12328}.
+\newblock \bibinfo{note}{00000}.
+%Type = Article
+\bibitem[{Iturritxa et~al.(2017)Iturritxa, Trask, Mesanza, Raposo,
+  {Elvira-Recuenco} \& Patten}]{iturritxa2017}
+\bibinfo{author}{Iturritxa, E.}, \bibinfo{author}{Trask, T.},
+  \bibinfo{author}{Mesanza, N.}, \bibinfo{author}{Raposo, R.},
+  \bibinfo{author}{{Elvira-Recuenco}, M.}, \& \bibinfo{author}{Patten, C.~L.}
+  (\bibinfo{year}{2017}).
+\newblock \bibinfo{title}{Biocontrol of {{Fusarium}} circinatum infection of
+  young {{Pinus}} radiata trees}.
+\newblock {\it \bibinfo{journal}{Forests}\/},  {\it \bibinfo{volume}{8}\/},
+  \bibinfo{pages}{32}. \DOIprefix\doi{10.3390/f8020032}.
+\newblock \bibinfo{note}{00000}.
+%Type = Article
+\bibitem[{Jiang et~al.(2014)Jiang, Wang, {de Bie}, Skidmore, Liu, Song, Zhang,
+  Wang \& Shao}]{jiang2014}
+\bibinfo{author}{Jiang, Y.}, \bibinfo{author}{Wang, T.}, \bibinfo{author}{{de
+  Bie}, C. A. J.~M.}, \bibinfo{author}{Skidmore, A.~K.}, \bibinfo{author}{Liu,
+  X.}, \bibinfo{author}{Song, S.}, \bibinfo{author}{Zhang, L.},
+  \bibinfo{author}{Wang, J.}, \& \bibinfo{author}{Shao, X.}
+  (\bibinfo{year}{2014}).
+\newblock \bibinfo{title}{Satellite-derived vegetation indices contribute
+  significantly to the prediction of epiphyllous liverworts}.
+\newblock {\it \bibinfo{journal}{Ecological Indicators}\/},  {\it
+  \bibinfo{volume}{38}\/}, \bibinfo{pages}{72--80}.
+  \DOIprefix\doi{10.1016/j.ecolind.2013.10.024}.
+\newblock \bibinfo{note}{00000}.
+%Type = Article
+\bibitem[{{Johnstone Iain M.} \& {Titterington D.
+  Michael}(2009)}]{johnstoneiainm.2009}
+\bibinfo{author}{{Johnstone Iain M.}}, \& \bibinfo{author}{{Titterington D.
+  Michael}} (\bibinfo{year}{2009}).
+\newblock \bibinfo{title}{Statistical challenges of high-dimensional data}.
+\newblock {\it \bibinfo{journal}{Philosophical Transactions of the Royal
+  Society A: Mathematical, Physical and Engineering Sciences}\/},  {\it
+  \bibinfo{volume}{367}\/}, \bibinfo{pages}{4237--4253}.
+  \DOIprefix\doi{10/cbk4qk}.
+\newblock \bibinfo{note}{00000}.
+%Type = Article
+\bibitem[{Jones et~al.(1998)Jones, Schonlau \& Welch}]{jones1998}
+\bibinfo{author}{Jones, D.~R.}, \bibinfo{author}{Schonlau, M.}, \&
+  \bibinfo{author}{Welch, W.~J.} (\bibinfo{year}{1998}).
+\newblock \bibinfo{title}{Efficient global optimization of expensive black-box
+  functions}.
+\newblock {\it \bibinfo{journal}{Journal of Global Optimization}\/},  {\it
+  \bibinfo{volume}{13}\/}, \bibinfo{pages}{455--492}.
+  \DOIprefix\doi{10.1023/a:1008306431147}.
+\newblock \bibinfo{note}{00000}.
+%Type = Article
+\bibitem[{Lary et~al.(2016)Lary, Alavi, Gandomi \& Walker}]{lary2016}
+\bibinfo{author}{Lary, D.~J.}, \bibinfo{author}{Alavi, A.~H.},
+  \bibinfo{author}{Gandomi, A.~H.}, \& \bibinfo{author}{Walker, A.~L.}
+  (\bibinfo{year}{2016}).
+\newblock \bibinfo{title}{Machine learning in geosciences and remote sensing}.
+\newblock {\it \bibinfo{journal}{Geoscience Frontiers}\/},  {\it
+  \bibinfo{volume}{7}\/}, \bibinfo{pages}{3--10}.
+  \DOIprefix\doi{10.1016/j.gsf.2015.07.003}.
+\newblock \bibinfo{note}{00000}.
+%Type = Article
+\bibitem[{Ma et~al.(2015)Ma, Wu, Wang, Huang, Ranjan, Zomaya \& Jie}]{ma2015}
+\bibinfo{author}{Ma, Y.}, \bibinfo{author}{Wu, H.}, \bibinfo{author}{Wang, L.},
+  \bibinfo{author}{Huang, B.}, \bibinfo{author}{Ranjan, R.},
+  \bibinfo{author}{Zomaya, A.}, \& \bibinfo{author}{Jie, W.}
+  (\bibinfo{year}{2015}).
+\newblock \bibinfo{title}{Remote sensing big data computing: {{Challenges}} and
+  opportunities}.
+\newblock {\it \bibinfo{journal}{Future Generation Computer Systems}\/},  {\it
+  \bibinfo{volume}{51}\/}, \bibinfo{pages}{47--60}. \DOIprefix\doi{10/gdq98h}.
+\newblock \bibinfo{note}{00000}.
+%Type = Article
+\bibitem[{Mascaro et~al.(2014)Mascaro, Asner, Knapp, {Kennedy-Bowdoin}, Martin,
+  Anderson, Higgins \& Chadwick}]{mascaro2014}
+\bibinfo{author}{Mascaro, J.}, \bibinfo{author}{Asner, G.~P.},
+  \bibinfo{author}{Knapp, D.~E.}, \bibinfo{author}{{Kennedy-Bowdoin}, T.},
+  \bibinfo{author}{Martin, R.~E.}, \bibinfo{author}{Anderson, C.},
+  \bibinfo{author}{Higgins, M.}, \& \bibinfo{author}{Chadwick, K.~D.}
+  (\bibinfo{year}{2014}).
+\newblock \bibinfo{title}{A {{Tale}} of {{Two}} ``{{Forests}}'': {{Random
+  Forest Machine Learning Aids Tropical Forest Carbon Mapping}}}.
+\newblock {\it \bibinfo{journal}{PLOS ONE}\/},  {\it \bibinfo{volume}{9}\/},
+  \bibinfo{pages}{e85993}. \DOIprefix\doi{10/f5vmrb}.
+\newblock \bibinfo{note}{00074}.
+%Type = Article
+\bibitem[{Mesanza et~al.(2016)Mesanza, Iturritxa \& Patten}]{mesanza2016}
+\bibinfo{author}{Mesanza, N.}, \bibinfo{author}{Iturritxa, E.}, \&
+  \bibinfo{author}{Patten, C.~L.} (\bibinfo{year}{2016}).
+\newblock \bibinfo{title}{Native rhizobacteria as biocontrol agents of
+  {{Heterobasidion}} annosum s.s. and {{Armillaria}} mellea infection of
+  {{Pinus}} radiata}.
+\newblock {\it \bibinfo{journal}{Biological Control}\/},  {\it
+  \bibinfo{volume}{101}\/}, \bibinfo{pages}{8--16}.
+  \DOIprefix\doi{10.1016/j.biocontrol.2016.06.003}.
+\newblock \bibinfo{note}{00000}.
+%Type = Article
+\bibitem[{Meyer et~al.(2017)Meyer, Dimitriadou, Hornik, Weingessel \&
+  Leisch}]{e1071}
+\bibinfo{author}{Meyer, D.}, \bibinfo{author}{Dimitriadou, E.},
+  \bibinfo{author}{Hornik, K.}, \bibinfo{author}{Weingessel, A.}, \&
+  \bibinfo{author}{Leisch, F.} (\bibinfo{year}{2017}).
+\newblock \bibinfo{title}{E1071: {{Misc Functions}} of the {{Department}} of
+  {{Statistics}}, {{Probability Theory Group}} ({{Formerly}}: {{E1071}}), {{TU
+  Wien}}}, .
+\newblock \bibinfo{note}{00000 R package version 1.6-8}.
+%Type = Article
+\bibitem[{Michez et~al.(2016)Michez, Pi{\'e}gay, Lisein, Claessens \&
+  Lejeune}]{michez2016}
+\bibinfo{author}{Michez, A.}, \bibinfo{author}{Pi{\'e}gay, H.},
+  \bibinfo{author}{Lisein, J.}, \bibinfo{author}{Claessens, H.}, \&
+  \bibinfo{author}{Lejeune, P.} (\bibinfo{year}{2016}).
+\newblock \bibinfo{title}{Classification of riparian forest species and health
+  condition using multi-temporal and hyperspatial imagery from unmanned aerial
+  system}.
+\newblock {\it \bibinfo{journal}{Environmental Monitoring and Assessment}\/},
+  {\it \bibinfo{volume}{188}\/}, \bibinfo{pages}{146}.
+  \DOIprefix\doi{10.1007/s10661-015-4996-2}.
+\newblock \bibinfo{note}{00064}.
+%Type = Incollection
+\bibitem[{Polikar(2012)}]{polikar2012}
+\bibinfo{author}{Polikar, R.} (\bibinfo{year}{2012}).
+\newblock \bibinfo{title}{Ensemble {{Learning}}}.
+\newblock In \bibinfo{editor}{C.~Zhang}, \& \bibinfo{editor}{Y.~Ma} (Eds.),
+  {\it \bibinfo{booktitle}{Ensemble {{Machine Learning}}: {{Methods}} and
+  {{Applications}}}\/} (pp. \bibinfo{pages}{1--34}).
+\newblock \bibinfo{address}{{Boston, MA}}: \bibinfo{publisher}{{Springer US}}.
+\newblock \DOIprefix\doi{10.1007/978-1-4419-9326-7_1} \bibinfo{note}{00224}.
+%Type = Book
+\bibitem[{{R Core Team}(2018)}]{rcoreteam2018}
+\bibinfo{author}{{R Core Team}} (\bibinfo{year}{2018}).
+\newblock {\it \bibinfo{title}{R: {{A Language}} and {{Environment}} for
+  {{Statistical Computing}}}\/}.
+\newblock \bibinfo{address}{{Vienna, Austria}}.
+\newblock \bibinfo{note}{00000 R version 3.5.2}.
+%Type = Inproceedings
+\bibitem[{Rengarajan \& Schott(2016)}]{rengarajan2016}
+\bibinfo{author}{Rengarajan, R.}, \& \bibinfo{author}{Schott, J.~R.}
+  (\bibinfo{year}{2016}).
+\newblock \bibinfo{title}{Modeling forest defoliation using simulated {{BRDF}}
+  and assessing its effect on reflectance and sensor reaching radiance}.
+\newblock In {\it \bibinfo{booktitle}{Remote {{Sensing}} and {{Modeling}} of
+  {{Ecosystems}} for {{Sustainability XIII}}}\/} (p. \bibinfo{pages}{997503}).
+\newblock \bibinfo{publisher}{{International Society for Optics and Photonics}}
+  volume \bibinfo{volume}{9975}.
+\newblock \DOIprefix\doi{10.1117/12.2235391} \bibinfo{note}{00000}.
+%Type = Article
+\bibitem[{da~Rocha et~al.(2018)da~Rocha, Torres, Jacovine, Leite, Gelcer,
+  Neves, Schettini, Villanova, da~Silva, Reis \& Zanuncio}]{rocha2018}
+\bibinfo{author}{da~Rocha, S. J. S.~S.}, \bibinfo{author}{Torres, C. M. M.~E.},
+  \bibinfo{author}{Jacovine, L. A.~G.}, \bibinfo{author}{Leite, H.~G.},
+  \bibinfo{author}{Gelcer, E.~M.}, \bibinfo{author}{Neves, K.~M.},
+  \bibinfo{author}{Schettini, B. L.~S.}, \bibinfo{author}{Villanova, P.~H.},
+  \bibinfo{author}{da~Silva, L.~F.}, \bibinfo{author}{Reis, L.~P.}, \&
+  \bibinfo{author}{Zanuncio, J.~C.} (\bibinfo{year}{2018}).
+\newblock \bibinfo{title}{Artificial neural networks: {{Modeling}} tree
+  survival and mortality in the {{Atlantic Forest}} biome in {{Brazil}}}.
+\newblock {\it \bibinfo{journal}{Science of The Total Environment}\/},  {\it
+  \bibinfo{volume}{645}\/}, \bibinfo{pages}{655--661}.
+  \DOIprefix\doi{10/gf3rbr}.
+\newblock \bibinfo{note}{00001}.
+%Type = Article
+\bibitem[{Townsend et~al.(2012)Townsend, Singh, Foster, Rehberg, Kingdon,
+  Eshleman \& Seagle}]{townsend2012}
+\bibinfo{author}{Townsend, P.~A.}, \bibinfo{author}{Singh, A.},
+  \bibinfo{author}{Foster, J.~R.}, \bibinfo{author}{Rehberg, N.~J.},
+  \bibinfo{author}{Kingdon, C.~C.}, \bibinfo{author}{Eshleman, K.~N.}, \&
+  \bibinfo{author}{Seagle, S.~W.} (\bibinfo{year}{2012}).
+\newblock \bibinfo{title}{A general {{Landsat}} model to predict canopy
+  defoliation in broadleaf deciduous forests}.
+\newblock {\it \bibinfo{journal}{Remote Sensing of Environment}\/},  {\it
+  \bibinfo{volume}{119}\/}, \bibinfo{pages}{255--265}.
+  \DOIprefix\doi{10.1016/j.rse.2011.12.023}.
+\newblock \bibinfo{note}{00064}.
+%Type = Article
+\bibitem[{Trunk(1979)}]{trunk1979}
+\bibinfo{author}{Trunk, G.~V.} (\bibinfo{year}{1979}).
+\newblock \bibinfo{title}{A {{Problem}} of {{Dimensionality}}: {{A Simple
+  Example}}}.
+\newblock {\it \bibinfo{journal}{IEEE Transactions on Pattern Analysis and
+  Machine Intelligence}\/},  {\it \bibinfo{volume}{PAMI-1}\/},
+  \bibinfo{pages}{306--307}. \DOIprefix\doi{10/bb2j4t}.
+\newblock \bibinfo{note}{00279}.
+%Type = Article
+\bibitem[{Xu et~al.(2016)Xu, Caramanis \& Mannor}]{xu2016}
+\bibinfo{author}{Xu, H.}, \bibinfo{author}{Caramanis, C.}, \&
+  \bibinfo{author}{Mannor, S.} (\bibinfo{year}{2016}).
+\newblock \bibinfo{title}{Statistical {{Optimization}} in {{High Dimensions}}}.
+\newblock {\it \bibinfo{journal}{Operations Research}\/},  {\it
+  \bibinfo{volume}{64}\/}, \bibinfo{pages}{958--979}.
+  \DOIprefix\doi{10/f8zbmj}.
+\newblock \bibinfo{note}{00000}.
+%Type = Article
+\bibitem[{Zhang et~al.(2016)Zhang, Thapa, Ross \& Gann}]{zhang2016}
+\bibinfo{author}{Zhang, K.}, \bibinfo{author}{Thapa, B.},
+  \bibinfo{author}{Ross, M.}, \& \bibinfo{author}{Gann, D.}
+  (\bibinfo{year}{2016}).
+\newblock \bibinfo{title}{Remote sensing of seasonal changes and disturbances
+  in mangrove forest: A case study from {{South Florida}}}.
+\newblock {\it \bibinfo{journal}{Ecosphere}\/},  (p. \bibinfo{pages}{e01366}).
+  \DOIprefix\doi{10.1002/ecs2.1366@10.1002/(ISSN)2150-8925.ExtremeColdSpells}.
+\newblock \bibinfo{note}{00000}.
+
+\end{thebibliography}
