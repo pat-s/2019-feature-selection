@@ -559,10 +559,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree21871f7690cb8b863e2c796ace838ad97bc893b2targetblank21871f7a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/21871f7690cb8b863e2c796ace838ad97bc893b2" target="_blank">21871f7</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree0a74a96f7000093a22284bd70854f5046a89a19etargetblank0a74a96a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/0a74a96f7000093a22284bd70854f5046a89a19e" target="_blank">0a74a96</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree21871f7690cb8b863e2c796ace838ad97bc893b2targetblank21871f7a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree0a74a96f7000093a22284bd70854f5046a89a19etargetblank0a74a96a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -584,13 +584,12 @@ Ignored files:
 
 Untracked files:
     Untracked:  inst/study-area-map/
-    Untracked:  packrat/snapshot.lock
 
 Unstaged changes:
+    Modified:   .Rprofile
     Modified:   R/04-fun-sentinel-processing.R
     Modified:   R/05-mlr-project.R
     Modified:   R/fun-visualization.R
-    Modified:   _drake.R
     Modified:   analysis/report-defoliation.Rmd
     Modified:   analysis/spectral-signatures.Rmd
     Modified:   analysis/timeline.Rmd
@@ -603,13 +602,8 @@ Unstaged changes:
     Modified:   code/05-modeling/project/tune-ctrl.R
     Modified:   code/05-modeling/project/tune.R
     Modified:   code/07-reports.R
-    Deleted:    code/98-paper/journal/Biblio_hyperspectral.bib.bak
-    Deleted:    code/98-paper/journal/Biblio_hyperspectral.bib.sav
-    Deleted:    code/98-paper/journal/Schratz_hyperspectral.bbl
-    Deleted:    code/98-paper/journal/Schratz_hyperspectral.spl
-    Deleted:    code/98-paper/journal/Schratz_hyperspectral.synctex.gz
-    Deleted:    code/98-paper/journal/Schratz_hyperspectral.tex
     Modified:   code/99-packages.R
+    Deleted:    docs/figure/eda.Rmd/defoliation-distribution-plot-1.pdf
     Modified:   inst/README.md
     Modified:   inst/cloud-cover-2018.rds
     Modified:   log/cache3.log
@@ -868,6 +862,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pat-s/2019-feature-selection/55e63a83072653558877994d7e397acec0a7fdb5/docs/eda.html" target="_blank">55e63a8</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-06-15
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1959,7 +1970,7 @@ pat-s
 <div id="sd-skewness" class="section level1">
 <h1>sd / skewness</h1>
 <pre><code># A tibble: 4 x 2
-  plot     `((sd(defoliation)/mean(defoliation)) * 100)/e1071::skewness(de~
+  plot     `((sd(defoliation)/mean(defoliation)) * 100)/e1071::skewness(de…
   &lt;fct&gt;                                                               &lt;dbl&gt;
 1 Laukiz 1                                                           -50.6 
 2 Laukiz 2                                                            55.0 
@@ -1984,6 +1995,43 @@ Warning in is.na(x): is.na() applied to non-(list or vector) of type
 Warning in is.na(x): is.na() applied to non-(list or vector) of type
 &#39;expression&#39;</code></pre>
 <p><img src="figure/eda.Rmd/defoliation-distribution-plot-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-defoliation-distribution-plot-1">
+Past versions of defoliation-distribution-plot-1.png
+</button>
+</p>
+<div id="fig-defoliation-distribution-plot-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/55e63a83072653558877994d7e397acec0a7fdb5/docs/figure/eda.Rmd/defoliation-distribution-plot-1.png" target="_blank">55e63a8</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-06-15
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="point-density" class="section level1">
 <h1>Point density</h1>
@@ -2014,7 +2062,12 @@ Matrix products: default
 BLAS/LAPACK: /opt/spack/opt/spack/linux-centos7-x86_64/gcc-7.3.0/openblas-0.3.5-zncvk4jccaqyfl4z3vszaboeps6hyzta/lib/libopenblas_zen-r0.3.5.so
 
 locale:
-[1] C
+ [1] LC_CTYPE=en_GB.UTF-8       LC_NUMERIC=C              
+ [3] LC_TIME=en_GB.UTF-8        LC_COLLATE=en_GB.UTF-8    
+ [5] LC_MONETARY=en_GB.UTF-8    LC_MESSAGES=en_GB.UTF-8   
+ [7] LC_PAPER=en_GB.UTF-8       LC_NAME=C                 
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+[11] LC_MEASUREMENT=en_GB.UTF-8 LC_IDENTIFICATION=C       
 
 attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
