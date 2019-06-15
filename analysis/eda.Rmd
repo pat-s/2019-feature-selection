@@ -1,0 +1,224 @@
+---
+title: "Exploratory data analysis"
+output: 
+  workflowr::wflow_html:
+    includes:
+      in_header: header.html
+editor_options:
+  chunk_output_type: console
+author: "Patrick Schratz"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  fig.retina = 3,
+  fig.align = "center",
+  fig.width = 6.93,
+  fig.height = 6.13,
+  out.width = "100%",
+  echo = FALSE
+)
+
+source(here::here("code/99-packages.R"))
+sourceDirectory("R")
+
+# load drake objects
+loadd(vi_data, nri_data, bands_data, coords_vi_nri_clean)
+library("DataExplorer")
+library("dplyr")
+library("ggsci")
+library("ggplot2")
+```
+
+# Datasets {.tabset .tabset-fade}
+
+## VI
+
+### Overview
+
+```{r eda-1}
+intro <- introduce(vi_data)
+knitr::kable(intro)
+```
+
+### Histograms
+
+```{r eda-2}
+plot_histogram(vi_data)
+```
+
+### PCA
+
+```{r eda-3}
+plot_prcomp(vi_data)
+```
+
+### Corr
+
+```{r eda-4}
+plot_correlation(vi_data)
+```
+
+## NRI
+
+### Overview
+
+```{r eda-5}
+intro <- introduce(nri_data)
+knitr::kable(intro)
+```
+
+### Histograms
+
+No histograms for NRI -> too many features.
+
+### PCA
+
+```{r eda-6}
+plot_prcomp(nri_data)
+```
+
+### Corr
+
+```{r eda-7}
+plot_correlation(nri_data)
+```
+
+## HR
+
+### Overview
+
+```{r eda-8}
+intro <- introduce(bands_data)
+knitr::kable(intro)
+```
+
+### Histograms
+
+```{r eda-9}
+plot_histogram(bands_data)
+```
+
+### PCA
+
+```{r eda-10}
+plot_prcomp(bands_data)
+```
+
+### Corr
+
+```{r eda-11}
+plot_correlation(bands_data)
+```
+
+# Custom plots
+
+```{r eda-12}
+vi_data_plot <- vi_data %>%
+  mutate(plot = factor(rep(
+    c("Laukiz 1", "Laukiz 2", "Luiando", "Oiartzun"),
+    c(479, 451, 300, 529)
+  )))
+```
+
+# Mean defoliation per plot
+
+```{r eda-13}
+mean_defol <- vi_data_plot %>%
+  group_by(plot) %>%
+  summarise(mean(defoliation)) %>%
+  pull(.)
+vi_data_plot %>%
+  group_by(plot) %>%
+  summarise(mean(defoliation))
+```
+
+# Coefficient of variation
+
+```{r eda-14}
+cov_defol <- vi_data_plot %>%
+  group_by(plot) %>%
+  summarise((sd(defoliation) / mean(defoliation)) * 100) %>%
+  pull(.)
+vi_data_plot %>%
+  group_by(plot) %>%
+  summarise((sd(defoliation) / mean(defoliation)) * 100)
+```
+
+# sd / skewness
+
+```{r eda-15}
+sd_skewness_defol <- vi_data_plot %>%
+  group_by(plot) %>%
+  summarise(((sd(defoliation) / mean(defoliation)) * 100) / e1071::skewness(defoliation)) %>%
+  pull(.)
+vi_data_plot %>%
+  group_by(plot) %>%
+  summarise(((sd(defoliation) / mean(defoliation)) * 100) / e1071::skewness(defoliation))
+```
+
+```{r eda-16}
+sd_defol <- vi_data_plot %>%
+  group_by(plot) %>%
+  summarise(sd(defoliation)) %>%
+  pull(.)
+vi_data_plot %>%
+  group_by(plot) %>%
+  summarise(sd(defoliation))
+```
+
+```{r eda-17}
+boxplot_defol <- vi_data_plot %>%
+  group_by(plot) %>%
+  ggboxplot(
+    x = "plot", y = "defoliation", color = "plot",
+    add = "jitter", add.params = list(size = "defoliation")
+  ) +
+  scale_size(range = c(0.5, 0.5)) +
+  annotate("text",
+    label = expression(bold(atop("n = 479", bar(x) ~ "= 55.96"))), x = 1,
+    y = 112, size = 3, colour = "#BC3C29", fontface = 2
+  ) +
+  annotate("text",
+    label = expression(bold(atop("n = 451", bar(x) ~ "= 13.54"))), x = 2,
+    y = 112, size = 3, colour = "#0072B5", fontface = 2
+  ) +
+  annotate("text",
+    label = expression(bold(atop("n = 300", bar(x) ~ "= 68.44"))), x = 3,
+    y = 112, size = 3, colour = "#E18727", fontface = 2
+  ) +
+  annotate("text",
+    label = expression(bold(atop("n = 529", bar(x) ~ "= 69.22"))), x = 4,
+    y = 112, size = 3, colour = "#20854E", fontface = 2
+  ) +
+  scale_color_nejm() +
+  theme(legend.position = "none") +
+  labs(y = "Total defoliation per tree (%)", x = "Plot")
+boxplot_defol
+```
+
+# Point density
+
+In Meters.
+
+```{r eda-18}
+plots <- list("Laukiz 1", "Laukiz 2", "Luiando", "Oiartzun")
+dist <- map(plots, ~ {
+  coords <- coords_vi_nri_clean %>%
+    mutate(plot = factor(rep(
+      c("Laukiz 1", "Laukiz 2", "Luiando", "Oiartzun"),
+      c(479, 451, 300, 529)
+    ))) %>%
+    filter(plot == .x) %>%
+    dplyr::select(-plot)
+  points <- SpatialPoints(
+    coords = coords,
+    proj4string = CRS("+proj=utm +zone=30 +ellps=WGS84 +datum=WGS84 +units=m +no_defs")
+  )
+  distance <- mean(as.dist(pointDistance(points, 
+                                         allpairs = TRUE, 
+                                         lonlat = FALSE)))
+})
+set_names(dist, plots)
+dist_plots <- unlist(dist)
+```
