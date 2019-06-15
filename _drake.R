@@ -22,6 +22,7 @@ resampling_paper_plan = code_to_plan("code/05-modeling/paper/resampling.R")
 param_set_paper_plan = code_to_plan("code/05-modeling/paper/param-sets.R")
 tune_ctrl_paper_plan = code_to_plan("code/05-modeling/paper/tune-ctrl.R")
 filter_paper_plan = code_to_plan("code/05-modeling/paper/filter-wrapper.R")
+pca_paper_plan = code_to_plan("code/05-modeling/paper/pca-wrapper.R")
 tuning_paper_plan = code_to_plan("code/05-modeling/paper/tune-wrapper.R")
 source("code/06-benchmark-matrix.R")
 
@@ -55,7 +56,8 @@ plan_project = bind_plans(data_plan, download_plan, hyperspectral_plan, learners
 
 plan_paper = bind_plans(data_plan, download_plan, hyperspectral_plan, learners_paper_plan,
                         resampling_paper_plan, param_set_paper_plan, tune_ctrl_paper_plan,
-                        filter_paper_plan, tuning_paper_plan, bm_plan, reports_plan
+                        filter_paper_plan, tuning_paper_plan, bm_plan, reports_plan,
+                        pca_paper_plan
 )
 
 options(clustermq.scheduler = "slurm",
@@ -78,11 +80,21 @@ plan_paper %<>% mutate(stage = as.factor(stage))
 
 # paper -------------------------------------------------------------------
 
-drake_config(plan_paper,
-             verbose = 2, targets = c("bm_hr_task_svm_cmim", "bm_vi_task_svm_cmim", "bm_nri_task_svm_cmim"), lazy_load = "promise",
-             console_log_file = "log/drake.log", cache_log_file = "log/cache3.log",
+# drake_config(plan_paper,
+#              verbose = 2, lazy_load = "promise",
+#              console_log_file = "log/drake.log", cache_log_file = "log/cache3.log",
+#              caching = "worker",
+#              template = list(log_file = "log/worker%a.log", n_cpus = 4, memory = 40000),
+#              prework = quote(future::plan(future::multiprocess, workers = 4)),
+#              garbage_collection = TRUE, jobs = 4, parallelism = "clustermq"
+# )
+
+
+drake_config(plan_paper, target = "spectral_signatures_wfr",
+             verbose = 2, lazy_load = "promise",
+             console_log_file = "log/drake2.log",
              caching = "worker",
-             template = list(log_file = "log/worker%a.log", n_cpus = 4, memory = 40000),
-             prework = quote(future::plan(future::multisession, workers = 4)),
+             template = list(log_file = "log/2-worker%a.log", n_cpus = 1, memory = 10000),
+             #prework = quote(future::plan(future::multiprocess, workers = 4)),
              garbage_collection = TRUE, jobs = 1, parallelism = "clustermq"
 )
