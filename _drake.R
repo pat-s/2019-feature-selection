@@ -45,18 +45,18 @@ train_plan$stage = "modeling"
 task_plan$stage = "modeling"
 bm_plan$stage = "benchmark"
 # prediction$stage = "prediction"
-reports_plan$stage = "reports"
+reports_plan_paper$stage = "reports"
 
 # # Combine all -------------------------------------------------------------
 #
 plan_project = bind_plans(data_plan, download_plan, hyperspectral_plan, learners_plan,
                           resampling_plan, param_set_plan, tune_ctrl_plan, train_plan,
-                          tuning_plan, task_plan, reports_plan, sentinel_plan
+                          tuning_plan, task_plan, reports_plan_project, sentinel_plan
 )
 
 plan_paper = bind_plans(data_plan, download_plan, hyperspectral_plan, learners_paper_plan,
                         resampling_paper_plan, param_set_paper_plan, tune_ctrl_paper_plan,
-                        filter_paper_plan, tuning_paper_plan, bm_plan, reports_plan,
+                        filter_paper_plan, tuning_paper_plan, bm_plan, reports_plan_paper,
                         pca_paper_plan
 )
 
@@ -90,7 +90,7 @@ plan_paper %<>% mutate(stage = as.factor(stage))
 # )
 
 
-drake_config(plan_paper, target = "spectral_signatures_wfr",
+drake_config(plan_paper, target = c("spectral_signatures_wfr", "eda_wfr"),
              verbose = 2, lazy_load = "promise",
              console_log_file = "log/drake2.log",
              caching = "worker",
