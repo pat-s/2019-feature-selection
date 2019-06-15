@@ -8,6 +8,7 @@
 #SBATCH --array=1-{{ n_jobs }}
 
 cd ~/papers/2019-feature-selection/
+spack load gcc@7.3.0
 spack load r@3.5.2
 
 # share pandoc
