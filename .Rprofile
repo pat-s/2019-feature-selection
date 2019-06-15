@@ -3,3 +3,6 @@ source("packrat/init.R")
 #### -- End Packrat Autoloader -- ####
 
 options(drake_make_menu = FALSE)
+
+library("drake")
+library("usethis")
