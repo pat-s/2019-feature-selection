@@ -224,8 +224,6 @@ dist_plots <- unlist(dist)
 ```
 
 ```{r echo = FALSE}
-file_move(list.files(here("docs/figure/eda.Rmd/"), 
-                     pattern = "defoliation-distribution-plot", 
-                     full.names = TRUE),
-          here("code/98-paper/journal/"))
+file_move("docs/figure/eda.Rmd/defoliation-distribution-plot-1.pdf",
+          "code/98-paper/journal/")
 ```
