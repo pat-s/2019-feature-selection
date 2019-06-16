@@ -167,13 +167,13 @@ If hyperspectral data is available, lots of indices can be derived.
 One issue that comes with this approach is the case of "high-dimensionality" \citep{trunk1979, xu2016}.
 Even though \ac{ML} algorithms are capable of handling highly-correlated input variables, the fitting time of models increases substantially and the interpretation of results becomes more complicated.
 Also, in recent years the awareness of conducting proper tuning of model hyperparameters has increased in applied modelling fields.
-The reseach questions of this study are formulated around the handling of high-dimensionality in environmental modeling:
+The reseach questions of this study are formulated around the handling of feature-rich datasets in environmental modeling:
 
 \begin{itemize}
-	\item How to handle and analyze high-dimensional data including model optimization while accounting for spatial characteristics?
-	\item Does the calculation of arbitrary indices add any value to the analysis or is the band information from the sensor already sufficient?
-	\item How can interpretability of the model be maintained while at the same time using all possible input data?
-\end{itemize}
+	\item Do different environmental feature sets show a substantial different in performance when predicting defoliation?
+    \item How do feature-selection methods perform amongst each other and do they improve the predictive performance?
+    \item Is is possible to map defolation at a tree level using high-resolution hyperspectral data at a sufficient error rate?
+    \item Which features were most important to the model to detect defoliation at trees?\end{itemize}
 
 \noindent State-of-the-art machine-learning techniques were compared using three feature sets with different feature-selection approaches including a relatively novel approach of ensemble filters.
 To model the numeric response variable defoliation at trees model-based optimization was applied for hyperparameter tuning.
