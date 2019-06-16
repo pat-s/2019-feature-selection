@@ -4,7 +4,7 @@
 % arara: xelatex: {synctex: yes, interaction: nonstopmode}
 % arara: xelatex: {synctex: yes, interaction: nonstopmode}
 
-% arara: indent: {overwrite: yes}
+%% arara: indent: {overwrite: yes}
 
 % arara: clean: { extensions: [bcf, cod, blg, lof, lot, out, toc, xml, bak0 ] }
 
@@ -97,13 +97,18 @@
 	% geringerer Zeilenabstand
 	%\setlength{\itemsep}{-\parsep}
 	\acro{AGB}{Above-Ground Biomass}
+	\acro{ALS}{airborn laser scanning}
 	\acro{ANN}{Artificial Neural Network}
 	\acro{AUROC}{Area Under the Receiver Operating Characteristics Curve}
 	\acro{BRT}{Boosted Regression Trees}
 	\acro{CART}{Classification and Regression Trees}
+	\acro{CNN}{convolutional neural networks}
 	\acro{CV}{cross-validation}
+	\acro{DAP}{digital aerial photogrammetry}
 	\acro{ENM}{Environmental Niche Modeling}
 	\acro{FPR}{False Positive Rate}
+	\acro{FFS}{forward feature-selection}
+	\acro{FS}{feature-selection}
 	\acro{GAM}{Generalized Additive Model}
 	\acro{GBM}{Gradient Boosting Machine}
 	\acro{GLM}{Generalized Linear Model}
@@ -115,9 +120,11 @@
 	\acro{NDII}{Normalized Difference Infrared Index}
 	\acro{NIR}{Near-Infrared}
 	\acro{NRI}{Normalized Ratio Index}
-	\acro{OLS}{Ordinary Least Squares}
+	\acro{OLS}{ordinary least squares}
+	\acro{LiDAR}{light detection and ranging}
 	\acro{LOWESS}{Locally Weighted Scatter Plot Smoothing}
 	\acro{PISR}{Potential Incoming Solar Radiation}
+	\acro{PLS}{partial least-squares}
 	\acro{RBF}{Radial Basis Function}
 	\acro{RF}{Random Forest}
 	\acro{RMSE}{Root Mean Square Error}
@@ -340,7 +347,7 @@ Essentially, the number of covariates in the model is treated as a hyperparamete
 The goal is to optimize the number of features (using the ranked covariates) at which the model achieves the best performance.
 In well-implemented software solutions the filter calculation is only done once and then cached, saving valuable resources \citep{mlr}.
 
-% Ensembe filter methods
+% Ensemble filter methods
 Besides the concept of choosing a specific filter method to rank variables, studies showed that combining several filters using statistical operations such as "minimum", "mean" or "sum" are able to enhance the predictive performance of the resulting models \citep{abeel2010, drotar2017a}.
 This aligns with the recent rise of the "ensemble" approach in machine-learning which uses stacking to combine the predictions of multiple models \citep{polikar2012, feurer2015}.
 In this work the "Borda" ensemble filter was applied \citep{drotar2017a}.
@@ -377,7 +384,7 @@ Interpretation is not possible anymore.
 The algorithm implementations of the following packages have been used: \textit{xgboost} \citep{chen2016} (\textit{xgboost}), \textit{e1071} \citep{e1071} (Support Vector Machine) and \textit{glmnet} \citep{glmnet} (Ridge Regression).
 The filter methods of the following packages were used: \textit{praznik \citep{praznik}}, \textit{FSelectorRcpp} \citep{fselectorrcpp}.
 The R package \textit{mlr} \citep{mlr} was used for all modeling related steps.
-\textit{drake} was used for structuring the work and ensuring reproducbility.
+\textit{drake} was used for structuring the work and ensuring reproducibility.
 This study is available as a research compendium on Zenodo (\url{10.5281/zenodo.2635403}).
 
 
@@ -394,7 +401,7 @@ This study is available as a research compendium on Zenodo (\url{10.5281/zenodo.
 \noindent The decision to use a buffer of 2 m to generate the index value for each observation is questionable.
 When using no buffer at all, the possibility is high that a pixel value gets assigned to the tree observation which does not spatially match with the hyperspectral (due to the geometric offset of 1 m).
 Using a buffer of more than 2 meters would increase the probability of merging information from other trees into the pixel value, blurring the actual value of the tree observation.
-Thats why in our view using a buffer of 2 m was the best compromise here.
+That is why in our view using a buffer of 2 m was the best compromise here.
 
 Another critical point is that the exact number of contributing pixels to the final index value of an observation cannot be determined as it depends on the location of the tree within the pixel grid.
 As the buffer is a circle, it depends on the exact location of a tree observation within a pixel how much surrounding pixels are touched by the buffer.
@@ -411,41 +418,35 @@ This has to be considered when making interpretations about the outcome of this 
 
 \subsection{Feature selection methods}
 
-\subsection{Comparison to other studies}
-% TODO: Mention that (probably) most environmental studies only use PCA
-% TODO: find studies comparing filter methods
-% TODO: Find studies tackling the case of defoliation
+\subsection{Comparison to other studies}A
+% NOTE: no environmental studies use filter methods, some use FFS
+% NOTE: only few studies analyze defoliation
 
-Most other studies analyzing defoliation operated on the plot rather than the tree level due to spatial resolution of the satellite products that served as the input data (\citep{townsend2012, debeurs2008a}.
-Studies focusing on the tree-level used ground-level methods such as \ac{ALS} or \ac{LiDAR} \citep{meng2018, kalin2019}.
+\noindent Most other studies analyzing defoliation operated on the plot rather than the tree level.
+This originated simply due to spatial resolution of the satellite products that served as the input data \citep{townsend2012, debeurs2008a, rengarajan2016}.
 
-\noindent Other studies analyzing defoliation found that reflectance differences between defoliated and 30 \% defoliated trees of up to 10\% exist in the \ac{NIR} region \citep{rengarajan2016}.
-This corresponds with the finding of this study that the most important variables are located in the NIR region.
+Studies focusing on tree-level defoliation used ground-level methods such as \ac{ALS} or \ac{LiDAR} \citep{meng2018, kalin2019}.
+\cite{meng2018} used \ac{OLS} regression methods while \cite{kalin2019} retrieved information out of ground-level RGB photos using \ac{CNN}.
+Both study designs are substantially different compared to the setup of this work.
+In addition, no spatial \ac{CV} or \ac{FS} was used.
+\cite{goodbody2018} used a \ac{PLS} model with high-resolution \ac{DAP} to predict cumulative defoliation caused by the spruce budworm.
+Study results indicated that spectral metrics were found to be most helpful for the model.
+Incorporating such metrics (both spectral and structural) could be a possible enhancement for future works.
 
-\cite{goodbody2018} used NDVI and structural measures in as inputs for a partial least squares analysis to model defoliation caused by the spruce budworm.
-Results showed that metrics from spectral features were most important.
-Incorporating spectral metrics could be a possible enhancement for future studies.
+\cite{shendryk2016, ludwig2019} are studies which are more similar in their methodology but focus on a different response variable.
+\cite{shendryk2016} used machine-learning models with \ac{ALS} data to study dieback of trees for eucalyptus forests.
+A grid-search was used for hyperparameter tuning and a \ac{FFS} for variable selection.
+\cite{ludwig2019} analyzed woody cover in South Africa using spatial \ac{CV} and a relatively novel spatial \ac{FS} approach \citep{meyer2018} on a Random Forest classifier.
 
-\cite{townsend2012} used Landsat data to model defoliation caused by insect herbivores.
-They found that the \ac{NDII} ($\frac{Band 4 - Band 5}{Band 4 + Band 5}$) and the moisture stress index ($\frac{Band 5}{Band 4}$) gave better results than using NDVI.
-Overall, they used 10 vegetation indices derived from Landsat data.
 
-% TODO: Find missing reference
-%MODIS data was used by \cite{debeursEstimatingEffectGypsy2008} to model defoliation caused by the gypsy moth using vegetation indices such as NDVI, EVI, NDWI and NDII.
-
-%All of these examples validate the approach of using vegetation indices to model defoliation.
-%Even though the spatial resolution of the data in these studies varied between hundreds of meters (MODIS) \cite{debeursEstimatingEffectGypsy2008} and centimeters \cite{goodbody2018}, high resolution data is preferred to fit accurate models.
-%Also, the importance of certain indices (e.g. NDVI, EVI) will vary based on the data and resolution.
-%The finding of this work that the vegetation indices GDVI and EVI are most important for the fitted model could not be verified by other studies.
-%However, the presented ones did often only use a small subset of the vegetation indices that were used in this study.
-
-%We could not find a study that used recent machine-learning techniques in combination with a high amount of variables to model defoliation.
-%This fact highlights the importance of this work and will hopefully encourage scientists to use machine-learning techniques, feature selection methods and a wider selection of vegetation indices when assessing defoliation in the future.
-
+In summary, we could not find studies using filter methods for \ac{FS} or \ac{NRI} indices in their work with a relation to forest health.
+Most studies used only one algorithm (usually Random Forest) without strong arguments why this particular one has been selected.
+In our view the number of possible derivable input features is often higher than the number of variables used in the end, missing out potential helpful information from the data.
+These findings underline the importance of this work in the field of forest health modeling.
 
 \section{Outlook and conclusion}
 
-\noindent In this work we used various indices derived from hyperspectral remote sensing data to estimate defoliationas a proxy for tree health in northern Spain.
+\noindent In this work we used various indices derived from hyperspectral remote sensing data to estimate defoliation as a proxy for tree health in northern Spain.
 In the algorithm comparison \textit{xgboost} showed the best performance among the tested ones.
 Even though \ac{RR} is able to handle highly correlated data, it was far from achieving an acceptable performance in this work.
 
@@ -453,7 +454,7 @@ The fitted models on the plot level showed a promising performance with RMSE val
 The performance of the model containing all data (four plots) was acceptable (RMSE 29.59) but can be improved by adding more observations from other plots in future studies.
 
 The spatial prediction showed a satisfying result making it possible to distinguish highly defoliated plots from plots with low defoliation easily.
-The most important indices for the fitted model were widely known vegetations indices such as EVI, GDVI or NDVI.
+The most important indices for the fitted model were widely known vegetation indices such as EVI, GDVI or NDVI.
 In future studies it would be interesting to link the indices of this work to other indicators of forest/vegetation health and analyze their importance and the model performances.
 
 \section{Appendix}
@@ -484,3 +485,4 @@ In future studies it would be interesting to link the indices of this work to ot
 \bibliography{Biblio}
 
 \end{document}
+
