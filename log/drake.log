@@ -1,76 +1,904 @@
-2019-05-22 16:14:54.026267 | cache /home/patrick/papers/2019-feature-selection/.drake
-2019-05-22 16:14:54.034588 | analyze environment
-2019-05-22 16:14:55.673736 | import tune_ctrl_wrapper
-2019-05-22 16:14:55.677164 | import tune_wrapper
-2019-05-22 16:14:55.680399 | import train_wrapper
-2019-05-22 16:14:55.682375 | import download_trees
-2019-05-22 16:14:55.684504 | import calc_nri_indices
-2019-05-22 16:14:55.686581 | import get_records
-2019-05-22 16:14:55.688598 | import calc_veg_indices
-2019-05-22 16:14:55.690594 | import extract_coords
-2019-05-22 16:14:55.692501 | import copy_cloud
-2019-05-22 16:14:55.694924 | import raster::extract
-2019-05-22 16:14:55.697040 | import create_prediction_df
-2019-05-22 16:14:55.699049 | import ras_to_sf
-2019-05-22 16:14:55.701186 | import raster::mask
-2019-05-22 16:14:55.703439 | import dplyr::mutate
-2019-05-22 16:14:55.706594 | import raster::projectRaster
-2019-05-22 16:14:55.710802 | import raster::crop
-2019-05-22 16:14:55.713102 | import dplyr::filter
-2019-05-22 16:14:55.715356 | import dplyr::select
-2019-05-22 16:14:55.717340 | import download_locations
-2019-05-22 16:14:55.720033 | import mosaic_images
-2019-05-22 16:14:55.722167 | import get_coordinates
-2019-05-22 16:14:55.724059 | import unzip_images
-2019-05-22 16:14:55.725984 | import calculate_vi
-2019-05-22 16:14:55.728543 | import download_forest_mask
-2019-05-22 16:14:55.730465 | import prediction_raster
-2019-05-22 16:14:55.732476 | import download_images
-2019-05-22 16:14:55.734611 | import raster::disaggregate
-2019-05-22 16:14:55.736836 | import raster::aggregate
-2019-05-22 16:14:55.739293 | import purrr::discard
-2019-05-22 16:14:55.741350 | import download_hyperspectral
-2019-05-22 16:14:55.743357 | import predict_defoliation
-2019-05-22 16:14:55.745278 | import scale_defoliation
-2019-05-22 16:14:55.747396 | import file analysis/defoliation-maps.Rmd
-2019-05-22 16:14:55.752592 | import process_hyperspec_helper
-2019-05-22 16:14:55.756711 | import clean_single_plots
-2019-05-22 16:14:55.759241 | import mutate_defol
-2019-05-22 16:14:55.761407 | import split_into_feature_sets
-2019-05-22 16:14:55.763742 | import extract_indices_to_plot
-2019-05-22 16:14:55.766025 | import extract_bands_to_plot
-2019-05-22 16:14:55.768569 | import stack_bands
-2019-05-22 16:14:55.771337 | import mosaic_clouds
-2019-05-22 16:14:55.773892 | import mask_mosaic
-2019-05-22 16:14:55.776340 | import mask_vi
-2019-05-22 16:14:55.780442 | import process_hyperspec
-2019-05-22 16:14:55.784365 | find more outdated targets
-2019-05-22 16:14:55.804776 | find more outdated targets
-2019-05-22 16:14:55.814171 | find more outdated targets
-2019-05-22 16:14:55.823371 | find more outdated targets
-2019-05-22 16:14:55.828745 | find more outdated targets
-2019-05-22 16:14:55.835611 | find more outdated targets
-2019-05-22 16:14:55.844365 | find more outdated targets
-2019-05-22 16:14:55.853795 | find more outdated targets
-2019-05-22 16:14:55.859367 | find more outdated targets
-2019-05-22 16:14:55.866069 | find more outdated targets
-2019-05-22 16:14:55.871411 | find more outdated targets
-2019-05-22 16:14:55.876512 | find more outdated targets
-2019-05-22 16:14:55.879928 | find more outdated targets
-2019-05-22 16:14:55.883990 | find more outdated targets
-2019-05-22 16:14:55.887222 | find more outdated targets
-2019-05-22 16:14:55.902697 | find more outdated targets
-2019-05-22 16:14:55.906508 | find more outdated targets
-2019-05-22 16:14:55.911937 | find more outdated targets
-2019-05-22 16:14:55.915391 | find more outdated targets
-2019-05-22 16:14:55.916844 | find downstream outdated targets
-2019-05-22 16:14:55.919353 | isolate oudated targets
-2019-05-22 16:14:55.923446 | construct priority queue
-2019-05-22 16:14:56.308870 | setting common data
-2019-05-22 16:14:56.315410 | begin scheduling targets
-2019-05-22 16:15:12.359214 | sending common data
-2019-05-22 16:15:12.692533 | target defoliation_maps_wfr
-2019-05-22 16:15:12.697309 | build defoliation_maps_wfr on an hpc worker
-2019-05-22 16:15:23.659949 | fail defoliation_maps_wfr
-2019-05-22 16:15:23.716667 | Error: Target ` defoliation_maps_wfr ` failed. Call `diagnose( defoliation_maps_wfr )` for details. Error message:
-   Pandoc is not installed. Please use RStudio or install pandoc manually
+edi | 93465 | 2019-06-18 13:26:03.950343 |  | begin drake_config()
+edi | 93465 | 2019-06-18 13:26:03.958198 |  | cache /home/patrick/papers/2019-feature-selection/.drake
+edi | 93465 | 2019-06-18 13:26:03.985018 |  | analyze environment
+edi | 93465 | 2019-06-18 13:26:03.997317 | panel.cor | analyze
+edi | 93465 | 2019-06-18 13:26:04.003253 | train_wrapper | analyze
+edi | 93465 | 2019-06-18 13:26:04.007176 | tune_wrapper | analyze
+edi | 93465 | 2019-06-18 13:26:04.011086 | tune_ctrl_wrapper | analyze
+edi | 93465 | 2019-06-18 13:26:04.014830 | download_trees | analyze
+edi | 93465 | 2019-06-18 13:26:04.019129 | process_hyperspec | analyze
+edi | 93465 | 2019-06-18 13:26:04.023900 | calc_nri_indices | analyze
+edi | 93465 | 2019-06-18 13:26:04.028753 | get_records | analyze
+edi | 93465 | 2019-06-18 13:26:04.033568 | extract_coords | analyze
+edi | 93465 | 2019-06-18 13:26:04.038121 | calc_veg_indices | analyze
+edi | 93465 | 2019-06-18 13:26:04.042949 | panel.hist | analyze
+edi | 93465 | 2019-06-18 13:26:04.049447 | copy_cloud | analyze
+edi | 93465 | 2019-06-18 13:26:04.054960 | extract_indices_to_plot | analyze
+edi | 93465 | 2019-06-18 13:26:04.062456 | extract_bands_to_plot | analyze
+edi | 93465 | 2019-06-18 13:26:04.068330 | create_prediction_df | analyze
+edi | 93465 | 2019-06-18 13:26:04.073838 | ras_to_sf | analyze
+edi | 93465 | 2019-06-18 13:26:04.078479 | mask_vi | analyze
+edi | 93465 | 2019-06-18 13:26:04.084012 | mutate_defol | analyze
+edi | 93465 | 2019-06-18 13:26:04.089167 | test_age_imputation | analyze
+edi | 93465 | 2019-06-18 13:26:04.095537 | age_imputation | analyze
+edi | 93465 | 2019-06-18 13:26:04.105443 | tuning_plan | analyze
+edi | 93465 | 2019-06-18 13:26:04.109154 | hyperspectral_plan | analyze
+edi | 93465 | 2019-06-18 13:26:04.112658 | param_set_paper_plan | analyze
+edi | 93465 | 2019-06-18 13:26:04.116091 | resampling_plan | analyze
+edi | 93465 | 2019-06-18 13:26:04.118982 | tune_ctrl_paper_plan | analyze
+edi | 93465 | 2019-06-18 13:26:04.122187 | learners_plan | analyze
+edi | 93465 | 2019-06-18 13:26:04.125510 | tuning_paper_plan | analyze
+edi | 93465 | 2019-06-18 13:26:04.128517 | download_plan | analyze
+edi | 93465 | 2019-06-18 13:26:04.131739 | pca_paper_plan | analyze
+edi | 93465 | 2019-06-18 13:26:04.134707 | task_plan | analyze
+edi | 93465 | 2019-06-18 13:26:04.137803 | create_defoliation_map | analyze
+edi | 93465 | 2019-06-18 13:26:04.143457 | plan_paper | analyze
+edi | 93465 | 2019-06-18 13:26:04.146810 | process_hyperspec_helper | analyze
+edi | 93465 | 2019-06-18 13:26:04.152865 | my_pairs | analyze
+edi | 93465 | 2019-06-18 13:26:04.157326 | get_coordinates | analyze
+edi | 93465 | 2019-06-18 13:26:04.162110 | clean_single_plots | analyze
+edi | 93465 | 2019-06-18 13:26:04.169466 | download_locations | analyze
+edi | 93465 | 2019-06-18 13:26:04.174968 | mosaic_images | analyze
+edi | 93465 | 2019-06-18 13:26:04.182261 | unzip_images | analyze
+edi | 93465 | 2019-06-18 13:26:04.187227 | the.col.hist | analyze
+edi | 93465 | 2019-06-18 13:26:04.190867 | reports_plan_project | analyze
+edi | 93465 | 2019-06-18 13:26:04.194416 | log_response | analyze
+edi | 93465 | 2019-06-18 13:26:04.198361 | trainLearner.regr.ranger.pow | analyze
+edi | 93465 | 2019-06-18 13:26:04.203062 | getFeatureImportanceLearner.regr.ranger.pow | analyze
+edi | 93465 | 2019-06-18 13:26:04.206810 | getOOBPredsLearner.regr.ranger.pow | analyze
+edi | 93465 | 2019-06-18 13:26:04.210808 | calculate_vi | analyze
+edi | 93465 | 2019-06-18 13:26:04.233316 | download_forest_mask | analyze
+edi | 93465 | 2019-06-18 13:26:04.238209 | resampling_paper_plan | analyze
+edi | 93465 | 2019-06-18 13:26:04.241992 | bm_plan | analyze
+edi | 93465 | 2019-06-18 13:26:04.245399 | filter_paper_plan | analyze
+edi | 93465 | 2019-06-18 13:26:04.249205 | sentinel_plan | analyze
+edi | 93465 | 2019-06-18 13:26:04.252963 | param_set_plan | analyze
+edi | 93465 | 2019-06-18 13:26:04.256618 | create_prediction_map | analyze
+edi | 93465 | 2019-06-18 13:26:04.265168 | prediction_raster | analyze
+edi | 93465 | 2019-06-18 13:26:04.270789 | reports_plan_paper | analyze
+edi | 93465 | 2019-06-18 13:26:04.274068 | benchmark_custom_no_models | analyze
+edi | 93465 | 2019-06-18 13:26:04.278640 | mask_mosaic | analyze
+edi | 93465 | 2019-06-18 13:26:04.288138 | split_into_feature_sets | analyze
+edi | 93465 | 2019-06-18 13:26:04.295133 | download_images | analyze
+edi | 93465 | 2019-06-18 13:26:04.299501 | stack_bands | analyze
+edi | 93465 | 2019-06-18 13:26:04.310695 | mosaic_clouds | analyze
+edi | 93465 | 2019-06-18 13:26:04.320457 | plan_project | analyze
+edi | 93465 | 2019-06-18 13:26:04.323987 | standardize | analyze
+edi | 93465 | 2019-06-18 13:26:04.329033 | predictLearner.regr.ranger.pow | analyze
+edi | 93465 | 2019-06-18 13:26:04.334011 | makeRLearner.regr.ranger.pow | analyze
+edi | 93465 | 2019-06-18 13:26:04.340425 | download_hyperspectral | analyze
+edi | 93465 | 2019-06-18 13:26:04.345372 | scale_defoliation | analyze
+edi | 93465 | 2019-06-18 13:26:04.349802 | predict_defoliation | analyze
+edi | 93465 | 2019-06-18 13:26:04.354265 | train_plan | analyze
+edi | 93465 | 2019-06-18 13:26:04.357670 | learners_paper_plan | analyze
+edi | 93465 | 2019-06-18 13:26:04.360896 | tune_ctrl_plan | analyze
+edi | 93465 | 2019-06-18 13:26:04.364144 | data_plan | analyze
+edi | 93465 | 2019-06-18 13:26:04.373509 |  | get knitr hash
+edi | 93465 | 2019-06-18 13:26:04.414086 | data_list_nri_vi_bands | analyze
+edi | 93465 | 2019-06-18 13:26:04.418914 | data_clean_single_plots | analyze
+edi | 93465 | 2019-06-18 13:26:04.423060 | data_clean_single_plots_coords | analyze
+edi | 93465 | 2019-06-18 13:26:04.427042 | data_vi_nri_clean | analyze
+edi | 93465 | 2019-06-18 13:26:04.431386 | coords_vi_nri_clean | analyze
+edi | 93465 | 2019-06-18 13:26:04.435022 | data_bands_clean | analyze
+edi | 93465 | 2019-06-18 13:26:04.439693 | coords_bands_clean | analyze
+edi | 93465 | 2019-06-18 13:26:04.443652 | data_trim_defoliation | analyze
+edi | 93465 | 2019-06-18 13:26:04.447952 | nri_data | analyze
+edi | 93465 | 2019-06-18 13:26:04.451997 | vi_data | analyze
+edi | 93465 | 2019-06-18 13:26:04.455975 | bands_data | analyze
+edi | 93465 | 2019-06-18 13:26:04.459746 | nri_vi_data | analyze
+edi | 93465 | 2019-06-18 13:26:04.463875 | nri_data_log_transformed | analyze
+edi | 93465 | 2019-06-18 13:26:04.467676 | vi_data_log_transformed | analyze
+edi | 93465 | 2019-06-18 13:26:04.471555 | bands_data_log_transformed | analyze
+edi | 93465 | 2019-06-18 13:26:04.475385 | nri_vi_data_log_transformed | analyze
+edi | 93465 | 2019-06-18 13:26:04.478896 | nri_task | analyze
+edi | 93465 | 2019-06-18 13:26:04.483107 | vi_task | analyze
+edi | 93465 | 2019-06-18 13:26:04.487421 | hr_task | analyze
+edi | 93465 | 2019-06-18 13:26:04.491359 | nri_vi_task | analyze
+edi | 93465 | 2019-06-18 13:26:04.495427 | data_hs_raw | analyze
+edi | 93465 | 2019-06-18 13:26:04.499277 | plot_locations | analyze
+edi | 93465 | 2019-06-18 13:26:04.502971 | tree_per_tree | analyze
+edi | 93465 | 2019-06-18 13:26:04.506929 | forest_mask | analyze
+edi | 93465 | 2019-06-18 13:26:04.510586 | name_id | analyze
+edi | 93465 | 2019-06-18 13:26:04.514456 | name_out | analyze
+edi | 93465 | 2019-06-18 13:26:04.518822 | index | analyze
+edi | 93465 | 2019-06-18 13:26:04.522761 | wavelength | analyze
+edi | 93465 | 2019-06-18 13:26:04.527832 | indices | analyze
+edi | 93465 | 2019-06-18 13:26:04.533056 | data_hs_preprocessed | analyze
+edi | 93465 | 2019-06-18 13:26:04.537117 | ndvi_rasters | analyze
+edi | 93465 | 2019-06-18 13:26:04.541937 | veg_indices | analyze
+edi | 93465 | 2019-06-18 13:26:04.546239 | nri_indices | analyze
+edi | 93465 | 2019-06-18 13:26:04.550598 | trees_with_indices | analyze
+edi | 93465 | 2019-06-18 13:26:04.555367 | trees_with_bands | analyze
+edi | 93465 | 2019-06-18 13:26:04.559902 | lrn_rf | analyze
+edi | 93465 | 2019-06-18 13:26:04.563940 | lrn_xgboost | analyze
+edi | 93465 | 2019-06-18 13:26:04.567914 | lrn_svm | analyze
+edi | 93465 | 2019-06-18 13:26:04.571635 | lrn_lasso | analyze
+edi | 93465 | 2019-06-18 13:26:04.575707 | lrn_ridge | analyze
+edi | 93465 | 2019-06-18 13:26:04.579358 | inner | analyze
+edi | 93465 | 2019-06-18 13:26:04.582817 | outer | analyze
+edi | 93465 | 2019-06-18 13:26:04.586644 | ps_xgboost_filter | analyze
+edi | 93465 | 2019-06-18 13:26:04.591303 | ps_xgboost | analyze
+edi | 93465 | 2019-06-18 13:26:04.595571 | ps_xgboost_pca | analyze
+edi | 93465 | 2019-06-18 13:26:04.600309 | ps_svm_filter | analyze
+edi | 93465 | 2019-06-18 13:26:04.604739 | ps_svm | analyze
+edi | 93465 | 2019-06-18 13:26:04.608996 | ps_svm_pca | analyze
+edi | 93465 | 2019-06-18 13:26:04.613878 | ps_rf_filter | analyze
+edi | 93465 | 2019-06-18 13:26:04.617900 | ps_rf | analyze
+edi | 93465 | 2019-06-18 13:26:04.622175 | ps_rf_pca | analyze
+edi | 93465 | 2019-06-18 13:26:04.626433 | lambda_ridge_min_nri | analyze
+edi | 93465 | 2019-06-18 13:26:04.630384 | lambda_ridge_min_vi | analyze
+edi | 93465 | 2019-06-18 13:26:04.633790 | lambda_ridge_min_hr | analyze
+edi | 93465 | 2019-06-18 13:26:04.637207 | lambda_ridge_min | analyze
+edi | 93465 | 2019-06-18 13:26:04.641247 | lambda_ridge_max_nri | analyze
+edi | 93465 | 2019-06-18 13:26:04.644414 | lambda_ridge_max_vi | analyze
+edi | 93465 | 2019-06-18 13:26:04.647814 | lambda_ridge_max_hr | analyze
+edi | 93465 | 2019-06-18 13:26:04.651293 | lambda_ridge_max | analyze
+edi | 93465 | 2019-06-18 13:26:04.655850 | ps_ridge_filter | analyze
+edi | 93465 | 2019-06-18 13:26:04.659786 | ps_ridge | analyze
+edi | 93465 | 2019-06-18 13:26:04.663712 | ps_ridge_pca | analyze
+edi | 93465 | 2019-06-18 13:26:04.667915 | lambda_lasso_min_nri | analyze
+edi | 93465 | 2019-06-18 13:26:04.671949 | lambda_lasso_min_vi | analyze
+edi | 93465 | 2019-06-18 13:26:04.676085 | lambda_lasso_min_hr | analyze
+edi | 93465 | 2019-06-18 13:26:04.680519 | lambda_lasso_min | analyze
+edi | 93465 | 2019-06-18 13:26:04.685723 | lambda_lasso_max_nri | analyze
+edi | 93465 | 2019-06-18 13:26:04.689846 | lambda_lasso_max_vi | analyze
+edi | 93465 | 2019-06-18 13:26:04.694081 | lambda_lasso_max_hr | analyze
+edi | 93465 | 2019-06-18 13:26:04.698412 | lambda_lasso_max | analyze
+edi | 93465 | 2019-06-18 13:26:04.703492 | ps_lasso_filter | analyze
+edi | 93465 | 2019-06-18 13:26:04.707781 | ps_lasso | analyze
+edi | 93465 | 2019-06-18 13:26:04.711846 | ps_lasso_pca | analyze
+edi | 93465 | 2019-06-18 13:26:04.716263 | tune.ctrl_xgboost | analyze
+edi | 93465 | 2019-06-18 13:26:04.719968 | tune.ctrl_svm | analyze
+edi | 93465 | 2019-06-18 13:26:04.723853 | tune.ctrl_rf | analyze
+edi | 93465 | 2019-06-18 13:26:04.727508 | tune.ctrl_ridge | analyze
+edi | 93465 | 2019-06-18 13:26:04.731106 | tune.ctrl_lasso | analyze
+edi | 93465 | 2019-06-18 13:26:04.734882 | filter_wrapper_rf_borda | analyze
+edi | 93465 | 2019-06-18 13:26:04.739074 | filter_wrapper_rf_gain.ratio | analyze
+edi | 93465 | 2019-06-18 13:26:04.742695 | filter_wrapper_rf_info.gain | analyze
+edi | 93465 | 2019-06-18 13:26:04.746369 | filter_wrapper_rf_variance | analyze
+edi | 93465 | 2019-06-18 13:26:04.749951 | filter_wrapper_rf_rank.cor | analyze
+edi | 93465 | 2019-06-18 13:26:04.753731 | filter_wrapper_rf_linear.cor | analyze
+edi | 93465 | 2019-06-18 13:26:04.757129 | filter_wrapper_rf_mrmr | analyze
+edi | 93465 | 2019-06-18 13:26:04.760950 | filter_wrapper_rf_cmim | analyze
+edi | 93465 | 2019-06-18 13:26:04.764418 | filter_wrapper_rf_carscore | analyze
+edi | 93465 | 2019-06-18 13:26:04.768023 | filter_wrapper_xgboost_borda | analyze
+edi | 93465 | 2019-06-18 13:26:04.771705 | filter_wrapper_xgboost_gain.ratio | analyze
+edi | 93465 | 2019-06-18 13:26:04.775093 | filter_wrapper_xgboost_info.gain | analyze
+edi | 93465 | 2019-06-18 13:26:04.778752 | filter_wrapper_xgboost_variance | analyze
+edi | 93465 | 2019-06-18 13:26:04.782511 | filter_wrapper_xgboost_rank.cor | analyze
+edi | 93465 | 2019-06-18 13:26:04.786217 | filter_wrapper_xgboost_linear.cor | analyze
+edi | 93465 | 2019-06-18 13:26:04.790116 | filter_wrapper_xgboost_mrmr | analyze
+edi | 93465 | 2019-06-18 13:26:04.794233 | filter_wrapper_xgboost_cmim | analyze
+edi | 93465 | 2019-06-18 13:26:04.798435 | filter_wrapper_xgboost_carscore | analyze
+edi | 93465 | 2019-06-18 13:26:04.802368 | filter_wrapper_svm_borda | analyze
+edi | 93465 | 2019-06-18 13:26:04.806464 | filter_wrapper_svm_gain.ratio | analyze
+edi | 93465 | 2019-06-18 13:26:04.810650 | filter_wrapper_svm_info.gain | analyze
+edi | 93465 | 2019-06-18 13:26:04.814167 | filter_wrapper_svm_variance | analyze
+edi | 93465 | 2019-06-18 13:26:04.818019 | filter_wrapper_svm_rank.cor | analyze
+edi | 93465 | 2019-06-18 13:26:04.821663 | filter_wrapper_svm_linear.cor | analyze
+edi | 93465 | 2019-06-18 13:26:04.825175 | filter_wrapper_svm_mrmr | analyze
+edi | 93465 | 2019-06-18 13:26:04.828828 | filter_wrapper_svm_cmim | analyze
+edi | 93465 | 2019-06-18 13:26:04.832553 | filter_wrapper_svm_carscore | analyze
+edi | 93465 | 2019-06-18 13:26:04.836236 | filter_wrapper_lasso_borda | analyze
+edi | 93465 | 2019-06-18 13:26:04.840169 | filter_wrapper_lasso_gain.ratio | analyze
+edi | 93465 | 2019-06-18 13:26:04.843696 | filter_wrapper_lasso_info.gain | analyze
+edi | 93465 | 2019-06-18 13:26:04.846950 | filter_wrapper_lasso_variance | analyze
+edi | 93465 | 2019-06-18 13:26:04.850568 | filter_wrapper_lasso_rank.cor | analyze
+edi | 93465 | 2019-06-18 13:26:04.854176 | filter_wrapper_lasso_linear.cor | analyze
+edi | 93465 | 2019-06-18 13:26:04.857917 | filter_wrapper_lasso_mrmr | analyze
+edi | 93465 | 2019-06-18 13:26:04.861361 | filter_wrapper_lasso_cmim | analyze
+edi | 93465 | 2019-06-18 13:26:04.864876 | filter_wrapper_lasso_carscore | analyze
+edi | 93465 | 2019-06-18 13:26:04.868609 | filter_wrapper_ridge_borda | analyze
+edi | 93465 | 2019-06-18 13:26:04.872871 | filter_wrapper_ridge_gain.ratio | analyze
+edi | 93465 | 2019-06-18 13:26:04.876644 | filter_wrapper_ridge_info.gain | analyze
+edi | 93465 | 2019-06-18 13:26:04.880100 | filter_wrapper_ridge_variance | analyze
+edi | 93465 | 2019-06-18 13:26:04.883446 | filter_wrapper_ridge_rank.cor | analyze
+edi | 93465 | 2019-06-18 13:26:04.886907 | filter_wrapper_ridge_linear.cor | analyze
+edi | 93465 | 2019-06-18 13:26:04.890396 | filter_wrapper_ridge_mrmr | analyze
+edi | 93465 | 2019-06-18 13:26:04.893773 | filter_wrapper_ridge_cmim | analyze
+edi | 93465 | 2019-06-18 13:26:04.897152 | filter_wrapper_ridge_carscore | analyze
+edi | 93465 | 2019-06-18 13:26:04.900629 | svm_borda | analyze
+edi | 93465 | 2019-06-18 13:26:04.904308 | svm_info.gain | analyze
+edi | 93465 | 2019-06-18 13:26:04.907965 | svm_gain.ratio | analyze
+edi | 93465 | 2019-06-18 13:26:04.911637 | svm_variance | analyze
+edi | 93465 | 2019-06-18 13:26:04.915277 | svm_rank.cor | analyze
+edi | 93465 | 2019-06-18 13:26:04.919250 | svm_linear.cor | analyze
+edi | 93465 | 2019-06-18 13:26:04.922868 | svm_mrmr | analyze
+edi | 93465 | 2019-06-18 13:26:04.926694 | svm_cmim | analyze
+edi | 93465 | 2019-06-18 13:26:04.930778 | svm_carscore | analyze
+edi | 93465 | 2019-06-18 13:26:04.935124 | svm_no_filter | analyze
+edi | 93465 | 2019-06-18 13:26:04.939039 | svm_pca | analyze
+edi | 93465 | 2019-06-18 13:26:04.942974 | xgboost_borda | analyze
+edi | 93465 | 2019-06-18 13:26:04.946615 | xgboost_info.gain | analyze
+edi | 93465 | 2019-06-18 13:26:04.950958 | xgboost_gain.ratio | analyze
+edi | 93465 | 2019-06-18 13:26:04.954714 | xgboost_variance | analyze
+edi | 93465 | 2019-06-18 13:26:04.958570 | xgboost_rank.cor | analyze
+edi | 93465 | 2019-06-18 13:26:04.962606 | xgboost_linear.cor | analyze
+edi | 93465 | 2019-06-18 13:26:04.966606 | xgboost_mrmr | analyze
+edi | 93465 | 2019-06-18 13:26:04.970761 | xgboost_cmim | analyze
+edi | 93465 | 2019-06-18 13:26:04.974959 | xgboost_carscore | analyze
+edi | 93465 | 2019-06-18 13:26:04.978919 | xgboost_no_filter | analyze
+edi | 93465 | 2019-06-18 13:26:04.982841 | xgboost_pca | analyze
+edi | 93465 | 2019-06-18 13:26:04.986621 | rf_borda | analyze
+edi | 93465 | 2019-06-18 13:26:04.990416 | rf_info.gain | analyze
+edi | 93465 | 2019-06-18 13:26:04.994155 | rf_gain.ratio | analyze
+edi | 93465 | 2019-06-18 13:26:04.998452 | rf_variance | analyze
+edi | 93465 | 2019-06-18 13:26:05.002249 | rf_rank.cor | analyze
+edi | 93465 | 2019-06-18 13:26:05.006088 | rf_linear.cor | analyze
+edi | 93465 | 2019-06-18 13:26:05.010032 | rf_mrmr | analyze
+edi | 93465 | 2019-06-18 13:26:05.014035 | rf_cmim | analyze
+edi | 93465 | 2019-06-18 13:26:05.017734 | rf_carscore | analyze
+edi | 93465 | 2019-06-18 13:26:05.021453 | rf_no_filter | analyze
+edi | 93465 | 2019-06-18 13:26:05.025048 | rf_pca | analyze
+edi | 93465 | 2019-06-18 13:26:05.028680 | ridge_borda | analyze
+edi | 93465 | 2019-06-18 13:26:05.032509 | ridge_info.gain | analyze
+edi | 93465 | 2019-06-18 13:26:05.036335 | ridge_gain.ratio | analyze
+edi | 93465 | 2019-06-18 13:26:05.039775 | ridge_variance | analyze
+edi | 93465 | 2019-06-18 13:26:05.043431 | ridge_rank.cor | analyze
+edi | 93465 | 2019-06-18 13:26:05.047005 | ridge_linear.cor | analyze
+edi | 93465 | 2019-06-18 13:26:05.050684 | ridge_mrmr | analyze
+edi | 93465 | 2019-06-18 13:26:05.054385 | ridge_cmim | analyze
+edi | 93465 | 2019-06-18 13:26:05.057883 | ridge_carscore | analyze
+edi | 93465 | 2019-06-18 13:26:05.061393 | ridge_no_filter | analyze
+edi | 93465 | 2019-06-18 13:26:05.064745 | ridge_pca | analyze
+edi | 93465 | 2019-06-18 13:26:05.068694 | lasso_borda | analyze
+edi | 93465 | 2019-06-18 13:26:05.072217 | lasso_info.gain | analyze
+edi | 93465 | 2019-06-18 13:26:05.076014 | lasso_gain.ratio | analyze
+edi | 93465 | 2019-06-18 13:26:05.079581 | lasso_variance | analyze
+edi | 93465 | 2019-06-18 13:26:05.083800 | lasso_rank.cor | analyze
+edi | 93465 | 2019-06-18 13:26:05.087980 | lasso_linear.cor | analyze
+edi | 93465 | 2019-06-18 13:26:05.092162 | lasso_mrmr | analyze
+edi | 93465 | 2019-06-18 13:26:05.096089 | lasso_cmim | analyze
+edi | 93465 | 2019-06-18 13:26:05.099777 | lasso_carscore | analyze
+edi | 93465 | 2019-06-18 13:26:05.103478 | lasso_no_filter | analyze
+edi | 93465 | 2019-06-18 13:26:05.106482 | lasso_pca | analyze
+edi | 93465 | 2019-06-18 13:26:05.109743 | bm_vi_task_svm_borda | analyze
+edi | 93465 | 2019-06-18 13:26:05.113540 | bm_nri_task_svm_borda | analyze
+edi | 93465 | 2019-06-18 13:26:05.117393 | bm_hr_task_svm_borda | analyze
+edi | 93465 | 2019-06-18 13:26:05.120690 | bm_vi_task_svm_info.gain | analyze
+edi | 93465 | 2019-06-18 13:26:05.123730 | bm_nri_task_svm_info.gain | analyze
+edi | 93465 | 2019-06-18 13:26:05.126803 | bm_hr_task_svm_info.gain | analyze
+edi | 93465 | 2019-06-18 13:26:05.130034 | bm_vi_task_svm_gain.ratio | analyze
+edi | 93465 | 2019-06-18 13:26:05.133572 | bm_nri_task_svm_gain.ratio | analyze
+edi | 93465 | 2019-06-18 13:26:05.136836 | bm_hr_task_svm_gain.ratio | analyze
+edi | 93465 | 2019-06-18 13:26:05.140116 | bm_vi_task_svm_variance | analyze
+edi | 93465 | 2019-06-18 13:26:05.143777 | bm_nri_task_svm_variance | analyze
+edi | 93465 | 2019-06-18 13:26:05.147345 | bm_hr_task_svm_variance | analyze
+edi | 93465 | 2019-06-18 13:26:05.150510 | bm_vi_task_svm_rank.cor | analyze
+edi | 93465 | 2019-06-18 13:26:05.153655 | bm_nri_task_svm_rank.cor | analyze
+edi | 93465 | 2019-06-18 13:26:05.157187 | bm_hr_task_svm_rank.cor | analyze
+edi | 93465 | 2019-06-18 13:26:05.160192 | bm_vi_task_svm_linear.cor | analyze
+edi | 93465 | 2019-06-18 13:26:05.163286 | bm_nri_task_svm_linear.cor | analyze
+edi | 93465 | 2019-06-18 13:26:05.166575 | bm_hr_task_svm_linear.cor | analyze
+edi | 93465 | 2019-06-18 13:26:05.169622 | bm_vi_task_svm_mrmr | analyze
+edi | 93465 | 2019-06-18 13:26:05.172785 | bm_nri_task_svm_mrmr | analyze
+edi | 93465 | 2019-06-18 13:26:05.176034 | bm_hr_task_svm_mrmr | analyze
+edi | 93465 | 2019-06-18 13:26:05.179219 | bm_vi_task_svm_cmim | analyze
+edi | 93465 | 2019-06-18 13:26:05.182466 | bm_nri_task_svm_cmim | analyze
+edi | 93465 | 2019-06-18 13:26:05.185757 | bm_hr_task_svm_cmim | analyze
+edi | 93465 | 2019-06-18 13:26:05.188958 | bm_vi_task_svm_carscore | analyze
+edi | 93465 | 2019-06-18 13:26:05.192307 | bm_nri_task_svm_carscore | analyze
+edi | 93465 | 2019-06-18 13:26:05.195563 | bm_hr_task_svm_carscore | analyze
+edi | 93465 | 2019-06-18 13:26:05.199013 | bm_vi_task_svm_no_filter | analyze
+edi | 93465 | 2019-06-18 13:26:05.203200 | bm_nri_task_svm_no_filter | analyze
+edi | 93465 | 2019-06-18 13:26:05.206923 | bm_hr_task_svm_no_filter | analyze
+edi | 93465 | 2019-06-18 13:26:05.210866 | bm_vi_task_svm_pca | analyze
+edi | 93465 | 2019-06-18 13:26:05.214895 | bm_nri_task_svm_pca | analyze
+edi | 93465 | 2019-06-18 13:26:05.219148 | bm_hr_task_svm_pca | analyze
+edi | 93465 | 2019-06-18 13:26:05.223242 | bm_vi_task_rf_borda | analyze
+edi | 93465 | 2019-06-18 13:26:05.227010 | bm_nri_task_rf_borda | analyze
+edi | 93465 | 2019-06-18 13:26:05.230509 | bm_hr_task_rf_borda | analyze
+edi | 93465 | 2019-06-18 13:26:05.234000 | bm_vi_task_rf_info.gain | analyze
+edi | 93465 | 2019-06-18 13:26:05.237578 | bm_nri_task_rf_info.gain | analyze
+edi | 93465 | 2019-06-18 13:26:05.240985 | bm_hr_task_rf_info.gain | analyze
+edi | 93465 | 2019-06-18 13:26:05.244088 | bm_vi_task_rf_gain.ratio | analyze
+edi | 93465 | 2019-06-18 13:26:05.247287 | bm_nri_task_rf_gain.ratio | analyze
+edi | 93465 | 2019-06-18 13:26:05.250268 | bm_hr_task_rf_gain.ratio | analyze
+edi | 93465 | 2019-06-18 13:26:05.253192 | bm_vi_task_rf_variance | analyze
+edi | 93465 | 2019-06-18 13:26:05.256363 | bm_nri_task_rf_variance | analyze
+edi | 93465 | 2019-06-18 13:26:05.259799 | bm_hr_task_rf_variance | analyze
+edi | 93465 | 2019-06-18 13:26:05.263152 | bm_vi_task_rf_rank.cor | analyze
+edi | 93465 | 2019-06-18 13:26:05.266552 | bm_nri_task_rf_rank.cor | analyze
+edi | 93465 | 2019-06-18 13:26:05.269872 | bm_hr_task_rf_rank.cor | analyze
+edi | 93465 | 2019-06-18 13:26:05.273265 | bm_vi_task_rf_linear.cor | analyze
+edi | 93465 | 2019-06-18 13:26:05.276415 | bm_nri_task_rf_linear.cor | analyze
+edi | 93465 | 2019-06-18 13:26:05.280221 | bm_hr_task_rf_linear.cor | analyze
+edi | 93465 | 2019-06-18 13:26:05.284303 | bm_vi_task_rf_mrmr | analyze
+edi | 93465 | 2019-06-18 13:26:05.287841 | bm_nri_task_rf_mrmr | analyze
+edi | 93465 | 2019-06-18 13:26:05.291543 | bm_hr_task_rf_mrmr | analyze
+edi | 93465 | 2019-06-18 13:26:05.295151 | bm_vi_task_rf_cmim | analyze
+edi | 93465 | 2019-06-18 13:26:05.298712 | bm_nri_task_rf_cmim | analyze
+edi | 93465 | 2019-06-18 13:26:05.302240 | bm_hr_task_rf_cmim | analyze
+edi | 93465 | 2019-06-18 13:26:05.306091 | bm_vi_task_rf_carscore | analyze
+edi | 93465 | 2019-06-18 13:26:05.309402 | bm_nri_task_rf_carscore | analyze
+edi | 93465 | 2019-06-18 13:26:05.313318 | bm_hr_task_rf_carscore | analyze
+edi | 93465 | 2019-06-18 13:26:05.316920 | bm_vi_task_rf_no_filter | analyze
+edi | 93465 | 2019-06-18 13:26:05.332135 | bm_nri_task_rf_no_filter | analyze
+edi | 93465 | 2019-06-18 13:26:05.336131 | bm_hr_task_rf_no_filter | analyze
+edi | 93465 | 2019-06-18 13:26:05.339888 | bm_vi_task_rf_pca | analyze
+edi | 93465 | 2019-06-18 13:26:05.343671 | bm_nri_task_rf_pca | analyze
+edi | 93465 | 2019-06-18 13:26:05.347327 | bm_hr_task_rf_pca | analyze
+edi | 93465 | 2019-06-18 13:26:05.350746 | bm_vi_task_xgboost_borda | analyze
+edi | 93465 | 2019-06-18 13:26:05.354562 | bm_nri_task_xgboost_borda | analyze
+edi | 93465 | 2019-06-18 13:26:05.357786 | bm_hr_task_xgboost_borda | analyze
+edi | 93465 | 2019-06-18 13:26:05.361426 | bm_vi_task_xgboost_info.gain | analyze
+edi | 93465 | 2019-06-18 13:26:05.365157 | bm_nri_task_xgboost_info.gain | analyze
+edi | 93465 | 2019-06-18 13:26:05.369182 | bm_hr_task_xgboost_info.gain | analyze
+edi | 93465 | 2019-06-18 13:26:05.372618 | bm_vi_task_xgboost_gain.ratio | analyze
+edi | 93465 | 2019-06-18 13:26:05.376458 | bm_nri_task_xgboost_gain.ratio | analyze
+edi | 93465 | 2019-06-18 13:26:05.379781 | bm_hr_task_xgboost_gain.ratio | analyze
+edi | 93465 | 2019-06-18 13:26:05.383249 | bm_vi_task_xgboost_variance | analyze
+edi | 93465 | 2019-06-18 13:26:05.386684 | bm_nri_task_xgboost_variance | analyze
+edi | 93465 | 2019-06-18 13:26:05.390158 | bm_hr_task_xgboost_variance | analyze
+edi | 93465 | 2019-06-18 13:26:05.393747 | bm_vi_task_xgboost_rank.cor | analyze
+edi | 93465 | 2019-06-18 13:26:05.397318 | bm_nri_task_xgboost_rank.cor | analyze
+edi | 93465 | 2019-06-18 13:26:05.400843 | bm_hr_task_xgboost_rank.cor | analyze
+edi | 93465 | 2019-06-18 13:26:05.404633 | bm_vi_task_xgboost_linear.cor | analyze
+edi | 93465 | 2019-06-18 13:26:05.408094 | bm_nri_task_xgboost_linear.cor | analyze
+edi | 93465 | 2019-06-18 13:26:05.411806 | bm_hr_task_xgboost_linear.cor | analyze
+edi | 93465 | 2019-06-18 13:26:05.415683 | bm_vi_task_xgboost_mrmr | analyze
+edi | 93465 | 2019-06-18 13:26:05.419767 | bm_nri_task_xgboost_mrmr | analyze
+edi | 93465 | 2019-06-18 13:26:05.423567 | bm_hr_task_xgboost_mrmr | analyze
+edi | 93465 | 2019-06-18 13:26:05.426807 | bm_vi_task_xgboost_cmim | analyze
+edi | 93465 | 2019-06-18 13:26:05.430385 | bm_nri_task_xgboost_cmim | analyze
+edi | 93465 | 2019-06-18 13:26:05.433484 | bm_hr_task_xgboost_cmim | analyze
+edi | 93465 | 2019-06-18 13:26:05.436558 | bm_vi_task_xgboost_carscore | analyze
+edi | 93465 | 2019-06-18 13:26:05.439812 | bm_nri_task_xgboost_carscore | analyze
+edi | 93465 | 2019-06-18 13:26:05.442856 | bm_hr_task_xgboost_carscore | analyze
+edi | 93465 | 2019-06-18 13:26:05.446192 | bm_vi_task_xgboost_no_filter | analyze
+edi | 93465 | 2019-06-18 13:26:05.449151 | bm_nri_task_xgboost_no_filter | analyze
+edi | 93465 | 2019-06-18 13:26:05.452398 | bm_hr_task_xgboost_no_filter | analyze
+edi | 93465 | 2019-06-18 13:26:05.455486 | bm_vi_task_xgboost_pca | analyze
+edi | 93465 | 2019-06-18 13:26:05.458552 | bm_nri_task_xgboost_pca | analyze
+edi | 93465 | 2019-06-18 13:26:05.461787 | bm_hr_task_xgboost_pca | analyze
+edi | 93465 | 2019-06-18 13:26:05.464882 | bm_vi_task_ridge_no_filter | analyze
+edi | 93465 | 2019-06-18 13:26:05.467959 | bm_nri_task_ridge_no_filter | analyze
+edi | 93465 | 2019-06-18 13:26:05.471232 | bm_hr_task_ridge_no_filter | analyze
+edi | 93465 | 2019-06-18 13:26:05.474502 | bm_vi_task_lasso_no_filter | analyze
+edi | 93465 | 2019-06-18 13:26:05.478010 | bm_nri_task_lasso_no_filter | analyze
+edi | 93465 | 2019-06-18 13:26:05.481173 | bm_hr_task_lasso_no_filter | analyze
+edi | 93465 | 2019-06-18 13:26:05.484863 | eda_wfr | analyze
+edi | 93465 | 2019-06-18 13:26:05.576633 | spectral_signatures_wfr | analyze
+edi | 93465 | 2019-06-18 13:26:05.595700 | pca_wrapper_svm | analyze
+edi | 93465 | 2019-06-18 13:26:05.599010 | pca_wrapper_xgboost | analyze
+edi | 93465 | 2019-06-18 13:26:05.602089 | pca_wrapper_rf | analyze
+edi | 93465 | 2019-06-18 13:26:05.605160 | pca_wrapper_ridge | analyze
+edi | 93465 | 2019-06-18 13:26:05.608232 | pca_wrapper_lasso | analyze
+edi | 93465 | 2019-06-18 13:26:05.635321 |  | set knitr files
+edi | 93465 | 2019-06-18 13:26:05.649527 | panel.cor | connect
+edi | 93465 | 2019-06-18 13:26:05.732292 | train_wrapper | connect
+edi | 93465 | 2019-06-18 13:26:05.737269 | tune_wrapper | connect
+edi | 93465 | 2019-06-18 13:26:05.740176 | tune_ctrl_wrapper | connect
+edi | 93465 | 2019-06-18 13:26:05.743181 | download_trees | connect
+edi | 93465 | 2019-06-18 13:26:05.746164 | process_hyperspec | connect
+edi | 93465 | 2019-06-18 13:26:05.748980 | calc_nri_indices | connect
+edi | 93465 | 2019-06-18 13:26:05.752085 | get_records | connect
+edi | 93465 | 2019-06-18 13:26:05.755416 | extract_coords | connect
+edi | 93465 | 2019-06-18 13:26:05.758333 | calc_veg_indices | connect
+edi | 93465 | 2019-06-18 13:26:05.760933 | panel.hist | connect
+edi | 93465 | 2019-06-18 13:26:05.763528 | copy_cloud | connect
+edi | 93465 | 2019-06-18 13:26:05.766100 | extract_indices_to_plot | connect
+edi | 93465 | 2019-06-18 13:26:05.769119 | extract_bands_to_plot | connect
+edi | 93465 | 2019-06-18 13:26:05.771877 | create_prediction_df | connect
+edi | 93465 | 2019-06-18 13:26:05.774418 | ras_to_sf | connect
+edi | 93465 | 2019-06-18 13:26:05.777029 | mask_vi | connect
+edi | 93465 | 2019-06-18 13:26:05.779679 | mutate_defol | connect
+edi | 93465 | 2019-06-18 13:26:05.782366 | test_age_imputation | connect
+edi | 93465 | 2019-06-18 13:26:05.785178 | age_imputation | connect
+edi | 93465 | 2019-06-18 13:26:05.787824 | tuning_plan | connect
+edi | 93465 | 2019-06-18 13:26:05.790419 | hyperspectral_plan | connect
+edi | 93465 | 2019-06-18 13:26:05.793229 | param_set_paper_plan | connect
+edi | 93465 | 2019-06-18 13:26:05.796066 | resampling_plan | connect
+edi | 93465 | 2019-06-18 13:26:05.800610 | tune_ctrl_paper_plan | connect
+edi | 93465 | 2019-06-18 13:26:05.803698 | learners_plan | connect
+edi | 93465 | 2019-06-18 13:26:05.806505 | tuning_paper_plan | connect
+edi | 93465 | 2019-06-18 13:26:05.809632 | download_plan | connect
+edi | 93465 | 2019-06-18 13:26:05.812758 | pca_paper_plan | connect
+edi | 93465 | 2019-06-18 13:26:05.815886 | task_plan | connect
+edi | 93465 | 2019-06-18 13:26:05.818243 | create_defoliation_map | connect
+edi | 93465 | 2019-06-18 13:26:05.823029 | plan_paper | connect
+edi | 93465 | 2019-06-18 13:26:05.825550 | process_hyperspec_helper | connect
+edi | 93465 | 2019-06-18 13:26:05.827845 | my_pairs | connect
+edi | 93465 | 2019-06-18 13:26:05.830387 | get_coordinates | connect
+edi | 93465 | 2019-06-18 13:26:05.832705 | clean_single_plots | connect
+edi | 93465 | 2019-06-18 13:26:05.834939 | download_locations | connect
+edi | 93465 | 2019-06-18 13:26:05.837369 | mosaic_images | connect
+edi | 93465 | 2019-06-18 13:26:05.839577 | unzip_images | connect
+edi | 93465 | 2019-06-18 13:26:05.842396 | the.col.hist | connect
+edi | 93465 | 2019-06-18 13:26:05.844751 | reports_plan_project | connect
+edi | 93465 | 2019-06-18 13:26:05.846935 | log_response | connect
+edi | 93465 | 2019-06-18 13:26:05.849036 | trainLearner.regr.ranger.pow | connect
+edi | 93465 | 2019-06-18 13:26:05.851026 | getFeatureImportanceLearner.regr.ranger.pow | connect
+edi | 93465 | 2019-06-18 13:26:05.853333 | getOOBPredsLearner.regr.ranger.pow | connect
+edi | 93465 | 2019-06-18 13:26:05.855379 | calculate_vi | connect
+edi | 93465 | 2019-06-18 13:26:05.857636 | download_forest_mask | connect
+edi | 93465 | 2019-06-18 13:26:05.859722 | resampling_paper_plan | connect
+edi | 93465 | 2019-06-18 13:26:05.862158 | bm_plan | connect
+edi | 93465 | 2019-06-18 13:26:05.864269 | filter_paper_plan | connect
+edi | 93465 | 2019-06-18 13:26:05.866694 | sentinel_plan | connect
+edi | 93465 | 2019-06-18 13:26:05.868961 | param_set_plan | connect
+edi | 93465 | 2019-06-18 13:26:05.871534 | create_prediction_map | connect
+edi | 93465 | 2019-06-18 13:26:05.873870 | prediction_raster | connect
+edi | 93465 | 2019-06-18 13:26:05.876145 | reports_plan_paper | connect
+edi | 93465 | 2019-06-18 13:26:05.878717 | benchmark_custom_no_models | connect
+edi | 93465 | 2019-06-18 13:26:05.881235 | mask_mosaic | connect
+edi | 93465 | 2019-06-18 13:26:05.883607 | split_into_feature_sets | connect
+edi | 93465 | 2019-06-18 13:26:05.887019 | download_images | connect
+edi | 93465 | 2019-06-18 13:26:05.889377 | stack_bands | connect
+edi | 93465 | 2019-06-18 13:26:05.891622 | mosaic_clouds | connect
+edi | 93465 | 2019-06-18 13:26:05.894404 | plan_project | connect
+edi | 93465 | 2019-06-18 13:26:05.897276 | standardize | connect
+edi | 93465 | 2019-06-18 13:26:05.899922 | predictLearner.regr.ranger.pow | connect
+edi | 93465 | 2019-06-18 13:26:05.902510 | makeRLearner.regr.ranger.pow | connect
+edi | 93465 | 2019-06-18 13:26:05.904779 | download_hyperspectral | connect
+edi | 93465 | 2019-06-18 13:26:05.906973 | scale_defoliation | connect
+edi | 93465 | 2019-06-18 13:26:05.909752 | predict_defoliation | connect
+edi | 93465 | 2019-06-18 13:26:05.912413 | train_plan | connect
+edi | 93465 | 2019-06-18 13:26:05.914721 | learners_paper_plan | connect
+edi | 93465 | 2019-06-18 13:26:05.917424 | tune_ctrl_plan | connect
+edi | 93465 | 2019-06-18 13:26:05.919991 | data_plan | connect
+edi | 93465 | 2019-06-18 13:26:05.922353 | data_list_nri_vi_bands | connect
+edi | 93465 | 2019-06-18 13:26:05.924694 | data_clean_single_plots | connect
+edi | 93465 | 2019-06-18 13:26:05.927409 | data_clean_single_plots_coords | connect
+edi | 93465 | 2019-06-18 13:26:05.929797 | data_vi_nri_clean | connect
+edi | 93465 | 2019-06-18 13:26:05.932425 | coords_vi_nri_clean | connect
+edi | 93465 | 2019-06-18 13:26:05.935188 | data_bands_clean | connect
+edi | 93465 | 2019-06-18 13:26:05.937759 | coords_bands_clean | connect
+edi | 93465 | 2019-06-18 13:26:05.941037 | data_trim_defoliation | connect
+edi | 93465 | 2019-06-18 13:26:05.943633 | nri_data | connect
+edi | 93465 | 2019-06-18 13:26:05.946613 | vi_data | connect
+edi | 93465 | 2019-06-18 13:26:05.949462 | bands_data | connect
+edi | 93465 | 2019-06-18 13:26:05.952077 | nri_vi_data | connect
+edi | 93465 | 2019-06-18 13:26:05.955164 | nri_data_log_transformed | connect
+edi | 93465 | 2019-06-18 13:26:05.958210 | vi_data_log_transformed | connect
+edi | 93465 | 2019-06-18 13:26:05.961075 | bands_data_log_transformed | connect
+edi | 93465 | 2019-06-18 13:26:05.963657 | nri_vi_data_log_transformed | connect
+edi | 93465 | 2019-06-18 13:26:05.965938 | nri_task | connect
+edi | 93465 | 2019-06-18 13:26:05.968269 | vi_task | connect
+edi | 93465 | 2019-06-18 13:26:05.970631 | hr_task | connect
+edi | 93465 | 2019-06-18 13:26:05.973039 | nri_vi_task | connect
+edi | 93465 | 2019-06-18 13:26:05.975379 | data_hs_raw | connect
+edi | 93465 | 2019-06-18 13:26:05.977522 | plot_locations | connect
+edi | 93465 | 2019-06-18 13:26:05.980148 | tree_per_tree | connect
+edi | 93465 | 2019-06-18 13:26:05.982473 | forest_mask | connect
+edi | 93465 | 2019-06-18 13:26:05.984715 | name_id | connect
+edi | 93465 | 2019-06-18 13:26:05.987145 | name_out | connect
+edi | 93465 | 2019-06-18 13:26:05.989566 | index | connect
+edi | 93465 | 2019-06-18 13:26:05.991834 | wavelength | connect
+edi | 93465 | 2019-06-18 13:26:05.994097 | indices | connect
+edi | 93465 | 2019-06-18 13:26:05.996904 | data_hs_preprocessed | connect
+edi | 93465 | 2019-06-18 13:26:05.999257 | ndvi_rasters | connect
+edi | 93465 | 2019-06-18 13:26:06.001754 | veg_indices | connect
+edi | 93465 | 2019-06-18 13:26:06.004280 | nri_indices | connect
+edi | 93465 | 2019-06-18 13:26:06.006630 | trees_with_indices | connect
+edi | 93465 | 2019-06-18 13:26:06.009395 | trees_with_bands | connect
+edi | 93465 | 2019-06-18 13:26:06.011968 | lrn_rf | connect
+edi | 93465 | 2019-06-18 13:26:06.014838 | lrn_xgboost | connect
+edi | 93465 | 2019-06-18 13:26:06.017589 | lrn_svm | connect
+edi | 93465 | 2019-06-18 13:26:06.020371 | lrn_lasso | connect
+edi | 93465 | 2019-06-18 13:26:06.022858 | lrn_ridge | connect
+edi | 93465 | 2019-06-18 13:26:06.025487 | inner | connect
+edi | 93465 | 2019-06-18 13:26:06.029286 | outer | connect
+edi | 93465 | 2019-06-18 13:26:06.032075 | ps_xgboost_filter | connect
+edi | 93465 | 2019-06-18 13:26:06.034942 | ps_xgboost | connect
+edi | 93465 | 2019-06-18 13:26:06.039859 | ps_xgboost_pca | connect
+edi | 93465 | 2019-06-18 13:26:06.042655 | ps_svm_filter | connect
+edi | 93465 | 2019-06-18 13:26:06.045753 | ps_svm | connect
+edi | 93465 | 2019-06-18 13:26:06.048963 | ps_svm_pca | connect
+edi | 93465 | 2019-06-18 13:26:06.051830 | ps_rf_filter | connect
+edi | 93465 | 2019-06-18 13:26:06.055045 | ps_rf | connect
+edi | 93465 | 2019-06-18 13:26:06.058165 | ps_rf_pca | connect
+edi | 93465 | 2019-06-18 13:26:06.061473 | lambda_ridge_min_nri | connect
+edi | 93465 | 2019-06-18 13:26:06.064823 | lambda_ridge_min_vi | connect
+edi | 93465 | 2019-06-18 13:26:06.068090 | lambda_ridge_min_hr | connect
+edi | 93465 | 2019-06-18 13:26:06.071365 | lambda_ridge_min | connect
+edi | 93465 | 2019-06-18 13:26:06.074449 | lambda_ridge_max_nri | connect
+edi | 93465 | 2019-06-18 13:26:06.077191 | lambda_ridge_max_vi | connect
+edi | 93465 | 2019-06-18 13:26:06.079949 | lambda_ridge_max_hr | connect
+edi | 93465 | 2019-06-18 13:26:06.082896 | lambda_ridge_max | connect
+edi | 93465 | 2019-06-18 13:26:06.085596 | ps_ridge_filter | connect
+edi | 93465 | 2019-06-18 13:26:06.088416 | ps_ridge | connect
+edi | 93465 | 2019-06-18 13:26:06.091179 | ps_ridge_pca | connect
+edi | 93465 | 2019-06-18 13:26:06.094037 | lambda_lasso_min_nri | connect
+edi | 93465 | 2019-06-18 13:26:06.096943 | lambda_lasso_min_vi | connect
+edi | 93465 | 2019-06-18 13:26:06.099893 | lambda_lasso_min_hr | connect
+edi | 93465 | 2019-06-18 13:26:06.102905 | lambda_lasso_min | connect
+edi | 93465 | 2019-06-18 13:26:06.106204 | lambda_lasso_max_nri | connect
+edi | 93465 | 2019-06-18 13:26:06.109632 | lambda_lasso_max_vi | connect
+edi | 93465 | 2019-06-18 13:26:06.112738 | lambda_lasso_max_hr | connect
+edi | 93465 | 2019-06-18 13:26:06.116077 | lambda_lasso_max | connect
+edi | 93465 | 2019-06-18 13:26:06.119280 | ps_lasso_filter | connect
+edi | 93465 | 2019-06-18 13:26:06.122457 | ps_lasso | connect
+edi | 93465 | 2019-06-18 13:26:06.125643 | ps_lasso_pca | connect
+edi | 93465 | 2019-06-18 13:26:06.128392 | tune.ctrl_xgboost | connect
+edi | 93465 | 2019-06-18 13:26:06.131241 | tune.ctrl_svm | connect
+edi | 93465 | 2019-06-18 13:26:06.134143 | tune.ctrl_rf | connect
+edi | 93465 | 2019-06-18 13:26:06.136697 | tune.ctrl_ridge | connect
+edi | 93465 | 2019-06-18 13:26:06.139229 | tune.ctrl_lasso | connect
+edi | 93465 | 2019-06-18 13:26:06.141485 | filter_wrapper_rf_borda | connect
+edi | 93465 | 2019-06-18 13:26:06.143760 | filter_wrapper_rf_gain.ratio | connect
+edi | 93465 | 2019-06-18 13:26:06.146043 | filter_wrapper_rf_info.gain | connect
+edi | 93465 | 2019-06-18 13:26:06.148185 | filter_wrapper_rf_variance | connect
+edi | 93465 | 2019-06-18 13:26:06.150325 | filter_wrapper_rf_rank.cor | connect
+edi | 93465 | 2019-06-18 13:26:06.152610 | filter_wrapper_rf_linear.cor | connect
+edi | 93465 | 2019-06-18 13:26:06.154800 | filter_wrapper_rf_mrmr | connect
+edi | 93465 | 2019-06-18 13:26:06.157366 | filter_wrapper_rf_cmim | connect
+edi | 93465 | 2019-06-18 13:26:06.159743 | filter_wrapper_rf_carscore | connect
+edi | 93465 | 2019-06-18 13:26:06.161984 | filter_wrapper_xgboost_borda | connect
+edi | 93465 | 2019-06-18 13:26:06.164135 | filter_wrapper_xgboost_gain.ratio | connect
+edi | 93465 | 2019-06-18 13:26:06.166381 | filter_wrapper_xgboost_info.gain | connect
+edi | 93465 | 2019-06-18 13:26:06.168554 | filter_wrapper_xgboost_variance | connect
+edi | 93465 | 2019-06-18 13:26:06.170624 | filter_wrapper_xgboost_rank.cor | connect
+edi | 93465 | 2019-06-18 13:26:06.172908 | filter_wrapper_xgboost_linear.cor | connect
+edi | 93465 | 2019-06-18 13:26:06.174861 | filter_wrapper_xgboost_mrmr | connect
+edi | 93465 | 2019-06-18 13:26:06.177376 | filter_wrapper_xgboost_cmim | connect
+edi | 93465 | 2019-06-18 13:26:06.179759 | filter_wrapper_xgboost_carscore | connect
+edi | 93465 | 2019-06-18 13:26:06.182188 | filter_wrapper_svm_borda | connect
+edi | 93465 | 2019-06-18 13:26:06.184760 | filter_wrapper_svm_gain.ratio | connect
+edi | 93465 | 2019-06-18 13:26:06.188158 | filter_wrapper_svm_info.gain | connect
+edi | 93465 | 2019-06-18 13:26:06.190491 | filter_wrapper_svm_variance | connect
+edi | 93465 | 2019-06-18 13:26:06.192963 | filter_wrapper_svm_rank.cor | connect
+edi | 93465 | 2019-06-18 13:26:06.203699 | filter_wrapper_svm_linear.cor | connect
+edi | 93465 | 2019-06-18 13:26:06.206937 | filter_wrapper_svm_mrmr | connect
+edi | 93465 | 2019-06-18 13:26:06.209733 | filter_wrapper_svm_cmim | connect
+edi | 93465 | 2019-06-18 13:26:06.212404 | filter_wrapper_svm_carscore | connect
+edi | 93465 | 2019-06-18 13:26:06.214830 | filter_wrapper_lasso_borda | connect
+edi | 93465 | 2019-06-18 13:26:06.217507 | filter_wrapper_lasso_gain.ratio | connect
+edi | 93465 | 2019-06-18 13:26:06.219945 | filter_wrapper_lasso_info.gain | connect
+edi | 93465 | 2019-06-18 13:26:06.222462 | filter_wrapper_lasso_variance | connect
+edi | 93465 | 2019-06-18 13:26:06.224994 | filter_wrapper_lasso_rank.cor | connect
+edi | 93465 | 2019-06-18 13:26:06.227605 | filter_wrapper_lasso_linear.cor | connect
+edi | 93465 | 2019-06-18 13:26:06.230371 | filter_wrapper_lasso_mrmr | connect
+edi | 93465 | 2019-06-18 13:26:06.233026 | filter_wrapper_lasso_cmim | connect
+edi | 93465 | 2019-06-18 13:26:06.235477 | filter_wrapper_lasso_carscore | connect
+edi | 93465 | 2019-06-18 13:26:06.237827 | filter_wrapper_ridge_borda | connect
+edi | 93465 | 2019-06-18 13:26:06.240284 | filter_wrapper_ridge_gain.ratio | connect
+edi | 93465 | 2019-06-18 13:26:06.242860 | filter_wrapper_ridge_info.gain | connect
+edi | 93465 | 2019-06-18 13:26:06.245474 | filter_wrapper_ridge_variance | connect
+edi | 93465 | 2019-06-18 13:26:06.247970 | filter_wrapper_ridge_rank.cor | connect
+edi | 93465 | 2019-06-18 13:26:06.250463 | filter_wrapper_ridge_linear.cor | connect
+edi | 93465 | 2019-06-18 13:26:06.252981 | filter_wrapper_ridge_mrmr | connect
+edi | 93465 | 2019-06-18 13:26:06.255455 | filter_wrapper_ridge_cmim | connect
+edi | 93465 | 2019-06-18 13:26:06.258309 | filter_wrapper_ridge_carscore | connect
+edi | 93465 | 2019-06-18 13:26:06.260923 | svm_borda | connect
+edi | 93465 | 2019-06-18 13:26:06.263449 | svm_info.gain | connect
+edi | 93465 | 2019-06-18 13:26:06.266225 | svm_gain.ratio | connect
+edi | 93465 | 2019-06-18 13:26:06.268976 | svm_variance | connect
+edi | 93465 | 2019-06-18 13:26:06.271545 | svm_rank.cor | connect
+edi | 93465 | 2019-06-18 13:26:06.274218 | svm_linear.cor | connect
+edi | 93465 | 2019-06-18 13:26:06.276588 | svm_mrmr | connect
+edi | 93465 | 2019-06-18 13:26:06.278989 | svm_cmim | connect
+edi | 93465 | 2019-06-18 13:26:06.281487 | svm_carscore | connect
+edi | 93465 | 2019-06-18 13:26:06.283928 | svm_no_filter | connect
+edi | 93465 | 2019-06-18 13:26:06.286273 | svm_pca | connect
+edi | 93465 | 2019-06-18 13:26:06.288769 | xgboost_borda | connect
+edi | 93465 | 2019-06-18 13:26:06.291343 | xgboost_info.gain | connect
+edi | 93465 | 2019-06-18 13:26:06.293573 | xgboost_gain.ratio | connect
+edi | 93465 | 2019-06-18 13:26:06.295866 | xgboost_variance | connect
+edi | 93465 | 2019-06-18 13:26:06.298164 | xgboost_rank.cor | connect
+edi | 93465 | 2019-06-18 13:26:06.300410 | xgboost_linear.cor | connect
+edi | 93465 | 2019-06-18 13:26:06.302842 | xgboost_mrmr | connect
+edi | 93465 | 2019-06-18 13:26:06.305289 | xgboost_cmim | connect
+edi | 93465 | 2019-06-18 13:26:06.307511 | xgboost_carscore | connect
+edi | 93465 | 2019-06-18 13:26:06.309996 | xgboost_no_filter | connect
+edi | 93465 | 2019-06-18 13:26:06.312404 | xgboost_pca | connect
+edi | 93465 | 2019-06-18 13:26:06.314704 | rf_borda | connect
+edi | 93465 | 2019-06-18 13:26:06.316991 | rf_info.gain | connect
+edi | 93465 | 2019-06-18 13:26:06.319463 | rf_gain.ratio | connect
+edi | 93465 | 2019-06-18 13:26:06.322100 | rf_variance | connect
+edi | 93465 | 2019-06-18 13:26:06.324605 | rf_rank.cor | connect
+edi | 93465 | 2019-06-18 13:26:06.327260 | rf_linear.cor | connect
+edi | 93465 | 2019-06-18 13:26:06.329581 | rf_mrmr | connect
+edi | 93465 | 2019-06-18 13:26:06.331975 | rf_cmim | connect
+edi | 93465 | 2019-06-18 13:26:06.334490 | rf_carscore | connect
+edi | 93465 | 2019-06-18 13:26:06.336699 | rf_no_filter | connect
+edi | 93465 | 2019-06-18 13:26:06.339298 | rf_pca | connect
+edi | 93465 | 2019-06-18 13:26:06.342031 | ridge_borda | connect
+edi | 93465 | 2019-06-18 13:26:06.344792 | ridge_info.gain | connect
+edi | 93465 | 2019-06-18 13:26:06.347107 | ridge_gain.ratio | connect
+edi | 93465 | 2019-06-18 13:26:06.349815 | ridge_variance | connect
+edi | 93465 | 2019-06-18 13:26:06.352594 | ridge_rank.cor | connect
+edi | 93465 | 2019-06-18 13:26:06.355226 | ridge_linear.cor | connect
+edi | 93465 | 2019-06-18 13:26:06.357828 | ridge_mrmr | connect
+edi | 93465 | 2019-06-18 13:26:06.360590 | ridge_cmim | connect
+edi | 93465 | 2019-06-18 13:26:06.363059 | ridge_carscore | connect
+edi | 93465 | 2019-06-18 13:26:06.365994 | ridge_no_filter | connect
+edi | 93465 | 2019-06-18 13:26:06.368728 | ridge_pca | connect
+edi | 93465 | 2019-06-18 13:26:06.371226 | lasso_borda | connect
+edi | 93465 | 2019-06-18 13:26:06.373788 | lasso_info.gain | connect
+edi | 93465 | 2019-06-18 13:26:06.376458 | lasso_gain.ratio | connect
+edi | 93465 | 2019-06-18 13:26:06.378772 | lasso_variance | connect
+edi | 93465 | 2019-06-18 13:26:06.381443 | lasso_rank.cor | connect
+edi | 93465 | 2019-06-18 13:26:06.384094 | lasso_linear.cor | connect
+edi | 93465 | 2019-06-18 13:26:06.386577 | lasso_mrmr | connect
+edi | 93465 | 2019-06-18 13:26:06.389345 | lasso_cmim | connect
+edi | 93465 | 2019-06-18 13:26:06.391832 | lasso_carscore | connect
+edi | 93465 | 2019-06-18 13:26:06.394421 | lasso_no_filter | connect
+edi | 93465 | 2019-06-18 13:26:06.396922 | lasso_pca | connect
+edi | 93465 | 2019-06-18 13:26:06.399349 | bm_vi_task_svm_borda | connect
+edi | 93465 | 2019-06-18 13:26:06.401769 | bm_nri_task_svm_borda | connect
+edi | 93465 | 2019-06-18 13:26:06.404498 | bm_hr_task_svm_borda | connect
+edi | 93465 | 2019-06-18 13:26:06.407042 | bm_vi_task_svm_info.gain | connect
+edi | 93465 | 2019-06-18 13:26:06.409867 | bm_nri_task_svm_info.gain | connect
+edi | 93465 | 2019-06-18 13:26:06.412369 | bm_hr_task_svm_info.gain | connect
+edi | 93465 | 2019-06-18 13:26:06.414956 | bm_vi_task_svm_gain.ratio | connect
+edi | 93465 | 2019-06-18 13:26:06.417520 | bm_nri_task_svm_gain.ratio | connect
+edi | 93465 | 2019-06-18 13:26:06.420317 | bm_hr_task_svm_gain.ratio | connect
+edi | 93465 | 2019-06-18 13:26:06.422835 | bm_vi_task_svm_variance | connect
+edi | 93465 | 2019-06-18 13:26:06.425184 | bm_nri_task_svm_variance | connect
+edi | 93465 | 2019-06-18 13:26:06.427482 | bm_hr_task_svm_variance | connect
+edi | 93465 | 2019-06-18 13:26:06.429749 | bm_vi_task_svm_rank.cor | connect
+edi | 93465 | 2019-06-18 13:26:06.432097 | bm_nri_task_svm_rank.cor | connect
+edi | 93465 | 2019-06-18 13:26:06.434329 | bm_hr_task_svm_rank.cor | connect
+edi | 93465 | 2019-06-18 13:26:06.436663 | bm_vi_task_svm_linear.cor | connect
+edi | 93465 | 2019-06-18 13:26:06.439004 | bm_nri_task_svm_linear.cor | connect
+edi | 93465 | 2019-06-18 13:26:06.441443 | bm_hr_task_svm_linear.cor | connect
+edi | 93465 | 2019-06-18 13:26:06.443892 | bm_vi_task_svm_mrmr | connect
+edi | 93465 | 2019-06-18 13:26:06.446298 | bm_nri_task_svm_mrmr | connect
+edi | 93465 | 2019-06-18 13:26:06.448442 | bm_hr_task_svm_mrmr | connect
+edi | 93465 | 2019-06-18 13:26:06.450832 | bm_vi_task_svm_cmim | connect
+edi | 93465 | 2019-06-18 13:26:06.453053 | bm_nri_task_svm_cmim | connect
+edi | 93465 | 2019-06-18 13:26:06.455689 | bm_hr_task_svm_cmim | connect
+edi | 93465 | 2019-06-18 13:26:06.458190 | bm_vi_task_svm_carscore | connect
+edi | 93465 | 2019-06-18 13:26:06.460728 | bm_nri_task_svm_carscore | connect
+edi | 93465 | 2019-06-18 13:26:06.463331 | bm_hr_task_svm_carscore | connect
+edi | 93465 | 2019-06-18 13:26:06.465681 | bm_vi_task_svm_no_filter | connect
+edi | 93465 | 2019-06-18 13:26:06.468713 | bm_nri_task_svm_no_filter | connect
+edi | 93465 | 2019-06-18 13:26:06.471435 | bm_hr_task_svm_no_filter | connect
+edi | 93465 | 2019-06-18 13:26:06.473906 | bm_vi_task_svm_pca | connect
+edi | 93465 | 2019-06-18 13:26:06.476529 | bm_nri_task_svm_pca | connect
+edi | 93465 | 2019-06-18 13:26:06.479273 | bm_hr_task_svm_pca | connect
+edi | 93465 | 2019-06-18 13:26:06.481777 | bm_vi_task_rf_borda | connect
+edi | 93465 | 2019-06-18 13:26:06.484421 | bm_nri_task_rf_borda | connect
+edi | 93465 | 2019-06-18 13:26:06.486956 | bm_hr_task_rf_borda | connect
+edi | 93465 | 2019-06-18 13:26:06.489571 | bm_vi_task_rf_info.gain | connect
+edi | 93465 | 2019-06-18 13:26:06.492187 | bm_nri_task_rf_info.gain | connect
+edi | 93465 | 2019-06-18 13:26:06.494616 | bm_hr_task_rf_info.gain | connect
+edi | 93465 | 2019-06-18 13:26:06.497272 | bm_vi_task_rf_gain.ratio | connect
+edi | 93465 | 2019-06-18 13:26:06.499926 | bm_nri_task_rf_gain.ratio | connect
+edi | 93465 | 2019-06-18 13:26:06.502706 | bm_hr_task_rf_gain.ratio | connect
+edi | 93465 | 2019-06-18 13:26:06.505453 | bm_vi_task_rf_variance | connect
+edi | 93465 | 2019-06-18 13:26:06.508352 | bm_nri_task_rf_variance | connect
+edi | 93465 | 2019-06-18 13:26:06.511084 | bm_hr_task_rf_variance | connect
+edi | 93465 | 2019-06-18 13:26:06.513520 | bm_vi_task_rf_rank.cor | connect
+edi | 93465 | 2019-06-18 13:26:06.515953 | bm_nri_task_rf_rank.cor | connect
+edi | 93465 | 2019-06-18 13:26:06.518519 | bm_hr_task_rf_rank.cor | connect
+edi | 93465 | 2019-06-18 13:26:06.521268 | bm_vi_task_rf_linear.cor | connect
+edi | 93465 | 2019-06-18 13:26:06.523849 | bm_nri_task_rf_linear.cor | connect
+edi | 93465 | 2019-06-18 13:26:06.526337 | bm_hr_task_rf_linear.cor | connect
+edi | 93465 | 2019-06-18 13:26:06.529016 | bm_vi_task_rf_mrmr | connect
+edi | 93465 | 2019-06-18 13:26:06.531999 | bm_nri_task_rf_mrmr | connect
+edi | 93465 | 2019-06-18 13:26:06.534714 | bm_hr_task_rf_mrmr | connect
+edi | 93465 | 2019-06-18 13:26:06.537397 | bm_vi_task_rf_cmim | connect
+edi | 93465 | 2019-06-18 13:26:06.539794 | bm_nri_task_rf_cmim | connect
+edi | 93465 | 2019-06-18 13:26:06.542525 | bm_hr_task_rf_cmim | connect
+edi | 93465 | 2019-06-18 13:26:06.545070 | bm_vi_task_rf_carscore | connect
+edi | 93465 | 2019-06-18 13:26:06.548952 | bm_nri_task_rf_carscore | connect
+edi | 93465 | 2019-06-18 13:26:06.551761 | bm_hr_task_rf_carscore | connect
+edi | 93465 | 2019-06-18 13:26:06.554575 | bm_vi_task_rf_no_filter | connect
+edi | 93465 | 2019-06-18 13:26:06.557517 | bm_nri_task_rf_no_filter | connect
+edi | 93465 | 2019-06-18 13:26:06.560303 | bm_hr_task_rf_no_filter | connect
+edi | 93465 | 2019-06-18 13:26:06.562928 | bm_vi_task_rf_pca | connect
+edi | 93465 | 2019-06-18 13:26:06.565310 | bm_nri_task_rf_pca | connect
+edi | 93465 | 2019-06-18 13:26:06.567754 | bm_hr_task_rf_pca | connect
+edi | 93465 | 2019-06-18 13:26:06.570391 | bm_vi_task_xgboost_borda | connect
+edi | 93465 | 2019-06-18 13:26:06.573116 | bm_nri_task_xgboost_borda | connect
+edi | 93465 | 2019-06-18 13:26:06.575865 | bm_hr_task_xgboost_borda | connect
+edi | 93465 | 2019-06-18 13:26:06.578609 | bm_vi_task_xgboost_info.gain | connect
+edi | 93465 | 2019-06-18 13:26:06.581180 | bm_nri_task_xgboost_info.gain | connect
+edi | 93465 | 2019-06-18 13:26:06.583574 | bm_hr_task_xgboost_info.gain | connect
+edi | 93465 | 2019-06-18 13:26:06.586118 | bm_vi_task_xgboost_gain.ratio | connect
+edi | 93465 | 2019-06-18 13:26:06.588458 | bm_nri_task_xgboost_gain.ratio | connect
+edi | 93465 | 2019-06-18 13:26:06.590870 | bm_hr_task_xgboost_gain.ratio | connect
+edi | 93465 | 2019-06-18 13:26:06.593391 | bm_vi_task_xgboost_variance | connect
+edi | 93465 | 2019-06-18 13:26:06.596121 | bm_nri_task_xgboost_variance | connect
+edi | 93465 | 2019-06-18 13:26:06.598491 | bm_hr_task_xgboost_variance | connect
+edi | 93465 | 2019-06-18 13:26:06.600918 | bm_vi_task_xgboost_rank.cor | connect
+edi | 93465 | 2019-06-18 13:26:06.603543 | bm_nri_task_xgboost_rank.cor | connect
+edi | 93465 | 2019-06-18 13:26:06.605930 | bm_hr_task_xgboost_rank.cor | connect
+edi | 93465 | 2019-06-18 13:26:06.608274 | bm_vi_task_xgboost_linear.cor | connect
+edi | 93465 | 2019-06-18 13:26:06.610807 | bm_nri_task_xgboost_linear.cor | connect
+edi | 93465 | 2019-06-18 13:26:06.613507 | bm_hr_task_xgboost_linear.cor | connect
+edi | 93465 | 2019-06-18 13:26:06.616299 | bm_vi_task_xgboost_mrmr | connect
+edi | 93465 | 2019-06-18 13:26:06.618923 | bm_nri_task_xgboost_mrmr | connect
+edi | 93465 | 2019-06-18 13:26:06.621585 | bm_hr_task_xgboost_mrmr | connect
+edi | 93465 | 2019-06-18 13:26:06.624485 | bm_vi_task_xgboost_cmim | connect
+edi | 93465 | 2019-06-18 13:26:06.627062 | bm_nri_task_xgboost_cmim | connect
+edi | 93465 | 2019-06-18 13:26:06.629866 | bm_hr_task_xgboost_cmim | connect
+edi | 93465 | 2019-06-18 13:26:06.632613 | bm_vi_task_xgboost_carscore | connect
+edi | 93465 | 2019-06-18 13:26:06.635369 | bm_nri_task_xgboost_carscore | connect
+edi | 93465 | 2019-06-18 13:26:06.638062 | bm_hr_task_xgboost_carscore | connect
+edi | 93465 | 2019-06-18 13:26:06.641034 | bm_vi_task_xgboost_no_filter | connect
+edi | 93465 | 2019-06-18 13:26:06.643785 | bm_nri_task_xgboost_no_filter | connect
+edi | 93465 | 2019-06-18 13:26:06.646590 | bm_hr_task_xgboost_no_filter | connect
+edi | 93465 | 2019-06-18 13:26:06.649529 | bm_vi_task_xgboost_pca | connect
+edi | 93465 | 2019-06-18 13:26:06.652378 | bm_nri_task_xgboost_pca | connect
+edi | 93465 | 2019-06-18 13:26:06.654963 | bm_hr_task_xgboost_pca | connect
+edi | 93465 | 2019-06-18 13:26:06.657696 | bm_vi_task_ridge_no_filter | connect
+edi | 93465 | 2019-06-18 13:26:06.660308 | bm_nri_task_ridge_no_filter | connect
+edi | 93465 | 2019-06-18 13:26:06.662883 | bm_hr_task_ridge_no_filter | connect
+edi | 93465 | 2019-06-18 13:26:06.665369 | bm_vi_task_lasso_no_filter | connect
+edi | 93465 | 2019-06-18 13:26:06.667890 | bm_nri_task_lasso_no_filter | connect
+edi | 93465 | 2019-06-18 13:26:06.670322 | bm_hr_task_lasso_no_filter | connect
+edi | 93465 | 2019-06-18 13:26:06.672696 | eda_wfr | connect
+edi | 93465 | 2019-06-18 13:26:06.675264 | spectral_signatures_wfr | connect
+edi | 93465 | 2019-06-18 13:26:06.677711 | pca_wrapper_svm | connect
+edi | 93465 | 2019-06-18 13:26:06.680427 | pca_wrapper_xgboost | connect
+edi | 93465 | 2019-06-18 13:26:06.683202 | pca_wrapper_rf | connect
+edi | 93465 | 2019-06-18 13:26:06.686188 | pca_wrapper_ridge | connect
+edi | 93465 | 2019-06-18 13:26:06.689394 | pca_wrapper_lasso | connect
+edi | 93465 | 2019-06-18 13:26:06.693965 |  | connect output files
+edi | 93465 | 2019-06-18 13:26:06.701701 |  | finalize graph edges
+edi | 93465 | 2019-06-18 13:26:06.705039 |  | create igraph
+edi | 93465 | 2019-06-18 13:26:06.708596 |  | trim neighborhoods
+edi | 93465 | 2019-06-18 13:26:06.724466 |  | add igraph attributes
+edi | 93465 | 2019-06-18 13:26:06.728395 |  | finalize igraph
+edi | 93465 | 2019-06-18 13:26:06.739626 |  | end drake_config()
+edi | 93465 | 2019-06-18 13:26:07.036326 | download_trees | import
+edi | 93465 | 2019-06-18 13:26:07.051782 | calc_nri_indices | import
+edi | 93465 | 2019-06-18 13:26:07.064793 | extract_coords | import
+edi | 93465 | 2019-06-18 13:26:07.077984 | calc_veg_indices | import
+edi | 93465 | 2019-06-18 13:26:07.091213 | raster::extract | import
+edi | 93465 | 2019-06-18 13:26:07.104643 | raster::mask | import
+edi | 93465 | 2019-06-18 13:26:07.118774 | dplyr::mutate | import
+edi | 93465 | 2019-06-18 13:26:07.133274 | raster::projectRaster | import
+edi | 93465 | 2019-06-18 13:26:07.148146 | raster::crop | import
+edi | 93465 | 2019-06-18 13:26:07.161423 | dplyr::filter | import
+edi | 93465 | 2019-06-18 13:26:07.174877 | dplyr::select | import
+edi | 93465 | 2019-06-18 13:26:07.189609 | download_locations | import
+edi | 93465 | 2019-06-18 13:26:07.205222 | log_response | import
+edi | 93465 | 2019-06-18 13:26:07.219242 | benchmark_custom_no_models | import
+edi | 93465 | 2019-06-18 13:26:07.233409 | download_hyperspectral | import
+edi | 93465 | 2019-06-18 13:26:07.259343 | process_hyperspec_helper | import
+edi | 93465 | 2019-06-18 13:26:07.278135 | clean_single_plots | import
+edi | 93465 | 2019-06-18 13:26:07.294642 | mutate_defol | import
+edi | 93465 | 2019-06-18 13:26:07.311464 | split_into_feature_sets | import
+edi | 93465 | 2019-06-18 13:26:07.329488 | extract_indices_to_plot | import
+edi | 93465 | 2019-06-18 13:26:07.345115 | extract_bands_to_plot | import
+edi | 93465 | 2019-06-18 13:26:07.365330 | process_hyperspec | import
+edi | 93465 | 2019-06-18 13:26:07.380862 |  | begin outdated()
+edi | 93465 | 2019-06-18 13:26:07.385608 |  | find more outdated targets
+edi | 93465 | 2019-06-18 13:26:07.490173 |  | find more outdated targets
+edi | 93465 | 2019-06-18 13:26:07.517226 |  | find more outdated targets
+edi | 93465 | 2019-06-18 13:26:07.550099 |  | find more outdated targets
+edi | 93465 | 2019-06-18 13:26:07.564641 |  | find more outdated targets
+edi | 93465 | 2019-06-18 13:26:07.576684 |  | find more outdated targets
+edi | 93465 | 2019-06-18 13:26:07.597816 |  | find more outdated targets
+edi | 93465 | 2019-06-18 13:26:07.621680 |  | find more outdated targets
+edi | 93465 | 2019-06-18 13:26:07.636009 |  | find more outdated targets
+edi | 93465 | 2019-06-18 13:26:07.649441 |  | find more outdated targets
+edi | 93465 | 2019-06-18 13:26:07.662983 |  | find more outdated targets
+edi | 93465 | 2019-06-18 13:26:07.675239 |  | find more outdated targets
+edi | 93465 | 2019-06-18 13:26:07.679249 |  | find downstream outdated targets
+edi | 93465 | 2019-06-18 13:26:07.685625 |  | end outdated()
+edi | 93465 | 2019-06-18 13:26:07.688486 |  | isolate oudated targets
+edi | 93465 | 2019-06-18 13:26:07.704883 |  | construct priority queue
+edi | 93465 | 2019-06-18 13:26:08.123052 |  | setting common data
+edi | 93465 | 2019-06-18 13:26:08.136488 |  | begin scheduling targets
+edi | 93465 | 2019-06-18 13:26:11.998125 |  | sending common data
+edi | 93465 | 2019-06-18 13:26:12.033248 |  | sending common data
+edi | 93465 | 2019-06-18 13:26:12.338222 | lrn_svm | target lrn_svm
+c0 | 78110 | 2019-06-18 13:26:12.303903 | lrn_svm | build on an hpc workeredi | 93465 | 2019-06-18 13:26:12.347502 | ps_svm_filter | target ps_svm_filter
+c0 | 78118 | 2019-06-18 13:26:12.312233 | ps_svm_filter | build on an hpc worker
+c0 | 78118 | 2019-06-18 13:26:21.604957 | ps_svm_filter | store
+c0 | 78118 | 2019-06-18 13:26:21.640521 | ps_svm_filter | time  0.004s | 6.814s  (exec | total)
+edi | 93465 | 2019-06-18 13:26:21.710005 | ps_rf_filter | target ps_rf_filter
+c0 | 78118 | 2019-06-18 13:26:21.674492 | ps_rf_filter | build on an hpc worker
+c0 | 78118 | 2019-06-18 13:26:22.283624 | ps_rf_filter | store
+c0 | 78110 | 2019-06-18 13:26:22.301053 | lrn_svm | store
+c0 | 78118 | 2019-06-18 13:26:22.308021 | ps_rf_filter | time  0.001s | 15.506s  (exec | total)
+c0 | 78110 | 2019-06-18 13:26:22.331227 | lrn_svm | time  0.668s | 6.114s  (exec | total)
+edi | 93465 | 2019-06-18 13:26:22.384229 | rf_borda | target rf_borda
+c0 | 78118 | 2019-06-18 13:26:22.347983 | rf_borda | build on an hpc worker
+edi | 93465 | 2019-06-18 13:26:22.405202 | filter_wrapper_svm_mrmr | target filter_wrapper_svm_mrmr
+c0 | 78110 | 2019-06-18 13:26:22.369371 | filter_wrapper_svm_mrmr | build on an hpc worker
+c0 | 78118 | 2019-06-18 13:26:22.978055 | rf_borda | store
+c0 | 78118 | 2019-06-18 13:26:23.008333 | rf_borda | time  0.027s | 15.471s  (exec | total)
+c0 | 78110 | 2019-06-18 13:26:23.022041 | filter_wrapper_svm_mrmr | store
+edi | 93465 | 2019-06-18 13:26:23.081522 | bm_nri_task_rf_borda | target bm_nri_task_rf_borda
+c0 | 78110 | 2019-06-18 13:26:23.043860 | filter_wrapper_svm_mrmr | time  0.012s | 15.46s  (exec | total)
+c0 | 78118 | 2019-06-18 13:26:23.045544 | bm_nri_task_rf_borda | build on an hpc worker
+edi | 93465 | 2019-06-18 13:26:23.118569 | svm_mrmr | target svm_mrmr
+c0 | 78110 | 2019-06-18 13:26:23.082824 | svm_mrmr | build on an hpc worker
+c0 | 78118 | 2019-06-18 13:26:23.373130 | bm_nri_task_rf_borda | Autodetecting cpus: 32
+c0 | 78118 | 2019-06-18 13:26:23.377934 | bm_nri_task_rf_borda | Starting parallelization in mode=multicore with cpus=32.
+c0 | 78110 | 2019-06-18 13:26:23.714099 | svm_mrmr | store
+c0 | 78110 | 2019-06-18 13:26:23.741456 | svm_mrmr | time  0.018s | 15.475s  (exec | total)
+edi | 93465 | 2019-06-18 13:26:23.810838 | bm_nri_task_svm_mrmr | target bm_nri_task_svm_mrmr
+c0 | 78110 | 2019-06-18 13:26:23.775734 | bm_nri_task_svm_mrmr | build on an hpc worker
+c0 | 78110 | 2019-06-18 13:26:24.109629 | bm_nri_task_svm_mrmr | Autodetecting cpus: 32
+c0 | 78110 | 2019-06-18 13:26:24.113844 | bm_nri_task_svm_mrmr | Starting parallelization in mode=multicore with cpus=32.
+c0 | 78118 | 2019-06-18 13:26:24.565824 | bm_nri_task_rf_borda | Warning: Adjusting levels to match number of blocking levels.
+c0 | 78118 | 2019-06-18 13:26:24.574815 | bm_nri_task_rf_borda | Task: defoliation-all-plots-NRI, Learner: regr.ranger.pow.filtered.tuned
+c0 | 78118 | 2019-06-18 13:26:24.581729 | bm_nri_task_rf_borda | Resampling: cross-validation
+c0 | 78118 | 2019-06-18 13:26:24.588823 | bm_nri_task_rf_borda | Measures:             rmse        timetrain   
+c0 | 78118 | 2019-06-18 13:26:24.593586 | bm_nri_task_rf_borda | Mapping in parallel: mode = multicore; cpus = 32; elements = 4.
+c0 | 78110 | 2019-06-18 13:26:25.376929 | bm_nri_task_svm_mrmr | Warning: Adjusting levels to match number of blocking levels.
+c0 | 78110 | 2019-06-18 13:26:25.390215 | bm_nri_task_svm_mrmr | Task: defoliation-all-plots-NRI, Learner: regr.ksvm.filtered.tuned
+c0 | 78110 | 2019-06-18 13:26:25.396749 | bm_nri_task_svm_mrmr | Resampling: cross-validation
+c0 | 78110 | 2019-06-18 13:26:25.404303 | bm_nri_task_svm_mrmr | Measures:             rmse        timetrain   
+c0 | 78110 | 2019-06-18 13:26:25.409144 | bm_nri_task_svm_mrmr | Mapping in parallel: mode = multicore; cpus = 32; elements = 4.
+c0 | 78161 | 2019-06-18 13:26:25.841502 | bm_nri_task_rf_borda | Warning: Adjusting levels to match number of blocking levels.
+c0 | 78161 | 2019-06-18 13:26:25.865877 | bm_nri_task_rf_borda | [Tune] Started tuning learner regr.ranger.pow.filtered for parameter set:
+c0 | 78161 | 2019-06-18 13:26:25.886245 | bm_nri_task_rf_borda |                    Type len Def     Constr Req Tunable Trafo
+mtry.power      numeric   -   -   0 to 0.5   -    TRUE     -
+min.node.size   integer   -   -    1 to 10   -    TRUE     -
+sample.fraction numeric   -   - 0.2 to 0.9   -    TRUE     -
+fw.perc         numeric   -   -     0 to 1   -    TRUE     -
+c0 | 78161 | 2019-06-18 13:26:25.891135 | bm_nri_task_rf_borda | With control class: TuneControlRandom
+c0 | 78161 | 2019-06-18 13:26:25.896249 | bm_nri_task_rf_borda | Imputation value: Inf
+c0 | 78161 | 2019-06-18 13:26:25.953642 | bm_nri_task_rf_borda | [Tune-x] 1: mtry.power=0.14; min.node.size=2; sample.fraction=0.805; fw.perc=0.972
+c0 | 78160 | 2019-06-18 13:26:26.227073 | bm_nri_task_rf_borda | Warning: Adjusting levels to match number of blocking levels.
+c0 | 78162 | 2019-06-18 13:26:26.250836 | bm_nri_task_rf_borda | Warning: Adjusting levels to match number of blocking levels.
+c0 | 78160 | 2019-06-18 13:26:26.253404 | bm_nri_task_rf_borda | [Tune] Started tuning learner regr.ranger.pow.filtered for parameter set:
+c0 | 78162 | 2019-06-18 13:26:26.275231 | bm_nri_task_rf_borda | [Tune] Started tuning learner regr.ranger.pow.filtered for parameter set:
+c0 | 78160 | 2019-06-18 13:26:26.278394 | bm_nri_task_rf_borda |                    Type len Def     Constr Req Tunable Trafo
+mtry.power      numeric   -   -   0 to 0.5   -    TRUE     -
+min.node.size   integer   -   -    1 to 10   -    TRUE     -
+sample.fraction numeric   -   - 0.2 to 0.9   -    TRUE     -
+fw.perc         numeric   -   -     0 to 1   -    TRUE     -
+c0 | 78160 | 2019-06-18 13:26:26.283892 | bm_nri_task_rf_borda | With control class: TuneControlRandom
+c0 | 78160 | 2019-06-18 13:26:26.289628 | bm_nri_task_rf_borda | Imputation value: Inf
+c0 | 78162 | 2019-06-18 13:26:26.293258 | bm_nri_task_rf_borda |                    Type len Def     Constr Req Tunable Trafo
+mtry.power      numeric   -   -   0 to 0.5   -    TRUE     -
+min.node.size   integer   -   -    1 to 10   -    TRUE     -
+sample.fraction numeric   -   - 0.2 to 0.9   -    TRUE     -
+fw.perc         numeric   -   -     0 to 1   -    TRUE     -
+c0 | 78162 | 2019-06-18 13:26:26.298429 | bm_nri_task_rf_borda | With control class: TuneControlRandom
+c0 | 78162 | 2019-06-18 13:26:26.303333 | bm_nri_task_rf_borda | Imputation value: Inf
+c0 | 78163 | 2019-06-18 13:26:26.314612 | bm_nri_task_rf_borda | Warning: Adjusting levels to match number of blocking levels.
+c0 | 78163 | 2019-06-18 13:26:26.333232 | bm_nri_task_rf_borda | [Tune] Started tuning learner regr.ranger.pow.filtered for parameter set:
+c0 | 78160 | 2019-06-18 13:26:26.338015 | bm_nri_task_rf_borda | [Tune-x] 1: mtry.power=0.458; min.node.size=2; sample.fraction=0.672; fw.perc=0.7
+c0 | 78163 | 2019-06-18 13:26:26.346977 | bm_nri_task_rf_borda |                    Type len Def     Constr Req Tunable Trafo
+mtry.power      numeric   -   -   0 to 0.5   -    TRUE     -
+min.node.size   integer   -   -    1 to 10   -    TRUE     -
+sample.fraction numeric   -   - 0.2 to 0.9   -    TRUE     -
+fw.perc         numeric   -   -     0 to 1   -    TRUE     -
+c0 | 78163 | 2019-06-18 13:26:26.351798 | bm_nri_task_rf_borda | With control class: TuneControlRandom
+c0 | 78163 | 2019-06-18 13:26:26.356135 | bm_nri_task_rf_borda | Imputation value: Inf
+c0 | 78162 | 2019-06-18 13:26:26.370074 | bm_nri_task_rf_borda | [Tune-x] 1: mtry.power=0.393; min.node.size=8; sample.fraction=0.27; fw.perc=0.593
+c0 | 78163 | 2019-06-18 13:26:26.405538 | bm_nri_task_rf_borda | [Tune-x] 1: mtry.power=0.095; min.node.size=1; sample.fraction=0.843; fw.perc=0.969
+c0 | 78162 | 2019-06-18 13:26:26.694422 | bm_nri_task_rf_borda | Warning: Dependent variable is a numeric! It will be converted to factor with simple factor(y). We do not discretize dependent variable in FSelectorRcpp by default! You can choose equal frequency binning discretization by setting equal argument to TRUE.
+c0 | 78160 | 2019-06-18 13:26:26.701516 | bm_nri_task_rf_borda | Warning: Dependent variable is a numeric! It will be converted to factor with simple factor(y). We do not discretize dependent variable in FSelectorRcpp by default! You can choose equal frequency binning discretization by setting equal argument to TRUE.
+c0 | 78161 | 2019-06-18 13:26:26.928930 | bm_nri_task_rf_borda | Warning: Dependent variable is a numeric! It will be converted to factor with simple factor(y). We do not discretize dependent variable in FSelectorRcpp by default! You can choose equal frequency binning discretization by setting equal argument to TRUE.
+c0 | 78164 | 2019-06-18 13:26:27.107198 | bm_nri_task_svm_mrmr | Warning: Adjusting levels to match number of blocking levels.
+c0 | 78164 | 2019-06-18 13:26:27.122649 | bm_nri_task_svm_mrmr | [Tune] Started tuning learner regr.ksvm.filtered for parameter set:
+c0 | 78164 | 2019-06-18 13:26:27.133968 | bm_nri_task_svm_mrmr |            Type len Def  Constr Req Tunable Trafo
+C       numeric   -   - -2 to 2   -    TRUE     Y
+sigma   numeric   -   - -2 to 2   -    TRUE     Y
+fw.perc numeric   -   -  0 to 1   -    TRUE     -
+c0 | 78164 | 2019-06-18 13:26:27.137995 | bm_nri_task_svm_mrmr | With control class: TuneControlRandom
+c0 | 78164 | 2019-06-18 13:26:27.141885 | bm_nri_task_svm_mrmr | Imputation value: Inf
+c0 | 78163 | 2019-06-18 13:26:27.144650 | bm_nri_task_rf_borda | Warning: Dependent variable is a numeric! It will be converted to factor with simple factor(y). We do not discretize dependent variable in FSelectorRcpp by default! You can choose equal frequency binning discretization by setting equal argument to TRUE.
+c0 | 78165 | 2019-06-18 13:26:27.151533 | bm_nri_task_svm_mrmr | Warning: Adjusting levels to match number of blocking levels.
+c0 | 78166 | 2019-06-18 13:26:27.162664 | bm_nri_task_svm_mrmr | Warning: Adjusting levels to match number of blocking levels.
+c0 | 78165 | 2019-06-18 13:26:27.164871 | bm_nri_task_svm_mrmr | [Tune] Started tuning learner regr.ksvm.filtered for parameter set:
+c0 | 78164 | 2019-06-18 13:26:27.169435 | bm_nri_task_svm_mrmr | [Tune-x] 1: C=3.16; sigma=0.355; fw.perc=0.674
+c0 | 78165 | 2019-06-18 13:26:27.175907 | bm_nri_task_svm_mrmr |            Type len Def  Constr Req Tunable Trafo
+C       numeric   -   - -2 to 2   -    TRUE     Y
+sigma   numeric   -   - -2 to 2   -    TRUE     Y
+fw.perc numeric   -   -  0 to 1   -    TRUE     -
+c0 | 78166 | 2019-06-18 13:26:27.178046 | bm_nri_task_svm_mrmr | [Tune] Started tuning learner regr.ksvm.filtered for parameter set:
+c0 | 78165 | 2019-06-18 13:26:27.179303 | bm_nri_task_svm_mrmr | With control class: TuneControlRandom
+c0 | 78165 | 2019-06-18 13:26:27.183961 | bm_nri_task_svm_mrmr | Imputation value: Inf
+c0 | 78166 | 2019-06-18 13:26:27.189798 | bm_nri_task_svm_mrmr |            Type len Def  Constr Req Tunable Trafo
+C       numeric   -   - -2 to 2   -    TRUE     Y
+sigma   numeric   -   - -2 to 2   -    TRUE     Y
+fw.perc numeric   -   -  0 to 1   -    TRUE     -
+c0 | 78167 | 2019-06-18 13:26:27.192815 | bm_nri_task_svm_mrmr | Warning: Adjusting levels to match number of blocking levels.
+c0 | 78166 | 2019-06-18 13:26:27.193979 | bm_nri_task_svm_mrmr | With control class: TuneControlRandom
+c0 | 78166 | 2019-06-18 13:26:27.199231 | bm_nri_task_svm_mrmr | Imputation value: Inf
+c0 | 78167 | 2019-06-18 13:26:27.208420 | bm_nri_task_svm_mrmr | [Tune] Started tuning learner regr.ksvm.filtered for parameter set:
+c0 | 78165 | 2019-06-18 13:26:27.213191 | bm_nri_task_svm_mrmr | [Tune-x] 1: C=0.543; sigma=0.402; fw.perc=0.864
+c0 | 78167 | 2019-06-18 13:26:27.219131 | bm_nri_task_svm_mrmr |            Type len Def  Constr Req Tunable Trafo
+C       numeric   -   - -2 to 2   -    TRUE     Y
+sigma   numeric   -   - -2 to 2   -    TRUE     Y
+fw.perc numeric   -   -  0 to 1   -    TRUE     -
+c0 | 78167 | 2019-06-18 13:26:27.223327 | bm_nri_task_svm_mrmr | With control class: TuneControlRandom
+c0 | 78167 | 2019-06-18 13:26:27.227300 | bm_nri_task_svm_mrmr | Imputation value: Inf
+c0 | 78166 | 2019-06-18 13:26:27.234997 | bm_nri_task_svm_mrmr | [Tune-x] 1: C=2.22; sigma=2.09; fw.perc=0.1
+c0 | 78167 | 2019-06-18 13:26:27.263062 | bm_nri_task_svm_mrmr | [Tune-x] 1: C=0.423; sigma=0.325; fw.perc=0.918
+c0 | 78162 | 2019-06-18 13:26:30.757918 | bm_nri_task_rf_borda | Warning: Dependent variable is a numeric! It will be converted to factor with simple factor(y). We do not discretize dependent variable in FSelectorRcpp by default! You can choose equal frequency binning discretization by setting equal argument to TRUE.
+c0 | 78160 | 2019-06-18 13:26:30.851962 | bm_nri_task_rf_borda | Warning: Dependent variable is a numeric! It will be converted to factor with simple factor(y). We do not discretize dependent variable in FSelectorRcpp by default! You can choose equal frequency binning discretization by setting equal argument to TRUE.
+c0 | 78161 | 2019-06-18 13:26:31.080818 | bm_nri_task_rf_borda | Warning: Dependent variable is a numeric! It will be converted to factor with simple factor(y). We do not discretize dependent variable in FSelectorRcpp by default! You can choose equal frequency binning discretization by setting equal argument to TRUE.
+c0 | 78163 | 2019-06-18 13:26:37.621551 | bm_nri_task_rf_borda | Warning: Dependent variable is a numeric! It will be converted to factor with simple factor(y). We do not discretize dependent variable in FSelectorRcpp by default! You can choose equal frequency binning discretization by setting equal argument to TRUE.

@@ -38,7 +38,24 @@ library("ggplot2")
 
 ```{r eda-1}
 intro <- introduce(vi_data)
-knitr::kable(intro)
+
+intro_df <- data.frame(
+  "Name" = c("Rows", "Columns",
+             "Discrete columns", "Continuous columns", "All missing columns",
+             "Missing observations", "Complete Rows",
+             "Total observations"),
+  "Value" = c(
+    format(intro[["rows"]], big.mark = ","),
+    format(intro[["columns"]], big.mark = ","),
+    format(intro[["discrete_columns"]], big.mark = ","),
+    format(intro[["continuous_columns"]], big.mark = ","),
+    format(intro[["all_missing_columns"]], big.mark = ","),
+    format(intro[["total_missing_values"]], big.mark = ","),
+    format(intro[["complete_rows"]], big.mark = ","),
+    format(intro[["total_observations"]], big.mark = ",")
+  )
+)
+kable(intro_df)
 ```
 
 ### Histograms
@@ -65,7 +82,23 @@ plot_correlation(vi_data)
 
 ```{r eda-5}
 intro <- introduce(nri_data)
-knitr::kable(intro)
+intro_df <- data.frame(
+  "Name" = c("Rows", "Columns",
+             "Discrete columns", "Continuous columns", "All missing columns",
+             "Missing observations", "Complete Rows",
+             "Total observations",
+  "Value" = c(
+    format(intro[["rows"]], big.mark = ","),
+    format(intro[["columns"]], big.mark = ","),
+    format(intro[["discrete_columns"]], big.mark = ","),
+    format(intro[["continuous_columns"]], big.mark = ","),
+    format(intro[["all_missing_columns"]], big.mark = ","),
+    format(intro[["total_missing_values"]], big.mark = ","),
+    format(intro[["complete_rows"]], big.mark = ","),
+    format(intro[["total_observations"]], big.mark = ",")
+  )
+)
+kable(intro_df)
 ```
 
 ### Histograms
@@ -90,7 +123,23 @@ plot_correlation(nri_data)
 
 ```{r eda-8}
 intro <- introduce(bands_data)
-knitr::kable(intro)
+intro_df <- data.frame(
+  "Name" = c("Rows", "Columns",
+             "Discrete columns", "Continuous columns", "All missing columns",
+             "Missing observations", "Complete Rows",
+             "Total observations",
+  "Value" = c(
+    format(intro[["rows"]], big.mark = ","),
+    format(intro[["columns"]], big.mark = ","),
+    format(intro[["discrete_columns"]], big.mark = ","),
+    format(intro[["continuous_columns"]], big.mark = ","),
+    format(intro[["all_missing_columns"]], big.mark = ","),
+    format(intro[["total_missing_values"]], big.mark = ","),
+    format(intro[["complete_rows"]], big.mark = ","),
+    format(intro[["total_observations"]], big.mark = ",")
+  )
+)
+kable(intro_df)
 ```
 
 ### Histograms

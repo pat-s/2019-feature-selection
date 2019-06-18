@@ -1,7 +1,7 @@
 # Random Forest -----------------------------------------------------------
 
 lrn_rf <- makeLearner(
-  "regr.ranger"
+  "regr.ranger.pow"
 )
 
 # XGBOOST -----------------------------------------------------------------
@@ -17,8 +17,9 @@ lrn_xgboost <- makeLearner(
 # SVM ---------------------------------------------------------------------
 
 lrn_svm <- makeLearner(
-  "regr.svm",
-  scale = FALSE
+  "regr.ksvm",
+  scaled = FALSE,
+  fit = FALSE
 )
 
 # LASSO ---------------------------------------------------------------------

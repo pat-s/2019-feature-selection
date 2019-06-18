@@ -23,12 +23,12 @@ During startup - Warning messages:
 5: Setting LC_MONETARY failed, using "C" 
 6: Setting LC_PAPER failed, using "C" 
 7: Setting LC_MEASUREMENT failed, using "C" 
-> clustermq:::worker("tcp://edi:7710")
-Master: tcp://edi:7710
-WORKER_UP to: tcp://edi:7710
-> DO_SETUP (0.322s wait)
-token from msg: set_common_data_token
-> DO_CALL (0.000s wait)
+> clustermq:::worker("tcp://edi:6194")
+2019-06-18 13:26:11.926987 | Master: tcp://edi:6194
+2019-06-18 13:26:11.953150 | WORKER_UP to: tcp://edi:6194
+2019-06-18 13:26:12.287910 | > DO_SETUP (0.321s wait)
+2019-06-18 13:26:12.289642 | token from msg: set_common_data_token
+2019-06-18 13:26:12.301971 | > DO_CALL (0.001s wait)
 
 .rgdal: version: 1.4-3, (SVN revision 828)
  Geospatial Data Abstraction Library extensions to R successfully loaded
@@ -300,60 +300,87 @@ The following object is masked from 'package:raster':
     rotate
 
 here() starts at /home/patrick/papers/2019-feature-selection
-This is workflowr version 1.3.0
+This is workflowr version 1.4.0
 Run ?workflowr for help getting started
-During startup - Warning messages:
-1: Setting LC_CTYPE failed, using "C" 
-2: Setting LC_COLLATE failed, using "C" 
-3: Setting LC_TIME failed, using "C" 
-4: Setting LC_MESSAGES failed, using "C" 
-5: Setting LC_MONETARY failed, using "C" 
-6: Setting LC_PAPER failed, using "C" 
-7: Setting LC_MEASUREMENT failed, using "C" 
-During startup - Warning messages:
-1: Setting LC_CTYPE failed, using "C" 
-2: Setting LC_COLLATE failed, using "C" 
-3: Setting LC_TIME failed, using "C" 
-4: Setting LC_MESSAGES failed, using "C" 
-5: Setting LC_MONETARY failed, using "C" 
-6: Setting LC_PAPER failed, using "C" 
-7: Setting LC_MEASUREMENT failed, using "C" 
-During startup - Warning messages:
-1: Setting LC_CTYPE failed, using "C" 
-2: Setting LC_COLLATE failed, using "C" 
-3: Setting LC_TIME failed, using "C" 
-4: Setting LC_MESSAGES failed, using "C" 
-5: Setting LC_MONETARY failed, using "C" 
-6: Setting LC_PAPER failed, using "C" 
-7: Setting LC_MEASUREMENT failed, using "C" 
-During startup - Warning messages:
-1: Setting LC_CTYPE failed, using "C" 
-2: Setting LC_COLLATE failed, using "C" 
-3: Setting LC_TIME failed, using "C" 
-4: Setting LC_MESSAGES failed, using "C" 
-5: Setting LC_MONETARY failed, using "C" 
-6: Setting LC_PAPER failed, using "C" 
-7: Setting LC_MEASUREMENT failed, using "C" 
-During startup - Warning messages:
-1: Setting LC_CTYPE failed, using "C" 
-2: Setting LC_COLLATE failed, using "C" 
-3: Setting LC_TIME failed, using "C" 
-4: Setting LC_MESSAGES failed, using "C" 
-5: Setting LC_MONETARY failed, using "C" 
-6: Setting LC_PAPER failed, using "C" 
-7: Setting LC_MEASUREMENT failed, using "C" 
-During startup - Warning messages:
-1: Setting LC_CTYPE failed, using "C" 
-2: Setting LC_COLLATE failed, using "C" 
-3: Setting LC_TIME failed, using "C" 
-4: Setting LC_MESSAGES failed, using "C" 
-5: Setting LC_MONETARY failed, using "C" 
-6: Setting LC_PAPER failed, using "C" 
-7: Setting LC_MEASUREMENT failed, using "C" 
-[31mfail[39m defoliation_maps_wfr
-Error : Target `defoliation_maps_wfr` failed. Call `diagnose(defoliation_maps_wfr)` for details. Error message:
-  Pandoc is not installed. Please use RStudio or install pandoc manually
-In addition: Warning message:
-replacing previous import 'gdalUtils::gdal_rasterize' by 'sf::gdal_rasterize' when loading 'mapview' 
-eval'd: drake::cmq_buildtargetmetadepslayoutconfig
-slurmstepd: error: *** JOB 2965 ON c0 CANCELLED AT 2019-05-22T16:15:23 ***
+
+Attaching package: 'survival'
+
+The following object is masked from 'package:future':
+
+    cluster
+
+The following object is masked from 'package:caret':
+
+    cluster
+
+
+Attaching package: 'igraph'
+
+The following object is masked from 'package:BBmisc':
+
+    normalize
+
+The following object is masked from 'package:fs':
+
+    path
+
+The following objects are masked from 'package:future':
+
+    %->%, %<-%
+
+The following object is masked from 'package:R.oo':
+
+    hierarchy
+
+The following objects are masked from 'package:purrr':
+
+    compose, simplify
+
+The following objects are masked from 'package:dplyr':
+
+    as_data_frame, groups, union
+
+The following object is masked from 'package:raster':
+
+    union
+
+The following object is masked from 'package:drake':
+
+    read_graph
+
+The following objects are masked from 'package:stats':
+
+    decompose, spectrum
+
+The following object is masked from 'package:base':
+
+    union
+
+
+Attaching package: 'mRMRe'
+
+The following object is masked from 'package:drake':
+
+    target
+
+
+Attaching package: 'kernlab'
+
+The following object is masked from 'package:purrr':
+
+    cross
+
+The following object is masked from 'package:ggplot2':
+
+    alpha
+
+The following objects are masked from 'package:raster':
+
+    buffer, rotated
+
+.2019-06-18 13:26:22.340329 | eval'd: drake::cmq_buildtargetmetadepslayoutconfig
+2019-06-18 13:26:22.367379 | > DO_CALL (0.000s wait)
+.2019-06-18 13:26:23.053244 | eval'd: drake::cmq_buildtargetmetadepslayoutconfig
+2019-06-18 13:26:23.080961 | > DO_CALL (0.000s wait)
+.2019-06-18 13:26:23.751353 | eval'd: drake::cmq_buildtargetmetadepslayoutconfig
+2019-06-18 13:26:23.773379 | > DO_CALL (0.000s wait)

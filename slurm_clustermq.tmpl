@@ -1,6 +1,6 @@
 #!/bin/sh
 #SBATCH --job-name={{ job_name }}
-#SBATCH --partition=normal
+#SBATCH --partition=threadripper
 #SBATCH --output={{ log_file | /dev/null }} # you can add .%a for array index
 #SBATCH --error={{ log_file | /dev/null }}
 #SBATCH --cpus-per-task={{ n_cpus }}

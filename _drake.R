@@ -1,5 +1,7 @@
 source("code/99-packages.R")
 
+source("https://raw.githubusercontent.com/mlr-org/mlr-extralearner/master/R/RLearner_regr_ranger_mtry_pow.R")
+
 # Plans -----------------------------------------------------------
 
 download_plan = code_to_plan("code/01-download.R")
@@ -80,21 +82,23 @@ plan_paper %<>% mutate(stage = as.factor(stage))
 
 # paper -------------------------------------------------------------------
 
-# drake_config(plan_paper,
-#              verbose = 2, lazy_load = "promise",
-#              console_log_file = "log/drake.log", cache_log_file = "log/cache3.log",
-#              caching = "worker",
-#              template = list(log_file = "log/worker%a.log", n_cpus = 4, memory = 40000),
-#              prework = quote(future::plan(future::multiprocess, workers = 4)),
-#              garbage_collection = TRUE, jobs = 4, parallelism = "clustermq"
-# )
-
-
-drake_config(plan_paper, target = c("spectral_signatures_wfr", "eda_wfr"),
+drake_config(plan_paper,
+             target = c("bm_nri_task_rf_borda", "bm_nri_task_svm_mrmr"),
              verbose = 2, lazy_load = "promise",
-             console_log_file = "log/drake2.log",
+             console_log_file = "log/drake.log", cache_log_file = "log/cache3.log",
              caching = "worker",
-             template = list(log_file = "log/2-worker%a.log", n_cpus = 1, memory = 10000),
-             #prework = quote(future::plan(future::multiprocess, workers = 4)),
-             garbage_collection = TRUE, jobs = 1, parallelism = "clustermq"
+             template = list(log_file = "log/worker%a.log", n_cpus = 4, memory = 10000),
+             prework = quote(future::plan(future.callr::callr, workers = 4)),
+             garbage_collection = TRUE, jobs = 2, parallelism = "clustermq"
 )
+
+
+# drake_config(plan_paper,
+#              target = c("bm_nri_task_svm_borda", "bm_hr_task_rf_variance"),
+#              verbose = 2, lazy_load = "promise",
+#              console_log_file = "log/drake2-%a.log",
+#              caching = "worker",
+#              template = list(log_file = "log/2-worker%a.log", n_cpus = 4, memory = 10000),
+#              prework = quote(future::plan(future.callr::callr, workers = 4)),
+#              garbage_collection = TRUE, jobs = 2, parallelism = "clustermq"
+# )
