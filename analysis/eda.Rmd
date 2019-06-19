@@ -23,7 +23,23 @@ source(here::here("code/99-packages.R"))
 sourceDirectory("R")
 
 # load drake objects
-loadd(vi_data, nri_data, bands_data, coords_vi_nri_clean)
+loadd(vi_data, nri_data, bands_data, coords_vi_nri_clean,
+      
+      fv_nri_car, fv_nri_info.gain, fv_nri_gain.ratio,
+      fv_nri_rank, fv_nri_cor,
+      fv_nri_mrmr,
+      fv_nri_cmim, fv_nri_var,
+
+      fv_vi_car, fv_vi_info.gain, fv_vi_gain.ratio,
+      fv_vi_rank, fv_vi_cor,
+      fv_vi_mrmr,
+      fv_vi_cmim, fv_vi_var,
+
+      fv_hr_car, fv_hr_info.gain, fv_hr_gain.ratio,
+      fv_hr_rank, fv_hr_cor,
+      fv_hr_mrmr,
+      fv_hr_cmim, fv_hr_var
+      )
 library("DataExplorer")
 library("dplyr")
 library("ggsci")
@@ -36,9 +52,51 @@ library("ggplot2")
 
 ### Overview
 
-```{r eda-1}
+```{r eda-1 }
 intro <- introduce(vi_data)
+intro_df <- data.frame(
+  "Name" = c("Rows", "Columns",
+             "Discrete columns", "Continuous columns", "All missing columns",
+             "Missing observations", "Complete Rows",
+             "Total observations"),
+  "Value" = c(
+    format(intro[["rows"]], big.mark = ","),
+    format(intro[["columns"]], big.mark = ","),
+    format(intro[["discrete_columns"]], big.mark = ","),
+    format(intro[["continuous_columns"]], big.mark = ","),
+    format(intro[["all_missing_columns"]], big.mark = ","),
+    format(intro[["total_missing_values"]], big.mark = ","),
+    format(intro[["complete_rows"]], big.mark = ","),
+    format(intro[["total_observations"]], big.mark = ",")
+  )
+)
+knitr::kable(intro_df)
+```
 
+### Histograms
+
+```{r eda-2 }
+plot_histogram(vi_data)
+```
+
+### PCA
+
+```{r eda-3 }
+plot_prcomp(vi_data)
+```
+
+### Corr
+
+```{r eda-4 }
+plot_correlation(vi_data)
+```
+
+## NRI
+
+### Overview
+
+```{r eda-5 }
+intro <- introduce(nri_data)
 intro_df <- data.frame(
   "Name" = c("Rows", "Columns",
              "Discrete columns", "Continuous columns", "All missing columns",
@@ -60,60 +118,17 @@ kable(intro_df)
 
 ### Histograms
 
-```{r eda-2}
-plot_histogram(vi_data)
-```
-
-### PCA
-
-```{r eda-3}
-plot_prcomp(vi_data)
-```
-
-### Corr
-
-```{r eda-4}
-plot_correlation(vi_data)
-```
-
-## NRI
-
-### Overview
-
-```{r eda-5}
-intro <- introduce(nri_data)
-intro_df <- data.frame(
-  "Name" = c("Rows", "Columns",
-             "Discrete columns", "Continuous columns", "All missing columns",
-             "Missing observations", "Complete Rows",
-             "Total observations",
-  "Value" = c(
-    format(intro[["rows"]], big.mark = ","),
-    format(intro[["columns"]], big.mark = ","),
-    format(intro[["discrete_columns"]], big.mark = ","),
-    format(intro[["continuous_columns"]], big.mark = ","),
-    format(intro[["all_missing_columns"]], big.mark = ","),
-    format(intro[["total_missing_values"]], big.mark = ","),
-    format(intro[["complete_rows"]], big.mark = ","),
-    format(intro[["total_observations"]], big.mark = ",")
-  )
-)
-kable(intro_df)
-```
-
-### Histograms
-
 No histograms for NRI -> too many features.
 
 ### PCA
 
-```{r eda-6}
+```{r eda-6 }
 plot_prcomp(nri_data)
 ```
 
 ### Corr
 
-```{r eda-7}
+```{r eda-7 }
 plot_correlation(nri_data)
 ```
 
@@ -121,13 +136,13 @@ plot_correlation(nri_data)
 
 ### Overview
 
-```{r eda-8}
+```{r eda-8 }
 intro <- introduce(bands_data)
 intro_df <- data.frame(
   "Name" = c("Rows", "Columns",
              "Discrete columns", "Continuous columns", "All missing columns",
              "Missing observations", "Complete Rows",
-             "Total observations",
+             "Total observations"),
   "Value" = c(
     format(intro[["rows"]], big.mark = ","),
     format(intro[["columns"]], big.mark = ","),
@@ -144,25 +159,25 @@ kable(intro_df)
 
 ### Histograms
 
-```{r eda-9}
+```{r eda-9 }
 plot_histogram(bands_data)
 ```
 
 ### PCA
 
-```{r eda-10}
+```{r eda-10 }
 plot_prcomp(bands_data)
 ```
 
 ### Corr
 
-```{r eda-11}
+```{r eda-11 }
 plot_correlation(bands_data)
 ```
 
 # Custom plots
 
-```{r eda-12}
+```{r eda-12 }
 vi_data_plot <- vi_data %>%
   mutate(plot = factor(rep(
     c("Laukiz 1", "Laukiz 2", "Luiando", "Oiartzun"),
@@ -172,7 +187,7 @@ vi_data_plot <- vi_data %>%
 
 # Mean defoliation per plot
 
-```{r eda-13}
+```{r eda-13 }
 mean_defol <- vi_data_plot %>%
   group_by(plot) %>%
   summarise(mean(defoliation)) %>%
@@ -184,7 +199,7 @@ vi_data_plot %>%
 
 # Coefficient of variation
 
-```{r eda-14}
+```{r eda-14 }
 cov_defol <- vi_data_plot %>%
   group_by(plot) %>%
   summarise((sd(defoliation) / mean(defoliation)) * 100) %>%
@@ -196,7 +211,7 @@ vi_data_plot %>%
 
 # sd / skewness
 
-```{r eda-15}
+```{r eda-15 }
 sd_skewness_defol <- vi_data_plot %>%
   group_by(plot) %>%
   summarise(((sd(defoliation) / mean(defoliation)) * 100) / e1071::skewness(defoliation)) %>%
@@ -206,7 +221,7 @@ vi_data_plot %>%
   summarise(((sd(defoliation) / mean(defoliation)) * 100) / e1071::skewness(defoliation))
 ```
 
-```{r eda-16}
+```{r eda-16 }
 sd_defol <- vi_data_plot %>%
   group_by(plot) %>%
   summarise(sd(defoliation)) %>%
@@ -216,7 +231,7 @@ vi_data_plot %>%
   summarise(sd(defoliation))
 ```
 
-```{r defoliation-distribution-plot, dev = c("png", "pdf")}
+```{r eda-17, dev = c("png", "pdf")}
 boxplot_defol <- vi_data_plot %>%
   group_by(plot) %>%
   ggboxplot(
@@ -250,7 +265,7 @@ boxplot_defol
 
 In Meters.
 
-```{r eda-18}
+```{r eda-18 }
 plots <- list("Laukiz 1", "Laukiz 2", "Luiando", "Oiartzun")
 dist <- map(plots, ~ {
   coords <- coords_vi_nri_clean %>%
@@ -272,7 +287,96 @@ set_names(dist, plots)
 dist_plots <- unlist(dist)
 ```
 
-```{r echo = FALSE}
+```{r eda-19, echo = FALSE}
 file_move("docs/figure/eda.Rmd/defoliation-distribution-plot-1.pdf",
           "code/98-paper/journal/")
+```
+
+# Correlation of filter methods {.tabset .tabset-fade}
+
+## VI
+
+```{r eda-20}
+# combine filter values
+
+fv_all = dplyr::bind_rows(fv_vi_car$data, 
+                          fv_vi_info.gain$data, 
+                          fv_vi_gain.ratio$data,
+                          fv_vi_rank$data, 
+                          fv_vi_cor$data, 
+                          fv_vi_mrmr, 
+                          fv_vi_cmim$data, 
+                          fv_vi_var$data) %>%
+  dplyr::select(value, method) %>%
+  mutate(id=rep(1:7381, 7)) %>% 
+  tidyr::spread(method, value) %>% 
+  dplyr::select(-id)
+
+
+corr = cor(fv_all)
+p.mat = cor_pmat(corr)
+
+ggcorrplot(corr,
+           #p.mat = p.mat,
+           hc.order = TRUE,
+           type = "lower",
+           lab = TRUE)
+```
+
+## NRI
+
+```{r eda-21}
+# combine filter values
+
+fv_all = dplyr::bind_rows(fv_nri_car$data, 
+                          fv_nri_info.gain$data, 
+                          fv_nri_gain.ratio$data,
+                          fv_nri_rank$data, 
+                          fv_nri_cor$data, 
+                          fv_nri_mrmr, 
+                          fv_nri_cmim$data, 
+                          fv_nri_var$data) %>%
+  dplyr::select(value, method) %>%
+  mutate(id=rep(1:7381, 7)) %>% 
+  tidyr::spread(method, value) %>% 
+  dplyr::select(-id)
+
+
+corr = cor(fv_all)
+p.mat = cor_pmat(corr)
+
+ggcorrplot(corr,
+           #p.mat = p.mat,
+           hc.order = TRUE,
+           type = "lower",
+           lab = TRUE)
+```
+
+## HR
+
+```{r eda-22}
+# combine filter values
+
+fv_all = dplyr::bind_rows(fv_hr_car$data, 
+                          fv_hr_info.gain$data, 
+                          fv_hr_gain.ratio$data,
+                          fv_hr_rank$data, 
+                          fv_hr_cor$data, 
+                          fv_hr_mrmr, 
+                          fv_hr_cmim$data, 
+                          fv_hr_var$data) %>%
+  dplyr::select(value, method) %>%
+  mutate(id=rep(1:7381, 7)) %>% 
+  tidyr::spread(method, value) %>% 
+  dplyr::select(-id)
+
+
+corr = cor(fv_all)
+p.mat = cor_pmat(corr)
+
+ggcorrplot(corr,
+           #p.mat = p.mat,
+           hc.order = TRUE,
+           type = "lower",
+           lab = TRUE)
 ```
