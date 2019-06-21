@@ -29,17 +29,17 @@ loadd(vi_data, nri_data, bands_data, coords_vi_nri_clean,
       fv_nri_rank, fv_nri_cor,
       fv_nri_mrmr,
       fv_nri_cmim, fv_nri_var,
-
+      
       fv_vi_car, fv_vi_info.gain, fv_vi_gain.ratio,
       fv_vi_rank, fv_vi_cor,
       fv_vi_mrmr,
       fv_vi_cmim, fv_vi_var,
-
+      
       fv_hr_car, fv_hr_info.gain, fv_hr_gain.ratio,
       fv_hr_rank, fv_hr_cor,
       fv_hr_mrmr,
       fv_hr_cmim, fv_hr_var
-      )
+)
 library("DataExplorer")
 library("dplyr")
 library("ggsci")
@@ -231,7 +231,7 @@ vi_data_plot %>%
   summarise(sd(defoliation))
 ```
 
-```{r eda-17, dev = c("png", "pdf")}
+```{r defoliation-distribution-plot, dev = c("png", "pdf")}
 boxplot_defol <- vi_data_plot %>%
   group_by(plot) %>%
   ggboxplot(
@@ -240,20 +240,20 @@ boxplot_defol <- vi_data_plot %>%
   ) +
   scale_size(range = c(0.5, 0.5)) +
   annotate("text",
-    label = expression(bold(atop("n = 479", bar(x) ~ "= 55.96"))), x = 1,
-    y = 112, size = 3, colour = "#BC3C29", fontface = 2
+           label = expression(bold(atop("n = 479", bar(x) ~ "= 55.96"))), x = 1,
+           y = 112, size = 3, colour = "#BC3C29", fontface = 2
   ) +
   annotate("text",
-    label = expression(bold(atop("n = 451", bar(x) ~ "= 13.54"))), x = 2,
-    y = 112, size = 3, colour = "#0072B5", fontface = 2
+           label = expression(bold(atop("n = 451", bar(x) ~ "= 13.54"))), x = 2,
+           y = 112, size = 3, colour = "#0072B5", fontface = 2
   ) +
   annotate("text",
-    label = expression(bold(atop("n = 300", bar(x) ~ "= 68.44"))), x = 3,
-    y = 112, size = 3, colour = "#E18727", fontface = 2
+           label = expression(bold(atop("n = 300", bar(x) ~ "= 68.44"))), x = 3,
+           y = 112, size = 3, colour = "#E18727", fontface = 2
   ) +
   annotate("text",
-    label = expression(bold(atop("n = 529", bar(x) ~ "= 69.22"))), x = 4,
-    y = 112, size = 3, colour = "#20854E", fontface = 2
+           label = expression(bold(atop("n = 529", bar(x) ~ "= 69.22"))), x = 4,
+           y = 112, size = 3, colour = "#20854E", fontface = 2
   ) +
   scale_color_nejm() +
   theme(legend.position = "none") +
@@ -288,8 +288,8 @@ dist_plots <- unlist(dist)
 ```
 
 ```{r eda-19, echo = FALSE}
-file_move("docs/figure/eda.Rmd/defoliation-distribution-plot-1.pdf",
-          "code/98-paper/journal/")
+# file_move("docs/figure/eda.Rmd/defoliation-distribution-plot-1.pdf",
+#           "code/98-paper/journal/")
 ```
 
 # Correlation of filter methods {.tabset .tabset-fade}
@@ -304,21 +304,23 @@ fv_all = dplyr::bind_rows(fv_vi_car$data,
                           fv_vi_gain.ratio$data,
                           fv_vi_rank$data, 
                           fv_vi_cor$data, 
-                          fv_vi_mrmr, 
+                          fv_vi_mrmr$data, 
                           fv_vi_cmim$data, 
                           fv_vi_var$data) %>%
   dplyr::select(value, method) %>%
-  mutate(id=rep(1:7381, 7)) %>% 
+  mutate(id=rep(1:89, 8)) %>% 
   tidyr::spread(method, value) %>% 
+  mutate_if(is.numeric, list(~na_if(., -Inf))) %>% # Inf in mrmr
+  na.omit() %>% # NA in cmim
   dplyr::select(-id)
 
 
 corr = cor(fv_all)
-p.mat = cor_pmat(corr)
+#p.mat = cor_pmat(corr)
 
 ggcorrplot(corr,
            #p.mat = p.mat,
-           hc.order = TRUE,
+           hc.order = F,
            type = "lower",
            lab = TRUE)
 ```
@@ -333,11 +335,11 @@ fv_all = dplyr::bind_rows(fv_nri_car$data,
                           fv_nri_gain.ratio$data,
                           fv_nri_rank$data, 
                           fv_nri_cor$data, 
-                          fv_nri_mrmr, 
+                          fv_nri_mrmr$data, 
                           fv_nri_cmim$data, 
                           fv_nri_var$data) %>%
   dplyr::select(value, method) %>%
-  mutate(id=rep(1:7381, 7)) %>% 
+  mutate(id=rep(1:7381, 8)) %>% 
   tidyr::spread(method, value) %>% 
   dplyr::select(-id)
 
@@ -362,11 +364,11 @@ fv_all = dplyr::bind_rows(fv_hr_car$data,
                           fv_hr_gain.ratio$data,
                           fv_hr_rank$data, 
                           fv_hr_cor$data, 
-                          fv_hr_mrmr, 
+                          fv_hr_mrmr$data, 
                           fv_hr_cmim$data, 
                           fv_hr_var$data) %>%
   dplyr::select(value, method) %>%
-  mutate(id=rep(1:7381, 7)) %>% 
+  mutate(id=rep(1:122, 8)) %>% 
   tidyr::spread(method, value) %>% 
   dplyr::select(-id)
 
@@ -376,7 +378,7 @@ p.mat = cor_pmat(corr)
 
 ggcorrplot(corr,
            #p.mat = p.mat,
-           hc.order = TRUE,
+           hc.order = F,
            type = "lower",
            lab = TRUE)
 ```
