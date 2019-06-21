@@ -26,16 +26,19 @@ sourceDirectory("R")
 loadd(vi_data, nri_data, bands_data, coords_vi_nri_clean,
       
       fv_nri_car, fv_nri_info.gain, fv_nri_gain.ratio,
+      fv_nri_symuncert, fv_nri_relief,
       fv_nri_rank, fv_nri_cor,
       fv_nri_mrmr,
       fv_nri_cmim, fv_nri_var,
       
       fv_vi_car, fv_vi_info.gain, fv_vi_gain.ratio,
+      fv_vi_symuncert, fv_vi_relief,
       fv_vi_rank, fv_vi_cor,
       fv_vi_mrmr,
       fv_vi_cmim, fv_vi_var,
       
       fv_hr_car, fv_hr_info.gain, fv_hr_gain.ratio,
+      fv_hr_symuncert, fv_hr_relief,
       fv_hr_rank, fv_hr_cor,
       fv_hr_mrmr,
       fv_hr_cmim, fv_hr_var
@@ -302,13 +305,15 @@ dist_plots <- unlist(dist)
 fv_all = dplyr::bind_rows(fv_vi_car$data, 
                           fv_vi_info.gain$data, 
                           fv_vi_gain.ratio$data,
+                          fv_vi_symuncert$data,
+                          fv_vi_relief$data,
                           fv_vi_rank$data, 
                           fv_vi_cor$data, 
                           fv_vi_mrmr$data, 
                           fv_vi_cmim$data, 
                           fv_vi_var$data) %>%
   dplyr::select(value, method) %>%
-  mutate(id=rep(1:89, 8)) %>% 
+  mutate(id=rep(1:89, 10)) %>% 
   tidyr::spread(method, value) %>% 
   mutate_if(is.numeric, list(~na_if(., -Inf))) %>% # Inf in mrmr
   na.omit() %>% # NA in cmim
@@ -333,13 +338,15 @@ ggcorrplot(corr,
 fv_all = dplyr::bind_rows(fv_nri_car$data, 
                           fv_nri_info.gain$data, 
                           fv_nri_gain.ratio$data,
+                          fv_nri_symuncert$data,
+                          fv_nri_relief$data,
                           fv_nri_rank$data, 
                           fv_nri_cor$data, 
                           fv_nri_mrmr$data, 
                           fv_nri_cmim$data, 
                           fv_nri_var$data) %>%
   dplyr::select(value, method) %>%
-  mutate(id=rep(1:7381, 8)) %>% 
+  mutate(id=rep(1:7381, 10)) %>% 
   tidyr::spread(method, value) %>% 
   dplyr::select(-id)
 
@@ -349,7 +356,7 @@ p.mat = cor_pmat(corr)
 
 ggcorrplot(corr,
            #p.mat = p.mat,
-           hc.order = TRUE,
+           hc.order = FALSE,
            type = "lower",
            lab = TRUE)
 ```
@@ -362,13 +369,16 @@ ggcorrplot(corr,
 fv_all = dplyr::bind_rows(fv_hr_car$data, 
                           fv_hr_info.gain$data, 
                           fv_hr_gain.ratio$data,
+                          fv_hr_symuncert$data,
+                          fv_hr_relief$data,
                           fv_hr_rank$data, 
                           fv_hr_cor$data, 
                           fv_hr_mrmr$data, 
-                          fv_hr_cmim$data, 
-                          fv_hr_var$data) %>%
+                          fv_hr_cmim$data,
+                          fv_hr_var$data
+) %>%
   dplyr::select(value, method) %>%
-  mutate(id=rep(1:122, 8)) %>% 
+  mutate(id=rep(1:122, 10)) %>% 
   tidyr::spread(method, value) %>% 
   dplyr::select(-id)
 
