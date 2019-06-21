@@ -5,7 +5,7 @@ ps_xgboost_filter = makeParamSet(
   makeNumericParam("colsample_bytree", lower = 0.3, upper = 0.7),
   makeNumericParam("subsample", lower = 0.25, upper = 1),
   makeIntegerParam("max_depth", lower = 1, upper = 10),
-  makeNumericParam("sigma", lower = 0, upper = 10),
+  makeNumericParam("gamma", lower = 0, upper = 10),
   makeNumericParam("eta", lower = 0.001, upper = 0.6),
   makeNumericParam("min_child_weight", lower = 0, upper = 20),
   makeNumericParam("fw.perc", lower = 0, upper = 1)
@@ -16,7 +16,7 @@ ps_xgboost = makeParamSet(
   makeNumericParam("colsample_bytree", lower = 0.3, upper = 0.7),
   makeNumericParam("subsample", lower = 0.25, upper = 1),
   makeIntegerParam("max_depth", lower = 1, upper = 10),
-  makeNumericParam("sigma", lower = 0, upper = 10),
+  makeNumericParam("gamma", lower = 0, upper = 10),
   makeNumericParam("eta", lower = 0.001, upper = 0.6),
   makeNumericParam("min_child_weight", lower = 0, upper = 20)
 )
@@ -26,7 +26,7 @@ ps_xgboost_pca =  makeParamSet(
   makeNumericParam("colsample_bytree", lower = 0.3, upper = 0.7),
   makeNumericParam("subsample", lower = 0.25, upper = 1),
   makeIntegerParam("max_depth", lower = 1, upper = 10),
-  makeNumericParam("sigma", lower = 0, upper = 10),
+  makeNumericParam("gamma", lower = 0, upper = 10),
   makeNumericParam("eta", lower = 0.001, upper = 0.6),
   makeNumericParam("min_child_weight", lower = 0, upper = 20),
   makeIntegerParam("ppc.pcaComp", lower = 1, upper = 10)
@@ -35,23 +35,24 @@ ps_xgboost_pca =  makeParamSet(
 # SVM ---------------------------------------------------------------------
 
 ps_svm_filter = makeParamSet(
-  makeNumericParam("C", lower = -2, upper = 2,
+  makeNumericParam("C", lower = -10, upper = 10,
                    trafo = function(x) 2 ^ x),
-  makeNumericParam("sigma", lower = -2, upper = 2,
+  makeNumericParam("sigma", lower = -5, upper = 5,
                    trafo = function(x) 2 ^ x),
   makeNumericParam("fw.perc", lower = 0, upper = 1)
 )
 
 ps_svm = makeParamSet(
-  makeNumericParam("C", lower = -2, upper = 2,
+  makeNumericParam("C", lower = -10, upper = 10,
                    trafo = function(x) 2 ^ x),
-  makeNumericParam("sigma", lower = -2, upper = 2)
+  makeNumericParam("sigma", lower = -5, upper = 5,
+                   trafo = function(x) 2 ^ x)
 )
 
 ps_svm_pca =  makeParamSet(
-  makeNumericParam("C", lower = -2, upper = 2,
+  makeNumericParam("C", lower = -10, upper = 10,
                    trafo = function(x) 2 ^ x),
-  makeNumericParam("sigma", lower = -2, upper = 2,
+  makeNumericParam("sigma", lower = -5, upper = 5,
                    trafo = function(x) 2 ^ x),
   makeIntegerParam("ppc.pcaComp", lower = 1, upper = 10)
 )
