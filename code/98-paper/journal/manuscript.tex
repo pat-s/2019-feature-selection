@@ -123,6 +123,7 @@
 	\acro{LiDAR}{light detection and ranging}
 	\acro{LOWESS}{Locally Weighted Scatter Plot Smoothing}
 	\acro{PISR}{Potential Incoming Solar Radiation}
+	\acro{PCA}{principal component analysis}
 	\acro{PLS}{partial least-squares}
 	\acro{RBF}{Radial Basis Function}
 	\acro{RF}{Random Forest}
@@ -400,18 +401,21 @@ Filter methods can be classified as follows:
 % I grouped these two since we focus on filter methods in this study - or is this already a bit biased towards filter methods?
 \subsubsection{Wrapper methods and PCA}
 
+\noindent Other approaches to assess feature importance are so called "wrapper methods" and the \ac{PCA} \citep{das2001, jolliffe2016}.
+A short introduction to both is given below.
+
 % Wrapper approach
-\noindent Another approach to reduce the number of variables is to apply algorithms that are used for hyperparameter optimization such as "Random Search" or a "Generic Simulated Annealing".
+\noindent "Wrapper methods" \citep{chandrashekar2014, kohavi1997} apply algorithms that are used for hyperparameter optimization such as "Random Search" or "Generic Simulated Annealing".
 First a (random) subset of features is chosen based on the selected algorithm.
 In comparison to "filters", no ranking is applied in this step.
 Now the model is fitted on the data and the performance is evaluated.
+This is done multiple times, depending on the defined stopping criteria set by the user (performance, runtime, evaluations).
 A disadvantage of this approach is that hyperparameter tuning can only start after the feature-selection optimization has ended.
-Hence, this method is very expensive because two optimization stages need to be run.
-In science this approach is also referred to as "wrapper method" \citep{chandrashekar2014, kohavi1997}.
-It was not considered in this work due to the expensive runtime.
+Hence, this method is very expensive because two optimization stages need to be run in sequential order.
+"Wrapper methods" were not considered in this work due to the expensive runtime.
 
 % PCA
-A third commonly used method is the "Principal Component Analysis" \citep{pearson1901, jolliffe2016}.
+A method that is very distinct from filters and wrappers is the "Principal Component Analysis" \citep{pearson1901, jolliffe2016}.
 Here, the main components of the feature space are extracted and combined.
 Usually the first two components are taken since these contain the major information of the covariates.
 By using the (automatically estimated) explained variance of the main components, the model can rely on a few features containing the majority of information available in the data.
@@ -425,8 +429,6 @@ The filter methods of the following packages were used: \textit{praznik \citep{p
 The R package \textit{mlr} \citep{mlr} was used for all modeling related steps.
 \textit{drake} was used for structuring the work and ensuring reproducibility.
 This study is available as a research compendium on Zenodo (\url{10.5281/zenodo.2635403}).
-
-
 
 \section{Results}
 
