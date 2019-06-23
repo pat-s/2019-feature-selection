@@ -267,57 +267,6 @@ Due to four corrupted bands and numerical calculation errors for some band combi
 All indices which contained missing values for at least one plot were removed from the dataset.
 Observations were given more importance than indices due to the mass of available \ac{NRI} indices.
 
-\subsection{Benchmarking design}
-
-\noindent The benchmarking matrix of this study consists of the following algorithms:
-
-\begin{itemize}
-	\item  Extreme Gradient Boosting (XGBOOST)
-	\item  Random Forest (RF)
-	\item  Penalized Regression (both L1 and L2)
-	\item  Support Vector Machine (SVM)
-\end{itemize}
-
-
-\noindent \ac{RF} and {SVM} are well established algorithms that are widely used in environmental modeling.
-Extreme Gradient Boosting (commonly referred to as \ac{XGBOOST}) showed promising results in benchmark competitions in recent years.
-Penalized Regression is a statistical modeling technique that is capable of dealing with highly-correlated covariates by applying a penalization term which shrinks the coefficients of the model \citep{hastie2001}.
-The penalties are also known as "lasso" (L1) and "ridge" (L2).
-The former does not allow the removal of variables from the model (penalization to zero) while the latter does.
-Both penalties can also be combined.
-The combined approach is called "elastic net" but was not used in this work.
-
-\subsubsection{Feature sets}
-% TODO: talk about the reasons behind different features sets: environmental implications
-
-\noindent Three feature sets were used in this study with each representing a different way of feature-engineering:
-
-\begin{itemize}
-	\item The raw hyperspectal band information (HR): No feature engineering
-	\item Vegetation Indices (\ac{VI}: Expert-based feature engineering
-	\item Normalized Ratio Indices (\ac{NRI}): Automated feature-engineering
-\end{itemize}
-
-\subsubsection{Hyperparameter Optimization}
-
-\noindent An exhaustive hyperparameter tuning was applied during nested spatial \ac{CV} for all algorithms.
-Maximum Bayesian Optimization \citep{mlrmbo} was used for parameter optimization.
-This approach first composes \textit{n} randomly chosen hyperparameter settings out of a user defined search space.
-After these \textit{n} tries have been evaluated, a new hyperparameter setting, which is going to be evaluated next, is proposed based on a fitted regression model.
-The regression model estimates the performance of the machine-learning method for unknown hyperparameter settings.
-Using these estimates, a new promising hyperparameter setting is proposed to be evaluated next.
-This strategy continues until a termination criterion, defined by the user, is reached \citep{hutter2011, jones1998}.
-An initial design of 30 randomly composed hyperparameter settings and a termination criterion of 70 iterations was used, resulting in a total budget of 100 evaluated hyperparameter settings per fold.
-The advantage of this tuning approach is the substantial reduction of the tuning budget required to find a setting which is close to the global minimum
-This applies when being compared to methods that do not use information from previous runs, such as random search or grid search \citep{bergstra2012}.
-
-\subsubsection{Spatial resampling}
-
-
-\noindent A spatial block nested cross-validation was chosen to reduce the influence of spatial autocorrelation as much as possible.
-Each plot served as one fold within the resampling setup, resulting in four folds total.
-For the inner level (hyperparameter tuning), $p - 1$ folds were used (with $p$ being the number of plots). REF SCHRATZ
-
 \subsection{Dimension reduction}
 
 \noindent It is important to distinguish the term "dimension reduction" from "high-dimensionality".
@@ -423,8 +372,75 @@ This enables a very cheap model fitting with a minimal loss of predictor informa
 However, the resulting features used in the model do not relate anymore to the raw input variables since they are a combination of multiple covariates.
 Interpretation is not possible anymore.
 
+
+
+\subsection{Benchmarking design}
+
+
+
+
+\subsubsection{Algorithms}
+
+\noindent The benchmarking matrix of this study consists of the following algorithms:
+
+\begin{itemize}
+	\item  Extreme Gradient Boosting (XGBOOST)
+	\item  Random Forest (RF)
+	\item  Penalized Regression (both L1 and L2)
+	\item  Support Vector Machine (SVM)
+\end{itemize}
+
+
+\noindent \ac{RF} and {SVM} are well established algorithms that are widely used in environmental modeling.
+Extreme Gradient Boosting (commonly referred to as \ac{XGBOOST}) showed promising results in benchmark competitions in recent years.
+Penalized Regression is a statistical modeling technique that is capable of dealing with highly-correlated covariates by applying a penalization term which shrinks the coefficients of the model \citep{hastie2001}.
+The penalties are also known as "lasso" (L1) and "ridge" (L2).
+The former does not allow the removal of variables from the model (penalization to zero) while the latter does.
+Both penalties can also be combined.
+The combined approach is called "elastic net" but was not used in this work.
+
+\subsubsection{Feature sets}
+% TODO: talk about the reasons behind different features sets: environmental implications
+
+\noindent Three feature sets were used in this study with each representing a different way of feature-engineering:
+
+
+\begin{itemize}
+	\item The raw hyperspectal band information (HR: No feature engineering)
+	\item Vegetation Indices (\ac{VI}: Expert-based feature engineering)
+	\item Normalized Ratio Indices (\ac{NRI}: Automated feature-engineering)
+\end{itemize}
+
+\subsubsection{Hyperparameter Optimization}
+
+\noindent An exhaustive hyperparameter tuning was applied during nested spatial \ac{CV} for all algorithms.
+Maximum Bayesian Optimization \citep{mlrmbo} was used for parameter optimization.
+This approach first composes \textit{n} randomly chosen hyperparameter settings out of a user defined search space.
+After these \textit{n} tries have been evaluated, a new hyperparameter setting, which is going to be evaluated next, is proposed based on a fitted regression model.
+The regression model estimates the performance of the machine-learning method for unknown hyperparameter settings.
+Using these estimates, a new promising hyperparameter setting is proposed to be evaluated next.
+This strategy continues until a termination criterion, defined by the user, is reached \citep{hutter2011, jones1998}.
+An initial design of 30 randomly composed hyperparameter settings and a termination criterion of 70 iterations was used, resulting in a total budget of 100 evaluated hyperparameter settings per fold.
+The advantage of this tuning approach is the substantial reduction of the tuning budget required to find a setting which is close to the global minimum
+This applies when being compared to methods that do not use information from previous runs, such as random search or grid search \citep{bergstra2012}.
+
+For the filter methods, the percentage of features was optimized as a hyperparameter.
+The number of main components was tuned for the \ac{PCA} based benchmarking experiments.
+
+\subsubsection{Spatial resampling}
+
+\noindent A spatial block nested cross-validation was chosen to reduce the influence of spatial autocorrelation as much as possible \citep{schratz2019, sperrorest}.
+Each plot served as one fold within the resampling setup, resulting in four folds total.
+For the inner level (hyperparameter tuning), $p - 1$ folds were used (with $p$ being the number of plots).
+
+\subsubsection{Summary}
+
+\noindent In total the benchmarking matrix consisted of 120 experiments (3 feature sets, 5 algorithms, 8 feature-selection methods).
+
+\subsection{Research compendium}
+
 \noindent The complete study was done using the open-source statistical programming language R \citep{rcoreteam2018}.
-The algorithm implementations of the following packages have been used: \textit{xgboost} \citep{chen2016} (\textit{xgboost}), \textit{e1071} \citep{e1071} (Support Vector Machine) and \textit{glmnet} \citep{glmnet} (Ridge Regression).
+The algorithm implementations of the following packages have been used: \textit{xgboost} \citep{chen2016} (\textit{xgboost}), \textit{kernlab} \citep{kernlab} (Support Vector Machine) and \textit{glmnet} \citep{glmnet} (Ridge Regression).
 The filter methods of the following packages were used: \textit{praznik \citep{praznik}}, \textit{FSelectorRcpp} \citep{fselectorrcpp}.
 The R package \textit{mlr} \citep{mlr} was used for all modeling related steps.
 \textit{drake} was used for structuring the work and ensuring reproducibility.
