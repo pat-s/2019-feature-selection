@@ -246,6 +246,10 @@ Additional metadata information is available in \autoref{tab:hyperparameter_limi
 
 \section{Methods}
 
+% TODO: Mention the use of mtry.pow
+% TODO: Explain the binning in the FSelectorfilters
+% TODO: Explain that we used Spearman cor in the corrplot
+
 \subsection{Derivation of indices}
 % TODO: Mention different feature sets
 \noindent To use the full information from the hyperspectral data, all possible vegetation indices supported by the R package \textit{hsdar} (90 in total) as well as all possible \ac{NRI} combinations were calculated.
@@ -435,7 +439,7 @@ For the inner level (hyperparameter tuning), $p - 1$ folds were used (with $p$ b
 
 \subsubsection{Summary}
 
-\noindent In total the benchmarking matrix consisted of 120 experiments (3 feature sets, 5 algorithms, 8 feature-selection methods).
+\noindent  In total the benchmarking matrix consisted of 120 experiments (3 feature sets, 5 algorithms, 8 feature-selection methods).
 
 \subsection{Research compendium}
 
