@@ -5,17 +5,20 @@
 #' @template resampling
 #' @export
 
-benchmark_custom_no_models <- function(task, learner, cores) {
+benchmark_custom_no_models <- function(learner, task) {
 
   parallelStart(
-    mode = "multicore", level = "mlr.resample"
+    mode = "multicore",
+    #level = "mlr.resample",
+    cpus = 4
   )
   set.seed(12345, kind = "L'Ecuyer-CMRG")
 
-  bmr <- benchmark(learner, task,
+  bmr <- benchmark(learners = learner,
+                   tasks = task,
                    models = FALSE,
                    keep.pred = TRUE,
-                   resampling = makeResampleDesc("CV", fixed = TRUE),
+                   resamplings = makeResampleDesc("CV", fixed = TRUE),
                    show.info = TRUE,
                    measures = list(rmse, timetrain)
   )
