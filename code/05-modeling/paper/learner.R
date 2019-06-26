@@ -36,3 +36,7 @@ lrn_ridge = makeLearner("regr.glmnet", id = "ridge",
                         alpha = 0,
                         standardize = FALSE,
                         intercept = FALSE)
+
+# LM ---------------------------------------------------------------------
+
+lrn_lm = makeLearner("regr.glm", id = "lm")

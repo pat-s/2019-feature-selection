@@ -145,3 +145,13 @@ ps_lasso_pca = makeParamSet(
   makeNumericParam("s", lower = lambda_lasso_min,upper = lambda_lasso_max),
   makeIntegerParam("ppc.pcaComp", lower = 1, upper = 10)
 )
+
+# LM -----------------------------------------------------------
+
+ps_lm_filter = makeParamSet(
+  makeNumericParam("fw.perc", lower = 0, upper = 1)
+)
+
+ps_lm_pca = makeParamSet(
+  makeIntegerParam("ppc.pcaComp", lower = 1, upper = 10)
+)

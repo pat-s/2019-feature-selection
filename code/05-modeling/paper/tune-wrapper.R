@@ -116,7 +116,7 @@ xgboost_pca = makeTuneWrapper(pca_wrapper_xgboost, resampling = inner,
 
 rf_borda = makeTuneWrapper(filter_wrapper_rf_borda, resampling = inner,
                            par.set = ps_rf_filter,
-                           control = tune.ctrl_rf, show.info = TRUE, 
+                           control = tune.ctrl_rf, show.info = TRUE,
                            measures = list(rmse))
 
 rf_info.gain = makeTuneWrapper(filter_wrapper_rf_info.gain, resampling = inner,
@@ -282,3 +282,55 @@ lasso_pca = makeTuneWrapper(pca_wrapper_lasso, resampling = inner,
                             par.set = ps_lasso_pca,
                             control = tune.ctrl_lasso, show.info = TRUE,
                             measures = list(rmse))
+
+# lm ---------------------------------------------------------------------
+
+lm_borda = makeTuneWrapper(filter_wrapper_lm_borda, resampling = inner,
+                           par.set = ps_lm_filter,
+                           control = tune.ctrl_lm,
+                           show.info = TRUE, measures = list(rmse))
+
+lm_info.gain = makeTuneWrapper(filter_wrapper_lm_info.gain, resampling = inner,
+                               par.set = ps_lm_filter,
+                               control = tune.ctrl_lm, show.info = TRUE,
+                               measures = list(rmse))
+
+lm_gain.ratio = makeTuneWrapper(filter_wrapper_lm_gain.ratio, resampling = inner,
+                                par.set = ps_lm_filter,
+                                control = tune.ctrl_lm, show.info = TRUE,
+                                measures = list(rmse))
+
+lm_variance = makeTuneWrapper(filter_wrapper_lm_variance, resampling = inner,
+                              par.set = ps_lm_filter,
+                              control = tune.ctrl_lm, show.info = TRUE,
+                              measures = list(rmse))
+
+lm_rank.cor = makeTuneWrapper(filter_wrapper_lm_rank.cor, resampling = inner,
+                              par.set = ps_lm_filter,
+                              control = tune.ctrl_lm, show.info = TRUE,
+                              measures = list(rmse))
+
+lm_linear.cor = makeTuneWrapper(filter_wrapper_lm_linear.cor, resampling = inner,
+                                par.set = ps_lm_filter,
+                                control = tune.ctrl_lm, show.info = TRUE,
+                                measures = list(rmse))
+
+lm_mrmr = makeTuneWrapper(filter_wrapper_lm_mrmr, resampling = inner,
+                          par.set = ps_lm_filter,
+                          control = tune.ctrl_lm, show.info = TRUE,
+                          measures = list(rmse))
+
+lm_cmim = makeTuneWrapper(filter_wrapper_lm_cmim, resampling = inner,
+                          par.set = ps_lm_filter,
+                          control = tune.ctrl_lm, show.info = TRUE,
+                          measures = list(rmse))
+
+lm_carscore = makeTuneWrapper(filter_wrapper_lm_carscore, resampling = inner,
+                              par.set = ps_lm_filter,
+                              control = tune.ctrl_lm, show.info = TRUE,
+                              measures = list(rmse))
+
+lm_pca = makeTuneWrapper(pca_wrapper_lm, resampling = inner,
+                         par.set = ps_lm_pca,
+                         control = tune.ctrl_lm, show.info = TRUE,
+                         measures = list(rmse))

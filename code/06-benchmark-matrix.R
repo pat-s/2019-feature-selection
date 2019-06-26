@@ -1,7 +1,7 @@
 # see https://ropenscilabs.github.io/drake-manual/plans.html#large-plans
 
 bm_plan = drake_plan(bm = target(
-  benchmark_custom_no_models(task, learner),
+  benchmark_custom_no_models(learner, task),
   transform = cross(
     task = c("vi" = vi_task, "nri" = nri_task, "hr" = hr_task),
     learner = c(svm_borda,
@@ -40,32 +40,22 @@ bm_plan = drake_plan(bm = target(
                 xgboost_no_filter,
                 xgboost_pca,
 
-                # ridge_borda,
-                # ridge_info.gain,
-                # ridge_gain.ratio,
-                # ridge_variance,
-                # ridge_rank.cor,
-                # ridge_linear.cor,
-                # ridge_mrmr,
-                # ridge_cmim,
-                # ridge_carscore,
                 ridge_no_filter,
-                #ridge_pca,
 
-                # lasso_borda,
-                # lasso_info.gain,
-                # lasso_gain.ratio,
-                # lasso_variance,
-                # lasso_rank.cor,
-                # lasso_linear.cor,
-                # lasso_mrmr,
-                # lasso_cmim,
-                # lasso_carscore,
                 lasso_no_filter#,
-                #lasso_pca
+
+                # lm_borda,
+                # lm_info.gain,
+                # lm_gain.ratio,
+                # lm_variance,
+                # lm_rank.cor,
+                # lm_linear.cor,
+                # lm_mrmr,
+                # lm_cmim,
+                # lm_carscore,
+                # lrn_lm,
+                # lm_pca
 
                 ),
-    # task_name = c("vi", "nri", "hr"), # set pretty names for benchmark matrix
-    # .id = c(task_name, learner) # apply pretty names for benchmark matrix
   )
 ))
