@@ -1,0 +1,198 @@
+---
+title: "Correlation of filter methods"
+output: 
+  workflowr::wflow_html:
+    includes:
+      in_header: header.html
+editor_options:
+  chunk_output_type: console
+author: "Patrick Schratz"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  fig.retina = 3,
+  fig.align = "center",
+  fig.width = 6.93,
+  fig.height = 6.13,
+  out.width = "100%",
+  echo = FALSE
+)
+
+source(here::here("code/99-packages.R"))
+sourceDirectory("R")
+
+# load drake objects
+loadd(
+  fv_nri_car, fv_nri_info.gain, fv_nri_gain.ratio,
+  fv_nri_symuncert, fv_nri_relief,
+  fv_nri_rank, fv_nri_cor,
+  fv_nri_mrmr,
+  fv_nri_cmim, fv_nri_var,
+  
+  fv_vi_car, fv_vi_info.gain, fv_vi_gain.ratio,
+  fv_vi_symuncert, fv_vi_relief,
+  fv_vi_rank, fv_vi_cor,
+  fv_vi_mrmr,
+  fv_vi_cmim, fv_vi_var,
+  
+  fv_hr_car, fv_hr_info.gain, fv_hr_gain.ratio,
+  fv_hr_symuncert, fv_hr_relief,
+  fv_hr_rank, fv_hr_cor,
+  fv_hr_mrmr,
+  fv_hr_cmim, fv_hr_var,
+  
+  
+  fv_hr_info.gain5, fv_hr_info.gain10,
+  fv_hr_info.gain15, fv_hr_info.gain20,
+  fv_hr_info.gain25, fv_hr_info.gain30,
+  
+  fv_vi_info.gain5, fv_vi_info.gain10,
+  fv_vi_info.gain15, fv_vi_info.gain20,
+  fv_vi_info.gain25, fv_vi_info.gain30,
+  
+  fv_nri_info.gain5, fv_nri_info.gain10,
+  fv_nri_info.gain15, fv_nri_info.gain20,
+  fv_nri_info.gain25, fv_nri_info.gain30
+)
+```
+
+# Correlation of filter methods {.tabset .tabset-fade}
+
+Spearman's rank correlation is used since we compare rankings against each other.
+
+## VI
+
+### Filter methods amongst each other
+
+```{r eda-20}
+# combine filter values
+
+fv_all <- dplyr::bind_rows(
+  fv_vi_car$data,
+  fv_vi_info.gain$data,
+  fv_vi_gain.ratio$data,
+  fv_vi_symuncert$data,
+  fv_vi_relief$data,
+  fv_vi_rank$data,
+  fv_vi_cor$data,
+  fv_vi_mrmr$data,
+  fv_vi_cmim$data,
+  fv_vi_var$data
+) %>%
+  dplyr::select(value, method) %>%
+  mutate(id = rep(1:89, 10)) %>%
+  tidyr::spread(method, value) %>%
+  mutate_if(is.numeric, list(~ na_if(., -Inf))) %>% # Inf in mrmr
+  na.omit() %>% # NA in cmim
+  dplyr::select(-id)
+
+
+corr <- cor(fv_all, method = "spearman")
+# p.mat = cor_pmat(corr)
+
+ggcorrplot(corr,
+           # p.mat = p.mat,
+           hc.order = F,
+           type = "lower",
+           lab = TRUE
+)
+```
+
+### Number of bins of `FSelectorRcpp::information.gain()`
+
+```{r}
+# recode levels so that they are unique
+fv_all_list = map2(list(fv_vi_info.gain5$data, fv_vi_info.gain10$data,
+  fv_vi_info.gain15$data, fv_vi_info.gain20$data,
+  fv_vi_info.gain25$data, fv_vi_info.gain30$data),
+  list(5, 10, 15, 20, 25, 30), ~
+    dplyr::mutate(.x, method = recode(.x$method, FSelectorRcpp_information.gain = glue("FSelectorRcpp_information.gain-{.y}"))))
+
+fv_all <- dplyr::bind_rows(
+  fv_all_list
+)  %>%
+  dplyr::select(value, method) %>%
+  mutate(id = rep(1:89, 6)) %>%
+  tidyr::spread(method, value) %>%
+  mutate_if(is.numeric, list(~ na_if(., -Inf))) %>% # Inf in mrmr
+  na.omit() %>% 
+  dplyr::select(-id)
+
+corr <- cor(fv_all, method = "spearman")
+
+ggcorrplot(corr,
+           # p.mat = p.mat,
+           hc.order = F,
+           type = "lower",
+           lab = TRUE
+)
+```
+
+## NRI
+
+```{r eda-21}
+# combine filter values
+
+fv_all <- dplyr::bind_rows(
+  fv_nri_car$data,
+  fv_nri_info.gain$data,
+  fv_nri_gain.ratio$data,
+  fv_nri_symuncert$data,
+  fv_nri_relief$data,
+  fv_nri_rank$data,
+  fv_nri_cor$data,
+  fv_nri_mrmr$data,
+  fv_nri_cmim$data,
+  fv_nri_var$data
+) %>%
+  dplyr::select(value, method) %>%
+  mutate(id = rep(1:7381, 10)) %>%
+  tidyr::spread(method, value) %>%
+  dplyr::select(-id)
+
+
+corr <- cor(fv_all, method = "spearman")
+p.mat <- cor_pmat(corr)
+
+ggcorrplot(corr,
+           # p.mat = p.mat,
+           hc.order = FALSE,
+           type = "lower",
+           lab = TRUE
+)
+```
+
+## HR
+
+```{r eda-22}
+# combine filter values
+
+fv_all <- dplyr::bind_rows(
+  fv_hr_car$data,
+  fv_hr_info.gain$data,
+  fv_hr_gain.ratio$data,
+  fv_hr_symuncert$data,
+  fv_hr_relief$data,
+  fv_hr_rank$data,
+  fv_hr_cor$data,
+  fv_hr_mrmr$data,
+  fv_hr_cmim$data,
+  fv_hr_var$data
+) %>%
+  dplyr::select(value, method) %>%
+  mutate(id = rep(1:122, 10)) %>%
+  tidyr::spread(method, value) %>%
+  dplyr::select(-id)
+
+
+corr <- cor(fv_all, method = "spearman")
+p.mat <- cor_pmat(corr)
+
+ggcorrplot(corr,
+           # p.mat = p.mat,
+           hc.order = F,
+           type = "lower",
+           lab = TRUE
+)
+```
