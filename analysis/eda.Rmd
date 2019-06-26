@@ -25,24 +25,37 @@ sourceDirectory("R")
 # load drake objects
 loadd(
   vi_data, nri_data, bands_data, coords_vi_nri_clean,
-
+  
   fv_nri_car, fv_nri_info.gain, fv_nri_gain.ratio,
   fv_nri_symuncert, fv_nri_relief,
   fv_nri_rank, fv_nri_cor,
   fv_nri_mrmr,
   fv_nri_cmim, fv_nri_var,
-
+  
   fv_vi_car, fv_vi_info.gain, fv_vi_gain.ratio,
   fv_vi_symuncert, fv_vi_relief,
   fv_vi_rank, fv_vi_cor,
   fv_vi_mrmr,
   fv_vi_cmim, fv_vi_var,
-
+  
   fv_hr_car, fv_hr_info.gain, fv_hr_gain.ratio,
   fv_hr_symuncert, fv_hr_relief,
   fv_hr_rank, fv_hr_cor,
   fv_hr_mrmr,
-  fv_hr_cmim, fv_hr_var
+  fv_hr_cmim, fv_hr_var,
+  
+  
+  fv_hr_info.gain5, fv_hr_info.gain10,
+  fv_hr_info.gain15, fv_hr_info.gain20,
+  fv_hr_info.gain25, fv_hr_info.gain30,
+  
+  fv_vi_info.gain5, fv_vi_info.gain10,
+  fv_vi_info.gain15, fv_vi_info.gain20,
+  fv_vi_info.gain25, fv_vi_info.gain30,
+  
+  fv_nri_info.gain5, fv_nri_info.gain10,
+  fv_nri_info.gain15, fv_nri_info.gain20,
+  fv_nri_info.gain25, fv_nri_info.gain30
 )
 library("DataExplorer")
 library("dplyr")
@@ -250,20 +263,20 @@ boxplot_defol <- vi_data_plot %>%
   ) +
   scale_size(range = c(0.5, 0.5)) +
   annotate("text",
-    label = expression(bold(atop("n = 479", bar(x) ~ "= 55.96"))), x = 1,
-    y = 112, size = 3, colour = "#BC3C29", fontface = 2
+           label = expression(bold(atop("n = 479", bar(x) ~ "= 55.96"))), x = 1,
+           y = 112, size = 3, colour = "#BC3C29", fontface = 2
   ) +
   annotate("text",
-    label = expression(bold(atop("n = 451", bar(x) ~ "= 13.54"))), x = 2,
-    y = 112, size = 3, colour = "#0072B5", fontface = 2
+           label = expression(bold(atop("n = 451", bar(x) ~ "= 13.54"))), x = 2,
+           y = 112, size = 3, colour = "#0072B5", fontface = 2
   ) +
   annotate("text",
-    label = expression(bold(atop("n = 300", bar(x) ~ "= 68.44"))), x = 3,
-    y = 112, size = 3, colour = "#E18727", fontface = 2
+           label = expression(bold(atop("n = 300", bar(x) ~ "= 68.44"))), x = 3,
+           y = 112, size = 3, colour = "#E18727", fontface = 2
   ) +
   annotate("text",
-    label = expression(bold(atop("n = 529", bar(x) ~ "= 69.22"))), x = 4,
-    y = 112, size = 3, colour = "#20854E", fontface = 2
+           label = expression(bold(atop("n = 529", bar(x) ~ "= 69.22"))), x = 4,
+           y = 112, size = 3, colour = "#20854E", fontface = 2
   ) +
   scale_color_nejm() +
   theme(legend.position = "none") +
@@ -290,8 +303,8 @@ dist <- map(plots, ~ {
     proj4string = CRS("+proj=utm +zone=30 +ellps=WGS84 +datum=WGS84 +units=m +no_defs")
   )
   distance <- mean(as.dist(pointDistance(points,
-    allpairs = TRUE,
-    lonlat = FALSE
+                                         allpairs = TRUE,
+                                         lonlat = FALSE
   )))
 })
 set_names(dist, plots)
@@ -306,6 +319,8 @@ dist_plots <- unlist(dist)
 # Correlation of filter methods {.tabset .tabset-fade}
 
 ## VI
+
+### Filter methods amongst each other
 
 ```{r eda-20}
 # combine filter values
@@ -334,10 +349,35 @@ corr <- cor(fv_all, method = "spearman")
 # p.mat = cor_pmat(corr)
 
 ggcorrplot(corr,
-  # p.mat = p.mat,
-  hc.order = F,
-  type = "lower",
-  lab = TRUE
+           # p.mat = p.mat,
+           hc.order = F,
+           type = "lower",
+           lab = TRUE
+)
+```
+
+### Number of bins of `FSelectorRcpp::information.gain()`
+
+```{r}
+fv_all <- dplyr::bind_rows(
+  fv_vi_info.gain5$data, fv_vi_info.gain10$data,
+  fv_vi_info.gain15$data, fv_vi_info.gain20$data,
+  fv_vi_info.gain25$data, fv_vi_info.gain30$data
+)  %>%
+  dplyr::select(value, method) %>%
+  mutate(id = rep(1:89, 10)) %>%
+  tidyr::spread(method, value) %>%
+  mutate_if(is.numeric, list(~ na_if(., -Inf))) %>% # Inf in mrmr
+  na.omit() %>% 
+  dplyr::select(-id)
+
+corr <- cor(fv_all, method = "spearman")
+
+ggcorrplot(corr,
+           # p.mat = p.mat,
+           hc.order = F,
+           type = "lower",
+           lab = TRUE
 )
 ```
 
@@ -368,10 +408,10 @@ corr <- cor(fv_all, method = "spearman")
 p.mat <- cor_pmat(corr)
 
 ggcorrplot(corr,
-  # p.mat = p.mat,
-  hc.order = FALSE,
-  type = "lower",
-  lab = TRUE
+           # p.mat = p.mat,
+           hc.order = FALSE,
+           type = "lower",
+           lab = TRUE
 )
 ```
 
@@ -402,9 +442,9 @@ corr <- cor(fv_all, method = "spearman")
 p.mat <- cor_pmat(corr)
 
 ggcorrplot(corr,
-  # p.mat = p.mat,
-  hc.order = F,
-  type = "lower",
-  lab = TRUE
+           # p.mat = p.mat,
+           hc.order = F,
+           type = "lower",
+           lab = TRUE
 )
 ```
