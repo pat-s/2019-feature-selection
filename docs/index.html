@@ -315,6 +315,9 @@ $(document).ready(function () {
       <a href="eda.html">Exploratory data analysis</a>
     </li>
     <li>
+      <a href="filter-correlation.html">Filter correlation analysis</a>
+    </li>
+    <li>
       <a href="spectral-signatures.html">Spectral signatures</a>
     </li>
   </ul>
@@ -366,7 +369,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2019-06-15
+<strong>Last updated:</strong> 2019-06-27
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -457,10 +460,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree0a74a96f7000093a22284bd70854f5046a89a19etargetblank0a74a96a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/0a74a96f7000093a22284bd70854f5046a89a19e" target="_blank">0a74a96</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontreef389b0948946ce0b06805a5309265b907f7628e5targetblankf389b09a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/f389b0948946ce0b06805a5309265b907f7628e5" target="_blank">f389b09</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree0a74a96f7000093a22284bd70854f5046a89a19etargetblank0a74a96a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontreef389b0948946ce0b06805a5309265b907f7628e5targetblankf389b09a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -481,247 +484,16 @@ Ignored files:
     Ignored:    tests/
 
 Untracked files:
-    Untracked:  inst/study-area-map/
+    Untracked:  learner.rda
 
 Unstaged changes:
-    Modified:   .Rprofile
-    Modified:   R/04-fun-sentinel-processing.R
-    Modified:   R/05-mlr-project.R
-    Modified:   R/fun-visualization.R
-    Modified:   analysis/report-defoliation.Rmd
-    Modified:   analysis/spectral-signatures.Rmd
-    Modified:   analysis/timeline.Rmd
-    Modified:   code/03-sentinel-processing.R
-    Modified:   code/05-modeling/project/learner.R
-    Modified:   code/05-modeling/project/param-set.R
-    Modified:   code/05-modeling/project/resamp.R
-    Modified:   code/05-modeling/project/task.R
-    Modified:   code/05-modeling/project/train.R
-    Modified:   code/05-modeling/project/tune-ctrl.R
-    Modified:   code/05-modeling/project/tune.R
-    Modified:   code/07-reports.R
-    Modified:   code/99-packages.R
-    Modified:   docs/figure/eda.Rmd/defoliation-distribution-plot-1.pdf
-    Modified:   inst/README.md
-    Modified:   inst/cloud-cover-2018.rds
+    Modified:   _drake.R
+    Modified:   analysis/eda.Rmd
+    Deleted:    docs/figure/eda.Rmd/defoliation-distribution-plot-1.pdf
     Modified:   log/cache3.log
     Modified:   log/drake.log
     Modified:   log/worker1.log
-    Modified:   man/calc_nri_indices.Rd
-    Modified:   man/calc_veg_indices.Rd
-    Modified:   man/create_prediction_map.Rd
-    Modified:   man/data_preprocessing.Rd
-    Modified:   man/download.Rd
-    Modified:   man/extract_bands_to_plot.Rd
-    Modified:   man/extract_coords.Rd
-    Modified:   man/extract_indices_to_plot.Rd
-    Modified:   man/get_records.Rd
-    Modified:   man/log_response.Rd
-    Modified:   man/mutate_defol.Rd
-    Modified:   man/process_hyperspec.Rd
-    Modified:   man/split_into_feature_sets.Rd
-    Modified:   man/standardize.Rd
-    Modified:   packrat/init.R
-    Modified:   packrat/src/BH/BH_1.69.0-1.tar.gz
-    Modified:   packrat/src/CVST/CVST_0.2-2.tar.gz
-    Modified:   packrat/src/DBI/DBI_1.0.0.tar.gz
-    Modified:   packrat/src/DataExplorer/DataExplorer_0.7.0.tar.gz
-    Modified:   packrat/src/DiceKriging/DiceKriging_1.5.6.tar.gz
-    Modified:   packrat/src/KernSmooth/KernSmooth_2.23-15.tar.gz
-    Modified:   packrat/src/Matrix/Matrix_1.2-15.tar.gz
-    Modified:   packrat/src/ModelMetrics/ModelMetrics_1.2.2.tar.gz
-    Modified:   packrat/src/ParamHelpers/ParamHelpers_1.12.tar.gz
-    Modified:   packrat/src/R.matlab/R.matlab_3.6.2.tar.gz
-    Modified:   packrat/src/R.oo/R.oo_1.22.0.tar.gz
-    Modified:   packrat/src/R.utils/R.utils_2.8.0.tar.gz
-    Modified:   packrat/src/R6/R6_2.4.0.tar.gz
-    Modified:   packrat/src/RCurl/RCurl_1.95-4.11.tar.gz
-    Modified:   packrat/src/RJSONIO/RJSONIO_1.3-1.1.tar.gz
-    Modified:   packrat/src/RSQLite/RSQLite_2.1.1.tar.gz
-    Modified:   packrat/src/RcppArmadillo/RcppArmadillo_0.9.200.7.0.tar.gz
-    Modified:   packrat/src/RcppEigen/RcppEigen_0.3.3.5.0.tar.gz
-    Modified:   packrat/src/RcppProgress/RcppProgress_0.4.1.tar.gz
-    Modified:   packrat/src/RcppRoll/RcppRoll_0.3.0.tar.gz
-    Modified:   packrat/src/Rttf2pt1/Rttf2pt1_1.3.7.tar.gz
-    Modified:   packrat/src/XML/XML_3.98-1.17.tar.gz
-    Modified:   packrat/src/abind/abind_1.4-5.tar.gz
-    Modified:   packrat/src/askpass/askpass_1.1.tar.gz
-    Modified:   packrat/src/backports/backports_1.1.3.tar.gz
-    Modified:   packrat/src/bindrcpp/bindrcpp_0.2.2.tar.gz
-    Modified:   packrat/src/bit/bit_1.1-14.tar.gz
-    Modified:   packrat/src/bookdown/bookdown_0.9.tar.gz
-    Modified:   packrat/src/broom/broom_0.5.1.tar.gz
-    Modified:   packrat/src/bsplus/bsplus_0.1.1.tar.gz
-    Modified:   packrat/src/caTools/caTools_1.17.1.1.tar.gz
-    Modified:   packrat/src/callr/callr_3.1.1.tar.gz
-    Modified:   packrat/src/caret/caret_6.0-81.tar.gz
-    Modified:   packrat/src/checkmate/checkmate_1.9.1.tar.gz
-    Modified:   packrat/src/class/class_7.3-15.tar.gz
-    Modified:   packrat/src/classInt/classInt_0.3-1.tar.gz
-    Modified:   packrat/src/cli/cli_1.0.1.tar.gz
-    Modified:   packrat/src/cli/cli_1.1.0.tar.gz
-    Modified:   packrat/src/clipr/clipr_0.5.0.tar.gz
-    Modified:   packrat/src/clustermq/clustermq_0.8.6.tar.gz
-    Modified:   packrat/src/codetools/codetools_0.2-16.tar.gz
-    Modified:   packrat/src/colorspace/colorspace_1.4-0.tar.gz
-    Modified:   packrat/src/commonmark/commonmark_1.7.tar.gz
-    Modified:   packrat/src/cranlike/cranlike_1.0.2.tar.gz
-    Modified:   packrat/src/csvy/csvy_0.3.0.tar.gz
-    Modified:   packrat/src/curl/curl_3.3.tar.gz
-    Modified:   packrat/src/data.table/data.table_1.12.0.tar.gz
-    Modified:   packrat/src/dbplyr/dbplyr_1.3.0.tar.gz
-    Modified:   packrat/src/ddalpha/ddalpha_1.3.8.tar.gz
-    Modified:   packrat/src/desc/desc_1.2.0.tar.gz
-    Modified:   packrat/src/devtools/devtools_2.0.1.tar.gz
-    Modified:   packrat/src/digest/digest_0.6.18.tar.gz
-    Modified:   packrat/src/dimRed/dimRed_0.2.2.tar.gz
-    Modified:   packrat/src/doFuture/doFuture_0.7.0.tar.gz
-    Modified:   packrat/src/doParallel/doParallel_1.0.14.tar.gz
-    Modified:   packrat/src/dplyr/dplyr_0.8.0.1.tar.gz
-    Modified:   packrat/src/drake/drake_7.0.0.tar.gz
-    Modified:   packrat/src/drake/drake_7.1.0.tar.gz
-    Modified:   packrat/src/e1071/e1071_1.7-0.1.tar.gz
-    Modified:   packrat/src/ellipsis/ellipsis_0.1.0.tar.gz
-    Modified:   packrat/src/evaluate/evaluate_0.13.tar.gz
-    Modified:   packrat/src/fastmatch/fastmatch_1.1-0.tar.gz
-    Modified:   packrat/src/feather/feather_0.3.2.tar.gz
-    Modified:   packrat/src/forcats/forcats_0.4.0.tar.gz
-    Modified:   packrat/src/fs/fs_1.2.6.tar.gz
-    Modified:   packrat/src/fst/fst_0.8.10.tar.gz
-    Modified:   packrat/src/future.apply/future.apply_1.1.0.tar.gz
-    Modified:   packrat/src/future.callr/future.callr_0.4.0.tar.gz
-    Modified:   packrat/src/future/future_1.11.1.1.tar.gz
-    Modified:   packrat/src/generics/generics_0.0.2.tar.gz
-    Modified:   packrat/src/geometry/geometry_0.4.0.tar.gz
-    Modified:   packrat/src/getPass/getPass_0.2-2.tar.gz
-    Modified:   packrat/src/getSpatialData/e9afa30b9a08e109f1d1f1a4313626c2a7d1594c.tar.gz
-    Modified:   packrat/src/ggspatial/ggspatial_1.0.3.tar.gz
-    Modified:   packrat/src/git2r/git2r_0.24.0.tar.gz
-    Modified:   packrat/src/glue/glue_1.3.0.tar.gz
-    Modified:   packrat/src/haven/haven_2.1.0.tar.gz
-    Modified:   packrat/src/highr/highr_0.7.tar.gz
-    Modified:   packrat/src/hsdar/9de91c8f67c4b19b39bca7d2c03d37d7641b2b33.tar.gz
-    Modified:   packrat/src/htmlwidgets/htmlwidgets_1.3.tar.gz
-    Modified:   packrat/src/httpuv/httpuv_1.4.5.1.tar.gz
-    Modified:   packrat/src/httr/httr_1.4.0.tar.gz
-    Modified:   packrat/src/hunspell/hunspell_3.0.tar.gz
-    Modified:   packrat/src/igraph/igraph_1.2.4.tar.gz
-    Modified:   packrat/src/infuser/infuser_0.2.8.tar.gz
-    Modified:   packrat/src/ini/ini_0.3.1.tar.gz
-    Modified:   packrat/src/ipred/ipred_0.9-8.tar.gz
-    Modified:   packrat/src/iterators/iterators_1.0.10.tar.gz
-    Modified:   packrat/src/janitor/janitor_1.1.1.tar.gz
-    Modified:   packrat/src/jpeg/jpeg_0.1-8.tar.gz
-    Modified:   packrat/src/jsonlite/jsonlite_1.6.tar.gz
-    Modified:   packrat/src/kernlab/kernlab_0.9-27.tar.gz
-    Modified:   packrat/src/knitr/knitr_1.21.tar.gz
-    Modified:   packrat/src/later/later_0.8.0.tar.gz
-    Modified:   packrat/src/lava/lava_1.6.5.tar.gz
-    Modified:   packrat/src/leaflet.extras/leaflet.extras_1.0.0.tar.gz
-    Modified:   packrat/src/leaflet/leaflet_2.0.2.tar.gz
-    Modified:   packrat/src/lhs/lhs_1.0.1.tar.gz
-    Modified:   packrat/src/libcoin/libcoin_1.0-3.tar.gz
-    Modified:   packrat/src/lpSolve/lpSolve_5.6.13.tar.gz
-    Modified:   packrat/src/lubridate/lubridate_1.7.4.tar.gz
-    Modified:   packrat/src/magic/magic_1.5-9.tar.gz
-    Modified:   packrat/src/magick/magick_2.0.tar.gz
-    Modified:   packrat/src/mapedit/mapedit_0.4.3.tar.gz
-    Modified:   packrat/src/markdown/markdown_0.9.tar.gz
-    Modified:   packrat/src/mco/mco_1.0-15.1.tar.gz
-    Modified:   packrat/src/mgcv/mgcv_1.8-27.tar.gz
-    Modified:   packrat/src/mime/mime_0.6.tar.gz
-    Modified:   packrat/src/misc3d/misc3d_0.8-4.tar.gz
-    Modified:   packrat/src/mlr/261593e65bdd04f897e9cf5a1789040003e4067f.tar.gz
-    Modified:   packrat/src/mlrCPO/mlrCPO_0.3.4-2.tar.gz
-    Modified:   packrat/src/mlrMBO/mlrMBO_1.1.2.tar.gz
-    Modified:   packrat/src/modelr/modelr_0.1.4.tar.gz
-    Modified:   packrat/src/namer/461c6651e51ade0d96b1663c6603261e672b64d6.tar.gz
-    Modified:   packrat/src/narray/narray_0.4.1.tar.gz
-    Modified:   packrat/src/networkD3/networkD3_0.4.tar.gz
-    Modified:   packrat/src/nnet/nnet_7.3-12.tar.gz
-    Modified:   packrat/src/openssl/openssl_1.2.1.tar.gz
-    Modified:   packrat/src/openxlsx/openxlsx_4.1.0.tar.gz
-    Modified:   packrat/src/pacman/pacman_0.5.0.tar.gz
-    Modified:   packrat/src/partykit/partykit_1.2-3.tar.gz
-    Modified:   packrat/src/pbmcapply/pbmcapply_1.3.1.tar.gz
-    Modified:   packrat/src/pillar/pillar_1.3.1.tar.gz
-    Modified:   packrat/src/pkgbuild/pkgbuild_1.0.2.tar.gz
-    Modified:   packrat/src/pkgconfig/pkgconfig_2.0.2.tar.gz
-    Modified:   packrat/src/pkgload/pkgload_1.0.2.tar.gz
-    Modified:   packrat/src/plot3D/plot3D_1.1.1.tar.gz
-    Modified:   packrat/src/plotly/plotly_4.8.0.tar.gz
-    Modified:   packrat/src/polynom/polynom_1.3-9.tar.gz
-    Modified:   packrat/src/prediction/prediction_0.3.6.2.tar.gz
-    Modified:   packrat/src/prettycode/prettycode_1.0.2.tar.gz
-    Modified:   packrat/src/prettymapr/prettymapr_0.2.2.tar.gz
-    Modified:   packrat/src/processx/processx_3.2.1.tar.gz
-    Modified:   packrat/src/prodlim/prodlim_2018.04.18.tar.gz
-    Modified:   packrat/src/progress/progress_1.2.0.tar.gz
-    Modified:   packrat/src/promises/promises_1.0.1.tar.gz
-    Modified:   packrat/src/ps/ps_1.3.0.tar.gz
-    Modified:   packrat/src/psych/psych_1.8.12.tar.gz
-    Modified:   packrat/src/purrr/purrr_0.3.0.tar.gz
-    Modified:   packrat/src/ranger/ranger_0.11.1.tar.gz
-    Modified:   packrat/src/raster/raster_2.8-19.tar.gz
-    Modified:   packrat/src/rcmdcheck/rcmdcheck_1.3.2.tar.gz
-    Modified:   packrat/src/readr/readr_1.3.1.tar.gz
-    Modified:   packrat/src/readxl/readxl_1.3.0.tar.gz
-    Modified:   packrat/src/recipes/recipes_0.1.4.tar.gz
-    Modified:   packrat/src/rgdal/rgdal_1.4-2.tar.gz
-    Modified:   packrat/src/rgdal/rgdal_1.4-3.tar.gz
-    Modified:   packrat/src/rgenoud/rgenoud_5.8-3.0.tar.gz
-    Modified:   packrat/src/rio/rio_0.5.16.tar.gz
-    Modified:   packrat/src/rjson/rjson_0.2.20.tar.gz
-    Modified:   packrat/src/rlang/rlang_0.3.4.tar.gz
-    Modified:   packrat/src/rmarkdown/rmarkdown_1.11.tar.gz
-    Modified:   packrat/src/robustbase/robustbase_0.93-3.tar.gz
-    Modified:   packrat/src/rosm/rosm_0.2.4.tar.gz
-    Modified:   packrat/src/roxygen2/roxygen2_6.1.1.tar.gz
-    Modified:   packrat/src/rpart/rpart_4.1-13.tar.gz
-    Modified:   packrat/src/rrtools.addin/f480299c95e0453934bc2a19afdbc39e81520d17.tar.gz
-    Modified:   packrat/src/rrtools/c880413368ea6635c6b624df09272a741b74cfa8.tar.gz
-    Modified:   packrat/src/rsconnect/rsconnect_0.8.13.tar.gz
-    Modified:   packrat/src/rstudioapi/rstudioapi_0.9.0.tar.gz
-    Modified:   packrat/src/rvcheck/rvcheck_0.1.3.tar.gz
-    Modified:   packrat/src/rzmq/rzmq_0.9.4.tar.gz
-    Modified:   packrat/src/selectr/selectr_0.4-1.tar.gz
-    Modified:   packrat/src/sessioninfo/sessioninfo_1.1.1.tar.gz
-    Modified:   packrat/src/sf/sf_0.7-3.tar.gz
-    Modified:   packrat/src/sfsmisc/sfsmisc_1.1-3.tar.gz
-    Modified:   packrat/src/shiny/shiny_1.2.0.tar.gz
-    Modified:   packrat/src/shinyFiles/shinyFiles_0.7.2.tar.gz
-    Modified:   packrat/src/smoof/smoof_1.5.1.tar.gz
-    Modified:   packrat/src/snakecase/snakecase_0.9.2.tar.gz
-    Modified:   packrat/src/snow/snow_0.4-3.tar.gz
-    Modified:   packrat/src/sourcetools/sourcetools_0.1.7.tar.gz
-    Modified:   packrat/src/sp/sp_1.3-1.tar.gz
-    Modified:   packrat/src/spData/spData_0.3.0.tar.gz
-    Modified:   packrat/src/startup/startup_0.11.0.tar.gz
-    Modified:   packrat/src/stringi/stringi_1.3.1.tar.gz
-    Modified:   packrat/src/stringr/stringr_1.4.0.tar.gz
-    Modified:   packrat/src/styler/styler_1.1.0.tar.gz
-    Modified:   packrat/src/survival/survival_2.43-3.tar.gz
-    Modified:   packrat/src/sys/sys_3.0.tar.gz
-    Modified:   packrat/src/testthat/testthat_2.0.1.tar.gz
-    Modified:   packrat/src/tibble/tibble_2.0.1.tar.gz
-    Modified:   packrat/src/tidyr/tidyr_0.8.2.tar.gz
-    Modified:   packrat/src/tidyselect/tidyselect_0.2.5.tar.gz
-    Modified:   packrat/src/timevis/timevis_0.5.tar.gz
-    Modified:   packrat/src/tinytex/tinytex_0.10.tar.gz
-    Modified:   packrat/src/usethis/usethis_1.4.0.tar.gz
-    Modified:   packrat/src/utf8/utf8_1.1.4.tar.gz
-    Modified:   packrat/src/versions/de231cb523aa9134a1bd4e947c8204a7a08f3daa.tar.gz
-    Modified:   packrat/src/viridis/viridis_0.5.1.tar.gz
-    Modified:   packrat/src/vistime/vistime_0.8.1.tar.gz
-    Modified:   packrat/src/webshot/webshot_0.5.1.tar.gz
-    Modified:   packrat/src/xfun/xfun_0.5.tar.gz
-    Modified:   packrat/src/xgboost/xgboost_0.81.0.1.tar.gz
-    Modified:   packrat/src/xgboost/xgboost_0.82.1.tar.gz
-    Modified:   packrat/src/xopen/xopen_1.0.0.tar.gz
-    Modified:   packrat/src/xtable/xtable_1.8-3.tar.gz
-    Modified:   packrat/src/yaml/yaml_2.2.0.tar.gz
-    Modified:   packrat/src/zip/zip_2.0.0.tar.gz
-    Modified:   packrat/src/zoo/zoo_1.8-4.tar.gz
+    Modified:   slurm_clustermq.tmpl
 
 </code></pre>
 <p>
@@ -760,6 +532,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pat-s/2019-feature-selection/4c3422dc739e7a2ac9826d9f853be23980d2ab19/docs/index.html" target="_blank">4c3422d</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-06-15
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -1039,7 +828,7 @@ Start workflowr project.
 </div>
 </div>
 </div>
-<p><a href="https://github.com/pat-s/2019-feature-selection/commits/master"><img src="https://img.shields.io/badge/last%20change-2019--06--15-brightgreen.svg" alt="Last-changedate" /></a> <a href="https://cran.r-project.org/"><img src="https://img.shields.io/badge/R%3E%3D-3.5.0-brightgreen.svg" alt="minimal R version" /></a> <a href="http://choosealicense.com/licenses/mit/"><img src="https://img.shields.io/github/license/mashape/apistatus.svg" alt="Licence" /></a> <a href="https://doi.org/10.5281/zenodo.2582969"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.2582969.svg" alt="DOI" /></a></p>
+<p><a href="https://github.com/pat-s/2019-feature-selection/commits/master"><img src="https://img.shields.io/badge/last%20change-2019--06--27-brightgreen.svg" alt="Last-changedate" /></a> <a href="https://cran.r-project.org/"><img src="https://img.shields.io/badge/R%3E%3D-3.5.0-brightgreen.svg" alt="minimal R version" /></a> <a href="http://choosealicense.com/licenses/mit/"><img src="https://img.shields.io/github/license/mashape/apistatus.svg" alt="Licence" /></a> <a href="https://doi.org/10.5281/zenodo.2582969"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.2582969.svg" alt="DOI" /></a></p>
 <p>This <a href="">workflowr</a> site contains all information and results about this research project.</p>
 <p>Project details can be found in the <a href="about.html">About</a> page.</p>
 <p><strong>Result shortcuts</strong></p>
