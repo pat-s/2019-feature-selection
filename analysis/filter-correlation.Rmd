@@ -166,7 +166,7 @@ ggcorrplot(corr,
 
 ## HR
 
-```{r eda-22}
+```{r eda-22, warning=FALSE}
 # combine filter values
 
 fv_all <- dplyr::bind_rows(
