@@ -60,13 +60,13 @@ library("rgdal")
 
 # Correlation of filter methods {.tabset .tabset-fade}
 
-Spearman's rank correlation is used since we compare rankings against each other.
+Spearman's rank correlation is used because we compare rankings against each other.
 
 ## VI
 
 ### Filter methods amongst each other
 
-```{r eda-20}
+```{r eda-20, warning=FALSE}
 # combine filter values
 
 fv_all <- dplyr::bind_rows(
