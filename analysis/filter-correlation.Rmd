@@ -55,6 +55,7 @@ loadd(
   fv_nri_info.gain15, fv_nri_info.gain20,
   fv_nri_info.gain25, fv_nri_info.gain30
 )
+library("rgdal")
 ```
 
 # Correlation of filter methods {.tabset .tabset-fade}

@@ -17,6 +17,8 @@ navbar:
     menu:
     - text: "Exploratory data analysis"
       href: eda.html
+    - text: "Filter correlation analysis"
+      href: filter-correlation.html
     - text: "Spectral signatures"
       href: spectral-signatures.html
   - text: Timeline

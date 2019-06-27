@@ -27,6 +27,7 @@ loadd(defoliation_raster,
       
       tune_xgboost
 )
+library("rgdal")
 ```
 
 # Predicted defoliation (absolute)

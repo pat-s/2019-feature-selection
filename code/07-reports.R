@@ -3,6 +3,8 @@ reports_plan_paper = drake_plan(
   eda_wfr = wflow_publish(knitr_in("analysis/eda.Rmd"), view = FALSE),
 
   spectral_signatures_wfr = wflow_publish(knitr_in("analysis/spectral-signatures.Rmd"), view = FALSE),
+
+  filter_correlations_wfr = wflow_publish(knitr_in("analysis/filter-correlation.Rmd"), view = FALSE)
 )
 
 reports_plan_project = drake_plan(
