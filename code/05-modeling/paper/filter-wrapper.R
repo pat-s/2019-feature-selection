@@ -9,7 +9,7 @@ filter_wrapper_rf_borda <- makeFilterWrapper(lrn_rf,
     "carscore",
     "FSelector_relief"
   ),
-  equal = TRUE # FSelectorRcpp
+  more.args = list("FSelectorRcpp_information.gain" = list(equal = TRUE)) # FSelectorRcpp
 )
 
 filter_wrapper_rf_gain.ratio <- makeFilterWrapper(lrn_rf, fw.method = "FSelectorRcpp_gain.ratio", cache = TRUE, equal = TRUE)
@@ -32,7 +32,7 @@ filter_wrapper_xgboost_borda <- makeFilterWrapper(lrn_xgboost,
     "carscore",
     "FSelector_relief"
   ),
-  equal = TRUE # FSelectorRcpp
+  more.args = list("FSelectorRcpp_information.gain" = list(equal = TRUE)) # FSelectorRcpp
 )
 
 filter_wrapper_xgboost_gain.ratio <- makeFilterWrapper(lrn_xgboost, fw.method = "FSelectorRcpp_gain.ratio", cache = TRUE, equal = TRUE)
@@ -55,7 +55,7 @@ filter_wrapper_svm_borda <- makeFilterWrapper(lrn_svm,
     "carscore",
     "FSelector_relief"
   ),
-  equal = TRUE # FSelectorRcpp
+  more.args = list("FSelectorRcpp_information.gain" = list(equal = TRUE)) # FSelectorRcpp
 )
 
 filter_wrapper_svm_gain.ratio <- makeFilterWrapper(lrn_svm, fw.method = "FSelectorRcpp_gain.ratio", cache = TRUE, equal = TRUE)
@@ -78,7 +78,7 @@ filter_wrapper_lasso_borda <- makeFilterWrapper(lrn_lasso,
     "carscore",
     "FSelector_relief"
   ),
-  equal = TRUE # FSelectorRcpp
+  more.args = list("FSelectorRcpp_information.gain" = list(equal = TRUE)) # FSelectorRcpp
 )
 
 filter_wrapper_lasso_gain.ratio <- makeFilterWrapper(lrn_lasso, fw.method = "FSelectorRcpp_gain.ratio", cache = TRUE, equal = TRUE)
@@ -101,7 +101,7 @@ filter_wrapper_ridge_borda <- makeFilterWrapper(lrn_ridge,
     "carscore",
     "FSelector_relief"
   ),
-  equal = TRUE # FSelectorRcpp
+  more.args = list("FSelectorRcpp_information.gain" = list(equal = TRUE)) # FSelectorRcpp
 )
 
 filter_wrapper_ridge_gain.ratio <- makeFilterWrapper(lrn_ridge, fw.method = "FSelectorRcpp_gain.ratio", cache = TRUE, equal = TRUE)
