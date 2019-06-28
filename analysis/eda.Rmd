@@ -313,6 +313,6 @@ dist_plots <- unlist(dist)
 ```
 
 ```{r eda-19, echo = FALSE}
-# file_move("docs/figure/eda.Rmd/defoliation-distribution-plot-1.pdf",
-#           "code/98-paper/journal/")
+file_move("docs/figure/eda.Rmd/defoliation-distribution-plot-1.pdf",
+          "code/98-paper/journal/")
 ```

@@ -9,7 +9,7 @@ benchmark_custom_no_models <- function(learner, task) {
 
   parallelStart(
     mode = "multicore",
-    #level = "mlr.resample",
+    level = "mlr.resample",
     cpus = 4
   )
   set.seed(12345, kind = "L'Ecuyer-CMRG")
