@@ -1,0 +1,78 @@
+---
+title: "Evaluation of performances"
+output: 
+  workflowr::wflow_html:
+    includes:
+      in_header: header.html
+editor_options:
+  chunk_output_type: console
+author: "Patrick Schratz"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  fig.retina = 3,
+  fig.align = "center",
+  fig.width = 6.93,
+  fig.height = 6.13,
+  out.width = "100%",
+  echo = FALSE
+)
+
+source(here::here("code/99-packages.R"))
+sourceDirectory("R")
+
+# load drake objects
+loadd(
+  bm_aggregated
+)
+library("mlr")
+library("magrittr")
+```
+
+
+```{r eval-performance-1 }
+bm_aggregated %>%
+  getBMRAggrPerformances(as.df = TRUE) %>%
+  arrange(task.id, desc(rmse.test.mean))
+```
+
+### Boxplot comparison
+
+```{r performance-boxplot, dev = c("png", "pdf")}
+plt <- plotBMRBoxplots(bm_aggregated,
+  measure = brier, pretty.names = FALSE,
+  # order.lrn = c(
+  #   "classif.gam.tuned", 
+  #   "classif.kknn.tuned",
+  #   "classif.ranger.tuned",
+  #   "classif.svm.tuned", 
+  #   "classif.gbm.tuned",
+  #   "classif.xgboost.tuned"
+  # )
+) +
+  aes(color = learner.id) +
+  geom_boxplot(width = 0.6, outlier.size = 0.3, outlier.shape = 19) +
+  scale_colour_nejm() +
+  labs(y = "Brier score", x = "") +
+  theme_pubr() +
+  theme(strip.text.x = element_text(size = 8),
+        axis.text.x = element_text(size = 7)
+        )
+
+#levels(plt$data$learner.id) <- c("GAM", "KNN", "RF", "SVM", "BRT", "XGBOOST")
+
+plt
+```
+
+### Aggregated performances
+
+```{r performance-aggregated, dev = c("png", "pdf")}
+plt2 <- plotBMRSummary(bm_aggregated, pretty.names = FALSE) +
+  scale_colour_nejm() +
+  theme_pubr()
+
+#levels(plt$data$learner.id) <- c("GAM", "KNN", "RF", "SVM", "BRT", "XGBOOST")
+
+plt2
+```
