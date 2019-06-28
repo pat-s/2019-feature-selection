@@ -317,9 +317,9 @@ The final order is the sum of all single filters ranking.
 \paragraph{Ensuring a fair weighting in the ensemble}
 Filter methods can be grouped into classes: Correlation based, entropy based, linear and non-linear methods.
 It is important to not give certain classes too much weight in the ensemble as otherwise the final result will be biased.
-This was taken care of by comparing the linear correlations of all generated filter values for each method against each other.
+This was taken care of by calculating the rank correlations (Spearman's correlation) of the generated feature rankings of all methods against each other.
 In case filters showed high correlations with each other, these were not included into the ensemble filter.
-The goal was to create an ensemble filter showing low to medium correlations with each other.
+This ensures that the ensembe filter is not biased towards a certain group of methods yielding highly similar rankings.
 
 \paragraph{Description of used filter methods}
 
@@ -352,6 +352,17 @@ Filter methods can be classified as follows:
 \end{table}
 
 % I grouped these two since we focus on filter methods in this study - or is this already a bit biased towards filter methods?
+
+\noindent Filter method "information gain" is by creation only defined for class responses:
+
+\begin{equation}
+	H(Class) + H(Attribute) - H(Class, Attribute)
+\end{equation}
+
+where $H$ is the conditional entropy of the response variable (class) or the feature (attribute), respectively.
+To be able to use this method with a numeric response, the variable is discretized into equal bins and treated as a class variable.
+While the number of bins can be treated as a hyperparameter of the filter method, the default of the R package implementation of \texttt{$n_{bin}$ = 5} was used after rank correlations of > 0.9 for different bin sizes have been explored.
+
 \subsubsection{Wrapper methods and PCA}
 
 \noindent Other approaches to assess feature importance are so called "wrapper methods" and the \ac{PCA} \citep{das2001, jolliffe2016}.
@@ -376,11 +387,18 @@ This enables a very cheap model fitting with a minimal loss of predictor informa
 However, the resulting features used in the model do not relate anymore to the raw input variables since they are a combination of multiple covariates.
 Interpretation is not possible anymore.
 
+\subsubsection{Calculation of the model's feature importance}
 
+\noindent A permutation-based feature importance estimation was done for the best algorithm of each feature set and filter method, respectively.
+This method caluclates the loss of predictive performance for each feature by permuting it in a random manner.
+The more important the feature is for the model, the higher the loss in the used error measure will be, reflecting the importance of the specific feature for the current model.
+
+\subsubsection{Linking feature importance to wavelength regions}
+\noindent For ecological interpretation purposes we linked the ten most important indices of the winning models for each feature set to the spectral regions of the hyperspectral data.
+For feature set HR and NRI a direct linking to the respective bands of the hyperspectral sensor was done.
+For the vegetation indices all bands covered by the spectral range of calculated vegetation indices were counted and summed up.
 
 \subsection{Benchmarking design}
-
-
 
 
 \subsubsection{Algorithms}
@@ -428,8 +446,14 @@ An initial design of 30 randomly composed hyperparameter settings and a terminat
 The advantage of this tuning approach is the substantial reduction of the tuning budget required to find a setting which is close to the global minimum
 This applies when being compared to methods that do not use information from previous runs, such as random search or grid search \citep{bergstra2012}.
 
-For the filter methods, the percentage of features was optimized as a hyperparameter.
-The number of main components was tuned for the \ac{PCA} based benchmarking experiments.
+For the filter methods, the percentage of features was added to the models as a hyperparameter.
+The number of main components was tuned for the instances which used \ac{PCA} instead of filtering.
+Random Forest hyperparameter \texttt{$m_{try}$} was transformed from taking absolute values to a relative parameter depending on the number of tasks: $p^{m_{try}}$, where $p$ is the number of features.
+This was necessary to ensure that \texttt{$m_{try}$} was not chosen out of bounds during tuning:
+After the filtering, only a subset of features of the task is used for optimizing the models hyperparameters.
+The size of this subset is always different since the number of features is also optimized.
+Hence, the value of  \texttt{$m_{try}$} needs to be created flexible based on the number features.
+
 
 \subsubsection{Spatial resampling}
 
