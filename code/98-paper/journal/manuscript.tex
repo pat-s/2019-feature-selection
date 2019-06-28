@@ -246,8 +246,6 @@ Additional metadata information is available in \autoref{tab:hyperparameter_limi
 
 \section{Methods}
 
-% TODO: Mention the use of mtry.pow
-% TODO: Explain the binning in the FSelectorfilters
 % TODO: Explain that we used Spearman cor in the corrplot
 
 \subsection{Derivation of indices}
@@ -387,17 +385,6 @@ This enables a very cheap model fitting with a minimal loss of predictor informa
 However, the resulting features used in the model do not relate anymore to the raw input variables since they are a combination of multiple covariates.
 Interpretation is not possible anymore.
 
-\subsubsection{Calculation of the model's feature importance}
-
-\noindent A permutation-based feature importance estimation was done for the best algorithm of each feature set and filter method, respectively.
-This method caluclates the loss of predictive performance for each feature by permuting it in a random manner.
-The more important the feature is for the model, the higher the loss in the used error measure will be, reflecting the importance of the specific feature for the current model.
-
-\subsubsection{Linking feature importance to wavelength regions}
-\noindent For ecological interpretation purposes we linked the ten most important indices of the winning models for each feature set to the spectral regions of the hyperspectral data.
-For feature set HR and NRI a direct linking to the respective bands of the hyperspectral sensor was done.
-For the vegetation indices all bands covered by the spectral range of calculated vegetation indices were counted and summed up.
-
 \subsection{Benchmarking design}
 
 
@@ -454,16 +441,23 @@ After the filtering, only a subset of features of the task is used for optimizin
 The size of this subset is always different since the number of features is also optimized.
 Hence, the value of  \texttt{$m_{try}$} needs to be created flexible based on the number features.
 
-
 \subsubsection{Spatial resampling}
 
 \noindent A spatial block nested cross-validation was chosen to reduce the influence of spatial autocorrelation as much as possible \citep{schratz2019, sperrorest}.
 Each plot served as one fold within the resampling setup, resulting in four folds total.
 For the inner level (hyperparameter tuning), $p - 1$ folds were used (with $p$ being the number of plots).
 
-\subsubsection{Summary}
+In total the benchmarking matrix consisted of 120 experiments (3 feature sets, 5 algorithms, 8 feature-selection methods).
 
-\noindent  In total the benchmarking matrix consisted of 120 experiments (3 feature sets, 5 algorithms, 8 feature-selection methods).
+\subsection{Calculation of the model's feature importance}
+\noindent A permutation-based feature importance estimation was done for the best algorithm of each feature set and filter method, respectively.
+This method caluclates the loss of predictive performance for each feature by permuting it in a random manner.
+The more important the feature is for the model, the higher the loss in the used error measure will be, reflecting the importance of the specific feature for the current model.
+
+\subsection{Linking feature importance to wavelength regions}
+\noindent For ecological interpretation purposes we linked the ten most important indices of the winning models for each feature set to the spectral regions of the hyperspectral data.
+For feature set HR and NRI a direct linking to the respective bands of the hyperspectral sensor was done.
+For the vegetation indices all bands covered by the spectral range of calculated vegetation indices were counted and summed up.
 
 \subsection{Research compendium}
 
