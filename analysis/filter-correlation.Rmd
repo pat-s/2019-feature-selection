@@ -66,7 +66,7 @@ Spearman's rank correlation is used because we compare rankings against each oth
 
 ### Filter methods amongst each other
 
-```{r eda-20, warning=FALSE}
+```{r correlation-filter-vi, warning=FALSE, dev = c("png", "pdf")}
 # combine filter values
 
 fv_all <- dplyr::bind_rows(
@@ -102,7 +102,7 @@ ggcorrplot(corr,
 
 ### Number of bins of `FSelectorRcpp::information.gain()`
 
-```{r}
+```{r correlation-nbins, warning=FALSE, dev = c("png", "pdf")}
 # recode levels so that they are unique
 fv_all_list = map2(list(fv_vi_info.gain5$data, fv_vi_info.gain10$data,
   fv_vi_info.gain15$data, fv_vi_info.gain20$data,
@@ -132,7 +132,7 @@ ggcorrplot(corr,
 
 ## NRI
 
-```{r eda-21}
+```{r filter-correlation-3, warning=FALSE}
 # combine filter values
 
 fv_all <- dplyr::bind_rows(
@@ -166,7 +166,7 @@ ggcorrplot(corr,
 
 ## HR
 
-```{r eda-22, warning=FALSE}
+```{r filter-correlation-4, warning=FALSE}
 # combine filter values
 
 fv_all <- dplyr::bind_rows(
@@ -196,4 +196,11 @@ ggcorrplot(corr,
            type = "lower",
            lab = TRUE
 )
+```
+
+```{r filter-correlation-5, echo = FALSE}
+file_move("docs/figure/filter-correlation.Rmd/correlation-nbins-1.pdf",
+          "code/98-paper/journal/")
+file_move("docs/figure/filter-correlation.Rmd/correlation-filter-vi-1.pdf",
+          "code/98-paper/journal/")
 ```
