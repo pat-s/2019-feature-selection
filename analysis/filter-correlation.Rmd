@@ -19,11 +19,17 @@ knitr::opts_chunk$set(
   echo = FALSE
 )
 
-source(here::here("code/99-packages.R"))
-sourceDirectory("R")
+#source(here::here("code/99-packages.R"))
+library("dplyr")
+library("tidyr")
+library("ggcorrplot")
+library("purrr")
+library("glue")
+library("fs")
+R.utils::sourceDirectory("R")
 
 # load drake objects
-loadd(
+drake::loadd(
   fv_nri_car, fv_nri_info.gain, fv_nri_gain.ratio,
   fv_nri_symuncert, fv_nri_relief,
   fv_nri_rank, fv_nri_cor,
@@ -55,18 +61,17 @@ loadd(
   fv_nri_info.gain15, fv_nri_info.gain20,
   fv_nri_info.gain25, fv_nri_info.gain30
 )
-library("rgdal")
 ```
 
 # Correlation of filter methods {.tabset .tabset-fade}
 
-Spearman's rank correlation is used because we compare rankings against each other.
+Spearman's rank correlation is used because rankings are compared.
 
 ## VI
 
 ### Filter methods amongst each other
 
-```{r correlation-filter-vi, warning=FALSE, dev = c("png", "pdf")}
+```{r filter-correlation-1, warning=FALSE}
 # combine filter values
 
 fv_all <- dplyr::bind_rows(
@@ -132,7 +137,7 @@ ggcorrplot(corr,
 
 ## NRI
 
-```{r filter-correlation-3, warning=FALSE}
+```{r filter-correlation-nri, dev = c("png", "pdf"), warning=FALSE}
 # combine filter values
 
 fv_all <- dplyr::bind_rows(
@@ -199,8 +204,8 @@ ggcorrplot(corr,
 ```
 
 ```{r filter-correlation-5, echo = FALSE}
-file_move("docs/figure/filter-correlation.Rmd/correlation-nbins-1.pdf",
-          "code/98-paper/journal/")
-file_move("docs/figure/filter-correlation.Rmd/correlation-filter-vi-1.pdf",
-          "code/98-paper/journal/")
+# file_move("docs/figure/filter-correlation.Rmd/correlation-nbins-1.pdf",
+#           "code/98-paper/journal/")
+# file_move("docs/figure/filter-correlation.Rmd/correlation-filter-nri-1.pdf",
+#           "code/98-paper/journal/")
 ```
