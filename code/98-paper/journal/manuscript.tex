@@ -4,7 +4,7 @@
 % arara: xelatex: {synctex: yes, interaction: nonstopmode}
 % arara: xelatex: {synctex: yes, interaction: nonstopmode}
 
-% arara: indent: {overwrite: yes}
+%% arara: indent: {overwrite: yes}
 
 % arara: clean: { extensions: [bcf, cod, blg, lof, lot, out, toc, xml, bak0 ] }
 
@@ -246,8 +246,6 @@ Additional metadata information is available in \autoref{tab:hyperparameter_limi
 
 \section{Methods}
 
-% TODO: Explain that we used Spearman cor in the corrplot
-
 \subsection{Derivation of indices}
 % TODO: Mention different feature sets
 \noindent To use the full information from the hyperspectral data, all possible vegetation indices supported by the R package \textit{hsdar} (90 in total) as well as all possible \ac{NRI} combinations were calculated.
@@ -262,35 +260,30 @@ where $i$ and $j$ are the respective band numbers.
 
 \bigbreak
 
-\noindent To account for geometric offsets (which were reported with up to 1 m from \ac{ICGC}), a buffer of two meters around the centroid of the respective tree was used.
-The mean of all pixels touched by this buffer was calculated and assigned to the observations.
+\noindent To account for geometric offsets (which were reported with up to 1 m from \ac{ICGC}), a buffer of two meters around the centroid of the respective tree was drawn.
+The value assigned to a tree observations was the mean of all pixels which touched the respective buffer around the tree.
 In total, $\frac{125*126}{2} = 7875$ NRIs were calculated .
-Due to four corrupted bands and numerical calculation errors for some band combinations, a total of 7471 indices were available for each observation.
-All indices which contained missing values for at least one plot were removed from the dataset.
-Observations were given more importance than indices due to the mass of available \ac{NRI} indices.
+Due to four corrupted bands of the sensor a total of 7471 indices were available for each observation.
 
 \subsection{Dimension reduction}
 
 \noindent It is important to distinguish the term "dimension reduction" from "high-dimensionality".
 The former refers to the general idea of reducing features from a dataset \citep{vandermaaten2007}.
-In modeling this means finding the best subset of covariates which provide the most predictive power to the model.
-The latter term in contrast is the definition of a dataset attribute:
-When $p > n,$ where $p$ is the number of covariates and $n$ the number of observations \citep{hastie2001}, the dataset qualifies as "high-dimensional".
+In modeling this means finding the best subset of covariates which provide the most predictive power to the model or extracting the main components of the features using a \ac{PCA}.
+"High-dimensionality" in contrast is defined as a dataset attribute and applies when $p > n,$ where $p$ is the number of covariates and $n$ the number of observations \citep{hastie2001}.
 There is no absolute value at which the term can be applied, both for $n$ and $p$.
 Hence for this study the word "high-dimensionality" only applies to the experiments using the "NRI" feature set (7470 features for 1759 observations).
 
 The case of a feature-rich dataset comes with several challenges for both model fitting and evaluation.
 
 \begin{itemize}
-	\item Fitting times of the model increase
-	\item Noise is possibly introduced into the model by highly-correlated variables \citep{johnstoneiainm.2009}
-	      % I think we can phrase this better
-	\item Interpretation and prediction becomes more complex, up to the point at which it is not possible anymore \citep{johnstoneiainm.2009}
+  \item Model fitting times increase
+  \item Noise is possibly introduced into models by highly-correlated variables \citep{johnstoneiainm.2009}
+  \item Model interpretation and prediction tasks become more complicated \citep{johnstoneiainm.2009}
 \end{itemize}
 
-\noindent In the last decade the amount of environmental data increased a lot, paramount by the increased data coverage of satellites.
-With this the need of applying automated feature-selection methods emerged.
-In the following sections the currently most used feature selection approaches are briefly introduced.
+\noindent In the following sections a brief overview about sub-categories of feature-selection approaches is given.
+Due to the focus of this study on the use of filter methods, all other appraoches were grouped into a single section.
 
 \subsubsection{Filter methods}
 
@@ -313,6 +306,7 @@ In this work the "Borda" ensemble filter was applied \citep{drotar2017a}.
 The final order is the sum of all single filters ranking.
 
 \paragraph{Ensuring a fair weighting in the ensemble}
+
 Filter methods can be grouped into classes: Correlation based, entropy based, linear and non-linear methods.
 It is important to not give certain classes too much weight in the ensemble as otherwise the final result will be biased.
 This was taken care of by calculating the rank correlations (Spearman's correlation) of the generated feature rankings of all methods against each other.
@@ -349,8 +343,6 @@ Filter methods can be classified as follows:
 \label{tab:filter-methods}
 \end{table}
 
-% I grouped these two since we focus on filter methods in this study - or is this already a bit biased towards filter methods?
-
 \noindent Filter method "information gain" is by creation only defined for class responses:
 
 \begin{equation}
@@ -360,30 +352,30 @@ Filter methods can be classified as follows:
 where $H$ is the conditional entropy of the response variable (class) or the feature (attribute), respectively.
 To be able to use this method with a numeric response, the variable is discretized into equal bins and treated as a class variable.
 While the number of bins can be treated as a hyperparameter of the filter method, the default of the R package implementation of \texttt{$n_{bin}$ = 5} was used after rank correlations of > 0.9 for different bin sizes have been explored.
+% TODO: Add reference to appendix, put plot into appendix
 
 \subsubsection{Wrapper methods and PCA}
 
-\noindent Other approaches to assess feature importance are so called "wrapper methods" and the \ac{PCA} \citep{das2001, jolliffe2016}.
+\noindent Other approaches to assess feature importance are "wrapper methods" and the \ac{PCA} \citep{das2001, jolliffe2016}.
 A short introduction to both is given below.
 
 % Wrapper approach
 \noindent "Wrapper methods" \citep{chandrashekar2014, kohavi1997} apply algorithms that are used for hyperparameter optimization such as "Random Search" or "Generic Simulated Annealing".
 First a (random) subset of features is chosen based on the selected algorithm.
-In comparison to "filters", no ranking is applied in this step.
+In comparison to "filters", no ranking is done in this step.
 Now the model is fitted on the data and the performance is evaluated.
 This is done multiple times, depending on the defined stopping criteria set by the user (performance, runtime, evaluations).
-A disadvantage of this approach is that hyperparameter tuning can only start after the feature-selection optimization has ended.
-Hence, this method is very expensive because two optimization stages need to be run in sequential order.
-"Wrapper methods" were not considered in this work due to the expensive runtime.
+A disadvantage of this approach is that hyperparameter tuning can only be applied after the feature-selection optimization finished.
+Hence, the "wrapper approach" is an expensive optimization method because two stages need to be run in sequential order.
+Due to their extensive runtimes, "wrapper methods" were not considered in this work.
 
 % PCA
-A method that is very distinct from filters and wrappers is the "Principal Component Analysis" \citep{pearson1901, jolliffe2016}.
+A method with a completely different approach compared to filters and wrappers is the "Principal Component Analysis" \citep{pearson1901, jolliffe2016}.
 Here, the main components of the feature space are extracted and combined.
-Usually the first two components are taken since these contain the major information of the covariates.
+Most often the first two extracted main components are used since these contain the major information of the covariates.
 By using the (automatically estimated) explained variance of the main components, the model can rely on a few features containing the majority of information available in the data.
-This enables a very cheap model fitting with a minimal loss of predictor information.
-However, the resulting features used in the model do not relate anymore to the raw input variables since they are a combination of multiple covariates.
-Interpretation is not possible anymore.
+This enables cheap model fitting with balanced loss of predictor information.
+The disadvantage of this methodology is the lack of interpretatbility because the main components cannot be related back to the original covariates.
 
 \subsection{Benchmarking design}
 
@@ -401,10 +393,10 @@ Interpretation is not possible anymore.
 
 
 \noindent \ac{RF} and {SVM} are well established algorithms that are widely used in environmental modeling.
-Extreme Gradient Boosting (commonly referred to as \ac{XGBOOST}) showed promising results in benchmark competitions in recent years.
-Penalized Regression is a statistical modeling technique that is capable of dealing with highly-correlated covariates by applying a penalization term which shrinks the coefficients of the model \citep{hastie2001}.
-The penalties are also known as "lasso" (L1) and "ridge" (L2).
-The former does not allow the removal of variables from the model (penalization to zero) while the latter does.
+Extreme gradient boosting (commonly referred to as \ac{XGBOOST}) showed promising results in benchmark competitions in recent years.
+Penalized regression is a statistical modeling technique capable of dealing with highly-correlated covariates by applying a penalization term which shrinks the coefficients of the model \citep{hastie2001}.
+Common penalties are "lasso" (L1) and "ridge" (L2).
+The former does not allow the full removal of variables from the model (penalization to zero) while the latter does.
 Both penalties can also be combined.
 The combined approach is called "elastic net" but was not used in this work.
 
@@ -449,7 +441,7 @@ For the inner level (hyperparameter tuning), $p - 1$ folds were used (with $p$ b
 
 In total the benchmarking matrix consisted of 120 experiments (3 feature sets, 5 algorithms, 8 feature-selection methods).
 
-\subsection{Calculation of the model's feature importance}
+\subsection{Calculation of model feature importance}
 \noindent A permutation-based feature importance estimation was done for the best algorithm of each feature set and filter method, respectively.
 This method caluclates the loss of predictive performance for each feature by permuting it in a random manner.
 The more important the feature is for the model, the higher the loss in the used error measure will be, reflecting the importance of the specific feature for the current model.
@@ -490,14 +482,23 @@ All these points introduced a bias of an unknown magnitude into the data.
 This has to be considered when making interpretations about the outcome of this study.
 
 \subsection{Performance vs. plot characteristics}
+% TODO: Really needed?
 
 \subsection{Predictive Performance}
 
-\subsubsection{Algorithm benchmarking}
+\subsubsection{Algorithm differences}
+
+\subsubsection{Feature set differences}
 
 \subsection{Feature selection methods}
 
-\subsection{Comparison to other studies}A
+\subsubsection{Variable importance vs. filter methods}
+
+\subsubsection{Ecological Interpretation}
+
+% TODO: talk about the link to RS spectra
+
+\subsection{Comparison to other studies}
 % NOTE: no environmental studies use filter methods, some use FFS
 % NOTE: only few studies analyze defoliation
 
@@ -517,13 +518,13 @@ Incorporating such metrics (both spectral and structural) could be a possible en
 A grid-search was used for hyperparameter tuning and a \ac{FFS} for variable selection.
 \cite{ludwig2019} analyzed woody cover in South Africa using spatial \ac{CV} and a relatively novel spatial \ac{FS} approach \citep{meyer2018} on a Random Forest classifier.
 
-
 In summary, we could not find studies using filter methods for \ac{FS} or \ac{NRI} indices in their work with a relation to forest health.
 Most studies used only one algorithm (usually Random Forest) without strong arguments why this particular one has been selected.
-In our view the number of possible derivable input features is often higher than the number of variables used in the end, missing out potential helpful information from the data.
+In our view the number of possible derivable input features is often higher than the actual number of variables used in the end, missing out on potentially helpful information from the raw data.
 These findings underline the importance of this work in the field of forest health modeling.
 
 \section{Outlook and conclusion}
+
 
 \section{Appendix}
 
