@@ -422,6 +422,9 @@ div.tocify {
       <a href="eval-performance.html">Performance evaluation</a>
     </li>
     <li>
+      <a href="feature-importance.html">Feature importance</a>
+    </li>
+    <li>
       <a href="spectral-signatures.html">Spectral signatures</a>
     </li>
   </ul>
@@ -565,10 +568,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree7fb605b3ff2109920ddfdeee885e2ba764010d21targetblank7fb605ba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/7fb605b3ff2109920ddfdeee885e2ba764010d21" target="_blank">7fb605b</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree79ca1d467cef2c2dc972e1c2ef2aa9ed0e0c5555targetblank79ca1d4a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/79ca1d467cef2c2dc972e1c2ef2aa9ed0e0c5555" target="_blank">79ca1d4</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree7fb605b3ff2109920ddfdeee885e2ba764010d21targetblank7fb605ba" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree79ca1d467cef2c2dc972e1c2ef2aa9ed0e0c5555targetblank79ca1d4a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -579,6 +582,7 @@ Ignored files:
     Ignored:    .Rproj.user/
     Ignored:    .Ruserdata/
     Ignored:    .drake/
+    Ignored:    analysis/figure/
     Ignored:    analysis/rosm.cache/
     Ignored:    data/
     Ignored:    packrat/lib-R/
@@ -589,20 +593,36 @@ Ignored files:
     Ignored:    tests/
 
 Untracked files:
+    Untracked:  code/98-paper/journal/correlation-filter-nri-1.pdf
+    Untracked:  code/98-paper/journal/correlation-nbins-1.pdf
+    Untracked:  code/98-paper/journal/spectral-signatures-1.pdf
     Untracked:  figure/
     Untracked:  inst/study-area-map/study-area.qgs~
     Untracked:  spectral-signatures.md
 
 Unstaged changes:
+    Modified:   .Rprofile
     Modified:   _drake.R
+    Modified:   analysis/_site.yml
     Modified:   analysis/eda.Rmd
+    Modified:   analysis/eval-performance.Rmd
     Modified:   analysis/filter-correlation.Rmd
+    Modified:   code/05-modeling/paper/filter-wrapper.R
+    Modified:   code/05-modeling/paper/tune-wrapper.R
+    Modified:   code/06-benchmark-matrix.R
+    Modified:   code/061-aggregate.R
+    Modified:   code/07-reports.R
     Modified:   code/98-paper/journal/defoliation-distribution-plot-1.pdf
+    Modified:   code/99-packages.R
+    Deleted:    docs/figure/filter-correlation.Rmd/correlation-nbins-1.pdf
+    Deleted:    docs/figure/filter-correlation.Rmd/filter-correlation-nri-1.pdf
+    Deleted:    docs/figure/spectral-signatures.Rmd/spectral-signatures-1.pdf
     Deleted:    log/cache.log
     Deleted:    log/cache2.log
-    Deleted:    log/cache3.log
+    Modified:   log/cache3.log
     Modified:   log/drake.log
-    Deleted:    log/worker1.log
+    Modified:   log/worker1.log
+    Modified:   slurm_clustermq.tmpl
 
 </code></pre>
 <p>
@@ -641,6 +661,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/79ca1d467cef2c2dc972e1c2ef2aa9ed0e0c5555/analysis/spectral-signatures.Rmd" target="_blank">79ca1d4</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-07-01
+</td>
+<td>
+wflow_publish(knitr_in(“analysis/spectral-signatures.Rmd”), view =
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pat-s/2019-feature-selection/69efa507c825be9c127065336e18f258446b4f57/docs/spectral-signatures.html" target="_blank">69efa50</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-07-01
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -846,8 +900,46 @@ add spectral signatures report
 </ul>
 <p>for the wavelength range of 400 nm - 1000 nm. Values represent the mean reflectance of all observations at the respective wavelength.</p>
 <p><img src="figure/spectral-signatures.Rmd/spectral-signatures-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-spectral-signatures-1">
+Past versions of spectral-signatures-1.png
+</button>
+</p>
+<div id="fig-spectral-signatures-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/69efa507c825be9c127065336e18f258446b4f57/docs/figure/spectral-signatures.Rmd/spectral-signatures-1.png" target="_blank">69efa50</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-07-01
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>null device 
           1 </code></pre>
+<pre><code>[1] FALSE</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -861,24 +953,19 @@ Running under: CentOS Linux 7 (Core)
 
 Matrix products: default
 BLAS: /opt/R/3.5.2/lib64/R/lib/libRblas.so
-LAPACK: /opt/R/3.5.2/lib64/R/lib/libRlapack.so
+LAPACK: /usr/lib64/libopenblaso-r0.3.3.so
 
 locale:
- [1] LC_CTYPE=en_GB.UTF-8       LC_NUMERIC=C              
- [3] LC_TIME=en_GB.UTF-8        LC_COLLATE=en_GB.UTF-8    
- [5] LC_MONETARY=en_GB.UTF-8    LC_MESSAGES=en_GB.UTF-8   
- [7] LC_PAPER=en_GB.UTF-8       LC_NAME=C                 
- [9] LC_ADDRESS=C               LC_TELEPHONE=C            
-[11] LC_MEASUREMENT=en_GB.UTF-8 LC_IDENTIFICATION=C       
+[1] C
 
 attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] fs_1.2.6         dplyr_0.8.0.1    purrr_0.3.0      magrittr_1.5    
- [5] cowplot_0.9.2    hsdar_0.5.2      caret_6.0-81     ggplot2_3.1.0   
- [9] lattice_0.20-38  signal_0.7-6     rootSolve_1.7    rgdal_1.4-4     
-[13] raster_2.8-19    sp_1.3-1         tidyselect_0.2.5
+ [1] here_0.1         fs_1.2.6         dplyr_0.8.0.1    purrr_0.3.0     
+ [5] magrittr_1.5     cowplot_0.9.2    hsdar_0.5.2      caret_6.0-81    
+ [9] ggplot2_3.1.0    lattice_0.20-38  signal_0.7-6     rootSolve_1.7   
+[13] rgdal_1.4-4      raster_2.8-19    sp_1.3-1         tidyselect_0.2.5
 
 loaded via a namespace (and not attached):
  [1] Rcpp_1.0.0         lubridate_1.7.4    class_7.3-15      
