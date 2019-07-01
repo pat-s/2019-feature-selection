@@ -1,4 +1,5 @@
 suppressPackageStartupMessages(library(drake))
+suppressPackageStartupMessages(library(rgdal))
 suppressPackageStartupMessages(library(hsdar))
 suppressPackageStartupMessages(library(dplyr))
 suppressPackageStartupMessages(library(sf))
