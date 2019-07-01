@@ -29,6 +29,7 @@ library("magrittr")
 library("purrr")
 library("dplyr")
 library("fs")
+library("here")
 ```
 
 # Spectral signatures of plots
@@ -67,7 +68,7 @@ wavelength <- c(404.08, 408.5, 412.92, 417.36, 421.81, 426.27, 430.73, 435.20,
 ```
 
 ```{r spectral-signatures-3 }
-speclibs <- map(data_hs_preprocessed, ~ hsdar::speclib(.x, wavelength))
+speclibs <- map(data_hs_preprocessed, ~ speclib(.x, wavelength))
 ```
 
 ```{r spectral-signatures, dev=c("png", "pdf")}
@@ -85,6 +86,8 @@ dev.off()
 ```
 
 ```{r spectral-signatures-4, echo = FALSE}
-# file_move("docs/figure/spectral-signatures.Rmd/spectral-signatures-1.pdf",
-#           "code/98-paper/journal/")
+# file_move(here("docs/figure/spectral-signatures.Rmd/spectral-signatures-1.pdf"),
+#           here("code/98-paper/journal/"))
+file.copy(here("docs/figure/spectral-signatures.Rmd/spectral-signatures-1.pdf"),
+          here("code/98-paper/journal/"), overwrite = TRUE)
 ```
