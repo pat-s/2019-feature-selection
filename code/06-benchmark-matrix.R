@@ -7,6 +7,7 @@ bm_plan = drake_plan(
       task = c("vi" = vi_task, "nri" = nri_task, "hr" = hr_task),
       learner = c(#svm_borda,
         svm_info.gain,
+        svm_relief,
         #svm_gain.ratio,
         #svm_variance,
         #svm_rank.cor,
@@ -19,6 +20,7 @@ bm_plan = drake_plan(
 
         #rf_borda,
         rf_info.gain,
+        rf_relief,
         #rf_gain.ratio,
         #rf_variance,
         #rf_rank.cor,
@@ -31,6 +33,7 @@ bm_plan = drake_plan(
 
         #xgboost_borda,
         xgboost_info.gain,
+        xgboost_relief,
         #xgboost_gain.ratio,
         #xgboost_variance,
         #xgboost_rank.cor,

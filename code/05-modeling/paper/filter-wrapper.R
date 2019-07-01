@@ -14,6 +14,7 @@ filter_wrapper_rf_borda <- makeFilterWrapper(lrn_rf,
 
 filter_wrapper_rf_gain.ratio <- makeFilterWrapper(lrn_rf, fw.method = "FSelectorRcpp_gain.ratio", cache = TRUE, equal = TRUE)
 filter_wrapper_rf_info.gain <- makeFilterWrapper(lrn_rf, fw.method = "FSelectorRcpp_information.gain", cache = TRUE, equal = TRUE)
+filter_wrapper_rf_relief <- makeFilterWrapper(lrn_rf, fw.method = "FSelector_relief", cache = TRUE)
 filter_wrapper_rf_variance <- makeFilterWrapper(lrn_rf, fw.method = "variance", cache = TRUE)
 filter_wrapper_rf_rank.cor <- makeFilterWrapper(lrn_rf, fw.method = "rank.correlation", cache = TRUE)
 filter_wrapper_rf_linear.cor <- makeFilterWrapper(lrn_rf, fw.method = "linear.correlation", cache = TRUE)
@@ -37,6 +38,7 @@ filter_wrapper_xgboost_borda <- makeFilterWrapper(lrn_xgboost,
 
 filter_wrapper_xgboost_gain.ratio <- makeFilterWrapper(lrn_xgboost, fw.method = "FSelectorRcpp_gain.ratio", cache = TRUE, equal = TRUE)
 filter_wrapper_xgboost_info.gain <- makeFilterWrapper(lrn_xgboost, fw.method = "FSelectorRcpp_information.gain", cache = TRUE, equal = TRUE)
+filter_wrapper_xgboost_relief <- makeFilterWrapper(lrn_xgboost, fw.method = "FSelector_relief", cache = TRUE)
 filter_wrapper_xgboost_variance <- makeFilterWrapper(lrn_xgboost, fw.method = "variance", cache = TRUE)
 filter_wrapper_xgboost_rank.cor <- makeFilterWrapper(lrn_xgboost, fw.method = "rank.correlation", cache = TRUE)
 filter_wrapper_xgboost_linear.cor <- makeFilterWrapper(lrn_xgboost, fw.method = "linear.correlation", cache = TRUE)
@@ -60,6 +62,7 @@ filter_wrapper_svm_borda <- makeFilterWrapper(lrn_svm,
 
 filter_wrapper_svm_gain.ratio <- makeFilterWrapper(lrn_svm, fw.method = "FSelectorRcpp_gain.ratio", cache = TRUE, equal = TRUE)
 filter_wrapper_svm_info.gain <- makeFilterWrapper(lrn_svm, fw.method = "FSelectorRcpp_information.gain", cache = TRUE, equal = TRUE)
+filter_wrapper_svm_relief <- makeFilterWrapper(lrn_svm, fw.method = "FSelector_relief", cache = TRUE)
 filter_wrapper_svm_variance <- makeFilterWrapper(lrn_svm, fw.method = "variance", cache = TRUE)
 filter_wrapper_svm_rank.cor <- makeFilterWrapper(lrn_svm, fw.method = "rank.correlation", cache = TRUE)
 filter_wrapper_svm_linear.cor <- makeFilterWrapper(lrn_svm, fw.method = "linear.correlation", cache = TRUE)

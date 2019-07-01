@@ -1,4 +1,4 @@
-bm_aggregated = mergeBenchmarkResults(bm_vi_task_svm_no_filter,
+bm_aggregated = mergeBenchmarkResults(list(bm_vi_task_svm_no_filter,
                                       bm_nri_task_svm_no_filter,
                                       bm_hr_task_svm_no_filter,
 
@@ -158,3 +158,4 @@ bm_aggregated = mergeBenchmarkResults(bm_vi_task_svm_no_filter,
                                       bm_hr_task_lm_cmim
 
                                       )
+)

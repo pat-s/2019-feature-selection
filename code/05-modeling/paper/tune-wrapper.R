@@ -15,6 +15,11 @@ svm_gain.ratio = makeTuneWrapper(filter_wrapper_svm_gain.ratio, resampling = inn
                                  control = tune.ctrl_svm, show.info = TRUE,
                                  measures = list(rmse))
 
+svm_relief = makeTuneWrapper(filter_wrapper_svm_relief, resampling = inner,
+                             par.set = ps_svm_filter,
+                             control = tune.ctrl_svm, show.info = TRUE,
+                             measures = list(rmse))
+
 svm_variance = makeTuneWrapper(filter_wrapper_svm_variance, resampling = inner,
                                par.set = ps_svm_filter,
                                control = tune.ctrl_svm, show.info = TRUE,
@@ -72,6 +77,11 @@ xgboost_gain.ratio = makeTuneWrapper(filter_wrapper_xgboost_gain.ratio, resampli
                                      control = tune.ctrl_xgboost, show.info = TRUE,
                                      measures = list(rmse))
 
+xgboost_relief = makeTuneWrapper(filter_wrapper_xgboost_relief, resampling = inner,
+                                 par.set = ps_xgboost_filter,
+                                 control = tune.ctrl_xgboost, show.info = TRUE,
+                                 measures = list(rmse))
+
 xgboost_variance = makeTuneWrapper(filter_wrapper_xgboost_variance, resampling = inner,
                                    par.set = ps_xgboost_filter,
                                    control = tune.ctrl_xgboost, show.info = TRUE,
@@ -128,6 +138,11 @@ rf_gain.ratio = makeTuneWrapper(filter_wrapper_rf_gain.ratio, resampling = inner
                                 par.set = ps_rf_filter,
                                 control = tune.ctrl_rf, show.info = TRUE,
                                 measures = list(rmse))
+
+rf_relief = makeTuneWrapper(filter_wrapper_rf_relief, resampling = inner,
+                            par.set = ps_rf_filter,
+                            control = tune.ctrl_rf, show.info = TRUE,
+                            measures = list(rmse))
 
 rf_variance = makeTuneWrapper(filter_wrapper_rf_variance, resampling = inner,
                               par.set = ps_rf_filter,
