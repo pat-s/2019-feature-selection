@@ -19,16 +19,16 @@ knitr::opts_chunk$set(
   echo = FALSE
 )
 
-source(here::here("code/99-packages.R"))
-sourceDirectory("R")
+R.utils::sourceDirectory("R")
 
 # load drake objects
-loadd(data_hs_preprocessed)
+drake::loadd(data_hs_preprocessed)
 library("hsdar")
 library("cowplot")
 library("magrittr")
 library("purrr")
 library("dplyr")
+library("fs")
 ```
 
 # Spectral signatures of plots
@@ -67,10 +67,10 @@ wavelength <- c(404.08, 408.5, 412.92, 417.36, 421.81, 426.27, 430.73, 435.20,
 ```
 
 ```{r spectral-signatures-3 }
-speclibs <- map(data_hs_preprocessed, ~ speclib(.x, wavelength))
+speclibs <- map(data_hs_preprocessed, ~ hsdar::speclib(.x, wavelength))
 ```
 
-```{r spectral-signatures-4}
+```{r spectral-signatures, dev=c("png", "pdf")}
 par(mfrow = c(2, 2))
 
 plot(speclibs[[1]], main = "Laukiz 1", ylim = c(0, 350))
@@ -82,4 +82,9 @@ plot(speclibs[[3]], main = "Luiando", ylim = c(0, 350))
 plot(speclibs[[4]], main = "Oiartzun", ylim = c(0, 350))
 
 dev.off()
+```
+
+```{r spectral-signatures-4, echo = FALSE}
+# file_move("docs/figure/spectral-signatures.Rmd/spectral-signatures-1.pdf",
+#           "code/98-paper/journal/")
 ```
