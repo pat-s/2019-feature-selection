@@ -19,11 +19,10 @@ knitr::opts_chunk$set(
   echo = FALSE
 )
 
-source(here::here("code/99-packages.R"))
-sourceDirectory("R")
+R.utils::sourceDirectory("R")
 
 # load drake objects
-loadd(
+drake::loadd(
   vi_data, nri_data, bands_data, coords_vi_nri_clean,
   
   fv_nri_car, fv_nri_info.gain, fv_nri_gain.ratio,
@@ -60,7 +59,9 @@ loadd(
 library("DataExplorer")
 library("dplyr")
 library("ggsci")
+library("ggpubr")
 library("ggplot2")
+library("knitr")
 ```
 
 # Datasets {.tabset .tabset-fade}
@@ -312,6 +313,6 @@ dist_plots <- unlist(dist)
 ```
 
 ```{r eda-19, echo = FALSE}
-file_move("docs/figure/eda.Rmd/defoliation-distribution-plot-1.pdf",
-          "code/98-paper/journal/")
+# file_move("docs/figure/eda.Rmd/defoliation-distribution-plot-1.pdf",
+#           "code/98-paper/journal/")
 ```

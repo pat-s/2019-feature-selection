@@ -88,6 +88,6 @@ dev.off()
 ```{r spectral-signatures-4, echo = FALSE}
 # file_move(here("docs/figure/spectral-signatures.Rmd/spectral-signatures-1.pdf"),
 #           here("code/98-paper/journal/"))
-file.copy(here("docs/figure/spectral-signatures.Rmd/spectral-signatures-1.pdf"),
-          here("code/98-paper/journal/"), overwrite = TRUE)
+# file.copy(here("docs/figure/spectral-signatures.Rmd/spectral-signatures-1.pdf"),
+#           here("code/98-paper/journal/"), overwrite = TRUE)
 ```
