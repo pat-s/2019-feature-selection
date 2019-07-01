@@ -9,11 +9,12 @@
 
 cd ~/papers/2019-feature-selection/
 spack load gcc@7.3.0
+
+# because of conflicting leftovers of a gdal source installation we need to define the LD Path manually
+export LD_PRELOAD=/opt/spack/opt/spack/linux-centos7-x86_64/gcc-7.3.0/gdal-2.3.3-5664dlptnq3x6d55wcu6qzgnxohrijda/lib/libgdal.so.20
 spack load /5664dlp # gdal
 
 # share pandoc
 export PATH=/opt/pandoc/:$PATH
-#export R_HOME=/opt/R/3.5.2/lib64/R
 
 CMQ_AUTH={{ auth }} /opt/R/3.5.2/bin/R --no-save --no-restore -e 'clustermq:::worker("{{ master }}")'
-
