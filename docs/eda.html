@@ -419,6 +419,12 @@ div.tocify {
       <a href="filter-correlation.html">Filter correlation analysis</a>
     </li>
     <li>
+      <a href="eval-performance.html">Performance evaluation</a>
+    </li>
+    <li>
+      <a href="feature-importance.html">Feature importance</a>
+    </li>
+    <li>
       <a href="spectral-signatures.html">Spectral signatures</a>
     </li>
   </ul>
@@ -471,7 +477,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2019-06-27
+<strong>Last updated:</strong> 2019-07-02
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -562,10 +568,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree185d5766ea8b536e489d482e8f5b60d05038a899targetblank185d576a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/185d5766ea8b536e489d482e8f5b60d05038a899" target="_blank">185d576</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree888dc6bfab47bf11cf461f4b948b0568c3f4b4e3targetblank888dc6ba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/888dc6bfab47bf11cf461f4b948b0568c3f4b4e3" target="_blank">888dc6b</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree185d5766ea8b536e489d482e8f5b60d05038a899targetblank185d576a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree888dc6bfab47bf11cf461f4b948b0568c3f4b4e3targetblank888dc6ba" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -576,6 +582,7 @@ Ignored files:
     Ignored:    .Rproj.user/
     Ignored:    .Ruserdata/
     Ignored:    .drake/
+    Ignored:    analysis/figure/
     Ignored:    analysis/rosm.cache/
     Ignored:    data/
     Ignored:    packrat/lib-R/
@@ -586,15 +593,22 @@ Ignored files:
     Ignored:    tests/
 
 Untracked files:
-    Untracked:  learner.rda
+    Untracked:  figure/
+    Untracked:  inst/study-area-map/study-area.qgs~
+    Untracked:  spectral-signatures.md
 
 Unstaged changes:
     Modified:   _drake.R
+    Modified:   analysis/_site.yml
+    Modified:   code/98-paper/journal/defoliation-distribution-plot-1.pdf
     Deleted:    docs/figure/eda.Rmd/defoliation-distribution-plot-1.pdf
+    Deleted:    docs/figure/filter-correlation.Rmd/correlation-nbins-1.pdf
+    Deleted:    docs/figure/filter-correlation.Rmd/filter-correlation-nri-1.pdf
+    Deleted:    log/cache.log
+    Deleted:    log/cache2.log
     Modified:   log/cache3.log
     Modified:   log/drake.log
     Modified:   log/worker1.log
-    Modified:   slurm_clustermq.tmpl
 
 </code></pre>
 <p>
@@ -633,6 +647,57 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/888dc6bfab47bf11cf461f4b948b0568c3f4b4e3/analysis/eda.Rmd" target="_blank">888dc6b</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-07-02
+</td>
+<td>
+wflow_publish(knitr_in(“analysis/eda.Rmd”), view = FALSE, verbose =
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/09697769905942bbe6cea1ecbab5a75f47f722ab/analysis/eda.Rmd" target="_blank">0969776</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-06-28
+</td>
+<td>
+misc
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pat-s/2019-feature-selection/32d5be01fcf217792b436d82dbb62432f9102b61/docs/eda.html" target="_blank">32d5be0</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-06-27
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -2159,7 +2224,8 @@ Platform: x86_64-pc-linux-gnu (64-bit)
 Running under: CentOS Linux 7 (Core)
 
 Matrix products: default
-BLAS/LAPACK: /opt/spack/opt/spack/linux-centos7-x86_64/gcc-7.3.0/openblas-0.3.5-zncvk4jccaqyfl4z3vszaboeps6hyzta/lib/libopenblas_zen-r0.3.5.so
+BLAS: /opt/R/3.5.2/lib64/R/lib/libRblas.so
+LAPACK: /usr/lib64/libopenblaso-r0.3.3.so
 
 locale:
 [1] C
@@ -2168,62 +2234,31 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] ggsci_2.9            DataExplorer_0.8.0   tidyselect_0.2.5    
- [4] ggcorrplot_0.1.3     kernlab_0.9-27       mRMRe_2.0.9         
- [7] igraph_1.2.4         survival_2.43-3      praznik_5.0.0       
-[10] workflowr_1.4.0      here_0.1             ggpubr_0.1.6        
-[13] ggspatial_1.0.3      gdalUtils_2.0.1.7    getSpatialData_0.0.4
-[16] knitr_1.23           rgenoud_5.8-3.0      parallelMap_1.3     
-[19] mlrMBO_1.1.2         smoof_1.5.1          checkmate_1.9.1     
-[22] BBmisc_1.11          mapview_2.3.0        stringr_1.4.0       
-[25] fs_1.2.6             curl_3.3             mlrCPO_0.3.4-2      
-[28] mlr_2.14.0.9000      ParamHelpers_1.12    data.table_1.12.0   
-[31] magrittr_1.5         future.apply_1.1.0   future.callr_0.4.0  
-[34] furrr_0.1.0.9002     future_1.11.1.1      R.utils_2.8.0       
-[37] R.oo_1.22.0          R.methodsS3_1.7.1    glue_1.3.0          
-[40] purrr_0.3.0          sf_0.7-3             dplyr_0.8.0.1       
-[43] hsdar_0.5.2          caret_6.0-81         ggplot2_3.1.0       
-[46] lattice_0.20-38      signal_0.7-6         rootSolve_1.7       
-[49] rgdal_1.4-3          raster_2.8-19        sp_1.3-1            
-[52] drake_7.4.0.9000    
+ [1] raster_2.8-19      sp_1.3-1           purrr_0.3.0       
+ [4] knitr_1.23         ggpubr_0.1.6       magrittr_1.5      
+ [7] ggplot2_3.1.0      ggsci_2.9          dplyr_0.8.0.1     
+[10] DataExplorer_0.8.0 tidyselect_0.2.5  
 
 loaded via a namespace (and not attached):
-  [1] backports_1.1.3    fastmatch_1.1-0    mapedit_0.4.3     
-  [4] plyr_1.8.4         lazyeval_0.2.1     splines_3.5.2     
-  [7] storr_1.2.1        crosstalk_1.0.0    listenv_0.7.0     
- [10] leaflet_2.0.2      usethis_1.4.0      digest_0.6.18     
- [13] foreach_1.4.4      htmltools_0.3.6    fansi_0.4.0       
- [16] memoise_1.1.0      base64url_1.4      remotes_2.0.2     
- [19] recipes_0.1.4      globals_0.12.4     gower_0.1.2       
- [22] prettyunits_1.0.2  colorspace_1.4-0   xfun_0.5          
- [25] callr_3.1.1        crayon_1.3.4       jsonlite_1.6      
- [28] iterators_1.0.10   gtable_0.2.0       ipred_0.9-8       
- [31] webshot_0.5.1      pkgbuild_1.0.2     scales_1.0.0      
- [34] DBI_1.0.0          Rcpp_1.0.0         viridisLite_0.3.0 
- [37] xtable_1.8-3       units_0.6-2        stats4_3.5.2      
- [40] lava_1.6.5         prodlim_2018.04.18 htmlwidgets_1.3   
- [43] httr_1.4.0         RColorBrewer_1.1-2 pkgconfig_2.0.2   
- [46] nnet_7.3-12        utf8_1.1.4         RJSONIO_1.3-1.1   
- [49] labeling_0.3       rlang_0.3.4        reshape2_1.4.3    
- [52] later_0.8.0        munsell_0.5.0      tools_3.5.2       
- [55] cli_1.1.0          generics_0.0.2     devtools_2.0.1    
- [58] evaluate_0.13      yaml_2.2.0         ModelMetrics_1.2.2
- [61] processx_3.2.1     satellite_1.0.1    nlme_3.1-137      
- [64] whisker_0.3-2      mime_0.6           xml2_1.2.0        
- [67] compiler_3.5.2     plotly_4.8.0       png_0.1-7         
- [70] e1071_1.7-0.1      testthat_2.0.1     RPostgreSQL_0.6-2 
- [73] tibble_2.0.1       lhs_1.0.1          stringi_1.3.1     
- [76] highr_0.7          ps_1.3.0           desc_1.2.0        
- [79] plot3D_1.1.1       Matrix_1.2-15      classInt_0.3-1    
- [82] networkD3_0.4      pillar_1.3.1       httpuv_1.4.5.1    
- [85] R6_2.4.0           promises_1.0.1     gridExtra_2.3     
- [88] sessioninfo_1.1.1  codetools_0.2-16   MASS_7.3-51.1     
- [91] assertthat_0.2.0   pkgload_1.0.2      rprojroot_1.3-2   
- [94] withr_2.1.2        parallel_3.5.2     grid_3.5.2        
- [97] rpart_4.1-13       timeDate_3043.102  tidyr_0.8.2       
-[100] class_7.3-15       rmarkdown_1.13     misc3d_0.8-4      
-[103] mco_1.0-15.1       git2r_0.24.0       getPass_0.2-2     
-[106] shiny_1.2.0        lubridate_1.7.4    base64enc_0.1-3   </code></pre>
+ [1] storr_1.2.1       xfun_0.5          reshape2_1.4.3   
+ [4] lattice_0.20-38   colorspace_1.4-0  htmltools_0.3.6  
+ [7] yaml_2.2.0        utf8_1.1.4        rlang_0.3.4      
+[10] e1071_1.7-0.1     R.oo_1.22.0       pillar_1.3.1     
+[13] glue_1.3.0        withr_2.1.2       R.utils_2.8.0    
+[16] networkD3_0.4     plyr_1.8.4        stringr_1.4.0    
+[19] munsell_0.5.0     gtable_0.2.0      workflowr_1.4.0  
+[22] R.methodsS3_1.7.1 htmlwidgets_1.3   codetools_0.2-16 
+[25] evaluate_0.13     labeling_0.3      class_7.3-15     
+[28] parallel_3.5.2    fansi_0.4.0       highr_0.7        
+[31] Rcpp_1.0.0        scales_1.0.0      backports_1.1.3  
+[34] fs_1.2.6          gridExtra_2.3     digest_0.6.18    
+[37] stringi_1.3.1     grid_3.5.2        rprojroot_1.3-2  
+[40] rgdal_1.4-4       cli_1.1.0         tools_3.5.2      
+[43] base64url_1.4     lazyeval_0.2.1    tibble_2.0.1     
+[46] crayon_1.3.4      whisker_0.3-2     pkgconfig_2.0.2  
+[49] data.table_1.12.0 drake_7.4.0.9000  assertthat_0.2.0 
+[52] rmarkdown_1.13    R6_2.4.0          igraph_1.2.4     
+[55] git2r_0.24.0      compiler_3.5.2   </code></pre>
 </div>
 </div>
 
