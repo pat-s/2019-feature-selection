@@ -62,6 +62,9 @@ library("ggsci")
 library("ggpubr")
 library("ggplot2")
 library("knitr")
+library("purrr")
+library("sp")
+library("raster")
 ```
 
 # Datasets {.tabset .tabset-fade}
