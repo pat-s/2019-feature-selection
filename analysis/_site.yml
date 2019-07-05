@@ -21,6 +21,8 @@ navbar:
       href: filter-correlation.html
     - text: "Performance evaluation"
       href: eval-performance.html
+    - text: "Feature importance"
+      href: feature-importance.html
     - text: "Spectral signatures"
       href: spectral-signatures.html
   - text: Timeline
