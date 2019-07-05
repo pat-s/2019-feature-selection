@@ -118,44 +118,44 @@ bm_aggregated = mergeBenchmarkResults(list(bm_vi_task_svm_no_filter,
                                       # ridge
                                       bm_vi_task_ridge_no_filter,
                                       bm_nri_task_ridge_no_filter,
-                                      bm_hr_task_ridge_no_filter,
+                                      bm_hr_task_ridge_no_filter
 
                                       # lm
-                                      bm_vi_task_lm_no_filter,
-                                      bm_nri_task_lm_no_filter,
-                                      bm_hr_task_lm_no_filter,
-
-                                      bm_vi_task_lm_pca,
-                                      bm_nri_task_lm_pca,
-                                      bm_hr_task_lm_pca,
-
-                                      bm_vi_task_lm_borda,
-                                      bm_nri_task_lm_borda,
-                                      bm_hr_task_lm_borda,
-
-                                      bm_vi_task_lm_relief,
-                                      bm_nri_task_lm_relief,
-                                      bm_hr_task_lm_relief,
-
-                                      bm_vi_task_lm_linear.cor,
-                                      bm_nri_task_lm_linear.cor,
-                                      bm_hr_task_lm_linear.cor,
-
-                                      bm_vi_task_lm_info.gain,
-                                      bm_nri_task_lm_info.gain,
-                                      bm_hr_task_lm_info.gain,
-
-                                      bm_vi_task_lm_mrmr,
-                                      bm_nri_task_lm_mrmr,
-                                      bm_hr_task_lm_mrmr,
-
-                                      bm_vi_task_lm_carscore,
-                                      bm_nri_task_lm_carscore,
-                                      bm_hr_task_lm_carscore,
-
-                                      bm_vi_task_lm_cmim,
-                                      bm_nri_task_lm_cmim,
-                                      bm_hr_task_lm_cmim
+                                      # bm_vi_task_lm_no_filter,
+                                      # bm_nri_task_lm_no_filter,
+                                      # bm_hr_task_lm_no_filter,
+                                      #
+                                      # bm_vi_task_lm_pca,
+                                      # bm_nri_task_lm_pca,
+                                      # bm_hr_task_lm_pca,
+                                      #
+                                      # bm_vi_task_lm_borda,
+                                      # bm_nri_task_lm_borda,
+                                      # bm_hr_task_lm_borda,
+                                      #
+                                      # bm_vi_task_lm_relief,
+                                      # bm_nri_task_lm_relief,
+                                      # bm_hr_task_lm_relief,
+                                      #
+                                      # bm_vi_task_lm_linear.cor,
+                                      # bm_nri_task_lm_linear.cor,
+                                      # bm_hr_task_lm_linear.cor,
+                                      #
+                                      # bm_vi_task_lm_info.gain,
+                                      # bm_nri_task_lm_info.gain,
+                                      # bm_hr_task_lm_info.gain,
+                                      #
+                                      # bm_vi_task_lm_mrmr,
+                                      # bm_nri_task_lm_mrmr,
+                                      # bm_hr_task_lm_mrmr,
+                                      #
+                                      # bm_vi_task_lm_carscore,
+                                      # bm_nri_task_lm_carscore,
+                                      # bm_hr_task_lm_carscore,
+                                      #
+                                      # bm_vi_task_lm_cmim,
+                                      # bm_nri_task_lm_cmim,
+                                      # bm_hr_task_lm_cmim
 
                                       )
 )
