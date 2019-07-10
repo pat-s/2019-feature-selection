@@ -1,0 +1,1398 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+<meta name="author" content="Patrick Schratz" />
+
+
+<title>Evaluation of performances</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<div><img src="logo/life.jpg" align="right" style="width:200px;margin-top:15px" ></div>
+
+<div><img src="logo/fsu.png" align="left" style="width:200px;margin-top:15px" ></div>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">2019-feature-selection</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Project
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="report-defoliation.html">Prediction of defoliation at trees</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Paper
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="eda.html">Exploratory data analysis</a>
+    </li>
+    <li>
+      <a href="filter-correlation.html">Filter correlation analysis</a>
+    </li>
+    <li>
+      <a href="eval-performance.html">Performance evaluation</a>
+    </li>
+    <li>
+      <a href="feature-importance.html">Feature importance</a>
+    </li>
+    <li>
+      <a href="spectral-signatures.html">Spectral signatures</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="timeline.html">Timeline</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Evaluation of performances</h1>
+<h4 class="author">Patrick Schratz</h4>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2019-07-10
+</p>
+<p>
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+</p>
+<p>
+<strong>Knit directory:</strong> <code>2019-feature-selection/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+</p>
+<p>
+This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.4.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20190522code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20190522)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20190522code" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20190522)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontreee98cb01b3c06cd141c32bbb0a64fc21a715273c1targetblanke98cb01a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/e98cb01b3c06cd141c32bbb0a64fc21a715273c1" target="_blank">e98cb01</a> </a>
+</p>
+</div>
+<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontreee98cb01b3c06cd141c32bbb0a64fc21a715273c1targetblanke98cb01a" class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .Rhistory
+    Ignored:    .Rproj.user/
+    Ignored:    .Ruserdata/
+    Ignored:    .drake/
+    Ignored:    analysis/rosm.cache/
+    Ignored:    data/
+    Ignored:    inst/study-area-map/study-area.qgs~
+    Ignored:    log/
+    Ignored:    packrat/lib-R/
+    Ignored:    packrat/lib-ext/
+    Ignored:    packrat/lib/
+    Ignored:    reviews/
+    Ignored:    rosm.cache/
+    Ignored:    tests/
+
+Untracked files:
+    Untracked:  code/05-modeling/paper/feature-importance.R
+    Untracked:  inst/Benchmark for Filter Methods for Feature Selection in High-Dimensional  Classification Data.pdf
+
+Unstaged changes:
+    Modified:   _drake.R
+    Modified:   analysis/feature-importance.Rmd
+    Modified:   code/98-paper/journal/defoliation-distribution-plot-1.pdf
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+
+<p>
+These are the previous versions of the R Markdown and HTML files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view them.
+</p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/e98cb01b3c06cd141c32bbb0a64fc21a715273c1/analysis/eval-performance.Rmd" target="_blank">e98cb01</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-07-10
+</td>
+<td>
+wflow_publish(knitr_in(“analysis/eval-performance.Rmd”), view = FALSE,
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/24e318f34962cb4988db5581840c48721ce69b97/analysis/eval-performance.Rmd" target="_blank">24e318f</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-07-01
+</td>
+<td>
+update reports
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/ca5c5bcf1799bb51682023c49b67f1123342ba38/analysis/eval-performance.Rmd" target="_blank">ca5c5bc</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-06-28
+</td>
+<td>
+add eval-performance report
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div id="aggregated-performances" class="section level3">
+<h3>Aggregated performances</h3>
+<div id="table-all-leanerfiltertask-combinations-ordered-by-performance." class="section level4">
+<h4>(Table) All leaner/filter/task combinations ordered by performance.</h4>
+<pre><code>Warning: Expected 2 pieces. Additional pieces discarded in 9 rows [6, 15,
+24, 35, 44, 53, 64, 73, 82].</code></pre>
+<pre><code>Warning: Expected 2 pieces. Missing pieces filled with `NA` in 15 rows [1,
+10, 19, 28, 29, 30, 39, 48, 57, 58, 59, 68, 77, 86, 87].</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">learner_group</th>
+<th align="left">task.id</th>
+<th align="left">filter</th>
+<th align="right">best</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">SVM</td>
+<td align="left">VI</td>
+<td align="left">PCA</td>
+<td align="right">1.822990e+00</td>
+</tr>
+<tr class="even">
+<td align="left">SVM</td>
+<td align="left">VI</td>
+<td align="left">CMIM</td>
+<td align="right">1.828968e+00</td>
+</tr>
+<tr class="odd">
+<td align="left">SVM</td>
+<td align="left">VI</td>
+<td align="left">Relief</td>
+<td align="right">1.829052e+00</td>
+</tr>
+<tr class="even">
+<td align="left">SVM</td>
+<td align="left">VI</td>
+<td align="left">Info</td>
+<td align="right">1.832112e+00</td>
+</tr>
+<tr class="odd">
+<td align="left">SVM</td>
+<td align="left">HR</td>
+<td align="left">Pearson</td>
+<td align="right">1.835110e+00</td>
+</tr>
+<tr class="even">
+<td align="left">SVM</td>
+<td align="left">VI</td>
+<td align="left">No Filter</td>
+<td align="right">1.837101e+00</td>
+</tr>
+<tr class="odd">
+<td align="left">SVM</td>
+<td align="left">HR</td>
+<td align="left">No Filter</td>
+<td align="right">1.837101e+00</td>
+</tr>
+<tr class="even">
+<td align="left">SVM</td>
+<td align="left">NRI</td>
+<td align="left">CMIM</td>
+<td align="right">1.837772e+00</td>
+</tr>
+<tr class="odd">
+<td align="left">SVM</td>
+<td align="left">HR</td>
+<td align="left">Borda</td>
+<td align="right">1.838642e+00</td>
+</tr>
+<tr class="even">
+<td align="left">SVM</td>
+<td align="left">NRI</td>
+<td align="left">PCA</td>
+<td align="right">1.839763e+00</td>
+</tr>
+<tr class="odd">
+<td align="left">SVM</td>
+<td align="left">HR</td>
+<td align="left">CMIM</td>
+<td align="right">1.839929e+00</td>
+</tr>
+<tr class="even">
+<td align="left">SVM</td>
+<td align="left">HR</td>
+<td align="left">MRMR</td>
+<td align="right">1.839938e+00</td>
+</tr>
+<tr class="odd">
+<td align="left">SVM</td>
+<td align="left">HR</td>
+<td align="left">Car</td>
+<td align="right">1.840133e+00</td>
+</tr>
+<tr class="even">
+<td align="left">SVM</td>
+<td align="left">VI</td>
+<td align="left">Pearson</td>
+<td align="right">1.841647e+00</td>
+</tr>
+<tr class="odd">
+<td align="left">SVM</td>
+<td align="left">HR</td>
+<td align="left">Info</td>
+<td align="right">1.845974e+00</td>
+</tr>
+<tr class="even">
+<td align="left">SVM</td>
+<td align="left">NRI</td>
+<td align="left">No Filter</td>
+<td align="right">1.862812e+00</td>
+</tr>
+<tr class="odd">
+<td align="left">SVM</td>
+<td align="left">NRI</td>
+<td align="left">Car</td>
+<td align="right">1.864166e+00</td>
+</tr>
+<tr class="even">
+<td align="left">SVM</td>
+<td align="left">NRI</td>
+<td align="left">Relief</td>
+<td align="right">1.864614e+00</td>
+</tr>
+<tr class="odd">
+<td align="left">SVM</td>
+<td align="left">NRI</td>
+<td align="left">MRMR</td>
+<td align="right">1.870250e+00</td>
+</tr>
+<tr class="even">
+<td align="left">SVM</td>
+<td align="left">HR</td>
+<td align="left">PCA</td>
+<td align="right">1.870688e+00</td>
+</tr>
+<tr class="odd">
+<td align="left">SVM</td>
+<td align="left">VI</td>
+<td align="left">Borda</td>
+<td align="right">1.872476e+00</td>
+</tr>
+<tr class="even">
+<td align="left">SVM</td>
+<td align="left">NRI</td>
+<td align="left">Pearson</td>
+<td align="right">1.879307e+00</td>
+</tr>
+<tr class="odd">
+<td align="left">SVM</td>
+<td align="left">HR</td>
+<td align="left">Relief</td>
+<td align="right">1.894857e+00</td>
+</tr>
+<tr class="even">
+<td align="left">SVM</td>
+<td align="left">NRI</td>
+<td align="left">Info</td>
+<td align="right">1.903714e+00</td>
+</tr>
+<tr class="odd">
+<td align="left">SVM</td>
+<td align="left">VI</td>
+<td align="left">Car</td>
+<td align="right">1.920964e+00</td>
+</tr>
+<tr class="even">
+<td align="left">SVM</td>
+<td align="left">VI</td>
+<td align="left">MRMR</td>
+<td align="right">1.934234e+00</td>
+</tr>
+<tr class="odd">
+<td align="left">SVM</td>
+<td align="left">NRI</td>
+<td align="left">Borda</td>
+<td align="right">1.976663e+00</td>
+</tr>
+<tr class="even">
+<td align="left">RIDGE</td>
+<td align="left">NRI</td>
+<td align="left">No Filter</td>
+<td align="right">2.116192e+00</td>
+</tr>
+<tr class="odd">
+<td align="left">XG</td>
+<td align="left">HR</td>
+<td align="left">Info</td>
+<td align="right">2.141743e+00</td>
+</tr>
+<tr class="even">
+<td align="left">XG</td>
+<td align="left">HR</td>
+<td align="left">CMIM</td>
+<td align="right">2.159212e+00</td>
+</tr>
+<tr class="odd">
+<td align="left">XG</td>
+<td align="left">HR</td>
+<td align="left">MRMR</td>
+<td align="right">2.163146e+00</td>
+</tr>
+<tr class="even">
+<td align="left">XG</td>
+<td align="left">HR</td>
+<td align="left">Car</td>
+<td align="right">2.195092e+00</td>
+</tr>
+<tr class="odd">
+<td align="left">RF</td>
+<td align="left">NRI</td>
+<td align="left">Borda</td>
+<td align="right">2.260054e+00</td>
+</tr>
+<tr class="even">
+<td align="left">XG</td>
+<td align="left">NRI</td>
+<td align="left">MRMR</td>
+<td align="right">2.284767e+00</td>
+</tr>
+<tr class="odd">
+<td align="left">RF</td>
+<td align="left">NRI</td>
+<td align="left">Car</td>
+<td align="right">2.288120e+00</td>
+</tr>
+<tr class="even">
+<td align="left">XG</td>
+<td align="left">NRI</td>
+<td align="left">Relief</td>
+<td align="right">2.296078e+00</td>
+</tr>
+<tr class="odd">
+<td align="left">XG</td>
+<td align="left">NRI</td>
+<td align="left">Car</td>
+<td align="right">2.317280e+00</td>
+</tr>
+<tr class="even">
+<td align="left">XG</td>
+<td align="left">NRI</td>
+<td align="left">No Filter</td>
+<td align="right">2.324032e+00</td>
+</tr>
+<tr class="odd">
+<td align="left">XG</td>
+<td align="left">NRI</td>
+<td align="left">Info</td>
+<td align="right">2.353680e+00</td>
+</tr>
+<tr class="even">
+<td align="left">XG</td>
+<td align="left">VI</td>
+<td align="left">Borda</td>
+<td align="right">2.357035e+00</td>
+</tr>
+<tr class="odd">
+<td align="left">XG</td>
+<td align="left">NRI</td>
+<td align="left">CMIM</td>
+<td align="right">2.359601e+00</td>
+</tr>
+<tr class="even">
+<td align="left">RIDGE</td>
+<td align="left">HR</td>
+<td align="left">No Filter</td>
+<td align="right">2.362227e+00</td>
+</tr>
+<tr class="odd">
+<td align="left">RF</td>
+<td align="left">NRI</td>
+<td align="left">Info</td>
+<td align="right">2.383427e+00</td>
+</tr>
+<tr class="even">
+<td align="left">XG</td>
+<td align="left">HR</td>
+<td align="left">PCA</td>
+<td align="right">2.387424e+00</td>
+</tr>
+<tr class="odd">
+<td align="left">XG</td>
+<td align="left">VI</td>
+<td align="left">Relief</td>
+<td align="right">2.409191e+00</td>
+</tr>
+<tr class="even">
+<td align="left">RF</td>
+<td align="left">HR</td>
+<td align="left">Info</td>
+<td align="right">2.423537e+00</td>
+</tr>
+<tr class="odd">
+<td align="left">XG</td>
+<td align="left">VI</td>
+<td align="left">PCA</td>
+<td align="right">2.435016e+00</td>
+</tr>
+<tr class="even">
+<td align="left">RF</td>
+<td align="left">NRI</td>
+<td align="left">Pearson</td>
+<td align="right">2.454691e+00</td>
+</tr>
+<tr class="odd">
+<td align="left">RF</td>
+<td align="left">NRI</td>
+<td align="left">MRMR</td>
+<td align="right">2.476900e+00</td>
+</tr>
+<tr class="even">
+<td align="left">RF</td>
+<td align="left">HR</td>
+<td align="left">Borda</td>
+<td align="right">2.477372e+00</td>
+</tr>
+<tr class="odd">
+<td align="left">XG</td>
+<td align="left">NRI</td>
+<td align="left">PCA</td>
+<td align="right">2.479044e+00</td>
+</tr>
+<tr class="even">
+<td align="left">RF</td>
+<td align="left">VI</td>
+<td align="left">Info</td>
+<td align="right">2.479226e+00</td>
+</tr>
+<tr class="odd">
+<td align="left">RF</td>
+<td align="left">NRI</td>
+<td align="left">PCA</td>
+<td align="right">2.486899e+00</td>
+</tr>
+<tr class="even">
+<td align="left">XG</td>
+<td align="left">NRI</td>
+<td align="left">Pearson</td>
+<td align="right">2.499908e+00</td>
+</tr>
+<tr class="odd">
+<td align="left">RF</td>
+<td align="left">VI</td>
+<td align="left">CMIM</td>
+<td align="right">2.505334e+00</td>
+</tr>
+<tr class="even">
+<td align="left">XG</td>
+<td align="left">VI</td>
+<td align="left">CMIM</td>
+<td align="right">2.507646e+00</td>
+</tr>
+<tr class="odd">
+<td align="left">RF</td>
+<td align="left">HR</td>
+<td align="left">PCA</td>
+<td align="right">2.508722e+00</td>
+</tr>
+<tr class="even">
+<td align="left">RF</td>
+<td align="left">VI</td>
+<td align="left">MRMR</td>
+<td align="right">2.512445e+00</td>
+</tr>
+<tr class="odd">
+<td align="left">RF</td>
+<td align="left">VI</td>
+<td align="left">PCA</td>
+<td align="right">2.534520e+00</td>
+</tr>
+<tr class="even">
+<td align="left">RF</td>
+<td align="left">HR</td>
+<td align="left">Relief</td>
+<td align="right">2.550136e+00</td>
+</tr>
+<tr class="odd">
+<td align="left">RF</td>
+<td align="left">HR</td>
+<td align="left">Pearson</td>
+<td align="right">2.555868e+00</td>
+</tr>
+<tr class="even">
+<td align="left">RF</td>
+<td align="left">NRI</td>
+<td align="left">Relief</td>
+<td align="right">2.557534e+00</td>
+</tr>
+<tr class="odd">
+<td align="left">RF</td>
+<td align="left">NRI</td>
+<td align="left">CMIM</td>
+<td align="right">2.563138e+00</td>
+</tr>
+<tr class="even">
+<td align="left">RF</td>
+<td align="left">NRI</td>
+<td align="left">No Filter</td>
+<td align="right">2.568671e+00</td>
+</tr>
+<tr class="odd">
+<td align="left">XG</td>
+<td align="left">HR</td>
+<td align="left">Borda</td>
+<td align="right">2.570526e+00</td>
+</tr>
+<tr class="even">
+<td align="left">RF</td>
+<td align="left">VI</td>
+<td align="left">No Filter</td>
+<td align="right">2.585326e+00</td>
+</tr>
+<tr class="odd">
+<td align="left">RF</td>
+<td align="left">HR</td>
+<td align="left">Car</td>
+<td align="right">2.588946e+00</td>
+</tr>
+<tr class="even">
+<td align="left">RF</td>
+<td align="left">VI</td>
+<td align="left">Borda</td>
+<td align="right">2.594228e+00</td>
+</tr>
+<tr class="odd">
+<td align="left">XG</td>
+<td align="left">VI</td>
+<td align="left">MRMR</td>
+<td align="right">2.597668e+00</td>
+</tr>
+<tr class="even">
+<td align="left">RF</td>
+<td align="left">VI</td>
+<td align="left">Relief</td>
+<td align="right">2.600838e+00</td>
+</tr>
+<tr class="odd">
+<td align="left">XG</td>
+<td align="left">HR</td>
+<td align="left">Pearson</td>
+<td align="right">2.614220e+00</td>
+</tr>
+<tr class="even">
+<td align="left">RF</td>
+<td align="left">HR</td>
+<td align="left">CMIM</td>
+<td align="right">2.616294e+00</td>
+</tr>
+<tr class="odd">
+<td align="left">RF</td>
+<td align="left">VI</td>
+<td align="left">Pearson</td>
+<td align="right">2.616360e+00</td>
+</tr>
+<tr class="even">
+<td align="left">XG</td>
+<td align="left">VI</td>
+<td align="left">Pearson</td>
+<td align="right">2.643068e+00</td>
+</tr>
+<tr class="odd">
+<td align="left">XG</td>
+<td align="left">HR</td>
+<td align="left">Relief</td>
+<td align="right">2.644360e+00</td>
+</tr>
+<tr class="even">
+<td align="left">XG</td>
+<td align="left">VI</td>
+<td align="left">Info</td>
+<td align="right">2.644628e+00</td>
+</tr>
+<tr class="odd">
+<td align="left">RF</td>
+<td align="left">VI</td>
+<td align="left">Car</td>
+<td align="right">2.662560e+00</td>
+</tr>
+<tr class="even">
+<td align="left">RF</td>
+<td align="left">HR</td>
+<td align="left">MRMR</td>
+<td align="right">2.664423e+00</td>
+</tr>
+<tr class="odd">
+<td align="left">XG</td>
+<td align="left">HR</td>
+<td align="left">No Filter</td>
+<td align="right">2.682939e+00</td>
+</tr>
+<tr class="even">
+<td align="left">XG</td>
+<td align="left">VI</td>
+<td align="left">No Filter</td>
+<td align="right">2.690225e+00</td>
+</tr>
+<tr class="odd">
+<td align="left">XG</td>
+<td align="left">VI</td>
+<td align="left">Car</td>
+<td align="right">2.699897e+00</td>
+</tr>
+<tr class="even">
+<td align="left">XG</td>
+<td align="left">NRI</td>
+<td align="left">Borda</td>
+<td align="right">2.768898e+00</td>
+</tr>
+<tr class="odd">
+<td align="left">RF</td>
+<td align="left">HR</td>
+<td align="left">No Filter</td>
+<td align="right">2.815297e+00</td>
+</tr>
+<tr class="even">
+<td align="left">LASSO</td>
+<td align="left">HR</td>
+<td align="left">No Filter</td>
+<td align="right">3.145344e+00</td>
+</tr>
+<tr class="odd">
+<td align="left">LASSO</td>
+<td align="left">NRI</td>
+<td align="left">No Filter</td>
+<td align="right">3.283980e+00</td>
+</tr>
+<tr class="even">
+<td align="left">LASSO</td>
+<td align="left">VI</td>
+<td align="left">No Filter</td>
+<td align="right">3.797710e+00</td>
+</tr>
+<tr class="odd">
+<td align="left">RIDGE</td>
+<td align="left">VI</td>
+<td align="left">No Filter</td>
+<td align="right">1.803087e+06</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="table-best-learnerfiltertask-combination" class="section level4">
+<h4>(Table) Best learner/filter/task combination</h4>
+<pre><code>Warning: Expected 2 pieces. Additional pieces discarded in 9 rows [6, 15,
+24, 35, 44, 53, 64, 73, 82].</code></pre>
+<pre><code>Warning: Expected 2 pieces. Missing pieces filled with `NA` in 15 rows [1,
+10, 19, 28, 29, 30, 39, 48, 57, 58, 59, 68, 77, 86, 87].</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">task.id</th>
+<th align="left">learner.id</th>
+<th align="left">learner_group</th>
+<th align="left">filter</th>
+<th align="right">rmse.test.rmse</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">defoliation-all-plots-VI</td>
+<td align="left">SVM PCA</td>
+<td align="left">SVM</td>
+<td align="left">PCA</td>
+<td align="right">1.822990</td>
+</tr>
+<tr class="even">
+<td align="left">defoliation-all-plots-NRI</td>
+<td align="left">RIDGE</td>
+<td align="left">RIDGE</td>
+<td align="left">No Filter</td>
+<td align="right">2.116192</td>
+</tr>
+<tr class="odd">
+<td align="left">defoliation-all-plots-HR</td>
+<td align="left">XG Info Gain</td>
+<td align="left">XG</td>
+<td align="left">Info</td>
+<td align="right">2.141743</td>
+</tr>
+<tr class="even">
+<td align="left">defoliation-all-plots-NRI</td>
+<td align="left">RF Borda</td>
+<td align="left">RF</td>
+<td align="left">Borda</td>
+<td align="right">2.260054</td>
+</tr>
+<tr class="odd">
+<td align="left">defoliation-all-plots-HR</td>
+<td align="left">LASSO</td>
+<td align="left">LASSO</td>
+<td align="left">No Filter</td>
+<td align="right">3.145344</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="plot-best-learnerfilter-combs-for-all-tasks" class="section level4">
+<h4>(Plot) Best learner/filter combs for all tasks</h4>
+<pre><code>Warning: Expected 1 pieces. Additional pieces discarded in 72 rows [2, 3,
+4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 20, 21, 22, 23, ...].</code></pre>
+<pre><code>Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
+<pre><code>Warning: Removed 1 rows containing missing values (geom_label_repel).</code></pre>
+<p><img src="figure/eval-performance.Rmd/eval-performance-3-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre><code>R version 3.5.2 (2018-12-20)
+Platform: x86_64-pc-linux-gnu (64-bit)
+Running under: CentOS Linux 7 (Core)
+
+Matrix products: default
+BLAS: /opt/R/3.5.2/lib64/R/lib/libRblas.so
+LAPACK: /usr/lib64/libopenblaso-r0.3.3.so
+
+locale:
+[1] C
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] ggpubr_0.1.6      ggsci_2.9         ggrepel_0.8.0     ggplot2_3.1.0    
+[5] dplyr_0.8.0.1     magrittr_1.5      mlr_2.14.0.9000   ParamHelpers_1.12
+[9] tidyselect_0.2.5 
+
+loaded via a namespace (and not attached):
+ [1] storr_1.2.1       xfun_0.5          purrr_0.3.0      
+ [4] splines_3.5.2     lattice_0.20-38   colorspace_1.4-0 
+ [7] htmltools_0.3.6   yaml_2.2.0        survival_2.43-3  
+[10] rlang_0.3.4       R.oo_1.22.0       pillar_1.3.1     
+[13] glue_1.3.0        withr_2.1.2       R.utils_2.8.0    
+[16] plyr_1.8.4        stringr_1.4.0     munsell_0.5.0    
+[19] gtable_0.2.0      workflowr_1.4.0   R.methodsS3_1.7.1
+[22] evaluate_0.13     labeling_0.3      knitr_1.23       
+[25] parallelMap_1.3   parallel_3.5.2    highr_0.7        
+[28] Rcpp_1.0.0        scales_1.0.0      backports_1.1.3  
+[31] checkmate_1.9.1   fs_1.2.6          fastmatch_1.1-0  
+[34] digest_0.6.18     stringi_1.3.1     BBmisc_1.11      
+[37] grid_3.5.2        rprojroot_1.3-2   cli_1.1.0        
+[40] tools_3.5.2       base64url_1.4     lazyeval_0.2.1   
+[43] tibble_2.0.1      crayon_1.3.4      whisker_0.3-2    
+[46] tidyr_0.8.2       pkgconfig_2.0.2   Matrix_1.2-15    
+[49] data.table_1.12.0 drake_7.4.0.9000  assertthat_0.2.0 
+[52] rmarkdown_1.13    R6_2.4.0          igraph_1.2.4     
+[55] git2r_0.24.0      compiler_3.5.2   </code></pre>
+</div>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+http://docs.mathjax.org/en/latest/configuration.html.  This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
