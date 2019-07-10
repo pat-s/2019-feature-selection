@@ -27,51 +27,77 @@ drake::loadd(
 )
 library("mlr")
 library("magrittr")
-```
-
-
-```{r eval-performance-1 }
-bm_aggregated %>%
-  getBMRAggrPerformances(as.df = TRUE) %>%
-  arrange(task.id, desc(rmse.test.mean))
-```
-
-### Boxplot comparison
-
-```{r performance-boxplot, dev = c("png", "pdf")}
-plt <- plotBMRBoxplots(bm_aggregated,
-  measure = brier, pretty.names = FALSE,
-  # order.lrn = c(
-  #   "classif.gam.tuned", 
-  #   "classif.kknn.tuned",
-  #   "classif.ranger.tuned",
-  #   "classif.svm.tuned", 
-  #   "classif.gbm.tuned",
-  #   "classif.xgboost.tuned"
-  # )
-) +
-  aes(color = learner.id) +
-  geom_boxplot(width = 0.6, outlier.size = 0.3, outlier.shape = 19) +
-  scale_colour_nejm() +
-  labs(y = "Brier score", x = "") +
-  theme_pubr() +
-  theme(strip.text.x = element_text(size = 8),
-        axis.text.x = element_text(size = 7)
-        )
-
-#levels(plt$data$learner.id) <- c("GAM", "KNN", "RF", "SVM", "BRT", "XGBOOST")
-
-plt
+library("dplyr")
+library("ggplot2")
+library("ggrepel")
+library("ggsci")
+library("ggpubr")
 ```
 
 ### Aggregated performances
 
-```{r performance-aggregated, dev = c("png", "pdf")}
-plt2 <- plotBMRSummary(bm_aggregated, pretty.names = FALSE) +
-  scale_colour_nejm() +
+#### (Table) All leaner/filter/task combinations ordered by performance.
+
+```{r eval-performance-1}
+getBMRAggrPerformances(bm_aggregated, as.df = TRUE) %>%
+  mutate(task.id = recode_factor(task.id,
+    `defoliation-all-plots-HR` = "HR",
+    `defoliation-all-plots-VI` = "VI",
+    `defoliation-all-plots-NRI` = "NRI"
+  )) %>%
+  tidyr::separate(learner.id, c("learner_group", "filter"),
+    remove = FALSE,
+    sep = " "
+  ) %>%
+  group_by(learner_group, task.id, filter) %>%
+  summarise(best = min(rmse.test.rmse)) %>%
+  mutate(filter = replace(filter, is.na(filter), "No Filter")) %>%
+  arrange(best) %>%
+  knitr::kable()
+```
+
+#### (Table) Best learner/filter/task combination
+
+```{r eval-performance-2}
+getBMRAggrPerformances(bm_aggregated, as.df = TRUE) %>%
+  tidyr::separate(learner.id, c("learner_group", "filter"),
+    remove = FALSE,
+    sep = " "
+  ) %>%
+  group_by(learner_group) %>%
+  slice(which.min(rmse.test.rmse)) %>%
+  mutate(filter = replace(filter, is.na(filter), "No Filter")) %>%
+  arrange(rmse.test.rmse) %>%
+  select(-6) %>%
+  knitr::kable()
+```
+
+#### (Plot) Best learner/filter combs for all tasks
+
+```{r eval-performance-3}
+results_aggr <- getBMRAggrPerformances(bm_aggregated, as.df = TRUE) %>%
+  mutate(task.id = recode_factor(task.id,
+    `defoliation-all-plots-HR` = "HR",
+    `defoliation-all-plots-VI` = "VI",
+    `defoliation-all-plots-NRI` = "NRI"
+  )) %>%
+  tidyr::separate(learner.id, c("learner_group"),
+    remove = FALSE,
+    sep = " "
+  ) %>%
+  group_by(learner_group, task.id) %>%
+  summarise(best = min(rmse.test.rmse))
+
+results_aggr %>%
+  ggplot(aes(x = best, y = task.id)) +
+  geom_point(aes(color = learner_group, size = 1.7)) +
+  scale_color_nejm() +
+  labs(x = "RMSE", y = "Task", color = "Learner") +
+  guides(size = FALSE) +
+  scale_x_continuous(limits = c(1.8, 4)) +
+  geom_label_repel(
+    label = round(results_aggr$best, 3),
+    size = 3, nudge_y = 0.3
+  ) +
   theme_pubr()
-
-#levels(plt$data$learner.id) <- c("GAM", "KNN", "RF", "SVM", "BRT", "XGBOOST")
-
-plt2
 ```
