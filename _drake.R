@@ -28,6 +28,7 @@ pca_paper_plan = code_to_plan("code/05-modeling/paper/pca-wrapper.R")
 tuning_paper_plan = code_to_plan("code/05-modeling/paper/tune-wrapper.R")
 eda_paper_plan = code_to_plan("code/05-modeling/paper/eda.R")
 aggregate_paper_plan = code_to_plan("code/061-aggregate.R")
+feature_imp_plan = code_to_plan("code/05-modeling/paper/feature-importance.R")
 source("code/06-benchmark-matrix.R")
 
 source("code/07-reports.R")
@@ -63,7 +64,7 @@ plan_project = bind_plans(data_plan, download_plan, hyperspectral_plan, learners
 plan_paper = bind_plans(data_plan, download_plan, hyperspectral_plan, learners_paper_plan,
                         resampling_paper_plan, param_set_paper_plan, tune_ctrl_paper_plan,
                         filter_paper_plan, tuning_paper_plan, bm_plan, reports_plan_paper,
-                        pca_paper_plan, eda_paper_plan, aggregate_paper_plan
+                        pca_paper_plan, eda_paper_plan, aggregate_paper_plan, feature_imp_plan
 )
 
 options(clustermq.scheduler = "slurm",
@@ -79,21 +80,25 @@ plan_paper %<>% mutate(stage = as.factor(stage))
 #              verbose = 2, targets = "defoliation_maps_wfr", lazy_load = "promise",
 #              console_log_file = "log/drake.log", cache_log_file = "log/cache3.log",
 #              caching = "worker",
-#              template = list(log_file = "log/worker%a.log", n_cpus = 3, memory = 50000),
+#              template = list(log_file = "log/worker%a.log", n_cpus = 15, memory = 80000),
 #              prework = quote(future::plan(future::multisession, workers = 3)),
-#              garbage_collection = TRUE, jobs = 1, parallelism = "clustermq"
+#              garbage_collection = TRUE, jobs = 3, parallelism = "clustermq"
 # )
 
 # paper -------------------------------------------------------------------
 
 drake_config(plan_paper,
-             #target = c("bm_nri_task_rf_borda", "bm_nri_task_svm_mrmr"),
+             # target = c(
+             # #"eda_wfr"
+             # #"filter_correlations_wfr"
+             # "spectral_signatures_wfr"
+             # ),
              verbose = 2, lazy_load = "promise",
              console_log_file = "log/drake.log", cache_log_file = "log/cache3.log",
              caching = "worker",
              template = list(log_file = "log/worker%a.log", n_cpus = 4, memory = 12000, job_name = "paper2-1"),
              prework = quote(future::plan(future.callr::callr, workers = 4)),
-             garbage_collection = TRUE, jobs = 10, parallelism = "clustermq", keep_going = TRUE
+             garbage_collection = TRUE, jobs = 4, parallelism = "clustermq", keep_going = TRUE
 )
 
 
@@ -108,8 +113,10 @@ drake_config(plan_paper,
 #                #
 #                # "fv_hr_car", "fv_hr_info.gain", "fv_hr_gain.ratio", "fv_hr_rank", "fv_hr_cor",
 #                # "fv_hr_mrmr", "fv_hr_cmim", "fv_hr_var",
-#                "eda_wfr"#,
-#                #"bm_aggregated",
+#                #"eda_wfr"#,
+#                #"filter_correlations_wfr"
+#                "bm_aggregated"#,
+#                #"bm_borda_nri_task_xgboost_borda"
 #                #"bm_vi_task_lrn_lm"
 #                #"bm_vi_task_rf_info.gain"
 #              ),
@@ -117,6 +124,6 @@ drake_config(plan_paper,
 #              console_log_file = "log/drake2.log",
 #              caching = "worker",
 #              template = list(log_file = "log/2-worker%a.log", n_cpus = 4, memory = 10000, job_name = "paper2-2"),
-#              #prework = quote(future::plan(future.callr::callr, workers = 1)),
-#              garbage_collection = TRUE, jobs = 1, parallelism = "clustermq"
+#              prework = quote(future::plan(future.callr::callr, workers = 4)),
+#              garbage_collection = TRUE, jobs = 9, parallelism = "clustermq"
 # )

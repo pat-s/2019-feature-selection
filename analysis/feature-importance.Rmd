@@ -28,7 +28,7 @@ library("fs")
 R.utils::sourceDirectory("R")
 
 # load drake objects
-drake::loadd(
+drake::loadd(fi_permut_vi, fi_permut_nri, fi_permut_hr
 )
 
 library(dplyr)
