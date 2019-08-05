@@ -3,13 +3,8 @@ source("packrat/init.R")
 #### -- End Packrat Autoloader -- ####
 
 options(drake_make_menu = FALSE)
-
-library("drake")
-library("usethis")
-
-# load rJava from Spack
-# installing it locally with a working Java linking is a pain
-.libPaths(append(.libPaths(), "/opt/spack/opt/spack/linux-centos7-x86_64/gcc-7.3.0/r-rjava-0.9-11-e5vzheivjx7l2lykrzaure57ktdp5xgb/rlib/R/library"))
+options(configure.args=list(rgdal=c("--with-proj-include=/opt/spack/opt/spack/linux-centos7-x86_64/gcc-7.3.0/proj-5.0.1-kbodwcnjxemfewjbke6lbzp44z52umpa/include",
+"--with-proj-lib=/opt/spack/opt/spack/linux-centos7-x86_64/gcc-7.3.0/proj-5.0.1-kbodwcnjxemfewjbke6lbzp44z52umpa/lib")))
 
 # tibble > data.frame
 if (interactive() && "tibble" %in% rownames(utils::installed.packages())) {
