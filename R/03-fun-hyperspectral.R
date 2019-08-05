@@ -168,10 +168,7 @@ calc_veg_indices <- function(hyperspecs, indices) {
   veg_y <- future_lapply(seq_along(hyperspecs), FUN = function(ii)
     vegindex(hyperspecs[[ii]], indices,
       filename =
-        str_replace(
-          glue("data/hyperspectral/vi/{names(hyperspecs)[[ii]]}"),
-          ".tif", ".grd"
-        ),
+          glue("data/hyperspectral/vi/{names(hyperspecs)[[ii]]}.grd"),
       bnames = indices, na.rm = TRUE
     )) %>%
     set_names(names(hyperspecs))
