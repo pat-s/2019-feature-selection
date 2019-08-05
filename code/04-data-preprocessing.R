@@ -42,12 +42,24 @@ bands_data <- split_into_feature_sets(data_trim_defoliation, "bands")
 nri_vi_data <- cbind(nri_data, vi_data) %>%
   subset(select = which(!duplicated(names(.)))) # remove duplicate "defoliation" column
 
+hr_nri_data <- cbind(bands_data, nri_data) %>%
+  subset(select = which(!duplicated(names(.)))) # remove duplicate "defoliation" column
+
+hr_vi_data <- cbind(bands_data, vi_data) %>%
+  subset(select = which(!duplicated(names(.)))) # remove duplicate "defoliation" column
+
+hr_nri_vi_data <- cbind(bands_data, nri_data, vi_data) %>%
+  subset(select = which(!duplicated(names(.)))) # remove duplicate "defoliation" column
+
 # log transform response variable --------------------------------------------------------------------
 
 nri_data_log_transformed <- log_response(nri_data, "defoliation")
 vi_data_log_transformed <- log_response(vi_data, "defoliation")
 bands_data_log_transformed <- log_response(bands_data, "defoliation")
 nri_vi_data_log_transformed <- log_response(nri_vi_data, "defoliation")
+hr_vi_data_log_transformed <- log_response(hr_vi_data, "defoliation")
+hr_nri_data_log_transformed <- log_response(hr_nri_data, "defoliation")
+hr_nri_vi_data_log_transformed <- log_response(hr_nri_vi_data, "defoliation")
 
 # create tasks --------------------------------------------------------------------
 
@@ -71,6 +83,24 @@ hr_task <- makeRegrTask(
 
 nri_vi_task <- makeRegrTask(
   id = "defoliation-all-plots-NRI-VI", data = nri_vi_data_log_transformed,
+  target = "defoliation", coordinates = coords_vi_nri_clean,
+  blocking = factor(rep(1:4, c(479, 451, 300, 529)))
+)
+
+hr_nri_vi_task <- makeRegrTask(
+  id = "defoliation-all-plots-HR-NRI-VI", data = hr_nri_vi_data_log_transformed,
+  target = "defoliation", coordinates = coords_vi_nri_clean,
+  blocking = factor(rep(1:4, c(479, 451, 300, 529)))
+)
+
+hr_vi_task <- makeRegrTask(
+  id = "defoliation-all-plots-HR-VI", data = hr_vi_data_log_transformed,
+  target = "defoliation", coordinates = coords_vi_nri_clean,
+  blocking = factor(rep(1:4, c(479, 451, 300, 529)))
+)
+
+hr_nri_task <- makeRegrTask(
+  id = "defoliation-all-plots-HR-NRI", data = hr_nri_data_log_transformed,
   target = "defoliation", coordinates = coords_vi_nri_clean,
   blocking = factor(rep(1:4, c(479, 451, 300, 529)))
 )
