@@ -64,7 +64,7 @@ plan_project = bind_plans(data_plan, download_plan, hyperspectral_plan, learners
 plan_paper = bind_plans(data_plan, download_plan, hyperspectral_plan, learners_paper_plan,
                         resampling_paper_plan, param_set_paper_plan, tune_ctrl_paper_plan,
                         filter_paper_plan, tuning_paper_plan, bm_plan, reports_plan_paper,
-                        pca_paper_plan, eda_paper_plan, aggregate_paper_plan, feature_imp_plan
+                        pca_paper_plan, eda_paper_plan, aggregate_paper_plan#, feature_imp_plan
 )
 
 options(clustermq.scheduler = "slurm",
@@ -88,17 +88,21 @@ plan_paper %<>% mutate(stage = as.factor(stage))
 # paper -------------------------------------------------------------------
 
 drake_config(plan_paper,
-             # target = c(
+             #target = c(
              # #"eda_wfr"
              # #"filter_correlations_wfr"
-             # "spectral_signatures_wfr"
-             # ),
+             # "fi_permut_hr_nri_vi",
+             # "fi_permut_hr_nri",
+             # "fi_permut_nri"
+             # "data_hs_preprocessed"
+             #),
              verbose = 2, lazy_load = "promise",
              console_log_file = "log/drake.log", cache_log_file = "log/cache3.log",
              caching = "worker",
              template = list(log_file = "log/worker%a.log", n_cpus = 4, memory = 12000, job_name = "paper2-1"),
-             prework = quote(future::plan(future.callr::callr, workers = 4)),
-             garbage_collection = TRUE, jobs = 4, parallelism = "clustermq", keep_going = TRUE
+             #prework = quote(future::plan(future.callr::callr, workers = 4)),
+             prework = quote(future::plan(future::multisession, workers = 4)),
+             garbage_collection = TRUE, jobs = 28, parallelism = "clustermq", keep_going = TRUE, recover = TRUE
 )
 
 
