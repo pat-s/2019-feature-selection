@@ -82,68 +82,110 @@ ps_rf_pca = makeParamSet(
 # RIDGE ---------------------------------------------------------------------
 
 # calculate lower and upper boundaries of param set for RR
-lambda_ridge_min_nri = train(lrn_ridge, nri_task)
-lambda_ridge_min_vi = train(lrn_ridge, vi_task)
-lambda_ridge_min_hr = train(lrn_ridge, hr_task)
-lambda_ridge_min = which.min(c(min(lambda_ridge_min_nri$learner.model$lambda),
-                               min(lambda_ridge_min_vi$learner.model$lambda),
-                               min(lambda_ridge_min_hr$learner.model$lambda)
-))
+lambda_ridge_nri_train = train(lrn_ridge, nri_task)
+lambda_ridge_vi_train  = train(lrn_ridge, vi_task)
+lambda_ridge_hr_train  = train(lrn_ridge, hr_task)
+lambda_ridge_hr_nri_train  = train(lrn_ridge, hr_nri_task)
+lambda_ridge_hr_vi_train  = train(lrn_ridge, hr_vi_task)
+lambda_ridge_hr_nri_vi_train  = train(lrn_ridge, hr_nri_vi_task)
 
-lambda_ridge_max_nri = train(lrn_ridge, nri_task)
-lambda_ridge_max_vi = train(lrn_ridge, vi_task)
-lambda_ridge_max_hr = train(lrn_ridge, hr_task)
-lambda_ridge_max = which.max(c(max(lambda_ridge_max_nri$learner.model$lambda),
-                               max(lambda_ridge_max_vi$learner.model$lambda),
-                               max(lambda_ridge_max_hr$learner.model$lambda)
-))
+lambda_ridge_min_nri = min(lambda_ridge_nri_train$learner.model$lambda)
+lambda_ridge_min_vi = min(lambda_ridge_vi_train$learner.model$lambda)
+lambda_ridge_min_hr = min(lambda_ridge_hr_train$learner.model$lambda)
+lambda_ridge_min_hr_nri = min(lambda_ridge_hr_nri_train$learner.model$lambda)
+lambda_ridge_min_hr_nri_vi = min(lambda_ridge_hr_nri_vi_train$learner.model$lambda)
+lambda_ridge_min_hr_vi = min(lambda_ridge_hr_vi_train$learner.model$lambda)
 
-ps_ridge_filter <- makeParamSet(makeNumericParam("s", lower = lambda_ridge_min,
-                                                 upper = lambda_ridge_max),
-                                makeNumericParam("fw.perc", lower = 0, upper = 1)
+# lambda_ridge_min = which.min(c(min(lambda_ridge_min_nri$learner.model$lambda),
+#                                min(lambda_ridge_min_vi$learner.model$lambda),
+#                                min(lambda_ridge_min_hr$learner.model$lambda)
+# ))
+
+lambda_ridge_max_nri = max(lambda_ridge_nri_train$learner.model$lambda)
+lambda_ridge_max_vi = max(lambda_ridge_vi_train$learner.model$lambda)
+lambda_ridge_max_hr = max(lambda_ridge_hr_train$learner.model$lambda)
+lambda_ridge_max_hr_nri = max(lambda_ridge_hr_nri_train$learner.model$lambda)
+lambda_ridge_max_hr_nri_vi = max(lambda_ridge_hr_nri_vi_train$learner.model$lambda)
+lambda_ridge_max_hr_vi = max(lambda_ridge_hr_vi_train$learner.model$lambda)
+
+
+# lambda_ridge_max = which.max(c(max(lambda_ridge_max_nri$learner.model$lambda),
+#                                max(lambda_ridge_max_vi$learner.model$lambda),
+#                                max(lambda_ridge_max_hr$learner.model$lambda)
+# ))
+
+
+ps_ridge_hr <- makeParamSet(makeNumericParam("s", lower = lambda_ridge_min_hr,
+                                          upper = lambda_ridge_max_hr)
 )
 
-ps_ridge <- makeParamSet(makeNumericParam("s", lower = lambda_ridge_min,
-                                          upper = lambda_ridge_max)
+ps_ridge_nri <- makeParamSet(makeNumericParam("s", lower = lambda_ridge_min_nri,
+                                             upper = lambda_ridge_max_nri)
 )
 
-ps_ridge_pca = makeParamSet(
-  makeNumericParam("s", lower = lambda_ridge_min, upper = lambda_ridge_max),
-  makeIntegerParam("ppc.pcaComp", lower = 1, upper = 10)
+ps_ridge_vi <- makeParamSet(makeNumericParam("s", lower = lambda_ridge_min_vi,
+                                             upper = lambda_ridge_max_vi)
+)
+
+ps_ridge_hr_nri <- makeParamSet(makeNumericParam("s", lower = lambda_ridge_min_hr_nri,
+                                             upper = lambda_ridge_max_hr_nri)
+)
+
+ps_ridge_hr_vi <- makeParamSet(makeNumericParam("s", lower = lambda_ridge_min_hr_vi,
+                                             upper = lambda_ridge_max_hr_vi)
+)
+
+ps_ridge_hr_nri_vi <- makeParamSet(makeNumericParam("s", lower = lambda_ridge_min_hr_nri_vi,
+                                             upper = lambda_ridge_max_hr_nri_vi)
 )
 
 # LASSO ---------------------------------------------------------------------
 
-# calculate lower and upper boundaries of param set for RR
-lambda_lasso_min_nri = train(lrn_lasso, nri_task)
-lambda_lasso_min_vi = train(lrn_lasso, vi_task)
-lambda_lasso_min_hr = train(lrn_lasso, hr_task)
-lambda_lasso_min = which.min(c(min(lambda_lasso_min_nri$learner.model$lambda),
-                               min(lambda_lasso_min_vi$learner.model$lambda),
-                               min(lambda_lasso_min_hr$learner.model$lambda)
-))
+# calculate lower and upper boundaries of param set for LASSO
+lambda_lasso_nri_train = train(lrn_lasso, nri_task)
+lambda_lasso_vi_train  = train(lrn_lasso, vi_task)
+lambda_lasso_hr_train  = train(lrn_lasso, hr_task)
+lambda_lasso_hr_nri_train  = train(lrn_lasso, hr_nri_task)
+lambda_lasso_hr_vi_train  = train(lrn_lasso, hr_vi_task)
+lambda_lasso_hr_nri_vi_train  = train(lrn_lasso, hr_nri_vi_task)
 
-lambda_lasso_max_nri = train(lrn_lasso, nri_task)
-lambda_lasso_max_vi = train(lrn_lasso, vi_task)
-lambda_lasso_max_hr = train(lrn_lasso, hr_task)
-lambda_lasso_max = which.max(c(max(lambda_lasso_max_nri$learner.model$lambda),
-                               max(lambda_lasso_max_vi$learner.model$lambda),
-                               max(lambda_lasso_max_hr$learner.model$lambda)
-))
+lambda_lasso_min_nri = min(lambda_lasso_nri_train$learner.model$lambda)
+lambda_lasso_min_vi = min(lambda_lasso_vi_train$learner.model$lambda)
+lambda_lasso_min_hr = min(lambda_lasso_hr_train$learner.model$lambda)
+lambda_lasso_min_hr_nri = min(lambda_lasso_hr_nri_train$learner.model$lambda)
+lambda_lasso_min_hr_nri_vi = min(lambda_lasso_hr_nri_vi_train$learner.model$lambda)
+lambda_lasso_min_hr_vi = min(lambda_lasso_hr_vi_train$learner.model$lambda)
+
+lambda_lasso_max_nri = max(lambda_lasso_nri_train$learner.model$lambda)
+lambda_lasso_max_vi = max(lambda_lasso_vi_train$learner.model$lambda)
+lambda_lasso_max_hr = max(lambda_lasso_hr_train$learner.model$lambda)
+lambda_lasso_max_hr_nri = max(lambda_lasso_hr_nri_train$learner.model$lambda)
+lambda_lasso_max_hr_nri_vi = max(lambda_lasso_hr_nri_vi_train$learner.model$lambda)
+lambda_lasso_max_hr_vi = max(lambda_lasso_hr_vi_train$learner.model$lambda)
 
 
-ps_lasso_filter <- makeParamSet(makeNumericParam("s", lower = lambda_lasso_min,
-                                                 upper = lambda_lasso_max),
-                                makeNumericParam("fw.perc", lower = 0, upper = 1)
+ps_lasso_hr <- makeParamSet(makeNumericParam("s", lower = lambda_lasso_min_hr,
+                                             upper = lambda_lasso_max_hr)
 )
 
-ps_lasso <- makeParamSet(makeNumericParam("s", lower = lambda_lasso_min,
-                                          upper = lambda_lasso_max)
+ps_lasso_nri <- makeParamSet(makeNumericParam("s", lower = lambda_lasso_min_nri,
+                                              upper = lambda_lasso_max_nri)
 )
 
-ps_lasso_pca = makeParamSet(
-  makeNumericParam("s", lower = lambda_lasso_min,upper = lambda_lasso_max),
-  makeIntegerParam("ppc.pcaComp", lower = 1, upper = 10)
+ps_lasso_vi <- makeParamSet(makeNumericParam("s", lower = lambda_lasso_min_vi,
+                                             upper = lambda_lasso_max_vi)
+)
+
+ps_lasso_hr_nri <- makeParamSet(makeNumericParam("s", lower = lambda_lasso_min_hr_nri,
+                                                 upper = lambda_lasso_max_hr_nri)
+)
+
+ps_lasso_hr_vi <- makeParamSet(makeNumericParam("s", lower = lambda_lasso_min_hr_vi,
+                                                upper = lambda_lasso_max_hr_vi)
+)
+
+ps_lasso_hr_nri_vi <- makeParamSet(makeNumericParam("s", lower = lambda_lasso_min_hr_nri_vi,
+                                                    upper = lambda_lasso_max_hr_nri_vi)
 )
 
 # LM -----------------------------------------------------------
