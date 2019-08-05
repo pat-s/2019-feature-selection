@@ -42,3 +42,21 @@ benchmark_custom_no_models_sequential <- function(learner, task) {
 
   return(bmr)
 }
+
+#' @title Parallel feature importance wrapper
+#' @description Calculates feature importance via permutation
+feature_imp_parallel = function(task, learner, nmc, cpus, measure) {
+
+  parallelStart(
+    mode = "multicore",
+    cpus = cpus
+  )
+  set.seed(12345, kind = "L'Ecuyer-CMRG")
+
+  fi = generateFeatureImportanceData(task = task, method = "permutation.importance",
+                                     learner = learner, nmc = nmc, local = FALSE,
+                                     measure = measure, show.info = TRUE
+  )
+  parallelStop()
+  return(fi)
+}
