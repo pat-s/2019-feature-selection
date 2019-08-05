@@ -79,11 +79,26 @@ Source: CRAN
 Version: 1.5.6
 Hash: 11d1649d331b83f44076c5b89d157e7e
 
-Package: FSelectorRcpp
+Package: FSelector
 Source: CRAN
+Version: 0.31
+Hash: 963b2b649154fb8666b19b144f3df40c
+Requires: RWeka, digest, entropy, randomForest
+
+Package: FSelectorRcpp
+Source: github
 Version: 0.3.1
-Hash: f811aafd312508dba298f29fd0be28a2
+GithubRepo: FSelectorRcpp
+GithubUsername: pat-s
+GithubRef: add-nbins
+GithubSha1: a2e845299099f3b025f5d244828f03fe5f31ac86
+Hash: 08c55a430d43c529346809e2522742f0
 Requires: BH, Rcpp, RcppArmadillo, foreach, iterators, testthat
+RemoteHost: api.github.com
+RemoteRepo: FSelectorRcpp
+RemoteUsername: pat-s
+RemoteRef: add-nbins
+RemoteSha: a2e845299099f3b025f5d244828f03fe5f31ac86
 
 Package: Formula
 Source: CRAN
@@ -189,6 +204,18 @@ Source: CRAN
 Version: 2.1.1
 Hash: c69f2201e2d57a935eac8491787c5162
 Requires: BH, DBI, Rcpp, bit64, blob, memoise, pkgconfig, plogr
+
+Package: RWeka
+Source: CRAN
+Version: 0.4-40
+Hash: 9bffefe927b1424e5a787c35480aa497
+Requires: RWekajars, rJava
+
+Package: RWekajars
+Source: CRAN
+Version: 3.9.3-1
+Hash: f5ef2a924b4847b93c298e5c4eab3f7e
+Requires: rJava
 
 Package: Rcpp
 Source: CRAN
@@ -554,9 +581,9 @@ Requires: BH, R6, Rcpp, assertthat, glue, magrittr, pkgconfig, plogr,
 
 Package: drake
 Source: CRAN
-Version: 7.4.0
-Hash: 8d4b450c23d36fd811fffbdcff5aa767
-Requires: base64url, digest, igraph, rlang, storr
+Version: 7.5.2
+Hash: 0027f42af7c05151b7e621e2af25a116
+Requires: base64url, digest, igraph, rlang, storr, txtq
 
 Package: e1071
 Source: CRAN
@@ -573,6 +600,11 @@ Package: enc
 Source: CRAN
 Version: 0.2.0
 Hash: d7625df773f4a18ffb69ed0961f720d7
+
+Package: entropy
+Source: CRAN
+Version: 1.2.1
+Hash: ccff926ff232f7c19b4c84bab3d3d6d3
 
 Package: evaluate
 Source: CRAN
@@ -605,6 +637,11 @@ Source: CRAN
 Version: 0.3.2
 Hash: b1213e9af6bd24ff9019d4cc5966e58b
 Requires: Rcpp, hms, tibble
+
+Package: filelock
+Source: CRAN
+Version: 1.0.2
+Hash: 97adcbe3b816f81113e84168d06746d8
 
 Package: forcats
 Source: CRAN
@@ -644,11 +681,6 @@ GithubRef: master
 GithubSha1: b4ad6addda5cb2fab4baf51434bdacf7a75a94ad
 Hash: 9d348763600464838213da6768f9edc1
 Requires: future, globals, purrr, rlang
-RemoteHost: api.github.com
-RemoteRepo: furrr
-RemoteUsername: DavisVaughan
-RemoteRef: master
-RemoteSha: b4ad6addda5cb2fab4baf51434bdacf7a75a94ad
 
 Package: future
 Source: CRAN
@@ -707,11 +739,12 @@ GithubSha1: e9afa30b9a08e109f1d1f1a4313626c2a7d1594c
 Hash: 00eba51790df2ce2a78ab3d927bc5160
 Requires: cli, devtools, gdalUtils, getPass, httr, mapedit, mapview,
     raster, sf, sp, xml2
-RemoteHost: api.github.com
-RemoteRepo: getSpatialData
-RemoteUsername: 16EAGLE
-RemoteRef: master
-RemoteSha: e9afa30b9a08e109f1d1f1a4313626c2a7d1594c
+
+Package: ggcorrplot
+Source: CRAN
+Version: 0.1.3
+Hash: 591392a2a9427b8c873c2905c22a82f4
+Requires: ggplot2, reshape2
 
 Package: ggplot2
 Source: CRAN
@@ -856,11 +889,6 @@ GithubRef: master
 GithubSha1: 9de91c8f67c4b19b39bca7d2c03d37d7641b2b33
 Hash: 8ee59b8b9739b25df20862cee3ff8af5
 Requires: caret, glue, purrr, raster, rgdal, rootSolve, signal
-RemoteHost: api.github.com
-RemoteRepo: hsdar
-RemoteUsername: pat-s
-RemoteRef: master
-RemoteSha: 9de91c8f67c4b19b39bca7d2c03d37d7641b2b33
 
 Package: htmltools
 Source: CRAN
@@ -1115,16 +1143,16 @@ Source: github
 Version: 2.14.0.9000
 GithubRepo: mlr
 GithubUsername: mlr-org
-GithubRef: fs-ensemble
-GithubSha1: 57bb7819aee16b317e725b103b8a1ba0d26dc5b2
-Hash: 575b0d950f8f6ebdb6371169ac98859a
+GithubRef: master
+GithubSha1: 2c578dc4a2bf43041d5101df881f4d21dddd35bf
+Hash: e10883e8a9ba7eaf67d09019ade13fea
 Requires: BBmisc, ParamHelpers, XML, backports, checkmate, data.table,
-    ggplot2, parallelMap, rlang, stringi, survival, tibble
+    ggplot2, parallelMap, stringi, survival
 RemoteHost: api.github.com
 RemoteRepo: mlr
 RemoteUsername: mlr-org
-RemoteRef: fs-ensemble
-RemoteSha: 57bb7819aee16b317e725b103b8a1ba0d26dc5b2
+RemoteRef: master
+RemoteSha: 2c578dc4a2bf43041d5101df881f4d21dddd35bf
 
 Package: mlrCPO
 Source: CRAN
@@ -1170,11 +1198,6 @@ GithubRef: master
 GithubSha1: 461c6651e51ade0d96b1663c6603261e672b64d6
 Hash: aff890c2883bf4fbb6d403a387bddb2d
 Requires: dplyr, fs, glue, magrittr, purrr, rstudioapi, tibble
-RemoteHost: api.github.com
-RemoteRepo: namer
-RemoteUsername: lockedata
-RemoteRef: master
-RemoteSha: 461c6651e51ade0d96b1663c6603261e672b64d6
 
 Package: narray
 Source: CRAN
@@ -1228,8 +1251,8 @@ Requires: remotes
 
 Package: parallelMap
 Source: CRAN
-Version: 1.3
-Hash: 49b6383931235377dd4dce981299fff2
+Version: 1.4
+Hash: 2703a7aaf9bd9b57785300ca42f0ad4f
 Requires: BBmisc, checkmate
 
 Package: parsedate
@@ -1252,11 +1275,6 @@ GithubRef: master
 GithubSha1: fd7958bae3e7a1e30237c751952e412a0a1d1242
 Hash: 39ff4b27431b8b3d6712f5c9fbcd93ee
 Requires: ggplot2, gtable
-RemoteHost: api.github.com
-RemoteRepo: patchwork
-RemoteUsername: thomasp85
-RemoteRef: master
-RemoteSha: fd7958bae3e7a1e30237c751952e412a0a1d1242
 
 Package: pbmcapply
 Source: CRAN
@@ -1408,6 +1426,16 @@ Version: 0.3.0
 Hash: 39be04d964bc2b860f09147ce4b8e2ef
 Requires: magrittr, rlang
 
+Package: rJava
+Source: CRAN
+Version: 0.9-11
+Hash: 1d41abb8e4537cb281dd913f0d6f1e76
+
+Package: randomForest
+Source: CRAN
+Version: 4.6-14
+Hash: e906cd13baafae063318f46d86c1d26d
+
 Package: ranger
 Source: CRAN
 Version: 0.11.1
@@ -1421,8 +1449,8 @@ Hash: 7340cfebc77ad7b107a549a8635e64dd
 
 Package: raster
 Source: CRAN
-Version: 2.8-19
-Hash: 33d7bac6425400dd23597f866a01f25e
+Version: 2.9-23
+Hash: 174e8a424f75875da2ebdf6797d063e7
 Requires: Rcpp, sp
 
 Package: rasterVis
@@ -1500,8 +1528,8 @@ Requires: Rcpp, plyr, stringr
 
 Package: rgdal
 Source: CRAN
-Version: 1.4-3
-Hash: 2d43c14023befdba0d0913dcef1b6be4
+Version: 1.4-4
+Hash: 58e3b16b81ccc7324060c06514e9a497
 Requires: sp
 
 Package: rgenoud
@@ -1584,11 +1612,6 @@ Hash: 37eb82e014de4b0baf5d8fe559a84270
 Requires: RCurl, bookdown, clisymbols, crayon, curl, devtools, git2r,
     glue, here, httr, jsonlite, knitr, readr, rmarkdown, rstudioapi,
     usethis, whisker
-RemoteHost: api.github.com
-RemoteRepo: rrtools
-RemoteUsername: benmarwick
-RemoteRef: master
-RemoteSha: c880413368ea6635c6b624df09272a741b74cfa8
 
 Package: rrtools.addin
 Source: github
@@ -1600,11 +1623,6 @@ GithubSha1: f480299c95e0453934bc2a19afdbc39e81520d17
 Hash: c0f3c450203e15cb1f230e5474c1d827
 Requires: bsplus, magrittr, miniUI, rrtools, rstudioapi, shiny,
     shinyFiles, usethis
-RemoteHost: api.github.com
-RemoteRepo: rrtools.addin
-RemoteUsername: nevrome
-RemoteRef: master
-RemoteSha: f480299c95e0453934bc2a19afdbc39e81520d17
 
 Package: rsconnect
 Source: CRAN
@@ -1660,8 +1678,8 @@ Requires: cli, withr
 
 Package: sf
 Source: CRAN
-Version: 0.7-3
-Hash: 418bdba8780233fd55a8bfb5c64e6db9
+Version: 0.7-7
+Hash: 0b99811f47e84c9a9eb11f22434c380e
 Requires: DBI, Rcpp, classInt, magrittr, units
 
 Package: sfsmisc
@@ -1835,6 +1853,12 @@ Source: CRAN
 Version: 1.0-3
 Hash: 309eba45b8ae2d90b2a295159e0c2d47
 
+Package: txtq
+Source: CRAN
+Version: 0.1.4
+Hash: 27d2f8ab1f87d77378b5d8e29680f286
+Requires: R6, base64url, filelock
+
 Package: udunits2
 Source: CRAN
 Version: 0.13
@@ -1877,11 +1901,6 @@ GithubUsername: goldingn
 GithubRef: master
 GithubSha1: de231cb523aa9134a1bd4e947c8204a7a08f3daa
 Hash: 90a33756c225886ccc49fc1b4cc599dc
-RemoteHost: api.github.com
-RemoteRepo: versions
-RemoteUsername: goldingn
-RemoteRef: master
-RemoteSha: de231cb523aa9134a1bd4e947c8204a7a08f3daa
 
 Package: viridis
 Source: CRAN
