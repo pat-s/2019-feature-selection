@@ -224,6 +224,13 @@ The data was surveyed in September 2016.
 	\end{center}
 \end{figure}
 
+\begin{figure} [t!]
+	\begin{center}
+		\makebox[\textwidth]{\includegraphics[width=0.5\textwidth] {defol-grid-3000px.jpg}}
+        \caption{Example trees showing different levels of defoliation as interpreted by the surveyor: 10 \% (top-left), 20 \% (top-right), 40 \% (bottom-left), 60-70 \% (bottom-right).}
+		\label{fig:defol-trees}
+	\end{center}
+\end{figure}
 
 \subsection{Hyperspectral data}
 
@@ -349,7 +356,7 @@ Filter methods can be classified as follows:
 \label{tab:filter-methods}
 \end{table}
 
-\noindent Filter method "information gain" is by creation only defined for class responses:
+\noindent Filter method "information gain" is only defined for nominal response variables:
 
 \begin{equation}
 	H(Class) + H(Attribute) - H(Class, Attribute)
@@ -357,8 +364,7 @@ Filter methods can be classified as follows:
 
 where $H$ is the conditional entropy of the response variable (class) or the feature (attribute), respectively.
 To be able to use this method with a numeric response, the variable is discretized into equal bins and treated as a class variable.
-While the number of bins can be treated as a hyperparameter of the filter method, the default of the R package implementation of \texttt{$n_{bin}$ = 5} was used after rank correlations of > 0.9 for different bin sizes have been explored.
-% TODO: Add reference to appendix, put plot into appendix
+While the number of bins can be treated as a hyperparameter of the filter method, we decided to use \texttt{$n_{bin}$ = 10} after rank correlations of > 0.9 for different bin sizes were observed in a side analysis.
 
 \subsubsection{Wrapper methods and PCA}
 
