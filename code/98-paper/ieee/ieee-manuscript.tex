@@ -1,7 +1,7 @@
 %%%% using 'arara' 4.0
 % arara: pdflatex: {synctex: yes, interaction: nonstopmode}
 % arara: bibtex
-% arara: latexindent
+%% arara: latexindent
 % arara: pdflatex: {synctex: yes, interaction: nonstopmode}
 % arara: pdflatex: {synctex: yes, interaction: nonstopmode}
 
@@ -427,8 +427,7 @@ hyperspectral imagery, forest health modeling, machine-learning, feature-selecti
 % creates the second title. It will be ignored for other modes.
 \IEEEpeerreviewmaketitle
 
-\renewcommand{\IEEEiedlistdecl}{\IEEEsetlabelwidth{S
-ONET}}
+\renewcommand{\IEEEiedlistdecl}{\IEEEsetlabelwidth{SONET}}
 \begin{acronym}
 
 	% geringerer Zeilenabstand
@@ -710,142 +709,325 @@ Additional metadata information is available in \autoref{tab:hyperparameter_limi
 \label{tab:hyperparameter_limits}
 \end{table}
 
-\section{Conclusion}
-The conclusion goes here.
+\section{Methods}
+
+\subsection{Derivation of indices}
+\noindent To use the full information from the hyperspectral data, all possible vegetation indices supported by the R package \textit{hsdar} (89 in total) as well as all possible \ac{NRI} combinations were calculated.
+The following formula was used for the NRI calculation:
+
+\begin{equation}
+	NRI_{i,j} = \frac{b_{i} - b_{j}}{b_{i} + b_{j}}
+\end{equation}
+
+\noindent
+where $i$ and $j$ are the respective band numbers.
+
+\bigbreak
+
+\noindent To account for geometric offsets (which were reported with up to 1 m from \ac{ICGC}), a buffer of two meters around the centroid of the respective tree was drawn.
+The value assigned to a tree observations was the mean of all pixels which touched the respective buffer around the tree.
+In total, $\frac{125*126}{2} = 7875$ NRIs were calculated .
+Due to four corrupted bands of the sensor a total of 7471 indices were available for each observation.
+
+\subsection{Dimension reduction}
+
+\noindent It is important to distinguish the term "dimension reduction" from "high-dimensionality".
+The former refers to the general idea of reducing features from a dataset \cite{vandermaaten2007}.
+In modeling this means finding the best subset of covariates which provide the most predictive power to the model or extracting the main components of the features using a \ac{PCA}.
+"High-dimensionality" in contrast is defined as a dataset attribute and applies when $p > n,$ where $p$ is the number of covariates and $n$ the number of observations \cite{hastie2001}.
+There is no absolute value at which the term can be applied, both for $n$ and $p$.
+Hence for this study the word "high-dimensionality" only applies to the experiments using the "NRI" feature set (7470 features for 1759 observations).
+
+The case of a feature-rich dataset comes with several challenges for both model fitting and evaluation.
+
+\begin{itemize}
+  \item Model fitting times increase
+  \item Noise is possibly introduced into models by highly-correlated variables \cite{johnstoneiainm.2009}
+  \item Model interpretation and prediction tasks become more complicated \cite{johnstoneiainm.2009}
+\end{itemize}
+
+\noindent In the following sections a brief overview about sub-categories of feature-selection approaches is given.
+Due to the focus of this study on the use of filter methods, all other appraoches were grouped into a single section.
+
+\subsubsection{Filter methods}
+
+% Filter methods
+\noindent The concept of "Filter methods" originates on the idea of ranking features using certain heuristics of an algorithm \cite{chandrashekar2014}.
+Some filter methods are restricted towards specific types of variables (numeric or nominal data).
+After the covariates have been ranked, a decision needs to be made what features to keep and which to discard \cite{drotar2015}.
+This step is usually done within the optimization phase of the model fitting, along with the hyperparameter tuning.
+Essentially, the number of covariates in the model is treated as a hyperparameter of the model.
+The goal is to optimize the number of features (using the ranked covariates) at which the model achieves the best performance.
+In well-implemented software solutions the filter calculation is only done once and then cached, saving valuable resources \cite{mlr}.
+
+\paragraph{Ensemble filter methods}
+
+% Ensemble filter methods
+Besides the concept of choosing a specific filter method to rank variables, studies showed that combining several filters using statistical operations such as "minimum", "mean" or "sum" are able to enhance the predictive performance of the resulting models \cite{abeel2010, drotar2017a}.
+This approach is referred to as "ensemble filter" \cite{dietterich2000}.
+Ensemble filters align with the recent rise of the "ensemble" approach in machine-learning which uses stacking to combine the predictions of multiple models, aiming to enhence predictive performance \cite{polikar2012, feurer2015}.
+In this work the "Borda" ensemble filter was applied \cite{drotar2017a}.
+The final order is the sum of all single filters ranking.
+
+\paragraph{Ensuring a fair weighting in the ensemble}
+
+Filter methods can be grouped into classes: Correlation based, entropy based, linear and non-linear methods.
+It is important to not give certain classes too much weight in the ensemble as otherwise the final result will be biased.
+This was taken care of by calculating the rank correlations (Spearman's correlation) of the generated feature rankings of all methods against each other.
+In case filters showed high correlations with each other, these were not included into the ensemble filter.
+This ensures that the ensembe filter is not biased towards a certain group of methods yielding highly similar rankings.
+
+\paragraph{Description of used filter methods}
+
+Filter methods can be classified as follows:
+
+\begin{itemize}
+	\item univariate/multivariate (scoring based on a single variable / multiple variables)
+	\item linear/non-linear (calculation of linear/non-linear interaction terms)
+	\item entropy/correlation (scoring based on derivations of entropy or correlation based approaches)
+\end{itemize}
+
+% filter methods
+\begin{table}[b!]
+\centering
+\caption[t]{List of filter methods used in this work}
+\begingroup\footnotesize
+\begin{tabular}{lll}
+	\\
+	Name                                         & Group                             & Reference          \\
+	\hline
+	Linear correlation (Pearson)                 & univariate, linear, correlation   & \cite{pearson1901} \\
+	Information gain                             & univariate, non-linear, entropy   & \cite{quinlan1986} \\
+	Minimum redundancy, maximum relevance        & multivariate, non-linear, entropy & \cite{zhao2013}    \\
+	Carscore                                     & multivariate, linear, correlation & \cite{zuber2011}   \\
+	Relief                                       & multivariate, linear, entropy,    & \cite{kira1992}    \\
+	Conditional minimal information maximization & multivariate, linear, entropy     & \cite{fleuret2004}
+\end{tabular}
+\endgroup
+\label{tab:filter-methods}
+\end{table}
+
+\noindent Filter method "information gain" is only defined for nominal response variables:
+
+\begin{equation}
+	H(Class) + H(Attribute) - H(Class, Attribute)
+\end{equation}
+
+where $H$ is the conditional entropy of the response variable (class) or the feature (attribute), respectively.
+To be able to use this method with a numeric response, the variable is discretized into equal bins and treated as a class variable.
+While the number of bins can be treated as a hyperparameter of the filter method, we decided to use \texttt{$n_{bin}$ = 10} after rank correlations of > 0.9 for different bin sizes were observed in a side analysis.
+
+\subsubsection{Wrapper methods and PCA}
+
+\noindent Other approaches to assess feature importance are "wrapper methods" and the \ac{PCA} \cite{das2001, jolliffe2016}.
+A short introduction to both is given below.
+
+% Wrapper approach
+\noindent "Wrapper methods" \cite{chandrashekar2014, kohavi1997} apply algorithms that are used for hyperparameter optimization such as "Random Search" or "Generic Simulated Annealing".
+First a (random) subset of features is chosen based on the selected algorithm.
+In comparison to "filters", no ranking is done in this step.
+Now the model is fitted on the data and the performance is evaluated.
+This is done multiple times, depending on the defined stopping criteria set by the user (performance, runtime, evaluations).
+A disadvantage of this approach is that hyperparameter tuning can only be applied after the feature-selection optimization finished.
+Hence, the "wrapper approach" is an expensive optimization method because two stages need to be run in sequential order.
+Due to their extensive runtimes, "wrapper methods" were not considered in this work.
+
+% PCA
+A method with a completely different approach compared to filters and wrappers is the "Principal Component Analysis" \cite{pearson1901, jolliffe2016}.
+Here, the main components of the feature space are extracted and combined.
+Most often the first two extracted main components are used since these contain the major information of the covariates.
+By using the (automatically estimated) explained variance of the main components, the model can rely on a few features containing the majority of information available in the data.
+This enables cheap model fitting with balanced loss of predictor information.
+The disadvantage of this methodology is the lack of interpretatbility because the main components cannot be related back to the original covariates.
 
 
+\subsection{Benchmarking design}
 
 
+\subsubsection{Algorithms}
 
-% if have a single appendix:
-%\appendix[Proof of the Zonklar Equations]
-% or
-%\appendix  % for no appendix heading
-% do not use \section anymore after \appendix, only \section*
-% is possibly needed
+\noindent The benchmarking matrix of this study consists of the following algorithms:
 
-% use appendices with more than one appendix
-% then use \section to start each appendix
-% you must declare a \section before using any
-% \subsection or using \label (\appendices by itself
-% starts a section numbered zero.)
-%
+\begin{itemize}
+	\item  Extreme Gradient Boosting (XGBOOST)
+	\item  Random Forest (RF)
+	\item  Penalized Regression (both L1 and L2)
+	\item  Support Vector Machine (SVM)
+\end{itemize}
 
+
+\noindent \ac{RF} and {SVM} are well established algorithms that are widely used in environmental modeling.
+Extreme gradient boosting (commonly referred to as \ac{XGBOOST}) showed promising results in benchmark competitions in recent years.
+Penalized regression is a statistical modeling technique capable of dealing with highly-correlated covariates by applying a penalization term which shrinks the coefficients of the model \cite{hastie2001}.
+Common penalties are "lasso" (L1) and "ridge" (L2).
+The former does not allow the full removal of variables from the model (penalization to zero) while the latter does.
+Both penalties can also be combined.
+The combined approach is called "elastic net" but was not used in this work.
+
+\subsubsection{Feature sets}
+% TODO: talk about the reasons behind different features sets: environmental implications
+
+\noindent Three feature sets were used in this study with each representing a different way of feature-engineering:
+
+
+\begin{itemize}
+	\item The raw hyperspectal band information (HR: No feature engineering)
+	\item Vegetation Indices (\ac{VI}: Expert-based feature engineering)
+	\item Normalized Ratio Indices (\ac{NRI}: Automated feature-engineering)
+\end{itemize}
+
+\subsubsection{Hyperparameter Optimization}
+
+\noindent An exhaustive hyperparameter tuning was applied during nested spatial \ac{CV} for all algorithms.
+Maximum Bayesian Optimization \cite{mlrmbo} was used for parameter optimization.
+This approach first composes \textit{n} randomly chosen hyperparameter settings out of a user defined search space.
+After these \textit{n} tries have been evaluated, a new hyperparameter setting, which is going to be evaluated next, is proposed based on a fitted regression model.
+The regression model estimates the performance of the machine-learning method for unknown hyperparameter settings.
+Using these estimates, a new promising hyperparameter setting is proposed to be evaluated next.
+This strategy continues until a termination criterion, defined by the user, is reached \cite{hutter2011, jones1998}.
+An initial design of 30 randomly composed hyperparameter settings and a termination criterion of 70 iterations was used, resulting in a total budget of 100 evaluated hyperparameter settings per fold.
+The advantage of this tuning approach is the substantial reduction of the tuning budget required to find a setting which is close to the global minimum
+This applies when being compared to methods that do not use information from previous runs, such as random search or grid search \cite{bergstra2012}.
+
+For the filter methods, the percentage of features was added to the models as a hyperparameter.
+The number of main components was tuned for the instances which used \ac{PCA} instead of filtering.
+Random Forest hyperparameter \texttt{$m_{try}$} was transformed from taking absolute values to a relative parameter depending on the number of tasks: $p^{m_{try}}$, where $p$ is the number of features.
+This was necessary to ensure that \texttt{$m_{try}$} was not chosen out of bounds during tuning:
+After the filtering, only a subset of features of the task is used for optimizing the models hyperparameters.
+The size of this subset is always different since the number of features is also optimized.
+Hence, the value of  \texttt{$m_{try}$} needs to be created flexible based on the number features.
+
+\subsubsection{Spatial resampling}
+
+\noindent A spatial block nested cross-validation was chosen to reduce the influence of spatial autocorrelation as much as possible \cite{schratz2019, sperrorest}.
+Each plot served as one fold within the resampling setup, resulting in four folds total.
+For the inner level (hyperparameter tuning), $p - 1$ folds were used (with $p$ being the number of plots).
+
+In total the benchmarking matrix consisted of 120 experiments (3 feature sets, 5 algorithms, 8 feature-selection methods).
+
+\subsection{Calculation of model feature importance}
+\noindent A permutation-based feature importance estimation was done for the best algorithm of each feature set and filter method, respectively.
+This method caluclates the loss of predictive performance for each feature by permuting it in a random manner.
+The more important the feature is for the model, the higher the loss in the used error measure will be, reflecting the importance of the specific feature for the current model.
+
+\subsection{Linking feature importance to wavelength regions}
+\noindent For ecological interpretation purposes we linked the ten most important indices of the winning models for each feature set to the spectral regions of the hyperspectral data.
+For feature set HR and NRI a direct linking to the respective bands of the hyperspectral sensor was done.
+For the vegetation indices all bands covered by the spectral range of calculated vegetation indices were counted and summed up.
+
+\subsection{Research compendium}
+
+\noindent The complete study was done using the open-source statistical programming language R \cite{rcoreteam2018}.
+The algorithm implementations of the following packages have been used: \textit{xgboost} \cite{chen2016} (\textit{xgboost}), \textit{kernlab} \cite{kernlab} (Support Vector Machine) and \textit{glmnet} \cite{glmnet} (Ridge Regression).
+The filter methods of the following packages were used: \textit{praznik \cite{praznik}}, \textit{FSelectorRcpp} \cite{fselectorrcpp}.
+The R package \textit{mlr} \cite{mlr} was used for all modeling related steps.
+\textit{drake} was used for structuring the work and ensuring reproducibility.
+This study is available as a research compendium on Zenodo (\url{10.5281/zenodo.2635403}).
+
+
+\section{Results}
+
+\subsection{Predictive performance}
+
+
+\section{Discussion}
+
+\subsection{Derivation of indices}
+
+\noindent The decision to use a buffer of 2 m to generate the index value for each observation is questionable.
+When using no buffer at all, the possibility is high that a pixel value gets assigned to the tree observation which does not spatially match with the hyperspectral (due to the geometric offset of 1 m).
+Using a buffer of more than 2 meters would increase the probability of merging information from other trees into the pixel value, blurring the actual value of the tree observation.
+That is why in our view using a buffer of 2 m was the best compromise here.
+
+Another critical point is that the exact number of contributing pixels to the final index value of an observation cannot be determined as it depends on the location of the tree within the pixel grid.
+As the buffer is a circle, it depends on the exact location of a tree observation within a pixel how much surrounding pixels are touched by the buffer.
+If a tree observation is located at the border of the plot, some directions of the buffer will contain no values and the subsequent index value will be calculated using less pixels than if the tree observation is located in the middle of the plot.
+
+All these points introduced a bias of an unknown magnitude into the data.
+This has to be considered when making interpretations about the outcome of this study.
+
+\subsection{Performance vs. plot characteristics}
+% TODO: Really needed?
+
+\subsection{Predictive Performance}
+
+\subsubsection{Algorithm differences}
+
+\subsubsection{Feature set differences}
+
+\subsection{Feature selection methods}
+
+\subsubsection{Variable importance vs. filter methods}
+
+\subsubsection{Ecological Interpretation}
+
+% TODO: talk about the link to RS spectra
+
+\subsection{Comparison to other studies}
+% NOTE: no environmental studies use filter methods, some use FFS
+% NOTE: only few studies analyze defoliation
+
+\noindent Most other studies analyzing defoliation operated on the plot rather than the tree level.
+This originated simply due to spatial resolution of the satellite products that served as the input data \cite{townsend2012, debeurs2008a, rengarajan2016}.
+
+Studies focusing on tree-level defoliation used ground-level methods such as \ac{ALS} or \ac{LiDAR} \cite{meng2018, kalin2019}.
+\cite{meng2018} used \ac{OLS} regression methods while \cite{kalin2019} retrieved information out of ground-level RGB photos using \ac{CNN}.
+Both study designs are substantially different compared to the setup of this work.
+In addition, no spatial \ac{CV} or \ac{FS} was used.
+\cite{goodbody2018} used a \ac{PLS} model with high-resolution \ac{DAP} to predict cumulative defoliation caused by the spruce budworm.
+Study results indicated that spectral metrics were found to be most helpful for the model.
+Incorporating such metrics (both spectral and structural) could be a possible enhancement for future works.
+
+\cite{shendryk2016, ludwig2019} are studies which are more similar in their methodology but focus on a different response variable.
+\cite{shendryk2016} used machine-learning models with \ac{ALS} data to study dieback of trees for eucalyptus forests.
+A grid-search was used for hyperparameter tuning and a \ac{FFS} for variable selection.
+\cite{ludwig2019} analyzed woody cover in South Africa using spatial \ac{CV} and a relatively novel spatial \ac{FS} approach \cite{meyer2018} on a Random Forest classifier.
+
+In summary, we could not find studies using filter methods for \ac{FS} or \ac{NRI} indices in their work with a relation to forest health.
+Most studies used only one algorithm (usually Random Forest) without strong arguments why this particular one has been selected.
+In our view the number of possible derivable input features is often higher than the actual number of variables used in the end, missing out on potentially helpful information from the raw data.
+These findings underline the importance of this work in the field of forest health modeling.
+
+\section{Outlook and conclusion}
 
 \appendices
 
-\section{Proof of the First Zonklar Equation}
-Appendix one text goes here.
+\section{Spectral signatures of each plot}
 
-% you can choose not to have a title for an appendix
-% if you want by leaving the argument blank
-\section{}
-Appendix two text goes here.
+\begin{figure} [h]
+\begin{center}
+\includegraphics[width=0.5\textwidth] {spectral-signatures-1.pdf}
+\caption{Spectral signatures (mean and standard deviation) of Laukiz1, Laukiz2, Luiando and Oiartzun.}
+\label{fig:spectral-signatures}
+\end{center}
+\end{figure}
 
+\pagebreak
 
-% use section* for acknowledgment
-\section*{Acknowledgment}
+\section{Correlation among filter methods}
 
+\begin{figure} [h]
+\begin{center}
+\includegraphics[width=0.5\textwidth] {correlation-filter-nri-1.pdf}
+\caption{Spearman correlation of filter rankings between various filter methods. Results of the NRI feature set are shown.}
+\label{fig:correlation-filters}
+\end{center}
+\end{figure}
 
-The authors would like to thank...
+\section{Effect of different \texttt{$n_{bins}$} values on filter "information gain"}
 
+\begin{figure} [h]
+\begin{center}
+\includegraphics[width=0.5\textwidth] {correlation-nbins-1.pdf}
+\caption{Spearman correlation of filter information gain using different \texttt{$n_{bins}$} values for discretization of the numeric response.}
+\label{fig:correlation-nbins}
+\end{center}
+\end{figure}
 
-% Can use something like this to put references on a page
-% by themselves when using endfloat and the captionsoff option.
-\ifCLASSOPTIONcaptionsoff
-  \newpage
-\fi
-
-
-
-% trigger a \newpage just before the given reference
-% number - used to balance the columns on the last page
-% adjust value as needed - may need to be readjusted if
-% the document is modified later
-%\IEEEtriggeratref{8}
-% The "triggered" command can be changed if desired:
-%\IEEEtriggercmd{\enlargethispage{-5in}}
-
-% references section
-
-% can use a bibliography generated by BibTeX as a .bbl file
-% BibTeX documentation can be easily obtained at:
-% http://mirror.ctan.org/biblio/bibtex/contrib/doc/
-% The IEEEtran BibTeX style support page is at:
-% http://www.michaelshell.org/tex/ieeetran/bibtex/
 \bibliographystyle{IEEEtran}
-% argument is your BibTeX string definitions and bibliography database(s)
 \bibliography{IEEEabrv,Biblio}
-%
-% <OR> manually copy in the resultant .bbl file
-% set second argument of \begin to the number of references
-% (used to reserve space for the reference number labels box)
-%\begin{thebibliography}{
-%
-%\bibitem{IEEEhowto:kopka}
-%H.~Kopka and P.~W. Daly, \emph{A Guide to \LaTeX}, 3rd~ed.\hskip 1em plus
-%  0.5em minus 0.4em\relax Harlow, England: Addison-Wesley, 1999.
-%}
-%
-%\end{thebibliography}
 
-% biography section
-%
-% If you have an EPS/PDF photo (graphicx package needed) extra braces are
-% needed around the contents of the optional argument to biography to prevent
-% the LaTeX parser from getting confused when it sees the complicated
-% \includegraphics command within an optional argument. (You could create
-% your own custom macro containing the \includegraphics command to make things
-% simpler here.)
-%\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{pschratz}}]{Patrick Schratz}
-%\end{IEEEbiography}
+\section*{References}
 
-\begin{IEEEbiography}
-    [{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{pschratz}}]{Patrick Schratz}
-Biography text here.
-\end{IEEEbiography}
-
-% or if you just want to reserve a space for a photo:
-
-%\begin{IEEEbiography}{Patrick Schratz}
-%Biography text here.
-%\end{IEEEbiography}
-
-% if you will not have a photo at all:
-\begin{IEEEbiographynophoto}{Jannes Muenchow}
-Biography text here.
-\end{IEEEbiographynophoto}
-
-% insert where needed to balance the two columns on the last page with
-% biographies
-%\newpage
-
-\begin{IEEEbiographynophoto}{Alexander Brenning}
-Biography text here.
-\end{IEEEbiographynophoto}
-
-\begin{IEEEbiographynophoto}{Bernd Bischl}
-Biography text here.
-\end{IEEEbiographynophoto}
-
-\begin{IEEEbiographynophoto}{Eugenia Iturritxa}
-Biography text here.
-\end{IEEEbiographynophoto}
-
-% You can push biographies down or up by placing
-% a \vfill before or after them. The appropriate
-% use of \vfill depends on what kind of text is
-% on the last page and whether or not the columns
-% are being equalized.
-
-%\vfill
-
-% Can be used to pull up biographies so that the bottom of the last one
-% is flush with the other column.
-%\enlargethispage{-5in}
-
-
-
-% that's all folks
 \end{document}
 
