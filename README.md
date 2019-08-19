@@ -6,4 +6,4 @@
 
 **Modeling defoliation as a proxy for tree health: Comparison of feature-selection methods across multiple feature sets derived from hyperspectral data**
 
-Please go to [2019-feature-selection.pjs-web.de](https://2019-feature-selection.pjs-web.de) for a detailed description of this research project.
+Please go to [https://pat-s.github.io/2019-feature-selection/](https://pat-s.github.io/2019-feature-selection) for a detailed description of this research project.
