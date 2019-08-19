@@ -115,26 +115,3 @@ filter_wrapper_ridge_linear.cor <- makeFilterWrapper(lrn_ridge, fw.method = "lin
 filter_wrapper_ridge_mrmr <- makeFilterWrapper(lrn_ridge, fw.method = "praznik_MRMR", cache = TRUE)
 filter_wrapper_ridge_cmim <- makeFilterWrapper(lrn_ridge, fw.method = "praznik_CMIM", cache = TRUE)
 filter_wrapper_ridge_carscore <- makeFilterWrapper(lrn_ridge, fw.method = "carscore", cache = TRUE)
-
-# LM ---------------------------------------------------------------------
-
-filter_wrapper_lm_borda <- makeFilterWrapper(lrn_lm,
-  fw.method = "E-Borda", cache = TRUE,
-  fw.base.methods = c(
-    "FSelectorRcpp_information.gain",
-    "linear.correlation",
-    "praznik_MRMR", "praznik_CMIM",
-    "carscore",
-    "FSelector_relief"
-  ),
-  equal = TRUE, nbins = 10 # FSelectorRcpp
-)
-
-filter_wrapper_lm_gain.ratio <- makeFilterWrapper(lrn_lm, fw.method = "FSelectorRcpp_gain.ratio", cache = TRUE, equal = TRUE, nbins = 10)
-filter_wrapper_lm_info.gain <- makeFilterWrapper(lrn_lm, fw.method = "FSelectorRcpp_information.gain", cache = TRUE, equal = TRUE, nbins = 10)
-filter_wrapper_lm_variance <- makeFilterWrapper(lrn_lm, fw.method = "variance", cache = TRUE)
-filter_wrapper_lm_rank.cor <- makeFilterWrapper(lrn_lm, fw.method = "rank.correlation", cache = TRUE)
-filter_wrapper_lm_linear.cor <- makeFilterWrapper(lrn_lm, fw.method = "linear.correlation", cache = TRUE)
-filter_wrapper_lm_mrmr <- makeFilterWrapper(lrn_lm, fw.method = "praznik_MRMR", cache = TRUE)
-filter_wrapper_lm_cmim <- makeFilterWrapper(lrn_lm, fw.method = "praznik_CMIM", cache = TRUE)
-filter_wrapper_lm_carscore <- makeFilterWrapper(lrn_lm, fw.method = "carscore", cache = TRUE)

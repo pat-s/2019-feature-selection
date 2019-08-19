@@ -33,27 +33,28 @@ bm_plan = drake_plan(
                   xgboost_cmim,
                   xgboost_carscore,
                   xgboost_no_filter,
-                  xgboost_pca
+                  xgboost_pca,
+
+                  lasso_info.gain,
+                  lasso_relief,
+                  lasso_linear.cor,
+                  lasso_mrmr,
+                  lasso_cmim,
+                  lasso_carscore,
+                  lasso_no_filter,
+                  lasso_pca,
+
+                  ridge_info.gain,
+                  ridge_relief,
+                  ridge_linear.cor,
+                  ridge_mrmr,
+                  ridge_cmim,
+                  ridge_carscore,
+                  ridge_no_filter,
+                  ridge_pca
       )
     )
   ),
-
-  # since we have ParamSets tailored towards a specfic task, we cannot use the "cross"
-  # approach for ridge and lasso
-  bm_ridge_hr = benchmark_custom_no_models(ridge_hr, hr_task),
-  bm_ridge_vi = benchmark_custom_no_models(ridge_vi, vi_task),
-  bm_ridge_nri = benchmark_custom_no_models(ridge_nri, nri_task),
-  bm_ridge_hr_nri = benchmark_custom_no_models(ridge_hr_nri, hr_nri_task),
-  bm_ridge_hr_vi = benchmark_custom_no_models(ridge_hr_vi, hr_vi_task),
-  bm_ridge_hr_nri_vi = benchmark_custom_no_models(ridge_hr_nri_vi, hr_nri_vi_task),
-
-  bm_lasso_hr = benchmark_custom_no_models(lasso_hr, hr_task),
-  bm_lasso_vi = benchmark_custom_no_models(lasso_vi, vi_task),
-  bm_lasso_nri = benchmark_custom_no_models(lasso_nri, nri_task),
-  bm_lasso_hr_nri = benchmark_custom_no_models(lasso_hr_nri, hr_nri_task),
-  bm_lasso_hr_vi = benchmark_custom_no_models(lasso_hr_vi, hr_vi_task),
-  bm_lasso_hr_nri_vi = benchmark_custom_no_models(lasso_hr_nri_vi, hr_nri_vi_task),
-  # ,
 
   #  we face some errors when parallelizing the borda filters, maybe due to
   # parallel access to the mlr cache?
@@ -65,7 +66,9 @@ bm_plan = drake_plan(
                "hr_vi" = hr_vi_task),
       learner = c(svm_borda,
                   rf_borda,
-                  xgboost_borda
+                  xgboost_borda,
+                  ridge_borda,
+                  lasso_borda
       )
     )
   )

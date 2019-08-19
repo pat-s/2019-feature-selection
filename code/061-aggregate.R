@@ -188,25 +188,24 @@ bm_aggregated = mergeBenchmarkResults(list(
   bm_hr_task_xgboost_cmim,
   bm_hr_vi_task_xgboost_cmim,
   bm_hr_nri_task_xgboost_cmim,
-  bm_hr_nri_vi_task_xgboost_cmim#,
-
+  bm_hr_nri_vi_task_xgboost_cmim,
 
   # lasso
-  # bm_lasso_vi,
-  # bm_lasso_nri,
-  # bm_lasso_hr,
-  # bm_lasso_hr_nri,
-  # bm_lasso_hr_vi,
-  # bm_lasso_hr_nri_vi,
+  bm_vi_task_ridge_cmim,
+  bm_nri_task_ridge_cmim,
+  bm_hr_task_ridge_cmim,
+  bm_hr_vi_task_ridge_cmim,
+  bm_hr_nri_task_ridge_cmim,
+  bm_hr_nri_vi_task_ridge_cmim,
   #
   #
-  # # ridge
-  # bm_ridge_vi,
-  # bm_ridge_nri,
-  # bm_ridge_hr,
-  # bm_ridge_hr_nri,
-  # bm_ridge_hr_vi,
-  # bm_ridge_hr_nri_vi
+  # ridge
+  bm_vi_task_lasso_cmim,
+  bm_nri_task_lasso_cmim,
+  bm_hr_task_lasso_cmim,
+  bm_hr_vi_task_lasso_cmim,
+  bm_hr_nri_task_lasso_cmim,
+  bm_hr_nri_vi_task_lasso_cmim,
 
 )
 )

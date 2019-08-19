@@ -82,118 +82,61 @@ ps_rf_pca = makeParamSet(
 # RIDGE ---------------------------------------------------------------------
 
 # calculate lower and upper boundaries of param set for RR
-lambda_ridge_nri_train = train(lrn_ridge, nri_task)
+# SPECIAL:
+# Actually, we would need to calculate one ParamSet per Task (because we need to calculate
+# min and max lambda for each ParamSet. But this would mean having multiple learner IDs
+# which we would need to apply to all tasks to be able to use `mergeBenchmarkResult()` on them later
+# This makes no sense with task specific ParamSets, hence we create one universal ParamSet
+# Consisting of of the 80% quantile from the min and max of the smallest and largest task, respectively)
+
 lambda_ridge_vi_train  = train(lrn_ridge, vi_task)
-lambda_ridge_hr_train  = train(lrn_ridge, hr_task)
-lambda_ridge_hr_nri_train  = train(lrn_ridge, hr_nri_task)
-lambda_ridge_hr_vi_train  = train(lrn_ridge, hr_vi_task)
 lambda_ridge_hr_nri_vi_train  = train(lrn_ridge, hr_nri_vi_task)
 
-lambda_ridge_min_nri = min(lambda_ridge_nri_train$learner.model$lambda)
 lambda_ridge_min_vi = min(lambda_ridge_vi_train$learner.model$lambda)
-lambda_ridge_min_hr = min(lambda_ridge_hr_train$learner.model$lambda)
-lambda_ridge_min_hr_nri = min(lambda_ridge_hr_nri_train$learner.model$lambda)
-lambda_ridge_min_hr_nri_vi = min(lambda_ridge_hr_nri_vi_train$learner.model$lambda)
-lambda_ridge_min_hr_vi = min(lambda_ridge_hr_vi_train$learner.model$lambda)
-
-# lambda_ridge_min = which.min(c(min(lambda_ridge_min_nri$learner.model$lambda),
-#                                min(lambda_ridge_min_vi$learner.model$lambda),
-#                                min(lambda_ridge_min_hr$learner.model$lambda)
-# ))
-
-lambda_ridge_max_nri = max(lambda_ridge_nri_train$learner.model$lambda)
-lambda_ridge_max_vi = max(lambda_ridge_vi_train$learner.model$lambda)
-lambda_ridge_max_hr = max(lambda_ridge_hr_train$learner.model$lambda)
-lambda_ridge_max_hr_nri = max(lambda_ridge_hr_nri_train$learner.model$lambda)
 lambda_ridge_max_hr_nri_vi = max(lambda_ridge_hr_nri_vi_train$learner.model$lambda)
-lambda_ridge_max_hr_vi = max(lambda_ridge_hr_vi_train$learner.model$lambda)
 
+quan_ridge = quantile(x = c(lambda_ridge_min_vi, lambda_ridge_max_hr_nri_vi),
+                      probs = c(0.10, 0.90))
 
-# lambda_ridge_max = which.max(c(max(lambda_ridge_max_nri$learner.model$lambda),
-#                                max(lambda_ridge_max_vi$learner.model$lambda),
-#                                max(lambda_ridge_max_hr$learner.model$lambda)
-# ))
+ps_ridge_filter <- makeParamSet(makeNumericParam("s", lower = quan_ridge[1],
+                                                 upper = quan_ridge[2]),
+                                makeNumericParam("fw.perc", lower = 0.03, upper = 1))
 
+ps_ridge_no_filter <- makeParamSet(makeNumericParam("s", lower = quan_ridge[1],
+                                                    upper = quan_ridge[2]))
 
-ps_ridge_hr <- makeParamSet(makeNumericParam("s", lower = lambda_ridge_min_hr,
-                                          upper = lambda_ridge_max_hr)
-)
-
-ps_ridge_nri <- makeParamSet(makeNumericParam("s", lower = lambda_ridge_min_nri,
-                                             upper = lambda_ridge_max_nri)
-)
-
-ps_ridge_vi <- makeParamSet(makeNumericParam("s", lower = lambda_ridge_min_vi,
-                                             upper = lambda_ridge_max_vi)
-)
-
-ps_ridge_hr_nri <- makeParamSet(makeNumericParam("s", lower = lambda_ridge_min_hr_nri,
-                                             upper = lambda_ridge_max_hr_nri)
-)
-
-ps_ridge_hr_vi <- makeParamSet(makeNumericParam("s", lower = lambda_ridge_min_hr_vi,
-                                             upper = lambda_ridge_max_hr_vi)
-)
-
-ps_ridge_hr_nri_vi <- makeParamSet(makeNumericParam("s", lower = lambda_ridge_min_hr_nri_vi,
-                                             upper = lambda_ridge_max_hr_nri_vi)
+ps_ridge_pca <- makeParamSet(makeNumericParam("s", lower = quan_ridge[1],
+                                              upper = quan_ridge[2]),
+                             makeIntegerParam("ppc.pcaComp", lower = 1, upper = 10)
 )
 
 # LASSO ---------------------------------------------------------------------
 
-# calculate lower and upper boundaries of param set for LASSO
-lambda_lasso_nri_train = train(lrn_lasso, nri_task)
+# calculate lower and upper boundaries of param set for RR
+# SPECIAL:
+# Actually, we would need to calculate one ParamSet per Task (because we need to calculate
+# min and max lambda for each ParamSet. But this would mean having multiple learner IDs
+# which we would need to apply to all tasks to be able to use `mergeBenchmarkResult()` on them later
+# This makes no sense with task specific ParamSets, hence we create one universal ParamSet
+# consisting of of the 80% quantile from the min and max of the smallest and largest task, respectively)
+
 lambda_lasso_vi_train  = train(lrn_lasso, vi_task)
-lambda_lasso_hr_train  = train(lrn_lasso, hr_task)
-lambda_lasso_hr_nri_train  = train(lrn_lasso, hr_nri_task)
-lambda_lasso_hr_vi_train  = train(lrn_lasso, hr_vi_task)
 lambda_lasso_hr_nri_vi_train  = train(lrn_lasso, hr_nri_vi_task)
 
-lambda_lasso_min_nri = min(lambda_lasso_nri_train$learner.model$lambda)
 lambda_lasso_min_vi = min(lambda_lasso_vi_train$learner.model$lambda)
-lambda_lasso_min_hr = min(lambda_lasso_hr_train$learner.model$lambda)
-lambda_lasso_min_hr_nri = min(lambda_lasso_hr_nri_train$learner.model$lambda)
-lambda_lasso_min_hr_nri_vi = min(lambda_lasso_hr_nri_vi_train$learner.model$lambda)
-lambda_lasso_min_hr_vi = min(lambda_lasso_hr_vi_train$learner.model$lambda)
-
-lambda_lasso_max_nri = max(lambda_lasso_nri_train$learner.model$lambda)
-lambda_lasso_max_vi = max(lambda_lasso_vi_train$learner.model$lambda)
-lambda_lasso_max_hr = max(lambda_lasso_hr_train$learner.model$lambda)
-lambda_lasso_max_hr_nri = max(lambda_lasso_hr_nri_train$learner.model$lambda)
 lambda_lasso_max_hr_nri_vi = max(lambda_lasso_hr_nri_vi_train$learner.model$lambda)
-lambda_lasso_max_hr_vi = max(lambda_lasso_hr_vi_train$learner.model$lambda)
 
+quan_lasso = quantile(x = c(lambda_lasso_min_vi, lambda_lasso_max_hr_nri_vi),
+                      probs = c(0.10, 0.90))
 
-ps_lasso_hr <- makeParamSet(makeNumericParam("s", lower = lambda_lasso_min_hr,
-                                             upper = lambda_lasso_max_hr)
-)
+ps_lasso_filter <- makeParamSet(makeNumericParam("s", lower = quan_lasso[1],
+                                                 upper = quan_lasso[2]),
+                                makeNumericParam("fw.perc", lower = 0.03, upper = 1))
 
-ps_lasso_nri <- makeParamSet(makeNumericParam("s", lower = lambda_lasso_min_nri,
-                                              upper = lambda_lasso_max_nri)
-)
+ps_lasso_no_filter <- makeParamSet(makeNumericParam("s", lower = quan_lasso[1],
+                                                    upper = quan_lasso[2]))
 
-ps_lasso_vi <- makeParamSet(makeNumericParam("s", lower = lambda_lasso_min_vi,
-                                             upper = lambda_lasso_max_vi)
-)
-
-ps_lasso_hr_nri <- makeParamSet(makeNumericParam("s", lower = lambda_lasso_min_hr_nri,
-                                                 upper = lambda_lasso_max_hr_nri)
-)
-
-ps_lasso_hr_vi <- makeParamSet(makeNumericParam("s", lower = lambda_lasso_min_hr_vi,
-                                                upper = lambda_lasso_max_hr_vi)
-)
-
-ps_lasso_hr_nri_vi <- makeParamSet(makeNumericParam("s", lower = lambda_lasso_min_hr_nri_vi,
-                                                    upper = lambda_lasso_max_hr_nri_vi)
-)
-
-# LM -----------------------------------------------------------
-
-ps_lm_filter = makeParamSet(
-  makeNumericParam("fw.perc", lower = 0, upper = 1)
-)
-
-ps_lm_pca = makeParamSet(
-  makeIntegerParam("ppc.pcaComp", lower = 1, upper = 10)
+ps_lasso_pca <- makeParamSet(makeNumericParam("s", lower = quan_lasso[1],
+                                              upper = quan_lasso[2]),
+                             makeIntegerParam("ppc.pcaComp", lower = 1, upper = 10)
 )
