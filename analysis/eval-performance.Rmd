@@ -43,7 +43,11 @@ getBMRAggrPerformances(bm_aggregated, as.df = TRUE) %>%
   mutate(task.id = recode_factor(task.id,
     `defoliation-all-plots-HR` = "HR",
     `defoliation-all-plots-VI` = "VI",
-    `defoliation-all-plots-NRI` = "NRI"
+    `defoliation-all-plots-NRI` = "NRI",
+    `defoliation-all-plots-HR-NRI` = "HR-NRI",
+    `defoliation-all-plots-HR-VI` = "HR-VI",
+    `defoliation-all-plots-HR-NRI-VI` = "HR-NRI-VI",
+    
   )) %>%
   tidyr::separate(learner.id, c("learner_group", "filter"),
     remove = FALSE,
@@ -79,7 +83,10 @@ results_aggr <- getBMRAggrPerformances(bm_aggregated, as.df = TRUE) %>%
   mutate(task.id = recode_factor(task.id,
     `defoliation-all-plots-HR` = "HR",
     `defoliation-all-plots-VI` = "VI",
-    `defoliation-all-plots-NRI` = "NRI"
+    `defoliation-all-plots-NRI` = "NRI",
+    `defoliation-all-plots-HR-NRI` = "HR-NRI",
+    `defoliation-all-plots-HR-VI` = "HR-VI",
+    `defoliation-all-plots-HR-NRI-VI` = "HR-NRI-VI",
   )) %>%
   tidyr::separate(learner.id, c("learner_group"),
     remove = FALSE,
