@@ -427,6 +427,9 @@ div.tocify {
     <li>
       <a href="spectral-signatures.html">Spectral signatures</a>
     </li>
+    <li>
+      <a href="response-normality.html">Checking for normality of response</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -477,7 +480,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2019-08-12
+<strong>Last updated:</strong> 2019-08-29
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -568,10 +571,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontreeabed0ec6e0139458cc128e74edb5f5ec8d28fec8targetblankabed0eca"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/abed0ec6e0139458cc128e74edb5f5ec8d28fec8" target="_blank">abed0ec</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontreecaafca3afb41a934b95f0be8d5d3c07fe8ed278etargetblankcaafca3a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/caafca3afb41a934b95f0be8d5d3c07fe8ed278e" target="_blank">caafca3</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontreeabed0ec6e0139458cc128e74edb5f5ec8d28fec8targetblankabed0eca" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontreecaafca3afb41a934b95f0be8d5d3c07fe8ed278etargetblankcaafca3a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -595,15 +598,44 @@ Ignored files:
 
 Untracked files:
     Untracked:  .drake_history/
+    Untracked:  analysis/response-normality.Rmd
     Untracked:  inst/Benchmark for Filter Methods for Feature Selection in High-Dimensional  Classification Data.pdf
-    Untracked:  test-hyperspec.rda
-    Untracked:  test-out.gri
+    Untracked:  packrat/src/MatrixModels/
+    Untracked:  packrat/src/SparseM/
+    Untracked:  packrat/src/addmins/
+    Untracked:  packrat/src/broom/broom_0.5.2.tar.gz
+    Untracked:  packrat/src/car/
+    Untracked:  packrat/src/carData/
+    Untracked:  packrat/src/credentials/
+    Untracked:  packrat/src/lme4/
+    Untracked:  packrat/src/maptools/
+    Untracked:  packrat/src/minqa/
+    Untracked:  packrat/src/mlr/mlr_2.15.0.tar.gz
+    Untracked:  packrat/src/nloptr/
+    Untracked:  packrat/src/openssl/openssl_1.4.1.tar.gz
+    Untracked:  packrat/src/pbkrtest/
+    Untracked:  packrat/src/quantreg/
+    Untracked:  packrat/src/raster/raster_2.8-4.tar.gz
+    Untracked:  packrat/src/xgboost/xgboost_0.90.0.2.tar.gz
 
 Unstaged changes:
+    Modified:   R/02-fun-data-preprocessing.R
+    Modified:   R/06-mlr-paper.R
     Modified:   _drake.R
+    Modified:   analysis/_site.yml
+    Modified:   analysis/eval-performance.Rmd
+    Modified:   code/04-data-preprocessing.R
+    Modified:   code/05-modeling/paper/filter-wrapper.R
+    Modified:   code/05-modeling/paper/learner.R
+    Modified:   code/05-modeling/paper/param-sets.R
+    Modified:   code/05-modeling/paper/tune-wrapper.R
+    Modified:   code/06-benchmark-matrix.R
+    Modified:   code/061-aggregate.R
+    Modified:   code/07-reports.R
     Modified:   code/98-paper/journal/defoliation-distribution-plot-1.pdf
     Deleted:    docs/figure/filter-correlation.Rmd/correlation-filter-nri-1.pdf
     Deleted:    docs/figure/filter-correlation.Rmd/correlation-nbins-1.pdf
+    Modified:   packrat/packrat.lock
 
 </code></pre>
 <p>
@@ -642,6 +674,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pat-s/2019-feature-selection/dc1a55d181e24ba06080499683ffd2419c3a5461/docs/filter-correlation.html" target="_blank">dc1a55d</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-08-12
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 html
