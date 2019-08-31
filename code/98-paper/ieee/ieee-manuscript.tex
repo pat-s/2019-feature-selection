@@ -968,6 +968,9 @@ Ensemble filters showed no substantial difference to simple filter methods.
 However, there was also no change to worse when using filter methods compared to using none.
 Comparing absolute values, filters "Carscore", "Information gain" and the "Borda" ensemble filter scored the best results across all learners and tasks.
 
+% FIXME: add table of first 20(?) ordered performance results across all tasks
+
+% plot performance results
 \begin{figure} [t!]
 \centering
 	\begin{center}
@@ -983,16 +986,16 @@ Comparing absolute values, filters "Carscore", "Information gain" and the "Borda
 \subsection{Derivation of indices}
 
 \noindent The decision to use a buffer of 2 m to generate the index value for each observation is questionable.
-When using no buffer at all, the possibility is high that a pixel value gets assigned to the tree observation which does not spatially match with the hyperspectral (due to the geometric offset of 1 m).
-Using a buffer of more than 2 meters would increase the probability of merging information from other trees into the pixel value, blurring the actual value of the tree observation.
-That is why in our view using a buffer of 2 m was the best compromise here.
+When using no buffer at all, the possibility is high that a pixel value gets assigned to a tree which does not spatially match with the actual recorded hyperspectral reflectance due to the geometric offset of 1 m.
+Using a buffer of more than 2 meters increases the probability of including information from other trees into the pixel value, blurring the actual value of the tree observation.
+In our view using a buffer of 2 m is a good compromise between both worlds.
 
 Another critical point is that the exact number of contributing pixels to the final index value of an observation cannot be determined as it depends on the location of the tree within the pixel grid.
-As the buffer is a circle, it depends on the exact location of a tree observation within a pixel how much surrounding pixels are touched by the buffer.
+As the buffer is circular, determining the total number of contributing pixels depends on the exact location of a tree within that pixel as this sets the base how many pixels in each direction will be touched by the buffer.
 If a tree observation is located at the border of the plot, some directions of the buffer will contain no values and the subsequent index value will be calculated using less pixels than if the tree observation is located in the middle of the plot.
 
-All these points introduced a bias of an unknown magnitude into the data.
-This has to be considered when making interpretations about the outcome of this study.
+The magniute of bias introduced by these facts cannot be quantified.
+However, it has to be considered when making interpretations about the outcome of this study.
 
 \subsection{Performance vs. plot characteristics}
 % TODO: Really needed?
