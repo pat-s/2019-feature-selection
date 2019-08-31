@@ -191,21 +191,34 @@ bm_aggregated = mergeBenchmarkResults(list(
   bm_hr_nri_vi_task_xgboost_cmim,
 
   # lasso
-  bm_vi_task_ridge_cmim,
-  bm_nri_task_ridge_cmim,
-  bm_hr_task_ridge_cmim,
-  bm_hr_vi_task_ridge_cmim,
-  bm_hr_nri_task_ridge_cmim,
-  bm_hr_nri_vi_task_ridge_cmim,
-  #
-  #
+  bm_vi_task_lasso_no_filter,
+  bm_nri_task_lasso_no_filter,
+  bm_hr_task_lasso_no_filter,
+  bm_hr_vi_task_lasso_no_filter,
+  bm_hr_nri_task_lasso_no_filter,
+  bm_hr_nri_vi_task_lasso_no_filter,
+
+  bm_vi_task_lrn_lassocv,
+  bm_nri_task_lrn_lassocv,
+  bm_hr_task_lrn_lassocv,
+  bm_hr_vi_task_lrn_lassocv,
+  bm_hr_nri_task_lrn_lassocv,
+  bm_hr_nri_vi_task_lrn_lassocv,
+
   # ridge
-  bm_vi_task_lasso_cmim,
-  bm_nri_task_lasso_cmim,
-  bm_hr_task_lasso_cmim,
-  bm_hr_vi_task_lasso_cmim,
-  bm_hr_nri_task_lasso_cmim,
-  bm_hr_nri_vi_task_lasso_cmim,
+  bm_vi_task_ridge_no_filter,
+  bm_nri_task_ridge_no_filter,
+  bm_hr_task_ridge_no_filter,
+  bm_hr_vi_task_ridge_no_filter,
+  bm_hr_nri_task_ridge_no_filter,
+  bm_hr_nri_vi_task_ridge_no_filter,
+
+  bm_vi_task_lrn_ridgecv,
+  bm_nri_task_lrn_ridgecv,
+  bm_hr_task_lrn_ridgecv,
+  bm_hr_vi_task_lrn_ridgecv,
+  bm_hr_nri_task_lrn_ridgecv,
+  bm_hr_nri_vi_task_lrn_ridgecv
 
 )
 )
