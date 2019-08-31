@@ -91,6 +91,20 @@ log_response = function(data, response) {
   return(data)
 }
 
+#' @title boxcox_response
+#' @description Performs a boxcox transformation on the response variable.
+#'
+#' @param data (`data.frame`)\cr data.frame.
+#' @param response (`character`)\cr Name of response.
+#' @return `data.frame`
+#' @export
+boxcox_response = function(data, response) {
+
+  lambda = 0.7878788
+  data[[response]] = (data[[response]]^lambda - 1) / lambda
+  return(data)
+}
+
 #' @title split_into_feature_sets
 #' @importFrom dplyr select
 #' @description Splits data into feature sets.
