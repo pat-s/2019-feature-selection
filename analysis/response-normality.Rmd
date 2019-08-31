@@ -24,7 +24,7 @@ This document originated from the fear of having a response variable which is no
 
 The response variable looks as follows:
 
-```{r}
+```{r response-normality-1}
 loadd(vi_data)
 library(ggplot2)
 
@@ -34,7 +34,7 @@ ggplot(vi_data, aes(x = defoliation)) +
 
 When applying the [Shapiro-Wilk](https://en.wikipedia.org/wiki/Shapiro%E2%80%93Wilk_test) test we get
 
-```{r}
+```{r response-normality-2}
 shapiro.test(vi_data$defoliation)
 ```
 
@@ -45,7 +45,7 @@ The LASSO "predicted vs. fitted" plot shows limited model power.
 
 ### Lasso model with no transformation of the response variable
 
-```{r}
+```{r response-normality-3}
 loadd(bm_vi_task_lasso_no_filter)
 pred = bm_vi_task_lasso_no_filter$results$`defoliation-a ll-plots-VI`$`Lasso-MBO`$pred
 
@@ -57,7 +57,7 @@ resid = lm(pred$data$truth ~ pred$data$response)
 
 par(mfrow = c(1,2))
 plot(resid, which = c(1:2), ask = FALSE, main = "No Transform")
-par(mfrow = c(1,1)))
+par(mfrow = c(1,1))
 
 
 # without outlier
@@ -71,7 +71,7 @@ par(mfrow = c(1,1))
 
 ### RF model with no transformation of the response variable
 
-```{r}
+```{r response-normality-4}
 loadd(bm_vi_task_rf_no_filter)
 pred_rf = bm_vi_task_rf_no_filter$results$`defoliation-all-plots-VI`$RF$pred
 
@@ -113,7 +113,7 @@ There is a [Stackoverflow question](https://stackoverflow.com/questions/33999512
 
 Applying it on the response of the data.
 
-```{r}
+```{r response-normality-5}
 library(MASS)
 n <- 1759
 x <- runif(n, 1, 5)
@@ -132,7 +132,7 @@ The "W" value is a little less than before.
 
 There is another way to do this via package _car_.
 
-```{r}
+```{r response-normality-6}
 # 2nd approach to estimate lambda for power transformation
 
 # boxcox (0.84)
@@ -142,7 +142,7 @@ shapiro.test(y_new2)
 
 Exploring the residuals of a Lasso model with no transformation of the response variable.
 
-```{r}
+```{r response-normality-7}
 loadd(bm_vi_task_boxcox_lasso_no_filter)
 pred = bm_vi_task_boxcox_lasso_no_filter$results$`defoliation-all-plots-VI`$`Lasso-MBO`$pred
 
@@ -162,7 +162,7 @@ par(mfrow = c(1,1))
 
 A slightly different way is to se the so called "Tukey" transformation instead of the "Box-Cox" transformation.
 
-```{r}
+```{r response-normality-8}
 # tukey trans (0.846)
 y_new3 = y^(car::powerTransform(y)$lambda)
 shapiro.test(y_new3)
@@ -174,14 +174,14 @@ Beforehand we did a log transformation of the data.
 However, since the data is a bit lef-skewed, this was enforced even more by that operation.
 A substantially lower "W" value is the result.
 
-```{r}
+```{r response-normality-9}
 # log transformed response (0.53)
 shapiro.test(log(y))
 ```
 
 Also if we take a look at the residuals, they do not show normality.
 
-```{r}
+```{r response-normality-10}
 loadd(bm_models_vi_task_lasso_no_filter)
 pred_bc = bm_models_vi_task_lasso_no_filter$results$`defoliation-all-plots-VI`$lasso$pred
 
@@ -198,7 +198,7 @@ par(mfrow = c(1,1))
 
 Also the Shapiro test does not look good
 
-```{r}
+```{r response-normality-11}
 shapiro.test(resid$residuals)
 ```
 
@@ -206,7 +206,7 @@ shapiro.test(resid$residuals)
 
 Just for completeness.
 
-```{r}
+```{r response-normality-12}
 y_old = (lambda*y_new1 + 1)^(1/lambda) 
 ```
 

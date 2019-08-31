@@ -427,6 +427,9 @@ div.tocify {
     <li>
       <a href="spectral-signatures.html">Spectral signatures</a>
     </li>
+    <li>
+      <a href="response-normality.html">Checking for normality of response</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -477,7 +480,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2019-08-05
+<strong>Last updated:</strong> 2019-08-31
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -568,10 +571,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontreedf85abaf91b5e819ec6003ea7122bf8e07652a41targetblankdf85abaa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/df85abaf91b5e819ec6003ea7122bf8e07652a41" target="_blank">df85aba</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontreeabd531fc7e657c9ccf8b88605f843792212c4db9targetblankabd531fa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/abd531fc7e657c9ccf8b88605f843792212c4db9" target="_blank">abd531f</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontreedf85abaf91b5e819ec6003ea7122bf8e07652a41targetblankdf85abaa" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontreeabd531fc7e657c9ccf8b88605f843792212c4db9targetblankabd531fa" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -584,6 +587,7 @@ Ignored files:
     Ignored:    .drake/
     Ignored:    analysis/rosm.cache/
     Ignored:    data/
+    Ignored:    inst/Benchmark for Filter Methods for Feature Selection in High-Dimensional  Classification Data.pdf
     Ignored:    inst/study-area-map/study-area.qgs~
     Ignored:    log/
     Ignored:    packrat/lib-R/
@@ -595,94 +599,25 @@ Ignored files:
 
 Untracked files:
     Untracked:  .drake_history/
-    Untracked:  code/98-paper/journal/.travis.yml
-    Untracked:  code/98-paper/journal/10-defol.jpg
-    Untracked:  code/98-paper/journal/20-defol.jpg
-    Untracked:  code/98-paper/journal/30-defol.jpg
-    Untracked:  code/98-paper/journal/40-defol.jpg
-    Untracked:  code/98-paper/journal/60-70-defol.jpg
-    Untracked:  code/98-paper/journal/out.jpg
-    Untracked:  code/98-paper/journal/tic.R
-    Untracked:  inst/Benchmark for Filter Methods for Feature Selection in High-Dimensional  Classification Data.pdf
-    Untracked:  packrat/src/FSelector/
-    Untracked:  packrat/src/FSelectorRcpp/a2e845299099f3b025f5d244828f03fe5f31ac86.tar.gz
-    Untracked:  packrat/src/RWeka/
-    Untracked:  packrat/src/RWekajars/
-    Untracked:  packrat/src/drake/drake_7.5.2.tar.gz
-    Untracked:  packrat/src/entropy/
-    Untracked:  packrat/src/filelock/
-    Untracked:  packrat/src/ggcorrplot/
-    Untracked:  packrat/src/mlr/2c578dc4a2bf43041d5101df881f4d21dddd35bf.tar.gz
-    Untracked:  packrat/src/mlr/57bb7819aee16b317e725b103b8a1ba0d26dc5b2.tar.gz
-    Untracked:  packrat/src/parallelMap/parallelMap_1.4.tar.gz
-    Untracked:  packrat/src/rJava/
-    Untracked:  packrat/src/randomForest/
-    Untracked:  packrat/src/raster/raster_2.9-23.tar.gz
-    Untracked:  packrat/src/rgdal/rgdal_1.4-4.tar.gz
-    Untracked:  packrat/src/sf/sf_0.7-7.tar.gz
-    Untracked:  packrat/src/txtq/
-    Untracked:  test-hyperspec.rda
-    Untracked:  test-out.gri
 
 Unstaged changes:
-    Modified:   .Rprofile
-    Modified:   R/03-fun-hyperspectral.R
-    Modified:   R/06-mlr-paper.R
     Modified:   _drake.R
-    Modified:   code/04-data-preprocessing.R
-    Modified:   code/05-modeling/paper/eda.R
-    Modified:   code/05-modeling/paper/feature-importance.R
-    Modified:   code/05-modeling/paper/param-sets.R
+    Modified:   analysis/eval-performance.Rmd
     Modified:   code/05-modeling/paper/tune-wrapper.R
     Modified:   code/06-benchmark-matrix.R
     Modified:   code/061-aggregate.R
+    Modified:   code/98-paper/ieee/pdf/correlation-filter-nri-1.pdf
+    Modified:   code/98-paper/ieee/pdf/correlation-nbins-1.pdf
     Modified:   code/98-paper/journal/defoliation-distribution-plot-1.pdf
-    Modified:   code/README.md
+    Modified:   code/move-figures.R
+    Modified:   docs/figure/eda.Rmd/defoliation-distribution-plot-1.pdf
+    Modified:   docs/figure/eval-performance.Rmd/performance-results-1.pdf
+    Modified:   docs/figure/filter-correlation.Rmd/correlation-filter-nri-1.pdf
+    Modified:   docs/figure/filter-correlation.Rmd/correlation-nbins-1.pdf
     Deleted:    docs/figure/spectral-signatures.Rmd/spectral-signatures-1.pdf
-    Modified:   packrat/packrat.lock
-    Modified:   packrat/src/BBmisc/a5a4e45197572b02ddbb86c4fbd96dfc0771666e.tar.gz
-    Deleted:    packrat/src/Rcpp/Rcpp_0.12.15.tar.gz
-    Deleted:    packrat/src/Rcpp/Rcpp_0.12.16.tar.gz
-    Deleted:    packrat/src/XML/XML_3.98-1.11.tar.gz
-    Deleted:    packrat/src/backports/backports_1.1.2.tar.gz
-    Deleted:    packrat/src/checkmate/checkmate_1.8.5.tar.gz
-    Deleted:    packrat/src/colorspace/colorspace_1.3-2.tar.gz
-    Deleted:    packrat/src/data.table/data.table_1.10.4-3.tar.gz
-    Deleted:    packrat/src/data.table/data.table_1.11.2.tar.gz
-    Deleted:    packrat/src/digest/digest_0.6.15.tar.gz
-    Deleted:    packrat/src/ggplot2/daba7ab940955d0747d38a4119d6f519eec3a680.tar.gz
-    Deleted:    packrat/src/ggplot2/ggplot2_2.2.1.tar.gz
-    Modified:   packrat/src/ggplot2/ggplot2_3.1.0.tar.gz
-    Deleted:    packrat/src/glue/glue_1.2.0.tar.gz
-    Modified:   packrat/src/glue/glue_1.3.0.tar.gz
-    Modified:   packrat/src/magick/magick_2.0.tar.gz
-    Deleted:    packrat/src/mlr/a2b9b8bf9f1cf5db8baeefd9954ead61cc7c4d73.tar.gz
-    Deleted:    packrat/src/mlr/mlr_2.11.tar.gz
-    Deleted:    packrat/src/pillar/pillar_1.1.0.tar.gz
-    Deleted:    packrat/src/pillar/pillar_1.2.1.tar.gz
-    Modified:   packrat/src/pillar/pillar_1.3.1.tar.gz
-    Deleted:    packrat/src/rgdal/rgdal_1.2-16.tar.gz
-    Deleted:    packrat/src/rgdal/rgdal_1.2-18.tar.gz
-    Deleted:    packrat/src/rgdal/rgdal_1.4-2.tar.gz
-    Deleted:    packrat/src/rgdal/rgdal_1.4-3.tar.gz
-    Deleted:    packrat/src/rlang/ccdbd8b533bd8741d3716978ef3ae986aa1357e7.tar.gz
-    Deleted:    packrat/src/rlang/rlang_0.1.6.tar.gz
-    Deleted:    packrat/src/rlang/rlang_0.3.1.tar.gz
-    Modified:   packrat/src/rlang/rlang_0.3.4.tar.gz
-    Deleted:    packrat/src/sf/be38147405be0cc1161b624a04ee144cb25a8aff.tar.gz
-    Deleted:    packrat/src/sf/sf_0.6-0.tar.gz
-    Deleted:    packrat/src/sf/sf_0.7-2.tar.gz
-    Modified:   packrat/src/sf/sf_0.7-3.tar.gz
-    Deleted:    packrat/src/stringi/stringi_1.1.6.tar.gz
-    Deleted:    packrat/src/stringi/stringi_1.2.2.tar.gz
-    Modified:   packrat/src/stringi/stringi_1.3.1.tar.gz
-    Deleted:    packrat/src/tibble/tibble_1.4.2.tar.gz
-    Modified:   packrat/src/tibble/tibble_2.0.1.tar.gz
-    Modified:   packrat/src/vctrs/vctrs_0.1.0.tar.gz
-    Modified:   packrat/src/versions/de231cb523aa9134a1bd4e947c8204a7a08f3daa.tar.gz
 
 Staged changes:
-    Modified:   _drake.R
+    Modified:   analysis/response-normality.Rmd
 
 </code></pre>
 <p>
@@ -721,6 +656,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pat-s/2019-feature-selection/a60e7c8f7bd317674e7ea995c27c63bb9bdd2010/docs/spectral-signatures.html" target="_blank">a60e7c8</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-08-05
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -1100,7 +1052,12 @@ BLAS: /opt/R/3.5.2/lib64/R/lib/libRblas.so
 LAPACK: /usr/lib64/libopenblaso-r0.3.3.so
 
 locale:
-[1] C
+ [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+ [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+ [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
+ [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
 
 attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
