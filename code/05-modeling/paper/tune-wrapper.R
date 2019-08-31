@@ -78,73 +78,73 @@ xgboost_borda = makeTuneWrapper(filter_wrapper_xgboost_borda, resampling = inner
                                 par.set = ps_xgboost_filter,
                                 control = tune.ctrl_xgboost,
                                 show.info = TRUE, measures = list(rmse)) %>%
-  magrittr::inset("id", "XG Borda")
+  magrittr::inset("id", "XGBoost Borda")
 
 xgboost_info.gain = makeTuneWrapper(filter_wrapper_xgboost_info.gain, resampling = inner,
                                     par.set = ps_xgboost_filter,
                                     control = tune.ctrl_xgboost, show.info = TRUE,
                                     measures = list(rmse)) %>%
-  magrittr::inset("id", "XG Info Gain")
+  magrittr::inset("id", "XGBoost Info Gain")
 
 xgboost_gain.ratio = makeTuneWrapper(filter_wrapper_xgboost_gain.ratio, resampling = inner,
                                      par.set = ps_xgboost_filter,
                                      control = tune.ctrl_xgboost, show.info = TRUE,
                                      measures = list(rmse))%>%
-  magrittr::inset("id", "XG Gain Ratio")
+  magrittr::inset("id", "XGBoost Gain Ratio")
 
 xgboost_relief = makeTuneWrapper(filter_wrapper_xgboost_relief, resampling = inner,
                                  par.set = ps_xgboost_filter,
                                  control = tune.ctrl_xgboost, show.info = TRUE,
                                  measures = list(rmse)) %>%
-  magrittr::inset("id", "XG Relief")
+  magrittr::inset("id", "XGBoost Relief")
 
 xgboost_variance = makeTuneWrapper(filter_wrapper_xgboost_variance, resampling = inner,
                                    par.set = ps_xgboost_filter,
                                    control = tune.ctrl_xgboost, show.info = TRUE,
                                    measures = list(rmse)) %>%
-  magrittr::inset("id", "XG Variance")
+  magrittr::inset("id", "XGBoost Variance")
 
 xgboost_rank.cor = makeTuneWrapper(filter_wrapper_xgboost_rank.cor, resampling = inner,
                                    par.set = ps_xgboost_filter,
                                    control = tune.ctrl_xgboost, show.info = TRUE,
                                    measures = list(rmse)) %>%
-  magrittr::inset("id", "XG Spearman")
+  magrittr::inset("id", "XGBoost Spearman")
 
 xgboost_linear.cor = makeTuneWrapper(filter_wrapper_xgboost_linear.cor, resampling = inner,
                                      par.set = ps_xgboost_filter,
                                      control = tune.ctrl_xgboost, show.info = TRUE,
                                      measures = list(rmse)) %>%
-  magrittr::inset("id", "XG Pearson")
+  magrittr::inset("id", "XGBoost Pearson")
 
 xgboost_mrmr = makeTuneWrapper(filter_wrapper_xgboost_mrmr, resampling = inner,
                                par.set = ps_xgboost_filter,
                                control = tune.ctrl_xgboost, show.info = TRUE,
                                measures = list(rmse)) %>%
-  magrittr::inset("id", "XG MRMR")
+  magrittr::inset("id", "XGBoost MRMR")
 
 xgboost_cmim = makeTuneWrapper(filter_wrapper_xgboost_cmim, resampling = inner,
                                par.set = ps_xgboost_filter,
                                control = tune.ctrl_xgboost, show.info = TRUE,
                                measures = list(rmse)) %>%
-  magrittr::inset("id", "XG CMIM")
+  magrittr::inset("id", "XGBoost CMIM")
 
 xgboost_carscore = makeTuneWrapper(filter_wrapper_xgboost_carscore, resampling = inner,
                                    par.set = ps_xgboost_filter,
                                    control = tune.ctrl_xgboost, show.info = TRUE,
                                    measures = list(rmse)) %>%
-  magrittr::inset("id", "XG Car")
+  magrittr::inset("id", "XGBoost Car")
 
 xgboost_no_filter = makeTuneWrapper(lrn_xgboost, resampling = inner,
                                     par.set = ps_xgboost,
                                     control = tune.ctrl_xgboost, show.info = TRUE,
                                     measures = list(rmse)) %>%
-  magrittr::inset("id", "XG")
+  magrittr::inset("id", "XGBoost")
 
 xgboost_pca = makeTuneWrapper(pca_wrapper_xgboost, resampling = inner,
                               par.set = ps_xgboost_pca,
                               control = tune.ctrl_xgboost, show.info = TRUE,
                               measures = list(rmse)) %>%
-  magrittr::inset("id", "XG PCA")
+  magrittr::inset("id", "XGBoost PCA")
 
 # Random Forest -----------------------------------------------------------
 
