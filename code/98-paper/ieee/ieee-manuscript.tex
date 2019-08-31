@@ -879,7 +879,7 @@ The combined approach is called "elastic net" but was not used in this work.
 \subsubsection{Hyperparameter Optimization}
 
 \noindent An exhaustive hyperparameter tuning was applied during nested spatial \ac{CV} for all algorithms.
-Maximum Bayesian Optimization \cite{mlrmbo} was used for parameter optimization.
+Maximum Bayesian Optimization \cite{mlrmbo} (MBO) was used for parameter optimization.
 This approach first composes \textit{n} randomly chosen hyperparameter settings out of a user defined search space.
 After these \textit{n} tries have been evaluated, a new hyperparameter setting, which is going to be evaluated next, is proposed based on a fitted regression model.
 The regression model estimates the performance of the machine-learning method for unknown hyperparameter settings.
@@ -888,6 +888,7 @@ This strategy continues until a termination criterion, defined by the user, is r
 An initial design of 30 randomly composed hyperparameter settings and a termination criterion of 70 iterations was used, resulting in a total budget of 100 evaluated hyperparameter settings per fold.
 The advantage of this tuning approach is the substantial reduction of the tuning budget required to find a setting which is close to the global minimum
 This applies when being compared to methods that do not use information from previous runs, such as random search or grid search \cite{bergstra2012}.
+In addition to MBO, the penalization term of Lasso and Ridge was optimized using the internal non-spatial CV approach due to promising results in other applications.
 
 For the filter methods, the percentage of features was added to the models as a hyperparameter.
 The number of main components was tuned for the instances which used \ac{PCA} instead of filtering.
@@ -906,9 +907,10 @@ For the inner level (hyperparameter tuning), $p - 1$ folds were used (with $p$ b
 In total the benchmarking matrix consisted of 120 experiments (3 feature sets, 5 algorithms, 8 feature-selection methods).
 
 \subsection{Calculation of model feature importance}
-\noindent A permutation-based feature importance estimation was done for the best algorithm of each feature set and filter method, respectively.
-This method caluclates the loss of predictive performance for each feature by permuting it in a random manner.
+\noindent A permutation-based feature importance estimation was conducted for the best algorithm of each feature set and filter method, respectively.
+This method calculates the loss of predictive performance for each feature by permuting it in a random manner.
 The more important the feature is for the model, the higher the loss in the used error measure will be, reflecting the importance of the specific feature for the current model.
+To balance both runtime and variance reduction, we opted for 25 iterations of each feature permutation.
 
 \subsection{Linking feature importance to wavelength regions}
 \noindent For ecological interpretation purposes we linked the ten most important indices of the winning models for each feature set to the spectral regions of the hyperspectral data.
@@ -974,6 +976,8 @@ Comparing absolute values, filters "Carscore", "Information gain" and the "Borda
 		\label{fig:perf-result}
 	\end{center}
 \end{figure}
+
+\subsection{Permutation-based variable importance}
 \section{Discussion}
 
 \subsection{Derivation of indices}
