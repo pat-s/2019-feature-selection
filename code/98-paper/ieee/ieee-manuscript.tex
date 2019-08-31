@@ -927,9 +927,37 @@ This study is available as a research compendium on Zenodo (\url{10.5281/zenodo.
 
 \section{Results}
 
-\subsection{Predictive performance}
+\subsection{Predictive performance - general}
+
+% - results across tasks show no substantial difference
+% - RMSE around 34
+% MBO tuned penalized methods are substantially worse
+% Carscore, Info und Borda were at least once among the best combination for a learner
+% RF Car is the overall winner
+% Ridge-CV hit and miss (hit = NRI, miss = VI)
+% all MBO penalized methods have no difference across tasks
+
+\noindent No practical differences in RMSE were observed among the feature sets (\autoref{fig:perf-result}).
+SVM showed the lowest error in four out of six tasks.
+A noticable difference between SVM and all other learners was visible in all feature sets without NRI variables (difference around 3-4 RMSE).
+
+In all tasks with NRI variables, the difference was either relatively small (0.2, HR-NRI-VI) or another learner achieved a better result (NRI, Ridge-CV).
+Overall, the response variable defoliation at trees could be modeled with an error of 34 \%.
+Learner RF in combination with a Carscore filter scored the absolute lowest error on the NRI task with a RMSE of 3.396.
+
+L1 penalized regression showed slightly better results in three out of six tasks when being optimized using the package internal 10-fold CV (50 vs 58 RMSE).
+Regression with Ridge penalty showed a high variance when comparing results across tasks: In three out of six tasks (all including VI variables) the error was too high to be visualized (HR-NRI-VI; HR-VI, VI), for HR-NRI and HR the error was medium (around 40 RMSE), and for task NRI Ridge regression achieved almost the same score as the best performing model (3.39 RMSE, NRI).
+All penalized methods which were tuned using MBO show exactly the same error across all tasks.
 
 
+\begin{figure} [t!]
+\centering
+	\begin{center}
+		\includegraphics[width=0.5\textwidth] {performance-results-1.pdf}
+        \caption{Scored predictive performance (RMSE) of models across tasks. Prefix "CV" denotes that the learner was optimized using internal 10-fold CV while prefix "MBO" means that Bayesian optimization was used for hyperparameter optimization. The abbreviations on the y-axis refer to the combinations of feature sets on which each model was scored on. Labels attached to each point in space show which filter method was used for scoring features during the feature selection process (NF = no filter, Car = "Carscore", Info = "Information Gain", Borda = "Borda"). The second value in the attached label of each point shows the scored RMSE value of the respective setting.}
+		\label{fig:perf-result}
+	\end{center}
+\end{figure}
 \section{Discussion}
 
 \subsection{Derivation of indices}
