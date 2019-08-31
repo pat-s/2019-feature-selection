@@ -6,7 +6,9 @@ reports_plan_paper = drake_plan(
 
   filter_correlations_wfr = wflow_publish(knitr_in("analysis/filter-correlation.Rmd"), view = FALSE, verbose = TRUE),
 
-  eval_performance = wflow_publish(knitr_in("analysis/eval-performance.Rmd"), view = FALSE, verbose = TRUE)
+  eval_performance = wflow_publish(knitr_in("analysis/eval-performance.Rmd"), view = FALSE, verbose = TRUE),
+
+  response_normality = wflow_publish(knitr_in("analysis/response-normality.Rmd"), view = FALSE, verbose = TRUE)
 )
 
 reports_plan_project = drake_plan(
