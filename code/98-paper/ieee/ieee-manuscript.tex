@@ -927,28 +927,44 @@ This study is available as a research compendium on Zenodo (\url{10.5281/zenodo.
 
 \section{Results}
 
-\subsection{Predictive performance - general}
+\subsection{Predictive performance}
 
-% - results across tasks show no substantial difference
 % - RMSE around 34
-% MBO tuned penalized methods are substantially worse
-% Carscore, Info und Borda were at least once among the best combination for a learner
-% RF Car is the overall winner
-% Ridge-CV hit and miss (hit = NRI, miss = VI)
-% all MBO penalized methods have no difference across tasks
-
+% - MBO tuned penalized methods are substantially worse
+% - Carscore, Info und Borda were at least once among the best combination for a learner
 \noindent No practical differences in RMSE were observed among the feature sets (\autoref{fig:perf-result}).
 SVM showed the lowest error in four out of six tasks.
-A noticable difference between SVM and all other learners was visible in all feature sets without NRI variables (difference around 3-4 RMSE).
+Overall, the response variable "defoliation at trees" could be modeled with an error of 34 \%.
 
-In all tasks with NRI variables, the difference was either relatively small (0.2, HR-NRI-VI) or another learner achieved a better result (NRI, Ridge-CV).
-Overall, the response variable defoliation at trees could be modeled with an error of 34 \%.
-Learner RF in combination with a Carscore filter scored the absolute lowest error on the NRI task with a RMSE of 3.396.
+% tasks
+% - no substantial difference between feature sets
+% - combining feature sets makes no difference
+% - expert based feature sets show no better result than data-driven ones
+% - penalized methods seem to have problems with VI feature set
+No practical difference was observed between feature sets.
+The combination of feature sets showed no increase in performance.
+All learners scored evenly across all tasks.
+Feature sets containing expert-based variables (VI) showed no substantial difference to data-driven tasks (NRI).
 
-L1 penalized regression showed slightly better results in three out of six tasks when being optimized using the package internal 10-fold CV (50 vs 58 RMSE).
-Regression with Ridge penalty showed a high variance when comparing results across tasks: In three out of six tasks (all including VI variables) the error was too high to be visualized (HR-NRI-VI; HR-VI, VI), for HR-NRI and HR the error was medium (around 40 RMSE), and for task NRI Ridge regression achieved almost the same score as the best performing model (3.39 RMSE, NRI).
-All penalized methods which were tuned using MBO show exactly the same error across all tasks.
+% learner
+% - RF Car is the overall winner
+% - Ridge-CV hit and miss (hit = NRI, miss = VI)
+% - all MBO penalized methods have no difference across tasks
+Random Forest combined with the "Carscore" filter showed the best absolute performance (RMSE of 3.396).
+A noticable difference between SVM and all other learners was visible for all feature sets without NRI variables (difference in RMSE of 3-4).
+L1 penalized regression showed slightly better results in three out of six tasks when being optimized using the package internal 10-fold CV compared to MBO (RMSE of 50 vs 58).
+Regression with Ridge penalty showed a high variance when comparing results across tasks: In three out of six tasks (all including VI variables) the error was out of bounds (HR-NRI-VI; HR-VI, VI), for HR-NRI and HR the error was medium (around 40 RMSE), and for task NRI Ridge regression achieved almost the same score as the best performing model (3.39 RMSE, NRI).
+All penalized methods tuned using MBO showed exactly the same error across all tasks.
 
+% filters
+% - influence varies based on algorithm
+% - no substantial improvement on these datasets compared to no filter
+% - no substantial descrese in performance
+% - no advantage of ensemble borda filter compared to others
+Differences between filter methods were neglibly small in this study.
+Ensemble filters showed no substantial difference to simple filter methods.
+However, there was also no change to worse when using filter methods compared to using none.
+Comparing absolute values, filters "Carscore", "Information gain" and the "Borda" ensemble filter scored the best results across all learners and tasks.
 
 \begin{figure} [t!]
 \centering
