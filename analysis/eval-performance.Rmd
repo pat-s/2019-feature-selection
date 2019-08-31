@@ -34,11 +34,11 @@ library("ggsci")
 library("ggpubr")
 ```
 
-### Aggregated performances
+## (Table) All leaner/filter/task combinations ordered by performance.
 
-#### (Table) All leaner/filter/task combinations ordered by performance.
+Taking into account all tasks, learners and filters: Who won?
 
-```{r eval-performance-1}
+```{r eval-performance-1, warning=FALSE}
 getBMRAggrPerformances(bm_aggregated, as.df = TRUE) %>%
   mutate(task.id = recode_factor(task.id,
     `defoliation-all-plots-HR` = "HR",
@@ -60,9 +60,11 @@ getBMRAggrPerformances(bm_aggregated, as.df = TRUE) %>%
   knitr::kable()
 ```
 
-#### (Table) Best learner/filter/task combination
+## (Table) Best learner/filter/task combination
 
-```{r eval-performance-2}
+Learners: On which task and using which filter did every learner score their best result on?
+
+```{r eval-performance-2, warning=FALSE}
 getBMRAggrPerformances(bm_aggregated, as.df = TRUE) %>%
   tidyr::separate(learner.id, c("learner_group", "filter"),
     remove = FALSE,
@@ -76,7 +78,7 @@ getBMRAggrPerformances(bm_aggregated, as.df = TRUE) %>%
   knitr::kable()
 ```
 
-#### (Plot) Best learner/filter combs for all tasks
+## (Plot) Best learner/filter combs for all tasks
 
 ```{r performance-results, warning=FALSE, dev = c("png", "pdf")}
 results_aggr <- getBMRAggrPerformances(bm_aggregated, as.df = TRUE) %>%
@@ -105,7 +107,7 @@ results_aggr %>%
   ggplot(aes(x = rmse.test.rmse, y = task.id)) +
   geom_point(aes(color = learner_group), size = 2.5) +
   scale_color_nejm(breaks = sort(levels(results_aggr$learner_group))) +
-  labs(x = "RMSE log(x)", y = "Task", color = "Learner") +
+  labs(x = "RMSE", y = "Task", color = "Learner") +
   guides(size = FALSE) +
   scale_x_continuous(limits = c(30, 70)) +
   # geom_label_repel(
@@ -117,4 +119,75 @@ results_aggr %>%
     size = 2.8
   ) +
   theme_pubr()
+```
+
+## (Plot) Best filter combination of each learner vs. no filter per task
+
+Showing the final effect of applying feature selection to a learner for each task.
+
+```{r filter-effect, warning=FALSE, dev = c("png", "pdf")}
+# we rbind two filtered data.frames
+# doign the filtering in one step is complicated here
+
+
+best_filter = getBMRAggrPerformances(bm_aggregated, as.df = TRUE) %>%
+  mutate(task.id = recode_factor(task.id,
+    `defoliation-all-plots-HR` = "HR",
+    `defoliation-all-plots-VI` = "VI",
+    `defoliation-all-plots-NRI` = "NRI",
+    `defoliation-all-plots-HR-NRI` = "HR-NRI",
+    `defoliation-all-plots-HR-VI` = "HR-VI",
+    `defoliation-all-plots-HR-NRI-VI` = "HR-NRI-VI",
+    
+  )) %>%
+  tidyr::separate(learner.id, c("learner_group", "filter"),
+    remove = FALSE,
+    sep = " "
+  ) %>%
+  mutate(filter = replace(filter, is.na(filter), "No Filter")) %>%
+  dplyr::filter(filter != "No Filter")  %>%
+  group_by(learner_group, task.id) %>% 
+  dplyr::filter(learner_group == "SVM" | learner_group == "RF") %>%
+  slice(which.min(rmse.test.rmse))
+    
+best_no_filter = getBMRAggrPerformances(bm_aggregated, as.df = TRUE) %>%
+  mutate(task.id = recode_factor(task.id,
+    `defoliation-all-plots-HR` = "HR",
+    `defoliation-all-plots-VI` = "VI",
+    `defoliation-all-plots-NRI` = "NRI",
+    `defoliation-all-plots-HR-NRI` = "HR-NRI",
+    `defoliation-all-plots-HR-VI` = "HR-VI",
+    `defoliation-all-plots-HR-NRI-VI` = "HR-NRI-VI",
+    
+  )) %>%
+  tidyr::separate(learner.id, c("learner_group", "filter"),
+    remove = FALSE,
+    sep = " "
+  ) %>%
+  mutate(filter = replace(filter, is.na(filter), "No Filter")) %>%
+  dplyr::filter(filter == "No Filter")  %>%
+  group_by(learner_group, task.id) %>% 
+  dplyr::filter(learner_group == "SVM" | learner_group == "RF") %>%
+  slice(which.min(rmse.test.rmse))
+    
+comb = bind_rows(best_filter, best_no_filter)
+  
+comb %>% 
+  ggplot(aes(x = rmse.test.rmse, y = learner_group)) +
+  geom_jitter(aes(color = filter), size = 2.5, width=0, height = 0.2) +
+  facet_wrap(~ task.id) +
+  scale_color_nejm() +
+  labs(x = "RMSE", y = "Task", color = "Filter") +
+  guides(size = FALSE) +
+  scale_x_continuous(limits = c(30, 45)) +
+  # geom_label_repel(
+  #   label = round(results_aggr$rmse.test.rmse, 3),
+  #   size = 3, nudge_y = 0.3
+  # ) +
+  # geom_label_repel(
+  #   label = paste(comb$task.id),
+  #   size = 2.8
+  # ) +
+  theme_pubr() +
+  theme(panel.grid.major.y = element_line(size = 0.1, linetype = "dashed"))
 ```
