@@ -54,8 +54,6 @@
 % The testflow support page is at:
 % http://www.michaelshell.org/tex/testflow/
 
-
-
 \documentclass[letterpaper, journal]{IEEEtran}
 %
 % If IEEEtran.cls has not been installed into the LaTeX system files,
@@ -365,9 +363,10 @@
 \author{Patrick~Schratz,~\IEEEmembership{Member,~IEEE,}
         Jannes~Muenchow,~\IEEEmembership{Member,~IEEE,}
         Eugenia Iturritxa,~\IEEEmembership{Member,~IEEE,}
+        José Cortés, ~\IEEEmembership{Member,~IEEE,}
         Bernd~Bischl,~\IEEEmembership{Member,~IEEE,}
         and Alexander~Brenning,~\IEEEmembership{Member,~IEEE}
-\thanks{P. Schratz, J. Muenchow and A. Brenning are with the Department
+\thanks{P. Schratz, J. Muenchow, J. Cortés and A. Brenning are with the Department
 of Geography, GIScience group, Friedrich-Schiller-University of Jena, Germany.}% <-this % stops a space
 \thanks{B. Bischl is head of the computational statistics group at the Department of Statistics, Ludwig-Maximilian-University Munich.}% <-this % stops a space
 \thanks{E. Iturritxa is with NEIKER Tecnalia, Vitoria-Gasteiz, Arab, Spain.}% <-this % stops a space
@@ -994,7 +993,7 @@ Another critical point is that the exact number of contributing pixels to the fi
 As the buffer is circular, determining the total number of contributing pixels depends on the exact location of a tree within that pixel as this sets the base how many pixels in each direction will be touched by the buffer.
 If a tree observation is located at the border of the plot, some directions of the buffer will contain no values and the subsequent index value will be calculated using less pixels than if the tree observation is located in the middle of the plot.
 
-The magniute of bias introduced by these facts cannot be quantified.
+The magnitude of bias introduced by these facts cannot be quantified.
 However, it has to be considered when making interpretations about the outcome of this study.
 
 \subsection{Performance vs. plot characteristics}
@@ -1008,7 +1007,14 @@ However, it has to be considered when making interpretations about the outcome o
 
 \subsection{Feature selection methods}
 
+% - Ensemble FS show no advantage to simple methods -> maybe to less features, features too correlated? check diff between effect on NRI and VI
+% - Effect varies across learnes -> suggest to use FS even on feature sets with p < 100?
+% - When calculating multiple filters, consider to only use ensemble filter?
+% - PCA shows similar performance but probably requires tuning of main components -> check runtime!
+
 \subsubsection{Variable importance vs. filter methods}
+
+WIP
 
 \subsubsection{Ecological Interpretation}
 
