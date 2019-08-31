@@ -78,7 +78,7 @@ getBMRAggrPerformances(bm_aggregated, as.df = TRUE) %>%
 
 #### (Plot) Best learner/filter combs for all tasks
 
-```{r eval-performance-3}
+```{r performance-results, warning=FALSE, dev = c("png", "pdf")}
 results_aggr <- getBMRAggrPerformances(bm_aggregated, as.df = TRUE) %>%
   mutate(task.id = recode_factor(task.id,
     `defoliation-all-plots-HR` = "HR",
@@ -88,23 +88,33 @@ results_aggr <- getBMRAggrPerformances(bm_aggregated, as.df = TRUE) %>%
     `defoliation-all-plots-HR-VI` = "HR-VI",
     `defoliation-all-plots-HR-NRI-VI` = "HR-NRI-VI",
   )) %>%
-  tidyr::separate(learner.id, c("learner_group"),
+  tidyr::separate(learner.id, c("learner_group", "filter"),
     remove = FALSE,
     sep = " "
   ) %>%
+  mutate(filter = replace(filter, is.na(filter), "NF")) %>%
+  mutate(learner_group = recode_factor(learner_group, `XG` = "XGBOOST")) %>% 
   group_by(learner_group, task.id) %>%
-  summarise(best = min(rmse.test.rmse))
+  # get the best performance per learner and task
+  # this is better than summarise() because we can keep additional columns
+  # in constrast to summariuse which only keeps the grouping columns and the
+  # summarised one
+  slice(which.min(rmse.test.rmse))
 
 results_aggr %>%
-  ggplot(aes(x = best, y = task.id)) +
-  geom_point(aes(color = learner_group, size = 1.7)) +
-  scale_color_nejm() +
-  labs(x = "RMSE", y = "Task", color = "Learner") +
+  ggplot(aes(x = rmse.test.rmse, y = task.id)) +
+  geom_point(aes(color = learner_group), size = 2.5) +
+  scale_color_nejm(breaks = sort(levels(results_aggr$learner_group))) +
+  labs(x = "RMSE log(x)", y = "Task", color = "Learner") +
   guides(size = FALSE) +
-  scale_x_continuous(limits = c(1.8, 4)) +
+  scale_x_continuous(limits = c(30, 70)) +
+  # geom_label_repel(
+  #   label = round(results_aggr$rmse.test.rmse, 3),
+  #   size = 3, nudge_y = 0.3
+  # ) +
   geom_label_repel(
-    label = round(results_aggr$best, 3),
-    size = 3, nudge_y = 0.3
+    label = paste(results_aggr$filter,",",round(results_aggr$rmse.test.rmse, 3)),
+    size = 2.8
   ) +
   theme_pubr()
 ```
