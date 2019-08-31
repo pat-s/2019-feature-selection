@@ -24,7 +24,13 @@ lrn_svm <- makeLearner(
 
 # LASSO ---------------------------------------------------------------------
 
-lrn_lasso <- makeLearner("regr.glmnet", id = "lasso",
+lrn_lasso <- makeLearner("regr.glmnet", id = "Lasso-MBO",
+                         alpha = 1,
+                         standardize = FALSE,
+                         intercept = FALSE
+)
+
+lrn_lassocv <- makeLearner("regr.cvglmnet", id = "Lasso-CV",
                          alpha = 1,
                          standardize = FALSE,
                          intercept = FALSE
@@ -32,7 +38,12 @@ lrn_lasso <- makeLearner("regr.glmnet", id = "lasso",
 
 # RIDGE ---------------------------------------------------------------------
 
-lrn_ridge = makeLearner("regr.glmnet", id = "ridge",
+lrn_ridge = makeLearner("regr.glmnet", id = "Ridge-MBO",
+                        alpha = 0,
+                        standardize = FALSE,
+                        intercept = FALSE)
+
+lrn_ridgecv = makeLearner("regr.cvglmnet", id = "Ridge-CV",
                         alpha = 0,
                         standardize = FALSE,
                         intercept = FALSE)
