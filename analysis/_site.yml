@@ -25,6 +25,8 @@ navbar:
       href: feature-importance.html
     - text: "Spectral signatures"
       href: spectral-signatures.html
+    - text: "Checking for normality of response"
+      href: response-normality.html
   - text: Timeline
     href: timeline.html
 

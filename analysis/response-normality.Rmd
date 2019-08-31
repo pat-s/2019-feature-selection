@@ -1,0 +1,212 @@
+---
+title: "Checking for normality of response variable"
+output: 
+  workflowr::wflow_html:
+    includes:
+      in_header: header.html
+editor_options:
+  chunk_output_type: console
+author: "Patrick Schratz"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  fig.retina = 3,
+  fig.align = "center",
+  fig.width = 6.93,
+  fig.height = 6.13,
+  out.width = "100%",
+  echo = FALSE
+)
+```
+
+This document originated from the fear of having a response variable which is not normally distributed "enough".
+
+The response variable looks as follows:
+
+```{r}
+loadd(vi_data)
+library(ggplot2)
+
+ggplot(vi_data, aes(x = defoliation)) + 
+  geom_histogram(bins = 30)
+```
+
+When applying the [Shapiro-Wilk](https://en.wikipedia.org/wiki/Shapiro%E2%80%93Wilk_test) test we get
+
+```{r}
+shapiro.test(vi_data$defoliation)
+```
+
+## Exploring model residuals 
+
+Visualizing model residuals of LASSO and RF to see how they differ.
+The LASSO "predicted vs. fitted" plot shows limited model power.
+
+### Lasso model with no transformation of the response variable
+
+```{r}
+loadd(bm_vi_task_lasso_no_filter)
+pred = bm_vi_task_lasso_no_filter$results$`defoliation-a ll-plots-VI`$`Lasso-MBO`$pred
+
+# fit lm of y and ŷ 
+resid = lm(pred$data$truth ~ pred$data$response)
+
+# https://stats.stackexchange.com/a/53257/101464
+# plot(density(resid(resid)))
+
+par(mfrow = c(1,2))
+plot(resid, which = c(1:2), ask = FALSE, main = "No Transform")
+par(mfrow = c(1,1)))
+
+
+# without outlier
+resid1 = resid
+resid1$fitted.values[1526] = NA
+
+par(mfrow = c(1,2))
+plot(resid1, which = c(1:2), ask = FALSE, main = "No Transform")
+par(mfrow = c(1,1))
+```
+
+### RF model with no transformation of the response variable
+
+```{r}
+loadd(bm_vi_task_rf_no_filter)
+pred_rf = bm_vi_task_rf_no_filter$results$`defoliation-all-plots-VI`$RF$pred
+
+# fit lm of y and ŷ 
+resid_rf = lm(pred$data$truth ~ pred$data$response)
+
+# https://stats.stackexchange.com/a/53257/101464
+# plot(density(resid(resid)))
+
+par(mfrow = c(1,2))
+plot(resid_rf, which = c(1:2), ask = FALSE, main = "No Transform")
+par(mfrow = c(1,1))
+
+
+# without outlier
+resid_rf1 = resid_rf
+resid1_rf$fitted.values[1526] = NA
+
+par(mfrow = c(1,2))
+plot(resid1, which = c(1:2), ask = FALSE, main = "No Transform")
+par(mfrow = c(1,1))
+```
+
+# Variable Transformations
+
+The following transformations of the response variable were done to check if it they have an effect on the "residuals vs. fitted" and "QQ-Plot" shown above.
+
+## Power transformation
+
+One option to enforce more normality of a variable is by applying a power transformation.
+The [Box-Cox](https://en.wikipedia.org/wiki/Power_transform#Box%E2%80%93Cox_transformation) power transformation estimates a lambda value from the variable.
+Next, the transformation can be applied via
+
+$$(y^lambda - 1) / lambda$$
+
+There is a [Stackoverflow question](https://stackoverflow.com/questions/33999512/how-to-use-the-box-cox-power-transformation-in-r) that shows how to do this. 
+
+### Box-Cox Transformation
+
+Applying it on the response of the data.
+
+```{r}
+library(MASS)
+n <- 1759
+x <- runif(n, 1, 5)
+y = vi_data$defoliation
+
+# 1st approach to estimate lambda for power transformation
+bc <- boxcox(y ~ x)
+(lambda <- bc$x[which.max(bc$y)])
+
+# apply power transform (boxcox)
+y_new1 = (y^lambda - 1) / lambda
+shapiro.test(y_new1)
+```
+
+The "W" value is a little less than before.
+
+There is another way to do this via package _car_.
+
+```{r}
+# 2nd approach to estimate lambda for power transformation
+
+# boxcox (0.84)
+y_new2 = (y^(car::powerTransform(y)$lambda) - 1) / car::powerTransform(y)$lambda
+shapiro.test(y_new2)
+```
+
+Exploring the residuals of a Lasso model with no transformation of the response variable.
+
+```{r}
+loadd(bm_vi_task_boxcox_lasso_no_filter)
+pred = bm_vi_task_boxcox_lasso_no_filter$results$`defoliation-all-plots-VI`$`Lasso-MBO`$pred
+
+# fit lm of y and ŷ 
+resid = lm(pred$data$truth ~ pred$data$response)
+
+# https://stats.stackexchange.com/a/53257/101464
+# plot(density(resid(resid)))
+
+# residuals vs. fitted & QQ plot
+par(mfrow = c(1,2))
+plot(resid, which = c(1:2), ask = FALSE, main = "No Transform")
+par(mfrow = c(1,1))
+```
+
+### Tukey Transformation
+
+A slightly different way is to se the so called "Tukey" transformation instead of the "Box-Cox" transformation.
+
+```{r}
+# tukey trans (0.846)
+y_new3 = y^(car::powerTransform(y)$lambda)
+shapiro.test(y_new3)
+```
+
+## Log transform
+
+Beforehand we did a log transformation of the data.
+However, since the data is a bit lef-skewed, this was enforced even more by that operation.
+A substantially lower "W" value is the result.
+
+```{r}
+# log transformed response (0.53)
+shapiro.test(log(y))
+```
+
+Also if we take a look at the residuals, they do not show normality.
+
+```{r}
+loadd(bm_models_vi_task_lasso_no_filter)
+pred_bc = bm_models_vi_task_lasso_no_filter$results$`defoliation-all-plots-VI`$lasso$pred
+
+# fit lm of y and ŷ 
+resid_bc  = lm(pred_bc $data$truth ~ pred$data$response)
+
+# https://stats.stackexchange.com/a/53257/101464
+# plot(density(resid(resid_bc)))
+
+par(mfrow = c(1,2))
+plot(resid_bc, which = c(1:2), ask = FALSE, main = "Boxcox")
+par(mfrow = c(1,1))
+```
+
+Also the Shapiro test does not look good
+
+```{r}
+shapiro.test(resid$residuals)
+```
+
+## Inverse Box-Cox Transformation
+
+Just for completeness.
+
+```{r}
+y_old = (lambda*y_new1 + 1)^(1/lambda) 
+```
+
