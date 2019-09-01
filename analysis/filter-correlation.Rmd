@@ -19,7 +19,7 @@ knitr::opts_chunk$set(
   echo = FALSE
 )
 
-#source(here::here("code/99-packages.R"))
+# source(here::here("code/99-packages.R"))
 library("dplyr")
 library("tidyr")
 library("ggcorrplot")
@@ -35,28 +35,28 @@ drake::loadd(
   fv_nri_rank, fv_nri_cor,
   fv_nri_mrmr,
   fv_nri_cmim, fv_nri_var,
-  
+
   fv_vi_car, fv_vi_info.gain, fv_vi_gain.ratio,
   fv_vi_symuncert, fv_vi_relief,
   fv_vi_rank, fv_vi_cor,
   fv_vi_mrmr,
   fv_vi_cmim, fv_vi_var,
-  
+
   fv_hr_car, fv_hr_info.gain, fv_hr_gain.ratio,
   fv_hr_symuncert, fv_hr_relief,
   fv_hr_rank, fv_hr_cor,
   fv_hr_mrmr,
   fv_hr_cmim, fv_hr_var,
-  
-  
+
+
   fv_hr_info.gain5, fv_hr_info.gain10,
   fv_hr_info.gain15, fv_hr_info.gain20,
   fv_hr_info.gain25, fv_hr_info.gain30,
-  
+
   fv_vi_info.gain5, fv_vi_info.gain10,
   fv_vi_info.gain15, fv_vi_info.gain20,
   fv_vi_info.gain25, fv_vi_info.gain30,
-  
+
   fv_nri_info.gain5, fv_nri_info.gain10,
   fv_nri_info.gain15, fv_nri_info.gain20,
   fv_nri_info.gain25, fv_nri_info.gain30
@@ -98,10 +98,10 @@ corr <- cor(fv_all, method = "spearman")
 # p.mat = cor_pmat(corr)
 
 ggcorrplot(corr,
-           # p.mat = p.mat,
-           hc.order = F,
-           type = "lower",
-           lab = TRUE
+  # p.mat = p.mat,
+  hc.order = F,
+  type = "lower",
+  lab = TRUE
 )
 ```
 
@@ -109,29 +109,33 @@ ggcorrplot(corr,
 
 ```{r correlation-nbins, warning=FALSE, dev = c("png", "pdf")}
 # recode levels so that they are unique
-fv_all_list = map2(list(fv_vi_info.gain5$data, fv_vi_info.gain10$data,
-  fv_vi_info.gain15$data, fv_vi_info.gain20$data,
-  fv_vi_info.gain25$data, fv_vi_info.gain30$data),
+fv_all_list <- map2(
+  list(
+    fv_vi_info.gain5$data, fv_vi_info.gain10$data,
+    fv_vi_info.gain15$data, fv_vi_info.gain20$data,
+    fv_vi_info.gain25$data, fv_vi_info.gain30$data
+  ),
   list(5, 10, 15, 20, 25, 30), ~
-    dplyr::mutate(.x, method = recode(.x$method, FSelectorRcpp_information.gain = glue("FSelectorRcpp_information.gain-{.y}"))))
+  dplyr::mutate(.x, method = recode(.x$method, FSelectorRcpp_information.gain = glue("FSelectorRcpp_information.gain-{.y}")))
+)
 
 fv_all <- dplyr::bind_rows(
   fv_all_list
-)  %>%
+) %>%
   dplyr::select(value, method) %>%
   mutate(id = rep(1:89, 6)) %>%
   tidyr::spread(method, value) %>%
   mutate_if(is.numeric, list(~ na_if(., -Inf))) %>% # Inf in mrmr
-  na.omit() %>% 
+  na.omit() %>%
   dplyr::select(-id)
 
 corr <- cor(fv_all, method = "spearman")
 
 ggcorrplot(corr,
-           # p.mat = p.mat,
-           hc.order = F,
-           type = "lower",
-           lab = TRUE
+  # p.mat = p.mat,
+  hc.order = F,
+  type = "lower",
+  lab = TRUE
 )
 ```
 
@@ -162,10 +166,10 @@ corr <- cor(fv_all, method = "spearman")
 p.mat <- cor_pmat(corr)
 
 ggcorrplot(corr,
-           # p.mat = p.mat,
-           hc.order = FALSE,
-           type = "lower",
-           lab = TRUE
+  # p.mat = p.mat,
+  hc.order = FALSE,
+  type = "lower",
+  lab = TRUE
 )
 ```
 
@@ -196,10 +200,10 @@ corr <- cor(fv_all, method = "spearman")
 p.mat <- cor_pmat(corr)
 
 ggcorrplot(corr,
-           # p.mat = p.mat,
-           hc.order = F,
-           type = "lower",
-           lab = TRUE
+  # p.mat = p.mat,
+  hc.order = F,
+  type = "lower",
+  lab = TRUE
 )
 ```
 

@@ -7,7 +7,7 @@ plot_locations <- download_locations("https://zenodo.org/record/2642139/files/pl
 tree_per_tree <- download_trees("https://zenodo.org/record/2642139/files/tree-in-situ-data.zip") %>%
   set_names(c("laukiz1", "laukiz2", "luiando", "oiartzun"))
 
-forest_mask = download_forest_mask("https://zenodo.org/record/2653713/files/forest_mask.gpkg")
+forest_mask <- download_forest_mask("https://zenodo.org/record/2653713/files/forest_mask.gpkg")
 
 name_id <- c(
   "a busturi-axpe", "Laukiz I", "Laukiz II", "Laukiz III", "a altube",

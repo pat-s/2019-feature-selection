@@ -16,7 +16,7 @@ mask_mosaic(image_mosaic, cloud_mosaic, aoi, forest_mask)
 \item{forest_mask}{Forest/Non-forest mask}
 }
 \value{
-aoi of stacked raster files (Bricks)
+(\code{list}) File names of masked mosaics for each year
 }
 \description{
 Mask the mosaic

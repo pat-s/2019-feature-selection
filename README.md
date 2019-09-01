@@ -4,6 +4,6 @@
 [![Licence](https://img.shields.io/github/license/mashape/apistatus.svg)](http://choosealicense.com/licenses/mit/)
 [![Travis-CI Build Status](https://travis-ci.org/pat-s/2019-feature-selection.png?branch=master)](https://travis-ci.org/pat-s/2019-feature-selection)
 
-**Modeling defoliation as a proxy for tree health: Comparison of feature-selection methods across multiple feature sets derived from hyperspectral data**
+**Supporting Ecological Decision Making Using Feature-Selection and Variable Importance**
 
 Please go to [https://pat-s.github.io/2019-feature-selection/](https://pat-s.github.io/2019-feature-selection) for a detailed description of this research project.
