@@ -102,7 +102,7 @@ ps_ridge_filter <- makeParamSet(makeNumericParam("s", lower = quan_ridge[1],
                                                  upper = quan_ridge[2]),
                                 makeNumericParam("fw.perc", lower = 0.03, upper = 1))
 
-ps_ridge_no_filter <- makeParamSet(makeNumericParam("s", lower = quan_ridge[1],
+ps_ridge <- makeParamSet(makeNumericParam("s", lower = quan_ridge[1],
                                                     upper = quan_ridge[2]))
 
 ps_ridge_filter_pca <- makeParamSet(makeNumericParam("s", lower = quan_ridge[1],
@@ -133,7 +133,7 @@ ps_lasso_filter <- makeParamSet(makeNumericParam("s", lower = quan_lasso[1],
                                                  upper = quan_lasso[2]),
                                 makeNumericParam("fw.perc", lower = 0.03, upper = 1))
 
-ps_lasso_no_filter <- makeParamSet(makeNumericParam("s", lower = quan_lasso[1],
+ps_lasso <- makeParamSet(makeNumericParam("s", lower = quan_lasso[1],
                                                     upper = quan_lasso[2]))
 
 ps_lasso_filter_pca <- makeParamSet(makeNumericParam("s", lower = quan_lasso[1],

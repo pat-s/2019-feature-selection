@@ -28,6 +28,15 @@ bm_plan = drake_plan(
                   svm_no_filter,
                   svm_pca,
 
+                  svm_info.gain_mbo,
+                  svm_relief_mbo,
+                  svm_linear.cor_mbo,
+                  svm_mrmr_mbo,
+                  svm_cmim_mbo,
+                  svm_carscore_mbo,
+                  svm_no_filter_mbo,
+                  svm_pca_mbo,
+
                   rf_info.gain,
                   rf_relief,
                   rf_linear.cor,
@@ -37,23 +46,63 @@ bm_plan = drake_plan(
                   rf_no_filter,
                   rf_pca,
 
-                  # xgboost_info.gain,
-                  # xgboost_relief,
-                  # xgboost_linear.cor,
-                  # xgboost_mrmr,
-                  # xgboost_cmim,
-                  # xgboost_carscore,
-                  # xgboost_no_filter,
-                  # xgboost_pca,
+                  rf_info.gain_mbo,
+                  rf_relief_mbo,
+                  rf_linear.cor_mbo,
+                  rf_mrmr_mbo,
+                  rf_cmim_mbo,
+                  rf_carscore_mbo,
+                  rf_no_filter_mbo,
+                  rf_pca_mbo,
+
+                  xgboost_info.gain,
+                  xgboost_relief,
+                  xgboost_linear.cor,
+                  xgboost_mrmr,
+                  xgboost_cmim,
+                  xgboost_carscore,
+                  xgboost_no_filter,
+                  xgboost_pca,
+
+                  # xgboost_info.gain_mbo,
+                  # xgboost_relief_mbo,
+                  # xgboost_linear.cor_mbo,
+                  # xgboost_mrmr_mbo,
+                  # xgboost_cmim_mbo,
+                  # xgboost_carscore_mbo,
+                  # xgboost_no_filter_mbo,
+                  # xgboost_pca_mbo,
 
                   lasso_no_filter,
                   lrn_lassocv,
 
+                  lasso_no_filter_mbo,
+
                   ridge_no_filter,
-                  lrn_ridgecv
+                  lrn_ridgecv,
+
+                  ridge_no_filter_mbo
       )
     )
   ),
+
+  ### testing only
+  # bm_seq = drake::target(
+  #   benchmark_custom_no_models_sequential(learner, task),
+  #   transform = cross(
+  #     task = c("vi" = vi_task, "nri" = nri_task, "hr" = hr_task,
+  #              "hr_nri_vi" = hr_nri_vi_task, "hr_nri" = hr_nri_task,
+  #              "hr_vi" = hr_vi_task),
+  #     learner = c(#svm_no_filter_mbo,
+  #                 #svm_pca_mbo
+  #                 #svm_mrmr_mbo
+  #
+  #                 # svm_borda_mbo,
+  #                 # rf_borda_mbo,
+  #                 # xgboost_borda_mbo,
+  #     )
+  #   )
+  # ),
 
   #  we face some errors when parallelizing the borda filters, maybe due to
   # parallel access to the mlr cache?
@@ -63,11 +112,14 @@ bm_plan = drake_plan(
       task = c("vi" = vi_task, "nri" = nri_task, "hr" = hr_task,
                "hr_nri_vi" = hr_nri_vi_task, "hr_nri" = hr_nri_task,
                "hr_vi" = hr_vi_task),
-      learner = c(svm_borda,
-                  rf_borda,
-                  xgboost_borda,
-                  ridge_borda,
-                  lasso_borda
+      learner = c(
+        svm_borda,
+        rf_borda,
+        xgboost_borda,
+
+                  svm_borda_mbo,
+                  rf_borda_mbo#,
+                  #xgboost_borda_mbo
       )
     )
   )# ,
@@ -79,22 +131,10 @@ bm_plan = drake_plan(
   #              "hr_nri_vi" = hr_nri_vi_task, "hr_nri" = hr_nri_task,
   #              "hr_vi" = hr_vi_task),
   #     learner = c(
-  #       # lasso_info.gain,
-  #       # lasso_relief,
-  #       # lasso_linear.cor,
-  #       # lasso_mrmr,
-  #       # lasso_cmim,
-  #       # lasso_carscore,
   #       # lasso_no_filter,
   #       # lrn_lassocv,
   #       #lasso_pca,
   #
-  #       # ridge_info.gain,
-  #       # ridge_relief,
-  #       # ridge_linear.cor,
-  #       # ridge_mrmr,
-  #       # ridge_cmim,
-  #       # ridge_carscore,
   #       # ridge_no_filter,
   #       # lrn_ridgecv#,
   #       #ridge_pca

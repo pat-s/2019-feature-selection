@@ -222,125 +222,125 @@ rf_pca = makeTuneWrapper(pca_wrapper_rf, resampling = inner,
 
 # RIDGE ---------------------------------------------------------------------
 
-ridge_borda = makeTuneWrapper(filter_wrapper_ridge_borda, resampling = inner,
-                              par.set = ps_ridge_filter,
-                              control = tune.ctrl_ridge, show.info = TRUE,
-                              measures = list(rmse)) %>%
-  magrittr::inset("id", "ridge Borda")
-
-ridge_gain.ratio = makeTuneWrapper(filter_wrapper_ridge_gain.ratio, resampling = inner,
-                                   par.set = ps_ridge_filter,
-                                   control = tune.ctrl_ridge, show.info = TRUE,
-                                   measures = list(rmse))  %>%
-  magrittr::inset("id", "ridge Gain Ratio")
-
-ridge_info.gain = makeTuneWrapper(filter_wrapper_ridge_info.gain, resampling = inner,
-                                  par.set = ps_ridge_filter,
-                                  control = tune.ctrl_ridge, show.info = TRUE,
-                                  measures = list(rmse))  %>%
-  magrittr::inset("id", "ridge Info Gain")
-
-ridge_relief = makeTuneWrapper(filter_wrapper_ridge_relief, resampling = inner,
-                               par.set = ps_ridge_filter,
-                               control = tune.ctrl_ridge, show.info = TRUE,
-                               measures = list(rmse)) %>%
-  magrittr::inset("id", "ridge Relief")
-
-ridge_carscore = makeTuneWrapper(filter_wrapper_ridge_carscore, resampling = inner,
-                                 par.set = ps_ridge_filter,
-                                 control = tune.ctrl_ridge, show.info = TRUE,
-                                 measures = list(rmse))  %>%
-  magrittr::inset("id", "ridge Car")
-
-ridge_linear.cor = makeTuneWrapper(filter_wrapper_ridge_linear.cor, resampling = inner,
-                                   par.set = ps_ridge_filter,
-                                   control = tune.ctrl_ridge, show.info = TRUE,
-                                   measures = list(rmse))  %>%
-  magrittr::inset("id", "ridge Pearson")
-
-ridge_mrmr = makeTuneWrapper(filter_wrapper_ridge_mrmr, resampling = inner,
-                             par.set = ps_ridge_filter,
-                             control = tune.ctrl_ridge, show.info = TRUE,
-                             measures = list(rmse))  %>%
-  magrittr::inset("id", "ridge MRMR")
-
-ridge_cmim = makeTuneWrapper(filter_wrapper_ridge_cmim, resampling = inner,
-                             par.set = ps_ridge_filter,
-                             control = tune.ctrl_ridge, show.info = TRUE,
-                             measures = list(rmse))  %>%
-  magrittr::inset("id", "ridge CMIM")
+# ridge_borda = makeTuneWrapper(filter_wrapper_ridge_borda, resampling = inner,
+#                               par.set = ps_ridge_filter,
+#                               control = tune.ctrl_ridge, show.info = TRUE,
+#                               measures = list(rmse)) %>%
+#   magrittr::inset("id", "ridge Borda")
+#
+# ridge_gain.ratio = makeTuneWrapper(filter_wrapper_ridge_gain.ratio, resampling = inner,
+#                                    par.set = ps_ridge_filter,
+#                                    control = tune.ctrl_ridge, show.info = TRUE,
+#                                    measures = list(rmse))  %>%
+#   magrittr::inset("id", "ridge Gain Ratio")
+#
+# ridge_info.gain = makeTuneWrapper(filter_wrapper_ridge_info.gain, resampling = inner,
+#                                   par.set = ps_ridge_filter,
+#                                   control = tune.ctrl_ridge, show.info = TRUE,
+#                                   measures = list(rmse))  %>%
+#   magrittr::inset("id", "ridge Info Gain")
+#
+# ridge_relief = makeTuneWrapper(filter_wrapper_ridge_relief, resampling = inner,
+#                                par.set = ps_ridge_filter,
+#                                control = tune.ctrl_ridge, show.info = TRUE,
+#                                measures = list(rmse)) %>%
+#   magrittr::inset("id", "ridge Relief")
+#
+# ridge_carscore = makeTuneWrapper(filter_wrapper_ridge_carscore, resampling = inner,
+#                                  par.set = ps_ridge_filter,
+#                                  control = tune.ctrl_ridge, show.info = TRUE,
+#                                  measures = list(rmse))  %>%
+#   magrittr::inset("id", "ridge Car")
+#
+# ridge_linear.cor = makeTuneWrapper(filter_wrapper_ridge_linear.cor, resampling = inner,
+#                                    par.set = ps_ridge_filter,
+#                                    control = tune.ctrl_ridge, show.info = TRUE,
+#                                    measures = list(rmse))  %>%
+#   magrittr::inset("id", "ridge Pearson")
+#
+# ridge_mrmr = makeTuneWrapper(filter_wrapper_ridge_mrmr, resampling = inner,
+#                              par.set = ps_ridge_filter,
+#                              control = tune.ctrl_ridge, show.info = TRUE,
+#                              measures = list(rmse))  %>%
+#   magrittr::inset("id", "ridge MRMR")
+#
+# ridge_cmim = makeTuneWrapper(filter_wrapper_ridge_cmim, resampling = inner,
+#                              par.set = ps_ridge_filter,
+#                              control = tune.ctrl_ridge, show.info = TRUE,
+#                              measures = list(rmse))  %>%
+#   magrittr::inset("id", "ridge CMIM")
 
 ridge_no_filter = makeTuneWrapper(lrn_ridge, resampling = inner,
-                                  par.set = ps_ridge_no_filter,
+                                  par.set = ps_ridge,
                                   control = tune.ctrl_ridge, show.info = TRUE,
                                   measures = list(rmse))  %>%
   magrittr::inset("id", "Ridge-MBO")
 
-ridge_pca = makeTuneWrapper(pca_wrapper_ridge, resampling = inner,
-                            par.set = ps_ridge_filter_pca,
-                            control = tune.ctrl_rf, show.info = TRUE,
-                            measures = list(rmse))  %>%
-  magrittr::inset("id", "ridge PCA")
+# ridge_pca = makeTuneWrapper(pca_wrapper_ridge, resampling = inner,
+#                             par.set = ps_ridge_filter_pca,
+#                             control = tune.ctrl_rf, show.info = TRUE,
+#                             measures = list(rmse))  %>%
+#   magrittr::inset("id", "ridge PCA")
 
 # LASSO ---------------------------------------------------------------------
 
-lasso_borda = makeTuneWrapper(filter_wrapper_lasso_borda, resampling = inner,
-                              par.set = ps_lasso_filter,
-                              control = tune.ctrl_lasso, show.info = TRUE,
-                              measures = list(rmse)) %>%
-  magrittr::inset("id", "lasso Borda")
-
-lasso_gain.ratio = makeTuneWrapper(filter_wrapper_lasso_gain.ratio, resampling = inner,
-                                   par.set = ps_lasso_filter,
-                                   control = tune.ctrl_lasso, show.info = TRUE,
-                                   measures = list(rmse))  %>%
-  magrittr::inset("id", "lasso Gain Ratio")
-
-lasso_info.gain = makeTuneWrapper(filter_wrapper_lasso_info.gain, resampling = inner,
-                                  par.set = ps_lasso_filter,
-                                  control = tune.ctrl_lasso, show.info = TRUE,
-                                  measures = list(rmse))  %>%
-  magrittr::inset("id", "lasso Info Gain")
-
-lasso_relief = makeTuneWrapper(filter_wrapper_lasso_relief, resampling = inner,
-                               par.set = ps_lasso_filter,
-                               control = tune.ctrl_lasso, show.info = TRUE,
-                               measures = list(rmse)) %>%
-  magrittr::inset("id", "lasso Relief")
-
-lasso_carscore = makeTuneWrapper(filter_wrapper_lasso_carscore, resampling = inner,
-                                 par.set = ps_lasso_filter,
-                                 control = tune.ctrl_lasso, show.info = TRUE,
-                                 measures = list(rmse))  %>%
-  magrittr::inset("id", "lasso Car")
-
-lasso_linear.cor = makeTuneWrapper(filter_wrapper_lasso_linear.cor, resampling = inner,
-                                   par.set = ps_lasso_filter,
-                                   control = tune.ctrl_lasso, show.info = TRUE,
-                                   measures = list(rmse))  %>%
-  magrittr::inset("id", "lasso Pearson")
-
-lasso_mrmr = makeTuneWrapper(filter_wrapper_lasso_mrmr, resampling = inner,
-                             par.set = ps_lasso_filter,
-                             control = tune.ctrl_lasso, show.info = TRUE,
-                             measures = list(rmse))  %>%
-  magrittr::inset("id", "lasso MRMR")
-
-lasso_cmim = makeTuneWrapper(filter_wrapper_lasso_cmim, resampling = inner,
-                             par.set = ps_lasso_filter,
-                             control = tune.ctrl_lasso, show.info = TRUE,
-                             measures = list(rmse))  %>%
-  magrittr::inset("id", "lasso CMIM")
+# lasso_borda = makeTuneWrapper(filter_wrapper_lasso_borda, resampling = inner,
+#                               par.set = ps_lasso_filter,
+#                               control = tune.ctrl_lasso, show.info = TRUE,
+#                               measures = list(rmse)) %>%
+#   magrittr::inset("id", "lasso Borda")
+#
+# lasso_gain.ratio = makeTuneWrapper(filter_wrapper_lasso_gain.ratio, resampling = inner,
+#                                    par.set = ps_lasso_filter,
+#                                    control = tune.ctrl_lasso, show.info = TRUE,
+#                                    measures = list(rmse))  %>%
+#   magrittr::inset("id", "lasso Gain Ratio")
+#
+# lasso_info.gain = makeTuneWrapper(filter_wrapper_lasso_info.gain, resampling = inner,
+#                                   par.set = ps_lasso_filter,
+#                                   control = tune.ctrl_lasso, show.info = TRUE,
+#                                   measures = list(rmse))  %>%
+#   magrittr::inset("id", "lasso Info Gain")
+#
+# lasso_relief = makeTuneWrapper(filter_wrapper_lasso_relief, resampling = inner,
+#                                par.set = ps_lasso_filter,
+#                                control = tune.ctrl_lasso, show.info = TRUE,
+#                                measures = list(rmse)) %>%
+#   magrittr::inset("id", "lasso Relief")
+#
+# lasso_carscore = makeTuneWrapper(filter_wrapper_lasso_carscore, resampling = inner,
+#                                  par.set = ps_lasso_filter,
+#                                  control = tune.ctrl_lasso, show.info = TRUE,
+#                                  measures = list(rmse))  %>%
+#   magrittr::inset("id", "lasso Car")
+#
+# lasso_linear.cor = makeTuneWrapper(filter_wrapper_lasso_linear.cor, resampling = inner,
+#                                    par.set = ps_lasso_filter,
+#                                    control = tune.ctrl_lasso, show.info = TRUE,
+#                                    measures = list(rmse))  %>%
+#   magrittr::inset("id", "lasso Pearson")
+#
+# lasso_mrmr = makeTuneWrapper(filter_wrapper_lasso_mrmr, resampling = inner,
+#                              par.set = ps_lasso_filter,
+#                              control = tune.ctrl_lasso, show.info = TRUE,
+#                              measures = list(rmse))  %>%
+#   magrittr::inset("id", "lasso MRMR")
+#
+# lasso_cmim = makeTuneWrapper(filter_wrapper_lasso_cmim, resampling = inner,
+#                              par.set = ps_lasso_filter,
+#                              control = tune.ctrl_lasso, show.info = TRUE,
+#                              measures = list(rmse))  %>%
+#   magrittr::inset("id", "lasso CMIM")
 
 lasso_no_filter = makeTuneWrapper(lrn_lasso, resampling = inner,
-                                  par.set = ps_lasso_no_filter,
+                                  par.set = ps_lasso,
                                   control = tune.ctrl_lasso, show.info = TRUE,
                                   measures = list(rmse))  %>%
   magrittr::inset("id", "Lasso-MBO")
 
 
-lasso_pca = makeTuneWrapper(pca_wrapper_lasso, resampling = inner,
-                            par.set = ps_lasso_filter_pca,
-                            control = tune.ctrl_rf, show.info = TRUE,
-                            measures = list(rmse))  %>%
-  magrittr::inset("id", "lasso PCA")
+# lasso_pca = makeTuneWrapper(pca_wrapper_lasso, resampling = inner,
+#                             par.set = ps_lasso_filter_pca,
+#                             control = tune.ctrl_rf, show.info = TRUE,
+#                             measures = list(rmse))  %>%
+#   magrittr::inset("id", "lasso PCA")

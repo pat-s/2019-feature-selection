@@ -6,7 +6,6 @@
 #' @export
 
 benchmark_custom_no_models <- function(learner, task) {
-
   parallelStart(
     mode = "multicore",
     level = "mlr.resample",
@@ -14,13 +13,14 @@ benchmark_custom_no_models <- function(learner, task) {
   )
   set.seed(12345, kind = "L'Ecuyer-CMRG")
 
-  bmr <- benchmark(learners = learner,
-                   tasks = task,
-                   models = FALSE,
-                   keep.pred = TRUE,
-                   resamplings = makeResampleDesc("CV", fixed = TRUE),
-                   show.info = TRUE,
-                   measures = list(rmse, timetrain)
+  bmr <- benchmark(
+    learners = learner,
+    tasks = task,
+    models = FALSE,
+    keep.pred = TRUE,
+    resamplings = makeResampleDesc("CV", fixed = TRUE),
+    show.info = TRUE,
+    measures = list(rmse, timetrain)
   )
 
   parallelStop()
@@ -28,7 +28,6 @@ benchmark_custom_no_models <- function(learner, task) {
 }
 
 benchmark_custom <- function(learner, task) {
-
   parallelStart(
     mode = "multicore",
     level = "mlr.resample",
@@ -36,13 +35,14 @@ benchmark_custom <- function(learner, task) {
   )
   set.seed(12345, kind = "L'Ecuyer-CMRG")
 
-  bmr <- benchmark(learners = learner,
-                   tasks = task,
-                   models = TRUE,
-                   keep.pred = TRUE,
-                   resamplings = makeResampleDesc("CV", fixed = TRUE),
-                   show.info = TRUE,
-                   measures = list(rmse, timetrain)
+  bmr <- benchmark(
+    learners = learner,
+    tasks = task,
+    models = TRUE,
+    keep.pred = TRUE,
+    resamplings = makeResampleDesc("CV", fixed = TRUE),
+    show.info = TRUE,
+    measures = list(rmse, timetrain)
   )
 
   parallelStop()
@@ -50,26 +50,36 @@ benchmark_custom <- function(learner, task) {
 }
 
 benchmark_custom_no_models_sequential <- function(learner, task) {
-
   set.seed(12345, kind = "L'Ecuyer-CMRG")
 
-  bmr <- benchmark(learners = learner,
-                   tasks = task,
-                   models = FALSE,
-                   keep.pred = TRUE,
-                   resamplings = makeResampleDesc("CV", fixed = TRUE),
-                   show.info = TRUE,
-                   measures = list(rmse, timetrain)
+  bmr <- benchmark(
+    learners = learner,
+    tasks = task,
+    models = FALSE,
+    keep.pred = TRUE,
+    resamplings = makeResampleDesc("CV", fixed = TRUE),
+    show.info = TRUE,
+    measures = list(rmse, timetrain)
   )
 
   return(bmr)
 }
 
-inv_boxcox_rmse = function(truth, response) {
-
-  lambda = 0.7878788
-  truth = (lambda*y_new1 + 1)^(1/lambda)
-  response = (lambda*y_new1 + 1)^(1/lambda)
+inv_boxcox_rmse <- function(truth, response) {
+  lambda <- 0.7878788
+  truth <- (lambda * y_new1 + 1)^(1 / lambda)
+  response <- (lambda * y_new1 + 1)^(1 / lambda)
 
   sqrt(measureMSE(truth, response))
+}
+
+#' @title mlrMBO 30n 70 iterations tuning setting
+#' @template param_set
+tune_ctrl_mbo_30n_70it <- function(param_set) {
+  makeTuneControlMBO(
+    mbo.control = makeMBOControl(propose.points = 1L) %>%
+      setMBOControlTermination(iters = 70L) %>%
+      setMBOControlInfill(crit = crit.ei),
+    mbo.design = generateDesign(n = 30, par.set = param_set)
+  )
 }
