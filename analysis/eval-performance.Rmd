@@ -39,7 +39,7 @@ library("xtable")
 
 ## (Table) All leaner/filter/task combinations ordered by performance.
 
-Taking into account all tasks, learners and filters: Who won?
+Overall leaderboard across all settings, sorted descending by performance.
 
 ```{r eval-performance-1, warning=FALSE}
 table1 <- getBMRAggrPerformances(bm_aggregated, as.df = TRUE) %>%
@@ -91,6 +91,9 @@ table1 %>%
 ## (Table) Best learner/filter/task combination
 
 Learners: On which task and using which filter did every learner score their best result on?
+
+*-CV: L2 penalized regression using the internal 10-fold CV tuning of the `glmnet` package
+*-MBO: L2 penalized regression using using MBO for hyperparameter optimization.
 
 ```{r eval-performance-2, warning=FALSE}
 table2 <- getBMRAggrPerformances(bm_aggregated, as.df = TRUE) %>%
@@ -158,10 +161,10 @@ results_aggr <- getBMRAggrPerformances(bm_aggregated, as.df = TRUE) %>%
 
 results_aggr %>%
   ggplot(aes(x = rmse.test.rmse, y = task.id)) +
-  #geom_jitter(aes(color = learner_group), size = 2, width = 0, height = 0.3) +
-  # geom_dotplot(aes(fill = learner_group), binaxis="y", 
+  # geom_jitter(aes(color = learner_group), size = 2, width = 0, height = 0.3) +
+  # geom_dotplot(aes(fill = learner_group), binaxis="y",
   #                        stackdir="up") +
-  geom_beeswarm(groupOnX=FALSE, aes(color = learner_group), size = 2.5) +
+  geom_beeswarm(groupOnX = FALSE, aes(color = learner_group), size = 2.5) +
   scale_color_nejm(breaks = sort(levels(results_aggr$learner_group))) +
   labs(x = "RMSE", y = "Task", color = "Learner") +
   guides(size = FALSE) +
@@ -187,6 +190,7 @@ results_aggr %>%
 ## (Plot) Best filter combination of each learner vs. no filter per task
 
 Showing the final effect of applying feature selection to a learner for each task.
+The more left a certain filter appears for a given task compared to the purple dot (No Filter), the higher the effectivity of applying feature selection for that given learner on the given task.
 
 ```{r filter-effect, warning=FALSE, dev = c("png", "pdf")}
 # we rbind two filtered data.frames
@@ -234,7 +238,7 @@ comb <- bind_rows(best_filter, best_no_filter)
 
 comb %>%
   ggplot(aes(x = rmse.test.rmse, y = learner_group)) +
-  geom_beeswarm(groupOnX=FALSE, aes(color = filter), size = 2.5) +
+  geom_beeswarm(groupOnX = FALSE, aes(color = filter), size = 2.5) +
   facet_wrap(~task.id) +
   scale_color_nejm() +
   labs(x = "RMSE", y = "Task", color = "Filter") +

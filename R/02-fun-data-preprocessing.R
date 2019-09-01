@@ -11,8 +11,7 @@
 #' @name data_preprocessing
 #' @export
 
-clean_single_plots = function(data) {
-
+clean_single_plots <- function(data) {
   data %<>%
     map(~ as_tibble(.x)) %<>%
     map(~ dplyr::select(.x, -contains("_ID"))) %>%
@@ -33,9 +32,8 @@ clean_single_plots = function(data) {
 #' @param data (`list`)\cr List containing multiple `data.frames`.
 #' @return List of `data.frames` with X/Y information
 #' @export
-extract_coords = function(data) {
-
-  coords = map(data, ~ st_as_sf(.x, crs = 32630)) %>%
+extract_coords <- function(data) {
+  coords <- map(data, ~ st_as_sf(.x, crs = 32630)) %>%
     map(~ as.data.frame(st_coordinates(.x)))
 
   return(coords)
@@ -52,13 +50,12 @@ extract_coords = function(data) {
 #' @details Standardization applies from `2:length(names(data))`, so it is
 #'   expected that the response is sorted first in the data.
 #' @export
-standardize = function(data, cores) {
+standardize <- function(data, cores) {
   data %<>%
     pbmclapply(function(x) {
-      cols = names(x)[2:length(names(x))]
-      x[, (cols) := lapply(.SD, scale), .SDcols=cols]
-    }, mc.cores = cores
-    )
+      cols <- names(x)[2:length(names(x))]
+      x[, (cols) := lapply(.SD, scale), .SDcols = cols]
+    }, mc.cores = cores)
 
   return(data)
 }
@@ -70,12 +67,12 @@ standardize = function(data, cores) {
 #' @param data (`data.frame`)\cr data.frame.
 #' @return `data.frame`
 #' @export
-mutate_defol = function(data) {
-
+mutate_defol <- function(data) {
   data %<>%
-    dplyr::mutate(defoliation = case_when(.data$defoliation == 0 ~ 0.001,
-                                          TRUE ~ as.numeric(.data$defoliation))
-    )
+    dplyr::mutate(defoliation = case_when(
+      .data$defoliation == 0 ~ 0.001,
+      TRUE ~ as.numeric(.data$defoliation)
+    ))
 }
 
 #' @title log_response
@@ -85,9 +82,8 @@ mutate_defol = function(data) {
 #' @param response (`character`)\cr Name of response.
 #' @return `data.frame`
 #' @export
-log_response = function(data, response) {
-
-  data[[response]] = log(data[[response]])
+log_response <- function(data, response) {
+  data[[response]] <- log(data[[response]])
   return(data)
 }
 
@@ -98,10 +94,9 @@ log_response = function(data, response) {
 #' @param response (`character`)\cr Name of response.
 #' @return `data.frame`
 #' @export
-boxcox_response = function(data, response) {
-
-  lambda = 0.7878788
-  data[[response]] = (data[[response]]^lambda - 1) / lambda
+boxcox_response <- function(data, response) {
+  lambda <- 0.7878788
+  data[[response]] <- (data[[response]]^lambda - 1) / lambda
   return(data)
 }
 
@@ -113,16 +108,15 @@ boxcox_response = function(data, response) {
 #' @param feature_set (`character`)\cr Name of feature set.
 #' @return `data.frame`
 #' @export
-split_into_feature_sets = function(data, feature_set) {
-
+split_into_feature_sets <- function(data, feature_set) {
   if (feature_set == "nri") {
-    data_split = data[["data_vi_nri"]] %>%
+    data_split <- data[["data_vi_nri"]] %>%
       dplyr::select(matches("nri|defol"))
   } else if (feature_set == "vi") {
-    data_split = data[["data_vi_nri"]] %>%
+    data_split <- data[["data_vi_nri"]] %>%
       dplyr::select(-matches("nri"))
   } else if (feature_set == "bands") {
-    data_split = data[["data_bands"]]
+    data_split <- data[["data_bands"]]
   }
   return(data_split)
 }

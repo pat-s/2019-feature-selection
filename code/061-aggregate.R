@@ -1,4 +1,4 @@
-bm_aggregated = mergeBenchmarkResults(list(
+bm_aggregated <- mergeBenchmarkResults(list(
   bm_vi_task_svm_no_filter,
   bm_nri_task_svm_no_filter,
   bm_hr_task_svm_no_filter,
@@ -126,7 +126,8 @@ bm_aggregated = mergeBenchmarkResults(list(
   bm_hr_nri_task_rf_cmim,
   bm_hr_nri_vi_task_rf_cmim,
 
-  # xgboost
+  # xgboost --------------------------------------------------------------------
+
   bm_vi_task_xgboost_no_filter,
   bm_nri_task_xgboost_no_filter,
   bm_hr_task_xgboost_no_filter,
@@ -190,7 +191,8 @@ bm_aggregated = mergeBenchmarkResults(list(
   bm_hr_nri_task_xgboost_cmim,
   bm_hr_nri_vi_task_xgboost_cmim,
 
-  # lasso
+  # lasso ----------------------------------------------------------------------
+
   bm_vi_task_lasso_no_filter,
   bm_nri_task_lasso_no_filter,
   bm_hr_task_lasso_no_filter,
@@ -219,6 +221,4 @@ bm_aggregated = mergeBenchmarkResults(list(
   bm_hr_vi_task_lrn_ridgecv,
   bm_hr_nri_task_lrn_ridgecv,
   bm_hr_nri_vi_task_lrn_ridgecv
-
-)
-)
+))

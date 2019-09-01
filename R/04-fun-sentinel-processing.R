@@ -530,7 +530,7 @@ prediction_raster <- function(data, year, relative = NULL) {
   )
 
   if (!is.null(relative)) {
-    year = glue("{year}-relative")
+    year <- glue("{year}-relative")
   }
   raster(all_spdf) %>%
     writeRaster(glue("data/sentinel/image_defoliation/defoliation-{year}.tif"),
@@ -588,9 +588,10 @@ create_defoliation_map <- function(data, algorithm, limits, title) {
 #' @return (`character`)
 #' @export
 scale_defoliation <- function(data) {
-
-  data$defoliation = scale(data$defoliation, center = FALSE,
-                           scale = max(data$defoliation, na.rm = TRUE)/100)
+  data$defoliation <- scale(data$defoliation,
+    center = FALSE,
+    scale = max(data$defoliation, na.rm = TRUE) / 100
+  )
 
   return(data)
 }

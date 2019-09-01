@@ -1,6 +1,6 @@
 # XGBOOST -----------------------------------------------------------------
 
-ps_xgboost_filter = makeParamSet(
+ps_xgboost_filter <- makeParamSet(
   makeIntegerParam("nrounds", lower = 10, upper = 600),
   makeNumericParam("colsample_bytree", lower = 0.3, upper = 0.7),
   makeNumericParam("subsample", lower = 0.25, upper = 1),
@@ -11,7 +11,7 @@ ps_xgboost_filter = makeParamSet(
   makeNumericParam("fw.perc", lower = 0, upper = 1)
 )
 
-ps_xgboost = makeParamSet(
+ps_xgboost <- makeParamSet(
   makeIntegerParam("nrounds", lower = 10, upper = 600),
   makeNumericParam("colsample_bytree", lower = 0.3, upper = 0.7),
   makeNumericParam("subsample", lower = 0.25, upper = 1),
@@ -21,7 +21,7 @@ ps_xgboost = makeParamSet(
   makeNumericParam("min_child_weight", lower = 0, upper = 20)
 )
 
-ps_xgboost_pca =  makeParamSet(
+ps_xgboost_pca <- makeParamSet(
   makeIntegerParam("nrounds", lower = 10, upper = 600),
   makeNumericParam("colsample_bytree", lower = 0.3, upper = 0.7),
   makeNumericParam("subsample", lower = 0.25, upper = 1),
@@ -34,45 +34,57 @@ ps_xgboost_pca =  makeParamSet(
 
 # SVM ---------------------------------------------------------------------
 
-ps_svm_filter = makeParamSet(
-  makeNumericParam("C", lower = -10, upper = 10,
-                   trafo = function(x) 2 ^ x),
-  makeNumericParam("sigma", lower = -5, upper = 5,
-                   trafo = function(x) 2 ^ x),
+ps_svm_filter <- makeParamSet(
+  makeNumericParam("C",
+    lower = -10, upper = 10,
+    trafo = function(x) 2^x
+  ),
+  makeNumericParam("sigma",
+    lower = -5, upper = 5,
+    trafo = function(x) 2^x
+  ),
   makeNumericParam("fw.perc", lower = 0, upper = 1)
 )
 
-ps_svm = makeParamSet(
-  makeNumericParam("C", lower = -10, upper = 10,
-                   trafo = function(x) 2 ^ x),
-  makeNumericParam("sigma", lower = -5, upper = 5,
-                   trafo = function(x) 2 ^ x)
+ps_svm <- makeParamSet(
+  makeNumericParam("C",
+    lower = -10, upper = 10,
+    trafo = function(x) 2^x
+  ),
+  makeNumericParam("sigma",
+    lower = -5, upper = 5,
+    trafo = function(x) 2^x
+  )
 )
 
-ps_svm_pca =  makeParamSet(
-  makeNumericParam("C", lower = -10, upper = 10,
-                   trafo = function(x) 2 ^ x),
-  makeNumericParam("sigma", lower = -5, upper = 5,
-                   trafo = function(x) 2 ^ x),
+ps_svm_pca <- makeParamSet(
+  makeNumericParam("C",
+    lower = -10, upper = 10,
+    trafo = function(x) 2^x
+  ),
+  makeNumericParam("sigma",
+    lower = -5, upper = 5,
+    trafo = function(x) 2^x
+  ),
   makeIntegerParam("ppc.pcaComp", lower = 1, upper = 10)
 )
 
 # Random Forest -----------------------------------------------------------
 
-ps_rf_filter = makeParamSet(
+ps_rf_filter <- makeParamSet(
   makeNumericParam("mtry.power", lower = 0, upper = 0.5),
   makeIntegerParam("min.node.size", lower = 1, upper = 10),
   makeNumericParam("sample.fraction", lower = 0.2, upper = 0.9),
   makeNumericParam("fw.perc", lower = 0, upper = 1)
 )
 
-ps_rf = makeParamSet(
+ps_rf <- makeParamSet(
   makeNumericParam("mtry.power", lower = 0, upper = 0.5),
   makeIntegerParam("min.node.size", lower = 1, upper = 10),
   makeNumericParam("sample.fraction", lower = 0.2, upper = 0.9)
 )
 
-ps_rf_pca = makeParamSet(
+ps_rf_pca <- makeParamSet(
   makeNumericParam("mtry.power", lower = 0, upper = 0.5),
   makeIntegerParam("min.node.size", lower = 1, upper = 10),
   makeNumericParam("sample.fraction", lower = 0.2, upper = 0.9),
@@ -89,25 +101,36 @@ ps_rf_pca = makeParamSet(
 # This makes no sense with task specific ParamSets, hence we create one universal ParamSet
 # Consisting of of the 80% quantile from the min and max of the smallest and largest task, respectively)
 
-lambda_ridge_vi_train  = train(lrn_ridge, vi_task)
-lambda_ridge_hr_nri_vi_train  = train(lrn_ridge, hr_nri_vi_task)
+lambda_ridge_vi_train <- train(lrn_ridge, vi_task)
+lambda_ridge_hr_nri_vi_train <- train(lrn_ridge, hr_nri_vi_task)
 
-lambda_ridge_min_vi = min(lambda_ridge_vi_train$learner.model$lambda)
-lambda_ridge_max_hr_nri_vi = max(lambda_ridge_hr_nri_vi_train$learner.model$lambda)
+lambda_ridge_min_vi <- min(lambda_ridge_vi_train$learner.model$lambda)
+lambda_ridge_max_hr_nri_vi <- max(lambda_ridge_hr_nri_vi_train$learner.model$lambda)
 
-quan_ridge = quantile(x = c(lambda_ridge_min_vi, lambda_ridge_max_hr_nri_vi),
-                      probs = c(0.10, 0.90))
+quan_ridge <- quantile(
+  x = c(lambda_ridge_min_vi, lambda_ridge_max_hr_nri_vi),
+  probs = c(0.10, 0.90)
+)
 
-ps_ridge_filter <- makeParamSet(makeNumericParam("s", lower = quan_ridge[1],
-                                                 upper = quan_ridge[2]),
-                                makeNumericParam("fw.perc", lower = 0.03, upper = 1))
+ps_ridge_filter <- makeParamSet(
+  makeNumericParam("s",
+    lower = quan_ridge[1],
+    upper = quan_ridge[2]
+  ),
+  makeNumericParam("fw.perc", lower = 0.03, upper = 1)
+)
 
-ps_ridge <- makeParamSet(makeNumericParam("s", lower = quan_ridge[1],
-                                                    upper = quan_ridge[2]))
+ps_ridge <- makeParamSet(makeNumericParam("s",
+  lower = quan_ridge[1],
+  upper = quan_ridge[2]
+))
 
-ps_ridge_filter_pca <- makeParamSet(makeNumericParam("s", lower = quan_ridge[1],
-                                              upper = quan_ridge[2]),
-                             makeIntegerParam("ppc.pcaComp", lower = 2, upper = 10)
+ps_ridge_filter_pca <- makeParamSet(
+  makeNumericParam("s",
+    lower = quan_ridge[1],
+    upper = quan_ridge[2]
+  ),
+  makeIntegerParam("ppc.pcaComp", lower = 2, upper = 10)
 )
 
 # LASSO ---------------------------------------------------------------------
@@ -120,23 +143,34 @@ ps_ridge_filter_pca <- makeParamSet(makeNumericParam("s", lower = quan_ridge[1],
 # This makes no sense with task specific ParamSets, hence we create one universal ParamSet
 # consisting of of the 80% quantile from the min and max of the smallest and largest task, respectively)
 
-lambda_lasso_vi_train  = train(lrn_lasso, vi_task)
-lambda_lasso_hr_nri_vi_train  = train(lrn_lasso, hr_nri_vi_task)
+lambda_lasso_vi_train <- train(lrn_lasso, vi_task)
+lambda_lasso_hr_nri_vi_train <- train(lrn_lasso, hr_nri_vi_task)
 
-lambda_lasso_min_vi = min(lambda_lasso_vi_train$learner.model$lambda)
-lambda_lasso_max_hr_nri_vi = max(lambda_lasso_hr_nri_vi_train$learner.model$lambda)
+lambda_lasso_min_vi <- min(lambda_lasso_vi_train$learner.model$lambda)
+lambda_lasso_max_hr_nri_vi <- max(lambda_lasso_hr_nri_vi_train$learner.model$lambda)
 
-quan_lasso = quantile(x = c(lambda_lasso_min_vi, lambda_lasso_max_hr_nri_vi),
-                      probs = c(0.10, 0.90))
+quan_lasso <- quantile(
+  x = c(lambda_lasso_min_vi, lambda_lasso_max_hr_nri_vi),
+  probs = c(0.10, 0.90)
+)
 
-ps_lasso_filter <- makeParamSet(makeNumericParam("s", lower = quan_lasso[1],
-                                                 upper = quan_lasso[2]),
-                                makeNumericParam("fw.perc", lower = 0.03, upper = 1))
+ps_lasso_filter <- makeParamSet(
+  makeNumericParam("s",
+    lower = quan_lasso[1],
+    upper = quan_lasso[2]
+  ),
+  makeNumericParam("fw.perc", lower = 0.03, upper = 1)
+)
 
-ps_lasso <- makeParamSet(makeNumericParam("s", lower = quan_lasso[1],
-                                                    upper = quan_lasso[2]))
+ps_lasso <- makeParamSet(makeNumericParam("s",
+  lower = quan_lasso[1],
+  upper = quan_lasso[2]
+))
 
-ps_lasso_filter_pca <- makeParamSet(makeNumericParam("s", lower = quan_lasso[1],
-                                              upper = quan_lasso[2]),
-                             makeIntegerParam("ppc.pcaComp", lower = 2, upper = 10)
+ps_lasso_filter_pca <- makeParamSet(
+  makeNumericParam("s",
+    lower = quan_lasso[1],
+    upper = quan_lasso[2]
+  ),
+  makeIntegerParam("ppc.pcaComp", lower = 2, upper = 10)
 )

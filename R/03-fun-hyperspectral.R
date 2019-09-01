@@ -140,10 +140,14 @@ extract_bands_to_plot <- function(plot_name, buffer, tree_data,
     ))
 
   out_bands %<>%
-    map2(seq_along(buffer), ~ setNames(.x,
-                                       str_replace(glue("bf{buffer}_{name}",
-                                                        name = names(out_bands[[.y]]))
-                                                   , "B.*_S.", "B")))
+    map2(seq_along(buffer), ~ setNames(
+      .x,
+      str_replace(
+        glue("bf{buffer}_{name}",
+          name = names(out_bands[[.y]])
+        ), "B.*_S.", "B"
+      )
+    ))
 
   # merge all data frames (buffers)
   out_bands <- bind_cols(out_bands)
@@ -168,7 +172,7 @@ calc_veg_indices <- function(hyperspecs, indices) {
   veg_y <- future_lapply(seq_along(hyperspecs), FUN = function(ii)
     vegindex(hyperspecs[[ii]], indices,
       filename =
-          glue("data/hyperspectral/vi/{names(hyperspecs)[[ii]]}.grd"),
+        glue("data/hyperspectral/vi/{names(hyperspecs)[[ii]]}.grd"),
       bnames = indices, na.rm = TRUE
     )) %>%
     set_names(names(hyperspecs))

@@ -20,12 +20,13 @@ source(here::here("code/99-packages.R"))
 sourceDirectory("R")
 
 # load drake objects
-loadd(defoliation_raster,
-      defoliation_raster_relative,
-      defoliation_df,
-      defoliation_df_relative,
-      
-      tune_xgboost
+loadd(
+  defoliation_raster,
+  defoliation_raster_relative,
+  defoliation_df,
+  defoliation_df_relative,
+
+  tune_xgboost
 )
 library("rgdal")
 ```
@@ -67,8 +68,10 @@ Since these absolute values do not reflect the truth, we decided to create a rel
 This was done by calling 
 
 ```{r , eval=FALSE, echo = TRUE}
-scale(data$defoliation, center = FALSE,
-      scale = max(data$defoliation, na.rm = TRUE)/100)
+scale(data$defoliation,
+  center = FALSE,
+  scale = max(data$defoliation, na.rm = TRUE) / 100
+)
 ```
 
 which re-scales the data from 0 - 100. 
@@ -83,9 +86,9 @@ The code was adapted from [this](https://stackoverflow.com/a/19462405/4185785) S
 #### 2017
 
 ```{r defoliation-map-2017, fig.height = 5.5, fig.width = 8.5}
-plot = create_defoliation_map(defoliation_raster[[1]],
-                              algorithm = "XGBOOST",
-                              limits = c(35, 60), title = "Defoliation of trees [%]"
+plot <- create_defoliation_map(defoliation_raster[[1]],
+  algorithm = "XGBOOST",
+  limits = c(35, 60), title = "Defoliation of trees [%]"
 )
 suppressWarnings(suppressMessages(print(plot)))
 ```
@@ -93,9 +96,9 @@ suppressWarnings(suppressMessages(print(plot)))
 #### 2018
 
 ```{r defoliation-map-2018, fig.height = 5.5, fig.width = 8.5}
-plot = create_defoliation_map(defoliation_raster[[2]],
-                              algorithm = "XGBOOST",
-                              limits = c(35, 60), title = "Defoliation of trees [%]"
+plot <- create_defoliation_map(defoliation_raster[[2]],
+  algorithm = "XGBOOST",
+  limits = c(35, 60), title = "Defoliation of trees [%]"
 )
 suppressWarnings(suppressMessages(print(plot)))
 ```
@@ -105,11 +108,10 @@ suppressWarnings(suppressMessages(print(plot)))
 2017 
 
 ```{r}
-hist = suppressWarnings(suppressMessages(ggplot(defoliation_df[[1]], aes(x = defoliation)) +
+hist <- suppressWarnings(suppressMessages(ggplot(defoliation_df[[1]], aes(x = defoliation)) +
   geom_histogram() +
   labs(x = "Defoliation (%)") +
-  theme_pubr()
-))
+  theme_pubr()))
 
 suppressMessages(print(hist))
 ```
@@ -117,11 +119,10 @@ suppressMessages(print(hist))
 2018
 
 ```{r}
-hist = suppressWarnings(suppressMessages(ggplot(defoliation_df[[2]], aes(x = defoliation)) +
+hist <- suppressWarnings(suppressMessages(ggplot(defoliation_df[[2]], aes(x = defoliation)) +
   geom_histogram() +
   labs(x = "Defoliation (%)") +
-  theme_pubr()
-))
+  theme_pubr()))
 suppressMessages(print(hist))
 ```
 
@@ -132,9 +133,9 @@ suppressMessages(print(hist))
 #### 2017
 
 ```{r defoliation-map-relative-2017, fig.height = 5.5, fig.width = 8.5}
-plot = create_defoliation_map(defoliation_raster_relative[[1]],
-                              algorithm = "XGBOOST",
-                              limits = c(65, 100), title = "Relative defoliation of trees"
+plot <- create_defoliation_map(defoliation_raster_relative[[1]],
+  algorithm = "XGBOOST",
+  limits = c(65, 100), title = "Relative defoliation of trees"
 )
 suppressWarnings(suppressMessages(print(plot)))
 ```
@@ -142,9 +143,9 @@ suppressWarnings(suppressMessages(print(plot)))
 #### 2018
 
 ```{r defoliation-map-relative-2018, fig.height = 5.5, fig.width = 8.5}
-plot = create_defoliation_map(defoliation_raster_relative[[2]],
-                              algorithm = "XGBOOST",
-                              limits = c(65, 100), title = "Relative defoliation of trees"
+plot <- create_defoliation_map(defoliation_raster_relative[[2]],
+  algorithm = "XGBOOST",
+  limits = c(65, 100), title = "Relative defoliation of trees"
 )
 suppressWarnings(suppressMessages(print(plot)))
 ```
@@ -154,26 +155,23 @@ suppressWarnings(suppressMessages(print(plot)))
 2017
 
 ```{r}
-hist = suppressWarnings(suppressMessages(ggplot(defoliation_df_relative[[1]], aes(x = defoliation)) +
-                   geom_histogram() +
-                   labs(x = "Relative defoliation of trees") +
-                   theme_pubr()
-))
+hist <- suppressWarnings(suppressMessages(ggplot(defoliation_df_relative[[1]], aes(x = defoliation)) +
+  geom_histogram() +
+  labs(x = "Relative defoliation of trees") +
+  theme_pubr()))
 suppressMessages(print(hist))
 ```
 
 2018
 
 ```{r}
-hist = suppressWarnings(suppressMessages(ggplot(defoliation_df_relative[[2]], aes(x = defoliation)) +
-                   geom_histogram() +
-                   labs(x = "Relative defoliation of trees") +
-                   theme_pubr()
-))
+hist <- suppressWarnings(suppressMessages(ggplot(defoliation_df_relative[[2]], aes(x = defoliation)) +
+  geom_histogram() +
+  labs(x = "Relative defoliation of trees") +
+  theme_pubr()))
 suppressMessages(print(hist))
 ```
 
 ```{r echo = FALSE}
-system("rsync -rlptDivzog --chown=*:www-data --chmod=g+r,o+r /home/patrick/papers/2019-feature-selection/docs/figure/report-defoliation.Rmd/defol* patrick@jupiter.geogr.uni-jena.de:/home/www/life-healthy-forest/action-B1-spatial-mapping/defoliation-maps/"
-)
+system("rsync -rlptDivzog --chown=*:www-data --chmod=g+r,o+r /home/patrick/papers/2019-feature-selection/docs/figure/report-defoliation.Rmd/defol* patrick@jupiter.geogr.uni-jena.de:/home/www/life-healthy-forest/action-B1-spatial-mapping/defoliation-maps/")
 ```
