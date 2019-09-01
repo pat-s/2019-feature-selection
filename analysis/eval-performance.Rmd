@@ -81,7 +81,8 @@ table1 %>%
     include.rownames = TRUE,
     latex.environments = c("center"),
     table.placement = "h!",
-    caption.placement = "top"
+    caption.placement = "top",
+    timestamp = NULL
   )
 
 table1 %>%
@@ -127,7 +128,8 @@ table2 %>%
     include.rownames = TRUE,
     latex.environments = c("center"),
     table.placement = "h!",
-    caption.placement = "top"
+    caption.placement = "top",
+    timestamp = NULL
   )
 
 table2 %>%
