@@ -37,12 +37,8 @@ library("flextable")
 library("xtable")
 ```
 
-## (Table) All leaner/filter/task combinations ordered by performance.
-
-Overall leaderboard across all settings, sorted descending by performance.
-
-```{r eval-performance-1, warning=FALSE}
-table1 <- getBMRAggrPerformances(bm_aggregated, as.df = TRUE) %>%
+```{r}
+df_simple = getBMRAggrPerformances(bm_aggregated, as.df = TRUE) %>%
   mutate(task.id = recode_factor(task.id,
     `defoliation-all-plots-HR` = "HR",
     `defoliation-all-plots-VI` = "VI",
@@ -51,10 +47,19 @@ table1 <- getBMRAggrPerformances(bm_aggregated, as.df = TRUE) %>%
     `defoliation-all-plots-HR-VI` = "HR-VI",
     `defoliation-all-plots-HR-NRI-VI` = "HR-NRI-VI",
   )) %>%
-  tidyr::separate(learner.id, c("learner_group", "filter"),
+    tidyr::separate(learner.id, c("learner_group", "filter"),
     remove = FALSE,
     sep = " "
-  ) %>%
+  )
+```
+
+
+## (Table) All leaner/filter/task combinations ordered by performance.
+
+Overall leaderboard across all settings, sorted descending by performance.
+
+```{r eval-performance-1, warning=FALSE}
+table1 <- df_simple %>%
   group_by(learner_group, task.id, filter) %>%
   summarise(best = min(rmse.test.rmse)) %>%
   dplyr::rename(
@@ -139,19 +144,7 @@ table2 %>%
 ## (Plot) Best learner/filter combs for all tasks
 
 ```{r performance-results, warning=FALSE, dev = c("png", "pdf")}
-results_aggr <- getBMRAggrPerformances(bm_aggregated, as.df = TRUE) %>%
-  mutate(task.id = recode_factor(task.id,
-    `defoliation-all-plots-HR` = "HR",
-    `defoliation-all-plots-VI` = "VI",
-    `defoliation-all-plots-NRI` = "NRI",
-    `defoliation-all-plots-HR-NRI` = "HR-NRI",
-    `defoliation-all-plots-HR-VI` = "HR-VI",
-    `defoliation-all-plots-HR-NRI-VI` = "HR-NRI-VI",
-  )) %>%
-  tidyr::separate(learner.id, c("learner_group", "filter"),
-    remove = FALSE,
-    sep = " "
-  ) %>%
+results_aggr <- df_simple %>%
   mutate(filter = replace(filter, is.na(filter), "NF")) %>%
   mutate(learner_group = recode_factor(learner_group, `XG` = "XGBOOST")) %>%
   group_by(learner_group, task.id) %>%
@@ -166,7 +159,7 @@ results_aggr %>%
   # geom_jitter(aes(color = learner_group), size = 2, width = 0, height = 0.3) +
   # geom_dotplot(aes(fill = learner_group), binaxis="y",
   #                        stackdir="up") +
-  geom_beeswarm(groupOnX = FALSE, aes(color = learner_group), size = 2.5) +
+  geom_beeswarm(groupOnX = FALSE, aes(color = learner_group), size = 3) +
   scale_color_nejm(breaks = sort(levels(results_aggr$learner_group))) +
   labs(x = "RMSE", y = "Task", color = "Learner") +
   guides(size = FALSE) +
@@ -185,11 +178,15 @@ results_aggr %>%
   theme_pubr() +
   theme(
     panel.grid.major.y = element_line(size = 0.1, linetype = "dashed"),
-    axis.title.y = element_blank()
+    axis.title.y = element_blank(),
+    legend.text = element_text(size = 12),
+    legend.title = element_text(size = 12),
+    axis.text.y = element_text(angle = 45),
+    plot.margin = unit(c(6, 6, 6, 0), "pt")
   )
 ```
 
-## (Plot) Best filter combination of each learner vs. no filter per task
+## (Plot) Best filter combination of each learner vs. no filter per task vs. Borda
 
 Showing the final effect of applying feature selection to a learner for each task.
 The more left a certain filter appears for a given task compared to the purple dot (No Filter), the higher the effectivity of applying feature selection for that given learner on the given task.
@@ -198,19 +195,7 @@ The more left a certain filter appears for a given task compared to the purple d
 # we rbind two filtered data.frames
 # doing the filtering in one step is (at least) complicated here
 
-best_filter <- getBMRAggrPerformances(bm_aggregated, as.df = TRUE) %>%
-  mutate(task.id = recode_factor(task.id,
-    `defoliation-all-plots-HR` = "HR",
-    `defoliation-all-plots-VI` = "VI",
-    `defoliation-all-plots-NRI` = "NRI",
-    `defoliation-all-plots-HR-NRI` = "HR-NRI",
-    `defoliation-all-plots-HR-VI` = "HR-VI",
-    `defoliation-all-plots-HR-NRI-VI` = "HR-NRI-VI",
-  )) %>%
-  tidyr::separate(learner.id, c("learner_group", "filter"),
-    remove = FALSE,
-    sep = " "
-  ) %>%
+best_filter <- df_simple %>%
   mutate(filter = replace(filter, is.na(filter), "No Filter")) %>%
   dplyr::filter(filter != "No Filter") %>%
   group_by(learner_group, task.id) %>%
@@ -240,7 +225,7 @@ comb <- bind_rows(best_filter, best_no_filter)
 
 comb %>%
   ggplot(aes(x = rmse.test.rmse, y = learner_group)) +
-  geom_beeswarm(groupOnX = FALSE, aes(color = filter), size = 2.5) +
+  geom_beeswarm(groupOnX = FALSE, aes(color = filter), size = 3) +
   facet_wrap(~task.id) +
   scale_color_nejm() +
   labs(x = "RMSE", y = "Task", color = "Filter") +
@@ -249,6 +234,82 @@ comb %>%
   theme_pubr() +
   theme(
     panel.grid.major.y = element_line(size = 0.1, linetype = "dashed"),
-    axis.title.y = element_blank()
+    axis.title.y = element_blank(),
+    axis.text.y = element_text(angle = 45),
+    legend.text = element_text(size = 12),
+    legend.title = element_text(size = 12),
+    plot.margin = unit(c(6, 6, 6, 0), "pt")
+  )
+```
+
+## (Plot) Best filter combination of each learner vs. Borda filter
+
+Showing the final effect of the ensemble Borda filter vs the best scoring simple filter.
+
+```{r filter-effect-ensemble, warning=FALSE}
+# we rbind two filtered data.frames
+# doing the filtering in one step is (at least) complicated here
+
+best_filter <- df_simple %>%
+  mutate(filter = replace(filter, is.na(filter), "No Filter")) %>%
+  dplyr::filter(filter != "No Filter") %>%
+  group_by(learner_group, task.id) %>%
+  dplyr::filter(learner_group == "SVM" | learner_group == "RF" | learner_group == "XGBoost") %>%
+  slice(which.min(rmse.test.rmse))
+
+borda <- df_simple %>%
+  mutate(filter = replace(filter, is.na(filter), "No Filter")) %>%
+  dplyr::filter(filter == "Borda") %>%
+  group_by(learner_group, task.id) %>%
+  dplyr::filter(learner_group == "SVM" | learner_group == "RF" | learner_group == "XGBoost") %>%
+  slice(which.min(rmse.test.rmse))
+
+comb_borda <- bind_rows(best_filter, borda)
+
+comb_borda %>%
+  ggplot(aes(x = rmse.test.rmse, y = learner_group)) +
+  geom_beeswarm(groupOnX = FALSE, aes(color = filter), size = 3) +
+  facet_wrap(~task.id) +
+  scale_color_nejm() +
+  labs(x = "RMSE", y = "Task", color = "Filter") +
+  guides(size = FALSE) +
+  scale_x_continuous(limits = c(30, 45)) +
+  theme_pubr() +
+  theme(
+    panel.grid.major.y = element_line(size = 0.1, linetype = "dashed"),
+    axis.title.y = element_blank(),
+    axis.text.y = element_text(angle = 45),
+    legend.text = element_text(size = 12),
+    legend.title = element_text(size = 12),
+    plot.margin = unit(c(6, 6, 6, 0), "pt")
+  )
+```
+
+## (Plot) Performances of all filter methods
+
+```{r filter-perf-all, warning=FALSE, dev = c("png", "pdf")}
+
+perf_all_filters <- df_simple %>%
+  mutate(filter = replace(filter, is.na(filter), "No Filter")) %>%
+  dplyr::filter(filter != "No Filter") %>%
+  group_by(learner_group, task.id) %>%
+  dplyr::filter(learner_group == "SVM" | learner_group == "RF" | learner_group == "XGBoost")
+
+perf_all_filters %>%
+  ggplot(aes(x = rmse.test.rmse, y = learner_group)) +
+  geom_beeswarm(groupOnX = FALSE, aes(color = filter), size = 2) +
+  facet_wrap(~task.id) +
+  scale_color_nejm() +
+  labs(x = "RMSE", y = "Task", color = "Filter") +
+  guides(size = FALSE) +
+  scale_x_continuous(limits = c(30, 45)) +
+  theme_pubr() +
+  theme(
+    panel.grid.major.y = element_line(size = 0.1, linetype = "dashed"),
+    axis.title.y = element_blank(),
+    axis.text.y = element_text(angle = 45),
+    legend.text = element_text(size = 12),
+    legend.title = element_text(size = 12),
+    plot.margin = unit(c(6, 6, 6, 0), "pt")
   )
 ```
