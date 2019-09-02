@@ -952,10 +952,11 @@ Feature sets containing expert-based variables (VI) showed no substantial differ
 % - RF Car is the overall winner
 % - Ridge-CV hit and miss (hit = NRI, miss = VI)
 % - all MBO penalized methods have no difference across tasks
-Random Forest combined with the "Carscore" filter showed the best absolute performance (RMSE of 3.396).
+Random Forest combined with the "Carscore" filter showed the best absolute performance (RMSE of 3.396) (\autoref{tab:perf-top-15}).
 A noticable difference between SVM and all other learners was visible for all feature sets without NRI variables (difference in RMSE of 3-4).
+Considering a grouped performance by learners across all tasks and filters, SVM showed the most robust results (\autoref{tab:perf-top-15}).
 L1 penalized regression showed slightly better results in three out of six tasks when being optimized using the package internal 10-fold CV compared to MBO (RMSE of 50 vs 58).
-Regression with Ridge penalty showed a high variance when comparing results across tasks: In three out of six tasks (all including VI variables) the error was out of bounds (HR-NRI-VI; HR-VI, VI), for HR-NRI and HR the error was medium (around 40 RMSE), and for task NRI Ridge regression achieved almost the same score as the best performing model (3.39 RMSE, NRI).
+Regression with Ridge penalty (L2) showed a high variance when comparing results across tasks: In three out of six tasks (all including VI variables) the error was out of bounds (HR-NRI-VI; HR-VI, VI), for HR-NRI and HR the error was medium (around 40 RMSE), and for task NRI Ridge regression achieved almost the same score as the best performing model (3.39 RMSE, NRI) (\autoref{tab:perf-top-15}).
 All penalized methods tuned using MBO showed exactly the same error across all tasks.
 
 % filters
@@ -968,9 +969,10 @@ Ensemble filters showed no substantial difference to simple filter methods.
 However, there was also no change to worse when using filter methods compared to using none.
 Comparing absolute values, filters "Carscore", "Information gain" and the "Borda" ensemble filter scored the best results across all learners and tasks.
 
-% FIXME: add table of first 20(?) ordered performance results across all tasks
 
 \input{performance-top-20}
+
+\input{performance-best-per-learner.tex}
 
 % plot performance results
 \begin{figure} [t!]
