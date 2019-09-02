@@ -482,7 +482,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2019-09-01
+<strong>Last updated:</strong> 2019-09-02
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -573,10 +573,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree2fb8f6946522ff2d5678954086a26e792d9e1ee2targetblank2fb8f69a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/2fb8f6946522ff2d5678954086a26e792d9e1ee2" target="_blank">2fb8f69</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontreecf6e820dc880ff7a1aa2c6028e785c844c7da761targetblankcf6e820a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/cf6e820dc880ff7a1aa2c6028e785c844c7da761" target="_blank">cf6e820</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree2fb8f6946522ff2d5678954086a26e792d9e1ee2targetblank2fb8f69a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontreecf6e820dc880ff7a1aa2c6028e785c844c7da761targetblankcf6e820a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -608,13 +608,12 @@ Unstaged changes:
     Modified:   code/98-paper/ieee/pdf/correlation-nbins-1.pdf
     Modified:   code/98-paper/ieee/pdf/defoliation-distribution-plot-1.pdf
     Modified:   code/98-paper/ieee/pdf/spectral-signatures-1.pdf
+    Modified:   code/98-paper/ieee/performance-best-per-learner.tex
+    Modified:   code/98-paper/ieee/performance-top-20.tex
     Modified:   code/98-paper/journal/defoliation-distribution-plot-1.pdf
-    Deleted:    docs/figure/eda.Rmd/defoliation-distribution-plot-1.pdf
-    Deleted:    docs/figure/eval-performance.Rmd/filter-effect-1.pdf
-    Deleted:    docs/figure/eval-performance.Rmd/performance-results-1.pdf
-    Deleted:    docs/figure/filter-correlation.Rmd/correlation-filter-nri-1.pdf
-    Deleted:    docs/figure/filter-correlation.Rmd/correlation-nbins-1.pdf
+    Deleted:    docs/.nojekyll
     Deleted:    docs/figure/spectral-signatures.Rmd/spectral-signatures-1.pdf
+    Deleted:    docs/logo/life.jpg
 
 </code></pre>
 <p>
@@ -653,6 +652,57 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/cf6e820dc880ff7a1aa2c6028e785c844c7da761/analysis/eval-performance.Rmd" target="_blank">cf6e820</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-09-02
+</td>
+<td>
+wflow_publish(“analysis/eval-performance.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/1bec10d350f5ba290b53c132bbec904e5ac25ca8/analysis/eval-performance.Rmd" target="_blank">1bec10d</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-09-01
+</td>
+<td>
+no timestamps in latex tables
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pat-s/2019-feature-selection/4e363ac57baeb19877357332e09ee55910835b41/docs/eval-performance.html" target="_blank">4e363ac</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-09-01
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -898,6 +948,11 @@ add eval-performance report
 </div>
 </div>
 </div>
+<pre><code>Warning: Expected 2 pieces. Additional pieces discarded in 18 rows [6, 15,
+23, 36, 45, 53, 66, 75, 83, 96, 105, 113, 126, 135, 143, 156, 165, 173].</code></pre>
+<pre><code>Warning: Expected 2 pieces. Missing pieces filled with `NA` in 42 rows [1,
+10, 19, 27, 28, 29, 30, 31, 40, 49, 57, 58, 59, 60, 61, 70, 79, 87, 88,
+89, ...].</code></pre>
 <div id="table-all-leanerfiltertask-combinations-ordered-by-performance." class="section level2">
 <h2>(Table) All leaner/filter/task combinations ordered by performance.</h2>
 <p>Overall leaderboard across all settings, sorted descending by performance.</p>
@@ -972,8 +1027,8 @@ pat-s
 </div>
 </div>
 </div>
-<div id="plot-best-filter-combination-of-each-learner-vs.no-filter-per-task" class="section level2">
-<h2>(Plot) Best filter combination of each learner vs. no filter per task</h2>
+<div id="plot-best-filter-combination-of-each-learner-vs.no-filter-per-task-vs.borda" class="section level2">
+<h2>(Plot) Best filter combination of each learner vs. no filter per task vs. Borda</h2>
 <p>Showing the final effect of applying feature selection to a learner for each task. The more left a certain filter appears for a given task compared to the purple dot (No Filter), the higher the effectivity of applying feature selection for that given learner on the given task.</p>
 <p><img src="figure/eval-performance.Rmd/filter-effect-1.png" width="100%" style="display: block; margin: auto;" /></p>
 <p>
@@ -1013,6 +1068,15 @@ pat-s
 </table>
 </div>
 </div>
+</div>
+<div id="plot-best-filter-combination-of-each-learner-vs.borda-filter" class="section level2">
+<h2>(Plot) Best filter combination of each learner vs. Borda filter</h2>
+<p>Showing the final effect of the ensemble Borda filter vs the best scoring simple filter.</p>
+<p><img src="figure/eval-performance.Rmd/filter-effect-ensemble-1.png" width="100%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="plot-performances-of-all-filter-methods" class="section level2">
+<h2>(Plot) Performances of all filter methods</h2>
+<p><img src="figure/eval-performance.Rmd/filter-perf-all-1.png" width="100%" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
