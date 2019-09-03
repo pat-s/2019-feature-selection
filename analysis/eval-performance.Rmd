@@ -85,7 +85,7 @@ table1 %>%
     file = "code/98-paper/ieee/performance-top-20.tex",
     include.rownames = TRUE,
     latex.environments = c("center"),
-    table.placement = "h!",
+    table.placement = "ht!",
     caption.placement = "top",
     timestamp = NULL
   )
@@ -132,7 +132,8 @@ table2 %>%
     file = "code/98-paper/ieee/performance-best-per-learner.tex",
     include.rownames = TRUE,
     latex.environments = c("center"),
-    table.placement = "h!",
+    table.placement = "ht!",
+    scalebox = 0.90,
     caption.placement = "top",
     timestamp = NULL
   )
