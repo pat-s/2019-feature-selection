@@ -18,6 +18,7 @@ knitr::opts_chunk$set(
   out.width = "100%",
   echo = FALSE
 )
+library(drake)
 ```
 
 This document originated from the fear of having a response variable which is not normally distributed "enough".
