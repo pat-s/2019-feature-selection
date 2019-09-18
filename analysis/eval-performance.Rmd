@@ -37,7 +37,7 @@ library("flextable")
 library("xtable")
 ```
 
-```{r}
+```{r, warning=FALSE}
 df_simple = getBMRAggrPerformances(bm_aggregated, as.df = TRUE) %>%
   mutate(task.id = recode_factor(task.id,
     `defoliation-all-plots-HR` = "HR",
