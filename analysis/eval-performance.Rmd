@@ -90,6 +90,8 @@ table1 %>%
     timestamp = NULL
   )
 
+saveRDS(table1, "code/98-paper/presentation/table-perf.rda")
+
 table1 %>%
   flextable()
 ```
@@ -137,6 +139,8 @@ table2 %>%
     caption.placement = "top",
     timestamp = NULL
   )
+
+saveRDS(table2, "code/98-paper/presentation/table-best-learner-per-task.rda")
 
 table2 %>%
   flextable()
@@ -231,7 +235,7 @@ comb %>%
   scale_color_nejm() +
   labs(x = "RMSE", y = "Task", color = "Filter") +
   guides(size = FALSE) +
-  scale_x_continuous(limits = c(30, 45)) +
+  scale_x_continuous(limits = c(30, 47)) +
   theme_pubr() +
   theme(
     panel.grid.major.y = element_line(size = 0.1, linetype = "dashed"),
