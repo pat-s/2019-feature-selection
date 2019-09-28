@@ -6,11 +6,7 @@
 #' @export
 
 benchmark_custom_no_models <- function(learner, task) {
-  parallelStart(
-    mode = "multicore",
-    level = "mlr.resample",
-    cpus = 4
-  )
+
   set.seed(12345, kind = "L'Ecuyer-CMRG")
 
   bmr <- benchmark(
@@ -28,11 +24,7 @@ benchmark_custom_no_models <- function(learner, task) {
 }
 
 benchmark_custom <- function(learner, task) {
-  parallelStart(
-    mode = "multicore",
-    level = "mlr.resample",
-    cpus = 4
-  )
+
   set.seed(12345, kind = "L'Ecuyer-CMRG")
 
   bmr <- benchmark(
@@ -77,9 +69,28 @@ inv_boxcox_rmse <- function(truth, response) {
 #' @template param_set
 tune_ctrl_mbo_30n_70it <- function(param_set) {
   makeTuneControlMBO(
-    mbo.control = makeMBOControl(propose.points = 1L) %>%
-      setMBOControlTermination(iters = 70L) %>%
+    mbo.control = makeMBOControl(propose.points = 1L,
+                                 on.surrogate.error = "warn") %>%
+      setMBOControlTermination(iters = 30L) %>%
       setMBOControlInfill(crit = crit.ei),
-    mbo.design = generateDesign(n = 30, par.set = param_set)
+    mbo.design = generateDesign(n = 70, par.set = param_set)
   )
+}
+
+#' @title Parallel feature importance wrapper
+#' @description Calculates feature importance via permutation
+feature_imp_parallel = function(task, learner, nmc, cpus, measure) {
+
+  parallelStart(
+    mode = "socket",
+    cpus = cpus
+  )
+  set.seed(12345, kind = "L'Ecuyer-CMRG")
+
+  fi = generateFeatureImportanceData(task = task, method = "permutation.importance",
+                                     learner = learner, nmc = nmc, local = FALSE,
+                                     measure = measure, show.info = TRUE
+  )
+  parallelStop()
+  return(fi)
 }
