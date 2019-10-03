@@ -26,6 +26,7 @@ tune_ctrl_paper_plan = code_to_plan("code/05-modeling/paper/tune-ctrl.R")
 filter_paper_plan = code_to_plan("code/05-modeling/paper/filter-wrapper.R")
 pca_paper_plan = code_to_plan("code/05-modeling/paper/pca-wrapper.R")
 tuning_paper_plan = code_to_plan("code/05-modeling/paper/tune-wrapper.R")
+tuning_mbo_paper_plan = code_to_plan("code/05-modeling/paper/tune-wrapper-mbo.R")
 eda_paper_plan = code_to_plan("code/05-modeling/paper/eda.R")
 aggregate_paper_plan = code_to_plan("code/061-aggregate.R")
 feature_imp_plan = code_to_plan("code/05-modeling/paper/feature-importance.R")
@@ -63,8 +64,9 @@ plan_project = bind_plans(data_plan, download_plan, hyperspectral_plan, learners
 
 plan_paper = bind_plans(data_plan, download_plan, hyperspectral_plan, learners_paper_plan,
                         resampling_paper_plan, param_set_paper_plan, tune_ctrl_paper_plan,
+                        tuning_mbo_paper_plan,
                         filter_paper_plan, tuning_paper_plan, bm_plan, reports_plan_paper,
-                        pca_paper_plan, eda_paper_plan, aggregate_paper_plan#, feature_imp_plan
+                        pca_paper_plan, eda_paper_plan, aggregate_paper_plan, feature_imp_plan
 )
 
 options(clustermq.scheduler = "slurm",
@@ -88,46 +90,14 @@ plan_paper %<>% mutate(stage = as.factor(stage))
 # paper -------------------------------------------------------------------
 
 drake_config(plan_paper,
-             #target = c(
-             # #"eda_wfr"
-             # #"filter_correlations_wfr"
-             # "fi_permut_hr_nri_vi",
-             # "fi_permut_hr_nri",
-             # "fi_permut_nri"
-             # "data_hs_preprocessed"
-             #),
              verbose = 2, lazy_load = "promise",
              console_log_file = "log/drake.log", cache_log_file = "log/cache3.log",
              caching = "worker",
-             template = list(log_file = "log/worker%a.log", n_cpus = 4, memory = 12000, job_name = "paper2-1"),
+             template = list(log_file = "log/worker%a.log", n_cpus = 4,
+                             memory = 12000, job_name = "paper2-1"),
              #prework = quote(future::plan(future.callr::callr, workers = 4)),
-             prework = quote(future::plan(future::multisession, workers = 4)),
-             garbage_collection = TRUE, jobs = 28, parallelism = "clustermq", keep_going = TRUE, recover = TRUE
+             #prework = quote(future::plan(future::multisession, workers = 4)),
+             prework = 'parallelStartMulticore(cpus = 4, level = "mlr.resample")',
+             garbage_collection = TRUE, jobs = 30, parallelism = "clustermq",
+             keep_going = TRUE, recover = TRUE, lock_envir = FALSE
 )
-
-
-# drake_config(plan_paper,
-#              target = c(
-#                #"spectral_signatures_wfr"
-#                # "fv_nri_car", "fv_nri_info.gain", "fv_nri_gain.ratio", "fv_nri_rank", "fv_nri_cor",
-#                # "fv_nri_mrmr", "fv_nri_cmim", "fv_nri_var",
-#                #
-#                # "fv_vi_car", "fv_vi_info.gain", "fv_vi_gain.ratio", "fv_vi_rank", "fv_vi_cor",
-#                # "fv_vi_mrmr", "fv_vi_cmim", "fv_vi_var",
-#                #
-#                # "fv_hr_car", "fv_hr_info.gain", "fv_hr_gain.ratio", "fv_hr_rank", "fv_hr_cor",
-#                # "fv_hr_mrmr", "fv_hr_cmim", "fv_hr_var",
-#                #"eda_wfr"#,
-#                #"filter_correlations_wfr"
-#                "bm_aggregated"#,
-#                #"bm_borda_nri_task_xgboost_borda"
-#                #"bm_vi_task_lrn_lm"
-#                #"bm_vi_task_rf_info.gain"
-#              ),
-#              verbose = 2, lazy_load = "promise",
-#              console_log_file = "log/drake2.log",
-#              caching = "worker",
-#              template = list(log_file = "log/2-worker%a.log", n_cpus = 4, memory = 10000, job_name = "paper2-2"),
-#              prework = quote(future::plan(future.callr::callr, workers = 4)),
-#              garbage_collection = TRUE, jobs = 9, parallelism = "clustermq"
-# )
