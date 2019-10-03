@@ -7,8 +7,6 @@
 
 benchmark_custom_no_models <- function(learner, task) {
 
-  set.seed(12345, kind = "L'Ecuyer-CMRG")
-
   bmr <- benchmark(
     learners = learner,
     tasks = task,
@@ -25,8 +23,6 @@ benchmark_custom_no_models <- function(learner, task) {
 
 benchmark_custom <- function(learner, task) {
 
-  set.seed(12345, kind = "L'Ecuyer-CMRG")
-
   bmr <- benchmark(
     learners = learner,
     tasks = task,
@@ -42,7 +38,6 @@ benchmark_custom <- function(learner, task) {
 }
 
 benchmark_custom_no_models_sequential <- function(learner, task) {
-  set.seed(12345, kind = "L'Ecuyer-CMRG")
 
   bmr <- benchmark(
     learners = learner,
@@ -71,9 +66,9 @@ tune_ctrl_mbo_30n_70it <- function(param_set) {
   makeTuneControlMBO(
     mbo.control = makeMBOControl(propose.points = 1L,
                                  on.surrogate.error = "warn") %>%
-      setMBOControlTermination(iters = 30L) %>%
+      setMBOControlTermination(iters = 70L) %>%
       setMBOControlInfill(crit = crit.ei),
-    mbo.design = generateDesign(n = 70, par.set = param_set)
+    mbo.design = generateDesign(n = 30, par.set = param_set)
   )
 }
 
@@ -85,7 +80,6 @@ feature_imp_parallel = function(task, learner, nmc, cpus, measure) {
     mode = "socket",
     cpus = cpus
   )
-  set.seed(12345, kind = "L'Ecuyer-CMRG")
 
   fi = generateFeatureImportanceData(task = task, method = "permutation.importance",
                                      learner = learner, nmc = nmc, local = FALSE,

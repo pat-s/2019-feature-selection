@@ -40,7 +40,6 @@ my_pairs <- function(x, ...) {
 age_imputation <- function(x, y, age, print = TRUE) {
   wh <- which(is.na(age))
   N.na <- length(wh)
-  set.seed(1234)
   for (i in wh) {
     di <- sqrt((x - x[i])^2 + (y - y[i])^2)
     wh.nn <- which(di < 50 & !is.na(age))

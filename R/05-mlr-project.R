@@ -17,9 +17,7 @@ tune_wrapper <- function(learner, level, cpus, tune.control, show.info, par.set,
   configureMlr(on.learner.error = "warn", on.error.dump = TRUE)
   parallelStart(
     mode = "multicore", level = level, cpus = ignore(cpus),
-    mc.set.seed = TRUE
   )
-  set.seed(12345, kind = "L'Ecuyer-CMRG")
   xgboost_tuned <- tuneParams(learner,
     task = task, resampling = resampling,
     par.set = par.set, control = tune.control,
