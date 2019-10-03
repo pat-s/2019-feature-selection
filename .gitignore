@@ -12,3 +12,4 @@ analysis/paper/submission/3/latex-source-files/elsarticle-template.synctex.gz
 analysis/paper/submission/3/latex-source-files/__latexindent_temp.tex
 analysis/paper/submission/3/latex-source-files/elsarticle-template.synctex.gz
 *.doc#
+.drake_history
