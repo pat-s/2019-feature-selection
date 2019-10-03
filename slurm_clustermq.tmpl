@@ -7,14 +7,8 @@
 #SBATCH --mem={{ memory }}
 #SBATCH --array=1-{{ n_jobs }}
 
-cd ~/papers/2019-feature-selection/
-spack load gcc@7.3.0
+source ~/.bashrc
+cd /home/patrick/papers/2019-feature-selection/
+module load r-3.5.2-gcc-9.2.0-ikmvwxz
 
-# because of conflicting leftovers of a gdal source installation we need to define the LD Path manually
-export LD_PRELOAD=/opt/spack/opt/spack/linux-centos7-x86_64/gcc-7.3.0/gdal-2.3.3-5664dlptnq3x6d55wcu6qzgnxohrijda/lib/libgdal.so.20
-spack load /5664dlp # gdal
-
-# share pandoc
-export PATH=/opt/pandoc/:$PATH
-
-CMQ_AUTH={{ auth }} /opt/R/3.5.2/bin/R --no-save --no-restore -e 'clustermq:::worker("{{ master }}")'
+CMQ_AUTH={{ auth }} R --no-save --no-restore -e 'clustermq:::worker("{{ master }}")'
