@@ -1,4 +1,5 @@
 bm_aggregated <- mergeBenchmarkResults(list(
+
   bm_vi_task_svm_no_filter_mbo,
   bm_nri_task_svm_no_filter_mbo,
   bm_hr_task_svm_no_filter_mbo,
@@ -13,12 +14,12 @@ bm_aggregated <- mergeBenchmarkResults(list(
   bm_hr_nri_task_svm_pca_mbo,
   bm_hr_nri_vi_task_svm_pca_mbo,
 
-  bm_borda_vi_task_svm_borda_mbo,
-  bm_borda_nri_task_svm_borda_mbo,
-  bm_borda_hr_task_svm_borda_mbo,
-  bm_borda_hr_vi_task_svm_borda_mbo,
-  bm_borda_hr_nri_task_svm_borda_mbo,
-  bm_borda_hr_nri_vi_task_svm_borda_mbo,
+  bm_vi_task_svm_borda_mbo,
+  bm_nri_task_svm_borda_mbo,
+  bm_hr_task_svm_borda_mbo,
+  bm_hr_vi_task_svm_borda_mbo,
+  bm_hr_nri_task_svm_borda_mbo,
+  bm_hr_nri_vi_task_svm_borda_mbo,
 
   bm_vi_task_svm_relief_mbo,
   bm_nri_task_svm_relief_mbo,
@@ -78,12 +79,12 @@ bm_aggregated <- mergeBenchmarkResults(list(
   bm_hr_nri_task_rf_pca_mbo,
   bm_hr_nri_vi_task_rf_pca_mbo,
 
-  bm_borda_vi_task_rf_borda_mbo,
-  bm_borda_nri_task_rf_borda_mbo,
-  bm_borda_hr_task_rf_borda_mbo,
-  bm_borda_hr_vi_task_rf_borda_mbo,
-  bm_borda_hr_nri_task_rf_borda_mbo,
-  bm_borda_hr_nri_vi_task_rf_borda_mbo,
+  bm_vi_task_rf_borda_mbo,
+  bm_nri_task_rf_borda_mbo,
+  bm_hr_task_rf_borda_mbo,
+  bm_hr_vi_task_rf_borda_mbo,
+  bm_hr_nri_task_rf_borda_mbo,
+  bm_hr_nri_vi_task_rf_borda_mbo,
 
   bm_vi_task_rf_relief_mbo,
   bm_nri_task_rf_relief_mbo,
@@ -143,12 +144,12 @@ bm_aggregated <- mergeBenchmarkResults(list(
   bm_hr_nri_task_xgboost_pca_mbo,
   bm_hr_nri_vi_task_xgboost_pca_mbo,
 
-  bm_borda_vi_task_xgboost_borda_mbo,
-  bm_borda_nri_task_xgboost_borda_mbo,
-  bm_borda_hr_task_xgboost_borda_mbo,
-  bm_borda_hr_vi_task_xgboost_borda_mbo,
-  bm_borda_hr_nri_task_xgboost_borda_mbo,
-  bm_borda_hr_nri_vi_task_xgboost_borda_mbo,
+  bm_vi_task_xgboost_borda_mbo,
+  bm_nri_task_xgboost_borda_mbo,
+  bm_hr_task_xgboost_borda_mbo,
+  bm_hr_vi_task_xgboost_borda_mbo,
+  bm_hr_nri_task_xgboost_borda_mbo,
+  bm_hr_nri_vi_task_xgboost_borda_mbo,
 
   bm_vi_task_xgboost_relief_mbo,
   bm_nri_task_xgboost_relief_mbo,
@@ -208,7 +209,8 @@ bm_aggregated <- mergeBenchmarkResults(list(
   bm_hr_nri_task_lrn_lassocv,
   bm_hr_nri_vi_task_lrn_lassocv,
 
-  # ridge
+  # ridge ----------------------------------------------------------------------
+
   bm_vi_task_ridge_no_filter_mbo,
   bm_nri_task_ridge_no_filter_mbo,
   bm_hr_task_ridge_no_filter_mbo,
