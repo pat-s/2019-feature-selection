@@ -480,7 +480,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2019-09-28
+<strong>Last updated:</strong> 2019-10-05
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -528,7 +528,7 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 </div>
 <div id="strongSeedstrongcodesetseed20190522code" class="panel-collapse collapse">
 <div class="panel-body">
-<p>The command <code>set.seed(20190522)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+<p>The command <code>set.seed(20190522)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
 </div>
 </div>
 </div>
@@ -571,10 +571,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontreed14cfb69f0f5a92d87be2cebbbb4240fd091d282targetblankd14cfb6a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/d14cfb69f0f5a92d87be2cebbbb4240fd091d282" target="_blank">d14cfb6</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree633e0ee7bac1f16a633da040332323d8432d919etargetblank633e0eea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/633e0ee7bac1f16a633da040332323d8432d919e" target="_blank">633e0ee</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontreed14cfb69f0f5a92d87be2cebbbb4240fd091d282targetblankd14cfb6a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree633e0ee7bac1f16a633da040332323d8432d919etargetblank633e0eea" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -585,6 +585,7 @@ Ignored files:
     Ignored:    .Rproj.user/
     Ignored:    .Ruserdata/
     Ignored:    .drake/
+    Ignored:    .drake_history/
     Ignored:    analysis/rosm.cache/
     Ignored:    data/
     Ignored:    inst/Benchmark for Filter Methods for Feature Selection in High-Dimensional  Classification Data.pdf
@@ -597,36 +598,15 @@ Ignored files:
     Ignored:    rosm.cache/
     Ignored:    tests/
 
-Untracked files:
-    Untracked:  .drake_history/
-
 Unstaged changes:
-    Modified:   .Rprofile
-    Modified:   R/06-mlr-paper.R
     Modified:   _drake.R
-    Modified:   code/06-benchmark-matrix.R
     Modified:   code/98-paper/ieee/pdf/correlation-filter-nri-1.pdf
     Modified:   code/98-paper/ieee/pdf/correlation-nbins-1.pdf
     Modified:   code/98-paper/ieee/pdf/defoliation-distribution-plot-1.pdf
     Modified:   code/98-paper/ieee/pdf/spectral-signatures-1.pdf
     Modified:   code/98-paper/journal/defoliation-distribution-plot-1.pdf
-    Modified:   code/99-packages.R
-    Modified:   code/move-figures.R
     Deleted:    docs/figure/spectral-signatures.Rmd/spectral-signatures-1.pdf
     Deleted:    docs/logo/life.jpg
-    Modified:   inst/study-area-map/study-area.qgs
-    Deleted:    packrat/src/Matrix/Matrix_1.2-14.tar.gz
-    Deleted:    packrat/src/dplyr/dplyr_0.7.4.tar.gz
-    Deleted:    packrat/src/igraph/igraph_1.2.2.tar.gz
-    Modified:   packrat/src/igraph/igraph_1.2.4.tar.gz
-    Deleted:    packrat/src/mlr/2c578dc4a2bf43041d5101df881f4d21dddd35bf.tar.gz
-    Deleted:    packrat/src/mlr/57bb7819aee16b317e725b103b8a1ba0d26dc5b2.tar.gz
-    Deleted:    packrat/src/tidyr/tidyr_0.8.0.tar.gz
-    Modified:   packrat/src/tidyr/tidyr_0.8.2.tar.gz
-    Modified:   slurm_clustermq.tmpl
-
-Staged changes:
-    Modified:   R/06-mlr-paper.R
 
 </code></pre>
 <p>
@@ -665,6 +645,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pat-s/2019-feature-selection/fdc80644908f2eb781e1179e6fd7bbf516d79e54/docs/response-normality.html" target="_blank">fdc8064</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-09-28
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -750,6 +747,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/fdc80644908f2eb781e1179e6fd7bbf516d79e54/docs/figure/response-normality.Rmd/response-normality-1-1.png" target="_blank">fdc8064</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-09-28
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/aa0486b3ea445867caff3de591fd040e383868e7/docs/figure/response-normality.Rmd/response-normality-1-1.png" target="_blank">aa0486b</a>
 </td>
 <td>
@@ -774,8 +782,6 @@ W = 0.86183, p-value &lt; 2.2e-16</code></pre>
 <p>Visualizing model residuals of LASSO and RF to see how they differ. The LASSO “predicted vs. fitted” plot shows limited model power.</p>
 <div id="lasso-model-with-no-transformation-of-the-response-variable" class="section level3">
 <h3>Lasso model with no transformation of the response variable</h3>
-<pre><code>Warning: namespace &#39;glmnet&#39; is not available and has been replaced
-by .GlobalEnv when processing object &#39;&#39;</code></pre>
 <p><img src="figure/response-normality.Rmd/response-normality-3-1.png" width="100%" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-response-normality-3-1">
@@ -799,6 +805,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/fdc80644908f2eb781e1179e6fd7bbf516d79e54/docs/figure/response-normality.Rmd/response-normality-3-1.png" target="_blank">fdc8064</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-09-28
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/0b18307448c77f2677c99cd41c9dfcef9b4d9bc5/docs/figure/response-normality.Rmd/response-normality-3-1.png" target="_blank">0b18307</a>
@@ -851,6 +868,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/fdc80644908f2eb781e1179e6fd7bbf516d79e54/docs/figure/response-normality.Rmd/response-normality-4-1.png" target="_blank">fdc8064</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-09-28
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/0b18307448c77f2677c99cd41c9dfcef9b4d9bc5/docs/figure/response-normality.Rmd/response-normality-4-1.png" target="_blank">0b18307</a>
@@ -970,8 +998,7 @@ Platform: x86_64-pc-linux-gnu (64-bit)
 Running under: CentOS Linux 7 (Core)
 
 Matrix products: default
-BLAS: /opt/R/3.5.2/lib64/R/lib/libRblas.so
-LAPACK: /opt/R/3.5.2/lib64/R/lib/libRlapack.so
+BLAS/LAPACK: /opt/spack/opt/spack/linux-centos7-x86_64/gcc-9.2.0/openblas-0.3.7-epeitvjwewaa3avb3brxkgbim4rh3qwb/lib/libopenblas_zen-r0.3.7.so
 
 locale:
 [1] C
@@ -985,29 +1012,29 @@ other attached packages:
 loaded via a namespace (and not attached):
  [1] Rcpp_1.0.0         txtq_0.1.4         lattice_0.20-38   
  [4] tidyr_0.8.2        foreach_1.4.4      assertthat_0.2.0  
- [7] rprojroot_1.3-2    digest_0.6.18      R6_2.4.0          
-[10] smoof_1.5.1        plyr_1.8.4         backports_1.1.3   
-[13] evaluate_0.13      httr_1.4.0         pillar_1.3.1      
-[16] rlang_0.3.4        lazyeval_0.2.1     misc3d_0.8-4      
-[19] data.table_1.12.0  whisker_0.3-2      Matrix_1.2-15     
-[22] checkmate_1.9.1    rmarkdown_1.13     labeling_0.3      
-[25] mco_1.0-15.1       splines_3.5.2      stringr_1.4.0     
-[28] htmlwidgets_1.3    igraph_1.2.4       munsell_0.5.0     
-[31] compiler_3.5.2     xfun_0.5           DiceKriging_1.5.6 
-[34] ParamHelpers_1.12  pkgconfig_2.0.2    mlr_2.15.0        
-[37] BBmisc_1.11        htmltools_0.3.6    tibble_2.0.1      
-[40] workflowr_1.4.0    codetools_0.2-16   viridisLite_0.3.0 
-[43] crayon_1.3.4       dplyr_0.8.0.1      withr_2.1.2       
-[46] grid_3.5.2         jsonlite_1.6       gtable_0.2.0      
-[49] git2r_0.24.0       magrittr_1.5       storr_1.2.1       
-[52] mlrMBO_1.1.2       scales_1.0.0       cli_1.1.0         
-[55] stringi_1.3.1      fs_1.2.6           parallelMap_1.4   
-[58] filelock_1.0.2     lhs_1.0.1          fastmatch_1.1-0   
-[61] plot3D_1.1.1       RColorBrewer_1.1-2 iterators_1.0.10  
-[64] tools_3.5.2        RJSONIO_1.3-1.1    glue_1.3.0        
-[67] purrr_0.3.0        parallel_3.5.2     survival_2.43-3   
-[70] yaml_2.2.0         colorspace_1.4-0   base64url_1.4     
-[73] plotly_4.8.0       knitr_1.23        </code></pre>
+ [7] glmnet_2.0-16      rprojroot_1.3-2    digest_0.6.18     
+[10] R6_2.4.0           smoof_1.5.1        plyr_1.8.4        
+[13] backports_1.1.3    evaluate_0.13      httr_1.4.0        
+[16] pillar_1.3.1       rlang_0.3.4        lazyeval_0.2.1    
+[19] misc3d_0.8-4       data.table_1.12.0  whisker_0.3-2     
+[22] Matrix_1.2-15      checkmate_1.9.1    rmarkdown_1.13    
+[25] labeling_0.3       mco_1.0-15.1       splines_3.5.2     
+[28] stringr_1.4.0      htmlwidgets_1.3    igraph_1.2.4      
+[31] munsell_0.5.0      compiler_3.5.2     xfun_0.5          
+[34] DiceKriging_1.5.6  ParamHelpers_1.12  pkgconfig_2.0.2   
+[37] mlr_2.15.0         BBmisc_1.11        htmltools_0.3.6   
+[40] tibble_2.0.1       workflowr_1.4.0    codetools_0.2-16  
+[43] viridisLite_0.3.0  crayon_1.3.4       dplyr_0.8.0.1     
+[46] withr_2.1.2        grid_3.5.2         jsonlite_1.6      
+[49] gtable_0.2.0       git2r_0.24.0       magrittr_1.5      
+[52] storr_1.2.1        mlrMBO_1.1.2       scales_1.0.0      
+[55] cli_1.1.0          stringi_1.3.1      fs_1.2.6          
+[58] parallelMap_1.4    filelock_1.0.2     lhs_1.0.1         
+[61] fastmatch_1.1-0    plot3D_1.1.1       RColorBrewer_1.1-2
+[64] iterators_1.0.10   tools_3.5.2        RJSONIO_1.3-1.1   
+[67] glue_1.3.0         purrr_0.3.0        parallel_3.5.2    
+[70] survival_2.43-3    yaml_2.2.0         colorspace_1.4-0  
+[73] base64url_1.4      plotly_4.8.0       knitr_1.23        </code></pre>
 </div>
 </div>
 </div>
