@@ -14,7 +14,7 @@ benchmark_custom_no_models <- function(learner, task) {
     keep.pred = TRUE,
     resamplings = makeResampleDesc("CV", fixed = TRUE),
     show.info = TRUE,
-    measures = list(rmse, timetrain)
+    measures = list(setAggregation(rmse, test.mean), timetrain)
   )
 
   parallelStop()
@@ -30,7 +30,7 @@ benchmark_custom <- function(learner, task) {
     keep.pred = TRUE,
     resamplings = makeResampleDesc("CV", fixed = TRUE),
     show.info = TRUE,
-    measures = list(rmse, timetrain)
+    measures = list(setAggregation(rmse, test.mean), timetrain)
   )
 
   parallelStop()
@@ -46,7 +46,7 @@ benchmark_custom_no_models_sequential <- function(learner, task) {
     keep.pred = TRUE,
     resamplings = makeResampleDesc("CV", fixed = TRUE),
     show.info = TRUE,
-    measures = list(rmse, timetrain)
+    measures = list(setAggregation(rmse, test.mean), timetrain)
   )
 
   return(bmr)
