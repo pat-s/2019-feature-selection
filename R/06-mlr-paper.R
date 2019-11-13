@@ -76,11 +76,6 @@ tune_ctrl_mbo_30n_70it <- function(param_set) {
 #' @description Calculates feature importance via permutation
 feature_imp_parallel = function(task, learner, nmc, cpus, measure) {
 
-  parallelStart(
-    mode = "socket",
-    cpus = cpus
-  )
-
   fi = generateFeatureImportanceData(task = task, method = "permutation.importance",
                                      learner = learner, nmc = nmc, local = FALSE,
                                      measure = measure, show.info = TRUE
