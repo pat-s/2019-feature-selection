@@ -17,6 +17,23 @@ download_trees <- function(url) {
   return(files)
 }
 
+#' @title Download data
+#' @description
+#' `download_trees()`: Download in-situ tree data
+#'
+#' @template url
+#' @name download
+download_aoi <- function(url) {
+  if (!file.exists("data/gpkg/aoi.gpkg")) {
+    curl_download(url,
+                  destfile = "data/gpkg/aoi.gpkg", quiet = FALSE
+    )
+  }
+
+  files <- st_read("data/gpkg/aoi.gpkg")
+  return(files)
+}
+
 #' @description
 #' `download_locations()`: Download plot location vector data
 #' @inheritParams download_trees
