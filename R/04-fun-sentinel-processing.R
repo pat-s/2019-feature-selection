@@ -362,7 +362,10 @@ mask_vi <- function(image_vi) {
 }
 
 #' @title calculate_vi
-#' @description Calculates the following vegetation indices from the Sentinel data:
+#' @description Calculates vegetation indices from the Sentinel data
+#'
+#' @details
+#' Indices:
 #'  - EVI
 #'  - GDVI2
 #'  - GDVI3
@@ -370,6 +373,13 @@ mask_vi <- function(image_vi) {
 #'  - MNDVI
 #'  - MSR
 #'  - D1
+#'
+#'  The following steps are performed:
+#'  1. Take the mosaic and read all raster files (different dates)
+#'  2. Calculate the index for all files
+#'  3. Stack the single rasters
+#'  4. Take the mean from all raster files
+#'  5. Write to disk
 #'
 #' @param image (`brick`)\cr File name of raster brick/stack.
 #' @return calculated VIs (file name)
@@ -381,58 +391,72 @@ calculate_vi <- function(image) {
     year <- "2018"
   }
 
+  print("Starting EVI")
+
   # EVI
-  image %>%
-    map(~ stack(.)) %>%
-    map(~ 2.5 * (.[[8]] / 10000 - .[[4]] / 10000) / ((.[[8]] / 10000 + 6 * .[[4]] / 10000 - 7.5 * .[[2]] / 10000) + 1)) %>%
-    stack() %>%
-    calc(fun = function(x) mean(x, na.rm = TRUE)) %>%
-    writeRaster(glue("data/sentinel/image_vi/EVI-{year}.tif"), overwrite = TRUE)
+  image_stack = map(image, ~ stack(.x))
+  image_stack = future_map(image_stack, ~ calc(.x, fun = function(x) 2.5 * (x[[8]] / 10000 - x[[4]] / 10000) / ((x[[8]] / 10000 + 6 * x[[4]] / 10000 - 7.5 * x[[2]] / 10000) + 1)))
+  image_stack = stack(image_stack)
+  image_stack = calc(image_stack, fun = function(x) mean(x, na.rm = TRUE))
+  writeRaster(image_stack, glue("data/sentinel/image_vi/EVI-{year}.tif"), overwrite = TRUE)
+  # image %>%
+  #   map(~ stack(.)) %>%
+  #   future_map(~ 2.5 * (.[[8]] / 10000 - .[[4]] / 10000) / ((.[[8]] / 10000 + 6 * .[[4]] / 10000 - 7.5 * .[[2]] / 10000) + 1)) %>%
+  #   stack() %>%
+  #   calc(fun = function(x) mean(x, na.rm = TRUE)) %>%
+  #   writeRaster(glue("data/sentinel/image_vi/EVI-{year}.tif"), overwrite = TRUE)
+
+  print("Starting GDVI 2")
 
   # GDVI 2
   image %>%
     map(~ stack(.)) %>%
-    map(~ ((.[[8]] / 10000)^2 - (.[[4]] / 10000)^2) / ((.[[8]] / 10000)^2 + (.[[4]] / 10000)^2)) %>%
+    future_map(~ ((.[[8]] / 10000)^2 - (.[[4]] / 10000)^2) / ((.[[8]] / 10000)^2 + (.[[4]] / 10000)^2)) %>%
     stack() %>%
     calc(fun = function(x) mean(x, na.rm = TRUE)) %>%
     writeRaster(glue("data/sentinel/image_vi/GDVI_2-{year}.tif"), overwrite = TRUE)
 
+  print("Starting GDVI 3")
   # GDVI 3
   image %>%
     map(~ stack(.)) %>%
-    map(~ ((.[[8]] / 10000)^3 - (.[[4]] / 10000)^3) / ((.[[8]] / 10000)^3 + (.[[4]] / 10000)^3)) %>%
+    future_map(~ ((.[[8]] / 10000)^3 - (.[[4]] / 10000)^3) / ((.[[8]] / 10000)^3 + (.[[4]] / 10000)^3)) %>%
     stack() %>%
     calc(fun = function(x) mean(x, na.rm = TRUE)) %>%
     writeRaster(glue("data/sentinel/image_vi/GDVI_3-{year}.tif"), overwrite = TRUE)
 
+  print("Starting GDVI 4")
   # GDVI 4
   image %>%
     map(~ stack(.)) %>%
-    map(~ ((.[[8]] / 10000)^4 - (.[[4]] / 10000)^4) / ((.[[8]] / 10000)^4 + (.[[4]] / 10000)^4)) %>%
+    future_map(~ ((.[[8]] / 10000)^4 - (.[[4]] / 10000)^4) / ((.[[8]] / 10000)^4 + (.[[4]] / 10000)^4)) %>%
     stack() %>%
     calc(fun = function(x) mean(x, na.rm = TRUE)) %>%
     writeRaster(glue("data/sentinel/image_vi/GDVI_4-{year}.tif"), overwrite = TRUE)
 
-  # MNDVI
+  print("Starting mNDVI")
+  # mNDVI
   image %>%
     map(~ stack(.)) %>%
-    map(~ (.[[8]] / 10000 - .[[4]] / 10000) / (.[[8]] / 10000 + .[[4]] / 10000 - 2 * .[[1]] / 10000)) %>%
+    future_map(~ (.[[8]] / 10000 - .[[4]] / 10000) / (.[[8]] / 10000 + .[[4]] / 10000 - 2 * .[[1]] / 10000)) %>%
     stack() %>%
     calc(fun = function(x) mean(x, na.rm = TRUE)) %>%
     writeRaster(glue("data/sentinel/image_vi/mNDVI-{year}.tif"), overwrite = TRUE)
 
-  # MSR
+  print("Starting mSR")
+  # mSR
   image %>%
     map(~ stack(.)) %>%
-    map(~ (.[[8]] / 10000 - .[[1]] / 10000) / (.[[4]] / 10000 - .[[1]] / 10000)) %>%
+    future_map(~ (.[[8]] / 10000 - .[[1]] / 10000) / (.[[4]] / 10000 - .[[1]] / 10000)) %>%
     stack() %>%
     calc(fun = function(x) mean(x, na.rm = TRUE)) %>%
     writeRaster(glue("data/sentinel/image_vi/mSR-{year}.tif"), overwrite = TRUE)
 
+  print("Starting D1")
   # D1
   image %>%
     map(~ stack(.)) %>%
-    map(~ (.[[6]] / 10000) / (.[[5]] / 10000)) %>%
+    future_map(~ (.[[7]] / 10000) / (.[[5]] / 10000)) %>%
     stack() %>%
     calc(fun = function(x) mean(x, na.rm = TRUE)) %>%
     writeRaster(glue("data/sentinel/image_vi/D1-{year}.tif"), overwrite = TRUE)
