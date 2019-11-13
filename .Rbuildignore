@@ -2,3 +2,5 @@
 ^\.Rprofile$
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^renv$
+^renv\.lock$
