@@ -6,7 +6,6 @@
 #' @export
 
 benchmark_custom_no_models <- function(learner, task) {
-
   bmr <- benchmark(
     learners = learner,
     tasks = task,
@@ -14,15 +13,16 @@ benchmark_custom_no_models <- function(learner, task) {
     keep.pred = TRUE,
     resamplings = makeResampleDesc("CV", fixed = TRUE),
     show.info = TRUE,
-    measures = list(setAggregation(rmse, test.mean), timetrain)
+    measures = list(
+      setAggregation(rmse, test.mean), setAggregation(rsq, test.mean),
+      setAggregation(expvar, test.mean)
+    )
   )
 
-  parallelStop()
   return(bmr)
 }
 
 benchmark_custom <- function(learner, task) {
-
   bmr <- benchmark(
     learners = learner,
     tasks = task,
@@ -30,15 +30,16 @@ benchmark_custom <- function(learner, task) {
     keep.pred = TRUE,
     resamplings = makeResampleDesc("CV", fixed = TRUE),
     show.info = TRUE,
-    measures = list(setAggregation(rmse, test.mean), timetrain)
+    measures = list(
+      setAggregation(rmse, test.mean), setAggregation(rsq, test.mean),
+      setAggregation(expvar, test.mean)
+    )
   )
 
-  parallelStop()
   return(bmr)
 }
 
 benchmark_custom_no_models_sequential <- function(learner, task) {
-
   bmr <- benchmark(
     learners = learner,
     tasks = task,
@@ -46,7 +47,10 @@ benchmark_custom_no_models_sequential <- function(learner, task) {
     keep.pred = TRUE,
     resamplings = makeResampleDesc("CV", fixed = TRUE),
     show.info = TRUE,
-    measures = list(setAggregation(rmse, test.mean), timetrain)
+    measures = list(
+      setAggregation(rmse, test.mean), setAggregation(rsq, test.mean),
+      setAggregation(expvar, test.mean)
+    )
   )
 
   return(bmr)
@@ -64,21 +68,24 @@ inv_boxcox_rmse <- function(truth, response) {
 #' @template param_set
 tune_ctrl_mbo_30n_70it <- function(param_set) {
   makeTuneControlMBO(
-    mbo.control = makeMBOControl(propose.points = 1L,
-                                 on.surrogate.error = "warn") %>%
+    mbo.control = makeMBOControl(
+      propose.points = 1L,
+      on.surrogate.error = "warn"#,
+    ) %>%
       setMBOControlTermination(iters = 70L) %>%
       setMBOControlInfill(crit = crit.ei),
-    mbo.design = generateDesign(n = 30, par.set = param_set)
+    mbo.design = generateDesign(n = 30, par.set = param_set)#,
+    #continue = TRUE
   )
 }
 
 #' @title Parallel feature importance wrapper
 #' @description Calculates feature importance via permutation
-feature_imp_parallel = function(task, learner, nmc, cpus, measure) {
-
-  fi = generateFeatureImportanceData(task = task, method = "permutation.importance",
-                                     learner = learner, nmc = nmc, local = FALSE,
-                                     measure = measure, show.info = TRUE
+feature_imp_parallel <- function(task, learner, nmc, cpus, measure) {
+  fi <- generateFeatureImportanceData(
+    task = task, method = "permutation.importance",
+    learner = learner, nmc = nmc, local = FALSE,
+    measure = measure, show.info = TRUE
   )
   parallelStop()
   return(fi)
