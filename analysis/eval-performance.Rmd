@@ -37,8 +37,8 @@ library("flextable")
 library("xtable")
 ```
 
-```{r, warning=FALSE}
-df_simple = getBMRAggrPerformances(bm_aggregated, as.df = TRUE) %>%
+```{r}
+df_perf = getBMRPerformances(bm_aggregated, as.df = T) %>%
   mutate(task.id = recode_factor(task.id,
     `defoliation-all-plots-HR` = "HR",
     `defoliation-all-plots-VI` = "VI",
@@ -47,28 +47,42 @@ df_simple = getBMRAggrPerformances(bm_aggregated, as.df = TRUE) %>%
     `defoliation-all-plots-HR-VI` = "HR-VI",
     `defoliation-all-plots-HR-NRI-VI` = "HR-NRI-VI",
   )) %>%
-    tidyr::separate(learner.id, c("learner_group", "filter"),
+  tidyr::separate(learner.id, c("learner_group", "filter"),
     remove = FALSE,
     sep = " "
-  )
+  ) 
 ```
 
+Aggregate performances and add standard error column.
+
+```{r aggr-perf}
+df_perf %<>% 
+  group_by(task.id, learner.id, filter) %>% 
+  mutate(rmse_aggr = round(mean(rmse), 3)) %>% 
+  mutate(se = round(sd(rmse), 3)) %>% 
+  select(-rmse, iter) %>% 
+  ungroup()
+```
 
 ## (Table) All leaner/filter/task combinations ordered by performance.
 
 Overall leaderboard across all settings, sorted descending by performance.
 
 ```{r eval-performance-1, warning=FALSE}
-table1 <- df_simple %>%
-  group_by(learner_group, task.id, filter) %>%
-  summarise(best = min(rmse.test.rmse)) %>%
+table1 <- df_perf %>%
+  group_by(learner.id, task.id, filter) %>%
+  slice(which.min(rmse_aggr)) %>%
   dplyr::rename(
-    "Learner Group" = learner_group,
+    "Model" = learner_group,
+    "Learner ID" = learner.id,
     "Task" = task.id,
     "Filter" = filter,
-    "RMSE" = best
+    "RMSE" = rmse_aggr,
+    "Standard Error" = se,
   ) %>%
+  ungroup() %>% 
   mutate(Filter = replace(Filter, is.na(Filter), "No Filter")) %>%
+  select(-iter, -`Learner ID`, -rsq, -expvar) %>% 
   arrange(RMSE)
 
 # save as latex table
@@ -93,15 +107,17 @@ table1 %>%
 saveRDS(table1, "code/98-paper/presentation/table-perf.rda")
 
 table1 %>%
-  flextable()
+  flextable() %>% 
+  autofit()
 ```
 
 ## (Table) Best learner/filter/task combination
 
 Learners: On which task and using which filter did every learner score their best result on?
 
-*-CV: L2 penalized regression using the internal 10-fold CV tuning of the `glmnet` package
-*-MBO: L2 penalized regression using using MBO for hyperparameter optimization.
+*CV: L2 penalized regression using the internal 10-fold CV tuning of the `glmnet` package
+
+*MBO: L2 penalized regression using using MBO for hyperparameter optimization.
 
 ```{r eval-performance-2, warning=FALSE}
 table2 <- getBMRAggrPerformances(bm_aggregated, as.df = TRUE) %>%
@@ -149,7 +165,7 @@ table2 %>%
 ## (Plot) Best learner/filter combs for all tasks
 
 ```{r performance-results, warning=FALSE, dev = c("png", "pdf")}
-results_aggr <- df_simple %>%
+results_aggr <- df_perf %>%
   mutate(filter = replace(filter, is.na(filter), "NF")) %>%
   mutate(learner_group = recode_factor(learner_group, `XG` = "XGBOOST")) %>%
   group_by(learner_group, task.id) %>%
@@ -196,11 +212,11 @@ results_aggr %>%
 Showing the final effect of applying feature selection to a learner for each task.
 The more left a certain filter appears for a given task compared to the purple dot (No Filter), the higher the effectivity of applying feature selection for that given learner on the given task.
 
-```{r filter-effect, warning=FALSE, dev = c("png", "pdf")}
+```{r filter-effect-best-vs-no-filter, warning=FALSE, dev = c("png", "pdf")}
 # we rbind two filtered data.frames
 # doing the filtering in one step is (at least) complicated here
 
-best_filter <- df_simple %>%
+best_filter <- df_perf %>%
   mutate(filter = replace(filter, is.na(filter), "No Filter")) %>%
   dplyr::filter(filter != "No Filter") %>%
   group_by(learner_group, task.id) %>%
@@ -255,14 +271,14 @@ Showing the final effect of the ensemble Borda filter vs the best scoring simple
 # we rbind two filtered data.frames
 # doing the filtering in one step is (at least) complicated here
 
-best_filter <- df_simple %>%
+best_filter <- df_perf %>%
   mutate(filter = replace(filter, is.na(filter), "No Filter")) %>%
   dplyr::filter(filter != "No Filter") %>%
   group_by(learner_group, task.id) %>%
   dplyr::filter(learner_group == "SVM" | learner_group == "RF" | learner_group == "XGBoost") %>%
   slice(which.min(rmse.test.rmse))
 
-borda <- df_simple %>%
+borda <- df_perf %>%
   mutate(filter = replace(filter, is.na(filter), "No Filter")) %>%
   dplyr::filter(filter == "Borda") %>%
   group_by(learner_group, task.id) %>%
@@ -293,8 +309,7 @@ comb_borda %>%
 ## (Plot) Performances of all filter methods
 
 ```{r filter-perf-all, warning=FALSE, dev = c("png", "pdf")}
-
-perf_all_filters <- df_simple %>%
+perf_all_filters <- df_perf %>%
   mutate(filter = replace(filter, is.na(filter), "No Filter")) %>%
   dplyr::filter(filter != "No Filter") %>%
   group_by(learner_group, task.id) %>%
@@ -318,3 +333,82 @@ perf_all_filters %>%
     plot.margin = unit(c(6, 6, 6, 0), "pt")
   )
 ```
+
+## (Plot) Scatterplots of filter methods vs. no filter for each learner and task
+
+Showing the final effect of applying feature selection to a learner for each task.
+All filters are summarized into a boxplot whereas using "no filter" appears as a standalone observation.
+
+```{r filter-effect-all-vs-no-filter, warning=FALSE, dev = c("png", "pdf")}
+results_aggr1 <- df_perf %>%
+  filter(learner_group != "Ridge-MBO", learner_group != "Ridge-CV") %>%
+  filter(learner_group != "Lasso-MBO", learner_group != "Lasso-CV") %>%
+  mutate(filter = replace(filter, is.na(filter), "NF")) %>%
+  mutate(learner_group = as.factor(learner_group)) %>%
+  mutate(learner_group = recode(learner_group, `XGBoost` = "XG")) %>%
+  group_by(learner_group, task.id, filter) %>% 
+  # we actually took the mean already in chunk 'aggr-perf'. This is only to get
+  # summarise() working
+  summarise(perf = mean(rmse_aggr))
+
+results_aggr1 %>%
+  ggplot(aes(x = perf, y = learner_group)) +
+  geom_beeswarm(
+    data = results_aggr1[results_aggr1$filter != "NF", ], size = 1.1, shape = 3,
+    groupOnX = FALSE, aes(color = "Filter")
+  ) +
+  geom_point(data = results_aggr1[results_aggr1$filter == "NF", ], 
+             size = 2, shape = 19, aes(color = "No Filter")) +
+  facet_wrap(~task.id) +
+  scale_color_nejm() +
+  labs(x = "RMSE", y = "Task", colour = NULL) +
+  guides(size = FALSE) +
+  scale_x_continuous(limits = c(30, 50)) +
+  theme_pubr() +
+  theme(
+    panel.grid.major.y = element_line(size = 0.1, linetype = "dashed"),
+    axis.title.y = element_blank(),
+    legend.text = element_text(size = 12),
+    legend.title = element_text(size = 12),
+  )
+```
+
+## (Plot) Scatterplots of filter methods vs. Borda for each learner and task
+
+Showing the final effect of applying feature selection to a learner for each task.
+All filters are summarized into a boxplot whereas using "no filter" appears as a standalone observation.
+
+```{r filter-effect-all-vs-borda-filter, warning=FALSE, dev = c("png", "pdf")}
+results_aggr2 <- df_perf %>%
+  na.omit() %>% 
+  filter(learner_group != "Ridge-MBO", learner_group != "Ridge-CV") %>%
+  filter(learner_group != "Lasso-MBO", learner_group != "Lasso-CV") %>%
+  mutate(learner_group = recode_factor(learner_group, `XGBoost` = "XG")) %>%
+  group_by(learner_group, task.id, filter) %>% 
+  # we actually took the mean already in chunk 'aggr-perf'. This is only to get
+  # summarise() working
+  summarise(perf = mean(rmse_aggr)) 
+
+results_aggr2 %>%
+  ggplot(aes(x = perf, y = learner_group)) +
+  geom_beeswarm(
+    data = results_aggr2[results_aggr2$filter != "Borda", ],
+    shape = 3, size = 1.1, aes(color = "Simple Filter"),
+    groupOnX = FALSE
+  ) +
+  geom_point(data = results_aggr2[results_aggr2$filter == "Borda", ], 
+             shape = 19, size = 2, aes(color = "Borda Filter")) +
+  facet_wrap(~task.id) +
+  scale_color_nejm() +
+  labs(x = "RMSE", y = "Task", colour = NULL) +
+  guides(size = FALSE) +
+  scale_x_continuous(limits = c(30, 48)) +
+  theme_pubr() +
+  theme(
+    panel.grid.major.y = element_line(size = 0.1, linetype = "dashed"),
+    axis.title.y = element_blank(),
+    legend.text = element_text(size = 12),
+    legend.title = element_text(size = 12),
+  )
+```
+
