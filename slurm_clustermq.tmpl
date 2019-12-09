@@ -1,6 +1,6 @@
 #!/bin/sh
 #SBATCH --job-name={{ job_name }}
-#SBATCH --partition=all
+#SBATCH --partition={{ partition }}
 #SBATCH --output={{ log_file | /dev/null }} # you can add .%a for array index
 #SBATCH --error={{ log_file | /dev/null }}
 #SBATCH --cpus-per-task={{ n_cpus }}
@@ -8,6 +8,6 @@
 #SBATCH --array=1-{{ n_jobs }}
 
 cd /home/patrick/papers/2019-feature-selection/
-module load r-3.5.2-gcc-9.2.0-4syrmqv pandoc-2.7.3-gcc-9.2.0-7hxzwvt
+module load r-3.6.1-gcc-9.2.0-j25wr6z pandoc-2.7.3-gcc-9.2.0-7hxzwvt
 
 CMQ_AUTH={{ auth }} R --no-save --no-restore -e 'clustermq:::worker("{{ master }}")'
