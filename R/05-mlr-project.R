@@ -9,15 +9,13 @@ tune_ctrl_wrapper <- function(propose.points, iters, n, param_set) {
       par.set = param_set
     )
   )
+  return(tune.ctrl)
 }
 
 
-tune_wrapper <- function(learner, level, cpus, tune.control, show.info, par.set, resampling,
+tune_wrapper <- function(learner, tune.control, show.info, par.set, resampling,
                          measure, task) {
   configureMlr(on.learner.error = "warn", on.error.dump = TRUE)
-  parallelStart(
-    mode = "multicore", level = level, cpus = ignore(cpus),
-  )
   xgboost_tuned <- tuneParams(learner,
     task = task, resampling = resampling,
     par.set = par.set, control = tune.control,
