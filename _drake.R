@@ -1,8 +1,16 @@
+# load packages ----------------------------------------------------------------
+
 source("code/99-packages.R")
+
+library("drake")
+library("magrittr")
+suppressMessages(library("R.utils"))
+
+# load mlr extra learner -------------------------------------------------------
 
 source("https://raw.githubusercontent.com/mlr-org/mlr-extralearner/master/R/RLearner_regr_ranger_mtry_pow.R")
 
-# Plans -----------------------------------------------------------
+# Plans ------------------------------------------------------------------------
 
 download_plan = code_to_plan("code/01-download.R")
 hyperspectral_plan = code_to_plan("code/02-hyperspectral-processing.R")
@@ -36,7 +44,7 @@ source("code/07-reports.R")
 
 sourceDirectory("R")
 
-#  grouping for visualization -----------------------------------------------------------------------
+#  grouping for visualization --------------------------------------------------
 
 download_plan$stage = "download"
 hyperspectral_plan$stage = "hyperspectral_preprocessing"
@@ -55,8 +63,8 @@ aggregate_paper_plan$stage = "benchmark"
 # prediction$stage = "prediction"
 reports_plan_paper$stage = "reports"
 
-# # Combine all -------------------------------------------------------------
-#
+# # Combine all ----------------------------------------------------------------
+
 plan_project = bind_plans(data_plan, download_plan, hyperspectral_plan, learners_plan,
                           resampling_plan, param_set_plan, tune_ctrl_plan, train_plan,
                           tuning_plan, task_plan, reports_plan_project, sentinel_plan
@@ -66,38 +74,61 @@ plan_paper = bind_plans(data_plan, download_plan, hyperspectral_plan, learners_p
                         resampling_paper_plan, param_set_paper_plan, tune_ctrl_paper_plan,
                         tuning_mbo_paper_plan,
                         filter_paper_plan, tuning_paper_plan, bm_plan, reports_plan_paper,
-                        pca_paper_plan, eda_paper_plan, aggregate_paper_plan, feature_imp_plan
+                        pca_paper_plan, eda_paper_plan, aggregate_paper_plan#, feature_imp_plan
 )
 
 options(clustermq.scheduler = "slurm",
         clustermq.template = "~/papers/2019-feature-selection/slurm_clustermq.tmpl")
 
-plan_project %<>% mutate(stage = as.factor(stage))
-plan_paper %<>% mutate(stage = as.factor(stage))
+plan_project %<>% dplyr::mutate(stage = as.factor(stage))
+plan_paper %<>% dplyr::mutate(stage = as.factor(stage))
 
 
-# project -----------------------------------------------------------------
+# project ----------------------------------------------------------------------
 
-# drake_config(plan_project,
-#              verbose = 2, targets = "defoliation_maps_wfr", lazy_load = "promise",
-#              console_log_file = "log/drake.log", cache_log_file = "log/cache3.log",
+# drake_config(plan_paper,
+#              verbose = 2, lazy_load = "eager",
+#              console_log_file = "log/drake.log",
 #              caching = "worker",
-#              template = list(log_file = "log/worker%a.log", n_cpus = 15, memory = 80000),
-#              prework = quote(future::plan(future::multisession, workers = 3)),
-#              garbage_collection = TRUE, jobs = 3, parallelism = "clustermq"
+#              template = list(log_file = "log/worker%a.log", n_cpus = 4, memory = "12G", job_name = "paper2"),
+#              # prework = list(
+#              #   #uote(future::plan(future::multisession, workers = 25))#,
+#              #   #quote(future::plan(future.callr::callr, workers = 4))
+#              #   quote(parallelStart(
+#              #     mode = "multicore", cpus = ignore(25)))
+#              # ),
+#              prework = list(quote(set.seed(1, "L'Ecuyer-CMRG")),
+#                             quote(parallelStart(mode = "multicore", cpus = 4, level = "mlr.resample"))
+#              ),
+#              garbage_collection = TRUE, jobs = 55, parallelism = "clustermq", lock_envir = FALSE,
+#              keep_going = TRUE
 # )
 
-# paper -------------------------------------------------------------------
+# paper -----------------------------------------------------------------------
+
+# not running in parallel because mclapply gets stuck sometimes
 
 drake_config(plan_paper,
-             verbose = 2, lazy_load = "promise",
-             console_log_file = "log/drake.log", cache_log_file = "log/cache3.log",
-             caching = "worker",
+             # targets = c("bm_vi_task_svm_borda_mbo", "bm_vi_task_xgboost_borda_mbo",
+             #             "bm_vi_task_rf_borda_mbo"),
+             #targets = "bm_vi_task_xgboost_borda_mbo",
+             verbose = 2, lazy_load = "eager",
+             packages = NULL,
+             console_log_file = "log/drake.log",
+             caching = "master",
              template = list(log_file = "log/worker%a.log", n_cpus = 4,
-                             memory = 12000, job_name = "paper2-1"),
-             #prework = quote(future::plan(future.callr::callr, workers = 4)),
-             #prework = quote(future::plan(future::multisession, workers = 4)),
-             prework = 'parallelStartMulticore(cpus = 4, level = "mlr.resample")',
-             garbage_collection = TRUE, jobs = 30, parallelism = "clustermq",
-             keep_going = TRUE, recover = TRUE, lock_envir = FALSE
+                             memory = 8000, job_name = "paper2", partition = "all"),
+             # prework = quote(future::plan(future.callr::callr, workers = 4)),
+             # prework = quote(future::plan(future::multisession, workers = 4)),
+             prework = list(quote(load_packages()),
+                            quote(set.seed(1, "L'Ecuyer-CMRG")),
+                            quote(parallelStart(mode = "multicore", cpus = 4,
+                                                level = "mlr.resample",
+                                                mc.cleanup = TRUE,
+                                                mc.preschedule = FALSE))
+             ),
+             garbage_collection = TRUE, jobs = 21, parallelism = "clustermq",
+             keep_going = TRUE, recover = FALSE, lock_envir = TRUE,
+             log_progress = TRUE
 )
+
