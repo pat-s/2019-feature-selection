@@ -1,24 +1,22 @@
 source("renv/activate.R")
 
-# rgdal
 options(
   drake_make_menu = FALSE,
   Ncpus = 10,
-  repos = BiocManager::repositories(),
-  # configure.args=list(
-  #   rgdal = c(
-  #     "--with-proj-lib=/opt/spack/opt/spack/linux-centos7-zen/gcc-9.2.0/proj-5.2.0-az6mkj55zpnh6fmg2ae5wyrmhfiynxfx/lib"),
-  #   sf = c(
-  #     "--with-proj-lib=/opt/spack/opt/spack/linux-centos7-zen/gcc-9.2.0/proj-5.2.0-az6mkj55zpnh6fmg2ae5wyrmhfiynxfx/lib")
-  #),
+  #repos = BiocManager::repositories(),
   radian.editing_mode = "vi",
   radian.auto_match = TRUE,
   radian.auto_indentation = TRUE,
   radian.tab_size = 2,
-  radian.complete_while_typing = TRUE
+  radian.complete_while_typing = TRUE,
+  scipen = 999,
+
+  clustermq.scheduler = "slurm",
+  clustermq.template = "slurm_clustermq.tmpl"
 )
 library(drake)
 library(magrittr)
+
 # tibble > data.frame
 if (interactive() && "tibble" %in% rownames(utils::installed.packages())) {
   print.data.frame = function(x, ...) {
