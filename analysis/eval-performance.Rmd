@@ -171,10 +171,10 @@ results_aggr <- df_perf %>%
   # this is better than summarise() because we can keep additional columns
   # in constrast to summariuse which only keeps the grouping columns and the
   # summarised one
-  slice(which.min(rmse.test.rmse))
+  slice(which.min(rmse_aggr))
 
 results_aggr %>%
-  ggplot(aes(x = rmse.test.rmse, y = task.id)) +
+  ggplot(aes(x = rmse_aggr, y = task.id)) +
   # geom_jitter(aes(color = learner_group), size = 2, width = 0, height = 0.3) +
   # geom_dotplot(aes(fill = learner_group), binaxis="y",
   #                        stackdir="up") +
@@ -185,10 +185,10 @@ results_aggr %>%
   scale_x_continuous(limits = c(30, 70)) +
   geom_label_repel(
     # subset data to remove out of bounds values
-    data = results_aggr[results_aggr$rmse.test.rmse < 100, ],
+    data = results_aggr[results_aggr$rmse_aggr < 100, ],
     # from ggbeeswarm, avoid overlapping of points by labels
     position = position_quasirandom(),
-    aes(label = paste(filter, ",", round(rmse.test.rmse, 2))),
+    aes(label = paste(filter, ",", round(rmse_aggr, 2))),
     size = 2.8,
     min.segment.length = 0.1,
     seed = 123,
@@ -219,9 +219,9 @@ best_filter <- df_perf %>%
   dplyr::filter(filter != "No Filter") %>%
   group_by(learner_group, task.id) %>%
   dplyr::filter(learner_group == "SVM" | learner_group == "RF" | learner_group == "XGBoost") %>%
-  slice(which.min(rmse.test.rmse))
+  slice(which.min(rmse_aggr))
 
-best_no_filter <- getBMRAggrPerformances(bm_aggregated, as.df = TRUE) %>%
+best_no_filter <- df_perf %>%
   mutate(task.id = recode_factor(task.id,
     `defoliation-all-plots-HR` = "HR",
     `defoliation-all-plots-VI` = "VI",
@@ -238,12 +238,12 @@ best_no_filter <- getBMRAggrPerformances(bm_aggregated, as.df = TRUE) %>%
   dplyr::filter(filter == "No Filter") %>%
   group_by(learner_group, task.id) %>%
   dplyr::filter(learner_group == "SVM" | learner_group == "RF" | learner_group == "XGBoost") %>%
-  slice(which.min(rmse.test.rmse))
+  slice(which.min(rmse_aggr))
 
 comb <- bind_rows(best_filter, best_no_filter)
 
 comb %>%
-  ggplot(aes(x = rmse.test.rmse, y = learner_group)) +
+  ggplot(aes(x = rmse_aggr, y = learner_group)) +
   geom_beeswarm(groupOnX = FALSE, aes(color = filter), size = 3) +
   facet_wrap(~task.id) +
   scale_color_nejm() +
@@ -274,19 +274,19 @@ best_filter <- df_perf %>%
   dplyr::filter(filter != "No Filter") %>%
   group_by(learner_group, task.id) %>%
   dplyr::filter(learner_group == "SVM" | learner_group == "RF" | learner_group == "XGBoost") %>%
-  slice(which.min(rmse.test.rmse))
+  slice(which.min(rmse_aggr))
 
 borda <- df_perf %>%
   mutate(filter = replace(filter, is.na(filter), "No Filter")) %>%
   dplyr::filter(filter == "Borda") %>%
   group_by(learner_group, task.id) %>%
   dplyr::filter(learner_group == "SVM" | learner_group == "RF" | learner_group == "XGBoost") %>%
-  slice(which.min(rmse.test.rmse))
+  slice(which.min(rmse_aggr))
 
 comb_borda <- bind_rows(best_filter, borda)
 
 comb_borda %>%
-  ggplot(aes(x = rmse.test.rmse, y = learner_group)) +
+  ggplot(aes(x = rmse_aggr, y = learner_group)) +
   geom_beeswarm(groupOnX = FALSE, aes(color = filter), size = 3) +
   facet_wrap(~task.id) +
   scale_color_nejm() +
@@ -314,7 +314,7 @@ perf_all_filters <- df_perf %>%
   dplyr::filter(learner_group == "SVM" | learner_group == "RF" | learner_group == "XGBoost")
 
 perf_all_filters %>%
-  ggplot(aes(x = rmse.test.rmse, y = learner_group)) +
+  ggplot(aes(x = rmse_aggr, y = learner_group)) +
   geom_beeswarm(groupOnX = FALSE, aes(color = filter), size = 2) +
   facet_wrap(~task.id) +
   scale_color_nejm() +
