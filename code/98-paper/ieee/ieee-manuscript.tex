@@ -46,7 +46,6 @@
 %% ** renaming them and changing author support contact information. **
 %%*************************************************************************
 
-
 % *** Authors should verify (and, if needed, correct) their LaTeX system  ***
 % *** with the testflow diagnostic prior to trusting their LaTeX platform ***
 % *** with production work. The IEEE's font choices and paper sizes can   ***
@@ -60,13 +59,8 @@
 % manually specify the path to it like:
 % \documentclass[journal]{../sty/IEEEtran}
 
-
-
-
-
 % Some very useful LaTeX packages include:
 % (uncomment the ones you want to load)
-
 
 % *** MISC UTILITY PACKAGES ***
 %
@@ -85,11 +79,6 @@
 % \ifCLASSINFOpdf conditional that works the same way.
 % When switching from latex to pdflatex and vice-versa, the compiler may
 % have to be run twice to clear warning/error messages.
-
-
-
-
-
 
 % *** CITATION PACKAGES ***
 %
@@ -164,10 +153,6 @@
 % version and documentation can be obtained at:
 % http://www.ctan.org/pkg/amsmath
 
-
-
-
-
 % *** SPECIALIZED LIST PACKAGES ***
 %
 %\usepackage{algorithmic}
@@ -185,9 +170,6 @@
 % algorithmicx.sty package by Szasz Janos:
 % http://www.ctan.org/pkg/algorithmicx
 
-
-
-
 % *** ALIGNMENT PACKAGES ***
 %
 %\usepackage{array}
@@ -201,13 +183,9 @@
 % latest version and documentation can be obtained at:
 % http://www.ctan.org/pkg/array
 
-
 % IEEEtran contains the IEEEeqnarray family of commands that can be used to
 % generate multiline equations as well as matrices, tables, etc., of high
 % quality.
-
-
-
 
 % *** SUBFIGURE PACKAGES ***
 %\ifCLASSOPTIONcompsoc
@@ -232,9 +210,6 @@
 % The latest version and documentation of subfig.sty can be obtained at:
 % http://www.ctan.org/pkg/subfig
 
-
-
-
 % *** FLOAT PACKAGES ***
 %
 %\usepackage{fixltx2e}
@@ -251,7 +226,6 @@
 % needed.
 % The latest version and documentation can be found at:
 % http://www.ctan.org/pkg/fixltx2e
-
 
 %\usepackage{stfloats}
 % stfloats.sty was written by Sigitas Tolusis. This package gives LaTeX2e
@@ -278,9 +252,6 @@
 % \usepackage{dblfloatfix}
 % The latest version can be found at:
 % http://www.ctan.org/pkg/dblfloatfix
-
-
-
 
 %\ifCLASSOPTIONcaptionsoff
 %  \usepackage[nomarkers]{endfloat}
@@ -418,7 +389,7 @@ of Geography, GIScience group, Friedrich-Schiller-University of Jena, Germany.}%
 The abstract goes here.
 \end{abstract}
 
-% Note that keywords are not normally used for peerreview papers.
+% Note that keywords are not normally used for peer-review papers.
 \begin{IEEEkeywords}
 hyperspectral imagery, forest health modeling, machine-learning, feature-selection, model comparison
 \end{IEEEkeywords}
@@ -429,7 +400,7 @@ hyperspectral imagery, forest health modeling, machine-learning, feature-selecti
  %\begin{center} \bfseries EDICS Category: 3-BBND \end{center}
  \fi
 
-% For peerreview papers, this IEEEtran command inserts a page break and
+% For peer-review papers, this IEEEtran command inserts a page break and
 % creates the second title. It will be ignored for other modes.
 \IEEEpeerreviewmaketitle
 
@@ -506,7 +477,7 @@ Approaches for analyzing forest health include temporal change detections \cite{
 In such studies, defoliation at trees is a variable able to serve as a proxy for forest health by describing the impact of biotic and abiotic pest triggers \cite{townsend2012, goodbody2018}.
 
 Vegetation indices have shown the potential to provide valuable information when analyzing such scenarios \cite{jiang2014, adamczyk2015}.
-Since both triggers and tree types are highly variable across regions, it cannot be known apriori which indices are most important for describing the actual relationship.
+Since both triggers and tree types are highly variable across regions, it cannot be known a-priori which indices are most important for describing the actual relationship.
 This emphasizes the need to extract as much information as possible from the available input data to generate features that can possibly explain the modeled relationship.
 Besides \ac{VI} a less known index type which can be calculated from remote-sensing products is the \ac{NRI}.
 \ac{NRI}s are arbitrary combinations of band information from remote-sensing data.
@@ -522,7 +493,7 @@ The approach of generating many features comes along with the possible introduct
 Even though \ac{ML} algorithms are capable of handling highly-correlated input variables, the fitting time of models increase substantially and the interpretation of results becomes more complicated.
 Besides modeling defoliation at trees and interpreting the model results from an ecological point of view, this work also aims at providing an exemplary analysis of how to deal with spatial feature-rich datasets.
 
-The reseach questions of this study are the following:
+The research questions of this study are the following:
 
 \begin{itemize}
 
@@ -673,13 +644,13 @@ The data was surveyed in September 2016.
 	\end{center}
 \end{figure}
 
-\begin{figure} [t!]
-	\begin{center}
-		\includegraphics[width=0.48\textwidth] {defol-grid-3000px.jpg}
-        \caption{Example trees showing different levels of defoliation as interpreted by the surveyor: 10 \% (top-left), 20 \% (top-right), 40 \% (bottom-left), 60-70 \% (bottom-right).}
-		\label{fig:defol-trees}
-	\end{center}
-\end{figure}
+%\begin{figure} [t!]
+%	\begin{center}
+%		\includegraphics[width=0.48\textwidth] {defol-grid-3000px.jpg}
+%		\caption{Example trees showing different levels of defoliation as interpreted by the surveyor: 10 \% (top-left), 20 \% (top-right), 40 \% (bottom-left), 60-70 \% (bottom-right).}
+%		\label{fig:defol-trees}
+%	\end{center}
+%\end{figure}
 
 
 \subsection{Hyperspectral data}
@@ -747,7 +718,7 @@ The case of a feature-rich dataset comes with several challenges for both model 
 \end{itemize}
 
 \noindent In the following sections a brief overview about sub-categories of feature-selection approaches is given.
-Due to the focus of this study on the use of filter methods, all other appraoches were grouped into a single section.
+Due to the focus of this study on the use of filter methods, all other approaches were grouped into a single section.
 
 \subsubsection{Filter methods}
 
@@ -765,7 +736,7 @@ In well-implemented software solutions the filter calculation is only done once 
 % Ensemble filter methods
 Besides the concept of choosing a specific filter method to rank variables, studies showed that combining several filters using statistical operations such as "minimum", "mean" or "sum" are able to enhance the predictive performance of the resulting models \cite{abeel2010, drotar2017a}.
 This approach is referred to as "ensemble filter" \cite{dietterich2000}.
-Ensemble filters align with the recent rise of the "ensemble" approach in machine-learning which uses stacking to combine the predictions of multiple models, aiming to enhence predictive performance \cite{polikar2012, feurer2015}.
+Ensemble filters align with the recent rise of the "ensemble" approach in machine-learning which uses stacking to combine the predictions of multiple models, aiming to enhance predictive performance \cite{polikar2012, feurer2015}.
 In this work the "Borda" ensemble filter was applied \cite{drotar2017a}.
 The final order is the sum of all single filters ranking.
 
@@ -775,7 +746,7 @@ Filter methods can be grouped into classes: Correlation based, entropy based, li
 It is important to not give certain classes too much weight in the ensemble as otherwise the final result will be biased.
 This was taken care of by calculating the rank correlations (Spearman's correlation) of the generated feature rankings of all methods against each other.
 In case filters showed high correlations with each other, these were not included into the ensemble filter.
-This ensures that the ensembe filter is not biased towards a certain group of methods yielding highly similar rankings.
+This ensures that the ensemble filter is not biased towards a certain group of methods yielding highly similar rankings.
 
 \paragraph{Description of used filter methods}
 
@@ -840,7 +811,7 @@ Here, the main components of the feature space are extracted and combined.
 Most often the first two extracted main components are used since these contain the major information of the covariates.
 By using the (automatically estimated) explained variance of the main components, the model can rely on a few features containing the majority of information available in the data.
 This enables cheap model fitting with balanced loss of predictor information.
-The disadvantage of this methodology is the lack of interpretatbility because the main components cannot be related back to the original covariates.
+The disadvantage of this methodology is the lack of interpretability because the main components cannot be related back to the original covariates.
 
 
 \subsection{Benchmarking design}
@@ -873,7 +844,7 @@ The combined approach is called "elastic net" but was not used in this work.
 
 
 \begin{itemize}
-	\item The raw hyperspectal band information (HR: No feature engineering)
+	\item The raw hyperspectral band information (HR: No feature engineering)
 	\item Vegetation Indices (\ac{VI}: Expert-based feature engineering)
 	\item Normalized Ratio Indices (\ac{NRI}: Automated feature-engineering)
 \end{itemize}
@@ -955,7 +926,7 @@ Feature sets containing expert-based variables (VI) showed no substantial differ
 % - Ridge-CV hit and miss (hit = NRI, miss = VI)
 % - all MBO penalized methods have no difference across tasks
 Random Forest combined with the "Carscore" filter showed the best absolute performance (RMSE of 3.396) (\autoref{tab:perf-top-15}).
-A noticable difference between SVM and all other learners was visible for all feature sets without NRI variables (difference in RMSE of 3-4).
+A noticeable difference between SVM and all other learners was visible for all feature sets without NRI variables (difference in RMSE of 3-4).
 Considering a grouped performance by learners across all tasks and filters, SVM showed the most robust results (\autoref{tab:perf-top-15}).
 L1 penalized regression showed slightly better results in three out of six tasks when being optimized using the package internal 10-fold CV compared to MBO (RMSE of 50 vs 58).
 Regression with Ridge penalty (L2) showed a high variance when comparing results across tasks: In three out of six tasks (all including VI variables) the error was out of bounds (HR-NRI-VI; HR-VI, VI), for HR-NRI and HR the error was medium (around 40 RMSE), and for task NRI Ridge regression achieved almost the same score as the best performing model (3.39 RMSE, NRI) (\autoref{tab:perf-top-15}).
@@ -963,10 +934,10 @@ All penalized methods tuned using MBO showed exactly the same error across all t
 
 % filters
 % - influence varies based on algorithm and task (SVM very small influence, RF medium, XGB medium)
-% - no substantial descrease in performance when using filters
+% - no substantial decrease in performance when using filters
 % - no advantage of ensemble borda filter compared to others
 Effects of filter methods on performance differed between algorithms:
-With the expection of one or two methods, SVM showed a constant performance of all filters across tasks (\autoref{fig:filter-perf-all}).
+With the exception of one or two methods, SVM showed a constant performance of all filters across tasks (\autoref{fig:filter-perf-all}).
 RF showed a normal distribution for most tasks with one or two different methods taking the lead on each task.
 For RF, filter "Carscore" showed the best performance in three out of six tasks while this was achieved for XGBoost by filter "CMIM".
 XGBoost showed a diverse distribution with less clustering of filters as SVM and RF (referring to RMSE).
@@ -1044,7 +1015,7 @@ However, it has to be considered when making interpretations about the outcome o
 \subsection{Feature selection methods}
 
 % - Ensemble FS show no advantage to simple methods -> maybe to less features, features too correlated? check diff between effect on NRI and VI
-% - Effect varies across learnes -> suggest to use FS even on feature sets with p < 100?
+% - Effect varies across learners -> suggest to use FS even on feature sets with p < 100?
 % - When calculating multiple filters, consider to only use ensemble filter?
 % - PCA shows similar performance but probably requires tuning of main components -> check runtime!
 
@@ -1061,7 +1032,7 @@ WIP
 % NOTE: only few studies analyze defoliation
 
 \noindent Most other studies analyzing defoliation operated on the plot rather than the tree level.
-This originated simply due to spatial resolution of the satellite products that served as the input data \cite{townsend2012, debeurs2008a, rengarajan2016}.
+This originated simply due to spatial resolution of the satellite products that served as the input data \cite{townsend2012, debeurs2008, rengarajan2016}.
 
 Studies focusing on tree-level defoliation used ground-level methods such as \ac{ALS} or \ac{LiDAR} \cite{meng2018, kalin2019}.
 \cite{meng2018} used \ac{OLS} regression methods while \cite{kalin2019} retrieved information out of ground-level RGB photos using \ac{CNN}.
@@ -1120,7 +1091,7 @@ These findings underline the importance of this work in the field of forest heal
 
 
 \bibliographystyle{IEEEtran}
-\bibliography{IEEEabrv,Biblio}
+\bibliography{Biblio}
 
 \section*{References}
 
