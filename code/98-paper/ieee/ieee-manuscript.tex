@@ -46,7 +46,6 @@
 %% ** renaming them and changing author support contact information. **
 %%*************************************************************************
 
-
 % *** Authors should verify (and, if needed, correct) their LaTeX system  ***
 % *** with the testflow diagnostic prior to trusting their LaTeX platform ***
 % *** with production work. The IEEE's font choices and paper sizes can   ***
@@ -60,13 +59,8 @@
 % manually specify the path to it like:
 % \documentclass[journal]{../sty/IEEEtran}
 
-
-
-
-
 % Some very useful LaTeX packages include:
 % (uncomment the ones you want to load)
-
 
 % *** MISC UTILITY PACKAGES ***
 %
@@ -86,22 +80,17 @@
 % When switching from latex to pdflatex and vice-versa, the compiler may
 % have to be run twice to clear warning/error messages.
 
-
-
-
-
-
 % *** CITATION PACKAGES ***
 %
 \usepackage{cite}
 \usepackage[hidelinks]{hyperref}
 % cite.sty was written by Donald Arseneau
 % V1.6 and later of IEEEtran pre-defines the format of the cite.sty package
-% \cite{} output to follow that of the IEEE. Loading the cite package will
+%\cite{} output to follow that of the IEEE. Loading the cite package will
 % result in citation numbers being automatically sorted and properly
-% "compressed/ranged". e.g., [1], [9], [2], [7], [5], [6] without using
+% 'compressed/ranged'. e.g., [1], [9], [2], [7], [5], [6] without using
 % cite.sty will become [1], [2], [5]--[7], [9] using cite.sty. cite.sty's
-% \cite will automatically add leading space, if needed. Use cite.sty's
+%\cite will automatically add leading space, if needed. Use cite.sty's
 % noadjust option (cite.sty V3.8 and later) if you want to turn this off
 % such as if a citation ever needs to be enclosed in parenthesis.
 % cite.sty is already installed on most LaTeX systems. Be sure and use
@@ -112,7 +101,7 @@
 
 % *** GRAPHICS RELATED PACKAGES ***
 %
-\ifCLASSINFOpdf
+\ifCLASSINFOpdf{}
   \usepackage[pdftex]{graphicx}
   % declare the path(s) where your graphic files are
   \graphicspath{{pdf/}{jpg/}}
@@ -135,8 +124,8 @@
 % installed on most LaTeX systems. The latest version and documentation
 % can be obtained at:
 % http://www.ctan.org/pkg/graphicx
-% Another good source of documentation is "Using Imported Graphics in
-% LaTeX2e" by Keith Reckdahl which can be found at:
+% Another good source of documentation is 'Using Imported Graphics in
+% LaTeX2e' by Keith Reckdahl which can be found at:
 % http://www.ctan.org/pkg/epslatex
 %
 % latex, and pdflatex in dvi mode, support graphics in encapsulated
@@ -144,7 +133,7 @@
 % in .pdf, .jpeg, .png and .mps (metapost) formats. Users should ensure
 % that all non-photo figures use a vector format (.eps, .pdf, .mps) and
 % not a bitmapped formats (.jpeg, .png). The IEEE frowns on bitmapped formats
-% which can result in "jaggedy"/blurry rendering of lines and letters as
+% which can result in 'jaggedy'/blurry rendering of lines and letters as
 % well as large increases in file sizes.
 %
 % You can find documentation about the pdfTeX application at:
@@ -164,10 +153,6 @@
 % version and documentation can be obtained at:
 % http://www.ctan.org/pkg/amsmath
 
-
-
-
-
 % *** SPECIALIZED LIST PACKAGES ***
 %
 %\usepackage{algorithmic}
@@ -185,9 +170,6 @@
 % algorithmicx.sty package by Szasz Janos:
 % http://www.ctan.org/pkg/algorithmicx
 
-
-
-
 % *** ALIGNMENT PACKAGES ***
 %
 %\usepackage{array}
@@ -201,13 +183,9 @@
 % latest version and documentation can be obtained at:
 % http://www.ctan.org/pkg/array
 
-
 % IEEEtran contains the IEEEeqnarray family of commands that can be used to
 % generate multiline equations as well as matrices, tables, etc., of high
 % quality.
-
-
-
 
 % *** SUBFIGURE PACKAGES ***
 %\ifCLASSOPTIONcompsoc
@@ -221,7 +199,7 @@
 % subfig.sty requires and automatically loads Axel Sommerfeldt's caption.sty
 % which will override IEEEtran.cls' handling of captions and this will result
 % in non-IEEE style figure/table captions. To prevent this problem, be sure
-% and invoke subfig.sty's "caption=false" package option (available since
+% and invoke subfig.sty's 'caption=false' package option (available since
 % subfig.sty version 1.3, 2005/06/28) as this is will preserve IEEEtran.cls
 % handling of captions.
 % Note that the Computer Society format requires a larger sans serif font
@@ -231,9 +209,6 @@
 %
 % The latest version and documentation of subfig.sty can be obtained at:
 % http://www.ctan.org/pkg/subfig
-
-
-
 
 % *** FLOAT PACKAGES ***
 %
@@ -252,11 +227,10 @@
 % The latest version and documentation can be found at:
 % http://www.ctan.org/pkg/fixltx2e
 
-
 %\usepackage{stfloats}
 % stfloats.sty was written by Sigitas Tolusis. This package gives LaTeX2e
 % the ability to do double column floats at the bottom of the page as well
-% as the top. (e.g., "\begin{figure*}[!b]" is not normally possible in
+% as the top. (e.g., '\begin{figure*}[!b]' is not normally possible in
 % LaTeX2e). It also provides a command:
 %\fnbelowfloat
 % to enable the placement of footnotes below bottom floats (the standard
@@ -279,9 +253,6 @@
 % The latest version can be found at:
 % http://www.ctan.org/pkg/dblfloatfix
 
-
-
-
 %\ifCLASSOPTIONcaptionsoff
 %  \usepackage[nomarkers]{endfloat}
 % \let\MYoriglatexcaption\caption
@@ -295,7 +266,7 @@
 % the end of the document. If needed, the draftcls IEEEtran class option or
 % \CLASSINPUTbaselinestretch interface can be used to increase the line
 % spacing as well. Be sure and use the nomarkers option of endfloat to
-% prevent endfloat from "marking" where the figures would have been placed
+% prevent endfloat from 'marking' where the figures would have been placed
 % in the text. The two hack lines of code above are a slight modification of
 % that suggested by in the endfloat docs (section 8.4.1) to ensure that
 % the full captions always appear in the list of figures/tables - even if
@@ -364,20 +335,20 @@
 % was not built to handle multiple paragraphs
 %
 
-% suppress "underfull hbox" warnings
+% suppress 'underfull hbox' warnings
 \hbadness=99999
 
 \author{Patrick~Schratz,~\IEEEmembership{Member,~IEEE,}
-        Jannes~Muenchow,~\IEEEmembership{Member,~IEEE,}
-        Eugenia Iturritxa,~\IEEEmembership{Member,~IEEE,}
-        José Cortés, ~\IEEEmembership{Member,~IEEE,}
-        Bernd~Bischl,~\IEEEmembership{Member,~IEEE,}
-        and Alexander~Brenning,~\IEEEmembership{Member,~IEEE}
-\thanks{P. Schratz, J. Muenchow, J. Cortés and A. Brenning are with the Department
-of Geography, GIScience group, Friedrich-Schiller-University of Jena, Germany.}% <-this % stops a space
-\thanks{B. Bischl is head of the computational statistics group at the Department of Statistics, Ludwig-Maximilian-University Munich.}% <-this % stops a space
-\thanks{E. Iturritxa is with NEIKER Tecnalia, Vitoria-Gasteiz, Arab, Spain.}% <-this % stops a space
-%\thanks{Manuscript received April 19, 2005; revised August 26, 2015.}
+	Jannes~Muenchow,~\IEEEmembership{Member,~IEEE,}
+	Eugenia Iturritxa,~\IEEEmembership{Member,~IEEE,}
+	José Cortés,~\IEEEmembership{Member,~IEEE,}
+	Bernd~Bischl,~\IEEEmembership{Member,~IEEE,}
+	and Alexander~Brenning,~\IEEEmembership{Member,~IEEE}
+	\thanks{P. Schratz, J. Muenchow, J. Cortés and A. Brenning are with the Department
+		of Geography, GIScience group, Friedrich-Schiller-University of Jena, Germany.}% <-this % stops a space
+	\thanks{B. Bischl is head of the computational statistics group at the Department of Statistics, Ludwig-Maximilian-University Munich.}% <-this % stops a space
+	\thanks{E. Iturritxa is with NEIKER Tecnalia, Vitoria-Gasteiz, Arab, Spain.}% <-this % stops a space
+	%\thanks{Manuscript received April 19, 2005; revised August 26, 2015.}
 }
 
 % note the % following the last \IEEEmembership and also \thanks -
@@ -388,9 +359,9 @@ of Geography, GIScience group, Friedrich-Schiller-University of Jena, Germany.}%
 %                     ^------------^------------^----Do not want these spaces!
 %
 % a space would be appended to the last name and could cause every name on that
-% line to be shifted left slightly. This is one of those "LaTeX things". For
-% instance, "\textbf{A} \textbf{B}" will typeset as "A B" not "AB". To get
-% "AB" then you have to do: "\textbf{A}\textbf{B}"
+% line to be shifted left slightly. This is one of those 'LaTeX things'. For
+% instance, '\textbf{A} \textbf{B}' will typeset as 'A B' not 'AB'. To get
+% 'AB' then you have to do: '\textbf{A}\textbf{B}'
 % \thanks is no different in this regard, so shield the last } of each \thanks
 % that ends a line with a % and do not let a space in before the next \thanks.
 % Spaces after \IEEEmembership other than the last one are OK (and needed) as
@@ -415,31 +386,31 @@ of Geography, GIScience group, Friedrich-Schiller-University of Jena, Germany.}%
 % As a general rule, do not put math, special symbols or citations
 % in the abstract or keywords.
 \begin{abstract}
-The abstract goes here.
+	The abstract goes here.
 \end{abstract}
 
-% Note that keywords are not normally used for peerreview papers.
+% Note that keywords are not normally used for peer-review papers.
 \begin{IEEEkeywords}
-hyperspectral imagery, forest health modeling, machine-learning, feature-selection, model comparison
+	hyperspectral imagery, forest health modeling, machine-learning, feature-selection, model comparison
 \end{IEEEkeywords}
 
 % For peer review papers, you can put extra information on the cover
 % page as needed:
- \ifCLASSOPTIONpeerreview
- %\begin{center} \bfseries EDICS Category: 3-BBND \end{center}
- \fi
+\ifCLASSOPTIONpeerreview{}
+%\begin{center} \bfseries EDICS Category: 3-BBND \end{center}
+\fi
 
-% For peerreview papers, this IEEEtran command inserts a page break and
+% For peer-review papers, this IEEEtran command inserts a page break and
 % creates the second title. It will be ignored for other modes.
-\IEEEpeerreviewmaketitle
+\IEEEpeerreviewmaketitle{}
 
 \renewcommand{\IEEEiedlistdecl}{\IEEEsetlabelwidth{SONET}}
 \begin{acronym}
 
 	% geringerer Zeilenabstand
-
+	
 	%\setlength{\itemsep}{-\parsep}
-
+	
 	\acro{AGB}{above-ground biomass}
 	\acro{ALS}{airborn laser scanning}
 	\acro{ANN}{artificial neural network}
@@ -490,23 +461,23 @@ hyperspectral imagery, forest health modeling, machine-learning, feature-selecti
 
 % Link remote sensing and machine-learning
 
-\IEEEPARstart{T}{he} use of \ac{ML} algorithms for analyzing remote sensing data has seen a huge increase in the last decade \cite{lary2016}.
+\IEEEPARstart{T}{he} use of \ac{ML} algorithms for analyzing remote sensing data has seen a huge increase in the last decade~\cite{lary2016}.
 Especially since the launch of the first Sentinel satellite in 2014 the amount of freely available imagery data has increased greatly.
 At the same time, the implementation and usability of algorithms (both statistical and machine-learning) has been greatly simplified in the open-source community.
 Scientists can nowadays relatively easily feed large amounts of (environmental) information into complex models and analyze the data in a semi-automated way.
-This simplifies the analysis of (temporal) changes of the environment on a large scale \cite{ma2015}.
+This simplifies the analysis of (temporal) changes of the environment on a large scale\cite{ma2015}.
 
 % link to forest health analysis and show exemplary studies
 
-Machine-learning methods in combination with remote-sensing data are used in many environmental fields such as vegetation cover analysis or forest carbon storage mapping \cite{mascaro2014, urban2018}.
+Machine-learning methods in combination with remote-sensing data are used in many environmental fields such as vegetation cover analysis or forest carbon storage mapping\cite{mascaro2014, urban2018}.
 The ability of predicting to large unknown areas qualifies these tools as a promising toolset for forest health analysis.
-This research field aims to enhance the understanding of biotic and abiotic triggers, for example by analyzing defoliation at trees \cite{hawrylo2018}.
+This research field aims to enhance the understanding of biotic and abiotic triggers, for example by analyzing defoliation at trees\cite{hawrylo2018}.
 
-Approaches for analyzing forest health include temporal change detections \cite{zhang2016} or describing the current health status of forests on a stand level \cite{townsend2012}.
-In such studies, defoliation at trees is a variable able to serve as a proxy for forest health by describing the impact of biotic and abiotic pest triggers \cite{townsend2012, goodbody2018}.
+Approaches for analyzing forest health include temporal change detection\cite{zhang2016} or describing the current health status of forests on a stand level\cite{townsend2012}.
+In such studies, defoliation at trees is a variable able to serve as a proxy for forest health by describing the impact of biotic and abiotic pest triggers\cite{townsend2012, goodbody2018}.
 
-Vegetation indices have shown the potential to provide valuable information when analyzing such scenarios \cite{jiang2014, adamczyk2015}.
-Since both triggers and tree types are highly variable across regions, it cannot be known apriori which indices are most important for describing the actual relationship.
+Vegetation indices have shown the potential to provide valuable information when analyzing such scenarios\cite{jiang2014, adamczyk2015}.
+Since both triggers and tree types are highly variable across regions, it cannot be known a-priori which indices are most important for describing the actual relationship.
 This emphasizes the need to extract as much information as possible from the available input data to generate features that can possibly explain the modeled relationship.
 Besides \ac{VI} a less known index type which can be calculated from remote-sensing products is the \ac{NRI}.
 \ac{NRI}s are arbitrary combinations of band information from remote-sensing data.
@@ -517,27 +488,29 @@ Especially when working with hyperspectral data, hundreds of \ac{NRI}s can be de
 Despite its popularity in environmental modeling, there are no studies so far that used machine-learning algorithms in combination with remote-sensing data to analyze defoliation on a tree level.
 This study aims at closing this gap by analyzing defoliation at trees in northern Spain using airborne hyperspectral data.
 To cope with the state-of-the-art methodology in modeling, a methodology which combines feature-selection and hyperparameter tuning across multiple algorithms was used.
-The approach of generating many features comes along with the possible introduction of "high-dimensionality" into the analysis \cite{trunk1979, xu2016}.
+The approach of generating many features comes along with the possible
+introduction of high-dimensionality into the analysis\cite{trunk1979,
+	xu2016}.
 
 Even though \ac{ML} algorithms are capable of handling highly-correlated input variables, the fitting time of models increase substantially and the interpretation of results becomes more complicated.
 Besides modeling defoliation at trees and interpreting the model results from an ecological point of view, this work also aims at providing an exemplary analysis of how to deal with spatial feature-rich datasets.
 
-The reseach questions of this study are the following:
+The research questions of this study are the following:
 
 \begin{itemize}
 
 	\item Do different environmental feature sets show substantial differences in performance when predicting defoliation at trees?
-
-    \item Does the combination of feature sets have an substantial effect on predictive performance?
-
-    \item How are various feature-selection methods influencing the predictive performance of the models?
-
+	      
+	\item Does the combination of feature sets have an substantial effect on predictive performance?
+	      
+	\item How are various feature-selection methods influencing the predictive performance of the models?
+	      
 	\item Which features are most important for the models and how can these be interpreted in an ecological context?
-
+	      
 \end{itemize}
 
 
-\noindent State-of-the-art machine-learning techniques were compared using three feature sets across different feature-selection approaches including a relatively novel approach of "ensemble filters".
+\noindent State-of-the-art machine-learning techniques were compared using three feature sets across different feature-selection approaches including a relatively novel approach of ensemble filters.
 Model-based optimization was applied for hyperparameter tuning of the chosen algorithms which included an optimization of the feature set.
 Spatial block \ac{CV} was used to account for spatial autocorrelation in the data.
 
@@ -553,7 +526,7 @@ Spatial block \ac{CV} was used to account for spatial autocorrelation in the dat
 % of issues like this, it may be the safest practice to put all your
 % \label just after \caption rather than within \caption{}.
 %
-% Reminder: the "draftcls" or "draftclsnofoot", not "draft", class
+% Reminder: the 'draftcls' or 'draftclsnofoot', not 'draft', class
 % option should be used if it is desired that the figures are to be
 % displayed while in draft mode.
 %
@@ -630,7 +603,7 @@ Spatial block \ac{CV} was used to account for spatial autocorrelation in the dat
 
 % Note that the IEEE does not put floats in the very first column
 % - or typically anywhere on the first page for that matter. Also,
-% in-text middle ("here") positioning is typically not used, but it
+% in-text middle ('here') positioning is typically not used, but it
 % is allowed and encouraged for Computer Society conferences (but
 % not Computer Society journals). Most IEEE journals/conferences use
 % top floats exclusively.
@@ -642,17 +615,18 @@ Spatial block \ac{CV} was used to account for spatial autocorrelation in the dat
 \section{Data and study area}
 
 \noindent Airborne hyperspectral data with a spatial resolution of one meter and 126 spectral bands was available for four Monterey Pine (\textit{Pinus radiata}) plantations in northern Spain.
-The trees in the study area plots suffer from infections of invasive pathogens such as \textit{Diplodia sapinea}, \textit{Fusarium circinatum}, \textit{Armillaria mellea} or \textit{Heterobasidion annosum} leading to a spread of cankers or defoliation \cite{mesanza2016, iturritxa2017}.
-In-situ measurements of defoliation at trees (serving as a proxy for tree health) were collected to serve as the response variable \textit{defoliation} spanning a range from 0\% - 100\% (\autoref{fig:defol-distr}).
-The fungi are assumed to infect the trees through open wounds, possibly caused by previous hail damage \cite{iturritxa2014}.
-The dieback of these trees, which are mainly used as timber, causes high economic damages \cite{ganley2009}.
+The trees in the study area plots suffer from infections of invasive pathogens such as \textit{Diplodia sapinea}, \textit{Fusarium circinatum}, \textit{Armillaria mellea} or \textit{Heterobasidion annosum} leading to a spread of cankers or defoliation\cite{mesanza2016, iturritxa2017}.
+In-situ measurements of defoliation at trees (serving as a proxy for tree
+health) were collected to serve as the response variable \textit{defoliation}
+spanning a range from 0\% - 100\% (\autoref{fig:defol-distr}). % chktex 8
+The fungi are assumed to infect the trees through open wounds, possibly caused by previous hail damage\cite{iturritxa2014}.
+The dieback of these trees, which are mainly used as timber, causes high economic damages\cite{ganley2009}.
 
 \begin{figure} [t!]
-\centering
+	\centering
 	\begin{center}
 		\includegraphics[width=0.48\textwidth] {defoliation-distribution-plot-1.pdf}
-        \caption{Response variable defoliation at trees visualized as violin plots showing the variance of in-situ measurements for plots \textit{Laukiz 1}, \textit{Laukiz 2}, \textit{Luiando} and \textit{Oiartzun}.}
-		\label{fig:defol-distr}
+		\caption{Response variable defoliation at trees visualized as violin plots showing the variance of in-situ measurements for plots \textit{Laukiz 1}, \textit{Laukiz 2}, \textit{Luiando} and \textit{Oiartzun}.}\label{fig:defol-distr}
 	\end{center}
 \end{figure}
 
@@ -666,20 +640,19 @@ The data was surveyed in September 2016.
 
 \begin{figure} [t!]
 	\begin{center}
-\centering
+		\centering
 		\includegraphics[width=0.48\textwidth] {study-area-hyperspectral.pdf}
-		\caption{Information about location, size and spatial distribution of trees for all plots used in this study.}
-		\label{fig:study_area}
+		\caption{Information about location, size and spatial distribution of trees for all plots used in this study.}\label{fig:study_area}
 	\end{center}
 \end{figure}
 
-\begin{figure} [t!]
-	\begin{center}
-		\includegraphics[width=0.48\textwidth] {defol-grid-3000px.jpg}
-        \caption{Example trees showing different levels of defoliation as interpreted by the surveyor: 10 \% (top-left), 20 \% (top-right), 40 \% (bottom-left), 60-70 \% (bottom-right).}
-		\label{fig:defol-trees}
-	\end{center}
-\end{figure}
+%\begin{figure} [t!]
+%	\begin{center}
+%		\includegraphics[width=0.48\textwidth] {defol-grid-3000px.jpg}
+%		\caption{Example trees showing different levels of defoliation as interpreted by the surveyor: 10 \% (top-left), 20 \% (top-right), 40 \% (bottom-left), 60-70 \% (bottom-right).}
+%		\label{fig:defol-trees}
+%	\end{center}
+%\end{figure}
 
 
 \subsection{Hyperspectral data}
@@ -699,14 +672,13 @@ Additional metadata information is available in \autoref{tab:hyperparameter_limi
 \begin{tabular}{ll}
 	\\
 	Characteristic         & Value                               \\
-	\hline
+	\toprule
 	Geometric resolution   & 1 m                                 \\
 	Radiometric resolution & 12 bit                              \\
-	Spectral resolution    & 126 bands (404.08 nm - 996.31 nm)   \\
+	Spectral resolution    & 126 bands (404.08 nm --- 996.31 nm)   \\
 	Correction:            & Radiometric, geometric, atmospheric
 \end{tabular}
-\endgroup
-\label{tab:hyperparameter_limits}
+\endgroup\label{tab:hyperparameter_limits}
 \end{table}
 
 \section{Methods}
@@ -720,53 +692,60 @@ The following formula was used for the NRI calculation:
 \end{equation}
 
 \noindent
-where $i$ and $j$ are the respective band numbers.
+where \(i\) and \(j\) are the respective band numbers.
 
-\bigbreak
+\bigbreak{}
 
 \noindent To account for geometric offsets (which were reported with up to 1 m from \ac{ICGC}), a buffer of two meters around the centroid of the respective tree was drawn.
 The value assigned to a tree observations was the mean of all pixels which touched the respective buffer around the tree.
-In total, $\frac{125*126}{2} = 7875$ NRIs were calculated .
+In total, \(\frac{125*126}{2} = 7875\) NRIs were calculated.
 Due to four corrupted bands of the sensor a total of 7471 indices were available for each observation.
 
 \subsection{Dimension reduction}
 
-\noindent It is important to distinguish the term "dimension reduction" from "high-dimensionality".
-The former refers to the general idea of reducing features from a dataset \cite{vandermaaten2007}.
+\noindent It is important to distinguish the term 'dimension reduction' from 'high-dimensionality'.
+The former refers to the general idea of reducing features from a dataset\cite{vandermaaten2007}.
 In modeling this means finding the best subset of covariates which provide the most predictive power to the model or extracting the main components of the features using a \ac{PCA}.
-"High-dimensionality" in contrast is defined as a dataset attribute and applies when $p > n,$ where $p$ is the number of covariates and $n$ the number of observations \cite{hastie2001}.
-There is no absolute value at which the term can be applied, both for $n$ and $p$.
-Hence for this study the word "high-dimensionality" only applies to the experiments using the "NRI" feature set (7470 features for 1759 observations).
+'High-dimensionality' in contrast is defined as a dataset attribute and applies
+when \(p > n\), where \(p\) is the number of covariates and \(n\) the number of
+observations\cite{hastie2001}.
+There is no absolute value at which the term can be applied, both for \(n\) and \(p\).
+Hence for this study the word ‘high-dimensionality‘ only applies to the
+experiments using the ‘NRI‘ feature set (7470 features for 1759 observations).
 
 The case of a feature-rich dataset comes with several challenges for both model fitting and evaluation.
 
 \begin{itemize}
-  \item Model fitting times increase
-  \item Noise is possibly introduced into models by highly-correlated variables \cite{johnstoneiainm.2009}
-  \item Model interpretation and prediction tasks become more complicated \cite{johnstoneiainm.2009}
+	\item Model fitting times increase
+	\item Noise is possibly introduced into models by highly-correlated variables\cite{johnstoneiainm.2009}
+	\item Model interpretation and prediction tasks become more complicated\cite{johnstoneiainm.2009}
 \end{itemize}
 
 \noindent In the following sections a brief overview about sub-categories of feature-selection approaches is given.
-Due to the focus of this study on the use of filter methods, all other appraoches were grouped into a single section.
+Due to the focus of this study on the use of filter methods, all other approaches were grouped into a single section.
 
 \subsubsection{Filter methods}
 
 % Filter methods
-\noindent The concept of "Filter methods" originates on the idea of ranking features using certain heuristics of an algorithm \cite{chandrashekar2014}.
+\noindent The concept of 'Filter methods' originates on the idea of ranking features using certain heuristics of an algorithm\cite{chandrashekar2014}.
 Some filter methods are restricted towards specific types of variables (numeric or nominal data).
-After the covariates have been ranked, a decision needs to be made what features to keep and which to discard \cite{drotar2015}.
+After the covariates have been ranked, a decision needs to be made what features to keep and which to discard\cite{drotar2015}.
 This step is usually done within the optimization phase of the model fitting, along with the hyperparameter tuning.
 Essentially, the number of covariates in the model is treated as a hyperparameter of the model.
 The goal is to optimize the number of features (using the ranked covariates) at which the model achieves the best performance.
-In well-implemented software solutions the filter calculation is only done once and then cached, saving valuable resources \cite{mlr}.
+In well-implemented software solutions the filter calculation is only done once
+and then cached, saving valuable resources\cite{mlr}.
 
 \paragraph{Ensemble filter methods}
 
 % Ensemble filter methods
-Besides the concept of choosing a specific filter method to rank variables, studies showed that combining several filters using statistical operations such as "minimum", "mean" or "sum" are able to enhance the predictive performance of the resulting models \cite{abeel2010, drotar2017a}.
-This approach is referred to as "ensemble filter" \cite{dietterich2000}.
-Ensemble filters align with the recent rise of the "ensemble" approach in machine-learning which uses stacking to combine the predictions of multiple models, aiming to enhence predictive performance \cite{polikar2012, feurer2015}.
-In this work the "Borda" ensemble filter was applied \cite{drotar2017a}.
+Besides the concept of choosing a specific filter method to rank variables,
+studies showed that combining several filters using statistical operations such
+as 'minimum', 'mean' or 'sum' are able to enhance the predictive performance of
+the resulting models\cite{abeel2010, drotar2017a}.
+This approach is referred to as 'ensemble filter'\cite{dietterich2000}.
+Ensemble filters align with the recent rise of the 'ensemble' approach in machine-learning which uses stacking to combine the predictions of multiple models, aiming to enhance predictive performance\cite{polikar2012, feurer2015}.
+In this work the 'Borda' ensemble filter was applied\cite{drotar2017a}.
 The final order is the sum of all single filters ranking.
 
 \paragraph{Ensuring a fair weighting in the ensemble}
@@ -775,7 +754,7 @@ Filter methods can be grouped into classes: Correlation based, entropy based, li
 It is important to not give certain classes too much weight in the ensemble as otherwise the final result will be biased.
 This was taken care of by calculating the rank correlations (Spearman's correlation) of the generated feature rankings of all methods against each other.
 In case filters showed high correlations with each other, these were not included into the ensemble filter.
-This ensures that the ensembe filter is not biased towards a certain group of methods yielding highly similar rankings.
+This ensures that the ensemble filter is not biased towards a certain group of methods yielding highly similar rankings.
 
 \paragraph{Description of used filter methods}
 
@@ -793,54 +772,53 @@ Filter methods can be classified as follows:
 \caption[t]{List of filter methods used in this work}
 \begingroup\footnotesize
 \begin{adjustbox}{width={0.48\textwidth},totalheight={\textheight},keepaspectratio}
-\begin{tabular}{lll}
-	\\
-	Name                                         & Group                             & Reference          \\
-	\hline
-	Linear correlation (Pearson)                 & univariate, linear, correlation   & \cite{pearson1901} \\
-	Information gain                             & univariate, non-linear, entropy   & \cite{quinlan1986} \\
-	Minimum redundancy, maximum relevance        & multivariate, non-linear, entropy & \cite{zhao2013}    \\
-	Carscore                                     & multivariate, linear, correlation & \cite{zuber2011}   \\
-	Relief                                       & multivariate, linear, entropy,    & \cite{kira1992}    \\
-	Conditional minimal information maximization & multivariate, linear, entropy     & \cite{fleuret2004}
-\end{tabular}
+	\begin{tabular}{lll}
+		\\
+		Name                                         & Group                             & Reference          \\
+		\toprule
+		Linear correlation (Pearson)                 & univariate, linear, correlation   &\cite{pearson1901} \\
+		Information gain                             & univariate, non-linear, entropy   &\cite{quinlan1986} \\
+		Minimum redundancy, maximum relevance        & multivariate, non-linear, entropy &\cite{zhao2013}    \\
+		Carscore                                     & multivariate, linear, correlation &\cite{zuber2011}   \\
+		Relief                                       & multivariate, linear, entropy,    &\cite{kira1992}    \\
+		Conditional minimal information maximization & multivariate, linear, entropy     &\cite{fleuret2004}
+	\end{tabular}
 \end{adjustbox}
-\endgroup
-\label{tab:filter-methods}
+\endgroup\label{tab:filter-methods}
 \end{table}
 
-\noindent Filter method "information gain" is only defined for nominal response variables:
+\noindent Filter method 'information gain' is only defined for nominal response variables:
 
 \begin{equation}
 	H(Class) + H(Attribute) - H(Class, Attribute)
 \end{equation}
 
-where $H$ is the conditional entropy of the response variable (class) or the feature (attribute), respectively.
+where \(H\) is the conditional entropy of the response variable (class) or the feature (attribute), respectively.
 To be able to use this method with a numeric response, the variable is discretized into equal bins and treated as a class variable.
-While the number of bins can be treated as a hyperparameter of the filter method, we decided to use \texttt{$n_{bin}$ = 10} after rank correlations of > 0.9 for different bin sizes were observed in a side analysis.
+While the number of bins can be treated as a hyperparameter of the filter method, we decided to use \texttt{\(n_{bin}\) = 10} after rank correlations of > 0.9 for different bin sizes were observed in a side analysis.
 
 \subsubsection{Wrapper methods and PCA}
 
-\noindent Other approaches to assess feature importance are "wrapper methods" and the \ac{PCA} \cite{das2001, jolliffe2016}.
+\noindent Other approaches to assess feature importance are 'wrapper methods' and the \ac{PCA}\cite{das2001, jolliffe2016}.
 A short introduction to both is given below.
 
 % Wrapper approach
-\noindent "Wrapper methods" \cite{chandrashekar2014, kohavi1997} apply algorithms that are used for hyperparameter optimization such as "Random Search" or "Generic Simulated Annealing".
+\noindent 'Wrapper methods'\cite{chandrashekar2014, kohavi1997} apply algorithms that are used for hyperparameter optimization such as 'Random Search' or 'Generic Simulated Annealing'.
 First a (random) subset of features is chosen based on the selected algorithm.
-In comparison to "filters", no ranking is done in this step.
+In comparison to 'filters', no ranking is done in this step.
 Now the model is fitted on the data and the performance is evaluated.
 This is done multiple times, depending on the defined stopping criteria set by the user (performance, runtime, evaluations).
 A disadvantage of this approach is that hyperparameter tuning can only be applied after the feature-selection optimization finished.
-Hence, the "wrapper approach" is an expensive optimization method because two stages need to be run in sequential order.
-Due to their extensive runtimes, "wrapper methods" were not considered in this work.
+Hence, the 'wrapper approach' is an expensive optimization method because two stages need to be run in sequential order.
+Due to their extensive runtimes, 'wrapper methods' were not considered in this work.
 
 % PCA
-A method with a completely different approach compared to filters and wrappers is the "Principal Component Analysis" \cite{pearson1901, jolliffe2016}.
+A method with a completely different approach compared to filters and wrappers is the 'Principal Component Analysis'\cite{pearson1901, jolliffe2016}.
 Here, the main components of the feature space are extracted and combined.
 Most often the first two extracted main components are used since these contain the major information of the covariates.
 By using the (automatically estimated) explained variance of the main components, the model can rely on a few features containing the majority of information available in the data.
 This enables cheap model fitting with balanced loss of predictor information.
-The disadvantage of this methodology is the lack of interpretatbility because the main components cannot be related back to the original covariates.
+The disadvantage of this methodology is the lack of interpretability because the main components cannot be related back to the original covariates.
 
 
 \subsection{Benchmarking design}
@@ -860,11 +838,11 @@ The disadvantage of this methodology is the lack of interpretatbility because th
 
 \noindent \ac{RF} and {SVM} are well established algorithms that are widely used in environmental modeling.
 Extreme gradient boosting (commonly referred to as \ac{XGBOOST}) showed promising results in benchmark competitions in recent years.
-Penalized regression is a statistical modeling technique capable of dealing with highly-correlated covariates by applying a penalization term which shrinks the coefficients of the model \cite{hastie2001}.
-Common penalties are "lasso" (L1) and "ridge" (L2).
+Penalized regression is a statistical modeling technique capable of dealing with highly-correlated covariates by applying a penalization term which shrinks the coefficients of the model\cite{hastie2001}.
+Common penalties are 'lasso' (L1) and 'ridge' (L2).
 The former does not allow the full removal of variables from the model (penalization to zero) while the latter does.
 Both penalties can also be combined.
-The combined approach is called "elastic net" but was not used in this work.
+The combined approach is called 'elastic net' but was not used in this work.
 
 \subsubsection{Feature sets}
 % TODO: talk about the reasons behind different features sets: environmental implications
@@ -873,7 +851,7 @@ The combined approach is called "elastic net" but was not used in this work.
 
 
 \begin{itemize}
-	\item The raw hyperspectal band information (HR: No feature engineering)
+	\item The raw hyperspectral band information (HR: No feature engineering) %chktex 13
 	\item Vegetation Indices (\ac{VI}: Expert-based feature engineering)
 	\item Normalized Ratio Indices (\ac{NRI}: Automated feature-engineering)
 \end{itemize}
@@ -881,30 +859,30 @@ The combined approach is called "elastic net" but was not used in this work.
 \subsubsection{Hyperparameter Optimization}
 
 \noindent An exhaustive hyperparameter tuning was applied during nested spatial \ac{CV} for all algorithms.
-Maximum Bayesian Optimization \cite{mlrmbo} (MBO) was used for parameter optimization.
+Maximum Bayesian Optimization\cite{mlrmbo} (MBO) was used for parameter optimization.
 This approach first composes \textit{n} randomly chosen hyperparameter settings out of a user defined search space.
 After these \textit{n} tries have been evaluated, a new hyperparameter setting, which is going to be evaluated next, is proposed based on a fitted regression model.
 The regression model estimates the performance of the machine-learning method for unknown hyperparameter settings.
 Using these estimates, a new promising hyperparameter setting is proposed to be evaluated next.
-This strategy continues until a termination criterion, defined by the user, is reached \cite{hutter2011, jones1998}.
+This strategy continues until a termination criterion, defined by the user, is reached\cite{hutter2011, jones1998}.
 An initial design of 30 randomly composed hyperparameter settings and a termination criterion of 70 iterations was used, resulting in a total budget of 100 evaluated hyperparameter settings per fold.
 The advantage of this tuning approach is the substantial reduction of the tuning budget required to find a setting which is close to the global minimum
-This applies when being compared to methods that do not use information from previous runs, such as random search or grid search \cite{bergstra2012}.
+This applies when being compared to methods that do not use information from previous runs, such as random search or grid search\cite{bergstra2012}.
 In addition to MBO, the penalization term of Lasso and Ridge was optimized using the internal non-spatial CV approach due to promising results in other applications.
 
 For the filter methods, the percentage of features was added to the models as a hyperparameter.
 The number of main components was tuned for the instances which used \ac{PCA} instead of filtering.
-Random Forest hyperparameter \texttt{$m_{try}$} was transformed from taking absolute values to a relative parameter depending on the number of tasks: $p^{m_{try}}$, where $p$ is the number of features.
-This was necessary to ensure that \texttt{$m_{try}$} was not chosen out of bounds during tuning:
+Random Forest hyperparameter \texttt{\(m_{try}\)} was transformed from taking absolute values to a relative parameter depending on the number of tasks: \(p^{m_{try}}\), where \(p\) is the number of features.
+This was necessary to ensure that \texttt{\(m_{try}\)} was not chosen out of bounds during tuning:
 After the filtering, only a subset of features of the task is used for optimizing the models hyperparameters.
 The size of this subset is always different since the number of features is also optimized.
-Hence, the value of  \texttt{$m_{try}$} needs to be created flexible based on the number features.
+Hence, the value of  \texttt{\(m_{try}\)} needs to be created flexible based on the number features.
 
 \subsubsection{Spatial resampling}
 
-\noindent A spatial block nested cross-validation was chosen to reduce the influence of spatial autocorrelation as much as possible \cite{schratz2019, sperrorest}.
+\noindent A spatial block nested cross-validation was chosen to reduce the influence of spatial autocorrelation as much as possible\cite{schratz2019, sperrorest}.
 Each plot served as one fold within the resampling setup, resulting in four folds total.
-For the inner level (hyperparameter tuning), $p - 1$ folds were used (with $p$ being the number of plots).
+For the inner level (hyperparameter tuning), \(p - 1\) folds were used (with \(p\) being the number of plots).
 
 In total the benchmarking matrix consisted of 120 experiments (3 feature sets, 5 algorithms, 8 feature-selection methods).
 
@@ -921,10 +899,10 @@ For the vegetation indices all bands covered by the spectral range of calculated
 
 \subsection{Research compendium}
 
-\noindent The complete study was done using the open-source statistical programming language R \cite{rcoreteam2018}.
-The algorithm implementations of the following packages have been used: \textit{xgboost} \cite{chen2016} (\textit{xgboost}), \textit{kernlab} \cite{kernlab} (Support Vector Machine) and \textit{glmnet} \cite{glmnet} (Ridge Regression).
-The filter methods of the following packages were used: \textit{praznik \cite{praznik}}, \textit{FSelectorRcpp} \cite{fselectorrcpp}.
-The R package \textit{mlr} \cite{mlr} was used for all modeling related steps.
+\noindent The complete study was done using the open-source statistical programming language R\cite{rcoreteam2018}.
+The algorithm implementations of the following packages have been used: \textit{xgboost}\cite{chen2016} (\textit{xgboost}), \textit{kernlab}\cite{kernlab} (Support Vector Machine) and \textit{glmnet}\cite{glmnet} (Ridge Regression).
+The filter methods of the following packages were used: \textit{praznik\cite{praznik}}, \textit{FSelectorRcpp}\cite{fselectorrcpp}.
+The R package \textit{mlr}\cite{mlr} was used for all modeling related steps.
 \textit{drake} was used for structuring the work and ensuring reproducibility.
 This study is available as a research compendium on Zenodo (\url{10.5281/zenodo.2635403}).
 
@@ -938,7 +916,7 @@ This study is available as a research compendium on Zenodo (\url{10.5281/zenodo.
 % - Carscore, Info und Borda were at least once among the best combination for a learner
 \noindent No practical differences in RMSE were observed among the feature sets (\autoref{fig:perf-result}).
 SVM showed the lowest error in four out of six tasks.
-Overall, the response variable "defoliation at trees" could be modeled with an error of 34 \%.
+Overall, the response variable 'defoliation at trees' could be modeled with an error of 34 \%.
 
 % tasks
 % - no substantial difference between feature sets
@@ -954,26 +932,27 @@ Feature sets containing expert-based variables (VI) showed no substantial differ
 % - RF Car is the overall winner
 % - Ridge-CV hit and miss (hit = NRI, miss = VI)
 % - all MBO penalized methods have no difference across tasks
-Random Forest combined with the "Carscore" filter showed the best absolute performance (RMSE of 3.396) (\autoref{tab:perf-top-15}).
-A noticable difference between SVM and all other learners was visible for all feature sets without NRI variables (difference in RMSE of 3-4).
+Random Forest combined with the 'Carscore' filter showed the best absolute performance (RMSE of 3.396) (\autoref{tab:perf-top-15}).
+A noticeable difference between SVM and all other learners was visible for all
+feature sets without NRI variables (difference in RMSE of 3 --- 4).
 Considering a grouped performance by learners across all tasks and filters, SVM showed the most robust results (\autoref{tab:perf-top-15}).
 L1 penalized regression showed slightly better results in three out of six tasks when being optimized using the package internal 10-fold CV compared to MBO (RMSE of 50 vs 58).
-Regression with Ridge penalty (L2) showed a high variance when comparing results across tasks: In three out of six tasks (all including VI variables) the error was out of bounds (HR-NRI-VI; HR-VI, VI), for HR-NRI and HR the error was medium (around 40 RMSE), and for task NRI Ridge regression achieved almost the same score as the best performing model (3.39 RMSE, NRI) (\autoref{tab:perf-top-15}).
+Regression with Ridge penalty (L2) showed a high variance when comparing results across tasks: In three out of six tasks (all including VI variables) the error was out of bounds (HR-NRI-VI\@; HR-VI, VI), for HR-NRI and HR the error was medium (around 40 RMSE), and for task NRI Ridge regression achieved almost the same score as the best performing model (3.39 RMSE, NRI) (\autoref{tab:perf-top-15}).
 All penalized methods tuned using MBO showed exactly the same error across all tasks.
 
 % filters
 % - influence varies based on algorithm and task (SVM very small influence, RF medium, XGB medium)
-% - no substantial descrease in performance when using filters
+% - no substantial decrease in performance when using filters
 % - no advantage of ensemble borda filter compared to others
 Effects of filter methods on performance differed between algorithms:
-With the expection of one or two methods, SVM showed a constant performance of all filters across tasks (\autoref{fig:filter-perf-all}).
+With the exception of one or two methods, SVM showed a constant performance of all filters across tasks (\autoref{fig:filter-perf-all}).
 RF showed a normal distribution for most tasks with one or two different methods taking the lead on each task.
-For RF, filter "Carscore" showed the best performance in three out of six tasks while this was achieved for XGBoost by filter "CMIM".
+For RF, filter 'Carscore' showed the best performance in three out of six tasks while this was achieved for XGBoost by filter 'CMIM'.
 XGBoost showed a diverse distribution with less clustering of filters as SVM and RF (referring to RMSE).
 
 % filter vs no filter
 When comparing the usage of filters vs using no filter at all, there was only one instance (XGBoost on the HR-NRI task) when the model with no filtering showed a slighly better performance than the best filtered one (\autoref{fig:filter-effects}).
-In general, the effect of filtering vs. no filtering differed without a clear pattern across tasks: For example, SVM and RF showed a substantial increase for the NRI task when filtering the data while there was almost no effect for XGBoost (\autoref{fig:filter-effects}).
+In general, the effect of filtering vs.\ no filtering differed without a clear pattern across tasks: For example, SVM and RF showed a substantial increase for the NRI task when filtering the data while there was almost no effect for XGBoost (\autoref{fig:filter-effects}).
 For task HR, there was a medium effect of applying filtering for RF, almost none for SVM and a large one for XGBoost.
 
 % latex table top 20 absolute performances
@@ -984,32 +963,29 @@ For task HR, there was a medium effect of applying filtering for RF, almost none
 
 % plot performance results
 \begin{figure} [t!]
-\centering
+	\centering
 	\begin{center}
 		\includegraphics[width=0.48\textwidth] {performance-results-1.pdf}
-        \caption{Scored predictive performance (RMSE) of models across tasks. Prefix "CV" denotes that the learner was optimized using internal 10-fold CV while prefix "MBO" means that Bayesian optimization was used for hyperparameter optimization. The abbreviations on the y-axis refer to the combinations of feature sets on which each model was scored on. Labels attached to each point in space show which filter method was used for scoring features during the feature selection process (NF = no filter, Car = "Carscore", Info = "Information Gain", Borda = "Borda"). The second value in the attached label of each point shows the scored RMSE value of the respective setting.}
-		\label{fig:perf-result}
+		\caption{Scored predictive performance (RMSE) of models across tasks. Prefix 'CV' denotes that the learner was optimized using internal 10-fold CV while prefix 'MBO' means that Bayesian optimization was used for hyperparameter optimization. The abbreviations on the y-axis refer to the combinations of feature sets on which each model was scored on. Labels attached to each point in space show which filter method was used for scoring features during the feature selection process (NF = no filter, Car = 'Carscore', Info = 'Information Gain', Borda = 'Borda'). The second value in the attached label of each point shows the scored RMSE value of the respective setting.}\label{fig:perf-result}
 	\end{center}
 \end{figure}
 
 % plot no filter vs best filter for each model and task
 \begin{figure} [t!]
-\centering
+	\centering
 	\begin{center}
 		\includegraphics[width=0.48\textwidth] {filter-effect-1.pdf}
-        \caption{Model performances in RMSE when using no filter method compared to the best scoring filter method for each learner across all tasks.}
-		\label{fig:filter-effects}
+		\caption{Model performances in RMSE when using no filter method compared to the best scoring filter method for each learner across all tasks.}\label{fig:filter-effects}
 	\end{center}
 \end{figure}
 \subsection{Permutation-based variable importance}
 
 % plot no filter vs best filter for each model and task
 \begin{figure} [t!]
-\centering
+	\centering
 	\begin{center}
 		\includegraphics[width=0.48\textwidth] {filter-perf-all-1.pdf}
-        \caption{Model performances in RMSE of all used filter methods and PCA for each learner across all tasks.}
-		\label{fig:filter-perf-all}
+		\caption{Model performances in RMSE of all used filter methods and PCA for each learner across all tasks.}\label{fig:filter-perf-all}
 	\end{center}
 \end{figure}
 
@@ -1032,7 +1008,7 @@ If a tree observation is located at the border of the plot, some directions of t
 The magnitude of bias introduced by these facts cannot be quantified.
 However, it has to be considered when making interpretations about the outcome of this study.
 
-\subsection{Performance vs. plot characteristics}
+\subsection{Performance vs.\ plot characteristics}
 % TODO: Really needed?
 
 \subsection{Predictive Performance}
@@ -1044,11 +1020,11 @@ However, it has to be considered when making interpretations about the outcome o
 \subsection{Feature selection methods}
 
 % - Ensemble FS show no advantage to simple methods -> maybe to less features, features too correlated? check diff between effect on NRI and VI
-% - Effect varies across learnes -> suggest to use FS even on feature sets with p < 100?
+% - Effect varies across learners -> suggest to use FS even on feature sets with p < 100?
 % - When calculating multiple filters, consider to only use ensemble filter?
 % - PCA shows similar performance but probably requires tuning of main components -> check runtime!
 
-\subsubsection{Variable importance vs. filter methods}
+\subsubsection{Variable importance vs.\ filter methods}
 
 WIP
 
@@ -1061,20 +1037,20 @@ WIP
 % NOTE: only few studies analyze defoliation
 
 \noindent Most other studies analyzing defoliation operated on the plot rather than the tree level.
-This originated simply due to spatial resolution of the satellite products that served as the input data \cite{townsend2012, debeurs2008a, rengarajan2016}.
+This originated simply due to spatial resolution of the satellite products that served as the input data\cite{townsend2012, debeurs2008, rengarajan2016}.
 
-Studies focusing on tree-level defoliation used ground-level methods such as \ac{ALS} or \ac{LiDAR} \cite{meng2018, kalin2019}.
-\cite{meng2018} used \ac{OLS} regression methods while \cite{kalin2019} retrieved information out of ground-level RGB photos using \ac{CNN}.
+Studies focusing on tree-level defoliation used ground-level methods such as \ac{ALS} or \ac{LiDAR}\cite{meng2018, kalin2019}.
+\~cite{meng2018} used \ac{OLS} regression methods while\cite{kalin2019} retrieved information out of ground-level RGB photos using \ac{CNN}.
 Both study designs are substantially different compared to the setup of this work.
 In addition, no spatial \ac{CV} or \ac{FS} was used.
-\cite{goodbody2018} used a \ac{PLS} model with high-resolution \ac{DAP} to predict cumulative defoliation caused by the spruce budworm.
+\~cite{goodbody2018} used a \ac{PLS} model with high-resolution \ac{DAP} to predict cumulative defoliation caused by the spruce budworm.
 Study results indicated that spectral metrics were found to be most helpful for the model.
 Incorporating such metrics (both spectral and structural) could be a possible enhancement for future works.
 
-\cite{shendryk2016, ludwig2019} are studies which are more similar in their methodology but focus on a different response variable.
-\cite{shendryk2016} used machine-learning models with \ac{ALS} data to study dieback of trees for eucalyptus forests.
+\~cite{shendryk2016, ludwig2019} are studies which are more similar in their methodology but focus on a different response variable.
+\~cite{shendryk2016} used machine-learning models with \ac{ALS} data to study dieback of trees for eucalyptus forests.
 A grid-search was used for hyperparameter tuning and a \ac{FFS} for variable selection.
-\cite{ludwig2019} analyzed woody cover in South Africa using spatial \ac{CV} and a relatively novel spatial \ac{FS} approach \cite{meyer2018} on a Random Forest classifier.
+\~cite{ludwig2019} analyzed woody cover in South Africa using spatial \ac{CV} and a relatively novel spatial \ac{FS} approach\cite{meyer2018} on a Random Forest classifier.
 
 In summary, we could not find studies using filter methods for \ac{FS} or \ac{NRI} indices in their work with a relation to forest health.
 Most studies used only one algorithm (usually Random Forest) without strong arguments why this particular one has been selected.
@@ -1083,16 +1059,15 @@ These findings underline the importance of this work in the field of forest heal
 
 \section{Outlook and conclusion}
 
-\appendices
+\appendices{}
 
 \section{Spectral signatures of each plot}
 
 \begin{figure} [ht]
-\begin{center}
-\includegraphics[width=0.48\textwidth] {spectral-signatures-1.pdf}
-\caption{Spectral signatures (mean and standard deviation) of Laukiz1, Laukiz2, Luiando and Oiartzun.}
-\label{fig:spectral-signatures}
-\end{center}
+	\begin{center}
+		\includegraphics[width=0.48\textwidth] {spectral-signatures-1.pdf}
+		\caption{Spectral signatures (mean and standard deviation) of Laukiz1, Laukiz2, Luiando and Oiartzun.}\label{fig:spectral-signatures}
+	\end{center}
 \end{figure}
 
 \pagebreak
@@ -1100,27 +1075,25 @@ These findings underline the importance of this work in the field of forest heal
 \section{Correlation among filter methods}
 
 \begin{figure} [ht]
-\begin{center}
-\includegraphics[width=0.48\textwidth] {correlation-filter-nri-1.pdf}
-\caption{Spearman correlation of filter rankings between various filter methods. Results of the NRI feature set are shown.}
-\label{fig:correlation-filters}
-\end{center}
+	\begin{center}
+		\includegraphics[width=0.48\textwidth] {correlation-filter-nri-1.pdf}
+		\caption{Spearman correlation of filter rankings between various filter methods. Results of the NRI feature set are shown.}\label{fig:correlation-filters}
+	\end{center}
 \end{figure}
 
-\section{Effect of different \texorpdfstring{$n_{bins}$}{nbins} values on filter "information gain"}
+\section{Effect of different \texorpdfstring{\(n_{bins}\)}{nbins} values on filter 'information gain'}
 
 \begin{figure} [ht]
-\begin{center}
-\includegraphics[width=0.48\textwidth] {correlation-nbins-1.pdf}
-\caption{Spearman correlation of filter information gain using different \texttt{$n_{bins}$} values for discretization of the numeric response.}
-\label{fig:correlation-nbins}
-\end{center}
+	\begin{center}
+		\includegraphics[width=0.48\textwidth] {correlation-nbins-1.pdf}
+		\caption{Spearman correlation of filter information gain using different \texttt{\(n_{bins}\)} values for discretization of the numeric response.}\label{fig:correlation-nbins}
+	\end{center}
 \end{figure}
 
 
 
 \bibliographystyle{IEEEtran}
-\bibliography{IEEEabrv,Biblio}
+\bibliography{Biblio}
 
 \section*{References}
 
