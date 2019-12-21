@@ -480,7 +480,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2019-09-02
+<strong>Last updated:</strong> 2019-12-21
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -490,7 +490,7 @@ div.section {
 </p>
 <p>
 This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
-  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.4.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
 </p>
 <hr>
 </div>
@@ -528,7 +528,7 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 </div>
 <div id="strongSeedstrongcodesetseed20190522code" class="panel-collapse collapse">
 <div class="panel-body">
-<p>The command <code>set.seed(20190522)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+<p>The command <code>set.seed(20190522)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
 </div>
 </div>
 </div>
@@ -571,10 +571,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree68794808c66bae2aeb3504fca215ddf2c4fa7805targetblank6879480a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/68794808c66bae2aeb3504fca215ddf2c4fa7805" target="_blank">6879480</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree6c219183ef4933e5a1dce782eb3a29f11d1fe713targetblank6c21918a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/6c219183ef4933e5a1dce782eb3a29f11d1fe713" target="_blank">6c21918</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree68794808c66bae2aeb3504fca215ddf2c4fa7805targetblank6879480a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree6c219183ef4933e5a1dce782eb3a29f11d1fe713targetblank6c21918a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -590,30 +590,26 @@ Ignored files:
     Ignored:    inst/Benchmark for Filter Methods for Feature Selection in High-Dimensional  Classification Data.pdf
     Ignored:    inst/study-area-map/study-area.qgs~
     Ignored:    log/
-    Ignored:    packrat/lib-R/
-    Ignored:    packrat/lib-ext/
-    Ignored:    packrat/lib/
+    Ignored:    renv/library/
+    Ignored:    renv/staging/
     Ignored:    reviews/
     Ignored:    rosm.cache/
-    Ignored:    tests/
 
 Untracked files:
-    Untracked:  .drake_history/
+    Untracked:  .pre-commit-config.yaml
 
 Unstaged changes:
+    Modified:   .Rbuildignore
+    Modified:   .Rprofile
     Modified:   _drake.R
     Modified:   analysis/eval-performance.Rmd
+    Modified:   analysis/report-defoliation.Rmd
     Modified:   code/98-paper/ieee/pdf/correlation-filter-nri-1.pdf
     Modified:   code/98-paper/ieee/pdf/correlation-nbins-1.pdf
     Modified:   code/98-paper/ieee/pdf/defoliation-distribution-plot-1.pdf
     Modified:   code/98-paper/ieee/pdf/spectral-signatures-1.pdf
     Modified:   code/98-paper/journal/defoliation-distribution-plot-1.pdf
-    Modified:   code/move-figures.R
-    Deleted:    docs/figure/eval-performance.Rmd/filter-effect-1.pdf
-    Deleted:    docs/figure/eval-performance.Rmd/filter-perf-all-1.pdf
-    Deleted:    docs/figure/eval-performance.Rmd/performance-results-1.pdf
-    Deleted:    docs/figure/spectral-signatures.Rmd/spectral-signatures-1.pdf
-    Deleted:    docs/logo/life.jpg
+    Modified:   code/99-packages.R
 
 </code></pre>
 <p>
@@ -652,6 +648,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pat-s/2019-feature-selection/6f633ffefbeb028c9860c6646a7c9d2a4e240ec8/docs/eda.html" target="_blank">6f633ff</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-09-02
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -783,6 +796,40 @@ pat-s
 </td>
 <td>
 2019-07-02
+</td>
+<td>
+wflow_publish(knitr_in(“analysis/eda.Rmd”), view = FALSE, verbose =
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/24e318f34962cb4988db5581840c48721ce69b97/analysis/eda.Rmd" target="_blank">24e318f</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-07-01
+</td>
+<td>
+update reports
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/b1f8fd71f4ebc2cd09d6e36c045c7fe4435cb720/analysis/eda.Rmd" target="_blank">b1f8fd7</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-07-01
 </td>
 <td>
 wflow_publish(knitr_in(“analysis/eda.Rmd”), view = FALSE, verbose =
@@ -1011,6 +1058,23 @@ fix git
 </tr>
 <tr>
 <td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pat-s/2019-feature-selection/4cf247ae7857285fff7002189f9afdd908ae8d9a/docs/eda.html" target="_blank">4cf247a</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-06-18
+</td>
+<td>
+fix git
+</td>
+</tr>
+<tr>
+<td>
 Rmd
 </td>
 <td>
@@ -1065,6 +1129,23 @@ Build site.
 Rmd
 </td>
 <td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/21871f7690cb8b863e2c796ace838ad97bc893b2/analysis/eda.Rmd" target="_blank">21871f7</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-06-15
+</td>
+<td>
+wflow_publish(knitr_in(“analysis/eda.Rmd”), view = FALSE)
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/6e2989d50ebf0591584cdb37b4cdc041019b84a0/analysis/eda.Rmd" target="_blank">6e2989d</a>
 </td>
 <td>
@@ -1075,6 +1156,23 @@ pat-s
 </td>
 <td>
 update reports
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/eaa444a9a995091aa395aff76077b954e049da3f/analysis/eda.Rmd" target="_blank">eaa444a</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-06-15
+</td>
+<td>
+add EDA and spectral signatures report
 </td>
 </tr>
 <tr>
@@ -1194,6 +1292,28 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/6f633ffefbeb028c9860c6646a7c9d2a4e240ec8/docs/figure/eda.Rmd/eda-2-1.png" target="_blank">6f633ff</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-09-02
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/7582c67afa5b1f5bd3175b9d2b37b037e9242daf/docs/figure/eda.Rmd/eda-2-1.png" target="_blank">7582c67</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-08-31
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/abed0ec6e0139458cc128e74edb5f5ec8d28fec8/docs/figure/eda.Rmd/eda-2-1.png" target="_blank">abed0ec</a>
 </td>
 <td>
@@ -1212,6 +1332,39 @@ pat-s
 </td>
 <td>
 2019-07-02
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/32d5be01fcf217792b436d82dbb62432f9102b61/docs/figure/eda.Rmd/eda-2-1.png" target="_blank">32d5be0</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-06-27
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/b5ca1142a50dae5977025a9d7bb5de1839ee6198/docs/figure/eda.Rmd/eda-2-1.png" target="_blank">b5ca114</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-06-21
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/4cf247ae7857285fff7002189f9afdd908ae8d9a/docs/figure/eda.Rmd/eda-2-1.png" target="_blank">4cf247a</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-06-18
 </td>
 </tr>
 <tr>
@@ -1254,6 +1407,28 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/6f633ffefbeb028c9860c6646a7c9d2a4e240ec8/docs/figure/eda.Rmd/eda-2-2.png" target="_blank">6f633ff</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-09-02
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/7582c67afa5b1f5bd3175b9d2b37b037e9242daf/docs/figure/eda.Rmd/eda-2-2.png" target="_blank">7582c67</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-08-31
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/abed0ec6e0139458cc128e74edb5f5ec8d28fec8/docs/figure/eda.Rmd/eda-2-2.png" target="_blank">abed0ec</a>
 </td>
 <td>
@@ -1283,6 +1458,39 @@ pat-s
 </td>
 <td>
 2019-07-02
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/32d5be01fcf217792b436d82dbb62432f9102b61/docs/figure/eda.Rmd/eda-2-2.png" target="_blank">32d5be0</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-06-27
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/b5ca1142a50dae5977025a9d7bb5de1839ee6198/docs/figure/eda.Rmd/eda-2-2.png" target="_blank">b5ca114</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-06-21
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/4cf247ae7857285fff7002189f9afdd908ae8d9a/docs/figure/eda.Rmd/eda-2-2.png" target="_blank">4cf247a</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-06-18
 </td>
 </tr>
 <tr>
@@ -1336,6 +1544,28 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/6f633ffefbeb028c9860c6646a7c9d2a4e240ec8/docs/figure/eda.Rmd/eda-2-3.png" target="_blank">6f633ff</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-09-02
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/7582c67afa5b1f5bd3175b9d2b37b037e9242daf/docs/figure/eda.Rmd/eda-2-3.png" target="_blank">7582c67</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-08-31
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/abed0ec6e0139458cc128e74edb5f5ec8d28fec8/docs/figure/eda.Rmd/eda-2-3.png" target="_blank">abed0ec</a>
 </td>
 <td>
@@ -1354,6 +1584,39 @@ pat-s
 </td>
 <td>
 2019-07-02
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/32d5be01fcf217792b436d82dbb62432f9102b61/docs/figure/eda.Rmd/eda-2-3.png" target="_blank">32d5be0</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-06-27
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/b5ca1142a50dae5977025a9d7bb5de1839ee6198/docs/figure/eda.Rmd/eda-2-3.png" target="_blank">b5ca114</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-06-21
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/4cf247ae7857285fff7002189f9afdd908ae8d9a/docs/figure/eda.Rmd/eda-2-3.png" target="_blank">4cf247a</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-06-18
 </td>
 </tr>
 <tr>
@@ -1396,6 +1659,28 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/6f633ffefbeb028c9860c6646a7c9d2a4e240ec8/docs/figure/eda.Rmd/eda-2-4.png" target="_blank">6f633ff</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-09-02
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/7582c67afa5b1f5bd3175b9d2b37b037e9242daf/docs/figure/eda.Rmd/eda-2-4.png" target="_blank">7582c67</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-08-31
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/abed0ec6e0139458cc128e74edb5f5ec8d28fec8/docs/figure/eda.Rmd/eda-2-4.png" target="_blank">abed0ec</a>
 </td>
 <td>
@@ -1425,6 +1710,39 @@ pat-s
 </td>
 <td>
 2019-07-02
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/32d5be01fcf217792b436d82dbb62432f9102b61/docs/figure/eda.Rmd/eda-2-4.png" target="_blank">32d5be0</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-06-27
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/b5ca1142a50dae5977025a9d7bb5de1839ee6198/docs/figure/eda.Rmd/eda-2-4.png" target="_blank">b5ca114</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-06-21
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/4cf247ae7857285fff7002189f9afdd908ae8d9a/docs/figure/eda.Rmd/eda-2-4.png" target="_blank">4cf247a</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-06-18
 </td>
 </tr>
 <tr>
@@ -1478,6 +1796,39 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/6f633ffefbeb028c9860c6646a7c9d2a4e240ec8/docs/figure/eda.Rmd/eda-2-5.png" target="_blank">6f633ff</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-09-02
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/7582c67afa5b1f5bd3175b9d2b37b037e9242daf/docs/figure/eda.Rmd/eda-2-5.png" target="_blank">7582c67</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-08-31
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/abed0ec6e0139458cc128e74edb5f5ec8d28fec8/docs/figure/eda.Rmd/eda-2-5.png" target="_blank">abed0ec</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-08-12
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/3a44a957eb771cd5b33da624fc5d5fa035b56630/docs/figure/eda.Rmd/eda-2-5.png" target="_blank">3a44a95</a>
 </td>
 <td>
@@ -1496,6 +1847,39 @@ pat-s
 </td>
 <td>
 2019-07-02
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/32d5be01fcf217792b436d82dbb62432f9102b61/docs/figure/eda.Rmd/eda-2-5.png" target="_blank">32d5be0</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-06-27
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/b5ca1142a50dae5977025a9d7bb5de1839ee6198/docs/figure/eda.Rmd/eda-2-5.png" target="_blank">b5ca114</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-06-21
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/4cf247ae7857285fff7002189f9afdd908ae8d9a/docs/figure/eda.Rmd/eda-2-5.png" target="_blank">4cf247a</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-06-18
 </td>
 </tr>
 <tr>
@@ -1549,6 +1933,39 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/6f633ffefbeb028c9860c6646a7c9d2a4e240ec8/docs/figure/eda.Rmd/eda-2-6.png" target="_blank">6f633ff</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-09-02
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/7582c67afa5b1f5bd3175b9d2b37b037e9242daf/docs/figure/eda.Rmd/eda-2-6.png" target="_blank">7582c67</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-08-31
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/abed0ec6e0139458cc128e74edb5f5ec8d28fec8/docs/figure/eda.Rmd/eda-2-6.png" target="_blank">abed0ec</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-08-12
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/3a44a957eb771cd5b33da624fc5d5fa035b56630/docs/figure/eda.Rmd/eda-2-6.png" target="_blank">3a44a95</a>
 </td>
 <td>
@@ -1567,6 +1984,39 @@ pat-s
 </td>
 <td>
 2019-07-02
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/32d5be01fcf217792b436d82dbb62432f9102b61/docs/figure/eda.Rmd/eda-2-6.png" target="_blank">32d5be0</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-06-27
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/b5ca1142a50dae5977025a9d7bb5de1839ee6198/docs/figure/eda.Rmd/eda-2-6.png" target="_blank">b5ca114</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-06-21
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/4cf247ae7857285fff7002189f9afdd908ae8d9a/docs/figure/eda.Rmd/eda-2-6.png" target="_blank">4cf247a</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-06-18
 </td>
 </tr>
 <tr>
@@ -1623,6 +2073,28 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/6f633ffefbeb028c9860c6646a7c9d2a4e240ec8/docs/figure/eda.Rmd/eda-3-1.png" target="_blank">6f633ff</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-09-02
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/7582c67afa5b1f5bd3175b9d2b37b037e9242daf/docs/figure/eda.Rmd/eda-3-1.png" target="_blank">7582c67</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-08-31
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/4f6bc44f1a703a37fc3fd4f6fca4532f8aeceaaf/docs/figure/eda.Rmd/eda-3-1.png" target="_blank">4f6bc44</a>
 </td>
 <td>
@@ -1630,6 +2102,39 @@ pat-s
 </td>
 <td>
 2019-07-02
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/32d5be01fcf217792b436d82dbb62432f9102b61/docs/figure/eda.Rmd/eda-3-1.png" target="_blank">32d5be0</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-06-27
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/b5ca1142a50dae5977025a9d7bb5de1839ee6198/docs/figure/eda.Rmd/eda-3-1.png" target="_blank">b5ca114</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-06-21
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/4cf247ae7857285fff7002189f9afdd908ae8d9a/docs/figure/eda.Rmd/eda-3-1.png" target="_blank">4cf247a</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-06-18
 </td>
 </tr>
 <tr>
@@ -1672,6 +2177,39 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/6f633ffefbeb028c9860c6646a7c9d2a4e240ec8/docs/figure/eda.Rmd/eda-3-2.png" target="_blank">6f633ff</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-09-02
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/7582c67afa5b1f5bd3175b9d2b37b037e9242daf/docs/figure/eda.Rmd/eda-3-2.png" target="_blank">7582c67</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-08-31
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/abed0ec6e0139458cc128e74edb5f5ec8d28fec8/docs/figure/eda.Rmd/eda-3-2.png" target="_blank">abed0ec</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-08-12
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/3a44a957eb771cd5b33da624fc5d5fa035b56630/docs/figure/eda.Rmd/eda-3-2.png" target="_blank">3a44a95</a>
 </td>
 <td>
@@ -1690,6 +2228,39 @@ pat-s
 </td>
 <td>
 2019-07-02
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/32d5be01fcf217792b436d82dbb62432f9102b61/docs/figure/eda.Rmd/eda-3-2.png" target="_blank">32d5be0</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-06-27
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/b5ca1142a50dae5977025a9d7bb5de1839ee6198/docs/figure/eda.Rmd/eda-3-2.png" target="_blank">b5ca114</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-06-21
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/4cf247ae7857285fff7002189f9afdd908ae8d9a/docs/figure/eda.Rmd/eda-3-2.png" target="_blank">4cf247a</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-06-18
 </td>
 </tr>
 <tr>
@@ -1746,6 +2317,28 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/6f633ffefbeb028c9860c6646a7c9d2a4e240ec8/docs/figure/eda.Rmd/eda-4-1.png" target="_blank">6f633ff</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-09-02
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/7582c67afa5b1f5bd3175b9d2b37b037e9242daf/docs/figure/eda.Rmd/eda-4-1.png" target="_blank">7582c67</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-08-31
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/abed0ec6e0139458cc128e74edb5f5ec8d28fec8/docs/figure/eda.Rmd/eda-4-1.png" target="_blank">abed0ec</a>
 </td>
 <td>
@@ -1764,6 +2357,39 @@ pat-s
 </td>
 <td>
 2019-07-02
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/32d5be01fcf217792b436d82dbb62432f9102b61/docs/figure/eda.Rmd/eda-4-1.png" target="_blank">32d5be0</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-06-27
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/b5ca1142a50dae5977025a9d7bb5de1839ee6198/docs/figure/eda.Rmd/eda-4-1.png" target="_blank">b5ca114</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-06-21
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/4cf247ae7857285fff7002189f9afdd908ae8d9a/docs/figure/eda.Rmd/eda-4-1.png" target="_blank">4cf247a</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-06-18
 </td>
 </tr>
 <tr>
@@ -1861,6 +2487,28 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/6f633ffefbeb028c9860c6646a7c9d2a4e240ec8/docs/figure/eda.Rmd/eda-6-1.png" target="_blank">6f633ff</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-09-02
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/7582c67afa5b1f5bd3175b9d2b37b037e9242daf/docs/figure/eda.Rmd/eda-6-1.png" target="_blank">7582c67</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-08-31
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/4f6bc44f1a703a37fc3fd4f6fca4532f8aeceaaf/docs/figure/eda.Rmd/eda-6-1.png" target="_blank">4f6bc44</a>
 </td>
 <td>
@@ -1868,6 +2516,39 @@ pat-s
 </td>
 <td>
 2019-07-02
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/32d5be01fcf217792b436d82dbb62432f9102b61/docs/figure/eda.Rmd/eda-6-1.png" target="_blank">32d5be0</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-06-27
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/b5ca1142a50dae5977025a9d7bb5de1839ee6198/docs/figure/eda.Rmd/eda-6-1.png" target="_blank">b5ca114</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-06-21
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/4cf247ae7857285fff7002189f9afdd908ae8d9a/docs/figure/eda.Rmd/eda-6-1.png" target="_blank">4cf247a</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-06-18
 </td>
 </tr>
 <tr>
@@ -1910,6 +2591,39 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/6f633ffefbeb028c9860c6646a7c9d2a4e240ec8/docs/figure/eda.Rmd/eda-6-2.png" target="_blank">6f633ff</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-09-02
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/7582c67afa5b1f5bd3175b9d2b37b037e9242daf/docs/figure/eda.Rmd/eda-6-2.png" target="_blank">7582c67</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-08-31
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/abed0ec6e0139458cc128e74edb5f5ec8d28fec8/docs/figure/eda.Rmd/eda-6-2.png" target="_blank">abed0ec</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-08-12
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/3a44a957eb771cd5b33da624fc5d5fa035b56630/docs/figure/eda.Rmd/eda-6-2.png" target="_blank">3a44a95</a>
 </td>
 <td>
@@ -1928,6 +2642,39 @@ pat-s
 </td>
 <td>
 2019-07-02
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/32d5be01fcf217792b436d82dbb62432f9102b61/docs/figure/eda.Rmd/eda-6-2.png" target="_blank">32d5be0</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-06-27
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/b5ca1142a50dae5977025a9d7bb5de1839ee6198/docs/figure/eda.Rmd/eda-6-2.png" target="_blank">b5ca114</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-06-21
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/4cf247ae7857285fff7002189f9afdd908ae8d9a/docs/figure/eda.Rmd/eda-6-2.png" target="_blank">4cf247a</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-06-18
 </td>
 </tr>
 <tr>
@@ -1984,6 +2731,28 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/6f633ffefbeb028c9860c6646a7c9d2a4e240ec8/docs/figure/eda.Rmd/eda-7-1.png" target="_blank">6f633ff</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-09-02
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/7582c67afa5b1f5bd3175b9d2b37b037e9242daf/docs/figure/eda.Rmd/eda-7-1.png" target="_blank">7582c67</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-08-31
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/abed0ec6e0139458cc128e74edb5f5ec8d28fec8/docs/figure/eda.Rmd/eda-7-1.png" target="_blank">abed0ec</a>
 </td>
 <td>
@@ -2002,6 +2771,28 @@ pat-s
 </td>
 <td>
 2019-07-02
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/b5ca1142a50dae5977025a9d7bb5de1839ee6198/docs/figure/eda.Rmd/eda-7-1.png" target="_blank">b5ca114</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-06-21
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/4cf247ae7857285fff7002189f9afdd908ae8d9a/docs/figure/eda.Rmd/eda-7-1.png" target="_blank">4cf247a</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-06-18
 </td>
 </tr>
 <tr>
@@ -2106,6 +2897,28 @@ pat-s
 </tr>
 <tr>
 <td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/b5ca1142a50dae5977025a9d7bb5de1839ee6198/docs/figure/eda.Rmd/eda-9-1.png" target="_blank">b5ca114</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-06-21
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/4cf247ae7857285fff7002189f9afdd908ae8d9a/docs/figure/eda.Rmd/eda-9-1.png" target="_blank">4cf247a</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-06-18
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/5230081805b2d9f02675d4a8517c39e619c961fa/docs/figure/eda.Rmd/eda-9-1.png" target="_blank">5230081</a>
 </td>
 <td>
@@ -2151,6 +2964,28 @@ pat-s
 </td>
 <td>
 2019-07-02
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/b5ca1142a50dae5977025a9d7bb5de1839ee6198/docs/figure/eda.Rmd/eda-9-2.png" target="_blank">b5ca114</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-06-21
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/4cf247ae7857285fff7002189f9afdd908ae8d9a/docs/figure/eda.Rmd/eda-9-2.png" target="_blank">4cf247a</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-06-18
 </td>
 </tr>
 <tr>
@@ -2204,6 +3039,28 @@ pat-s
 </tr>
 <tr>
 <td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/b5ca1142a50dae5977025a9d7bb5de1839ee6198/docs/figure/eda.Rmd/eda-9-3.png" target="_blank">b5ca114</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-06-21
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/4cf247ae7857285fff7002189f9afdd908ae8d9a/docs/figure/eda.Rmd/eda-9-3.png" target="_blank">4cf247a</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-06-18
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/5230081805b2d9f02675d4a8517c39e619c961fa/docs/figure/eda.Rmd/eda-9-3.png" target="_blank">5230081</a>
 </td>
 <td>
@@ -2249,6 +3106,28 @@ pat-s
 </td>
 <td>
 2019-07-02
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/b5ca1142a50dae5977025a9d7bb5de1839ee6198/docs/figure/eda.Rmd/eda-9-4.png" target="_blank">b5ca114</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-06-21
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/4cf247ae7857285fff7002189f9afdd908ae8d9a/docs/figure/eda.Rmd/eda-9-4.png" target="_blank">4cf247a</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-06-18
 </td>
 </tr>
 <tr>
@@ -2302,6 +3181,28 @@ pat-s
 </tr>
 <tr>
 <td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/b5ca1142a50dae5977025a9d7bb5de1839ee6198/docs/figure/eda.Rmd/eda-9-5.png" target="_blank">b5ca114</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-06-21
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/4cf247ae7857285fff7002189f9afdd908ae8d9a/docs/figure/eda.Rmd/eda-9-5.png" target="_blank">4cf247a</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-06-18
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/5230081805b2d9f02675d4a8517c39e619c961fa/docs/figure/eda.Rmd/eda-9-5.png" target="_blank">5230081</a>
 </td>
 <td>
@@ -2347,6 +3248,28 @@ pat-s
 </td>
 <td>
 2019-07-02
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/b5ca1142a50dae5977025a9d7bb5de1839ee6198/docs/figure/eda.Rmd/eda-9-6.png" target="_blank">b5ca114</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-06-21
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/4cf247ae7857285fff7002189f9afdd908ae8d9a/docs/figure/eda.Rmd/eda-9-6.png" target="_blank">4cf247a</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-06-18
 </td>
 </tr>
 <tr>
@@ -2400,6 +3323,28 @@ pat-s
 </tr>
 <tr>
 <td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/b5ca1142a50dae5977025a9d7bb5de1839ee6198/docs/figure/eda.Rmd/eda-9-7.png" target="_blank">b5ca114</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-06-21
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/4cf247ae7857285fff7002189f9afdd908ae8d9a/docs/figure/eda.Rmd/eda-9-7.png" target="_blank">4cf247a</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-06-18
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/5230081805b2d9f02675d4a8517c39e619c961fa/docs/figure/eda.Rmd/eda-9-7.png" target="_blank">5230081</a>
 </td>
 <td>
@@ -2445,6 +3390,28 @@ pat-s
 </td>
 <td>
 2019-07-02
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/b5ca1142a50dae5977025a9d7bb5de1839ee6198/docs/figure/eda.Rmd/eda-9-8.png" target="_blank">b5ca114</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-06-21
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/4cf247ae7857285fff7002189f9afdd908ae8d9a/docs/figure/eda.Rmd/eda-9-8.png" target="_blank">4cf247a</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-06-18
 </td>
 </tr>
 <tr>
@@ -2501,6 +3468,28 @@ pat-s
 </tr>
 <tr>
 <td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/b5ca1142a50dae5977025a9d7bb5de1839ee6198/docs/figure/eda.Rmd/eda-10-1.png" target="_blank">b5ca114</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-06-21
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/4cf247ae7857285fff7002189f9afdd908ae8d9a/docs/figure/eda.Rmd/eda-10-1.png" target="_blank">4cf247a</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-06-18
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/5230081805b2d9f02675d4a8517c39e619c961fa/docs/figure/eda.Rmd/eda-10-1.png" target="_blank">5230081</a>
 </td>
 <td>
@@ -2546,6 +3535,28 @@ pat-s
 </td>
 <td>
 2019-07-02
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/b5ca1142a50dae5977025a9d7bb5de1839ee6198/docs/figure/eda.Rmd/eda-10-2.png" target="_blank">b5ca114</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-06-21
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/4cf247ae7857285fff7002189f9afdd908ae8d9a/docs/figure/eda.Rmd/eda-10-2.png" target="_blank">4cf247a</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-06-18
 </td>
 </tr>
 <tr>
@@ -2602,6 +3613,28 @@ pat-s
 </tr>
 <tr>
 <td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/b5ca1142a50dae5977025a9d7bb5de1839ee6198/docs/figure/eda.Rmd/eda-11-1.png" target="_blank">b5ca114</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-06-21
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/4cf247ae7857285fff7002189f9afdd908ae8d9a/docs/figure/eda.Rmd/eda-11-1.png" target="_blank">4cf247a</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-06-18
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/5230081805b2d9f02675d4a8517c39e619c961fa/docs/figure/eda.Rmd/eda-11-1.png" target="_blank">5230081</a>
 </td>
 <td>
@@ -2644,7 +3677,7 @@ pat-s
 <div id="sd-skewness" class="section level1">
 <h1>sd / skewness</h1>
 <pre><code># A tibble: 4 x 2
-  plot     `((sd(defoliation)/mean(defoliation)) * 100)/e1071::skewness(de~
+  plot     `((sd(defoliation)/mean(defoliation)) * 100)/e1071::skewness(de…
   &lt;fct&gt;                                                               &lt;dbl&gt;
 1 Laukiz 1                                                           -50.6 
 2 Laukiz 2                                                            55.0 
@@ -2704,6 +3737,28 @@ pat-s
 </tr>
 <tr>
 <td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/b5ca1142a50dae5977025a9d7bb5de1839ee6198/docs/figure/eda.Rmd/defoliation-distribution-plot-1.png" target="_blank">b5ca114</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-06-21
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/4cf247ae7857285fff7002189f9afdd908ae8d9a/docs/figure/eda.Rmd/defoliation-distribution-plot-1.png" target="_blank">4cf247a</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-06-18
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/55e63a83072653558877994d7e397acec0a7fdb5/docs/figure/eda.Rmd/defoliation-distribution-plot-1.png" target="_blank">55e63a8</a>
 </td>
 <td>
@@ -2739,16 +3794,21 @@ $Oiartzun
 </button>
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
-<pre><code>R version 3.5.2 (2018-12-20)
+<pre><code>R version 3.6.1 (2019-07-05)
 Platform: x86_64-pc-linux-gnu (64-bit)
 Running under: CentOS Linux 7 (Core)
 
 Matrix products: default
-BLAS: /opt/R/3.5.2/lib64/R/lib/libRblas.so
-LAPACK: /usr/lib64/libopenblaso-r0.3.3.so
+BLAS:   /opt/spack/opt/spack/linux-centos7-x86_64/gcc-9.2.0/r-3.6.1-j25wr6zcofibs2zfjwg37357rjj26lqb/rlib/R/lib/libRblas.so
+LAPACK: /opt/spack/opt/spack/linux-centos7-x86_64/gcc-9.2.0/r-3.6.1-j25wr6zcofibs2zfjwg37357rjj26lqb/rlib/R/lib/libRlapack.so
 
 locale:
-[1] C
+ [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+ [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+ [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
+ [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
 
 attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
@@ -2756,30 +3816,31 @@ attached base packages:
 other attached packages:
  [1] raster_2.8-4       sp_1.3-1           purrr_0.3.0       
  [4] knitr_1.23         ggpubr_0.1.6       magrittr_1.5      
- [7] ggplot2_3.1.0      ggsci_2.9          dplyr_0.8.0.1     
+ [7] ggplot2_3.2.1      ggsci_2.9          dplyr_0.8.0.1     
 [10] DataExplorer_0.8.0 tidyselect_0.2.5  
 
 loaded via a namespace (and not attached):
  [1] storr_1.2.1       xfun_0.5          reshape2_1.4.3   
  [4] lattice_0.20-38   colorspace_1.4-0  htmltools_0.3.6  
- [7] yaml_2.2.0        utf8_1.1.4        rlang_0.3.4      
-[10] e1071_1.7-0.1     R.oo_1.22.0       pillar_1.3.1     
-[13] txtq_0.1.4        glue_1.3.0        withr_2.1.2      
-[16] R.utils_2.8.0     networkD3_0.4     plyr_1.8.4       
-[19] stringr_1.4.0     munsell_0.5.0     gtable_0.2.0     
-[22] workflowr_1.4.0   R.methodsS3_1.7.1 htmlwidgets_1.3  
-[25] codetools_0.2-16  evaluate_0.13     labeling_0.3     
-[28] class_7.3-15      parallel_3.5.2    fansi_0.4.0      
-[31] highr_0.7         Rcpp_1.0.0        scales_1.0.0     
-[34] backports_1.1.3   filelock_1.0.2    fs_1.2.6         
-[37] gridExtra_2.3     digest_0.6.18     stringi_1.3.1    
-[40] grid_3.5.2        rprojroot_1.3-2   rgdal_1.4-4      
-[43] cli_1.1.0         tools_3.5.2       base64url_1.4    
-[46] lazyeval_0.2.1    tibble_2.0.1      crayon_1.3.4     
-[49] whisker_0.3-2     pkgconfig_2.0.2   data.table_1.12.0
-[52] drake_7.5.2       assertthat_0.2.0  rmarkdown_1.13   
-[55] R6_2.4.0          igraph_1.2.4      git2r_0.24.0     
-[58] compiler_3.5.2   </code></pre>
+ [7] yaml_2.2.0        utf8_1.1.4        rlang_0.4.1      
+[10] e1071_1.7-0.1     R.oo_1.23.0       later_0.8.0      
+[13] pillar_1.3.1      txtq_0.1.4        glue_1.3.0       
+[16] withr_2.1.2       R.utils_2.8.0     plyr_1.8.4       
+[19] networkD3_0.4     stringr_1.4.0     munsell_0.5.0    
+[22] gtable_0.2.0      workflowr_1.6.0   R.methodsS3_1.7.1
+[25] htmlwidgets_1.3   codetools_0.2-16  evaluate_0.13    
+[28] labeling_0.3      httpuv_1.4.5.1    class_7.3-15     
+[31] parallel_3.6.1    fansi_0.4.0       highr_0.7        
+[34] Rcpp_1.0.0        promises_1.0.1    scales_1.0.0     
+[37] backports_1.1.5   filelock_1.0.2    fs_1.3.1         
+[40] gridExtra_2.3     digest_0.6.22     stringi_1.3.1    
+[43] grid_3.6.1        rprojroot_1.3-2   rgdal_1.4-4      
+[46] cli_1.1.0         tools_3.6.1       base64url_1.4    
+[49] lazyeval_0.2.1    tibble_2.0.1      crayon_1.3.4     
+[52] whisker_0.3-2     pkgconfig_2.0.3   data.table_1.12.6
+[55] drake_7.8.0       assertthat_0.2.0  rmarkdown_1.13   
+[58] R6_2.4.1          igraph_1.2.4.1    git2r_0.26.1     
+[61] compiler_3.6.1   </code></pre>
 </div>
 </div>
 
