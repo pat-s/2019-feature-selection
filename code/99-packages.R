@@ -32,6 +32,7 @@ load_packages = function() {
   suppressPackageStartupMessages(library(ggpubr))
   suppressPackageStartupMessages(library(here))
   suppressPackageStartupMessages(library(workflowr))
+  suppressPackageStartupMessages(library(git2r))
   suppressPackageStartupMessages(library(praznik))
   suppressPackageStartupMessages(library(mRMRe))
   suppressPackageStartupMessages(library(kernlab))
