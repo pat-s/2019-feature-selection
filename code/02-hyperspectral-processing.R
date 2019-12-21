@@ -24,19 +24,23 @@ nri_indices <- map(data_hs_preprocessed, ~ HyperSpecRaster(.x, wavelength)) %>%
 # extract all indices to tree data Mon Mar 11 21:58:06 2019
 # ------------------------------
 
-trees_with_indices <- lapply(c("laukiz1", "laukiz2", "luiando", "oiartzun"), FUN = function(x) {
-  extract_indices_to_plot(x,
-    buffer = 2,
-    tree_data = tree_per_tree,
-    veg_indices = veg_indices,
-    nri_indices = nri_indices
-  )
-})
+trees_with_indices <- lapply(c("laukiz1", "laukiz2", "luiando", "oiartzun"),
+  FUN = function(x) {
+    extract_indices_to_plot(x,
+      buffer = 2,
+      tree_data = tree_per_tree,
+      veg_indices = veg_indices,
+      nri_indices = nri_indices
+    )
+  }
+)
 
-trees_with_bands <- lapply(c("laukiz1", "laukiz2", "luiando", "oiartzun"), FUN = function(x) {
-  extract_bands_to_plot(x,
-    buffer = 2,
-    tree_data = tree_per_tree,
-    hyperspectral_bands = data_hs_preprocessed
-  )
-})
+trees_with_bands <- lapply(c("laukiz1", "laukiz2", "luiando", "oiartzun"),
+  FUN = function(x) {
+    extract_bands_to_plot(x,
+      buffer = 2,
+      tree_data = tree_per_tree,
+      hyperspectral_bands = data_hs_preprocessed
+    )
+  }
+)

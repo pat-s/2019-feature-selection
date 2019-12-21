@@ -85,24 +85,26 @@ extract_indices_to_plot <- function(plot_name, buffer, tree_data,
                                     veg_indices, nri_indices) {
 
   # calculate buffered veg index
-  veg_out <- map(buffer, function(x)
+  veg_out <- map(buffer, function(x) {
     raster::extract(veg_indices[[plot_name]], tree_data[[plot_name]],
       buffer = x,
       fun = mean, df = TRUE,
       na.rm = TRUE
-    ))
+    )
+  })
 
   veg_out %<>%
     map2(seq_along(buffer), ~ setNames(.x, glue("bf{buffer}_{name}",
       name = names(veg_out[[.y]])
     )))
 
-  nbi_out <- map(buffer, function(y)
+  nbi_out <- map(buffer, function(y) {
     raster::extract(nri_indices[[plot_name]], tree_data[[plot_name]],
       buffer = y,
       fun = mean, df = TRUE,
       na.rm = TRUE
-    ))
+    )
+  })
 
   nbi_out %<>%
     map2(seq_along(buffer), ~ setNames(.x, glue("bf{buffer}_{name}",
@@ -132,12 +134,13 @@ extract_indices_to_plot <- function(plot_name, buffer, tree_data,
 #' @export
 extract_bands_to_plot <- function(plot_name, buffer, tree_data,
                                   hyperspectral_bands) {
-  out_bands <- map(buffer, function(x)
+  out_bands <- map(buffer, function(x) {
     raster::extract(hyperspectral_bands[[plot_name]][[5:126]], tree_data[[plot_name]],
       buffer = x,
       fun = mean, df = TRUE,
       na.rm = TRUE
-    ))
+    )
+  })
 
   out_bands %<>%
     map2(seq_along(buffer), ~ setNames(
@@ -169,12 +172,13 @@ extract_bands_to_plot <- function(plot_name, buffer, tree_data,
 #'
 #' @export
 calc_veg_indices <- function(hyperspecs, indices) {
-  veg_y <- future_lapply(seq_along(hyperspecs), FUN = function(ii)
+  veg_y <- future_lapply(seq_along(hyperspecs), FUN = function(ii) {
     vegindex(hyperspecs[[ii]], indices,
       filename =
         glue("data/hyperspectral/vi/{names(hyperspecs)[[ii]]}.grd"),
       bnames = indices, na.rm = TRUE
-    )) %>%
+    )
+  }) %>%
     set_names(names(hyperspecs))
 }
 
@@ -189,11 +193,12 @@ calc_veg_indices <- function(hyperspecs, indices) {
 #'
 #' @export
 calc_nri_indices <- function(hyperspecs, indices) {
-  y <- future_lapply(seq_along(hyperspecs), FUN = function(ii)
+  y <- future_lapply(seq_along(hyperspecs), FUN = function(ii) {
     nbi_raster(hyperspecs[[ii]],
       filename =
         str_replace(glue("data/hyperspectral/nri/nri-{names(hyperspecs)[[ii]]}"), ".tif", ".grd"),
       bnames_prefix = "NRI"
-    )) %>%
+    )
+  }) %>%
     set_names(names(hyperspecs))
 }

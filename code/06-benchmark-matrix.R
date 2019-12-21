@@ -11,7 +11,6 @@ bm_plan <- drake_plan(
       ),
 
       learner = c(
-
         svm_info.gain_mbo,
         svm_relief_mbo,
         svm_linear.cor_mbo,
@@ -48,7 +47,7 @@ bm_plan <- drake_plan(
         ridge_no_filter_mbo,
 
         svm_borda_mbo,
-        rf_borda_mbo ,
+        rf_borda_mbo,
         xgboost_borda_mbo
       )
     )
@@ -58,9 +57,11 @@ bm_plan <- drake_plan(
   bm_models = drake::target(
     benchmark_custom(learner = learner, task = task),
     transform = cross(
-      task = c("vi" = vi_task, "nri" = nri_task, "hr" = hr_task,
-               "hr_nri_vi" = hr_nri_vi_task, "hr_nri" = hr_nri_task,
-               "hr_vi" = hr_vi_task),
+      task = c(
+        "vi" = vi_task, "nri" = nri_task, "hr" = hr_task,
+        "hr_nri_vi" = hr_nri_vi_task, "hr_nri" = hr_nri_task,
+        "hr_vi" = hr_vi_task
+      ),
       learner = c(
         lasso_no_filter_mbo,
 

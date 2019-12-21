@@ -394,10 +394,10 @@ calculate_vi <- function(image) {
   print("Starting EVI")
 
   # EVI
-  image_stack = map(image, ~ stack(.x))
-  image_stack = future_map(image_stack, ~ calc(.x, fun = function(x) 2.5 * (x[[8]] / 10000 - x[[4]] / 10000) / ((x[[8]] / 10000 + 6 * x[[4]] / 10000 - 7.5 * x[[2]] / 10000) + 1)))
-  image_stack = stack(image_stack)
-  image_stack = calc(image_stack, fun = function(x) mean(x, na.rm = TRUE))
+  image_stack <- map(image, ~ stack(.x))
+  image_stack <- future_map(image_stack, ~ calc(.x, fun = function(x) 2.5 * (x[[8]] / 10000 - x[[4]] / 10000) / ((x[[8]] / 10000 + 6 * x[[4]] / 10000 - 7.5 * x[[2]] / 10000) + 1)))
+  image_stack <- stack(image_stack)
+  image_stack <- calc(image_stack, fun = function(x) mean(x, na.rm = TRUE))
   writeRaster(image_stack, glue("data/sentinel/image_vi/EVI-{year}.tif"), overwrite = TRUE)
   # image %>%
   #   map(~ stack(.)) %>%

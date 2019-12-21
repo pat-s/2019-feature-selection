@@ -26,7 +26,7 @@ download_trees <- function(url) {
 download_aoi <- function(url) {
   if (!file.exists("data/gpkg/aoi.gpkg")) {
     curl_download(url,
-                  destfile = "data/gpkg/aoi.gpkg", quiet = FALSE
+      destfile = "data/gpkg/aoi.gpkg", quiet = FALSE
     )
   }
 

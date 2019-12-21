@@ -70,12 +70,12 @@ tune_ctrl_mbo_30n_70it <- function(param_set) {
   makeTuneControlMBO(
     mbo.control = makeMBOControl(
       propose.points = 1L,
-      on.surrogate.error = "warn"#,
+      on.surrogate.error = "warn" # ,
     ) %>%
       setMBOControlTermination(iters = 70L) %>%
       setMBOControlInfill(crit = crit.ei),
-    mbo.design = generateDesign(n = 30, par.set = param_set)#,
-    #continue = TRUE
+    mbo.design = generateDesign(n = 30, par.set = param_set) # ,
+    # continue = TRUE
   )
 }
 
