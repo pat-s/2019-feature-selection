@@ -4,3 +4,4 @@
 ^\.Rproj\.user$
 ^renv$
 ^renv\.lock$
+^\.pre-commit-config\.yaml$
