@@ -17,7 +17,7 @@ repos:
     # -   id: deps-in-desc
     # -   id: codemeta-description-updated
 -   repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v1.2.3
+    rev: v2.4.0
     hooks: 
     -   id: check-added-large-files
         args: ['--maxkb=200']
