@@ -16,8 +16,9 @@ options(
 
   precommit.executable = "/home/patrick/.local/bin/pre-commit"
 )
-library(drake)
-library(magrittr)
+suppressMessages(require(drake))
+suppressMessages(require(magrittr))
+suppressMessages(require(usethis))
 
 # tibble > data.frame
 if (interactive() && "tibble" %in% rownames(utils::installed.packages())) {
