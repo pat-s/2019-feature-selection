@@ -38,7 +38,7 @@ library("xtable")
 ```
 
 ```{r}
-df_perf = getBMRPerformances(bm_aggregated, as.df = T) %>%
+df_perf <- getBMRPerformances(bm_aggregated, as.df = T) %>%
   mutate(task.id = recode_factor(task.id,
     `defoliation-all-plots-HR` = "HR",
     `defoliation-all-plots-VI` = "VI",
@@ -50,17 +50,17 @@ df_perf = getBMRPerformances(bm_aggregated, as.df = T) %>%
   tidyr::separate(learner.id, c("learner_group", "filter"),
     remove = FALSE,
     sep = " "
-  ) 
+  )
 ```
 
 Aggregate performances and add standard error column.
 
 ```{r aggr-perf}
-df_perf %<>% 
-  group_by(task.id, learner.id, filter) %>% 
-  mutate(rmse_aggr = round(mean(rmse), 3)) %>% 
-  mutate(se = round(sd(rmse), 3)) %>% 
-  select(-rmse, iter) %>% 
+df_perf %<>%
+  group_by(task.id, learner.id, filter) %>%
+  mutate(rmse_aggr = round(mean(rmse), 3)) %>%
+  mutate(se = round(sd(rmse), 3)) %>%
+  select(-rmse, iter) %>%
   ungroup()
 ```
 
@@ -80,9 +80,9 @@ table1 <- df_perf %>%
     "RMSE" = rmse_aggr,
     "SE" = se,
   ) %>%
-  ungroup() %>% 
+  ungroup() %>%
   mutate(Filter = replace(Filter, is.na(Filter), "No Filter")) %>%
-  select(-iter, -`Learner ID`, -rsq, -expvar) %>% 
+  select(-iter, -`Learner ID`, -rsq, -expvar) %>%
   arrange(RMSE)
 
 # save as latex table
@@ -107,7 +107,7 @@ table1 %>%
 saveRDS(table1, "code/98-paper/presentation/table-perf.rda")
 
 table1 %>%
-  flextable() %>% 
+  flextable() %>%
   autofit()
 ```
 
@@ -120,7 +120,7 @@ Learners: On which task and using which filter did every learner score their bes
 *MBO: L2 penalized regression using using MBO for hyperparameter optimization.
 
 ```{r eval-performance-2, warning=FALSE}
-table2 <- df_perf %>% 
+table2 <- df_perf %>%
   group_by(learner_group) %>%
   slice(which.min(rmse_aggr)) %>%
   mutate(filter = replace(filter, is.na(filter), "No Filter")) %>%
@@ -156,7 +156,7 @@ table2 %>%
 saveRDS(table2, "code/98-paper/presentation/table-best-learner-per-task.rda")
 
 table2 %>%
-  flextable() %>% 
+  flextable() %>%
   autofit()
 ```
 
@@ -166,11 +166,15 @@ table2 %>%
 results_aggr <- df_perf %>%
   mutate(filter = replace(filter, is.na(filter), "NF")) %>%
   mutate(learner_group = recode_factor(learner_group, `XG` = "XGBOOST")) %>%
-  group_by(learner_group, task.id) %>%
-  # get the best performance per learner and task
-  # this is better than summarise() because we can keep additional columns
-  # in constrast to summariuse which only keeps the grouping columns and the
+  group_by(learner_group, filter, task.id) %>%
+  ### get the best performance per learner and task
+  # this group_by() & slice() approach is better than summarise() because we can
+  # keep additional columns
+  # in constrast to summarise which only keeps the grouping columns and the
   # summarised one
+  slice(which.min(rmse_aggr)) %>% # this groups the CV iters
+  ungroup() %>%
+  group_by(task.id, learner_group) %>%
   slice(which.min(rmse_aggr))
 
 results_aggr %>%
@@ -188,7 +192,7 @@ results_aggr %>%
     data = results_aggr[results_aggr$rmse_aggr < 100, ],
     # from ggbeeswarm, avoid overlapping of points by labels
     position = position_quasirandom(),
-    aes(label = paste(filter, ",", round(rmse_aggr, 2))),
+    aes(label = paste0(filter, ",", round(rmse_aggr, 2))),
     size = 2.8,
     min.segment.length = 0.1,
     seed = 123,
@@ -246,10 +250,10 @@ comb %>%
   ggplot(aes(x = rmse_aggr, y = learner_group)) +
   geom_beeswarm(groupOnX = FALSE, aes(color = filter), size = 3) +
   facet_wrap(~task.id) +
-  scale_color_nejm() +
+  # scale_color_nejm() +
   labs(x = "RMSE", y = "Task", color = "Filter") +
   guides(size = FALSE) +
-  scale_x_continuous(limits = c(30, 47)) +
+  scale_x_continuous(limits = c(30, 50)) +
   theme_pubr() +
   theme(
     panel.grid.major.y = element_line(size = 0.1, linetype = "dashed"),
@@ -292,7 +296,7 @@ comb_borda %>%
   scale_color_nejm() +
   labs(x = "RMSE", y = "Task", color = "Filter") +
   guides(size = FALSE) +
-  scale_x_continuous(limits = c(30, 45)) +
+  scale_x_continuous(limits = c(30, 50)) +
   theme_pubr() +
   theme(
     panel.grid.major.y = element_line(size = 0.1, linetype = "dashed"),
@@ -307,35 +311,37 @@ comb_borda %>%
 ## (Plot) Performances of all filter methods
 
 ```{r filter-perf-all, warning=FALSE, dev = c("png", "pdf")}
-perf_all_filters <- df_perf %>%
-  mutate(filter = replace(filter, is.na(filter), "No Filter")) %>%
-  dplyr::filter(filter != "No Filter") %>%
-  group_by(learner_group, task.id) %>%
-  dplyr::filter(learner_group == "SVM" | learner_group == "RF" | learner_group == "XGBoost")
-
-perf_all_filters %>%
-  ggplot(aes(x = rmse_aggr, y = learner_group)) +
-  geom_beeswarm(groupOnX = FALSE, aes(color = filter), size = 2) +
-  facet_wrap(~task.id) +
-  scale_color_nejm() +
-  labs(x = "RMSE", y = "Task", color = "Filter") +
-  guides(size = FALSE) +
-  scale_x_continuous(limits = c(30, 45)) +
-  theme_pubr() +
-  theme(
-    panel.grid.major.y = element_line(size = 0.1, linetype = "dashed"),
-    axis.title.y = element_blank(),
-    axis.text.y = element_text(angle = 45),
-    legend.text = element_text(size = 12),
-    legend.title = element_text(size = 12),
-    plot.margin = unit(c(6, 6, 6, 0), "pt")
-  )
+# perf_all_filters <- df_perf %>%
+#   mutate(filter = replace(filter, is.na(filter), "No Filter")) %>%
+#   dplyr::filter(filter != "No Filter") %>%
+#   group_by(learner_group, task.id) %>%
+#   dplyr::filter(learner_group == "SVM" | learner_group == "RF" | learner_group == "XGBoost") %>%
+#   slice(which.min(rmse_aggr))
+#   summarise(perf = mean(rmse_aggr), filter = as.character(filter))
+#
+# perf_all_filters %>%
+#   ggplot(aes(x = rmse_aggr, y = learner_group)) +
+#   geom_beeswarm(groupOnX = FALSE, aes(color = filter), size = 2) +
+#   facet_wrap(~task.id) +
+#   scale_color_nejm() +
+#   labs(x = "RMSE", y = "Task", color = "Filter") +
+#   guides(size = FALSE) +
+#   scale_x_continuous(limits = c(30, 45)) +
+#   theme_pubr() +
+#   theme(
+#     panel.grid.major.y = element_line(size = 0.1, linetype = "dashed"),
+#     axis.title.y = element_blank(),
+#     axis.text.y = element_text(angle = 45),
+#     legend.text = element_text(size = 12),
+#     legend.title = element_text(size = 12),
+#     plot.margin = unit(c(6, 6, 6, 0), "pt")
+#   )
 ```
 
 ## (Plot) Scatterplots of filter methods vs. no filter for each learner and task
 
 Showing the final effect of applying feature selection to a learner for each task.
-All filters are summarized into a boxplot whereas using "no filter" appears as a standalone observation.
+All filters are colored in the same way whereas using "no filter" appears in a different color.
 
 ```{r filter-effect-all-vs-no-filter, warning=FALSE, dev = c("png", "pdf")}
 results_aggr1 <- df_perf %>%
@@ -344,7 +350,7 @@ results_aggr1 <- df_perf %>%
   mutate(filter = replace(filter, is.na(filter), "NF")) %>%
   mutate(learner_group = as.factor(learner_group)) %>%
   mutate(learner_group = recode(learner_group, `XGBoost` = "XG")) %>%
-  group_by(learner_group, task.id, filter) %>% 
+  group_by(learner_group, task.id, filter) %>%
   # we actually took the mean already in chunk 'aggr-perf'. This is only to get
   # summarise() working
   summarise(perf = mean(rmse_aggr))
@@ -355,8 +361,10 @@ results_aggr1 %>%
     data = results_aggr1[results_aggr1$filter != "NF", ], size = 1.1, shape = 3,
     groupOnX = FALSE, aes(color = "Filter")
   ) +
-  geom_point(data = results_aggr1[results_aggr1$filter == "NF", ], 
-             size = 2, shape = 19, aes(color = "No Filter")) +
+  geom_point(
+    data = results_aggr1[results_aggr1$filter == "NF", ],
+    size = 2, shape = 19, aes(color = "No Filter")
+  ) +
   facet_wrap(~task.id) +
   scale_color_nejm() +
   labs(x = "RMSE", y = "Task", colour = NULL) +
@@ -374,18 +382,18 @@ results_aggr1 %>%
 ## (Plot) Scatterplots of filter methods vs. Borda for each learner and task
 
 Showing the final effect of applying feature selection to a learner for each task.
-All filters are summarized into a boxplot whereas using "no filter" appears as a standalone observation.
+All filters are summarized into a a single color whereas the "Borda" filter appears in its own color.
 
 ```{r filter-effect-all-vs-borda-filter, warning=FALSE, dev = c("png", "pdf")}
 results_aggr2 <- df_perf %>%
-  na.omit() %>% 
+  na.omit() %>%
   filter(learner_group != "Ridge-MBO", learner_group != "Ridge-CV") %>%
   filter(learner_group != "Lasso-MBO", learner_group != "Lasso-CV") %>%
   mutate(learner_group = recode_factor(learner_group, `XGBoost` = "XG")) %>%
-  group_by(learner_group, task.id, filter) %>% 
+  group_by(learner_group, task.id, filter) %>%
   # we actually took the mean already in chunk 'aggr-perf'. This is only to get
   # summarise() working
-  summarise(perf = mean(rmse_aggr)) 
+  summarise(perf = mean(rmse_aggr))
 
 results_aggr2 %>%
   ggplot(aes(x = perf, y = learner_group)) +
@@ -394,8 +402,10 @@ results_aggr2 %>%
     shape = 3, size = 1.1, aes(color = "Simple Filter"),
     groupOnX = FALSE
   ) +
-  geom_point(data = results_aggr2[results_aggr2$filter == "Borda", ], 
-             shape = 19, size = 2, aes(color = "Borda Filter")) +
+  geom_point(
+    data = results_aggr2[results_aggr2$filter == "Borda", ],
+    shape = 19, size = 2, aes(color = "Borda Filter")
+  ) +
   facet_wrap(~task.id) +
   scale_color_nejm() +
   labs(x = "RMSE", y = "Task", colour = NULL) +
@@ -409,4 +419,3 @@ results_aggr2 %>%
     legend.title = element_text(size = 12),
   )
 ```
-
