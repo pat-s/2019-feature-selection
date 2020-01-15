@@ -86,9 +86,9 @@ fv_all <- dplyr::bind_rows(
   fv_vi_cmim$data,
   fv_vi_var$data
 ) %>%
-  dplyr::select(value, method) %>%
+  dplyr::select(value, filter) %>%
   mutate(id = rep(1:89, 10)) %>%
-  tidyr::spread(method, value) %>%
+  tidyr::spread(filter, value) %>%
   mutate_if(is.numeric, list(~ na_if(., -Inf))) %>% # Inf in mrmr
   na.omit() %>% # NA in cmim
   dplyr::select(-id)
@@ -116,15 +116,15 @@ fv_all_list <- map2(
     fv_vi_info.gain25$data, fv_vi_info.gain30$data
   ),
   list(5, 10, 15, 20, 25, 30), ~
-  dplyr::mutate(.x, method = recode(.x$method, FSelectorRcpp_information.gain = glue("FSelectorRcpp_information.gain-{.y}")))
+  dplyr::mutate(.x, filter = recode(.x$filter, FSelectorRcpp_information.gain = glue("FSelectorRcpp_information.gain-{.y}")))
 )
 
 fv_all <- dplyr::bind_rows(
   fv_all_list
 ) %>%
-  dplyr::select(value, method) %>%
+  dplyr::select(value, filter) %>%
   mutate(id = rep(1:89, 6)) %>%
-  tidyr::spread(method, value) %>%
+  tidyr::spread(filter, value) %>%
   mutate_if(is.numeric, list(~ na_if(., -Inf))) %>% # Inf in mrmr
   na.omit() %>%
   dplyr::select(-id)
@@ -156,9 +156,9 @@ fv_all <- dplyr::bind_rows(
   fv_nri_cmim$data,
   fv_nri_var$data
 ) %>%
-  dplyr::select(value, method) %>%
+  dplyr::select(value, filter) %>%
   mutate(id = rep(1:7381, 10)) %>%
-  tidyr::spread(method, value) %>%
+  tidyr::spread(filter, value) %>%
   dplyr::select(-id)
 
 
@@ -190,9 +190,9 @@ fv_all <- dplyr::bind_rows(
   fv_hr_cmim$data,
   fv_hr_var$data
 ) %>%
-  dplyr::select(value, method) %>%
+  dplyr::select(value, filter) %>%
   mutate(id = rep(1:122, 10)) %>%
-  tidyr::spread(method, value) %>%
+  tidyr::spread(filter, value) %>%
   dplyr::select(-id)
 
 
