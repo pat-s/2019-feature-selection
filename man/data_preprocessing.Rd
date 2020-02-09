@@ -3,12 +3,63 @@
 \name{data_preprocessing}
 \alias{data_preprocessing}
 \alias{clean_single_plots}
+\alias{extract_coords}
+\alias{standardize}
+\alias{mutate_defol}
+\alias{log_response}
+\alias{boxcox_response}
+\alias{split_into_feature_sets}
 \title{Data preprocessing}
 \usage{
-clean_single_plots(data)
+clean_single_plots(data, cols_to_drop, remove_coords = FALSE)
+
+extract_coords(data)
+
+standardize(data, cores)
+
+mutate_defol(data)
+
+log_response(data, response)
+
+boxcox_response(data, response)
+
+split_into_feature_sets(data, feature_set)
 }
 \arguments{
 \item{data}{(\code{list})\cr List containing multiple \code{data.frames}.}
+
+\item{cores}{(\code{integer})\cr Number of cores}
+
+\item{response}{(\code{character})\cr Name of response.}
+
+\item{feature_set}{(\code{character})\cr Name of feature set.}
+
+\item{data}{(\code{list})\cr List containing multiple \code{data.frames}.}
+
+\item{data}{(\code{list})\cr List containing multiple \code{data.frames}.}
+
+\item{data}{(\code{data.frame})\cr data.frame.}
+
+\item{data}{(\code{data.frame})\cr data.frame.}
+
+\item{data}{(\code{data.frame})\cr data.frame.}
+
+\item{response}{(\code{character})\cr Name of response.}
+
+\item{data}{(\code{data.frame})\cr data.frame.}
+}
+\value{
+List of \code{data.frames} with X/Y information
+
+List of \code{data.frames} with standardized variables
+
+\code{data.frame}
+
+\code{data.frame}
+
+\code{data.frame}
+
+\code{data.frame}
 }
 \description{
 \code{clean_single_plots()}:
@@ -16,7 +67,23 @@ clean_single_plots(data)
 \item Removes columns with \code{NA} values and cols containing \code{"ID"}
 \item Removes the \code{sf} geometry column.
 }
+
+Extracts coordinates from a list of \code{data.frames} containing X and Y coordinates
+
+Standardizes all variables of a list of \code{data.frames} in
+parallel
+
+Mutates the "defoliation" variables so that no absolut zeros occur. These might cause problems when standardizing variables.
+
+Performs a log transformation on the response variable.
+
+Performs a boxcox transformation on the response variable.
+
+Splits data into feature sets.
 }
 \details{
 Remove columns with NA values and "ID" columns
+
+Standardization applies from \code{2:length(names(data))}, so it is
+expected that the response is sorted first in the data.
 }

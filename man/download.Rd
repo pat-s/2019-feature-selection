@@ -3,12 +3,15 @@
 \name{download}
 \alias{download}
 \alias{download_trees}
+\alias{download_aoi}
 \alias{download_locations}
 \alias{download_hyperspectral}
 \alias{download_forest_mask}
 \title{Download data}
 \usage{
 download_trees(url)
+
+download_aoi(url)
 
 download_locations(url)
 
@@ -20,8 +23,12 @@ download_forest_mask(url)
 \item{url}{URL to download from (usually Zenodo)}
 
 \item{url}{URL to download from (usually Zenodo)}
+
+\item{url}{URL to download from (usually Zenodo)}
 }
 \description{
+\code{download_trees()}: Download in-situ tree data
+
 \code{download_trees()}: Download in-situ tree data
 
 \code{download_locations()}: Download plot location vector data

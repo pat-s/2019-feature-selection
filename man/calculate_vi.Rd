@@ -13,7 +13,10 @@ calculate_vi(image)
 calculated VIs (file name)
 }
 \description{
-Calculates the following vegetation indices from the Sentinel data:
+Calculates vegetation indices from the Sentinel data
+}
+\details{
+Indices:
 \itemize{
 \item EVI
 \item GDVI2
@@ -22,5 +25,14 @@ Calculates the following vegetation indices from the Sentinel data:
 \item MNDVI
 \item MSR
 \item D1
+}
+
+The following steps are performed:
+\enumerate{
+\item Take the mosaic and read all raster files (different dates)
+\item Calculate the index for all files
+\item Stack the single rasters
+\item Take the mean from all raster files
+\item Write to disk
 }
 }
