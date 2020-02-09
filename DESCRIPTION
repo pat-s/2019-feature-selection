@@ -41,6 +41,8 @@ Imports:
     rgenoud,
     sf,
     stringr
+Remotes: 
+    16EAGLE/getSpatialData
 ByteCompile: true
 Encoding: UTF-8
 LazyData: true
