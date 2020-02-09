@@ -19,7 +19,7 @@ process_hyperspec <- function(data, id, index, plots, name_out) {
   dir_create("data/hyperspectral/ndvi/")
   dir_create("data/hyperspectral/nri/")
 
-  out <- future_pmap(list(id, index, name_out), ~
+  out <- pmap(list(id, index, name_out), ~
   process_hyperspec_helper(
     data = data, id = ..1,
     index = ..2, plots = plots,

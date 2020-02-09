@@ -37,4 +37,8 @@ load_packages = function() {
   suppressPackageStartupMessages(library(mRMRe))
   suppressPackageStartupMessages(library(kernlab))
   suppressPackageStartupMessages(library(ggcorrplot))
+  suppressPackageStartupMessages(library(iml))
+  suppressPackageStartupMessages(library(parallel))
+  suppressPackageStartupMessages(library(doParallel))
+  suppressPackageStartupMessages(library(future.batchtools))
 }

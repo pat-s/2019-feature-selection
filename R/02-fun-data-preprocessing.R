@@ -11,19 +11,39 @@
 #' @name data_preprocessing
 #' @export
 
-clean_single_plots <- function(data) {
+clean_single_plots <- function(data, cols_to_drop, remove_coords = FALSE) {
   data %<>%
     map(~ as_tibble(.x)) %<>%
     map(~ dplyr::select(.x, -contains("_ID"))) %>%
-    map(~ dplyr::select(.x, -tree.number, -decoloration, -canker, -diameter, -height)) %>%
+    map(~ dplyr::select(.x, -one_of(cols_to_drop))) %>%
     map(~ select_if(.x, function(x) !any(is.na(x)))) # select all variables without NA
 
-  data %<>%
-    map(~ st_as_sf(.x, crs = 32630)) %>%
-    map(~ st_set_geometry(.x, NULL))
+  if (remove_coords) {
+    data %<>%
+      map(~ st_as_sf(.x, crs = 32630, coords = c("x", "y"))) %>%
+      map(~ st_set_geometry(.x, NULL))
+  }
 
   return(data)
 }
+
+# @details
+# some obs of laukiz2 are marked as "dead" and we have some doubts that these
+# observations are valid since apparently some mistakes happened during data
+# collection. We are removing these observations. The information about the
+# affected tree IDs came from an external file
+# remove_dead <- function(object) {
+#   dead_trees <- c(
+#     34, 54, 61, 63, 64, 67, 81, 93, 137, 1146, 1173, 1175, 207,
+#     212, 243, 245, 246, 252, 253, 266, 274, 276, 277, 279, 280, 282,
+#     283, 299, 301, 308, 311, 313, 315, 316, 333, 355, 357, 369, 380,
+#     383, 384, 385, 387, 397, 408, 409, 410, 421, 434, 441, 461, 463
+#   )
+#   object[["laukiz2"]] %<>%
+#     dplyr::filter(!tree.number %in% dead_trees)
+#
+#   return(object)
+# }
 
 #' @title extract_coords
 #' @description
@@ -31,6 +51,7 @@ clean_single_plots <- function(data) {
 #'
 #' @param data (`list`)\cr List containing multiple `data.frames`.
 #' @return List of `data.frames` with X/Y information
+#' @rdname data_preprocessing
 #' @export
 extract_coords <- function(data) {
   coords <- map(data, ~ st_as_sf(.x, crs = 32630)) %>%
@@ -49,6 +70,7 @@ extract_coords <- function(data) {
 #' @return List of `data.frames` with standardized variables
 #' @details Standardization applies from `2:length(names(data))`, so it is
 #'   expected that the response is sorted first in the data.
+#' @rdname data_preprocessing
 #' @export
 standardize <- function(data, cores) {
   data %<>%
@@ -66,6 +88,7 @@ standardize <- function(data, cores) {
 #'
 #' @param data (`data.frame`)\cr data.frame.
 #' @return `data.frame`
+#' @rdname data_preprocessing
 #' @export
 mutate_defol <- function(data) {
   data %<>%
@@ -81,6 +104,7 @@ mutate_defol <- function(data) {
 #' @param data (`data.frame`)\cr data.frame.
 #' @param response (`character`)\cr Name of response.
 #' @return `data.frame`
+#' @rdname data_preprocessing
 #' @export
 log_response <- function(data, response) {
   data[[response]] <- log(data[[response]])
@@ -93,6 +117,7 @@ log_response <- function(data, response) {
 #' @param data (`data.frame`)\cr data.frame.
 #' @param response (`character`)\cr Name of response.
 #' @return `data.frame`
+#' @rdname data_preprocessing
 #' @export
 boxcox_response <- function(data, response) {
   lambda <- 0.7878788
@@ -107,6 +132,7 @@ boxcox_response <- function(data, response) {
 #' @param data (`data.frame`)\cr data.frame.
 #' @param feature_set (`character`)\cr Name of feature set.
 #' @return `data.frame`
+#' @rdname data_preprocessing
 #' @export
 split_into_feature_sets <- function(data, feature_set) {
   if (feature_set == "nri") {

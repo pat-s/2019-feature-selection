@@ -1,9 +1,15 @@
 #' @title Create spatial maps from the predicted data
-#' @param prediction_raster Predicted raster layer from [write_defoliation_map], given in a list
+#' @description Creates a spatial map plot using a predicted raster layer and
+#' inserts a performance value from a [mlr::BenchmarkResult]
+#' @param prediction_raster Predicted raster layer from [write_defoliation_map],
+#'   given in a list
 #' @param model_name Algorithm name
 #' @param benchmark_object mlr benchmark object containing performance
-#' @param resampling String with the resampling description that should appear on the map
-create_prediction_map <- function(prediction_raster, model_name, benchmark_object = NULL,
+#' @param resampling String with the resampling description that should appear
+#'   on the map
+create_prediction_map <- function(prediction_raster,
+                                  model_name,
+                                  benchmark_object = NULL,
                                   resampling = NULL) {
   if (!is.null(resampling)) {
     if (resampling == "spatial/spatial") {

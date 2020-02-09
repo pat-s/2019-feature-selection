@@ -12,76 +12,48 @@ source("https://raw.githubusercontent.com/mlr-org/mlr-extralearner/master/R/RLea
 
 # Plans ------------------------------------------------------------------------
 
-download_plan = code_to_plan("code/01-download.R")
-hyperspectral_plan = code_to_plan("code/02-hyperspectral-processing.R")
-sentinel_plan = code_to_plan("code/03-sentinel-processing.R")
-data_plan = code_to_plan("code/04-data-preprocessing.R")
-
 # project
-learners_plan = code_to_plan("code/05-modeling/project/learner.R")
-resampling_plan = code_to_plan("code/05-modeling/project/resamp.R")
-param_set_plan = code_to_plan("code/05-modeling/project/param-set.R")
-tune_ctrl_plan = code_to_plan("code/05-modeling/project/tune-ctrl.R")
-tuning_plan = code_to_plan("code/05-modeling/project/tune.R")
-train_plan = code_to_plan("code/05-modeling/project/train.R")
-task_plan = code_to_plan("code/05-modeling/project/task.R")
-
-# paper
-learners_paper_plan = code_to_plan("code/05-modeling/paper/learner.R")
-resampling_paper_plan = code_to_plan("code/05-modeling/paper/resampling.R")
-param_set_paper_plan = code_to_plan("code/05-modeling/paper/param-sets.R")
-tune_ctrl_paper_plan = code_to_plan("code/05-modeling/paper/tune-ctrl.R")
-filter_paper_plan = code_to_plan("code/05-modeling/paper/filter-wrapper.R")
-pca_paper_plan = code_to_plan("code/05-modeling/paper/pca-wrapper.R")
-tuning_paper_plan = code_to_plan("code/05-modeling/paper/tune-wrapper.R")
-tuning_mbo_paper_plan = code_to_plan("code/05-modeling/paper/tune-wrapper-mbo.R")
-eda_paper_plan = code_to_plan("code/05-modeling/paper/eda.R")
-aggregate_paper_plan = code_to_plan("code/061-aggregate.R")
-feature_imp_plan = code_to_plan("code/05-modeling/paper/feature-importance.R")
-source("code/06-benchmark-matrix.R")
-
-source("code/07-reports.R")
+# learners_plan = code_to_plan("code/05-modeling/project/learner.R")
+# resampling_plan = code_to_plan("code/05-modeling/project/resamp.R")
+# param_set_plan = code_to_plan("code/05-modeling/project/param-set.R")
+# tune_ctrl_plan = code_to_plan("code/05-modeling/project/tune-ctrl.R")
+# tuning_plan = code_to_plan("code/05-modeling/project/tune.R")
+# train_plan = code_to_plan("code/05-modeling/project/train.R")
+# task_plan = code_to_plan("code/05-modeling/project/task.R")
 
 sourceDirectory("R")
-
-#  grouping for visualization --------------------------------------------------
-
-download_plan$stage = "download"
-hyperspectral_plan$stage = "hyperspectral_preprocessing"
-data_plan$stage = "data"
-
-learners_plan$stage = "modeling"
-resampling_plan$stage = "modeling"
-param_set_plan$stage = "modeling"
-tune_ctrl_plan$stage = "modeling"
-tuning_plan$stage = "modeling"
-train_plan$stage = "modeling"
-task_plan$stage = "modeling"
-bm_plan$stage = "benchmark"
-eda_paper_plan$stage = "filter-values"
-aggregate_paper_plan$stage = "benchmark"
-# prediction$stage = "prediction"
-reports_plan_paper$stage = "reports"
+# FIXME: This regex ignores the "project" folder temporarily
+sourceDirectory("code")
 
 # # Combine all ----------------------------------------------------------------
 
-plan_project = bind_plans(data_plan, download_plan, hyperspectral_plan, learners_plan,
-                          resampling_plan, param_set_plan, tune_ctrl_plan, train_plan,
-                          tuning_plan, task_plan, reports_plan_project, sentinel_plan
-)
+# plan_project = bind_plans(data_plan, download_plan, hyperspectral_plan, learners_plan,
+#                           resampling_plan, param_set_plan, tune_ctrl_plan, train_plan,
+#                           tuning_plan, task_plan, reports_plan_project, sentinel_plan
+# )
 
-plan_paper = bind_plans(data_plan, download_plan, hyperspectral_plan, learners_paper_plan,
-                        resampling_paper_plan, param_set_paper_plan, tune_ctrl_paper_plan,
-                        tuning_mbo_paper_plan,
-                        filter_paper_plan, tuning_paper_plan, bm_plan, reports_plan_paper,
-                        pca_paper_plan, eda_paper_plan, aggregate_paper_plan#, feature_imp_plan
+plan_paper = bind_plans(download_data_plan,
+                        hyperspectra_processing_plan,
+                        sentinel_processing_plan,
+                        data_preprocessing_plan,
+                        tasks_plan,
+                        filter_eda_plan,
+                        param_sets_plan,
+                        learners_plan,
+                        filter_wrapper_plan,
+                        resampling_plan,
+                        tune_ctrl_plan,
+                        tune_wrapper_plan,
+                        benchmark_plan,
+                        train_plan,
+                        feature_imp_plan
 )
 
 options(clustermq.scheduler = "slurm",
         clustermq.template = "~/papers/2019-feature-selection/slurm_clustermq.tmpl")
 
-plan_project %<>% dplyr::mutate(stage = as.factor(stage))
-plan_paper %<>% dplyr::mutate(stage = as.factor(stage))
+# plan_project %<>% dplyr::mutate(stage = as.factor(stage))
+# plan_paper %<>% dplyr::mutate(stage = as.factor(stage))
 
 
 # project ----------------------------------------------------------------------
@@ -111,24 +83,30 @@ plan_paper %<>% dplyr::mutate(stage = as.factor(stage))
 drake_config(plan_paper,
              # targets = c("bm_vi_task_svm_borda_mbo", "bm_vi_task_xgboost_borda_mbo",
              #             "bm_vi_task_rf_borda_mbo"),
-             #targets = "bm_vi_task_xgboost_borda_mbo",
-             verbose = 2, lazy_load = "eager",
+             # targets = c("bm_hr_task_corrected_xgboost_borda_mbo", "bm_hr_task_corrected_xgboost_cmim_mbo",
+             #             "bm_hr_task_corrected_rf_mrmr_mbo", "bm_hr_task_corrected_xgboost_mrmr_mbo",
+             #             "bm_hr_task_corrected_svm_carscore_mbo"),
+             targets = "benchmark_no_models_new",
+             #targets = c("vi_task", "hr_task", "nri_task", "hr_nri_vi_task", "hr_nri_task", "hr_vi_task"),
+             verbose = 2,
+             lazy_load = "eager",
              packages = NULL,
              console_log_file = "log/drake.log",
              caching = "master",
              template = list(log_file = "log/worker%a.log", n_cpus = 4,
-                             memory = 8000, job_name = "paper2", partition = "all"),
-             # prework = quote(future::plan(future.callr::callr, workers = 4)),
+                             memory = 6000, job_name = "paper2",
+                             partition = "all"),
              # prework = quote(future::plan(future::multisession, workers = 4)),
              prework = list(quote(load_packages()),
+                            #quote(future::plan(callr, workers = 4)),
                             quote(set.seed(1, "L'Ecuyer-CMRG")),
-                            quote(parallelStart(mode = "multicore", cpus = 4,
-                                                level = "mlr.resample",
+                            quote(parallelStart(mode = "multicore",
+                                                cpus = 4,
+                                                #level = "mlr.resample",
                                                 mc.cleanup = TRUE,
                                                 mc.preschedule = FALSE))
              ),
-             garbage_collection = TRUE, jobs = 21, parallelism = "clustermq",
-             keep_going = TRUE, recover = FALSE, lock_envir = TRUE,
-             log_progress = TRUE
+             garbage_collection = TRUE, jobs = 40, parallelism = "clustermq",
+             keep_going = TRUE, recover = TRUE, lock_envir = TRUE, lock_cache = FALSE
 )
 

@@ -14,6 +14,7 @@ download_trees <- function(url) {
 
   files <- map(c("laukiz1", "laukiz2", "luiando", "oiartzun"), ~
   st_read(glue("data/gpkg/{.x}.gpkg"), quiet = TRUE))
+
   return(files)
 }
 
@@ -22,7 +23,7 @@ download_trees <- function(url) {
 #' `download_trees()`: Download in-situ tree data
 #'
 #' @template url
-#' @name download
+#' @rdname download
 download_aoi <- function(url) {
   if (!file.exists("data/gpkg/aoi.gpkg")) {
     curl_download(url,
@@ -76,7 +77,7 @@ download_hyperspectral <- function(url) {
 #' `download_forest_mask()`: Download the forest/non-forest mask.
 #'
 #' @template url
-#' @name download
+#' @rdname download
 download_forest_mask <- function(url) {
   if (!file.exists("data/sentinel/forest-mask.gpkg")) {
     curl_download(url,

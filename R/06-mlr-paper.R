@@ -1,61 +1,6 @@
-#' @title mlr::benchmark() wrapper
-#'
-#' @template task
-#' @template learner
-#' @template resampling
-#' @export
-
-benchmark_custom_no_models <- function(learner, task) {
-  bmr <- benchmark(
-    learners = learner,
-    tasks = task,
-    models = FALSE,
-    keep.pred = TRUE,
-    resamplings = makeResampleDesc("CV", fixed = TRUE),
-    show.info = TRUE,
-    measures = list(
-      setAggregation(rmse, test.mean), setAggregation(rsq, test.mean),
-      setAggregation(expvar, test.mean)
-    )
-  )
-
-  return(bmr)
-}
-
-benchmark_custom <- function(learner, task) {
-  bmr <- benchmark(
-    learners = learner,
-    tasks = task,
-    models = TRUE,
-    keep.pred = TRUE,
-    resamplings = makeResampleDesc("CV", fixed = TRUE),
-    show.info = TRUE,
-    measures = list(
-      setAggregation(rmse, test.mean), setAggregation(rsq, test.mean),
-      setAggregation(expvar, test.mean)
-    )
-  )
-
-  return(bmr)
-}
-
-benchmark_custom_no_models_sequential <- function(learner, task) {
-  bmr <- benchmark(
-    learners = learner,
-    tasks = task,
-    models = FALSE,
-    keep.pred = TRUE,
-    resamplings = makeResampleDesc("CV", fixed = TRUE),
-    show.info = TRUE,
-    measures = list(
-      setAggregation(rmse, test.mean), setAggregation(rsq, test.mean),
-      setAggregation(expvar, test.mean)
-    )
-  )
-
-  return(bmr)
-}
-
+#' Reverse Boxcox transformation
+#' @param truth Truth value
+#' @param response Response value
 inv_boxcox_rmse <- function(truth, response) {
   lambda <- 0.7878788
   truth <- (lambda * y_new1 + 1)^(1 / lambda)
@@ -66,6 +11,7 @@ inv_boxcox_rmse <- function(truth, response) {
 
 #' @title mlrMBO 30n 70 iterations tuning setting
 #' @template param_set
+#' @export
 tune_ctrl_mbo_30n_70it <- function(param_set) {
   makeTuneControlMBO(
     mbo.control = makeMBOControl(
@@ -81,7 +27,12 @@ tune_ctrl_mbo_30n_70it <- function(param_set) {
 
 #' @title Parallel feature importance wrapper
 #' @description Calculates feature importance via permutation
-feature_imp_parallel <- function(task, learner, nmc, cpus, measure) {
+#' @template task
+#' @template learner
+#' @param nmc Number of Monte Carlo iterations
+#' @template measure
+#' @export
+feature_imp_parallel <- function(task, learner, nmc, measure) {
   fi <- generateFeatureImportanceData(
     task = task, method = "permutation.importance",
     learner = learner, nmc = nmc, local = FALSE,
