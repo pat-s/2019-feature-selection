@@ -5,8 +5,16 @@
 \alias{panel.hist}
 \title{EDA functions from A. Brenning}
 \usage{
-panel.hist(x, col.hist = "cyan", cex.cor = NULL, digits = NULL,
-  col = NULL, pch = NULL, cex = NULL, ...)
+panel.hist(
+  x,
+  col.hist = "cyan",
+  cex.cor = NULL,
+  digits = NULL,
+  col = NULL,
+  pch = NULL,
+  cex = NULL,
+  ...
+)
 
 my_pairs(x, ...)
 }

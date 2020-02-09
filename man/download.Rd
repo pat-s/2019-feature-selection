@@ -21,10 +21,6 @@ download_forest_mask(url)
 }
 \arguments{
 \item{url}{URL to download from (usually Zenodo)}
-
-\item{url}{URL to download from (usually Zenodo)}
-
-\item{url}{URL to download from (usually Zenodo)}
 }
 \description{
 \code{download_trees()}: Download in-situ tree data

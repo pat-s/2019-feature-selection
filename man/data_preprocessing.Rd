@@ -26,27 +26,13 @@ boxcox_response(data, response)
 split_into_feature_sets(data, feature_set)
 }
 \arguments{
-\item{data}{(\code{list})\cr List containing multiple \code{data.frames}.}
+\item{data}{(\code{data.frame})\cr data.frame.}
 
 \item{cores}{(\code{integer})\cr Number of cores}
 
 \item{response}{(\code{character})\cr Name of response.}
 
 \item{feature_set}{(\code{character})\cr Name of feature set.}
-
-\item{data}{(\code{list})\cr List containing multiple \code{data.frames}.}
-
-\item{data}{(\code{list})\cr List containing multiple \code{data.frames}.}
-
-\item{data}{(\code{data.frame})\cr data.frame.}
-
-\item{data}{(\code{data.frame})\cr data.frame.}
-
-\item{data}{(\code{data.frame})\cr data.frame.}
-
-\item{response}{(\code{character})\cr Name of response.}
-
-\item{data}{(\code{data.frame})\cr data.frame.}
 }
 \value{
 List of \code{data.frames} with X/Y information
@@ -82,8 +68,8 @@ Performs a boxcox transformation on the response variable.
 Splits data into feature sets.
 }
 \details{
-Remove columns with NA values and "ID" columns
-
 Standardization applies from \code{2:length(names(data))}, so it is
 expected that the response is sorted first in the data.
+}
+\section{Remove columns with NA values and "ID" columns}{
 }

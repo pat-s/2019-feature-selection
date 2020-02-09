@@ -7,12 +7,6 @@
 extract_bands_to_plot(plot_name, buffer, tree_data, hyperspectral_bands)
 }
 \arguments{
-\item{plot_name}{(\code{character})\cr Name of the plot}
-
-\item{buffer}{(\code{integer})\cr Buffer to use for extracing, see \code{\link[raster:extract]{raster::extract()}}.}
-
-\item{tree_data}{(\code{sf})\cr Tree data to extract the indices into.}
-
 \item{hyperspectral_bands}{(\code{list})\cr List with Raster Bricks of
 hyperspectral bands}
 }

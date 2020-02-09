@@ -4,8 +4,7 @@
 \alias{extract_indices_to_plot}
 \title{Extract indices}
 \usage{
-extract_indices_to_plot(plot_name, buffer, tree_data, veg_indices,
-  nri_indices)
+extract_indices_to_plot(plot_name, buffer, tree_data, veg_indices, nri_indices)
 }
 \arguments{
 \item{plot_name}{(\code{character})\cr Name of the plot}

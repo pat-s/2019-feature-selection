@@ -4,8 +4,12 @@
 \alias{create_prediction_map}
 \title{Create spatial maps from the predicted data}
 \usage{
-create_prediction_map(prediction_raster, model_name,
-  benchmark_object = NULL, resampling = NULL)
+create_prediction_map(
+  prediction_raster,
+  model_name,
+  benchmark_object = NULL,
+  resampling = NULL
+)
 }
 \arguments{
 \item{prediction_raster}{Predicted raster layer from \link{write_defoliation_map},
