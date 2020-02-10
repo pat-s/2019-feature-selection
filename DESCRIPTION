@@ -44,7 +44,8 @@ Imports:
     sf,
     stringr
 Remotes: 
-    16EAGLE/getSpatialData
+    16EAGLE/getSpatialData,
+    pat-s/hsdar
 ByteCompile: true
 Encoding: UTF-8
 LazyData: true

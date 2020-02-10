@@ -5,3 +5,5 @@
 ^renv$
 ^renv\.lock$
 ^\.pre-commit-config\.yaml$
+^\.travis\.yml$
+^docs$
