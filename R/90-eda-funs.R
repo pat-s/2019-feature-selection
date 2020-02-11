@@ -48,6 +48,7 @@ panel.cor <- function(x,
   text(0.5, 0.5, txt, cex = cex.cor)
 }
 
+#' @export
 #' @examples
 #' my_pairs(iris)
 my_pairs <- function(x, ...) {

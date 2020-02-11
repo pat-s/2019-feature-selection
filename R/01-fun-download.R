@@ -21,7 +21,6 @@ download_trees <- function(url) {
 #' @title Download data
 #' @description
 #' `download_trees()`: Download in-situ tree data
-#'
 #' @template url
 #' @rdname download
 download_aoi <- function(url) {
@@ -37,7 +36,7 @@ download_aoi <- function(url) {
 
 #' @description
 #' `download_locations()`: Download plot location vector data
-#' @inheritParams download_trees
+#' @template url
 #' @rdname download
 download_locations <- function(url) {
   if (!file.exists("data/gpkg/plot-locations.gpkg")) {
@@ -53,7 +52,7 @@ download_locations <- function(url) {
 
 #' @description
 #' `download_hyperspectral()`: Download hyperspectral data
-#' @inheritParams download_trees
+#' @template url
 #' @rdname download
 download_hyperspectral <- function(url) {
   if (!file.exists("data/hyperspectral/B101_P1N_A090F03_ATM_S.tif")) {
@@ -75,7 +74,6 @@ download_hyperspectral <- function(url) {
 #' @title Download data
 #' @description
 #' `download_forest_mask()`: Download the forest/non-forest mask.
-#'
 #' @template url
 #' @rdname download
 download_forest_mask <- function(url) {

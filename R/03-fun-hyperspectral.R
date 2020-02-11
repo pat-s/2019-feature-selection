@@ -49,7 +49,6 @@ process_hyperspec <- function(data, id, index, plots, name_out) {
   return(out)
 }
 
-#' @inheritParams process_hyperspec
 #' @rdname process_hyperspec
 process_hyperspec_helper <- function(data, id, index, plots, name_out) {
   image <- data[[index]]
@@ -127,7 +126,6 @@ extract_indices_to_plot <- function(plot_name, buffer, tree_data,
 #' @description Extract indices to trees
 #' @importFrom raster extract
 #' @importFrom purrr map2
-#' @inheritParams extract_indices_to_plot
 #' @param hyperspectral_bands (`list`)\cr List with Raster Bricks of
 #'   hyperspectral bands
 #'
