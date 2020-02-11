@@ -28,6 +28,13 @@ split_into_feature_sets(data, feature_set)
 \arguments{
 \item{data}{(\code{data.frame})\cr data.frame.}
 
+\item{cols_to_drop}{(\verb{character(()})\cr
+Columns to remove from the data}
+
+\item{remove_coords}{(\code{logical(1)})\cr
+Whether to remove coordinates from the data (i.e. columns named \code{x} and
+\code{y}) and their {sf} related \code{geom} list column}
+
 \item{cores}{(\code{integer})\cr Number of cores}
 
 \item{response}{(\code{character})\cr Name of response.}

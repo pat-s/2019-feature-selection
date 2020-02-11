@@ -12,8 +12,7 @@ create_prediction_map(
 )
 }
 \arguments{
-\item{prediction_raster}{Predicted raster layer from \link{write_defoliation_map},
-given in a list}
+\item{prediction_raster}{Predicted raster layer given in a list}
 
 \item{model_name}{Algorithm name}
 

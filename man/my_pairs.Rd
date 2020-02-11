@@ -20,6 +20,20 @@ my_pairs(x, ...)
 }
 \arguments{
 \item{x}{\link{data.frame}}
+
+\item{col.hist}{(\code{character(1)})\cr
+Color for histograms}
+
+\item{cex.cor}{(\code{character(1)})\cr
+Numeric character expansion factor, see
+\code{\link[graphics:text]{graphics::text()}}}
+
+\item{digits}{(\code{integer(1)})\cr
+Amount of digits to round correlation result to}
+
+\item{pch}{See \code{\link[graphics:points]{graphics::points()}}}
+
+\item{cex}{See \code{\link[graphics:points]{graphics::points()}}}
 }
 \description{
 Correlation plot of a dataset

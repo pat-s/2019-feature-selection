@@ -1,5 +1,5 @@
 Package: FeatureSelection
-Title: Research Compendium package
+Title: Research Compendium package for the publication "Placeholder"
 Version: 0.0.0.9000
 Authors@R:
     person(given = "Patrick",
@@ -32,7 +32,6 @@ Imports:
     knitr,
     magrittr,
     mapview,
-    mlrCPO,
     mlrMBO,
     parallelMap,
     pbmcapply,
