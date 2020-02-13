@@ -104,7 +104,7 @@
 \ifCLASSINFOpdf{}
   \usepackage[pdftex]{graphicx}
   % declare the path(s) where your graphic files are
-  \graphicspath{{pdf/}{jpg/}}
+  \graphicspath{{./pdf/}{./jpg/}}
   % and their extensions so you won't have to specify these with
   % every instance of \includegraphics
   \DeclareGraphicsExtensions{.pdf,.jpg,.png}
@@ -431,7 +431,7 @@
 	\acro{IQR}{interquartile range}
 	\acro{MARS}{multivariate adaptive regression splines}
 	\acro{MEM}{maximum entropy model}
-	\acro{ML}{machine-learning}
+	\acro{ML}{machine learning}
 	\acro{NDII}{normalized difference infrared index}
 	\acro{NIR}{near-infrared}
 	\acro{NRI}{normalized ratio index}
@@ -462,26 +462,26 @@
 % Link remote sensing and machine-learning
 
 \IEEEPARstart{T}{he} use of \ac{ML} algorithms for analyzing remote sensing data has seen a huge increase in the last decade~\cite{lary2016}.
-Especially since the launch of the first Sentinel satellite in 2014 the amount of freely available imagery data has increased greatly.
-At the same time, the implementation and usability of algorithms (both statistical and machine-learning) has been greatly simplified in the open-source community.
-Scientists can nowadays relatively easily feed large amounts of (environmental) information into complex models and analyze the data in a semi-automated way.
-This simplifies the analysis of (temporal) changes of the environment on a large scale\cite{ma2015}.
+This goes in line with the increased availability of remote sensing imagery, especially since the launch of the first Sentinel satellite in the year 2014.
+At the same time, the implementation and usability of learning algorithms has been greatly simplified with many contributions from open-source efforts.
+Scientists can nowadays relatively easily process large amounts of (environmental) information using various learning algorithms.
+This makes it possible to extend the matrix of possible options in a semi-automated way, possibly stumbling across unexpected findings of process settings that would have never been tested otherwise~\cite{ma2015}.
 
 % link to forest health analysis and show exemplary studies
 
-Machine-learning methods in combination with remote-sensing data are used in many environmental fields such as vegetation cover analysis or forest carbon storage mapping\cite{mascaro2014, urban2018}.
-The ability of predicting to large unknown areas qualifies these tools as a promising toolset for forest health analysis.
-This research field aims to enhance the understanding of biotic and abiotic triggers, for example by analyzing defoliation at trees\cite{hawrylo2018}.
+Machine learning methods in combination with remote sensing data are used in many environmental fields such as vegetation cover analysis or forest carbon storage mapping\cite{mascaro2014, urban2018}.
+The ability of predicting to large unknown areas qualifies these tools as a promising toolset for such tasks.
+One aspect of this research field is to enhance the understanding of biotic and abiotic triggers, for example by analyzing defoliation at trees\cite{hawrylo2018}.
 
-Approaches for analyzing forest health include temporal change detection\cite{zhang2016} or describing the current health status of forests on a stand level\cite{townsend2012}.
-In such studies, defoliation at trees is a variable able to serve as a proxy for forest health by describing the impact of biotic and abiotic pest triggers\cite{townsend2012, goodbody2018}.
+Other approaches for analyzing forest health include temporal change detection\cite{zhang2016} or describing the current health status of forests on a stand level\cite{townsend2012}.
+In such studies, the defoliation of trees serves as a proxy for forest health by describing the impact of biotic and abiotic pest triggers\cite{townsend2012, goodbody2018}.
 
-Vegetation indices have shown the potential to provide valuable information when analyzing such scenarios\cite{jiang2014, adamczyk2015}.
-Since both triggers and tree types are highly variable across regions, it cannot be known a-priori which indices are most important for describing the actual relationship.
-This emphasizes the need to extract as much information as possible from the available input data to generate features that can possibly explain the modeled relationship.
-Besides \ac{VI} a less known index type which can be calculated from remote-sensing products is the \ac{NRI}.
-\ac{NRI}s are arbitrary combinations of band information from remote-sensing data.
-Especially when working with hyperspectral data, hundreds of \ac{NRI}s can be derived and used during modeling.
+Vegetation indices have shown the potential to provide valuable information when analyzing forest health\cite{jiang2014, adamczyk2015}.
+It is usually unclear which vegetation indices or spectral bands are most sensitive in reflecting changes of environmental features related to forest health.
+This emphasizes the need to extract as much information as possible from the available input data to generate promising features which can help understanding the modeled relationship.
+Besides vegetation indices a less known index type which can be derived from spectral information are normalized ration indices (NRI).
+In contrast to \ac{VI}, \ac{NRI}s are not based on an expert-based formulas following environmental heuristics but follow a data-driven feature engineering approach by combining (arbitrary) combinations of spectral bands.
+Especially when working with hyperspectral data, hundreds of \ac{NRI} features can be derived this way.
 
 % now that we introduced the importance of remote sensing indices for forest health,
 
