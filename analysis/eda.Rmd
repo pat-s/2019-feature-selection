@@ -23,38 +23,14 @@ R.utils::sourceDirectory("R")
 
 # load drake objects
 drake::loadd(
-  vi_data, nri_data, bands_data, coords_vi_nri_clean,
+  vi_data_corrected_buffer2, nri_data_corrected_buffer2,
+  bands_data_corrected_buffer2, coords_vi_nri_clean_corrected,
 
-  fv_nri_car, fv_nri_info.gain, fv_nri_gain.ratio,
-  fv_nri_symuncert, fv_nri_relief,
-  fv_nri_rank, fv_nri_cor,
-  fv_nri_mrmr,
-  fv_nri_cmim, fv_nri_var,
+  filter_values,
+  filter_info_gain_nbins,
 
-  fv_vi_car, fv_vi_info.gain, fv_vi_gain.ratio,
-  fv_vi_symuncert, fv_vi_relief,
-  fv_vi_rank, fv_vi_cor,
-  fv_vi_mrmr,
-  fv_vi_cmim, fv_vi_var,
-
-  fv_hr_car, fv_hr_info.gain, fv_hr_gain.ratio,
-  fv_hr_symuncert, fv_hr_relief,
-  fv_hr_rank, fv_hr_cor,
-  fv_hr_mrmr,
-  fv_hr_cmim, fv_hr_var,
-
-
-  fv_hr_info.gain5, fv_hr_info.gain10,
-  fv_hr_info.gain15, fv_hr_info.gain20,
-  fv_hr_info.gain25, fv_hr_info.gain30,
-
-  fv_vi_info.gain5, fv_vi_info.gain10,
-  fv_vi_info.gain15, fv_vi_info.gain20,
-  fv_vi_info.gain25, fv_vi_info.gain30,
-
-  fv_nri_info.gain5, fv_nri_info.gain10,
-  fv_nri_info.gain15, fv_nri_info.gain20,
-  fv_nri_info.gain25, fv_nri_info.gain30
+  trees_with_bands_corrected_buffer2,
+  trees_with_bands_corrected_no_buffer
 )
 library("DataExplorer")
 library("dplyr")
@@ -74,7 +50,7 @@ library("raster")
 ### Overview
 
 ```{r eda-1 }
-intro <- introduce(vi_data)
+intro <- introduce(vi_data_corrected_buffer2)
 intro_df <- data.frame(
   "Name" = c(
     "Rows", "Columns",
@@ -99,19 +75,19 @@ knitr::kable(intro_df)
 ### Histograms
 
 ```{r eda-2 }
-plot_histogram(vi_data)
+plot_histogram(vi_data_corrected_buffer2)
 ```
 
 ### PCA
 
 ```{r eda-3 }
-plot_prcomp(vi_data)
+plot_prcomp(vi_data_corrected_buffer2)
 ```
 
 ### Corr
 
 ```{r eda-4 }
-plot_correlation(vi_data)
+plot_correlation(vi_data_corrected_buffer2)
 ```
 
 ## NRI
@@ -119,7 +95,7 @@ plot_correlation(vi_data)
 ### Overview
 
 ```{r eda-5 }
-intro <- introduce(nri_data)
+intro <- introduce(nri_data_corrected_buffer2)
 intro_df <- data.frame(
   "Name" = c(
     "Rows", "Columns",
@@ -148,13 +124,13 @@ No histograms for NRI -> too many features.
 ### PCA
 
 ```{r eda-6 }
-plot_prcomp(nri_data)
+plot_prcomp(nri_data_corrected_buffer2)
 ```
 
 ### Corr
 
 ```{r eda-7 }
-plot_correlation(nri_data)
+plot_correlation(nri_data_corrected_buffer2)
 ```
 
 ## HR
@@ -162,7 +138,7 @@ plot_correlation(nri_data)
 ### Overview
 
 ```{r eda-8 }
-intro <- introduce(bands_data)
+intro <- introduce(bands_data_corrected_buffer2)
 intro_df <- data.frame(
   "Name" = c(
     "Rows", "Columns",
@@ -187,28 +163,28 @@ kable(intro_df)
 ### Histograms
 
 ```{r eda-9 }
-plot_histogram(bands_data)
+plot_histogram(bands_data_corrected_buffer2)
 ```
 
 ### PCA
 
 ```{r eda-10 }
-plot_prcomp(bands_data)
+plot_prcomp(bands_data_corrected_buffer2)
 ```
 
 ### Corr
 
 ```{r eda-11 }
-plot_correlation(bands_data)
+plot_correlation(bands_data_corrected_buffer2)
 ```
 
 # Custom plots
 
 ```{r eda-12 }
-vi_data_plot <- vi_data %>%
+vi_data_plot <- vi_data_corrected_buffer2 %>%
   mutate(plot = factor(rep(
     c("Laukiz 1", "Laukiz 2", "Luiando", "Oiartzun"),
-    c(479, 451, 300, 529)
+    c(559, 451, 301, 497)
   )))
 ```
 
@@ -295,10 +271,10 @@ In Meters.
 ```{r eda-18 }
 plots <- list("Laukiz 1", "Laukiz 2", "Luiando", "Oiartzun")
 dist <- map(plots, ~ {
-  coords <- coords_vi_nri_clean %>%
+  coords <- coords_vi_nri_clean_corrected %>%
     mutate(plot = factor(rep(
       c("Laukiz 1", "Laukiz 2", "Luiando", "Oiartzun"),
-      c(479, 451, 300, 529)
+      c(559, 451, 301, 497)
     ))) %>%
     filter(plot == .x) %>%
     dplyr::select(-plot)
@@ -319,3 +295,82 @@ dist_plots <- unlist(dist)
 # file_move("docs/figure/eda.Rmd/defoliation-distribution-plot-1.pdf",
 #           "code/98-paper/journal/")
 ```
+
+# Effects of different buffer sizes when extracting values to trees
+
+The following buffer sizes were used to extract the remote sensing information (1 m spatial resolution) to the trees (points):
+
+- 0 m
+- 0.5 m
+- 1 m
+- 1.5 m
+- 2 m
+
+For this EDA only the direct reflectance values are used.
+It is assumed that the VI and NRI datasets will be affected in the same way by the different buffer sizes.
+
+```{r}
+compare_buffer <- function(trees_with_buffer, trees_without_buffer, plot_name) {
+  if (plot_name == "laukiz1") {
+    targets_sub_ids <- 1
+  } else if (plot_name == "laukiz2") {
+    targets_sub_ids <- 2
+  } else if (plot_name == "luiando") {
+    targets_sub_ids <- 3
+  } else if (plot_name == "oiartzun") {
+    targets_sub_ids <- 4
+  }
+
+  foo_buffer <- trees_with_buffer[seq(targets_sub_ids, 12, 4)]
+
+  foo_buffer <- foo_buffer %>%
+    map(~ sf::st_set_geometry(., NULL)) %>%
+    map(~ dplyr::summarise_at(., vars(starts_with("B")), mean, na.rm = TRUE)) %>%
+    map(~ tidyr::pivot_longer(., everything(),
+      names_to = "band", values_to = "reflectance"
+    )) %>%
+    dplyr::bind_rows(.id = "Buffer size")
+
+
+  foo_no_buffer <- trees_without_buffer[[targets_sub_ids]]
+
+  foo_no_buffer <- foo_no_buffer %>%
+    sf::st_set_geometry(NULL) %>%
+    dplyr::summarise_at(vars(starts_with("B")), mean) %>%
+    tidyr::pivot_longer(everything(),
+      names_to = "band", values_to = "reflectance"
+    ) %>%
+    dplyr::bind_rows(.id = "Buffer size") %>%
+    dplyr::mutate(`Buffer size` = "No Buffer")
+
+  all <- bind_rows(foo_buffer, foo_no_buffer) %>%
+    dplyr::mutate(band = as.numeric(stringr::str_replace(band, "B", "")))
+
+  plot <- ggplot(all, aes(x = band, y = reflectance)) +
+    geom_line(aes(color = `Buffer size`), size = 0.6) +
+    labs(title = tools::toTitleCase(plot_name)) +
+    ggsci::scale_color_nejm() +
+    ggpubr::theme_pubr(legend = "right")
+
+  return(plot)
+}
+```
+
+```{r}
+map(
+  c("laukiz1", "laukiz2", "luiando", "oiartzun"),
+  ~ compare_buffer(
+    trees_with_bands_corrected_buffer2,
+    trees_with_bands_corrected_no_buffer,
+    .x
+  )
+) %>%
+  patchwork::wrap_plots() +
+  patchwork::guide_area() +
+  patchwork::plot_layout(guides = "collect", ncol = 3, nrow = 2) +
+  patchwork::plot_annotation(
+    title = "Comparing the effect of different buffer sizes when extracting reflectance values to points obsverations (trees)",
+    subtitle = "Mean values of each hyperspectral band for each plot "
+  )
+```
+
