@@ -309,7 +309,7 @@ The following buffer sizes were used to extract the remote sensing information (
 For this EDA only the direct reflectance values are used.
 It is assumed that the VI and NRI datasets will be affected in the same way by the different buffer sizes.
 
-```{r}
+```{r buffer-size-comp}
 compare_buffer <- function(trees_with_buffer, trees_without_buffer, plot_name) {
   if (plot_name == "laukiz1") {
     targets_sub_ids <- 1
