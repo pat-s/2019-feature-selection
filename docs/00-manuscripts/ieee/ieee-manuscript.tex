@@ -477,42 +477,44 @@ Other approaches for analyzing forest health include temporal change detection\c
 In such studies, the defoliation of trees serves as a proxy for forest health by describing the impact of biotic and abiotic pest triggers\cite{townsend2012, goodbody2018}.
 
 Vegetation indices have shown the potential to provide valuable information when analyzing forest health\cite{jiang2014, adamczyk2015}.
-It is usually unclear which vegetation indices or spectral bands are most sensitive in reflecting changes of environmental features related to forest health.
+Most vegetation indices were developed with the aim of being sensitive to changes of specific wavelength regions, serving as a proxy for underlying plant processes. 
+However, often enough indices developed for different purposes than the one to be analyzed can help explaining complex relationships.
 This emphasizes the need to extract as much information as possible from the available input data to generate promising features which can help understanding the modeled relationship.
-Besides vegetation indices a less known index type which can be derived from spectral information are normalized ration indices (NRI).
-In contrast to \ac{VI}, \ac{NRI}s are not based on an expert-based formulas following environmental heuristics but follow a data-driven feature engineering approach by combining (arbitrary) combinations of spectral bands.
+A less known index type which can be derived from spectral information is called normalized ratio index (NRI).
+In contrast to \ac{VI}, \ac{NRI}s are not based on an expert-based formulas following environmental heuristics but use a data-driven feature engineering approach by combining (arbitrary) combinations of spectral bands.
 Especially when working with hyperspectral data, hundreds of \ac{NRI} features can be derived this way.
 
 % now that we introduced the importance of remote sensing indices for forest health,
 
-Despite its popularity in environmental modeling, there are no studies so far that used machine-learning algorithms in combination with remote-sensing data to analyze defoliation on a tree level.
-This study aims at closing this gap by analyzing defoliation at trees in northern Spain using airborne hyperspectral data.
-To cope with the state-of-the-art methodology in modeling, a methodology which combines feature-selection and hyperparameter tuning across multiple algorithms was used.
-The approach of generating many features comes along with the possible
-introduction of high-dimensionality into the analysis\cite{trunk1979,
-	xu2016}.
+Despite its popularity in environmental modeling, there are no studies so far which used machine learning algorithms in combination with remote sensing data to analyze defoliation on a tree level.
+This study aims to close this gap by analyzing defoliation at trees in northern Spain using airborne hyperspectral data.
+We make use of the latest state-of-the-art methodology in machine learning by combining feature-selection and hyperparameter tuning across multiple algorithms.
+Incorporating the idea of creating data-driven \ac{NRI}s, this study also discusses the practical problems of high-dimensionality in environmental modeling \cite{trunk1979, xu2016}.
 
 Even though \ac{ML} algorithms are capable of handling highly-correlated input variables, the fitting time of models increase substantially and the interpretation of results becomes more complicated.
-Besides modeling defoliation at trees and interpreting the model results from an ecological point of view, this work also aims at providing an exemplary analysis of how to deal with spatial feature-rich datasets.
+At the same time, one has to deal with the presence of spatial autocorrelation in the data.
+The dataset used in this study comes with a spatial grouping at the plot level which needs to be accounted for.
 
 The research questions of this study are the following:
 
 \begin{itemize}
 
-	\item Do different environmental feature sets show substantial differences in performance when predicting defoliation at trees?
+	\item Do different environmental feature sets show differences in performance when modeling defoliation at trees?
 	      
 	\item Does the combination of feature sets have an substantial effect on predictive performance?
 	      
-	\item How are various feature-selection methods influencing the predictive performance of the models?
+	\item How are feature-selection methods influencing the predictive performance of the models?
 	      
 	\item Which features are most important for the models and how can these be interpreted in an ecological context?
 	      
 \end{itemize}
 
-
-\noindent State-of-the-art machine-learning techniques were compared using three feature sets across different feature-selection approaches including a relatively novel approach of ensemble filters.
-Model-based optimization was applied for hyperparameter tuning of the chosen algorithms which included an optimization of the feature set.
-Spatial block \ac{CV} was used to account for spatial autocorrelation in the data.
+% FIXME: Rephrase
+\noindent \ac{RF}, \ac{SVM} and extreme gradient boosting were compared using six feature sets across different feature selection methods, including a new promising approach of ensemble filters.
+Bayesian Optimization, also known as model-based optimization, was used for hyperparameter tuning.
+The feature set size was optimized at the same time.
+By this, we avoided multiple optimization layers which may result in a biased performance estimation or long model fitting times.
+A spatial \ac{CV} approach on the plot level was used to account for spatial autocorrelation in the data.
 
 % needed in second column of first page if using \IEEEpubid
 %\IEEEpubidadjcol
@@ -610,7 +612,6 @@ Spatial block \ac{CV} was used to account for spatial autocorrelation in the dat
 % Note that, LaTeX2e, unlike IEEE journals/conferences, places
 % footnotes above bottom floats. This can be corrected via the
 % \fnbelowfloat command of the stfloats package.
-
 
 \section{Data and study area}
 
