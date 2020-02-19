@@ -30,36 +30,10 @@ R.utils::sourceDirectory("R")
 
 # load drake objects
 drake::loadd(
-  fv_nri_car, fv_nri_info.gain, fv_nri_gain.ratio,
-  fv_nri_symuncert, fv_nri_relief,
-  fv_nri_rank, fv_nri_cor,
-  fv_nri_mrmr,
-  fv_nri_cmim, fv_nri_var,
+  filter_values,
+  filter_values_fselectorrcpp,
 
-  fv_vi_car, fv_vi_info.gain, fv_vi_gain.ratio,
-  fv_vi_symuncert, fv_vi_relief,
-  fv_vi_rank, fv_vi_cor,
-  fv_vi_mrmr,
-  fv_vi_cmim, fv_vi_var,
-
-  fv_hr_car, fv_hr_info.gain, fv_hr_gain.ratio,
-  fv_hr_symuncert, fv_hr_relief,
-  fv_hr_rank, fv_hr_cor,
-  fv_hr_mrmr,
-  fv_hr_cmim, fv_hr_var,
-
-
-  fv_hr_info.gain5, fv_hr_info.gain10,
-  fv_hr_info.gain15, fv_hr_info.gain20,
-  fv_hr_info.gain25, fv_hr_info.gain30,
-
-  fv_vi_info.gain5, fv_vi_info.gain10,
-  fv_vi_info.gain15, fv_vi_info.gain20,
-  fv_vi_info.gain25, fv_vi_info.gain30,
-
-  fv_nri_info.gain5, fv_nri_info.gain10,
-  fv_nri_info.gain15, fv_nri_info.gain20,
-  fv_nri_info.gain25, fv_nri_info.gain30
+  filter_info_gain_nbins
 )
 ```
 
@@ -71,67 +45,36 @@ Spearman's rank correlation is used because rankings are compared.
 
 ### Filter methods amongst each other
 
+The idea behind is was to analyze the correlation between filter rankings.
+We only wanted to included filters which have a somewhat unique ranking.
+Otherwise, when creating ensemble filters, certain filters would implicitly be weighted more than others.
+
+Takeaway:
+
+- Only use one of "information gain", "gain ratio", "sym uncert"
+
+- Either use Spearman or Pearson correlation
+
 ```{r filter-correlation-1, warning=FALSE}
-# combine filter values
-
-fv_all <- dplyr::bind_rows(
-  fv_vi_car$data,
-  fv_vi_info.gain$data,
-  fv_vi_gain.ratio$data,
-  fv_vi_symuncert$data,
-  fv_vi_relief$data,
-  fv_vi_rank$data,
-  fv_vi_cor$data,
-  fv_vi_mrmr$data,
-  fv_vi_cmim$data,
-  fv_vi_var$data
-) %>%
+fv_all_vi <- map(filter_values[8:14], ~ .x[["data"]]) %>%
+  dplyr::bind_rows() %>%
   dplyr::select(value, filter) %>%
-  mutate(id = rep(1:89, 10)) %>%
+  mutate(id = rep(1:89, 7)) %>%
   tidyr::spread(filter, value) %>%
-  mutate_if(is.numeric, list(~ na_if(., -Inf))) %>% # Inf in mrmr
-  na.omit() %>% # NA in cmim
   dplyr::select(-id)
 
-
-corr <- cor(fv_all, method = "spearman")
-# p.mat = cor_pmat(corr)
-
-ggcorrplot(corr,
-  # p.mat = p.mat,
-  hc.order = F,
-  type = "lower",
-  lab = TRUE
-)
-```
-
-### Number of bins of `FSelectorRcpp::information.gain()`
-
-```{r correlation-nbins, warning=FALSE, dev = c("png", "pdf")}
-# recode levels so that they are unique
-fv_all_list <- map2(
-  list(
-    fv_vi_info.gain5$data, fv_vi_info.gain10$data,
-    fv_vi_info.gain15$data, fv_vi_info.gain20$data,
-    fv_vi_info.gain25$data, fv_vi_info.gain30$data
-  ),
-  list(5, 10, 15, 20, 25, 30), ~
-  dplyr::mutate(.x, filter = recode(.x$filter, FSelectorRcpp_information.gain = glue("FSelectorRcpp_information.gain-{.y}")))
-)
-
-fv_all <- dplyr::bind_rows(
-  fv_all_list
-) %>%
+fv_all_vi_fselecrcpp <- map(filter_values_fselectorrcpp[4:6], ~ .x[["data"]]) %>%
+  dplyr::bind_rows() %>%
   dplyr::select(value, filter) %>%
-  mutate(id = rep(1:89, 6)) %>%
+  mutate(id = rep(1:89, 3)) %>%
   tidyr::spread(filter, value) %>%
-  mutate_if(is.numeric, list(~ na_if(., -Inf))) %>% # Inf in mrmr
-  na.omit() %>%
   dplyr::select(-id)
 
-corr <- cor(fv_all, method = "spearman")
+fv_all_vi_merged <- bind_cols(fv_all_vi, fv_all_vi_fselecrcpp)
 
-ggcorrplot(corr,
+corr_vi <- cor(fv_all_vi_merged, method = "spearman")
+
+ggcorrplot(corr_vi,
   # p.mat = p.mat,
   hc.order = F,
   type = "lower",
@@ -142,32 +85,27 @@ ggcorrplot(corr,
 ## NRI
 
 ```{r correlation-filter-nri, dev = c("png", "pdf"), warning=FALSE}
-# combine filter values
-
-fv_all <- dplyr::bind_rows(
-  fv_nri_car$data,
-  fv_nri_info.gain$data,
-  fv_nri_gain.ratio$data,
-  fv_nri_symuncert$data,
-  fv_nri_relief$data,
-  fv_nri_rank$data,
-  fv_nri_cor$data,
-  fv_nri_mrmr$data,
-  fv_nri_cmim$data,
-  fv_nri_var$data
-) %>%
+fv_all_nri <- map(filter_values[15:21], ~ .x[["data"]]) %>%
+  dplyr::bind_rows() %>%
   dplyr::select(value, filter) %>%
-  mutate(id = rep(1:7381, 10)) %>%
+  mutate(id = rep(1:7381, 7)) %>%
   tidyr::spread(filter, value) %>%
   dplyr::select(-id)
 
+fv_all_nri_fselecrcpp <- map(filter_values_fselectorrcpp[7:9], ~ .x[["data"]]) %>%
+  dplyr::bind_rows() %>%
+  dplyr::select(value, filter) %>%
+  mutate(id = rep(1:7381, 3)) %>%
+  tidyr::spread(filter, value) %>%
+  dplyr::select(-id)
 
-corr <- cor(fv_all, method = "spearman")
-p.mat <- cor_pmat(corr)
+fv_all_nri_merged <- bind_cols(fv_all_nri, fv_all_nri_fselecrcpp)
 
-ggcorrplot(corr,
+corr_nri <- cor(fv_all_nri_merged, method = "spearman")
+
+ggcorrplot(corr_nri,
   # p.mat = p.mat,
-  hc.order = FALSE,
+  hc.order = F,
   type = "lower",
   lab = TRUE
 )
@@ -176,30 +114,59 @@ ggcorrplot(corr,
 ## HR
 
 ```{r filter-correlation-4, warning=FALSE}
-# combine filter values
-
-fv_all <- dplyr::bind_rows(
-  fv_hr_car$data,
-  fv_hr_info.gain$data,
-  fv_hr_gain.ratio$data,
-  fv_hr_symuncert$data,
-  fv_hr_relief$data,
-  fv_hr_rank$data,
-  fv_hr_cor$data,
-  fv_hr_mrmr$data,
-  fv_hr_cmim$data,
-  fv_hr_var$data
-) %>%
+fv_all_hr <- map(filter_values[1:7], ~ .x[["data"]]) %>%
+  dplyr::bind_rows() %>%
   dplyr::select(value, filter) %>%
-  mutate(id = rep(1:122, 10)) %>%
+  mutate(id = rep(1:122, 7)) %>%
   tidyr::spread(filter, value) %>%
   dplyr::select(-id)
 
+fv_all_hr_fselecrcpp <- map(filter_values_fselectorrcpp[1:3], ~ .x[["data"]]) %>%
+  dplyr::bind_rows() %>%
+  dplyr::select(value, filter) %>%
+  mutate(id = rep(1:122, 3)) %>%
+  tidyr::spread(filter, value) %>%
+  dplyr::select(-id)
 
-corr <- cor(fv_all, method = "spearman")
-p.mat <- cor_pmat(corr)
+fv_all_hr_merged <- bind_cols(fv_all_hr, fv_all_hr_fselecrcpp)
 
-ggcorrplot(corr,
+corr_hr <- cor(fv_all_hr_merged, method = "spearman")
+
+ggcorrplot(corr_hr,
+  # p.mat = p.mat,
+  hc.order = F,
+  type = "lower",
+  lab = TRUE
+)
+```
+
+## Number of bins of `FSelectorRcpp::information.gain()`
+
+Analyzing the effect of a different `nbins` value on the filter values of filter "Information Gain".
+
+- Lower correlation / highest difference: `nbins = 5` vs. `nbins = 30`
+
+-> We decided to use with `nbins = 10` in the analysis.
+
+The hidden default of nbins when setting `equal = TRUE` in `FSelectorRcpp::information_gain()` is 5.
+
+```{r correlation-nbins, warning=FALSE, dev = c("png", "pdf")}
+# recode levels so that they are unique
+fv_info_gain <- map(filter_info_gain_nbins[1:6], ~ .x[["data"]]) %>%
+  dplyr::bind_rows() %>%
+  dplyr::select(value, filter) %>%
+  mutate(id = rep(seq(5, 30, 5), each = 122)) %>%
+  tidyr::unite(filter, c("filter", "id")) %>%
+  mutate(id = rep(seq(1, length(.data$value) / 6), 6)) %>%
+  tidyr::pivot_wider(
+    names_from = filter,
+    values_from = value
+  ) %>%
+  dplyr::select(-id)
+
+corr_inf_gain <- cor(fv_info_gain, method = "spearman")
+
+ggcorrplot(corr_inf_gain,
   # p.mat = p.mat,
   hc.order = F,
   type = "lower",
