@@ -142,6 +142,7 @@
 % *** MATH PACKAGES ***
 %
 \usepackage{amsmath}
+\newcommand*\mean[1]{\bar{#1}}
 % A popular package from the American Mathematical Society that provides
 % many useful and powerful commands for dealing with mathematics.
 %
@@ -314,6 +315,14 @@
 \usepackage{booktabs}
 \usepackage{adjustbox}
 
+\usepackage[utf8]{inputenc}
+% enables custom font styles which are not available in IEEEtrans by default
+% https://tex.stackexchange.com/questions/331228/there-is-no-bold-text-italics-in-ieeetran
+
+\renewcommand{\sfdefault}{cmss}
+\renewcommand{\rmdefault}{cmr}
+\renewcommand{\ttdefault}{cmt}
+
 \begin{document}
 %
 % paper title
@@ -427,7 +436,7 @@
 	\acro{GAM}{generalized additive model}
 	\acro{GBM}{gradient boosting machine}
 	\acro{GLM}{generalized linear model}
-	\acro{ICGC}{institut cartografic i geologic de catalunya}
+	\acro{ICGC}{Institut Cartografic I Geologic de Catalunya}
 	\acro{IQR}{interquartile range}
 	\acro{MARS}{multivariate adaptive regression splines}
 	\acro{MEM}{maximum entropy model}
@@ -616,10 +625,8 @@ A spatial \ac{CV} approach on the plot level was used to account for spatial aut
 \section{Data and study area}
 
 \noindent Airborne hyperspectral data with a spatial resolution of one meter and 126 spectral bands was available for four Monterey Pine (\textit{Pinus radiata}) plantations in northern Spain.
-The trees in the study area plots suffer from infections of invasive pathogens such as \textit{Diplodia sapinea}, \textit{Fusarium circinatum}, \textit{Armillaria mellea} or \textit{Heterobasidion annosum} leading to a spread of cankers or defoliation\cite{mesanza2016, iturritxa2017}.
-In-situ measurements of defoliation at trees (serving as a proxy for tree
-health) were collected to serve as the response variable \textit{defoliation}
-spanning a range from 0\% - 100\% (\autoref{fig:defol-distr}). % chktex 8
+The trees in the study area plots suffer from infections of invasive pathogens such as \textit{Diplodia sapinea}, \textit{Fusarium circinatum}, \textit{Armillaria mellea} or \textit{Heterobasidion annosum}, leading to a spread of cankers or defoliation~\cite{mesanza2016, iturritxa2017}.
+In-situ measurements of defoliation at trees (serving as a proxy for tree health) were collected to serve as the response variable \textit{defoliation} which ranges from 0\% - 100\% (\autoref{fig:defol-distr}). % chktex 8
 The fungi are assumed to infect the trees through open wounds, possibly caused by previous hail damage\cite{iturritxa2014}.
 The dieback of these trees, which are mainly used as timber, causes high economic damages\cite{ganley2009}.
 
@@ -627,16 +634,16 @@ The dieback of these trees, which are mainly used as timber, causes high economi
 	\centering
 	\begin{center}
 		\includegraphics[width=0.48\textwidth] {defoliation-distribution-plot-1.pdf}
-		\caption{Response variable defoliation at trees visualized as violin plots showing the variance of in-situ measurements for plots \textit{Laukiz 1}, \textit{Laukiz 2}, \textit{Luiando} and \textit{Oiartzun}.}\label{fig:defol-distr}
+		\caption{Response variable \textit{defoliation} at trees for plots \textit{Laukiz 1}, \textit{Laukiz 2}, \textit{Luiando} and \textit{Oiartzun}. \texttt{n} corresponds to the total number of trees in the plot, $\bar{x}$ refers to the mean defoliation.}\label{fig:defol-distr}
 	\end{center}
 \end{figure}
 
 \subsection{In-situ data}
 
 \noindent The \textit{Pinus radiata} plots of this study, namely \textit{Laukiz 1}, \textit{Laukiz 2}, \textit{Luiando} and \textit{Oiartzun}, are located in the northern part of the Basque Country (\autoref{fig:study_area}).
-\textit{Oiartzun} has the most observations (n = 529) while \textit{Laukiz 2} features the largest area size (1.44 ha).
+\textit{Oiartzun} has the most observations (n = 559) while \textit{Laukiz 2} shows the largest area size (1.44 ha).
 All plots besides \textit{Luiando} are located nearby the coast (\autoref{fig:study_area}).
-In total 1759 observations are available (\textit{Laukiz 1} = 479, \textit{Laukiz 2} = 451, \textit{Luiando} = 300, \textit{Oiartzun} = 529).
+In total 1808 observations are available (\textit{Laukiz 1} = 559, \textit{Laukiz 2} = 451, \textit{Luiando} = 301, \textit{Oiartzun} = 497).
 The data was surveyed in September 2016.
 
 \begin{figure} [t!]
@@ -685,7 +692,7 @@ Additional metadata information is available in \autoref{tab:hyperparameter_limi
 \section{Methods}
 
 \subsection{Derivation of indices}
-\noindent To use the full information from the hyperspectral data, all possible vegetation indices supported by the R package \textit{hsdar} (89 in total) as well as all possible \ac{NRI} combinations were calculated.
+\noindent To use the full potential from the hyperspectral data, all possible vegetation indices supported by the R package $\left\{hsdar\right\}$ (89 in total) as well as all possible \ac{NRI} combinations were calculated.
 The following formula was used for the NRI calculation:
 
 \begin{equation}
@@ -697,65 +704,61 @@ where \(i\) and \(j\) are the respective band numbers.
 
 \bigbreak{}
 
-\noindent To account for geometric offsets (which were reported with up to 1 m from \ac{ICGC}), a buffer of two meters around the centroid of the respective tree was drawn.
-The value assigned to a tree observations was the mean of all pixels which touched the respective buffer around the tree.
+\noindent To account for geometric offsets (which were reported with up to 1 m from \ac{ICGC}) within the hyperspectral data, a buffer of two meters around the centroid of each tree was used during extraction of the reflectance values.
+Subsequently, the value assigned to a tree observations was the mean of all pixels which were touched by the buffer drawn around each tree.
+A pixel was considered to fall into a tree's buffer zone if the centroid of the respective pixel was touched by the buffer.
+This is how the \texttt{extract()} function of the R package $\left\{raster\right\}$ handles buffer extraction.
 In total, \(\frac{125*126}{2} = 7875\) NRIs were calculated.
 Due to four corrupted bands of the sensor a total of 7471 indices were available for each observation.
 
 \subsection{Dimension reduction}
 
-\noindent It is important to distinguish the term 'dimension reduction' from 'high-dimensionality'.
+\noindent We want to stress the differences between 'dimension reduction' and 'high-dimensionality'.
 The former refers to the general idea of reducing features from a dataset\cite{vandermaaten2007}.
 In modeling this means finding the best subset of covariates which provide the most predictive power to the model or extracting the main components of the features using a \ac{PCA}.
-'High-dimensionality' in contrast is defined as a dataset attribute and applies
-when \(p > n\), where \(p\) is the number of covariates and \(n\) the number of
-observations\cite{hastie2001}.
-There is no absolute value at which the term can be applied, both for \(n\) and \(p\).
+'High-dimensionality' in contrast is a dataset attribute and applies when \(p > n\), where \(p\) is the number of covariates and \(n\) the number of observations\cite{hastie2001}.
+There is no absolute value at which the term applies, both for \(n\) and \(p\).
 Hence for this study the word ‘high-dimensionality‘ only applies to the
-experiments using the ‘NRI‘ feature set (7470 features for 1759 observations).
+experiments using the ‘NRI‘ feature set (> 7000 features for 1808 observations).
 
 The case of a feature-rich dataset comes with several challenges for both model fitting and evaluation.
 
 \begin{itemize}
-	\item Model fitting times increase
-	\item Noise is possibly introduced into models by highly-correlated variables\cite{johnstoneiainm.2009}
-	\item Model interpretation and prediction tasks become more complicated\cite{johnstoneiainm.2009}
+	\item Model fitting times increase.
+	\item Noise is possibly introduced into models by highly-correlated variables\cite{johnstoneiainm.2009}.
+	\item Model interpretation and prediction tasks become more challenging\cite{johnstoneiainm.2009}.
 \end{itemize}
 
-\noindent In the following sections a brief overview about sub-categories of feature-selection approaches is given.
-Due to the focus of this study on the use of filter methods, all other approaches were grouped into a single section.
+\noindent In the following sections a brief overview about sub-categories of feature selection approaches is given.
+Due to the focus of this study on the use of filter methods, which are a sub-group of feature selection methods, other approaches were grouped into a single section.
 
 \subsubsection{Filter methods}
 
 % Filter methods
-\noindent The concept of 'Filter methods' originates on the idea of ranking features using certain heuristics of an algorithm\cite{chandrashekar2014}.
-Some filter methods are restricted towards specific types of variables (numeric or nominal data).
-After the covariates have been ranked, a decision needs to be made what features to keep and which to discard\cite{drotar2015}.
-This step is usually done within the optimization phase of the model fitting, along with the hyperparameter tuning.
+\noindent The concept of filters originates on the idea of ranking features using certain heuristics of an algorithm\cite{chandrashekar2014}.
+Some filter methods are restricted towards specific types of variables (numeric or nominal).
+Filters do only rank features, they do not choose which covariates to drop or keep\cite{drotar2015}.
+The selection of features to keep for the model fitting step is usually done within the optimization phase of the model fitting, along with the hyperparameter tuning.
 Essentially, the number of covariates in the model is treated as a hyperparameter of the model.
 The goal is to optimize the number of features (using the ranked covariates) at which the model achieves the best performance.
-In well-implemented software solutions the filter calculation is only done once
-and then cached, saving valuable resources\cite{mlr}.
+In well-implemented software solutions the filter calculation is only done once and then cached, saving comptutational resources\cite{mlr}.
 
 \paragraph{Ensemble filter methods}
 
 % Ensemble filter methods
-Besides the concept of choosing a specific filter method to rank variables,
-studies showed that combining several filters using statistical operations such
-as 'minimum', 'mean' or 'sum' are able to enhance the predictive performance of
-the resulting models\cite{abeel2010, drotar2017a}.
-This approach is referred to as 'ensemble filter'\cite{dietterich2000}.
-Ensemble filters align with the recent rise of the 'ensemble' approach in machine-learning which uses stacking to combine the predictions of multiple models, aiming to enhance predictive performance\cite{polikar2012, feurer2015}.
-In this work the 'Borda' ensemble filter was applied\cite{drotar2017a}.
-The final order is the sum of all single filters ranking.
+Besides the concept of choosing a specific filter method to rank variables, studies showed that combining several filters using statistical operations such as 'minimum', 'mean' or 'sum' are able to enhance the predictive performance of the resulting models\cite{abeel2010, drotar2017a}.
+This approach is referred to as 'ensemble filter'~\cite{dietterich2000}.
+Ensemble filters align with the recent rise of the 'ensemble' approach in machine learning which uses stacking to combine the predictions of multiple models, aiming to enhance predictive performance~\cite{polikar2012, feurer2015}.
+In this work the 'Borda' ensemble filter was applied~\cite{drotar2017a}.
+For this filter, the final order is the sum of all single filters.
 
 \paragraph{Ensuring a fair weighting in the ensemble}
 
 Filter methods can be grouped into classes: Correlation based, entropy based, linear and non-linear methods.
-It is important to not give certain classes too much weight in the ensemble as otherwise the final result will be biased.
-This was taken care of by calculating the rank correlations (Spearman's correlation) of the generated feature rankings of all methods against each other.
-In case filters showed high correlations with each other, these were not included into the ensemble filter.
-This ensures that the ensemble filter is not biased towards a certain group of methods yielding highly similar rankings.
+It is important to not give certain classes too much weight in the ensemble as otherwise the final result will be biased towards these.
+In this study this was taken care of by checking the rank correlations (Spearman's correlation) of the generated feature rankings of all methods against each other.
+In case pairs of filters with a correlation above 0.9 were discovered, only one of these was included into the ensemble filter.
+By this we ensured that the ensemble filter is not biased towards a certain group of methods yielding highly similar rankings.
 
 \paragraph{Description of used filter methods}
 
@@ -788,15 +791,15 @@ Filter methods can be classified as follows:
 \endgroup\label{tab:filter-methods}
 \end{table}
 
-\noindent Filter method 'information gain' is only defined for nominal response variables:
+\noindent Filter 'Information Gain' is only defined for nominal response variables:
 
 \begin{equation}
 	H(Class) + H(Attribute) - H(Class, Attribute)
 \end{equation}
 
 where \(H\) is the conditional entropy of the response variable (class) or the feature (attribute), respectively.
-To be able to use this method with a numeric response, the variable is discretized into equal bins and treated as a class variable.
-While the number of bins can be treated as a hyperparameter of the filter method, we decided to use \texttt{\(n_{bin}\) = 10} after rank correlations of > 0.9 for different bin sizes were observed in a side analysis.
+To be able to use this method with a numeric response (defoliation in our case), the variable is discretized into equal bins and treated as a class variable.
+While the number of bins can be treated as a hyperparameter of the filter method, we decided to use \texttt{\(n_{bin}\) = 10} after rank correlations of $> 0.9$ for different bin sizes were observed in a side analysis.
 
 \subsubsection{Wrapper methods and PCA}
 
