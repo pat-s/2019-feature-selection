@@ -803,30 +803,27 @@ While the number of bins can be treated as a hyperparameter of the filter method
 
 \subsubsection{Wrapper methods and PCA}
 
-\noindent Other approaches to assess feature importance are 'wrapper methods' and the \ac{PCA}\cite{das2001, jolliffe2016}.
-A short introduction to both is given below.
+\noindent Other approaches to assess feature importance are so called 'wrapper methods' and the \ac{PCA}\cite{das2001, jolliffe2016}.
 
 % Wrapper approach
-\noindent 'Wrapper methods'\cite{chandrashekar2014, kohavi1997} apply algorithms that are used for hyperparameter optimization such as 'Random Search' or 'Generic Simulated Annealing'.
+\noindent Wrappers \cite{chandrashekar2014, kohavi1997} apply algorithms that are also used for hyperparameter optimization such as 'Random Search' or 'Generic Simulated Annealing'.
 First a (random) subset of features is chosen based on the selected algorithm.
-In comparison to 'filters', no ranking is done in this step.
+In comparison to filters, no ranking is done in this step.
 Now the model is fitted on the data and the performance is evaluated.
 This is done multiple times, depending on the defined stopping criteria set by the user (performance, runtime, evaluations).
 A disadvantage of this approach is that hyperparameter tuning can only be applied after the feature-selection optimization finished.
 Hence, the 'wrapper approach' is an expensive optimization method because two stages need to be run in sequential order.
-Due to their extensive runtimes, 'wrapper methods' were not considered in this work.
+Due to their extensive runtimes, wrappers were not considered in this work.
 
 % PCA
-A method with a completely different approach compared to filters and wrappers is the 'Principal Component Analysis'\cite{pearson1901, jolliffe2016}.
+A method with a completely different approach compared to filters and wrappers is the \ac{PCA}\cite{pearson1901, jolliffe2016}.
 Here, the main components of the feature space are extracted and combined.
 Most often the first two extracted main components are used since these contain the major information of the covariates.
 By using the (automatically estimated) explained variance of the main components, the model can rely on a few features containing the majority of information available in the data.
 This enables cheap model fitting with balanced loss of predictor information.
 The disadvantage of this methodology is the lack of interpretability because the main components cannot be related back to the original covariates.
 
-
 \subsection{Benchmarking design}
-
 
 \subsubsection{Algorithms}
 
