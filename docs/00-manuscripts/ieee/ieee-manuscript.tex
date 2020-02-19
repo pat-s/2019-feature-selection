@@ -323,6 +323,8 @@
 \renewcommand{\rmdefault}{cmr}
 \renewcommand{\ttdefault}{cmt}
 
+\usepackage[detect-all]{siunitx}
+
 \begin{document}
 %
 % paper title
@@ -439,6 +441,7 @@
 	\acro{ICGC}{Institut Cartografic I Geologic de Catalunya}
 	\acro{IQR}{interquartile range}
 	\acro{MARS}{multivariate adaptive regression splines}
+	\acro{MBO}{model-based optimization}
 	\acro{MEM}{maximum entropy model}
 	\acro{ML}{machine learning}
 	\acro{NDII}{normalized difference infrared index}
@@ -683,7 +686,7 @@ Additional metadata information is available in \autoref{tab:hyperparameter_limi
 	\toprule
 	Geometric resolution   & 1 m                                 \\
 	Radiometric resolution & 12 bit                              \\
-	Spectral resolution    & 126 bands (404.08 nm --- 996.31 nm)   \\
+	Spectral resolution    & 126 bands (404.08 nm --- 996.31 nm) \\
 	Correction:            & Radiometric, geometric, atmospheric
 \end{tabular}
 \endgroup\label{tab:hyperparameter_limits}
@@ -780,12 +783,12 @@ Filter methods can be classified as follows:
 		\\
 		Name                                         & Group                             & Reference          \\
 		\toprule
-		Linear correlation (Pearson)                 & univariate, linear, correlation   &\cite{pearson1901} \\
-		Information gain                             & univariate, non-linear, entropy   &\cite{quinlan1986} \\
-		Minimum redundancy, maximum relevance        & multivariate, non-linear, entropy &\cite{zhao2013}    \\
-		Carscore                                     & multivariate, linear, correlation &\cite{zuber2011}   \\
-		Relief                                       & multivariate, linear, entropy,    &\cite{kira1992}    \\
-		Conditional minimal information maximization & multivariate, linear, entropy     &\cite{fleuret2004}
+		Linear correlation (Pearson)                 & univariate, linear, correlation   & \cite{pearson1901} \\
+		Information gain                             & univariate, non-linear, entropy   & \cite{quinlan1986} \\
+		Minimum redundancy, maximum relevance        & multivariate, non-linear, entropy & \cite{zhao2013}    \\
+		Carscore                                     & multivariate, linear, correlation & \cite{zuber2011}   \\
+		Relief                                       & multivariate, linear, entropy,    & \cite{kira1992}    \\
+		Conditional minimal information maximization & multivariate, linear, entropy     & \cite{fleuret2004}
 	\end{tabular}
 \end{adjustbox}
 \endgroup\label{tab:filter-methods}
@@ -832,13 +835,12 @@ The disadvantage of this methodology is the lack of interpretability because the
 \begin{itemize}
 	\item  Extreme Gradient Boosting (XGBOOST)
 	\item  Random Forest (RF)
-	\item  Penalized Regression (both L1 and L2)
+	\item  Penalized Regression (both L1 (Lasso) and L2 (Ridge))
 	\item  Support Vector Machine (SVM)
 \end{itemize}
 
-
 \noindent \ac{RF} and {SVM} are well established algorithms that are widely used in environmental modeling.
-Extreme gradient boosting (commonly referred to as \ac{XGBOOST}) showed promising results in benchmark competitions in recent years.
+\ac{XGBOOST} (commonly abbreviated as XGBOOST) showed promising results in benchmark competitions in recent years.
 Penalized regression is a statistical modeling technique capable of dealing with highly-correlated covariates by applying a penalization term which shrinks the coefficients of the model\cite{hastie2001}.
 Common penalties are 'lasso' (L1) and 'ridge' (L2).
 The former does not allow the full removal of variables from the model (penalization to zero) while the latter does.
@@ -848,44 +850,53 @@ The combined approach is called 'elastic net' but was not used in this work.
 \subsubsection{Feature sets}
 % TODO: talk about the reasons behind different features sets: environmental implications
 
-\noindent Three feature sets were used in this study with each representing a different way of feature-engineering:
-
+\noindent Three feature sets were used in this study with each representing a different way of feature engineering:
 
 \begin{itemize}
-	\item The raw hyperspectral band information (HR: No feature engineering) %chktex 13
-	\item Vegetation Indices (\ac{VI}: Expert-based feature engineering)
-	\item Normalized Ratio Indices (\ac{NRI}: Automated feature-engineering)
+	\item The raw hyperspectral band information (HR): No feature engineering) %chktex 13
+	\item Vegetation Indices (\ac{VI}): Expert-based feature engineering)
+	\item Normalized Ratio Indices (\ac{NRI}): Data-driven feature engineering)
+\end{itemize}
+
+The idea of splitting the features into different sets originated from the question whether feature engineered indices from reflectance values have a positive effect on model performance.
+Benchmarking all models on these distinct groups of features makes it easier to draw conclusions on their impact when keeping all other variables such as model type, tuning strategy and partioning method constant.
+However, rather than only looking at these three groups we decided to also take their combinations into account for the overall comparison:
+
+\begin{itemize}
+	\item HR + VI %chktex 13
+	\item HR + NRI
+	\item HR + VI + NRI
 \end{itemize}
 
 \subsubsection{Hyperparameter Optimization}
 
 \noindent An exhaustive hyperparameter tuning was applied during nested spatial \ac{CV} for all algorithms.
-Maximum Bayesian Optimization\cite{mlrmbo} (MBO) was used for parameter optimization.
+Model-based Optimization\cite{mlrmbo} (MBO) was used for hyperparameter optimization.
 This approach first composes \textit{n} randomly chosen hyperparameter settings out of a user defined search space.
-After these \textit{n} tries have been evaluated, a new hyperparameter setting, which is going to be evaluated next, is proposed based on a fitted regression model.
-The regression model estimates the performance of the machine-learning method for unknown hyperparameter settings.
-Using these estimates, a new promising hyperparameter setting is proposed to be evaluated next.
+After these \textit{n} tries have been evaluated, a new hyperparameter setting, going to be evaluated next, is proposed by a fitted surrogate model (by default a kriging method).
 This strategy continues until a termination criterion, defined by the user, is reached\cite{hutter2011, jones1998}.
+
 An initial design of 30 randomly composed hyperparameter settings and a termination criterion of 70 iterations was used, resulting in a total budget of 100 evaluated hyperparameter settings per fold.
-The advantage of this tuning approach is the substantial reduction of the tuning budget required to find a setting which is close to the global minimum
-This applies when being compared to methods that do not use information from previous runs, such as random search or grid search\cite{bergstra2012}.
-In addition to MBO, the penalization term of Lasso and Ridge was optimized using the internal non-spatial CV approach due to promising results in other applications.
+The advantage of this tuning approach is the substantial reduction of the tuning budget required to find a setting which is close to the global minimum.
+\ac{MBO} shines when being compared to methods that do not use information from previous runs, such as random search or grid search\cite{bergstra2012}.
+For the Lasso and Ridge models however the internal non-spatial CV approach due to promising results in previous applications.
 
 For the filter methods, the percentage of features was added to the models as a hyperparameter.
-The number of main components was tuned for the instances which used \ac{PCA} instead of filtering.
-Random Forest hyperparameter \texttt{\(m_{try}\)} was transformed from taking absolute values to a relative parameter depending on the number of tasks: \(p^{m_{try}}\), where \(p\) is the number of features.
-This was necessary to ensure that \texttt{\(m_{try}\)} was not chosen out of bounds during tuning:
+For \ac{PCA}, the number of main components was tuned instead.
+Random Forest hyperparameter \texttt{\(m_{try}\)} was modified into power transformed version \(p^{m_{try}}\) (ranging from 1 to $p$) to work on relative values of the respective datasets feature count.
+Here \(p\) is the number of features of the dataset.
+This was necessary to ensure that \texttt{\(m_{try}\)} was not chosen out of bounds during tuning with respect to the datasets feature count.
 After the filtering, only a subset of features of the task is used for optimizing the models hyperparameters.
 The size of this subset is always different since the number of features is also optimized.
-Hence, the value of  \texttt{\(m_{try}\)} needs to be created flexible based on the number features.
+Hence, the value of \texttt{\(m_{try}\)} needs to be created dynamically based on the datasets feature count.
 
 \subsubsection{Spatial resampling}
 
-\noindent A spatial block nested cross-validation was chosen to reduce the influence of spatial autocorrelation as much as possible\cite{schratz2019, sperrorest}.
+\noindent A spatial nested cross-validation on the plot level was chosen to reduce the influence of spatial autocorrelation as much as possible\cite{schratz2019, sperrorest}.
 Each plot served as one fold within the resampling setup, resulting in four folds total.
 For the inner level (hyperparameter tuning), \(p - 1\) folds were used (with \(p\) being the number of plots).
 
-In total the benchmarking matrix consisted of 120 experiments (3 feature sets, 5 algorithms, 8 feature-selection methods).
+In total the benchmarking matrix consisted of 156 experiments (6 feature sets * 3 ML algorithms * 8 feature-selection methods + 2 * 6 models of the penalized algorithms).
 
 \subsection{Calculation of model feature importance}
 \noindent A permutation-based feature importance estimation was conducted for the best algorithm of each feature set and filter method, respectively.
