@@ -19,10 +19,13 @@ knitr::opts_chunk$set(
   echo = FALSE
 )
 
+library("drake")
+library("magrittr")
 R.utils::sourceDirectory("R")
+R.utils::sourceDirectory("code")
 
 # load drake objects
-drake::loadd(
+loadd(
   vi_data_corrected_buffer2, nri_data_corrected_buffer2,
   bands_data_corrected_buffer2, coords_vi_nri_clean_corrected,
 
@@ -41,6 +44,7 @@ library("knitr")
 library("purrr")
 library("sp")
 library("raster")
+library("fs")
 ```
 
 # Datasets {.tabset .tabset-fade}
@@ -243,7 +247,7 @@ boxplot_defol <- vi_data_plot %>%
   ) +
   scale_size(range = c(0.5, 0.5)) +
   annotate("text",
-    label = expression(bold(atop("n = 479", bar(x) ~ "= 55.96"))), x = 1,
+    label = expression(bold(atop("n = 559", bar(x) ~ "= 57.23"))), x = 1,
     y = 112, size = 3, colour = "#BC3C29", fontface = 2
   ) +
   annotate("text",
@@ -251,11 +255,11 @@ boxplot_defol <- vi_data_plot %>%
     y = 112, size = 3, colour = "#0072B5", fontface = 2
   ) +
   annotate("text",
-    label = expression(bold(atop("n = 300", bar(x) ~ "= 68.44"))), x = 3,
+    label = expression(bold(atop("n = 301", bar(x) ~ "= 68.36"))), x = 3,
     y = 112, size = 3, colour = "#E18727", fontface = 2
   ) +
   annotate("text",
-    label = expression(bold(atop("n = 529", bar(x) ~ "= 69.22"))), x = 4,
+    label = expression(bold(atop("n = 407", bar(x) ~ "= 69.07"))), x = 4,
     y = 112, size = 3, colour = "#20854E", fontface = 2
   ) +
   scale_color_nejm() +
@@ -374,3 +378,6 @@ map(
   )
 ```
 
+```{r echo=FALSE}
+copy_figures()
+```

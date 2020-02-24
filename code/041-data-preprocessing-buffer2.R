@@ -1,4 +1,4 @@
-data_preprocessing_plan <- drake_plan(
+data_preprocessing_plan_buffer2 <- drake_plan(
 
   # read all datasets as list ----------------------------------------------------
   data_list_nri_vi_bands = target(
@@ -8,10 +8,14 @@ data_preprocessing_plan <- drake_plan(
     )
   ),
 
-  data_list_nri_vi_bands_corrected = target(
+  # [1:4] : 1m buffer
+  # [5:8] : 2m buffer
+  # [9:12] : 3m buffer
+  # see 02-hyperspectral-preprocessing.R
+  data_list_nri_vi_bands_corrected_buffer2 = target(
     list(
-      "vi_nri" = trees_with_indices_corrected,
-      "bands" = trees_with_bands_corrected
+      "vi_nri" = trees_with_indices_corrected_buffer2[5:8],
+      "bands" = trees_with_bands_corrected_buffer2[5:8]
     )
   ),
 
@@ -23,23 +27,23 @@ data_preprocessing_plan <- drake_plan(
         .x,
         c(
           "tree.number", "decoloration", "canker", "diameter", "height", "geom",
-          "bf2_ID"
+          "bf2_ID", "ID"
         ),
         remove_coords = FALSE
       )
     )
   ),
 
-  data_clean_single_plots_corrected = target(
+  data_clean_single_plots_corrected_buffer2 = target(
     map(
-      data_list_nri_vi_bands_corrected,
+      data_list_nri_vi_bands_corrected_buffer2,
       ~ clean_single_plots(
         .x,
         # marcos tree data col names differ among plots, hence the warnings of
         # somce columns not being available
         c(
           "diameter", "height", "zona", "tree.numbe", "DECOLORATI", "CANKER",
-          "TREE_NUMBE", "heigth", "CANKERS", "tree_numbe", "geom"
+          "TREE_NUMBE", "heigth", "CANKERS", "tree_numbe", "geom", "ID"
         ),
         remove_coords = TRUE
       )
@@ -54,7 +58,7 @@ data_preprocessing_plan <- drake_plan(
   )),
   data_clean_single_plots_coords_corrected = target(
     map(
-      data_list_nri_vi_bands_corrected,
+      data_list_nri_vi_bands_corrected_buffer2,
       ~ extract_coords(.x)
     )
   ),
@@ -86,16 +90,16 @@ data_preprocessing_plan <- drake_plan(
 
 
 
-  data_vi_nri_clean_corrected = target(
-    as_tibble(rbindlist(data_clean_single_plots_corrected[[1]], fill = TRUE)) %>%
+  data_vi_nri_clean_corrected_buffer2 = target(
+    as_tibble(rbindlist(data_clean_single_plots_corrected_buffer2[[1]], fill = TRUE)) %>%
       Filter(function(x) !any(is.na(x)), .)
   ),
   coords_vi_nri_clean_corrected = target(
     as_tibble(rbindlist(data_clean_single_plots_coords_corrected[[1]]))
   ),
 
-  data_bands_clean_corrected = target(
-    as_tibble(rbindlist(data_clean_single_plots_corrected[[2]], fill = TRUE)) %>%
+  data_bands_clean_corrected_buffer2 = target(
+    as_tibble(rbindlist(data_clean_single_plots_corrected_buffer2[[2]], fill = TRUE)) %>%
       Filter(function(x) !any(is.na(x)), .)
   ),
   coords_bands_clean_corrected = target(
@@ -112,9 +116,10 @@ data_preprocessing_plan <- drake_plan(
       set_names(c("data_vi_nri", "data_bands"))
   ),
 
-  data_trim_defoliation_corrected = target(
+  data_trim_defoliation_corrected_buffer2 = target(
     map(
-      list(data_vi_nri_clean_corrected, data_bands_clean_corrected),
+      list(data_vi_nri_clean_corrected_buffer2,
+           data_bands_clean_corrected_buffer2),
       ~ mutate_defol(.x)
     ) %>%
       set_names(c("data_vi_nri", "data_bands"))
@@ -157,35 +162,36 @@ data_preprocessing_plan <- drake_plan(
 
 
 
-  nri_data_corrected = target(
-    split_into_feature_sets(data_trim_defoliation_corrected, "nri")
+  nri_data_corrected_buffer2 = target(
+    split_into_feature_sets(data_trim_defoliation_corrected_buffer2, "nri")
   ),
 
-  vi_data_corrected = target(
-    split_into_feature_sets(data_trim_defoliation_corrected, "vi")
+  vi_data_corrected_buffer2 = target(
+    split_into_feature_sets(data_trim_defoliation_corrected_buffer2, "vi")
   ),
 
-  bands_data_corrected = target(
-    split_into_feature_sets(data_trim_defoliation_corrected, "bands")
+  bands_data_corrected_buffer2 = target(
+    split_into_feature_sets(data_trim_defoliation_corrected_buffer2, "bands")
   ),
 
-  nri_vi_data_corrected = target(
-    cbind(nri_data_corrected, vi_data_corrected) %>%
+  nri_vi_data_corrected_buffer2 = target(
+    cbind(nri_data_corrected_buffer2, vi_data_corrected_buffer2) %>%
       subset(select = which(!duplicated(names(.)))) # remove duplicate "defoliation" column
   ),
 
-  hr_nri_data_corrected = target(
-    cbind(bands_data_corrected, nri_data_corrected) %>%
+  hr_nri_data_corrected_buffer2 = target(
+    cbind(bands_data_corrected_buffer2, nri_data_corrected_buffer2) %>%
       subset(select = which(!duplicated(names(.)))) # remove duplicate "defoliation" column
   ),
 
-  hr_vi_data_corrected = target(
-    cbind(bands_data_corrected, vi_data_corrected) %>%
+  hr_vi_data_corrected_buffer2 = target(
+    cbind(bands_data_corrected_buffer2, vi_data_corrected_buffer2) %>%
       subset(select = which(!duplicated(names(.)))) # remove duplicate "defoliation" column
   ),
 
-  hr_nri_vi_data_corrected = target(
-    cbind(bands_data_corrected, nri_data_corrected, vi_data_corrected) %>%
+  hr_nri_vi_data_corrected_buffer2 = target(
+    cbind(bands_data_corrected_buffer2, nri_data_corrected_buffer2,
+          vi_data_corrected_buffer2) %>%
       subset(select = which(!duplicated(names(.)))) # remove duplicate "defoliation" column
   )
 )
