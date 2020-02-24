@@ -11,9 +11,16 @@ editor_options:
 
 # Authors
 
-**Patrick Schratz** (patrick.schratz@gmail.com) [![](https://orcid.org/sites/default/files/images/orcid_16x16.png)](http://orcid.org/0000-0003-0748-6624)    
-Jannes Muenchow [![](https://orcid.org/sites/default/files/images/orcid_16x16.png)](http://orcid.org/0000-0001-7834-4717)   
-Bernd Bischl [![](https://orcid.org/sites/default/files/images/orcid_16x16.png)](http://orcid.org/0000-0001-6002-6980)   
+**Patrick Schratz** (patrick.schratz@gmail.com) [![](https://orcid.org/sites/default/files/images/orcid_16x16.png)](http://orcid.org/0000-0003-0748-6624)
+
+Jannes Muenchow [![](https://orcid.org/sites/default/files/images/orcid_16x16.png)](http://orcid.org/0000-0001-7834-4717)
+
+Eugenia Iturritxa [![](https://orcid.org/sites/default/files/images/orcid_16x16.png)](https://orcid.org/0000-0002-0577-3315) 
+
+José Cortés
+
+Bernd Bischl [![](https://orcid.org/sites/default/files/images/orcid_16x16.png)](http://orcid.org/0000-0001-6002-6980)
+
 Alexander Brenning [![](https://orcid.org/sites/default/files/images/orcid_16x16.png)](http://orcid.org/0000-0001-6640-679X) 
 
 # Contents
