@@ -18,7 +18,15 @@ knitr::opts_chunk$set(
   out.width = "100%",
   echo = FALSE
 )
-library(drake)
+library("drake")
+library("ggplot2")
+library("MASS")
+
+loadd(
+  vi_data_corrected_buffer2,
+  benchmark_models_new_penalized_buffer2,
+  benchmark_models_new_buffer2
+)
 ```
 
 This document originated from the fear of having a response variable which is not normally distributed "enough".
@@ -26,17 +34,14 @@ This document originated from the fear of having a response variable which is no
 The response variable looks as follows:
 
 ```{r response-normality-1}
-loadd(vi_data)
-library(ggplot2)
-
-ggplot(vi_data, aes(x = defoliation)) +
+ggplot(vi_data_corrected_buffer2, aes(x = defoliation)) +
   geom_histogram(bins = 30)
 ```
 
 When applying the [Shapiro-Wilk](https://en.wikipedia.org/wiki/Shapiro%E2%80%93Wilk_test) test we get
 
 ```{r response-normality-2}
-shapiro.test(vi_data$defoliation)
+shapiro.test(vi_data_corrected_buffer2$defoliation)
 ```
 
 ## Exploring model residuals 
@@ -47,8 +52,7 @@ The LASSO "predicted vs. fitted" plot shows limited model power.
 ### Lasso model with no transformation of the response variable
 
 ```{r response-normality-3}
-loadd(bm_models_vi_task_lasso_no_filter_mbo)
-pred <- bm_models_vi_task_lasso_no_filter_mbo$results$`defoliation-all-plots-VI`$`Lasso-MBO`$pred
+pred <- benchmark_models_new_penalized_buffer2[[1]]$results$hr$`Lasso-CV`$pred
 
 # fit lm of y and ŷ
 resid <- lm(pred$data$truth ~ pred$data$response)
@@ -63,36 +67,26 @@ par(mfrow = c(1, 1))
 
 # without outlier
 resid1 <- resid
-resid1$fitted.values[1526] <- NA
+resid1$fitted.values[620] <- NA
 
 par(mfrow = c(1, 2))
 plot(resid1, which = c(1:2), ask = FALSE, main = "No Transform")
 par(mfrow = c(1, 1))
 ```
 
-### RF model with no transformation of the response variable
+### SVM with no transformation of the response variable
 
 ```{r response-normality-4}
-loadd(bm_models_vi_task_rf_no_filter_mbo)
-pred_rf <- bm_models_vi_task_rf_no_filter_mbo$results$`defoliation-all-plots-VI`$RF$pred
+pred_svm <- benchmark_models_new_buffer2[[1]]$results$hr$`SVM MBO MRMR`$pred
 
 # fit lm of y and ŷ
-resid_rf <- lm(pred$data$truth ~ pred$data$response)
+resid_svm <- lm(pred_svm$data$truth ~ pred_svm$data$response)
 
 # https://stats.stackexchange.com/a/53257/101464
 # plot(density(resid(resid)))
 
 par(mfrow = c(1, 2))
-plot(resid_rf, which = c(1:2), ask = FALSE, main = "No Transform")
-par(mfrow = c(1, 1))
-
-
-# without outlier
-resid_rf1 <- resid_rf
-resid_rf1$fitted.values[1526] <- NA
-
-par(mfrow = c(1, 2))
-plot(resid_rf1, which = c(1:2), ask = FALSE, main = "No Transform")
+plot(resid_svm, which = c(1:2), ask = FALSE, main = "No Transform")
 par(mfrow = c(1, 1))
 ```
 
@@ -110,54 +104,52 @@ $$(y^lambda - 1) / lambda$$
 
 There is a [Stackoverflow question](https://stackoverflow.com/questions/33999512/how-to-use-the-box-cox-power-transformation-in-r) that shows how to do this. 
 
-<!-- ### Box-Cox Transformation -->
+### Box-Cox Transformation
 
-<!-- Applying it on the response of the data. -->
+Applying it on the response of the data.
 
-<!-- ```{r response-normality-5} -->
-<!-- library(MASS) -->
-<!-- n <- 1759 -->
-<!-- x <- runif(n, 1, 5) -->
-<!-- y <- vi_data$defoliation -->
+```{r response-normality-5}
+n <- 1808
+x <- runif(n, 1, 5)
+y <- vi_data_corrected_buffer2$defoliation
 
-<!-- # 1st approach to estimate lambda for power transformation -->
-<!-- bc <- boxcox(y ~ x) -->
-<!-- (lambda <- bc$x[which.max(bc$y)]) -->
+# 1st approach to estimate lambda for power transformation
+bc <- boxcox(y ~ x)
+(lambda <- bc$x[which.max(bc$y)])
 
-<!-- # apply power transform (boxcox) -->
-<!-- y_new1 <- (y^lambda - 1) / lambda -->
-<!-- shapiro.test(y_new1) -->
-<!-- ``` -->
+# apply power transform (boxcox)
+y_new1 <- (y^lambda - 1) / lambda
+shapiro.test(y_new1)
+```
 
-<!-- The "W" value is a little less than before. -->
+The "W" value is a little less than before.
 
-<!-- There is another way to do this via package _car_. -->
+There is another way to do this via package _car_.
 
-<!-- ```{r response-normality-6} -->
-<!-- # 2nd approach to estimate lambda for power transformation -->
+```{r response-normality-6}
+# 2nd approach to estimate lambda for power transformation
 
-<!-- # boxcox (0.84) -->
-<!-- y_new2 <- (y^(car::powerTransform(y)$lambda) - 1) / car::powerTransform(y)$lambda -->
-<!-- shapiro.test(y_new2) -->
-<!-- ``` -->
+# boxcox (0.84)
+y_new2 <- (y^(car::powerTransform(y)$lambda) - 1) / car::powerTransform(y)$lambda
+shapiro.test(y_new2)
+```
 
-<!-- Exploring the residuals of a Lasso model with no transformation of the response variable. -->
+Exploring the residuals of a Lasso model with no transformation of the response variable.
 
-<!-- ```{r response-normality-7} -->
-<!-- loadd(bm_models_vi_task_boxcox_lasso_no_filter_mbo) -->
-<!-- pred <- bm_models_vi_task_boxcox_lasso_no_filter_mbo$results$`defoliation-all-plots-VI`$`Lasso-MBO`$pred -->
+```{r response-normality-7}
+pred <- benchmark_models_new_penalized_buffer2[[1]]$results$hr$`Lasso-CV`$pred
 
-<!-- # fit lm of y and ŷ -->
-<!-- resid <- lm(pred$data$truth ~ pred$data$response) -->
+# fit lm of y and ŷ
+resid <- lm(pred$data$truth ~ pred$data$response)
 
-<!-- # https://stats.stackexchange.com/a/53257/101464 -->
-<!-- # plot(density(resid(resid))) -->
+# https://stats.stackexchange.com/a/53257/101464
+# plot(density(resid(resid)))
 
-<!-- # residuals vs. fitted & QQ plot -->
-<!-- par(mfrow = c(1, 2)) -->
-<!-- plot(resid, which = c(1:2), ask = FALSE, main = "No Transform") -->
-<!-- par(mfrow = c(1, 1)) -->
-<!-- ``` -->
+# residuals vs. fitted & QQ plot
+par(mfrow = c(1, 2))
+plot(resid, which = c(1:2), ask = FALSE, main = "No Transform")
+par(mfrow = c(1, 1))
+```
 
 <!-- ### Tukey Transformation -->
 
@@ -183,7 +175,6 @@ There is a [Stackoverflow question](https://stackoverflow.com/questions/33999512
 <!-- Also if we take a look at the residuals, they do not show normality. -->
 
 <!-- ```{r response-normality-10} -->
-<!-- loadd(bm_models_vi_task_lasso_no_filter_mbo) -->
 <!-- pred_bc <- bm_models_vi_task_lasso_no_filter_mbo$results$`defoliation-all-plots-VI`$lasso$pred -->
 
 <!-- # fit lm of y and ŷ -->

@@ -20,16 +20,13 @@ knitr::opts_chunk$set(
 )
 
 R.utils::sourceDirectory("R")
+library("drake")
 
 # load drake objects
-drake::loadd(data_hs_preprocessed)
+loadd(data_hs_preprocessed)
 library("hsdar")
-library("cowplot")
 library("magrittr")
 library("purrr")
-library("dplyr")
-library("fs")
-library("here")
 ```
 
 # Spectral signatures of plots
@@ -45,7 +42,10 @@ for the wavelength range of 400 nm - 1000 nm.
 Values represent the mean reflectance of all observations at the respective wavelength.
 
 ```{r spectral-signatures-1}
-data_hs_preprocessed <- data_hs_preprocessed[c("laukiz1", "laukiz2", "luiando", "oiartzun")]
+data_hs_preprocessed <- data_hs_preprocessed[c(
+  "laukiz1", "laukiz2",
+  "luiando", "oiartzun"
+)]
 ```
 
 ```{r spectral-signatures-2}
@@ -88,8 +88,5 @@ dev.off()
 ```
 
 ```{r spectral-signatures-4, echo = FALSE}
-# file_move(here("docs/figure/spectral-signatures.Rmd/spectral-signatures-1.pdf"),
-#           here("code/98-paper/journal/"))
-# file.copy(here("docs/figure/spectral-signatures.Rmd/spectral-signatures-1.pdf"),
-#           here("code/98-paper/journal/"), overwrite = TRUE)
+copy_figures()
 ```
