@@ -1,5 +1,4 @@
 filter_eda_plan <- drake_plan(
-
   filter_names = c(
     "carscore",
     "FSelectorRcpp_information.gain",
@@ -9,109 +8,55 @@ filter_eda_plan <- drake_plan(
     "praznik_CMIM"
   ),
 
-  nbins = seq(5, 30, 5),
+  # need to oursource them because they need arg equal = TRUE
+  filters_FSelectorRcpp = c(
+    "FSelectorRcpp_information.gain",
+    "FSelectorRcpp_gain.ratio",
+    "FSelectorRcpp_symmetrical.uncertainty"
+  ),
+
+  names_filter_values = c(
+    "carscore",
+    "FSelector_relief",
+    "linear.correlation",
+    "rank.correlation",
+    "praznik_MRMR",
+    "praznik_CMIM",
+    "variance"
+  ),
+
+  task_list_filter = list(
+    task_new_buffer2[[1]],
+    task_new_buffer2[[2]],
+    task_new_buffer2[[3]]
+  ),
 
   filter_values = target(
-    generateFilterValuesData(task = tasks_new, method = filter_names),
-    dynamic = cross(tasks_new, filter_names)
+    generateFilterValuesData(
+      task = task_list_filter[[1]],
+      method = names_filter_values
+    ),
+    dynamic = cross(task_list_filter, names_filter_values)
   ),
+
+  filter_values_fselectorrcpp = target(
+    generateFilterValuesData(
+      task = task_list_filter[[1]],
+      method = filters_FSelectorRcpp,
+      equal = TRUE
+    ),
+    dynamic = cross(task_list_filter, filters_FSelectorRcpp)
+  ),
+
+  nbins = seq(5, 30, 5),
 
   filter_info_gain_nbins = target(
     generateFilterValuesData(
-      task = tasks_new,
+      task = task_list_filter[[1]],
       method = "FSelectorRcpp_information.gain",
       equal = TRUE,
       nbins = nbins
     ),
-    dynamic = cross(tasks_new, nbins)
+    dynamic = cross(task_list_filter, nbins = nbins)
   )
 )
-
-# fv_nri_car <- generateFilterValuesData(nri_task, "carscore")
-# fv_nri_info.gain <- generateFilterValuesData(nri_task, "FSelectorRcpp_information.gain")
-# fv_nri_gain.ratio <- generateFilterValuesData(nri_task, "FSelectorRcpp_gain.ratio")
-# fv_nri_symuncert <- generateFilterValuesData(nri_task, "FSelectorRcpp_symmwetrical.uncertainty")
-# fv_nri_relief <- generateFilterValuesData(nri_task, "FSelector_relief")
-# fv_nri_rank <- generateFilterValuesData(nri_task, "rank.correlation")
-# fv_nri_cor <- generateFilterValuesData(nri_task, "linear.correlation")
-# fv_nri_mrmr <- generateFilterValuesData(nri_task, "praznik_MRMR")
-# fv_nri_praznik_mrmr <- generateFilterValuesData(nri_task, "praznik_MRMR")
-# fv_nri_cmim <- generateFilterValuesData(nri_task, "praznik_CMIM")
-# fv_nri_var <- generateFilterValuesData(nri_task, "variance")
-#
-# fv_vi_car <- generateFilterValuesData(vi_task, "carscore")
-# fv_vi_info.gain <- generateFilterValuesData(vi_task, "FSelectorRcpp_information.gain")
-# fv_vi_gain.ratio <- generateFilterValuesData(vi_task, "FSelectorRcpp_gain.ratio")
-# fv_vi_symuncert <- generateFilterValuesData(vi_task, "FSelectorRcpp_symmetrical.uncertainty")
-# fv_vi_relief <- generateFilterValuesData(vi_task, "FSelector_relief")
-# fv_vi_rank <- generateFilterValuesData(vi_task, "rank.correlation")
-# fv_vi_cor <- generateFilterValuesData(vi_task, "linear.correlation")
-# fv_vi_mrmr <- generateFilterValuesData(vi_task, "praznik_MRMR")
-# fv_vi_cmim <- generateFilterValuesData(vi_task, "praznik_CMIM")
-# fv_vi_var <- generateFilterValuesData(vi_task, "variance")
-#
-# fv_hr_car <- generateFilterValuesData(hr_task, "carscore")
-# fv_hr_info.gain <- generateFilterValuesData(hr_task, "FSelectorRcpp_information.gain")
-# fv_hr_gain.ratio <- generateFilterValuesData(hr_task, "FSelectorRcpp_gain.ratio")
-# fv_hr_symuncert <- generateFilterValuesData(hr_task, "FSelectorRcpp_symmetrical.uncertainty")
-# fv_hr_relief <- generateFilterValuesData(hr_task, "FSelector_relief")
-# fv_hr_rank <- generateFilterValuesData(hr_task, "rank.correlation")
-# fv_hr_cor <- generateFilterValuesData(hr_task, "linear.correlation")
-# fv_hr_mrmr <- generateFilterValuesData(hr_task, "praznik_MRMR")
-# fv_hr_cmim <- generateFilterValuesData(hr_task, "praznik_CMIM")
-# fv_hr_var <- generateFilterValuesData(hr_task, "variance")
-#
-# fv_hr_nri_vi_car <- generateFilterValuesData(hr_nri_vi_task, "carscore")
-# fv_hr_nri_vi_info.gain <- generateFilterValuesData(hr_nri_vi_task, "FSelectorRcpp_information.gain")
-# fv_hr_nri_vi_gain.ratio <- generateFilterValuesData(hr_nri_vi_task, "FSelectorRcpp_gain.ratio")
-# fv_hr_nri_vi_symuncert <- generateFilterValuesData(hr_nri_vi_task, "FSelectorRcpp_symmetrical.uncertainty")
-# fv_hr_nri_vi_relief <- generateFilterValuesData(hr_nri_vi_task, "FSelector_relief")
-# fv_hr_nri_vi_rank <- generateFilterValuesData(hr_nri_vi_task, "rank.correlation")
-# fv_hr_nri_vi_cor <- generateFilterValuesData(hr_nri_vi_task, "linear.correlation")
-# fv_hr_nri_vi_mrmr <- generateFilterValuesData(hr_nri_vi_task, "praznik_MRMR")
-# fv_hr_nri_vi_cmim <- generateFilterValuesData(hr_nri_vi_task, "praznik_CMIM")
-# fv_hr_nri_vi_var <- generateFilterValuesData(hr_nri_vi_task, "variance")
-#
-# fv_hr_nri_car <- generateFilterValuesData(hr_nri_task, "carscore")
-# fv_hr_nri_info.gain <- generateFilterValuesData(hr_nri_task, "FSelectorRcpp_information.gain")
-# fv_hr_nri_gain.ratio <- generateFilterValuesData(hr_nri_task, "FSelectorRcpp_gain.ratio")
-# fv_hr_nri_symuncert <- generateFilterValuesData(hr_nri_task, "FSelectorRcpp_symmetrical.uncertainty")
-# fv_hr_nri_relief <- generateFilterValuesData(hr_nri_task, "FSelector_relief")
-# fv_hr_nri_rank <- generateFilterValuesData(hr_nri_task, "rank.correlation")
-# fv_hr_nri_cor <- generateFilterValuesData(hr_nri_task, "linear.correlation")
-# fv_hr_nri_mrmr <- generateFilterValuesData(hr_nri_task, "praznik_MRMR")
-# fv_hr_nri_cmim <- generateFilterValuesData(hr_nri_task, "praznik_CMIM")
-# fv_hr_nri_var <- generateFilterValuesData(hr_nri_task, "variance")
-#
-# fv_hr_vi_car <- generateFilterValuesData(hr_vi_task, "carscore")
-# fv_hr_vi_info.gain <- generateFilterValuesData(hr_vi_task, "FSelectorRcpp_information.gain")
-# fv_hr_vi_gain.ratio <- generateFilterValuesData(hr_vi_task, "FSelectorRcpp_gain.ratio")
-# fv_hr_vi_symuncert <- generateFilterValuesData(hr_vi_task, "FSelectorRcpp_symmetrical.uncertainty")
-# fv_hr_vi_relief <- generateFilterValuesData(hr_vi_task, "FSelector_relief")
-# fv_hr_vi_rank <- generateFilterValuesData(hr_vi_task, "rank.correlation")
-# fv_hr_vi_cor <- generateFilterValuesData(hr_vi_task, "linear.correlation")
-# fv_hr_vi_mrmr <- generateFilterValuesData(hr_vi_task, "praznik_MRMR")
-# fv_hr_vi_cmim <- generateFilterValuesData(hr_vi_task, "praznik_CMIM")
-# fv_hr_vi_var <- generateFilterValuesData(hr_vi_task, "variance")
-
-
-# fv_hr_info.gain5 <- generateFilterValuesData(hr_task, "FSelectorRcpp_information.gain", equal = TRUE, nbins = 5)
-# fv_hr_info.gain10 <- generateFilterValuesData(hr_task, "FSelectorRcpp_information.gain", equal = TRUE, nbins = 10)
-# fv_hr_info.gain15 <- generateFilterValuesData(hr_task, "FSelectorRcpp_information.gain", equal = TRUE, nbins = 15)
-# fv_hr_info.gain20 <- generateFilterValuesData(hr_task, "FSelectorRcpp_information.gain", equal = TRUE, nbins = 20)
-# fv_hr_info.gain25 <- generateFilterValuesData(hr_task, "FSelectorRcpp_information.gain", equal = TRUE, nbins = 25)
-# fv_hr_info.gain30 <- generateFilterValuesData(hr_task, "FSelectorRcpp_information.gain", equal = TRUE, nbins = 30)
-#
-# fv_vi_info.gain5 <- generateFilterValuesData(vi_task, "FSelectorRcpp_information.gain", equal = TRUE, nbins = 5)
-# fv_vi_info.gain10 <- generateFilterValuesData(vi_task, "FSelectorRcpp_information.gain", equal = TRUE, nbins = 10)
-# fv_vi_info.gain15 <- generateFilterValuesData(vi_task, "FSelectorRcpp_information.gain", equal = TRUE, nbins = 15)
-# fv_vi_info.gain20 <- generateFilterValuesData(vi_task, "FSelectorRcpp_information.gain", equal = TRUE, nbins = 20)
-# fv_vi_info.gain25 <- generateFilterValuesData(vi_task, "FSelectorRcpp_information.gain", equal = TRUE, nbins = 25)
-# fv_vi_info.gain30 <- generateFilterValuesData(vi_task, "FSelectorRcpp_information.gain", equal = TRUE, nbins = 30)
-#
-# fv_nri_info.gain5 <- generateFilterValuesData(nri_task, "FSelectorRcpp_information.gain", equal = TRUE, nbins = 5)
-# fv_nri_info.gain10 <- generateFilterValuesData(nri_task, "FSelectorRcpp_information.gain", equal = TRUE, nbins = 10)
-# fv_nri_info.gain15 <- generateFilterValuesData(nri_task, "FSelectorRcpp_information.gain", equal = TRUE, nbins = 15)
-# fv_nri_info.gain20 <- generateFilterValuesData(nri_task, "FSelectorRcpp_information.gain", equal = TRUE, nbins = 20)
-# fv_nri_info.gain25 <- generateFilterValuesData(nri_task, "FSelectorRcpp_information.gain", equal = TRUE, nbins = 25)
-# fv_nri_info.gain30 <- generateFilterValuesData(nri_task, "FSelectorRcpp_information.gain", equal = TRUE, nbins = 30)

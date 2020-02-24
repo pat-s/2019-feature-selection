@@ -125,8 +125,8 @@ param_sets_plan <- drake_plan(
     # of of the 80% quantile from the min and max of the smallest and largest
     # task, respectively)
 
-    lambda_ridge_vi_train <- train(lrn_ridge, task_new_vi)
-    lambda_ridge_hr_nri_vi_train <- train(lrn_ridge, task_new_hr_nri_vi)
+    lambda_ridge_vi_train <- train(lrn_ridge, task_new_buffer2[[2]])
+    lambda_ridge_hr_nri_vi_train <- train(lrn_ridge, task_new_buffer2[[6]])
 
     lambda_ridge_min_vi <- min(lambda_ridge_vi_train$learner.model$lambda)
     lambda_ridge_max_hr_nri_vi <- max(lambda_ridge_hr_nri_vi_train$learner.model$lambda)
@@ -160,8 +160,8 @@ param_sets_plan <- drake_plan(
     # consisting of of the 80% quantile from the min and max of the smallest and
     # largest task, respectively)
 
-    lambda_lasso_vi_train <- train(lrn_lasso, task_new_vi)
-    lambda_lasso_hr_nri_vi_train <- train(lrn_lasso, task_new_hr_nri_vi)
+    lambda_lasso_vi_train <- train(lrn_lasso, task_new_buffer2[[2]])
+    lambda_lasso_hr_nri_vi_train <- train(lrn_lasso, task_new_buffer2[[6]])
 
     lambda_lasso_min_vi <- min(lambda_lasso_vi_train$learner.model$lambda)
     lambda_lasso_max_hr_nri_vi <- max(lambda_lasso_hr_nri_vi_train$learner.model$lambda)
