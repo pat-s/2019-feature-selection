@@ -15,7 +15,6 @@ load_packages = function() {
   suppressPackageStartupMessages(library(ggplot2))
   suppressPackageStartupMessages(library(furrr))
   suppressPackageStartupMessages(library(data.table))
-  suppressPackageStartupMessages(library(mlrCPO))
   suppressPackageStartupMessages(library(curl))
   suppressPackageStartupMessages(library(fs))
   suppressPackageStartupMessages(library(stringr))
@@ -41,4 +40,5 @@ load_packages = function() {
   suppressPackageStartupMessages(library(parallel))
   suppressPackageStartupMessages(library(doParallel))
   suppressPackageStartupMessages(library(future.batchtools))
+  suppressPackageStartupMessages(library(forcats))
 }
