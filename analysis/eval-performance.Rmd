@@ -24,7 +24,7 @@ load_packages()
 
 # load drake objects
 loadd(
-  bm_aggregated_new
+  bm_aggregated_new_buffer2
 )
 library("xtable")
 library("flextable")
@@ -35,15 +35,15 @@ library("ggpubr")
 ```
 
 ```{r}
-df_perf <- getBMRPerformances(bm_aggregated_new, as.df = T) %>%
+df_perf <- getBMRPerformances(bm_aggregated_new_buffer2, as.df = T) %>%
   mutate(task.id = recode_factor(task.id,
-    `hr` = "HR",
-    `vi` = "VI",
-    `nri` = "NRI",
-    `nri_vi` = "NRI_VI",
-    `hr_nri` = "HR-NRI",
-    `hr_vi` = "HR-VI",
-    `hr_nri_vi` = "HR-NRI-VI",
+    `hr_buffer2` = "HR",
+    `vi_buffer2` = "VI",
+    `nri_buffer2` = "NRI",
+    `nri_vi_buffer2` = "NRI_VI",
+    `hr_nri_buffer2` = "HR-NRI",
+    `hr_vi_buffer2` = "HR-VI",
+    `hr_nri_vi_buffer2` = "HR-NRI-VI",
   )) %>%
   tidyr::separate(learner.id, c("learner_group", "filter"),
     remove = FALSE,
@@ -62,7 +62,7 @@ df_perf %<>%
   ungroup()
 ```
 
-## (Table) All leaner/filter/task combinations ordered by performance.
+## (Table) T1 All leaner/filter/task combinations ordered by performance.
 
 Overall leaderboard across all settings, sorted descending by performance.
 
@@ -109,7 +109,7 @@ table1 %>%
   autofit()
 ```
 
-## (Table) Best learner/filter/task combination
+## (Table) T2 Best learner/filter/task combination
 
 Learners: On which task and using which filter did every learner score their best result on?
 
@@ -151,14 +151,14 @@ table2 %>%
     timestamp = NULL
   )
 
-saveRDS(table2, "docs/00-manuscripts/ieee/presentation/table-best-learner-per-task.rda")
+saveRDS(table2, "docs/00-manuscripts/presentation/table-best-learner-per-task.rda")
 
 table2 %>%
   flextable() %>%
   autofit()
 ```
 
-## (Plot) Best learner/filter combs for all tasks
+## (Plot) P1 Best learner/filter combs for all tasks
 
 ```{r performance-results, warning=FALSE, dev = c("png", "pdf")}
 results_aggr <- df_perf %>%
@@ -207,7 +207,7 @@ results_aggr %>%
   )
 ```
 
-## (Plot) Best filter combination of each learner vs. no filter per task vs. Borda
+## (Plot) P2 Best filter combination of each learner vs. no filter per task vs. Borda
 
 **DEPRECATED**: Please see the scatterplots below for a better visulization
 
@@ -266,7 +266,7 @@ comb %>%
   )
 ```
 
-## (Plot) Best filter combination of each learner vs. Borda filter
+## (Plot) P3 Best filter combination of each learner vs. Borda filter
 
 Showing the final effect of the ensemble Borda filter vs the best scoring simple filter.
 
@@ -309,7 +309,7 @@ comb_borda %>%
   )
 ```
 
-## (Plot) Performances of all filter methods
+## (Plot) P4 Performances of all filter methods
 
 ```{r filter-perf-all, warning=FALSE, dev = c("png", "pdf")}
 # perf_all_filters <- df_perf %>%
@@ -339,7 +339,7 @@ comb_borda %>%
 #   )
 ```
 
-## (Plot) Scatterplots of filter methods vs. no filter for each learner and task
+## (Plot) P5 Scatterplots of filter methods vs. no filter for each learner and task
 
 Showing the final effect of applying feature selection to a learner for each task.
 All filters are colored in the same way whereas using "no filter" appears in a different color.
@@ -382,7 +382,7 @@ results_aggr1 %>%
   )
 ```
 
-## (Plot) Scatterplots of filter methods vs. Borda for each learner and task
+## (Plot) P6 Scatterplots of filter methods vs. Borda for each learner and task
 
 Showing the final effect of applying feature selection to a learner for each task.
 All filters are summarized into a a single color whereas the "Borda" filter appears in its own color.
@@ -396,7 +396,7 @@ results_aggr2 <- df_perf %>%
   group_by(learner_group, task.id, filter) %>%
   # we actually took the mean already in chunk 'aggr-perf'. This is only to get
   # summarise() working
-  summarise(perf = mean(rmse_aggr)) %>% 
+  summarise(perf = mean(rmse_aggr)) %>%
   ungroup()
 
 results_aggr2 %>%
@@ -411,9 +411,13 @@ results_aggr2 %>%
     shape = 19, size = 2, aes(color = "Borda Filter")
   ) +
   facet_wrap(~task.id) +
-  scale_color_manual(guide = guide_legend(override.aes = list(shape = c(19, 3))),
-                     values = c("Filter" = "#BC8C29FF",
-                     "Borda Filter" = "#0072B5FF")) +
+  scale_color_manual(
+    guide = guide_legend(override.aes = list(shape = c(19, 3))),
+    values = c(
+      "Filter" = "#BC3C29FF",
+      "Borda Filter" = "#0072B5FF"
+    )
+  ) +
   labs(x = "RMSE", y = "Task", colour = NULL) +
   guides(size = FALSE) +
   scale_x_continuous(limits = c(27, 51)) +
@@ -424,4 +428,8 @@ results_aggr2 %>%
     legend.text = element_text(size = 12),
     legend.title = element_text(size = 12),
   )
+```
+
+```{r echo = FALSE}
+copy_figures()
 ```
