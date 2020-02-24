@@ -27,6 +27,7 @@ tune_ctrl_mbo_30n_70it <- function(param_set) {
 
 #' @title Parallel feature importance wrapper
 #' @description Calculates feature importance via permutation
+#' @importFrom parallelMap parallelStop
 #' @template task
 #' @template learner
 #' @param nmc Number of Monte Carlo iterations

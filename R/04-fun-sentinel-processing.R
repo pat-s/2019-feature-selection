@@ -1,5 +1,7 @@
 #' @title get_records
 #' @description Splits data into feature sets.
+#' @importFrom getSpatialData set_aoi getSentinel_query login_CopHub set_archive
+#' @importFrom dplyr filter arrange
 #'
 #' @param aoi (`sf`)\cr Area of interest to download images for
 #' @param date (`character`)\cr Date range for which to get the records for
@@ -198,28 +200,32 @@ copy_cloud <- function(records, image_unzip) {
 #' @param image_stack Stacked images from [stack_bands].
 #' @return `list` of mosaiced raster files (Bricks)
 #' @export
-mosaic_images <- function(records, image_stack) {
+mosaic_images <- function(records) {
 
   # Get stack filenames
   file_stack <-
     unique(records$beginposition) %>%
     map(~ filter(records, beginposition == .)) %>%
-    map(~ pull(., filename)) %>%
+    map(~ dplyr::pull(., filename)) %>%
     map(~ str_remove(., ".SAFE")) %>%
-    map_depth(2, ~ str_glue("data/sentinel/image_stack/", ., ".tif"))
+    map_depth(2, ~ str_glue("data/sentinel/image_stack/", ., ".tif")) %>%
+    map(~ flatten_chr(.x))
 
   # Set mosaic filename
   file_mosaic <-
     records$filename %>%
     str_sub(1, 41) %>%
     unique() %>%
-    map(~ str_glue("data/sentinel/image_mosaic/", ., ".tif"))
+    map_chr(~ str_glue("data/sentinel/image_mosaic/", ., ".tif"))
+
+  cat("Building mosaic.")
 
   # Build mosaic
-  list(file_stack, file_mosaic) %>%
-    future_pmap(~ mosaic_rasters(as.character(.x), as.character(.y),
-      verbose = TRUE
-    ))
+  # 18 GB per mosaic 3 moscaics in total -> 20 GB mem in parallel
+  future_map2(
+    file_stack, file_mosaic,
+    ~ gdalUtils::mosaic_rasters(.x, .y, verbose = TRUE)
+  )
 
   return(file_mosaic)
 }
@@ -231,7 +237,7 @@ mosaic_images <- function(records, image_stack) {
 #' @param cloud_stack cloud stack created by [copy_cloud].
 #' @return `list` of stacked raster files (Bricks)
 #' @export
-mosaic_clouds <- function(records, cloud_stack) {
+mosaic_clouds <- function(records) {
 
   # Create dummy cloud mask for mosaics without clouds
   vec_dummy_cloud_mask <-
@@ -243,8 +249,8 @@ mosaic_clouds <- function(records, cloud_stack) {
   # Build cloud mask mosaic
   vec_mosaic_cloud_mask <-
     unique(records$beginposition) %>%
-    map(~ filter(records, beginposition == .)) %>%
-    map(~ pull(., filename)) %>%
+    map(~ dplyr::filter(records, beginposition == .)) %>%
+    map(~ dplyr::pull(., filename)) %>%
     map(~ str_remove(., ".SAFE")) %>%
     map_depth(2, ~ str_glue("data/sentinel/image_stack/", ., "_cloud_mask.gpkg")) %>%
     map_depth(2, possibly(~ st_read(., quiet = TRUE), NA)) %>%
@@ -277,26 +283,29 @@ mosaic_clouds <- function(records, cloud_stack) {
 #' @param forest_mask Forest/Non-forest mask
 #' @return (`list`) File names of masked mosaics for each year
 #' @export
-mask_mosaic <- function(image_mosaic, cloud_mosaic, aoi, forest_mask) {
+mask_mosaic <- function(image_mosaic,
+                        cloud_mosaic,
+                        aoi,
+                        forest_mask) {
 
   # Read mosaic
   ras_mosaic_stack <-
     image_mosaic %>%
-    map(~ stack(.))
+    map(~ raster::stack(.))
 
   # Read cloud mask
   vec_mosaic_cloud_mask <-
     cloud_mosaic %>%
-    map(~ st_read(., quiet = TRUE)) %>%
-    map(~ st_set_crs(., "+proj=utm +zone=30 +datum=WGS84 +units=m +noread_defs"))
+    map(~ sf::st_read(., quiet = TRUE)) %>%
+    map(~ sf::st_set_crs(., "+proj=utm +zone=30 +datum=WGS84 +units=m +noread_defs"))
 
   # Mask cloud with aoi
   vec_mosaic_cloud_mask %<>%
-    future_map(~ st_crop(., aoi))
+    map(~ sf::st_crop(., aoi))
 
   vec_mosaic_cloud_mask %<>%
     map(function(.x) {
-      st_set_agr(.x, "constant")
+      sf::st_set_agr(.x, "constant")
     })
 
   # Mask mosaic with aoi
@@ -315,16 +324,17 @@ mask_mosaic <- function(image_mosaic, cloud_mosaic, aoi, forest_mask) {
         .x
       }
     }) %>%
-    map(~ raster::mask(., as(st_zm(forest_mask), "Spatial")))
+    map(~ raster::mask(., as(sf::st_zm(forest_mask), "Spatial")))
 
   # Write to disk
   list(ras_mask, image_mosaic) %>%
-    pmap(~ writeRaster(.x, paste0("data/sentinel/image_mask/", basename(.y)),
+    pmap(~ raster::writeRaster(.x,
+      paste0("data/sentinel/image_mask/", basename(.y)),
       overwrite = TRUE
     ))
 
   return(image_mosaic %>%
-    map(~ str_glue("data/sentinel/image_mask/", basename(.))))
+    map(~ stringr::str_glue("data/sentinel/image_mask/", basename(.))))
 }
 
 #' @title mask_vi
@@ -391,7 +401,7 @@ calculate_vi <- function(image) {
     year <- "2018"
   }
 
-  print("Starting EVI")
+  cat(glue("Starting EVI {year}"))
 
   # EVI
   image_stack <- map(image, ~ stack(.x))
@@ -406,7 +416,7 @@ calculate_vi <- function(image) {
   #   calc(fun = function(x) mean(x, na.rm = TRUE)) %>%
   #   writeRaster(glue("data/sentinel/image_vi/EVI-{year}.tif"), overwrite = TRUE)
 
-  print("Starting GDVI 2")
+  cat(glue("Starting GDVI 2 {year}"))
 
   # GDVI 2
   image %>%
@@ -416,7 +426,7 @@ calculate_vi <- function(image) {
     calc(fun = function(x) mean(x, na.rm = TRUE)) %>%
     writeRaster(glue("data/sentinel/image_vi/GDVI_2-{year}.tif"), overwrite = TRUE)
 
-  print("Starting GDVI 3")
+  cat(glue("Starting GDVI 3 {year}"))
   # GDVI 3
   image %>%
     map(~ stack(.)) %>%
@@ -425,7 +435,7 @@ calculate_vi <- function(image) {
     calc(fun = function(x) mean(x, na.rm = TRUE)) %>%
     writeRaster(glue("data/sentinel/image_vi/GDVI_3-{year}.tif"), overwrite = TRUE)
 
-  print("Starting GDVI 4")
+  cat(glue("Starting GDVI 4 {year}"))
   # GDVI 4
   image %>%
     map(~ stack(.)) %>%
@@ -434,7 +444,7 @@ calculate_vi <- function(image) {
     calc(fun = function(x) mean(x, na.rm = TRUE)) %>%
     writeRaster(glue("data/sentinel/image_vi/GDVI_4-{year}.tif"), overwrite = TRUE)
 
-  print("Starting mNDVI")
+  cat("Starting mNDVI")
   # mNDVI
   image %>%
     map(~ stack(.)) %>%
@@ -443,7 +453,7 @@ calculate_vi <- function(image) {
     calc(fun = function(x) mean(x, na.rm = TRUE)) %>%
     writeRaster(glue("data/sentinel/image_vi/mNDVI-{year}.tif"), overwrite = TRUE)
 
-  print("Starting mSR")
+  cat(glue("Starting mSR{year}"))
   # mSR
   image %>%
     map(~ stack(.)) %>%
@@ -452,7 +462,7 @@ calculate_vi <- function(image) {
     calc(fun = function(x) mean(x, na.rm = TRUE)) %>%
     writeRaster(glue("data/sentinel/image_vi/mSR-{year}.tif"), overwrite = TRUE)
 
-  print("Starting D1")
+  cat(glue("Starting D1 {year}"))
   # D1
   image %>%
     map(~ stack(.)) %>%
@@ -460,7 +470,6 @@ calculate_vi <- function(image) {
     stack() %>%
     calc(fun = function(x) mean(x, na.rm = TRUE)) %>%
     writeRaster(glue("data/sentinel/image_vi/D1-{year}.tif"), overwrite = TRUE)
-
 
   return(list(
     list.files("data/sentinel/image_vi",

@@ -5,6 +5,11 @@
 #'   - Removes the `sf` geometry column.
 #'
 #' @param data (`list`)\cr List containing multiple `data.frames`.
+#' @param cols_to_drop (`character(()`)\cr
+#'   Columns to remove from the data
+#' @param remove_coords (`logical(1)`)\cr
+#'   Whether to remove coordinates from the data (i.e. columns named `x` and
+#'   `y`) and their {sf} related `geom` list column
 #' @details
 #' # Remove columns with NA values and "ID" columns
 # Ref: https://stackoverflow.com/questions/41343900/remove-row-columns-with-any-all-nan-values/41343980#41343980
@@ -23,7 +28,6 @@ clean_single_plots <- function(data, cols_to_drop, remove_coords = FALSE) {
       map(~ st_as_sf(.x, crs = 32630, coords = c("x", "y"))) %>%
       map(~ st_set_geometry(.x, NULL))
   }
-
   return(data)
 }
 

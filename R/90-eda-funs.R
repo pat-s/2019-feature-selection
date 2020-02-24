@@ -1,6 +1,15 @@
 #' @title EDA functions from A. Brenning
 #' @description Correlation plot of a dataset
 #' @param x [data.frame]
+#' @param col.hist (`character(1)`)\cr
+#'  Color for histograms
+#' @param cex.cor (`character(1)`)\cr
+#' Numeric character expansion factor, see
+#'   [graphics::text()]
+#' @param digits (`integer(1)`)\cr
+#'  Amount of digits to round correlation result to
+#' @param pch See [graphics::points()]
+#' @param cex See [graphics::points()]
 #' @name my_pairs
 #' @export
 #'

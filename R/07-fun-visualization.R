@@ -1,8 +1,9 @@
 #' @title Create spatial maps from the predicted data
 #' @description Creates a spatial map plot using a predicted raster layer and
 #' inserts a performance value from a [mlr::BenchmarkResult]
-#' @param prediction_raster Predicted raster layer from [write_defoliation_map],
-#'   given in a list
+#' @importFrom purrr imap
+#' @import ggplot2
+#' @param prediction_raster Predicted raster layer given in a list
 #' @param model_name Algorithm name
 #' @param benchmark_object mlr benchmark object containing performance
 #' @param resampling String with the resampling description that should appear

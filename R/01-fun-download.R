@@ -1,6 +1,9 @@
 #' @title Download data
 #' @description
 #' `download_trees()`: Download in-situ tree data
+#' @importFrom curl curl_download
+#' @importFrom sf st_read
+#' @importFrom glue glue
 #'
 #' @template url
 #' @name download

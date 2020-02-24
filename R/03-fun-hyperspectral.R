@@ -4,6 +4,9 @@
 #'   - Crop to plot extent
 #'   - Mask to plot extent
 #'   - Reproject to EPSG 32630
+#' @importFrom fs dir_create
+#' @importFrom purrr iwalk pmap map set_names
+#' @importFrom raster brick
 #' @param data (`list`)\cr Raster bricks
 #' @param id (`character`)\cr ID name
 #' @param index (`integer`)\cr Internal identifier to check which plot belongs to which image.
@@ -73,37 +76,51 @@ process_hyperspec_helper <- function(data, id, index, plots, name_out) {
 #'   Extract indices to trees
 #' @importFrom raster extract
 #' @importFrom purrr map2
+#' @importFrom dplyr bind_cols
+#'
 #' @param plot_name (`character`)\cr Name of the plot
 #' @param buffer (`integer`)\cr Buffer to use for extracing, see [raster::extract()].
 #' @param tree_data (`sf`)\cr Tree data to extract the indices into.
 #' @param veg_indices (`list`)\cr Raster bricks with veg indices
 #' @param nri_indices (`list`)\cr Raster bricks with NRI indices
 #'
+#' @name extra_to_plot
 #' @export
-extract_indices_to_plot <- function(plot_name, buffer, tree_data,
-                                    veg_indices, nri_indices) {
+extract_indices_to_plot <- function(plot_name,
+                                    buffer,
+                                    tree_data,
+                                    veg_indices,
+                                    nri_indices) {
 
-  # calculate buffered veg index
-  veg_out <- map(buffer, function(x) {
-    raster::extract(veg_indices[[plot_name]], tree_data[[plot_name]],
-      buffer = x,
+  browser()
+  veg_out <- list(
+    raster::extract(veg_indices[[plot_name]],
+      tree_data[[plot_name]],
+      buffer = buffer,
+      fun = mean,
+      df = TRUE,
+      na.rm = TRUE
+    )
+  )
+
+  nbi_out <- list(
+    raster::extract(nri_indices[[plot_name]],
+      tree_data[[plot_name]],
+      buffer = buffer,
       fun = mean, df = TRUE,
       na.rm = TRUE
     )
-  })
+  )
+
+  # make the following work by giving buffer a value
+  if (is.null(buffer)) {
+    buffer <- 1
+  }
 
   veg_out %<>%
     map2(seq_along(buffer), ~ setNames(.x, glue("bf{buffer}_{name}",
       name = names(veg_out[[.y]])
     )))
-
-  nbi_out <- map(buffer, function(y) {
-    raster::extract(nri_indices[[plot_name]], tree_data[[plot_name]],
-      buffer = y,
-      fun = mean, df = TRUE,
-      na.rm = TRUE
-    )
-  })
 
   nbi_out %<>%
     map2(seq_along(buffer), ~ setNames(.x, glue("bf{buffer}_{name}",
@@ -129,22 +146,40 @@ extract_indices_to_plot <- function(plot_name, buffer, tree_data,
 #' @param hyperspectral_bands (`list`)\cr List with Raster Bricks of
 #'   hyperspectral bands
 #'
+#' @rdname extract_to_plot
 #' @export
-extract_bands_to_plot <- function(plot_name, buffer, tree_data,
+extract_bands_to_plot <- function(plot_name,
+                                  buffer,
+                                  tree_data,
                                   hyperspectral_bands) {
-  out_bands <- map(buffer, function(x) {
-    raster::extract(hyperspectral_bands[[plot_name]][[5:126]], tree_data[[plot_name]],
-      buffer = x,
-      fun = mean, df = TRUE,
+  if (!is.null(buffer)) {
+    out_bands <- map(buffer, function(x) {
+      raster::extract(hyperspectral_bands[[plot_name]][[5:126]],
+        tree_data[[plot_name]],
+        buffer = x,
+        fun = mean,
+        df = TRUE,
+        na.rm = TRUE
+      )
+    })
+  } else {
+    out_bands <- list(raster::extract(hyperspectral_bands[[plot_name]][[5:126]],
+      tree_data[[plot_name]],
+      fun = mean,
+      df = TRUE,
       na.rm = TRUE
-    )
-  })
+    ))
+  }
 
+  # make the following work by giving buffer a value
+  if (is.null(buffer)) {
+    buffer <- 1
+  }
   out_bands %<>%
     map2(seq_along(buffer), ~ setNames(
       .x,
       str_replace(
-        glue("bf{buffer}_{name}",
+        glue("{name}",
           name = names(out_bands[[.y]])
         ), "B.*_S.", "B"
       )
