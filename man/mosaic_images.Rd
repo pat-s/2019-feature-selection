@@ -4,7 +4,7 @@
 \alias{mosaic_images}
 \title{mosaic_images}
 \usage{
-mosaic_images(records, image_stack)
+mosaic_images(records)
 }
 \arguments{
 \item{records}{(\code{list})\cr \code{data.frame} of Sentinel-2 records from \link{get_records}.}

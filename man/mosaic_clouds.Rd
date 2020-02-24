@@ -4,7 +4,7 @@
 \alias{mosaic_clouds}
 \title{mosaic_clouds}
 \usage{
-mosaic_clouds(records, cloud_stack)
+mosaic_clouds(records)
 }
 \arguments{
 \item{records}{(\code{list})\cr \code{data.frame} of Sentinel-2 records from \link{get_records}.}

@@ -4,7 +4,8 @@
 \name{FeatureSelection-package}
 \alias{FeatureSelection}
 \alias{FeatureSelection-package}
-\title{FeatureSelection: Research Compendium package for the publication "Placeholder"}
+\title{FeatureSelection: Research Compendium package for the publication
+    "Placeholder"}
 \description{
 What the package does (one paragraph)
 }
