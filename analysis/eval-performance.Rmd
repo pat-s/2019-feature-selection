@@ -19,37 +19,35 @@ knitr::opts_chunk$set(
   echo = FALSE
 )
 
-R.utils::sourceDirectory("R")
+source(here::here("code/99-packages.R"))
+load_packages()
 
 # load drake objects
-drake::loadd(
-  bm_aggregated
+loadd(
+  bm_aggregated_new
 )
-library("mlr")
-library("magrittr")
-library("dplyr")
-library("ggplot2")
-library("ggrepel")
-library("ggsci")
-library("ggpubr")
-library("ggbeeswarm")
-library("flextable")
 library("xtable")
+library("flextable")
+library("ggbeeswarm")
+library("ggsci")
+library("ggrepel")
+library("ggpubr")
 ```
 
 ```{r}
-df_perf <- getBMRPerformances(bm_aggregated, as.df = T) %>%
+df_perf <- getBMRPerformances(bm_aggregated_new, as.df = T) %>%
   mutate(task.id = recode_factor(task.id,
-    `defoliation-all-plots-HR` = "HR",
-    `defoliation-all-plots-VI` = "VI",
-    `defoliation-all-plots-NRI` = "NRI",
-    `defoliation-all-plots-HR-NRI` = "HR-NRI",
-    `defoliation-all-plots-HR-VI` = "HR-VI",
-    `defoliation-all-plots-HR-NRI-VI` = "HR-NRI-VI",
+    `hr` = "HR",
+    `vi` = "VI",
+    `nri` = "NRI",
+    `nri_vi` = "NRI_VI",
+    `hr_nri` = "HR-NRI",
+    `hr_vi` = "HR-VI",
+    `hr_nri_vi` = "HR-NRI-VI",
   )) %>%
   tidyr::separate(learner.id, c("learner_group", "filter"),
     remove = FALSE,
-    sep = " "
+    sep = " MBO "
   )
 ```
 
@@ -82,7 +80,7 @@ table1 <- df_perf %>%
   ) %>%
   ungroup() %>%
   mutate(Filter = replace(Filter, is.na(Filter), "No Filter")) %>%
-  select(-iter, -`Learner ID`, -rsq, -expvar) %>%
+  select(-iter, -`Learner ID`) %>%
   arrange(RMSE)
 
 # save as latex table
@@ -96,7 +94,7 @@ table1 %>%
     label = "tab:perf-top-15"
   ) %>%
   print(
-    file = "code/98-paper/ieee/performance-top-20.tex",
+    file = "docs/00-manuscripts/ieee/performance-top-20.tex",
     include.rownames = TRUE,
     latex.environments = c("center"),
     table.placement = "ht!",
@@ -104,7 +102,7 @@ table1 %>%
     timestamp = NULL
   )
 
-saveRDS(table1, "code/98-paper/presentation/table-perf.rda")
+saveRDS(table1, "docs/00-manuscripts/presentation/table-perf.rda")
 
 table1 %>%
   flextable() %>%
@@ -133,7 +131,7 @@ table2 <- df_perf %>%
     "RMSE" = rmse_aggr,
     "SE" = se,
   ) %>%
-  select(-rsq, -expvar, -iter) %>%
+  select(-iter) %>%
   select(-`Learner ID`)
 
 # save as latex table
@@ -144,7 +142,7 @@ table2 %>%
     label = "tab:best-learner-perf"
   ) %>%
   print(
-    file = "code/98-paper/ieee/performance-best-per-learner.tex",
+    file = "docs/00-manuscripts/ieee/performance-best-per-learner.tex",
     include.rownames = TRUE,
     latex.environments = c("center"),
     table.placement = "ht!",
@@ -153,7 +151,7 @@ table2 %>%
     timestamp = NULL
   )
 
-saveRDS(table2, "code/98-paper/presentation/table-best-learner-per-task.rda")
+saveRDS(table2, "docs/00-manuscripts/ieee/presentation/table-best-learner-per-task.rda")
 
 table2 %>%
   flextable() %>%
@@ -186,7 +184,7 @@ results_aggr %>%
   scale_color_nejm(breaks = sort(levels(results_aggr$learner_group))) +
   labs(x = "RMSE", y = "Task", color = "Learner") +
   guides(size = FALSE) +
-  scale_x_continuous(limits = c(30, 70)) +
+  scale_x_continuous(limits = c(27, 47)) +
   geom_label_repel(
     # subset data to remove out of bounds values
     data = results_aggr[results_aggr$rmse_aggr < 100, ],
@@ -211,6 +209,8 @@ results_aggr %>%
 
 ## (Plot) Best filter combination of each learner vs. no filter per task vs. Borda
 
+**DEPRECATED**: Please see the scatterplots below for a better visulization
+
 Showing the final effect of applying feature selection to a learner for each task.
 The more left a certain filter appears for a given task compared to the purple dot (No Filter), the higher the effectivity of applying feature selection for that given learner on the given task.
 
@@ -227,16 +227,17 @@ best_filter <- df_perf %>%
 
 best_no_filter <- df_perf %>%
   mutate(task.id = recode_factor(task.id,
-    `defoliation-all-plots-HR` = "HR",
-    `defoliation-all-plots-VI` = "VI",
-    `defoliation-all-plots-NRI` = "NRI",
-    `defoliation-all-plots-HR-NRI` = "HR-NRI",
-    `defoliation-all-plots-HR-VI` = "HR-VI",
-    `defoliation-all-plots-HR-NRI-VI` = "HR-NRI-VI",
+    `hr` = "HR",
+    `vi` = "VI",
+    `nri` = "NRI",
+    `nri_vi` = "NRI_VI",
+    `hr_nri` = "HR-NRI",
+    `hr_vi` = "HR-VI",
+    `hr_nri_vi` = "HR-NRI-VI",
   )) %>%
   tidyr::separate(learner.id, c("learner_group", "filter"),
     remove = FALSE,
-    sep = " "
+    sep = " MBO "
   ) %>%
   mutate(filter = replace(filter, is.na(filter), "No Filter")) %>%
   dplyr::filter(filter == "No Filter") %>%
@@ -253,7 +254,7 @@ comb %>%
   # scale_color_nejm() +
   labs(x = "RMSE", y = "Task", color = "Filter") +
   guides(size = FALSE) +
-  scale_x_continuous(limits = c(30, 50)) +
+  scale_x_continuous(limits = c(27, 47)) +
   theme_pubr() +
   theme(
     panel.grid.major.y = element_line(size = 0.1, linetype = "dashed"),
@@ -296,7 +297,7 @@ comb_borda %>%
   scale_color_nejm() +
   labs(x = "RMSE", y = "Task", color = "Filter") +
   guides(size = FALSE) +
-  scale_x_continuous(limits = c(30, 50)) +
+  scale_x_continuous(limits = c(27, 47)) +
   theme_pubr() +
   theme(
     panel.grid.major.y = element_line(size = 0.1, linetype = "dashed"),
@@ -345,11 +346,13 @@ All filters are colored in the same way whereas using "no filter" appears in a d
 
 ```{r filter-effect-all-vs-no-filter, warning=FALSE, dev = c("png", "pdf")}
 results_aggr1 <- df_perf %>%
-  filter(learner_group != "Ridge-MBO", learner_group != "Ridge-CV") %>%
-  filter(learner_group != "Lasso-MBO", learner_group != "Lasso-CV") %>%
-  mutate(filter = replace(filter, is.na(filter), "NF")) %>%
+  filter(learner_group != "Ridge-CV") %>%
+  filter(learner_group != "Lasso-CV") %>%
+  # mutate(filter = replace(filter, "No Filter", "NF")) %>%
   mutate(learner_group = as.factor(learner_group)) %>%
   mutate(learner_group = recode(learner_group, `XGBoost` = "XG")) %>%
+  mutate(filter = recode(filter, `No Filter` = "NF")) %>%
+  mutate(learner_group = fct_rev(learner_group)) %>%
   group_by(learner_group, task.id, filter) %>%
   # we actually took the mean already in chunk 'aggr-perf'. This is only to get
   # summarise() working
@@ -366,10 +369,10 @@ results_aggr1 %>%
     size = 2, shape = 19, aes(color = "No Filter")
   ) +
   facet_wrap(~task.id) +
-  scale_color_nejm() +
+  scale_color_nejm(guide = guide_legend(override.aes = list(shape = c(3, 19)))) +
   labs(x = "RMSE", y = "Task", colour = NULL) +
   guides(size = FALSE) +
-  scale_x_continuous(limits = c(30, 50)) +
+  scale_x_continuous(limits = c(27, 51)) +
   theme_pubr() +
   theme(
     panel.grid.major.y = element_line(size = 0.1, linetype = "dashed"),
@@ -387,19 +390,20 @@ All filters are summarized into a a single color whereas the "Borda" filter appe
 ```{r filter-effect-all-vs-borda-filter, warning=FALSE, dev = c("png", "pdf")}
 results_aggr2 <- df_perf %>%
   na.omit() %>%
-  filter(learner_group != "Ridge-MBO", learner_group != "Ridge-CV") %>%
-  filter(learner_group != "Lasso-MBO", learner_group != "Lasso-CV") %>%
+  filter(learner_group != "Ridge-CV") %>%
+  filter(learner_group != "Lasso-CV") %>%
   mutate(learner_group = recode_factor(learner_group, `XGBoost` = "XG")) %>%
   group_by(learner_group, task.id, filter) %>%
   # we actually took the mean already in chunk 'aggr-perf'. This is only to get
   # summarise() working
-  summarise(perf = mean(rmse_aggr))
+  summarise(perf = mean(rmse_aggr)) %>% 
+  ungroup()
 
 results_aggr2 %>%
-  ggplot(aes(x = perf, y = learner_group)) +
+  ggplot(aes(x = perf, y = fct_reorder(learner_group, -perf))) +
   geom_beeswarm(
     data = results_aggr2[results_aggr2$filter != "Borda", ],
-    shape = 3, size = 1.1, aes(color = "Simple Filter"),
+    shape = 3, size = 1.1, aes(color = "Filter"),
     groupOnX = FALSE
   ) +
   geom_point(
@@ -407,10 +411,12 @@ results_aggr2 %>%
     shape = 19, size = 2, aes(color = "Borda Filter")
   ) +
   facet_wrap(~task.id) +
-  scale_color_nejm() +
+  scale_color_manual(guide = guide_legend(override.aes = list(shape = c(19, 3))),
+                     values = c("Filter" = "#BC8C29FF",
+                     "Borda Filter" = "#0072B5FF")) +
   labs(x = "RMSE", y = "Task", colour = NULL) +
   guides(size = FALSE) +
-  scale_x_continuous(limits = c(30, 48)) +
+  scale_x_continuous(limits = c(27, 51)) +
   theme_pubr() +
   theme(
     panel.grid.major.y = element_line(size = 0.1, linetype = "dashed"),
