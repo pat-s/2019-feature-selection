@@ -33,6 +33,7 @@ navbar:
 output:
   workflowr::wflow_html:
     toc: yes
-    toc_float: yes
+    toc_float: no
     theme: readable
     highlight: textmate
+    css: style.css
