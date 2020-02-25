@@ -19,8 +19,8 @@ knitr::opts_chunk$set(
   echo = FALSE
 )
 
-source(here::here("code/99-packages.R"))
-load_packages()
+R.utils::sourceDirectory("R")
+library("drake")
 
 # load drake objects
 loadd(
@@ -32,6 +32,16 @@ library("ggbeeswarm")
 library("ggsci")
 library("ggrepel")
 library("ggpubr")
+library("here")
+library("mlr")
+library("dplyr")
+library("forcats")
+```
+
+Last update: 
+
+```{r}
+date()
 ```
 
 ```{r}
@@ -94,7 +104,7 @@ table1 %>%
     label = "tab:perf-top-15"
   ) %>%
   print(
-    file = "docs/00-manuscripts/ieee/performance-top-20.tex",
+    file = here("docs/00-manuscripts/ieee/performance-top-20.tex"),
     include.rownames = TRUE,
     latex.environments = c("center"),
     table.placement = "ht!",
@@ -102,7 +112,7 @@ table1 %>%
     timestamp = NULL
   )
 
-saveRDS(table1, "docs/00-manuscripts/presentation/table-perf.rda")
+saveRDS(table1, here("docs/00-manuscripts/presentation/table-perf.rda"))
 
 table1 %>%
   flextable() %>%
@@ -142,7 +152,7 @@ table2 %>%
     label = "tab:best-learner-perf"
   ) %>%
   print(
-    file = "docs/00-manuscripts/ieee/performance-best-per-learner.tex",
+    file = here("docs/00-manuscripts/ieee/performance-best-per-learner.tex"),
     include.rownames = TRUE,
     latex.environments = c("center"),
     table.placement = "ht!",
@@ -151,7 +161,7 @@ table2 %>%
     timestamp = NULL
   )
 
-saveRDS(table2, "docs/00-manuscripts/presentation/table-best-learner-per-task.rda")
+saveRDS(table2, here("docs/00-manuscripts/presentation/table-best-learner-per-task.rda"))
 
 table2 %>%
   flextable() %>%
@@ -428,8 +438,4 @@ results_aggr2 %>%
     legend.text = element_text(size = 12),
     legend.title = element_text(size = 12),
   )
-```
-
-```{r echo = FALSE}
-copy_figures()
 ```
