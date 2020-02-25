@@ -20,9 +20,6 @@
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
-<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
-<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
@@ -75,6 +72,7 @@ h6 {
 }
 </style>
 
+<link rel="stylesheet" href="style.css" type="text/css" />
 
 
 
@@ -267,90 +265,6 @@ $(document).ready(function () {
 
 
 
-<script>
-$(document).ready(function ()  {
-
-    // move toc-ignore selectors from section div to header
-    $('div.section.toc-ignore')
-        .removeClass('toc-ignore')
-        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
-
-    // establish options
-    var options = {
-      selectors: "h1,h2,h3",
-      theme: "bootstrap3",
-      context: '.toc-content',
-      hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
-      },
-      ignoreSelector: ".toc-ignore",
-      scrollTo: 0
-    };
-    options.showAndHide = true;
-    options.smoothScroll = true;
-
-    // tocify
-    var toc = $("#TOC").tocify(options).data("toc-tocify");
-});
-</script>
-
-<style type="text/css">
-
-#TOC {
-  margin: 25px 0px 20px 0px;
-}
-@media (max-width: 768px) {
-#TOC {
-  position: relative;
-  width: 100%;
-}
-}
-
-
-.toc-content {
-  padding-left: 30px;
-  padding-right: 40px;
-}
-
-div.main-container {
-  max-width: 1200px;
-}
-
-div.tocify {
-  width: 20%;
-  max-width: 260px;
-  max-height: 85%;
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-  div.tocify {
-    width: 25%;
-  }
-}
-
-@media (max-width: 767px) {
-  div.tocify {
-    width: 100%;
-    max-width: none;
-  }
-}
-
-.tocify ul, .tocify li {
-  line-height: 20px;
-}
-
-.tocify-subheader .tocify-item {
-  font-size: 0.90em;
-}
-
-.tocify .list-group-item {
-  border-radius: 0px;
-}
-
-
-</style>
-
-
 
 </head>
 
@@ -358,16 +272,6 @@ div.tocify {
 
 
 <div class="container-fluid main-container">
-
-
-<!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row-fluid">
-<div class="col-xs-12 col-sm-4 col-md-3">
-<div id="TOC" class="tocify">
-</div>
-</div>
-
-<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -459,6 +363,11 @@ div.section {
 
 </div>
 
+<div id="TOC">
+<ul>
+<li><a href="#spectral-signatures-of-plots">Spectral signatures of plots</a></li>
+</ul>
+</div>
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
@@ -480,7 +389,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-02-02
+<strong>Last updated:</strong> 2020-02-25
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -571,10 +480,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontreef680221b9a0c1de452533787ad7689efcbe1bb89targetblankf680221a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/f680221b9a0c1de452533787ad7689efcbe1bb89" target="_blank">f680221</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontreee8771128b876c36d93c0cf3e899323013deab2eatargetblanke877112a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/e8771128b876c36d93c0cf3e899323013deab2ea" target="_blank">e877112</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontreef680221b9a0c1de452533787ad7689efcbe1bb89targetblankf680221a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontreee8771128b876c36d93c0cf3e899323013deab2eatargetblanke877112a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -589,6 +498,7 @@ Ignored files:
     Ignored:    analysis/rosm.cache/
     Ignored:    data/
     Ignored:    inst/Benchmark for Filter Methods for Feature Selection in High-Dimensional  Classification Data.pdf
+    Ignored:    inst/study-area-map/._study-area.qgs
     Ignored:    inst/study-area-map/study-area.qgs~
     Ignored:    log/
     Ignored:    renv/library/
@@ -597,54 +507,15 @@ Ignored files:
     Ignored:    rosm.cache/
 
 Untracked files:
-    Untracked:  code/05-modeling/paper/01-eda.R
-    Untracked:  code/05-modeling/paper/02-param-sets.R
-    Untracked:  code/05-modeling/paper/03-learner.R
-    Untracked:  code/05-modeling/paper/04-filter-wrapper.R
-    Untracked:  code/05-modeling/paper/05-pca-wrapper.R
-    Untracked:  code/05-modeling/paper/06-resampling.R
-    Untracked:  code/05-modeling/paper/07-tune-ctrl.R
-    Untracked:  code/05-modeling/paper/08-tune-wrapper-mbo.R
-    Untracked:  code/05-modeling/paper/09-tune-wrapper.R
-    Untracked:  code/05-modeling/paper/10-train.R
-    Untracked:  code/98-paper/ieee/._IEEEtran.cls
-    Untracked:  code/98-paper/ieee/IEEEtran.cls
-    Untracked:  code/98-paper/ieee/ieee-manuscript.dvi
-    Untracked:  new-data.R
+    Untracked:  analysis/figure/
+    Untracked:  code/06-modeling/project/
 
 Unstaged changes:
-    Modified:   .Rprofile
-    Modified:   R/01-fun-download.R
-    Modified:   R/02-fun-data-preprocessing.R
-    Modified:   R/03-fun-hyperspectral.R
+    Modified:   R/99-utils.R
     Modified:   _drake.R
-    Modified:   analysis/eval-performance.Rmd
     Modified:   analysis/feature-importance.Rmd
     Modified:   analysis/report-defoliation.Rmd
-    Modified:   code/01-download.R
-    Modified:   code/02-hyperspectral-processing.R
-    Modified:   code/04-data-preprocessing.R
-    Deleted:    code/05-modeling/paper/eda.R
-    Modified:   code/05-modeling/paper/feature-importance.R
-    Deleted:    code/05-modeling/paper/filter-wrapper.R
-    Deleted:    code/05-modeling/paper/learner.R
-    Deleted:    code/05-modeling/paper/param-sets.R
-    Deleted:    code/05-modeling/paper/pca-wrapper.R
-    Deleted:    code/05-modeling/paper/resampling.R
-    Deleted:    code/05-modeling/paper/tune-ctrl.R
-    Deleted:    code/05-modeling/paper/tune-wrapper-mbo.R
-    Deleted:    code/05-modeling/paper/tune-wrapper.R
-    Modified:   code/06-benchmark-matrix.R
-    Modified:   code/061-aggregate.R
-    Modified:   code/98-paper/ieee/pdf/correlation-filter-nri-1.pdf
-    Modified:   code/98-paper/ieee/pdf/correlation-nbins-1.pdf
-    Modified:   code/98-paper/ieee/pdf/defoliation-distribution-plot-1.pdf
-    Modified:   code/98-paper/ieee/pdf/spectral-signatures-1.pdf
-    Modified:   code/98-paper/ieee/performance-best-per-learner.tex
-    Modified:   code/98-paper/ieee/performance-top-20.tex
-    Modified:   code/98-paper/journal/defoliation-distribution-plot-1.pdf
-    Modified:   code/98-paper/presentation/table-best-learner-per-task.rda
-    Modified:   code/98-paper/presentation/table-perf.rda
+    Modified:   code/03-sentinel-processing.R
     Modified:   code/99-packages.R
 
 </code></pre>
@@ -684,6 +555,57 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/e8771128b876c36d93c0cf3e899323013deab2ea/analysis/spectral-signatures.Rmd" target="_blank">e877112</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-02-25
+</td>
+<td>
+wflow_publish(knitr_in(“analysis/spectral-signatures.Rmd”), view =
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/bbd422affd277f853de95854bea58f0fee66443e/analysis/spectral-signatures.Rmd" target="_blank">bbd422a</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-02-24
+</td>
+<td>
+update reports
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pat-s/2019-feature-selection/9d73d10a8ecbb75dca68944a3fdc9f6c40d08c58/docs/spectral-signatures.html" target="_blank">9d73d10</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-02-02
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -1238,36 +1160,36 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] here_0.1         fs_1.3.1         dplyr_0.8.3      purrr_0.3.0     
- [5] magrittr_1.5     cowplot_0.9.2    hsdar_0.5.2      caret_6.0-81    
- [9] ggplot2_3.2.1    lattice_0.20-38  signal_0.7-6     rootSolve_1.7   
-[13] rgdal_1.4-4      raster_2.8-4     sp_1.3-1         tidyselect_0.2.5
+ [1] purrr_0.3.3      magrittr_1.5     hsdar_0.5.2      caret_6.0-81    
+ [5] ggplot2_3.2.1    lattice_0.20-38  signal_0.7-6     rootSolve_1.7   
+ [9] rgdal_1.4-4      raster_2.8-4     sp_1.3-1         tidyselect_0.2.5
+[13] drake_7.10.0    
 
 loaded via a namespace (and not attached):
- [1] splines_3.6.1      foreach_1.4.4      R.utils_2.8.0     
- [4] prodlim_2018.04.18 assertthat_0.2.0   stats4_3.6.1      
- [7] base64url_1.4      yaml_2.2.0         ipred_0.9-8       
-[10] pillar_1.3.1       backports_1.1.5    glue_1.3.0        
-[13] digest_0.6.22      promises_1.0.1     colorspace_1.4-0  
-[16] recipes_0.1.4      htmltools_0.3.6    httpuv_1.4.5.1    
-[19] Matrix_1.2-15      R.oo_1.23.0        plyr_1.8.4        
-[22] timeDate_3043.102  pkgconfig_2.0.3    drake_7.9.0       
-[25] scales_1.0.0       whisker_0.3-2      later_1.0.0       
-[28] gower_0.1.2        lava_1.6.5         git2r_0.26.1      
-[31] tibble_2.1.3       txtq_0.1.4         generics_0.0.2    
-[34] withr_2.1.2        nnet_7.3-12        lazyeval_0.2.1    
-[37] survival_2.43-3    crayon_1.3.4       evaluate_0.13     
-[40] storr_1.2.1        R.methodsS3_1.7.1  nlme_3.1-142      
-[43] MASS_7.3-51.4      class_7.3-15       tools_3.6.1       
-[46] data.table_1.12.6  stringr_1.4.0      munsell_0.5.0     
-[49] compiler_3.6.1     rlang_0.4.1        grid_3.6.1        
-[52] iterators_1.0.10   igraph_1.2.4.1     rmarkdown_1.13    
-[55] gtable_0.2.0       ModelMetrics_1.2.2 codetools_0.2-16  
-[58] reshape2_1.4.3     R6_2.4.1           lubridate_1.7.4   
-[61] knitr_1.23         zeallot_0.1.0      filelock_1.0.2    
-[64] workflowr_1.6.0    rprojroot_1.3-2    stringi_1.3.1     
-[67] parallel_3.6.1     Rcpp_1.0.3         vctrs_0.2.1       
-[70] rpart_4.1-13       xfun_0.5          </code></pre>
+ [1] Rcpp_1.0.3         lubridate_1.7.4    txtq_0.1.4        
+ [4] class_7.3-15       ipred_0.9-8        assertthat_0.2.1  
+ [7] zeallot_0.1.0      rprojroot_1.3-2    digest_0.6.23     
+[10] foreach_1.4.4      R6_2.4.1           plyr_1.8.4        
+[13] backports_1.1.5    stats4_3.6.1       evaluate_0.13     
+[16] pillar_1.3.1       rlang_0.4.4        lazyeval_0.2.1    
+[19] data.table_1.12.6  whisker_0.3-2      R.utils_2.8.0     
+[22] R.oo_1.23.0        rpart_4.1-13       Matrix_1.2-15     
+[25] rmarkdown_1.13     splines_3.6.1      gower_0.1.2       
+[28] stringr_1.4.0      igraph_1.2.4.1     munsell_0.5.0     
+[31] compiler_3.6.1     httpuv_1.4.5.1     xfun_0.5          
+[34] pkgconfig_2.0.3    htmltools_0.3.6    nnet_7.3-12       
+[37] prodlim_2018.04.18 tibble_2.1.3       workflowr_1.6.0   
+[40] codetools_0.2-16   crayon_1.3.4       dplyr_0.8.3       
+[43] withr_2.1.2        later_1.0.0        MASS_7.3-51.4     
+[46] recipes_0.1.4      R.methodsS3_1.7.1  ModelMetrics_1.2.2
+[49] grid_3.6.1         nlme_3.1-142       gtable_0.2.0      
+[52] git2r_0.26.1       storr_1.2.1        scales_1.0.0      
+[55] stringi_1.3.1      reshape2_1.4.3     fs_1.3.1          
+[58] promises_1.0.1     timeDate_3043.102  filelock_1.0.2    
+[61] vctrs_0.2.1        generics_0.0.2     lava_1.6.5        
+[64] iterators_1.0.10   tools_3.6.1        glue_1.3.1        
+[67] survival_2.43-3    parallel_3.6.1     yaml_2.2.0        
+[70] colorspace_1.4-0   base64url_1.4      knitr_1.23        </code></pre>
 </div>
 </div>
 
@@ -1285,8 +1207,6 @@ footer is added to webpages before the MathJax javascript. -->
 </script>
 
 
-</div>
-</div>
 
 </div>
 
