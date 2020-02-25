@@ -29,6 +29,12 @@ loadd(
 )
 ```
 
+Last update: 
+
+```{r}
+date()
+```
+
 This document originated from the fear of having a response variable which is not normally distributed "enough".
 
 The response variable looks as follows:
