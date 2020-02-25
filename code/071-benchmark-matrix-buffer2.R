@@ -60,7 +60,7 @@ benchmark_plan_buffer2 <- drake_plan(
   # used in response-normality.Rmd
   benchmark_models_new_buffer2 = target(
     benchmark(
-      learners = learners_keep_models,
+      learners = learners_keep_models[[1]],
       tasks = task_new_buffer2,
       models = TRUE,
       keep.pred = TRUE,
@@ -70,7 +70,7 @@ benchmark_plan_buffer2 <- drake_plan(
         setAggregation(rmse, test.mean)
       )
     ),
-    dynamic = cross(learners_keep_models, task_new_buffer2)
+    dynamic = cross(learners_keep_models[[1]], task_new_buffer2)
   ),
 
   benchmark_no_models_old_buffer2 = target(
