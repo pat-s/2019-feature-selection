@@ -29,6 +29,12 @@ library("magrittr")
 library("purrr")
 ```
 
+Last update: 
+
+```{r}
+date()
+```
+
 # Spectral signatures of plots
 
 Spectral signatures for plots 
