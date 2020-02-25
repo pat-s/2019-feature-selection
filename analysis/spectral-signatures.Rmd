@@ -88,5 +88,5 @@ dev.off()
 ```
 
 ```{r spectral-signatures-4, echo = FALSE}
-copy_figures()
+#copy_figures()
 ```
