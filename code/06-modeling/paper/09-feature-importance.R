@@ -4,5 +4,12 @@ feature_imp_plan <- drake_plan(
     measure = list(
       setAggregation(rmse, test.mean)
     )
-  ))
+  )),
+
+  fi_permut_vi_buffer2 = target(feature_imp_parallel(task_new_buffer2[[2]],
+    learner = "regr.ksvm", nmc = 100,
+    measure = list(
+      setAggregation(rmse, test.mean)
+    )
+  )),
 )
