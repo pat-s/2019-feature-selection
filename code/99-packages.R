@@ -42,4 +42,5 @@ load_packages = function() {
   suppressPackageStartupMessages(library(future.batchtools))
   suppressPackageStartupMessages(library(forcats))
   suppressPackageStartupMessages(library(here))
+  suppressPackageStartupMessages(library(ggpmisc))
 }

@@ -28,6 +28,7 @@ Imports:
     ggplot2,
     ggpubr,
     ggspatial,
+    ggpmisc,
     glue,
     hsdar,
     knitr,
