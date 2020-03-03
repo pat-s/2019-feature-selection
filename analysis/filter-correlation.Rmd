@@ -174,10 +174,3 @@ ggcorrplot(corr_inf_gain,
 )
 ```
 
-```{r filter-correlation-5, echo = FALSE}
-system("sleep 5")
-# file_move("docs/figure/filter-correlation.Rmd/correlation-nbins-1.pdf",
-#           "code/98-paper/journal/")
-# file_move("docs/figure/filter-correlation.Rmd/correlation-filter-nri-1.pdf",
-#           "code/98-paper/journal/")
-```
