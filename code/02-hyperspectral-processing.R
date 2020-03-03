@@ -1,4 +1,4 @@
-hyperspectra_processing_plan <- drake_plan(
+hyperspectral_processing_plan <- drake_plan(
   data_hs_preprocessed = target(
     process_hyperspec(
       data = data_hs_raw, plots = plot_locations,
@@ -26,30 +26,30 @@ hyperspectra_processing_plan <- drake_plan(
   ),
 
   trees_with_indices = target(
-    lapply(c("laukiz1", "laukiz2", "luiando", "oiartzun"),
-      FUN = function(x) {
-        extract_indices_to_plot(x,
-          buffer = buffer,
-          tree_data = tree_per_tree,
-          veg_indices = veg_indices,
-          nri_indices = nri_indices
-        )
-      }
+    list(
+      extract_indices_to_plot(plot_names,
+        buffer = buffer,
+        tree_data = tree_per_tree,
+        veg_indices = veg_indices,
+        nri_indices = nri_indices
+      )
     ),
-    transform = map(buffer = c(0, 1, 1.5, 2))
+    dynamic = cross(
+      buffer, plot_names
+    )
   ),
 
   trees_with_bands = target(
-    lapply(c("laukiz1", "laukiz2", "luiando", "oiartzun"),
-      FUN = function(x) {
-        extract_bands_to_plot(x,
-          buffer = 2,
-          tree_data = tree_per_tree,
-          hyperspectral_bands = data_hs_preprocessed
-        )
-      }
+    list(
+      extract_bands_to_plot(plot_names,
+        buffer = buffer,
+        tree_data = tree_per_tree,
+        hyperspectral_bands = data_hs_preprocessed
+      )
     ),
-    transform = map(buffer = c(0, 1, 1.5, 2))
+    dynamic = cross(
+      buffer, plot_names
+    )
   ),
 
   # corrected data from Jan 2020 -----------------------------------------------
