@@ -377,7 +377,3 @@ map(
     subtitle = "Mean values of each hyperspectral band for each plot "
   )
 ```
-
-```{r echo=FALSE}
-copy_figures()
-```
