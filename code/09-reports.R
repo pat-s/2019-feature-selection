@@ -27,7 +27,14 @@ reports_plan_paper <- drake_plan(
       verbose = TRUE
     )
     copy_figures()
-  })
+  }),
+  feature_importance_wfr = target({
+    wflow_publish(knitr_in("analysis/feature-importance.Rmd"),
+      view = FALSE,
+      verbose = TRUE
+    )
+    copy_figures()
+  }),
 )
 
 reports_plan_project <- drake_plan(
