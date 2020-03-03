@@ -77,12 +77,19 @@ copy_figures <- function() {
 
   # filter-correlation.Rmd -----------------------------------------------------
 
-  # file_cp_ts(
-  #   "docs/figure/filter-correlation.Rmd/correlation-nbins-1.pdf",
-  #   "docs/00-manuscripts/ieee/pdf/"
-  # )
-  # file_cp_ts(
-  #   "docs/figure/filter-correlation.Rmd/correlation-filter-nri-1.pdf",
-  #   "docs/00-manuscripts/ieee/pdf/"
-  # )
+  file_cp_ts(
+    "docs/figure/filter-correlation.Rmd/correlation-nbins-1.pdf",
+    "docs/00-manuscripts/ieee/pdf/"
+  )
+  file_cp_ts(
+    "docs/figure/filter-correlation.Rmd/correlation-filter-nri-1.pdf",
+    "docs/00-manuscripts/ieee/pdf/"
+  )
+
+  # feature-importance.Rmd -----------------------------------------------------
+
+  file_cp_ts(
+    here::here("docs/figure/feature-importance.Rmd/fi-permut-vi-hr-1.pdf"),
+    here::here("docs/00-manuscripts/ieee/pdf/")
+  )
 }
