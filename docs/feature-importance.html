@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+<meta name="author" content="Patrick Schratz" />
+
+
+<title>Feature importance analysis</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<div><img src="logo/life.jpg" align="right" style="width:200px;margin-top:15px" ></div>
+
+<div><img src="logo/fsu.png" align="left" style="width:200px;margin-top:15px" ></div>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">2019-feature-selection</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Project
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="report-defoliation.html">Prediction of defoliation at trees</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Paper
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="eda.html">Exploratory data analysis</a>
+    </li>
+    <li>
+      <a href="filter-correlation.html">Filter correlation analysis</a>
+    </li>
+    <li>
+      <a href="eval-performance.html">Performance evaluation</a>
+    </li>
+    <li>
+      <a href="feature-importance.html">Feature importance</a>
+    </li>
+    <li>
+      <a href="spectral-signatures.html">Spectral signatures</a>
+    </li>
+    <li>
+      <a href="response-normality.html">Checking for normality of response</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="timeline.html">Timeline</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Feature importance analysis</h1>
+<h4 class="author">Patrick Schratz</h4>
+
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#create-a-virtual-spectral-signature-of-vegetation-using-prosail.">Create a virtual spectral signature of vegetation using PROSAIL.</a></li>
+<li><a href="#p1-main-plot">P1 Main plot</a></li>
+<li><a href="#plots-by-dataset">Plots by dataset</a><ul>
+<li><a href="#hr">HR</a><ul>
+<li><a href="#p2-absolute-permutation-based-var-imp">P2 Absolute permutation based Var Imp</a></li>
+</ul></li>
+<li><a href="#vi">VI</a><ul>
+<li><a href="#p3-absolute-permutation-based-var-imp">P3 Absolute permutation based Var Imp</a></li>
+</ul></li>
+<li><a href="#combined">Combined</a></li>
+</ul></li>
+</ul>
+</div>
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2020-03-03
+</p>
+<p>
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+</p>
+<p>
+<strong>Knit directory:</strong> <code>2019-feature-selection/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+</p>
+<p>
+This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20190522code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20190522)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20190522code" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20190522)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree07d8cb98834a2c554f8a245917a1aa73ff67244dtargetblank07d8cb9a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/07d8cb98834a2c554f8a245917a1aa73ff67244d" target="_blank">07d8cb9</a> </a>
+</p>
+</div>
+<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree07d8cb98834a2c554f8a245917a1aa73ff67244dtargetblank07d8cb9a" class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .Rhistory
+    Ignored:    .Rproj.user/
+    Ignored:    .Ruserdata/
+    Ignored:    .drake/
+    Ignored:    .vscode/
+    Ignored:    analysis/rosm.cache/
+    Ignored:    data/
+    Ignored:    inst/Benchmark for Filter Methods for Feature Selection in High-Dimensional  Classification Data.pdf
+    Ignored:    inst/study-area-map/._study-area.qgs
+    Ignored:    inst/study-area-map/study-area.qgs~
+    Ignored:    log/
+    Ignored:    renv/library/
+    Ignored:    renv/staging/
+    Ignored:    reviews/
+    Ignored:    rosm.cache/
+
+Untracked files:
+    Untracked:  code/06-modeling/project/
+    Untracked:  inst/hsdar-veg-indices.tex
+
+Unstaged changes:
+    Modified:   DESCRIPTION
+    Modified:   R/04-fun-sentinel-processing.R
+    Modified:   R/99-utils.R
+    Modified:   _drake.R
+    Modified:   analysis/eda.Rmd
+    Modified:   analysis/report-defoliation.Rmd
+    Modified:   code/02-hyperspectral-processing.R
+    Modified:   code/03-sentinel-processing.R
+    Modified:   code/06-modeling/paper/08-train.R
+    Modified:   code/06-modeling/paper/09-feature-importance.R
+    Modified:   code/09-reports.R
+    Modified:   code/99-packages.R
+    Deleted:    code/move-figures.R
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+
+<p>
+These are the previous versions of the R Markdown and HTML files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view them.
+</p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/07d8cb98834a2c554f8a245917a1aa73ff67244d/analysis/feature-importance.Rmd" target="_blank">07d8cb9</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-03-03
+</td>
+<td>
+wflow_publish(knitr_in(“analysis/feature-importance.Rmd”), view =
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/53a6b6200b411fb92b33c7855ecff5d8b859d681/analysis/feature-importance.Rmd" target="_blank">53a6b62</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-02-28
+</td>
+<td>
+save feature-importance state
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/518d0cb80bb9ebf7fdcdf10dc3d8324599563923/analysis/feature-importance.Rmd" target="_blank">518d0cb</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-09-01
+</td>
+<td>
+style files using tidyverse style
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/d7df860373e973b0f8489ad6c5cfe24bc21aa1ed/analysis/feature-importance.Rmd" target="_blank">d7df860</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-07-10
+</td>
+<td>
+add feat imp plan
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/3999cd9c8be07e49616a017f42206520294cd062/analysis/feature-importance.Rmd" target="_blank">3999cd9</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-06-30
+</td>
+<td>
+add feature importance report
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<p>Preview the ordered feature importance results for datasets “HR” and “VI”.</p>
+<pre><code># A tibble: 122 x 5
+   feature importance wavelength numeric_id  rank
+   &lt;chr&gt;        &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt; &lt;int&gt;
+ 1 B69          1.57        724          69     1
+ 2 B70          1.28        729.         70     2
+ 3 B126         1.26        995.        126     3
+ 4 B115         1.11        942.        115     4
+ 5 B68          1.01        719.         68     5
+ 6 B7           0.953       430.          7     6
+ 7 B71          0.951       734.         71     7
+ 8 B67          0.874       714.         67     8
+ 9 B113         0.837       933         113     9
+10 B124         0.773       985.        124    10
+# … with 112 more rows</code></pre>
+<pre><code># A tibble: 89 x 3
+   feature    importance  rank
+   &lt;chr&gt;           &lt;dbl&gt; &lt;int&gt;
+ 1 Vogelmann2      1.79      1
+ 2 Vogelmann4      1.47      2
+ 3 Vogelmann       0.914     3
+ 4 NPCI            0.717     4
+ 5 Vogelmann3      0.707     5
+ 6 D2              0.657     6
+ 7 Datt3           0.637     7
+ 8 PWI             0.545     8
+ 9 SR7             0.526     9
+10 SRPI            0.509    10
+# … with 79 more rows</code></pre>
+<div id="create-a-virtual-spectral-signature-of-vegetation-using-prosail." class="section level1">
+<h1>Create a virtual spectral signature of vegetation using PROSAIL.</h1>
+<p>PROSAIL is a algorithm simulating spectral signatures of vegetation, see <code>?hsdar::PROSAIL</code>. Reflectance is scaled to 0-10 to be able to plot it in the same plot as the feature importance rankings -&gt; the axis limits for the y and z axis needs to match.</p>
+<p>PROSAIL returns a spectral signature from 400 nm to 2500 nm -&gt; we take the values only and subset to 400 nm - 1000 nm. Because we order from 1 - 10 with 1 being the best rank, we have to reverse the scaling of the reflectance values.</p>
+<p>Next we bind the simulated data with the feature importance rankings. To join both data.frames we need to round the reflectance centers of the bands to integers to match with the reflectance values created by PROSAIL.</p>
+<p>To label only a subset of the data, a custom data.frame is created.</p>
+</div>
+<div id="p1-main-plot" class="section level1">
+<h1>P1 Main plot</h1>
+<p><img src="figure/feature-importance.Rmd/fi-permut-vi-hr-1.png" width="100%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="plots-by-dataset" class="section level1">
+<h1>Plots by dataset</h1>
+<div id="hr" class="section level2">
+<h2>HR</h2>
+<div id="p2-absolute-permutation-based-var-imp" class="section level3">
+<h3>P2 Absolute permutation based Var Imp</h3>
+<p><img src="figure/feature-importance.Rmd/fi-permut-hr-abs-1.png" width="100%" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="vi" class="section level2">
+<h2>VI</h2>
+<div id="p3-absolute-permutation-based-var-imp" class="section level3">
+<h3>P3 Absolute permutation based Var Imp</h3>
+<p><img src="figure/feature-importance.Rmd/fi-permut-vi-abs-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>Vogelmann2 <span class="math inline">\((R_{734}-R_{747})/(R_{715}+R_{726})\)</span> Vogelmann et al. (1993) Vogelmann4 <span class="math inline">\((R_{734}-R_{747})/(R_{715}+R_{720})\)</span> Vogelmann et al. (1993) Vogelmann3 <span class="math inline">\(D_{715}/D_{705}\)</span> Vogelmann et al. (1993) Vogelmann <span class="math inline">\(R_{740}/R_{720}\)</span> Vogelmann et al. (1993) NPCI <span class="math inline">\((R_{680}-R_{430})/(R_{680}+R_{430})\)</span> D2 <span class="math inline">\(D_{705}/D_{722}\)</span> Datt3 <span class="math inline">\(D_{754}/D_{704}\)</span> PWI <span class="math inline">\(R_{900}/R_{970}\)</span> SR7 <span class="math inline">\(R_{440}/R_{690}\)</span> SRPI <span class="math inline">\(R_{430}/R_{680}\)</span></p>
+<p>Dxxx: First derivation of reflectance values at wavelength ‘xxx’. Rxxx: Reflectance at wavelength ‘xxx’.</p>
+<p>Reference: <code>?hsdar::vegindex()</code></p>
+</div>
+</div>
+<div id="combined" class="section level2">
+<h2>Combined</h2>
+<p><img src="figure/feature-importance.Rmd/fi-hr-vi-abs-comb-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre><code>R version 3.6.1 (2019-07-05)
+Platform: x86_64-pc-linux-gnu (64-bit)
+Running under: CentOS Linux 7 (Core)
+
+Matrix products: default
+BLAS:   /opt/spack/opt/spack/linux-centos7-x86_64/gcc-9.2.0/r-3.6.1-j25wr6zcofibs2zfjwg37357rjj26lqb/rlib/R/lib/libRblas.so
+LAPACK: /opt/spack/opt/spack/linux-centos7-x86_64/gcc-9.2.0/r-3.6.1-j25wr6zcofibs2zfjwg37357rjj26lqb/rlib/R/lib/libRlapack.so
+
+locale:
+ [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+ [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+ [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
+ [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] tidyselect_0.2.5 patchwork_1.0.0  ggpmisc_0.3.3    ggpubr_0.1.6    
+ [5] magrittr_1.5     dplyr_0.8.3      hsdar_0.5.2      caret_6.0-81    
+ [9] ggplot2_3.2.1    lattice_0.20-38  signal_0.7-6     rootSolve_1.7   
+[13] rgdal_1.4-4      raster_3.0-12    sp_1.3-1         drake_7.10.0    
+
+loaded via a namespace (and not attached):
+ [1] tidyr_1.0.0        splines_3.6.1      foreach_1.4.4     
+ [4] prodlim_2018.04.18 assertthat_0.2.1   stats4_3.6.1      
+ [7] base64url_1.4      ggrepel_0.8.0      yaml_2.2.0        
+[10] ipred_0.9-8        pillar_1.3.1       backports_1.1.5   
+[13] glue_1.3.1         digest_0.6.23      checkmate_1.9.1   
+[16] promises_1.0.1     colorspace_1.4-0   recipes_0.1.4     
+[19] mlr_2.17.0.9001    htmltools_0.3.6    httpuv_1.4.5.1    
+[22] Matrix_1.2-15      plyr_1.8.4         timeDate_3043.102 
+[25] pkgconfig_2.0.3    purrr_0.3.3        scales_1.0.0      
+[28] parallelMap_1.4    whisker_0.3-2      later_1.0.0       
+[31] gower_0.1.2        lava_1.6.5         git2r_0.26.1      
+[34] tibble_2.1.3       txtq_0.1.4         generics_0.0.2    
+[37] withr_2.1.2        nnet_7.3-12        lazyeval_0.2.1    
+[40] cli_2.0.1          survival_2.43-3    crayon_1.3.4      
+[43] evaluate_0.13      storr_1.2.1        fansi_0.4.1       
+[46] fs_1.3.1           nlme_3.1-142       MASS_7.3-51.4     
+[49] class_7.3-15       tools_3.6.1        data.table_1.12.6 
+[52] lifecycle_0.1.0    BBmisc_1.11        stringr_1.4.0     
+[55] munsell_0.5.0      compiler_3.6.1     rlang_0.4.4       
+[58] grid_3.6.1         iterators_1.0.10   igraph_1.2.4.1    
+[61] labeling_0.3       rmarkdown_1.13     gtable_0.2.0      
+[64] ModelMetrics_1.2.2 codetools_0.2-16   reshape2_1.4.3    
+[67] R6_2.4.1           ParamHelpers_1.12  lubridate_1.7.4   
+[70] knitr_1.23         utf8_1.1.4         zeallot_0.1.0     
+[73] fastmatch_1.1-0    filelock_1.0.2     workflowr_1.6.0   
+[76] rprojroot_1.3-2    stringi_1.3.1      parallel_3.6.1    
+[79] Rcpp_1.0.3         vctrs_0.2.1        rpart_4.1-13      
+[82] xfun_0.5          </code></pre>
+</div>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+http://docs.mathjax.org/en/latest/configuration.html.  This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
