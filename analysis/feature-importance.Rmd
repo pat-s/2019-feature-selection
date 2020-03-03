@@ -30,11 +30,13 @@ library("patchwork")
 # load drake objects
 loadd(
   fi_permut_hr_buffer2,
-  fi_permut_vi_buffer2
+  fi_permut_vi_buffer2,
+
+  df_wavelengths_from_indices
 )
 ```
 
-Sort the permutation feature importance results 
+Preview the ordered feature importance results for datasets "HR" and "VI".
 
 ```{r feature-importance-1 }
 fi_ranked_hr <- fi_permut_hr_buffer2$res %>%
@@ -59,7 +61,8 @@ fi_ranked_vi <- fi_permut_vi_buffer2$res %>%
   # mutate(wavelength = seq(420, 995, 4.75)) %>%
   arrange(desc(importance)) %>%
   mutate(rank = row_number()) %>%
-  select(-measure)
+  select(-measure) %>%
+  mutate(feature = stringr::str_replace(feature, "bf2_", ""))
 fi_ranked_vi
 ```
 
@@ -78,78 +81,145 @@ spectra_df <- data.frame(
   wavelength = seq(400, 2500, 1)
 ) %>%
   dplyr::filter(wavelength < 1000) %>%
-  # scale the reflectance to fit into the range of the y-axis for the filter
-  # ranking (the 10 - is to reverse the scale)
-  dplyr::mutate(reflectance = 10 - scale(reflectance,
+  # scale the reflectance to [0, 2] to play nicely with the y-axis later (mean dec in rmse)
+  dplyr::mutate(reflectance = scale(reflectance,
     center = FALSE,
-    scale = max(reflectance, na.rm = TRUE) / 10
+    scale = max(reflectance, na.rm = TRUE) / 2
   ))
-
-# to be able to plot the sec y axis on the plot, we need to supply the scaled R
-# object -> we need to save the object separately
-reflectance <- as.vector(spectra_sim@spectra@spectra_ma)
-reflectance_scaled <- scale(reflectance,
-  center = FALSE,
-  scale = max(reflectance, na.rm = TRUE) / 10
-)
 ```
 
 Next we bind the simulated data with the feature importance rankings.
 To join both data.frames we need to round the reflectance centers of the bands to integers to match with the reflectance values created by PROSAIL.
 
 ```{r feature-importance-3 }
+# round the wavelengths of the HR dataset to match with the simulated ones
 fi_ranked_hr$wavelength <- round(fi_ranked_hr$wavelength)
 
 data_hr_merged <- left_join(spectra_df, fi_ranked_hr, by = c("wavelength")) %>%
-  mutate(class = "HR")
-
-# data_vi_merged <- left_join(spectra_df, fi_ranked_vi, by = c("wavelength")) %>%
-#   mutate(class = "vi") %>%
-#   mutate(reflectance = as.numeric(.data$reflectance))
+  mutate(class = "HR") %>%
+  mutate(reflectance = as.numeric(.data$reflectance))
 ```
 
-```{r feature-importance-4, echo=FALSE}
-plot_reflectance_imp_rank <- function(data) {
-  ggplot(data, aes(x = .data[["wavelength"]], y = .data[["rank"]])) +
-    geom_line(aes(x = wavelength, y = reflectance, color = "Spectral Signature of Vegetation"),
-      linetype = "solid",
-      size = 0.3
+To label only a subset of the data, a custom data.frame is created.
+
+```{r feature-importance-4 }
+df_wavelengths_from_indices_imp <- df_wavelengths_from_indices %>%
+  left_join(fi_ranked_vi, by = c("class" = "feature")) %>%
+  na.omit()
+
+df_wavelengths_from_indices_label <- df_wavelengths_from_indices_imp %>%
+  arrange(rank) %>%
+  group_by(class, rank) %>%
+  dplyr::slice(1) %>%
+  ungroup() %>%
+  arrange(rank) %>%
+  slice(1:10)
+
+df_wavelengths_from_hr <- data_hr_merged %>%
+  arrange(rank) %>%
+  group_by(class, rank) %>%
+  dplyr::slice(1) %>%
+  ungroup() %>%
+  arrange(rank) %>%
+  slice(1:10) %>%
+  select(-class) %>%
+  rename(class = feature)
+
+df_label_all <- df_wavelengths_from_indices_label %>%
+  bind_rows(df_wavelengths_from_hr)
+```
+
+```{r feature-importance-5, echo=FALSE}
+plot_reflectance_imp <- function(data) {
+  ggplot(data, aes(x = .data[["wavelength"]], y = .data[["importance"]])) +
+    geom_line(aes(
+      x = .data[["wavelength"]], y = reflectance,
+      color = "Spectral Signature of Vegetation"
+    ),
+    linetype = "solid",
+    size = 0.6
     ) +
-    geom_point(size = 2, aes(color = "Band"), show.legend = T) +
+    # HR: plot only rank 11:last
+    geom_point(
+      data = data_hr_merged[which(!(data_hr_merged$rank %in% c(1:10))), ],
+      aes(color = "HR: 11:122"),
+      size = 1.8,
+      shape = 5
+    ) +
+    # HR: plot only rank 1:10
+    geom_point(
+      data = data_hr_merged[which(data_hr_merged$rank %in% c(1:10)), ],
+      aes(color = "HR: 1:10"),
+      size = 1.8,
+    ) +
+
+    # VI: rank 1:10
+    geom_point(
+      data = df_wavelengths_from_indices_imp[which((df_wavelengths_from_indices_imp$rank %in% c(1:10))), ],
+      aes(x = wavelength, y = importance, group = class),
+      size = 2, shape = 4, color = "darkgreen"
+    ) +
+    # VI: rank 1:10
+    geom_line(
+      data = df_wavelengths_from_indices_imp[which((df_wavelengths_from_indices_imp$rank %in% c(1:10))), ],
+      aes(x = wavelength, y = importance, group = class, color = "VI: 1:10"),
+      size = 0.2, linetype = "dashed"
+    ) +
+
+    # VI: rank 11:89
+    geom_point(
+      data = df_wavelengths_from_indices_imp[which(!(df_wavelengths_from_indices_imp$rank %in% c(1:10))), ],
+      aes(x = wavelength, y = importance, group = class),
+      color = "grey",
+      shape = 5, size = 2
+    ) +
+    # # VI: rank 11:89
+    geom_line(
+      data = df_wavelengths_from_indices_imp[which(!(df_wavelengths_from_indices_imp$rank %in% c(1:10))), ],
+      aes(x = wavelength, y = importance, group = class, color = "VI: 11:89"),
+      size = 0.2, linetype = "dashed"
+    ) +
+
+    scale_color_manual(values = c(
+      "HR: 11:122" = "grey",
+      "HR: 1:10" = "black",
+      "Spectral Signature of Vegetation" = "black",
+      "VI: 1:10" = "darkgreen",
+      "VI: 11:89" = "grey"
+    )) +
     scale_x_continuous(limits = c(400, 1000), breaks = scales::pretty_breaks()) +
-    scale_y_reverse(
-      expand = c(0, 0),
-      limits = c(10L, 0),
-      # breaks = scales::pretty_breaks(),
-      breaks = seq(1, 10, 1),
+    scale_y_continuous(
       sec.axis = sec_axis(~ scale(-.,
         center = FALSE,
-        scale = max(., na.rm = TRUE) / -1
+        scale = max(., na.rm = TRUE)
       ),
       labels = c(1.0, 0.75, 0.55, 0.25, 0),
-      name = "Reflectance [%]"
+      name = "Scaled Reflectance [0, 1]"
       )
     ) +
     guides(color = guide_legend(
       title = NULL,
       override.aes = list(
-        linetype = c("blank", "solid", "solid"),
-        shape = c(19, NA, NA)
+        linetype = c("blank", "blank", "solid", "dashed", "dashed"),
+        shape = c(19, 5, NA, 4, 4),
+        color = c("black", "grey", "black", "darkgreen", "grey")
       )
     )) +
     labs(
-      title = "Permutation-based Variable Importance Results",
+      title = "Spatial Variable Importance",
       subtitle = paste0(
         "Top ten features of 'VI' and 'HR' datasets along a simulated spectral signature of vegetation.\n",
-        "Labels show the hyperspectral band number of dataset 'HR'."
+        "Labels show the hyperspectral band number for dataset 'HR' and the index name for dataset 'VI'."
       ),
       caption = "Learner: SVM; 100 Monte-Carlo Iterations",
-      y = "Importance Rank", x = "Wavelength [nm]"
+      y = "Mean decrease in RMSE", x = "Wavelength [nm]"
     ) +
     ggrepel::geom_label_repel(
-      label = data$feature,
-      nudge_x = 0.5, nudge_y = 0.5,
-      label.size = 0.15
+      # only label the best 10 features
+      data = df_label_all,
+      label = df_label_all$class,
+      nudge_x = 0.1, nudge_y = 0.1,
+      size = 3
     ) +
     ggpubr::theme_pubclean()
 }
@@ -180,143 +250,24 @@ plot_reflectance_imp_absolute <- function(data, x_identifier, class) {
 }
 ```
 
+# P1 Main plot
+
+```{r fi-permut-vi-hr, dev = c("png", "pdf"), warning=FALSE}
+p1 <- data_hr_merged %>%
+  plot_reflectance_imp()
+p1
+```
+
 # Plots by dataset
 
 ## HR
 
-### P1 Absolute permutation based Var Imp 
+### P2 Absolute permutation based Var Imp 
 
 ```{r fi-permut-hr-abs, dev = c("png", "pdf")}
-p1 <- fi_ranked_hr %>%
+p2 <- fi_ranked_hr %>%
   plot_reflectance_imp_absolute("numeric_id", class = "HR")
-p1
-```
-
-### P2 Top ten features along the spectral curve 
-
-```{r feature-importance-6}
-table_inds <- tibble::tribble(
-  ~Rank, ~Name, ~Formula,
-
-  "1", "Vogelmann2", "(R_{734}-R_{747})/(R_{715}+R_{726})",
-  "2", "Vogelmann4", "(R_{734}-R_{747})/(R_{715}+R_{720})",
-  "3", "Vogelmann", "R_{740}/R_{720}",
-  "4", "NPCI", "(R_{680}-R_{430})/(R_{680}+R_{430})",
-  "5", "Vogelmann3", "D_{715}/D_{705}",
-  # "D2"        , "$D_{705}/D_{722}$",
-  # "Datt3"     , "$D_{754}/D_{704}$",
-  # "PWI"       , "$R_{900}/R_{970}$",
-  # "SR7"       , "$R_{440}/R_{690}$",
-  # "SRPI"      , "$R_{430}/R_{680}$"
-)
-```
-
-```{r fi-permut-vi-hr-ranked, dev = c("png", "pdf"), warning=FALSE}
-table_inset <- tibble(x = 0.4, y = 1.15, tb = list(table_inds))
-
-p2 <- data_hr_merged %>%
-  plot_reflectance_imp_rank() +
-  # Vogelmann 2 (P1)
-  geom_segment(aes(
-    x = 715, xend = 747,
-    y = 1, yend = 1,
-    color = "Range of VegIndex"
-  ), size = 0.5) +
-
-  # Vogelmann 4 (P2)
-  geom_segment(aes(
-    x = 720, xend = 747,
-    y = 2, yend = 2
-  ), color = "green", size = 0.5) +
-
-  # Vogelmann  (P3)
-  geom_segment(aes(
-    x = 720, xend = 740,
-    y = 3, yend = 3
-  ), color = "green", size = 0.5) +
-
-  # NPCI (P4)
-  geom_segment(aes(
-    x = 680, xend = 690,
-    y = 4, yend = 4
-  ), color = "green", size = 0.5) +
-  geom_segment(aes(
-    x = 430, xend = 440,
-    y = 4, yend = 4
-  ), color = "green", size = 0.5) +
-
-  # Vogelmann 3 (P5)
-  geom_segment(aes(
-    x = 705, xend = 715,
-    y = 5, yend = 5,
-  ), color = "green", size = 0.5) +
-
-  # D2 (P6)
-  geom_segment(aes(
-    x = 705, xend = 722,
-    y = 6, yend = 6
-  ), color = "green", size = 0.5) +
-
-  # Datt3 (P7)
-  geom_segment(aes(
-    x = 704, xend = 709,
-    y = 7, yend = 7
-  ), color = "green", size = 0.5) +
-  geom_segment(aes(
-    x = 754, xend = 759,
-    y = 7, yend = 7
-  ), color = "green", size = 0.5) +
-
-  # PWI (P8)
-  geom_segment(aes(
-    x = 900, xend = 910,
-    y = 8, yend = 8
-  ), color = "green", size = 0.5) +
-  geom_segment(aes(
-    x = 970, xend = 980,
-    y = 8, yend = 8
-  ), color = "green", size = 0.5) +
-
-  # SR7 (P9)
-  geom_segment(aes(
-    x = 440, xend = 450,
-    y = 9, yend = 9
-  ), color = "green", size = 0.5) +
-  geom_segment(aes(
-    x = 690, xend = 700,
-    y = 9, yend = 9
-  ), color = "green", size = 0.5) +
-
-  # SRPI (P10)
-  geom_segment(aes(
-    x = 430, xend = 440,
-    y = 10, yend = 10
-  ), color = "green", size = 0.5) +
-  geom_segment(aes(
-    x = 680, xend = 690,
-    y = 10, yend = 10
-  ), color = "green", size = 0.5) +
-  # annotate(geom = "table", x = 395, y = 0,
-  #          label = list(table_inds), size = 2.4,
-  #        vjust = 1, hjust = 0)
-  ggpmisc::geom_table_npc(
-    data = table_inset, aes(npcx = x, npcy = y, label = tb),
-    hjust = 1, vjust = 1, size = 2.35
-  ) +
-  scale_color_manual(
-    values = c(
-      "Band" = "black", "Spectral Signature of Vegetation" = "black",
-      "Range of VegIndex" = "green"
-    )
-  )
-
 p2
-```
-
-Combined
-
-```{r feature-importance-8, fig.width=9.5, fig.asp=1.1}
-p1 / p2
 ```
 
 ## VI
@@ -345,3 +296,9 @@ Dxxx: First derivation of reflectance values at wavelength 'xxx'.
 Rxxx: Reflectance at wavelength 'xxx'.
 
 Reference: `?hsdar::vegindex()`
+
+## Combined
+
+```{r fi-hr-vi-abs-comb, fig.width=9.5, fig.asp=1.1}
+p2 / p3
+```
