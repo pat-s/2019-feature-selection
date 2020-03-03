@@ -66,14 +66,14 @@ copy_figures <- function() {
     here::here("docs/figure/eval-performance.Rmd/performance-results-1.pdf"),
     here::here("docs/00-manuscripts/ieee/pdf/")
   )
-  # file_cp_ts(
-  #   "docs/figure/eval-performance.Rmd/filter-effect-1.pdf",
-  #   "docs/00-manuscripts/ieee/pdf/"
-  # )
-  # file_cp_ts(
-  #   "docs/figure/eval-performance.Rmd/filter-perf-all-1.pdf",
-  #   "docs/00-manuscripts/ieee/pdf/"
-  # )
+  file_cp_ts(
+    "docs/figure/eval-performance.Rmd/filter-effect-all-vs-no-filter-1.pdf",
+    "docs/00-manuscripts/ieee/pdf/"
+  )
+  file_cp_ts(
+    "docs/figure/eval-performance.Rmd/filter-effect-all-vs-borda-filter-1.pdf",
+    "docs/00-manuscripts/ieee/pdf/"
+  )
 
   # filter-correlation.Rmd -----------------------------------------------------
 
