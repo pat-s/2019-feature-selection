@@ -230,11 +230,10 @@ plot_reflectance_imp_hr <- function(data) {
       # only label the best 10 features
       data = df_wavelengths_from_hr,
       label = df_wavelengths_from_hr$class,
-      nudge_x = 0.1, nudge_y = 0.1,
-      size = 3,
+      size = 4,
       na.rm = TRUE
     ) +
-    ggpubr::theme_pubclean()
+    ggpubr::theme_pubclean(base_size = 14)
 }
 
 plot_reflectance_imp_vi <- function(data) {
@@ -345,10 +344,10 @@ plot_reflectance_imp_vi <- function(data) {
       # only label the best 10 features
       data = df_wavelengths_from_indices_label,
       label = df_wavelengths_from_indices_label$class,
-      size = 3,
+      size = 4,
       na.rm = TRUE
     ) +
-    ggpubr::theme_pubclean()
+    ggpubr::theme_pubclean(base_size = 14)
 }
 
 plot_reflectance_imp_absolute <- function(data, x_identifier, class) {
