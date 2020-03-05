@@ -71,6 +71,48 @@ df_perf %<>%
   ungroup()
 ```
 
+Fold performances of "SVM MBO No Filter" on the HR Task
+
+- Fold 1: Luiando
+- Fold 2: Laukiz1
+- Fold 3: Laukiz2
+- Fold 4: Oiartzun
+
+```{r}
+df <- mlr::getBMRPerformances(bm_aggregated_new_buffer2,
+  "hr_buffer2", "SVM MBO No Filter",
+  as.df = TRUE
+)
+df_tab <- df %>%
+  dplyr::select(iter, rmse) %>%
+  dplyr::rename(Plot = iter, RMSE = rmse) %>%
+  dplyr::mutate(Plot = as.character(Plot)) %>%
+  dplyr::mutate(Plot = forcats::fct_recode(Plot,
+    Laukiz1 = "2", Laukiz2 = "3",
+    Luiando = "1", Oiartzun = "4"
+  )) %>% 
+  dplyr::mutate(RMSE = round(RMSE, 2))
+
+df_tab %>%
+  xtable::xtable(
+    type = "latex",
+    caption = "Single fold performances for learner SVM on the HR dataset without using a filter.",
+    label = "tab:svm-single-fold-perf"
+  ) %>%
+  print(
+    file = here::here("docs/00-manuscripts/ieee/performance-svm-single-plot.tex"),
+    include.rownames = TRUE,
+    latex.environments = c("center"),
+    table.placement = "ht!",
+    caption.placement = "top",
+    timestamp = NULL
+  )
+
+saveRDS(df_tab, here("docs/00-manuscripts/presentation/table-svm-single-plot.rda"))
+
+flextable::flextable(df_tab)
+```
+
 ## (Table) T1 All leaner/filter/task combinations ordered by performance.
 
 Overall leaderboard across all settings, sorted descending by performance.
@@ -233,8 +275,8 @@ results_aggr1 <- df_perf %>%
   group_by(learner_group, task.id, filter) %>%
   # we actually took the mean already in chunk 'aggr-perf'. This is only to get
   # summarise() working
-  summarise(perf = mean(rmse_aggr)) %>% 
-  ungroup() %>% 
+  summarise(perf = mean(rmse_aggr)) %>%
+  ungroup() %>%
   # we need to reverse the order on porpuse here so that ggplot reverses it
   # again later
   mutate(learner_group = fct_relevel(learner_group, "XGBOOST", "SVM", "RF"))
@@ -278,7 +320,7 @@ results_aggr2 <- df_perf %>%
   # we actually took the mean already in chunk 'aggr-perf'. This is only to get
   # summarise() working
   summarise(perf = mean(rmse_aggr)) %>%
-  ungroup() %>% 
+  ungroup() %>%
   # we need to reverse the order on porpuse here so that ggplot reverses it
   # again later
   mutate(learner_group = fct_relevel(learner_group, "XGBOOST", "SVM", "RF"))
