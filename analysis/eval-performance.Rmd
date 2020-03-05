@@ -200,17 +200,17 @@ results_aggr %>%
     # from ggbeeswarm, avoid overlapping of points by labels
     position = position_quasirandom(),
     aes(label = paste0(filter, ",", round(rmse_aggr, 2))),
-    size = 2.8,
+    size = 4,
     min.segment.length = 0.1,
     seed = 123,
     point.padding = 0.5
   ) +
-  theme_pubr() +
+  theme_pubr(base_size = 14) +
   theme(
     panel.grid.major.y = element_line(size = 0.1, linetype = "dashed"),
     axis.title.y = element_blank(),
-    legend.text = element_text(size = 12),
-    legend.title = element_text(size = 12),
+    legend.text = element_text(size = 14),
+    legend.title = element_text(size = 14),
     axis.text.y = element_text(angle = 45),
     plot.margin = unit(c(6, 6, 6, 0), "pt")
   )
@@ -254,12 +254,12 @@ results_aggr1 %>%
   labs(x = "RMSE", y = "Task", colour = NULL) +
   guides(size = FALSE) +
   scale_x_continuous(limits = c(27, 51)) +
-  theme_pubr() +
+  theme_pubr(base_size = 14) +
   theme(
     panel.grid.major.y = element_line(size = 0.1, linetype = "dashed"),
     axis.title.y = element_blank(),
-    legend.text = element_text(size = 12),
-    legend.title = element_text(size = 12),
+    legend.text = element_text(size = 14),
+    legend.title = element_text(size = 14),
   )
 ```
 
@@ -305,11 +305,11 @@ results_aggr2 %>%
   labs(x = "RMSE", y = "Task", colour = NULL) +
   guides(size = FALSE) +
   scale_x_continuous(limits = c(27, 51)) +
-  theme_pubr() +
+  theme_pubr(base_size = 14) +
   theme(
     panel.grid.major.y = element_line(size = 0.1, linetype = "dashed"),
     axis.title.y = element_blank(),
-    legend.text = element_text(size = 12),
-    legend.title = element_text(size = 12),
+    legend.text = element_text(size = 14),
+    legend.title = element_text(size = 14),
   )
 ```
