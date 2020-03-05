@@ -50,7 +50,7 @@ df_perf <- getBMRPerformances(bm_aggregated_new_buffer2, as.df = T) %>%
     `hr_buffer2` = "HR",
     `vi_buffer2` = "VI",
     `nri_buffer2` = "NRI",
-    `nri_vi_buffer2` = "NRI_VI",
+    `nri_vi_buffer2` = "NRI-VI",
     `hr_nri_buffer2` = "HR-NRI",
     `hr_vi_buffer2` = "HR-VI",
     `hr_nri_vi_buffer2` = "HR-NRI-VI",
@@ -96,14 +96,14 @@ table1 <- df_perf %>%
 table1 %>%
   ungroup() %>%
   arrange(RMSE) %>%
-  slice(1:15) %>%
+  slice(1:10) %>%
   xtable(
     type = "latex",
-    caption = "Top 15 results for any task/learner/filter combination, sorted by performance.",
-    label = "tab:perf-top-15"
+    caption = "Top 10 results for any task/learner/filter combination, sorted by performance.",
+    label = "tab:perf-top-10"
   ) %>%
   print(
-    file = here("docs/00-manuscripts/ieee/performance-top-20.tex"),
+    file = here("docs/00-manuscripts/ieee/performance-top-10.tex"),
     include.rownames = TRUE,
     latex.environments = c("center"),
     table.placement = "ht!",
@@ -242,12 +242,12 @@ results_aggr1 <- df_perf %>%
 results_aggr1 %>%
   ggplot(aes(x = perf, y = learner_group)) +
   geom_beeswarm(
-    data = results_aggr1[results_aggr1$filter != "NF", ], size = 1.1, shape = 3,
+    data = results_aggr1[results_aggr1$filter != "NF", ], size = 2.2, shape = 3,
     groupOnX = FALSE, aes(color = "Filter")
   ) +
   geom_point(
     data = results_aggr1[results_aggr1$filter == "NF", ],
-    size = 2, shape = 19, aes(color = "No Filter")
+    size = 2.2, shape = 19, aes(color = "No Filter")
   ) +
   facet_wrap(~task.id) +
   scale_color_nejm(guide = guide_legend(override.aes = list(shape = c(3, 19)))) +
@@ -287,12 +287,12 @@ results_aggr2 %>%
   ggplot(aes(x = perf, y = learner_group)) +
   geom_beeswarm(
     data = results_aggr2[results_aggr2$filter != "Borda", ],
-    shape = 3, size = 1.1, aes(color = "Filter"),
+    shape = 3, size = 2.2, aes(color = "Filter"),
     groupOnX = FALSE
   ) +
   geom_point(
     data = results_aggr2[results_aggr2$filter == "Borda", ],
-    shape = 19, size = 2, aes(color = "Borda Filter")
+    shape = 19, size = 2.2, aes(color = "Borda Filter")
   ) +
   facet_wrap(~task.id) +
   scale_color_manual(
