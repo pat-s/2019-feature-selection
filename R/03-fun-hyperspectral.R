@@ -92,7 +92,6 @@ extract_indices_to_plot <- function(plot_name,
                                     veg_indices,
                                     nri_indices) {
 
-  browser()
   veg_out <- list(
     raster::extract(veg_indices[[plot_name]],
       tree_data[[plot_name]],
