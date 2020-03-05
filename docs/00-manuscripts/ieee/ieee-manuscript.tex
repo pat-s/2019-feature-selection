@@ -423,6 +423,7 @@
 	%\setlength{\itemsep}{-\parsep}
 	
 	\acro{AGB}{above-ground biomass}
+	\acro{ALE}{accumulated local effects}
 	\acro{ALS}{airborn laser scanning}
 	\acro{ANN}{artificial neural network}
 	\acro{AUROC}{area under the receiver operating characteristics curve}
@@ -452,6 +453,7 @@
 	\acro{LOWESS}{locally weighted scatter plot smoothing}
 	\acro{PISR}{potential incoming solar radiation}
 	\acro{PCA}{principal component analysis}
+	\acro{PDP}{partial dependence plots}
 	\acro{PLS}{partial least-squares}
 	\acro{RBF}{radial basis function}
 	\acro{RF}{random forest}
@@ -859,7 +861,7 @@ The combined approach is called 'elastic net' but was not used in this work.
 \end{itemize}
 
 The idea of splitting the features into different sets originated from the question whether feature engineered indices from reflectance values have a positive effect on model performance.
-Benchmarking all models on these distinct groups of features makes it easier to draw conclusions on their impact when keeping all other variables such as model type, tuning strategy and partioning method constant.
+Benchmarking all models on these distinct groups of features makes it easier to draw conclusions on their impact when keeping all other variables such as model type, tuning strategy and partitioning method constant.
 However, rather than only looking at these three groups we decided to also take their combinations into account for the overall comparison:
 
 \begin{itemize}
@@ -893,16 +895,32 @@ Hence, the value of \texttt{\(m_{try}\)} needs to be created dynamically based o
 \subsubsection{Spatial resampling}
 
 \noindent A spatial nested cross-validation on the plot level was chosen to reduce the influence of spatial autocorrelation as much as possible\cite{schratz2019, sperrorest}.
-Each plot served as one fold within the resampling setup, resulting in four folds total.
-For the inner level (hyperparameter tuning), \(p - 1\) folds were used (with \(p\) being the number of plots).
+Each plot served as one fold within the cross-validation setting, resulting in four iterations total.
+For the inner level (hyperparameter tuning), \(y - 1\) folds were used (with \(y\) being the number of plots).
 
-In total the benchmarking matrix consisted of 156 experiments (6 feature sets * 3 ML algorithms * 8 feature-selection methods + 2 * 6 models of the penalized algorithms).
+In total the benchmarking matrix consisted of 156 experiments (6 feature sets * 3 ML algorithms * 8 feature-selection methods + 2 * 6 L1 and L2 models).
 
-\subsection{Calculation of model feature importance}
-\noindent A permutation-based feature importance estimation was conducted for the best algorithm of each feature set and filter method, respectively.
+\subsection{Feature importance estimation}
+
+% FIXME Talk about the bias of permutation FI in highly correlated settings
+\noindent Estimating feature importance for highly-correlated datasets is a complicated task.
+The correlation between covariates makes it challenging to calculate an unbiased estimate for single features.
+Methods like \ac{PDP} do not produce reliable estimates in such situations because they create unrealistic situations between covariates.
+Due to the noisiness of the dataset, estimates from model-agnostic approaches such as permutation-based feature importance should also be taken with care.
+
+However, as of today there are no unbiased approaches for estimating feature importance for (highly-) correlated datasets.
+Nevertheless, recent methods like \ac{ALE} plots aim to tackle this problem by utilizing marginal distributions of features over a small window to focus on the effect of a single feature.
+However, 
+
+In this work we applied permutation-based feature importance and \ac{ALE} plots to calculate feature importance for the HR dataset.
+With the limitations of both methods in mind we aimed to get a general overview of the feature importance of the hyperspectral bands while keeping modest on over-interpreting the results.
+We used the algorithm which showed the best performance for the HR task to calculate the feature importance.
+
 This method calculates the loss of predictive performance for each feature by permuting it in a random manner.
 The more important the feature is for the model, the higher the loss in the used error measure will be, reflecting the importance of the specific feature for the current model.
-To balance both runtime and variance reduction, we opted for 25 iterations of each feature permutation.
+Permuting every feature $y$ times comes with some computational cost.
+To balance the effort/gain ratio and to be able to relate the results to wavelength regions, we decided to estimate feature importance only for the dataset with the raw reflectance values (HR).
+
 
 \subsection{Linking feature importance to wavelength regions}
 \noindent For ecological interpretation purposes we linked the ten most important indices of the winning models for each feature set to the spectral regions of the hyperspectral data.
@@ -918,57 +936,61 @@ The R package \textit{mlr}\cite{mlr} was used for all modeling related steps.
 \textit{drake} was used for structuring the work and ensuring reproducibility.
 This study is available as a research compendium on Zenodo (\url{10.5281/zenodo.2635403}).
 
-
 \section{Results}
 
 \subsection{Predictive performance}
 
-% - RMSE around 34
+% - RMSE around 27
 % - MBO tuned penalized methods are substantially worse
-% - Carscore, Info und Borda were at least once among the best combination for a learner
-\noindent No practical differences in RMSE were observed among the feature sets (\autoref{fig:perf-result}).
-SVM showed the lowest error in four out of six tasks.
-Overall, the response variable 'defoliation at trees' could be modeled with an error of 34 \%.
+\noindent Overall, the response variable 'defoliation at trees' could be modeled with an error of 28 \%.
+SVM showed no differences in RMSE across feature sets whereas other learners like RF differed up to seven percentage points (HR-NRI vs. VI) (\autoref{fig:perf-result}).
+Ridge and Lasso faced major issues up to the point of not achieving an error below 50 for datasets HR-NRI-VI and NRI-VI.
+SVM showed the best performance of all learners with an absolute difference up around three percentage points to the next model (RF) (\autoref{tab:best-learner-perf}).
 
 % tasks
 % - no substantial difference between feature sets
-% - combining feature sets makes no difference
+% - combining feature sets has only small impact
 % - expert based feature sets show no better result than data-driven ones
 % - penalized methods seem to have problems with VI feature set
-No practical difference was observed between feature sets.
-The combination of feature sets showed no increase in performance.
-All learners scored evenly across all tasks.
-Feature sets containing expert-based variables (VI) showed no substantial difference to data-driven tasks (NRI).
+The combination of feature sets showed small increases in performance for some learners.
+RF and XGBoost scored slightly better on the combined datasets HR-NRI and NRI-VI, respectively (\autoref{fig:perf-result}).
+Datasets containing derived features (VI, NRI) showed no improvement in performance compared to the raw hyperspectral band information (HR).
 
 % learner
-% - RF Car is the overall winner
+% - SVM Car is the overall winner
 % - Ridge-CV hit and miss (hit = NRI, miss = VI)
 % - all MBO penalized methods have no difference across tasks
-Random Forest combined with the 'Carscore' filter showed the best absolute performance (RMSE of 3.396) (\autoref{tab:perf-top-15}).
-A noticeable difference between SVM and all other learners was visible for all
-feature sets without NRI variables (difference in RMSE of 3 --- 4).
-Considering a grouped performance by learners across all tasks and filters, SVM showed the most robust results (\autoref{tab:perf-top-15}).
-L1 penalized regression showed slightly better results in three out of six tasks when being optimized using the package internal 10-fold CV compared to MBO (RMSE of 50 vs 58).
-Regression with Ridge penalty (L2) showed a high variance when comparing results across tasks: In three out of six tasks (all including VI variables) the error was out of bounds (HR-NRI-VI\@; HR-VI, VI), for HR-NRI and HR the error was medium (around 40 RMSE), and for task NRI Ridge regression achieved almost the same score as the best performing model (3.39 RMSE, NRI) (\autoref{tab:perf-top-15}).
-All penalized methods tuned using MBO showed exactly the same error across all tasks.
+SVM combined with the 'Carscore' filter achieved the best performance (RMSE of 27.98) (\autoref{tab:perf-top-10}).
+%L1 penalized regression showed slightly better results in three out of six tasks when being optimized using the package internal 10-fold CV compared to MBO (RMSE of 50 vs 58).
+Regression with Ridge penalty (L2) showed a high variance when comparing results across tasks: In two out of six tasks (all including VI variables) the error was out of bounds (HR-NRI-VI, HR-VI, VI), for HR-NRI and HR the error was around 40 RMSE, and for task NRI the Ridge learner achieved almost the same score as the best performing model (32.9 RMSE) (\autoref{tab:perf-top-10}).
+%All penalized methods tuned using MBO showed exactly the same error across all tasks.
 
 % filters
-% - influence varies based on algorithm and task (SVM very small influence, RF medium, XGB medium)
+% - influence varies based on algorithm and task (SVM no influence, RF medium, XGB medium)
 % - no substantial decrease in performance when using filters
 % - no advantage of ensemble borda filter compared to others
-Effects of filter methods on performance differed between algorithms:
-With the exception of one or two methods, SVM showed a constant performance of all filters across tasks (\autoref{fig:filter-perf-all}).
-RF showed a normal distribution for most tasks with one or two different methods taking the lead on each task.
-For RF, filter 'Carscore' showed the best performance in three out of six tasks while this was achieved for XGBoost by filter 'CMIM'.
-XGBoost showed a diverse distribution with less clustering of filters as SVM and RF (referring to RMSE).
+Effects of filter methods on performance differed greatly between algorithms:
+SVM showed no variation in performance across filters (\autoref{fig:filter-effects-no-filter}).
+Using filters for RF showed a substantial increase in performance for all tasks besides VI for which the overall difference of all filters was also smallest (\autoref{fig:filter-effects-no-filter}).
+XGBoost showed a high dependency on filtering the data: In 4 out of 6 tasks using no filter would results in the worst or second worst performance.
+However, in contrast for dataset NRI using no filter results in the best performance.
+XGBoost shows the highest overall differences between filters for a single task: For dataset HR, the range is up to 14 percentage points (Carscore vs. no filter)(\autoref{fig:filter-effects-no-filter}).
 
-% filter vs no filter
-When comparing the usage of filters vs using no filter at all, there was only one instance (XGBoost on the HR-NRI task) when the model with no filtering showed a slighly better performance than the best filtered one (\autoref{fig:filter-effects}).
-In general, the effect of filtering vs.\ no filtering differed without a clear pattern across tasks: For example, SVM and RF showed a substantial increase for the NRI task when filtering the data while there was almost no effect for XGBoost (\autoref{fig:filter-effects}).
-For task HR, there was a medium effect of applying filtering for RF, almost none for SVM and a large one for XGBoost.
+% filter vs. no filter
+% - Substantial effect for XGBoost and RF
+% - SVM unaffected
+When comparing the usage of filters against using no filter at all, there was only one instance (XGBoost on the NRI task) when the model without filtering showed a slighly better performance than the best filtered one (\autoref{fig:filter-effects-no-filter}).
+For SVM filters and no filter come in at the same performance for tasks VI and NRI even though \autoref{fig:filter-effects-no-filter} lists "No Filter" as the best option.
+
+% Borda vs. other filters
+% - most often among the first best filters for each task
+% - never the best
+The Borda filter did not achieve the best performance for any learner across any task \autoref{fig:filter-effects-borda}.
+For RF and XGBoost it ranked within the first 50\% when looking at all filters used for a task.
+For XGBoost on the VI task the Borda filter scored the second worst performance.
 
 % latex table top 20 absolute performances
-\input{performance-top-20}
+\input{performance-top-10}
 
 % latex table best performance per learner
 \input{performance-best-per-learner.tex}
@@ -982,30 +1004,49 @@ For task HR, there was a medium effect of applying filtering for RF, almost none
 	\end{center}
 \end{figure}
 
-% plot no filter vs best filter for each model and task
+% plot no filter vs all other filters for each model and task
 \begin{figure} [t!]
 	\centering
 	\begin{center}
-		\includegraphics[width=0.48\textwidth] {filter-effect-1.pdf}
-		\caption{Model performances in RMSE when using no filter method compared to the best scoring filter method for each learner across all tasks.}\label{fig:filter-effects}
+		\includegraphics[width=0.48\textwidth] {filter-effect-all-vs-no-filter-1.pdf}
+		\caption{Model performances in RMSE when using no filter method compared to all other filters across all tasks.}\label{fig:filter-effects-no-filter}
 	\end{center}
 \end{figure}
-\subsection{Permutation-based variable importance}
 
-% plot no filter vs best filter for each model and task
+% plot Borda vs all other filters for each model and task
 \begin{figure} [t!]
 	\centering
 	\begin{center}
-		\includegraphics[width=0.48\textwidth] {filter-perf-all-1.pdf}
-		\caption{Model performances in RMSE of all used filter methods and PCA for each learner across all tasks.}\label{fig:filter-perf-all}
+		\includegraphics[width=0.48\textwidth] {filter-effect-all-vs-borda-filter-1.pdf}
+		\caption{Model performances in RMSE when using the Borda filter method compared to all other filters for each learner across all tasks.}\label{fig:filter-effects-borda}
 	\end{center}
 \end{figure}
 
-
 \subsection{Permutation-based variable importance}
+
+% Variable Importance
+% - VI: Vogelmann indices are best
+% - All: Clustering around the red edge (700 - 750 nm)
+% - Overall highest: 1.7 RMSE decrease - not that much
+
+% FIXME: explain in methods why only 2 datasets are shown
+The most important features of each dataset showed an average decrease in RMSE of 1.57 (HR, B69) and 1.79 (VI, Vogelmann2) (\autoref{fig:fi-permut-vi-hr}).
+For both datasets most features among the ten most important ones cluster around a wavelength range of 700 nm - 750 nm.
+For feature set HR four features in the infrared region (920 nm  - 1000 nm) were identified to be important by causing a mean RMSE decrease of around one percentage point.
+Overall, most features show a small importance only with average decreases in RMSE below 0.5.
+
+% permutation based var imp for datasets HR and VI
+\begin{figure} [t!]
+	\centering
+	\begin{center}
+		\includegraphics[width=0.48\textwidth] {fi-permut-vi-hr-1.pdf}
+		\caption{Variable importance for feature sets HR and VI: Mean decrease in RMSE for one-hundred feature permutations using the SVM learner. The wavelength range on the x-axis matches the range of the hyperspectral sensor (400 nm - 1000 nm). For each dataset, the ten most important features were highlighted as black dots and labeled by name. Grey dots represent features from importance rank 11 to last. The spectral signature (mean) of each plot was added as a reference on a normalized reflectance scale [0, 1] (secondary y-axis). VI features were decomposed into their individual formula parts; all instances being connected via dashed lines. Each VI feature is composed out of at least two instances.}\label{fig:fi-permut-vi-hr}
+	\end{center}
+\end{figure}
+
 \section{Discussion}
 
-\subsection{Derivation of indices}
+\subsection{Derivation of Indices}
 
 \noindent The decision to use a buffer of 2 m to generate the index value for each observation is questionable.
 When using no buffer at all, the possibility is high that a pixel value gets assigned to a tree which does not spatially match with the actual recorded hyperspectral reflectance due to the geometric offset of 1 m.
@@ -1073,14 +1114,14 @@ These findings underline the importance of this work in the field of forest heal
 
 \appendices{}
 
-\section{Spectral signatures of each plot}
+% \section{Spectral signatures of each plot}
 
-\begin{figure} [ht]
-	\begin{center}
-		\includegraphics[width=0.48\textwidth] {spectral-signatures-1.pdf}
-		\caption{Spectral signatures (mean and standard deviation) of Laukiz1, Laukiz2, Luiando and Oiartzun.}\label{fig:spectral-signatures}
-	\end{center}
-\end{figure}
+% \begin{figure} [ht]
+% 	\begin{center}
+% 		\includegraphics[width=0.48\textwidth] {spectral-signatures-1.pdf}
+% 		\caption{Spectral signatures (mean and standard deviation) of Laukiz1, Laukiz2, Luiando and Oiartzun.}\label{fig:spectral-signatures}
+% 	\end{center}
+% \end{figure}
 
 \pagebreak
 
