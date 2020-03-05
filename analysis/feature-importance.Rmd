@@ -345,7 +345,6 @@ plot_reflectance_imp_vi <- function(data) {
       # only label the best 10 features
       data = df_wavelengths_from_indices_label,
       label = df_wavelengths_from_indices_label$class,
-      nudge_x = 0.1, nudge_y = 0.1,
       size = 3,
       na.rm = TRUE
     ) +
@@ -392,7 +391,7 @@ p12 <- data_hr_merged %>%
 p12
 ```
 
-```{r fi-permut-vi-hr, dev = c("png", "pdf"), warning=FALSE, fig.asp=1.1}
+```{r fi-permut-vi-hr, dev = c("png", "pdf"), warning=FALSE, fig.asp=1.2}
 p11 / p12
 ```
 
@@ -420,14 +419,23 @@ p3
 ```
 
 Vogelmann2 $(R_{734}-R_{747})/(R_{715}+R_{726})$ Vogelmann et al. (1993)
+
 Vogelmann4 $(R_{734}-R_{747})/(R_{715}+R_{720})$ Vogelmann et al. (1993)
+
 Vogelmann3 $D_{715}/D_{705}$ Vogelmann et al. (1993)
+
 Vogelmann  $R_{740}/R_{720}$ Vogelmann et al. (1993)
+
 NPCI       $(R_{680}-R_{430})/(R_{680}+R_{430})$
+
 D2         $D_{705}/D_{722}$
+
 Datt3      $D_{754}/D_{704}$
+
 PWI        $R_{900}/R_{970}$
+
 SR7        $R_{440}/R_{690}$
+
 SRPI       $R_{430}/R_{680}$
 
 Dxxx: First derivation of reflectance values at wavelength 'xxx'.
