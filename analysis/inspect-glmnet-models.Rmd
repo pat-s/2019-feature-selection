@@ -1,0 +1,148 @@
+---
+title: "Inspecting {glmnet} performances"
+output: 
+  workflowr::wflow_html:
+    includes:
+      in_header: header.html
+editor_options:
+  chunk_output_type: console
+author: "Patrick Schratz"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  fig.retina = 3,
+  fig.align = "center",
+  fig.width = 6.93,
+  fig.height = 6.13,
+  out.width = "100%",
+  echo = TRUE
+)
+
+R.utils::sourceDirectory("R")
+library("drake")
+library("mlr")
+library("glmnet")
+
+# load drake objects
+loadd(
+  benchmark_models_new_penalized_buffer2,
+  task_new_buffer2
+)
+
+```
+
+Last update: 
+
+```{r}
+date()
+```
+
+## Inspect fitted models during CV
+
+Inspect Ridge regression on VI task in detail because the error is enourmus.
+
+First extract the models.
+
+```{r}
+models = benchmark_models_new_penalized_buffer2[[8]][["results"]][["vi_buffer2"]][["Ridge-CV"]][["models"]]
+```
+
+Then look at the fold performances
+
+```{r}
+benchmark_models_new_penalized_buffer2[[8]][["results"]][["vi_buffer2"]][["Ridge-CV"]][["measures.test"]][["rmse"]]
+```
+
+We see a high error on Fold 1 (= Laukiz 2).
+The others are also quite high but not "out of bounds".
+
+Because this models used the internal optimization of the lambda sequence (`cv.glmnet`), let's look at the value which was chosen for prediction (parameter `s` which defaults to `s="lambda.1se"`):
+
+```{r}
+purrr::map_dbl(models, ~ .x[["learner.model"]][["lambda.1se"]])
+```
+
+It seems that the `lambda.1se` value for Fold 1 is way smaller than for the other 3 folds.
+However, all values seem to be quite high.
+
+Let's look at the full lambda sequence
+
+```{r}
+purrr::map_int(models, ~ length(.x[["learner.model"]][["lambda"]]))
+```
+
+Interestingly, the lambda length of fold 1 is not 100 (default) but only 5.
+
+## Train/predict manually for Fold 1 via {glmnet}
+
+To inspect further, let's refit a {glmnet} model directly on the training data of Fold 1 and inspect what `glmnet::cv.glmnet` estimates for the lambda sequence:
+
+```{r}
+train_inds_fold1 = benchmark_models_new_penalized_buffer2[[8]][["results"]][["vi_buffer2"]][["Ridge-CV"]][["pred"]][["instance"]][["train.inds"]][[1]]
+
+obs_train_f1 = as.matrix(task_new_buffer2[[2]]$env$data[train_inds_fold1, getTaskFeatureNames(task_new_buffer2[[2]])])
+target_f1 = getTaskTargets(task_new_buffer2[[2]])[train_inds_fold1]
+```
+
+Fit `cv.glmnet`
+
+```{r}
+set.seed(1)
+modf1 = glmnet::cv.glmnet(obs_train_f1, target_f1, nfolds = 5)
+
+modf1$lambda.1se
+```
+
+Ok, a value of `0.85` is **very** different to what happened during the CV (4.211054e+08).
+
+Predict on Laukiz 2 now.
+
+```{r}
+pred_inds_fold1 = benchmark_models_new_penalized_buffer2[[8]][["results"]][["vi_buffer2"]][["Ridge-CV"]][["pred"]][["instance"]][["test.inds"]][[1]]
+
+obs_pred_f1 = as.matrix(task_new_buffer2[[2]]$env$data[pred_inds_fold1, getTaskFeatureNames(task_new_buffer2[[2]])])
+
+pred = predict(modf1, newx = obs_pred_f1)
+```
+
+Calculate the error
+
+```{r}
+truth = task_new_buffer2[[2]]$env$data[pred_inds_fold1, "defoliation"]
+
+mlr:::measureRMSE(truth, pred)
+```
+
+Ok, RMSE of 52. Still not great but at least not out of bounds.
+
+## Train/predict manually for Fold 1 via {mlr}
+
+Now let's fit the same subset (= Fold 1) via mlr
+
+```{r}
+lrn = makeLearner("regr.cvglmnet", nfolds = 5)
+task_f1 = subsetTask(task_new_buffer2[[2]], train_inds_fold1)
+
+set.seed(1)
+mod = train(lrn, task_f1)
+```
+
+Check lambda sequence and `lambda.1se`:
+
+```{r}
+mod$learner.model$lambda
+```
+
+```{r}
+mod$learner.model$lambda.1se
+```
+
+Check for equality between {mlr} and {glmnet} directly
+
+```{r}
+all.equal(modf1$lambda.1se, mod$learner.model$lambda.1se)
+```
+
+Ok, so {mlr} works correctly when fitting the model for a single fold. 
+Hence, somethings goes wrong during CV?
