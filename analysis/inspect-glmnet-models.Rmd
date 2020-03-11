@@ -125,6 +125,10 @@ This is most likely because of a few. observations which were predicted complete
 qplot(pred, geom = "histogram")
 ```
 
+```{r}
+pred[which(pred > 100), , drop = FALSE]
+```
+
 Ok, its one observation (row id  = 737).
 
 Let's have a look at the predictor values for this observation.
