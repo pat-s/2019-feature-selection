@@ -493,10 +493,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontreeb56050eec0ec3da6f61d6e4ccdf9750ee91190cdtargetblankb56050ea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/b56050eec0ec3da6f61d6e4ccdf9750ee91190cd" target="_blank">b56050e</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontreeee192125ab52e1bffa2a78bfd2f8a7ed9728fa13targetblankee19212a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/ee192125ab52e1bffa2a78bfd2f8a7ed9728fa13" target="_blank">ee19212</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontreeb56050eec0ec3da6f61d6e4ccdf9750ee91190cdtargetblankb56050ea" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontreeee192125ab52e1bffa2a78bfd2f8a7ed9728fa13targetblankee19212a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -576,6 +576,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/ee192125ab52e1bffa2a78bfd2f8a7ed9728fa13/analysis/inspect-glmnet-models.Rmd" target="_blank">ee19212</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-03-11
+</td>
+<td>
+workflowr::wflow_publish(“analysis/inspect-glmnet-models.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pat-s/2019-feature-selection/89cd23ff92acbb56088518167c22a6bd5217994f/docs/inspect-glmnet-models.html" target="_blank">89cd23f</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-03-11
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -669,7 +703,7 @@ wflow_publish(knitr_in(“analysis/inspect-glmnet-models.Rmd”), view =
 </div>
 </div>
 <p>Last update:</p>
-<p>[1] “Wed Mar 11 15:11:46 2020”</p>
+<p>[1] “Wed Mar 11 15:18:30 2020”</p>
 <div id="general-glmnet-notes" class="section level2">
 <h2>General glmnet notes</h2>
 <ul>
@@ -1039,6 +1073,13 @@ pat-s
 </table>
 </div>
 </div>
+<p>Let’s look at the x values for observation 737:</p>
+<pre class="r"><code>obs_train_f4[737, top_ten_abs]</code></pre>
+<pre><code>  bf2_PRI_norm     bf2_GDVI_3       bf2_Datt         bf2_CI   bf2_Maccioni 
+  0.0005331477   0.9997067366   0.8283409902   1.1411477583   0.8079021105 
+    bf2_GDVI_2      bf2_Datt4       bf2_PSND       bf2_PSRI bf2_Vogelmann2 
+  0.9946317460   0.0085985645   0.9510653828   0.0191196652  -0.2698871749 </code></pre>
+<p>Looks ok.</p>
 </div>
 </div>
 <div id="compare-arguments-of-the-do.call-call-in-the-benchmark-with-the-manual-one" class="section level2">
