@@ -45,9 +45,12 @@ date()
 ## General glmnet notes
 
 - {glmnet} does its own internal 10-fold CV optimization when using `cv.glmnet()`.
-  It iterates over `lambda` and chooses the most robust values for prediction via parameter `s` in `predict.glmnet()`. Supplying a custom lambda sequence does not make much sense since the internal heuristics are quite good (if one wants to use non-spatial optimization).
+  It iterates over `lambda` and chooses the most robust values for prediction via parameter `s` in `predict.glmnet()`. 
+  Supplying a custom lambda sequence does not make much sense since the internal heuristics are quite good (if one wants to use non-spatial optimization).
+  See this [stats.stackexchange questions](https://stats.stackexchange.com/a/415248/101464) for how lambda defaults are estimated.
 - To conduct a spatial optimization, one needs to use `glmnet()` directly. 
-  This implementation does not do an internal optimization for `lambda`  and hence `s` can/needs to be tuned directly by the user. Because it is hard to come up with good tuning ranges in this case, one can fit a `cv.glmnet()` on the data and use the borders of the estimated `lambda` as upper and lower borders of the tuning space.
+  This implementation does not do an internal optimization for `lambda`  and hence `s` can/needs to be tuned directly by the user. 
+  Because it is hard to come up with good tuning ranges in this case, one can fit a `cv.glmnet()` on the data and use the borders of the estimated `lambda` as upper and lower borders of the tuning space.
 
 ## Inspect fitted models during CV
 
@@ -85,7 +88,7 @@ purrr::map_int(models, ~ length(.x[["learner.model"]][["lambda"]]))
 
 Interestingly, the lambda length of fold 1 is not 100 (default) but only 5.
 
-## Train/predict manually for Fold 1 via {glmnet}
+## Train/predict via {glmnet} manually
 
 To inspect further, let's refit a {glmnet} model directly on the training data of Fold 1 and inspect what `glmnet::cv.glmnet` estimates for the lambda sequence:
 
