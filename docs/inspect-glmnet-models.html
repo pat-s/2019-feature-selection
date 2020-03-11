@@ -492,10 +492,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree7f208c483e33681d3a6b10ec8e21b450ac46a9d7targetblank7f208c4a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/7f208c483e33681d3a6b10ec8e21b450ac46a9d7" target="_blank">7f208c4</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree960355af1c168cc257d4cce7fdc4436625e30fb4targetblank960355aa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/960355af1c168cc257d4cce7fdc4436625e30fb4" target="_blank">960355a</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree7f208c483e33681d3a6b10ec8e21b450ac46a9d7targetblank7f208c4a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree960355af1c168cc257d4cce7fdc4436625e30fb4targetblank960355aa" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -575,6 +575,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/960355af1c168cc257d4cce7fdc4436625e30fb4/analysis/inspect-glmnet-models.Rmd" target="_blank">960355a</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-03-11
+</td>
+<td>
+workflowr::wflow_publish(“analysis/inspect-glmnet-models.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pat-s/2019-feature-selection/c77844baa976580f3ab1e0fc2e554efd3ea04e73/docs/inspect-glmnet-models.html" target="_blank">c77844b</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-03-11
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -770,7 +804,7 @@ wflow_publish(knitr_in(“analysis/inspect-glmnet-models.Rmd”), view =
 </div>
 </div>
 <p>Last update:</p>
-<p>[1] “Wed Mar 11 19:30:30 2020”</p>
+<p>[1] “Wed Mar 11 19:43:24 2020”</p>
 <div id="general-glmnet-notes" class="section level2">
 <h2>General glmnet notes</h2>
 <ul>
@@ -821,6 +855,46 @@ mlr:::measureRMSE(truth, pred)</code></pre>
 <pre class="r"><code>qplot(pred, geom = &quot;histogram&quot;)</code></pre>
 <pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 <p><img src="figure/inspect-glmnet-models.Rmd/unnamed-chunk-9-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-1">
+Past versions of unnamed-chunk-9-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-9-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/c77844baa976580f3ab1e0fc2e554efd3ea04e73/docs/figure/inspect-glmnet-models.Rmd/unnamed-chunk-9-1.png" target="_blank">c77844b</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-03-11
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>pred[which(pred &gt; 100), , drop = FALSE]</code></pre>
+<pre><code>                1
+737 2061522943649</code></pre>
 <p>Ok, its one observation (row id = 737).</p>
 <p>Let’s have a look at the predictor values for this observation.</p>
 <pre class="r"><code>summary(obs_train_f4[737, ])</code></pre>
@@ -968,8 +1042,6 @@ bf2_Vogelmann3   5.67673100608
 bf2_Vogelmann4   4.98343236576</code></pre>
 <p>Feature “bf2_PRI_norm” has a quite high value (-95).</p>
 <pre class="r"><code>plotres(modf4)</code></pre>
-<p><img src="figure/inspect-glmnet-models.Rmd/unnamed-chunk-13-1.png" width="100%" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>plot_glmnet(modf4$glmnet.fit)</code></pre>
 <p><img src="figure/inspect-glmnet-models.Rmd/unnamed-chunk-14-1.png" width="100%" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-14-1">
@@ -995,7 +1067,68 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/c77844baa976580f3ab1e0fc2e554efd3ea04e73/docs/figure/inspect-glmnet-models.Rmd/unnamed-chunk-14-1.png" target="_blank">c77844b</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-03-11
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/7123ae1008681a0b44ccba96b8823ce6be99b4f6/docs/figure/inspect-glmnet-models.Rmd/unnamed-chunk-14-1.png" target="_blank">7123ae1</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-03-11
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>plot_glmnet(modf4$glmnet.fit)</code></pre>
+<p><img src="figure/inspect-glmnet-models.Rmd/unnamed-chunk-15-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-15-1">
+Past versions of unnamed-chunk-15-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-15-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/c77844baa976580f3ab1e0fc2e554efd3ea04e73/docs/figure/inspect-glmnet-models.Rmd/unnamed-chunk-15-1.png" target="_blank">c77844b</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-03-11
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/7123ae1008681a0b44ccba96b8823ce6be99b4f6/docs/figure/inspect-glmnet-models.Rmd/unnamed-chunk-15-1.png" target="_blank">7123ae1</a>
 </td>
 <td>
 pat-s
@@ -1037,13 +1170,13 @@ pat-s
     33.57344 0.6054507  31.51822   3.176928 922.7046 8765.983
  bf2_Vogelmann bf2_Vogelmann2 bf2_Vogelmann3 bf2_Vogelmann4
        1.84361     -0.2100082       1.316905     -0.2384276</code></pre>
-<p><img src="figure/inspect-glmnet-models.Rmd/unnamed-chunk-15-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="figure/inspect-glmnet-models.Rmd/unnamed-chunk-16-1.png" width="100%" style="display: block; margin: auto;" /></p>
 <p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-15-1">
-Past versions of unnamed-chunk-15-1.png
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-16-1">
+Past versions of unnamed-chunk-16-1.png
 </button>
 </p>
-<div id="fig-unnamed-chunk-15-1" class="collapse">
+<div id="fig-unnamed-chunk-16-1" class="collapse">
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
 <thead>
@@ -1062,7 +1195,18 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/pat-s/2019-feature-selection/blob/7123ae1008681a0b44ccba96b8823ce6be99b4f6/docs/figure/inspect-glmnet-models.Rmd/unnamed-chunk-15-1.png" target="_blank">7123ae1</a>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/c77844baa976580f3ab1e0fc2e554efd3ea04e73/docs/figure/inspect-glmnet-models.Rmd/unnamed-chunk-16-1.png" target="_blank">c77844b</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-03-11
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/7123ae1008681a0b44ccba96b8823ce6be99b4f6/docs/figure/inspect-glmnet-models.Rmd/unnamed-chunk-16-1.png" target="_blank">7123ae1</a>
 </td>
 <td>
 pat-s
@@ -1129,13 +1273,6 @@ mod_mlr &lt;- train(lrn, task_f4)</code></pre>
 <pre class="r"><code>pdp &lt;- generatePartialDependenceData(mod_mlr, task_f4, features = top_ten_abs)</code></pre>
 <pre><code>Loading required package: mmpf</code></pre>
 <pre class="r"><code>plotPartialDependence(pdp)</code></pre>
-<p><img src="figure/inspect-glmnet-models.Rmd/unnamed-chunk-22-1.png" width="100%" style="display: block; margin: auto;" /></p>
-<p>Individual PDP</p>
-<pre class="r"><code>pdp_ind &lt;- generatePartialDependenceData(mod_mlr, task_f4,
-  features = top_ten_abs,
-  individual = TRUE
-)
-plotPartialDependence(pdp_ind)</code></pre>
 <p><img src="figure/inspect-glmnet-models.Rmd/unnamed-chunk-23-1.png" width="100%" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-23-1">
@@ -1161,7 +1298,73 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/c77844baa976580f3ab1e0fc2e554efd3ea04e73/docs/figure/inspect-glmnet-models.Rmd/unnamed-chunk-23-1.png" target="_blank">c77844b</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-03-11
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/7123ae1008681a0b44ccba96b8823ce6be99b4f6/docs/figure/inspect-glmnet-models.Rmd/unnamed-chunk-23-1.png" target="_blank">7123ae1</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-03-11
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Individual PDP</p>
+<pre class="r"><code>pdp_ind &lt;- generatePartialDependenceData(mod_mlr, task_f4,
+  features = top_ten_abs,
+  individual = TRUE
+)
+plotPartialDependence(pdp_ind)</code></pre>
+<p><img src="figure/inspect-glmnet-models.Rmd/unnamed-chunk-24-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-24-1">
+Past versions of unnamed-chunk-24-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-24-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/c77844baa976580f3ab1e0fc2e554efd3ea04e73/docs/figure/inspect-glmnet-models.Rmd/unnamed-chunk-24-1.png" target="_blank">c77844b</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-03-11
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/7123ae1008681a0b44ccba96b8823ce6be99b4f6/docs/figure/inspect-glmnet-models.Rmd/unnamed-chunk-24-1.png" target="_blank">7123ae1</a>
 </td>
 <td>
 pat-s
