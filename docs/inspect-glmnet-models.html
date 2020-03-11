@@ -375,7 +375,7 @@ div.section {
 <ul>
 <li><a href="#general-glmnet-notes">General glmnet notes</a></li>
 <li><a href="#inspect-fitted-models-during-cv">Inspect fitted models during CV</a></li>
-<li><a href="#trainpredict-manually-for-fold-1-via-glmnet">Train/predict manually for Fold 1 via {glmnet}</a><ul>
+<li><a href="#trainpredict-via-glmnet-manually">Train/predict via {glmnet} manually</a><ul>
 <li><a href="#partial-dependence-plots">Partial Dependence Plots</a></li>
 </ul></li>
 <li><a href="#compare-arguments-of-the-do.call-call-in-the-benchmark-with-the-manual-one">Compare arguments of the <code>do.call</code> call in the benchmark with the manual one</a></li>
@@ -493,10 +493,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree37a838b5e7382b0dcb0a44879d1a034f1907aa8ctargetblank37a838ba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/37a838b5e7382b0dcb0a44879d1a034f1907aa8c" target="_blank">37a838b</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontreeb56050eec0ec3da6f61d6e4ccdf9750ee91190cdtargetblankb56050ea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/b56050eec0ec3da6f61d6e4ccdf9750ee91190cd" target="_blank">b56050e</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree37a838b5e7382b0dcb0a44879d1a034f1907aa8ctargetblank37a838ba" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontreeb56050eec0ec3da6f61d6e4ccdf9750ee91190cdtargetblankb56050ea" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -581,6 +581,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/b56050eec0ec3da6f61d6e4ccdf9750ee91190cd/analysis/inspect-glmnet-models.Rmd" target="_blank">b56050e</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-03-11
+</td>
+<td>
+workflowr::wflow_publish(“analysis/inspect-glmnet-models.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pat-s/2019-feature-selection/6f0317af536e7919612c8cc47e595697aa379b72/docs/inspect-glmnet-models.html" target="_blank">6f0317a</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-03-11
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/37a838b5e7382b0dcb0a44879d1a034f1907aa8c/analysis/inspect-glmnet-models.Rmd" target="_blank">37a838b</a>
 </td>
 <td>
@@ -635,11 +669,11 @@ wflow_publish(knitr_in(“analysis/inspect-glmnet-models.Rmd”), view =
 </div>
 </div>
 <p>Last update:</p>
-<p>[1] “Wed Mar 11 14:56:48 2020”</p>
+<p>[1] “Wed Mar 11 15:11:46 2020”</p>
 <div id="general-glmnet-notes" class="section level2">
 <h2>General glmnet notes</h2>
 <ul>
-<li>{glmnet} does its own internal 10-fold CV optimization when using <code>cv.glmnet()</code>. It iterates over <code>lambda</code> and chooses the most robust values for prediction via parameter <code>s</code> in <code>predict.glmnet()</code>. Supplying a custom lambda sequence does not make much sense since the internal heuristics are quite good (if one wants to use non-spatial optimization).</li>
+<li>{glmnet} does its own internal 10-fold CV optimization when using <code>cv.glmnet()</code>. It iterates over <code>lambda</code> and chooses the most robust values for prediction via parameter <code>s</code> in <code>predict.glmnet()</code>. Supplying a custom lambda sequence does not make much sense since the internal heuristics are quite good (if one wants to use non-spatial optimization). See this <a href="https://stats.stackexchange.com/a/415248/101464">stats.stackexchange questions</a> for how lambda defaults are estimated.</li>
 <li>To conduct a spatial optimization, one needs to use <code>glmnet()</code> directly. This implementation does not do an internal optimization for <code>lambda</code> and hence <code>s</code> can/needs to be tuned directly by the user. Because it is hard to come up with good tuning ranges in this case, one can fit a <code>cv.glmnet()</code> on the data and use the borders of the estimated <code>lambda</code> as upper and lower borders of the tuning space.</li>
 </ul>
 </div>
@@ -662,8 +696,8 @@ wflow_publish(knitr_in(“analysis/inspect-glmnet-models.Rmd”), view =
 <pre><code>integer(0)</code></pre>
 <p>Interestingly, the lambda length of fold 1 is not 100 (default) but only 5.</p>
 </div>
-<div id="trainpredict-manually-for-fold-1-via-glmnet" class="section level2">
-<h2>Train/predict manually for Fold 1 via {glmnet}</h2>
+<div id="trainpredict-via-glmnet-manually" class="section level2">
+<h2>Train/predict via {glmnet} manually</h2>
 <p>To inspect further, let’s refit a {glmnet} model directly on the training data of Fold 1 and inspect what <code>glmnet::cv.glmnet</code> estimates for the lambda sequence:</p>
 <pre class="r"><code>train_inds_fold4 &lt;- benchmark_models_new_penalized_mbo_buffer2[[8]][[&quot;results&quot;]][[&quot;vi_buffer2&quot;]][[&quot;Ridge-MBO&quot;]][[&quot;pred&quot;]][[&quot;instance&quot;]][[&quot;train.inds&quot;]][[4]]
 
@@ -691,6 +725,43 @@ mlr:::measureRMSE(truth, pred)</code></pre>
 <pre class="r"><code>qplot(pred, geom = &quot;histogram&quot;)</code></pre>
 <pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 <p><img src="figure/inspect-glmnet-models.Rmd/unnamed-chunk-10-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-10-1">
+Past versions of unnamed-chunk-10-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-10-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/6f0317af536e7919612c8cc47e595697aa379b72/docs/figure/inspect-glmnet-models.Rmd/unnamed-chunk-10-1.png" target="_blank">6f0317a</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-03-11
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Ok, its one observation (row id = 737).</p>
 <p>Let’s have a look at the predictor values for this observation.</p>
 <pre class="r"><code>summary(obs_train_f4[737, ])</code></pre>
@@ -887,6 +958,43 @@ mod_mlr &lt;- train(lrn, task_f4)</code></pre>
 <pre><code>Loading required package: mmpf</code></pre>
 <pre class="r"><code>plotPartialDependence(pdp)</code></pre>
 <p><img src="figure/inspect-glmnet-models.Rmd/unnamed-chunk-20-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-20-1">
+Past versions of unnamed-chunk-20-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-20-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/6f0317af536e7919612c8cc47e595697aa379b72/docs/figure/inspect-glmnet-models.Rmd/unnamed-chunk-20-1.png" target="_blank">6f0317a</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-03-11
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Individual PDP</p>
 <pre class="r"><code>pdp_ind &lt;- generatePartialDependenceData(mod_mlr, task_f4,
   features = top_ten_abs,
@@ -894,6 +1002,43 @@ mod_mlr &lt;- train(lrn, task_f4)</code></pre>
 )
 plotPartialDependence(pdp_ind)</code></pre>
 <p><img src="figure/inspect-glmnet-models.Rmd/unnamed-chunk-21-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-21-1">
+Past versions of unnamed-chunk-21-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-21-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/6f0317af536e7919612c8cc47e595697aa379b72/docs/figure/inspect-glmnet-models.Rmd/unnamed-chunk-21-1.png" target="_blank">6f0317a</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-03-11
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 </div>
 <div id="compare-arguments-of-the-do.call-call-in-the-benchmark-with-the-manual-one" class="section level2">
