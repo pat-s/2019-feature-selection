@@ -25,6 +25,7 @@ library("mlr")
 library("glmnet")
 library("ggplot2")
 library("magrittr")
+library("plotmo")
 
 options(crayon.enabled = TRUE, pillar.bold = TRUE, scipen = 999)
 fansi::set_knit_hooks(knitr::knit_hooks)
@@ -47,7 +48,7 @@ date()
 - {glmnet} does its own internal 10-fold CV optimization when using `cv.glmnet()`.
   It iterates over `lambda` and chooses the most robust values for prediction via parameter `s` in `predict.glmnet()`. 
   Supplying a custom lambda sequence does not make much sense since the internal heuristics are quite good (if one wants to use non-spatial optimization).
-  See this [stats.stackexchange questions](https://stats.stackexchange.com/a/415248/101464) for how lambda defaults are estimated.
+  See this [stats.stackexchange question](https://stats.stackexchange.com/a/415248/101464) for how lambda defaults are estimated.
 - To conduct a spatial optimization, one needs to use `glmnet()` directly. 
   This implementation does not do an internal optimization for `lambda`  and hence `s` can/needs to be tuned directly by the user. 
   Because it is hard to come up with good tuning ranges in this case, one can fit a `cv.glmnet()` on the data and use the borders of the estimated `lambda` as upper and lower borders of the tuning space.
@@ -158,6 +159,18 @@ coef(modf4)
 ```
 
 Feature "bf2_PRI_norm" has a quite high value.
+
+```{r}
+plotres(modf4)
+```
+
+```{r}
+plot_glmnet(modf4$glmnet.fit)
+```
+
+```{r}
+plotmo(modf4$glmnet.fit)
+```
 
 Let's figure out which are the ten most important features and create PDPs for these:
 
