@@ -60,7 +60,7 @@ Inspect Ridge regression on VI task in detail because the error is enourmus.
 First extract the models.
 
 ```{r}
-models <- benchmark_models_new_penalized_mbo_buffer2[[8]][["results"]][["vi_buffer2"]][["Ridge-CV"]][["models"]]
+models <- benchmark_models_new_penalized_mbo_buffer2[[8]][["results"]][["vi_buffer2"]][["Ridge-MBO"]][["models"]]
 ```
 
 Then look at the fold performances
@@ -69,17 +69,8 @@ Then look at the fold performances
 benchmark_models_new_penalized_mbo_buffer2[[8]][["results"]][["vi_buffer2"]][["Ridge-MBO"]][["measures.test"]][["rmse"]]
 ```
 
-We see a high error on Fold 2 (= Laukiz 2).
+We see a high error on Fold 4 (= Laukiz 2).
 The others are also quite high but not "out of bounds".
-
-Because this models used the internal optimization of the lambda sequence (`cv.glmnet`), let's look at the value which was chosen for prediction (parameter `s` which defaults to `s="lambda.1se"`):
-
-```{r}
-purrr::map_dbl(models, ~ .x[["learner.model"]][["lambda.1se"]])
-```
-
-It seems that the `lambda.1se` value for Fold 4 is way higher than for the other 3 folds.
-However, all values seem to be quite high.
 
 Let's look at the full lambda sequence
 
@@ -87,11 +78,11 @@ Let's look at the full lambda sequence
 purrr::map_int(models, ~ length(.x[["learner.model"]][["lambda"]]))
 ```
 
-Interestingly, the lambda length of fold 1 is not 100 (default) but only 5.
+Interestingly, the lambda length of model 1 is not 100 (default) but only 5.
 
 ## Train/predict via {glmnet} manually
 
-To inspect further, let's refit a {glmnet} model directly on the training data of Fold 1 and inspect what `glmnet::cv.glmnet` estimates for the lambda sequence:
+To inspect further, let's refit a {glmnet} model directly on the training data of Fold 4 and inspect what `glmnet::cv.glmnet` estimates for the lambda sequence:
 
 ```{r}
 train_inds_fold4 <- benchmark_models_new_penalized_mbo_buffer2[[8]][["results"]][["vi_buffer2"]][["Ridge-MBO"]][["pred"]][["instance"]][["train.inds"]][[4]]
@@ -108,8 +99,6 @@ modf4 <- glmnet::cv.glmnet(obs_train_f4, target_f4, alpha = 0)
 
 modf4$lambda.1se
 ```
-
-Ok, a value of `0.85` is **very** different to what happened during the CV (4.211054e+08).
 
 Predict on Laukiz 2 now.
 
@@ -145,6 +134,8 @@ summary(obs_train_f4[737, ])
 ```
 
 Ok, how does this compare to summaries of other observations?
+NB: Obs. 500 - 510 were chosen randomly.
+The purpose here is to see if something within the predictors for specific observations looks abnormal.
 
 ```{r}
 lapply(seq(500:510), function(x) summary(obs_train_f4[x, ]))
@@ -158,7 +149,7 @@ Let's look at the model coefficients and Partial Dependence Plots (PDP):
 coef(modf4)
 ```
 
-Feature "bf2_PRI_norm" has a quite high value.
+Feature "bf2_PRI_norm" has a quite high value (-95).
 
 ```{r}
 plotres(modf4)
@@ -185,6 +176,8 @@ top_ten_abs <- coef(modf4) %>%
   dplyr::arrange(desc(coef_abs)) %>%
   dplyr::slice(1:10) %>%
   dplyr::pull(feature)
+
+top_ten_abs
 ```
 
 ### Partial Dependence Plots
@@ -239,20 +232,5 @@ Let's look at the x values for observation 737:
 obs_train_f4[737, top_ten_abs]
 ```
 
-Looks ok.
+Looks ok - they are all within a normal range with respectv to the PDP estimates.
 
-## Compare arguments of the `do.call` call in the benchmark with the manual one
-
-`args` were saved during a debug call of `mlr::benchmark()`
-
-```{r}
-args <- readRDS("args-bm-laukiz2.rda")
-target_bm <- args$y
-features_bm <- args$x
-
-train_inds_bm <- as.numeric(rownames(features_bm))
-
-all.equal(sort(target_bm), sort(target_f4))
-
-all.equal(sort(train_inds_bm), sort(train_inds_fold4))
-```
