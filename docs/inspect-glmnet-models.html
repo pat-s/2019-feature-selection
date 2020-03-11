@@ -493,10 +493,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontreeee192125ab52e1bffa2a78bfd2f8a7ed9728fa13targetblankee19212a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/ee192125ab52e1bffa2a78bfd2f8a7ed9728fa13" target="_blank">ee19212</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree0f90dcf5dfca0226d72573f8fac3cfb1575ab2c9targetblank0f90dcfa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/0f90dcf5dfca0226d72573f8fac3cfb1575ab2c9" target="_blank">0f90dcf</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontreeee192125ab52e1bffa2a78bfd2f8a7ed9728fa13targetblankee19212a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree0f90dcf5dfca0226d72573f8fac3cfb1575ab2c9targetblank0f90dcfa" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -576,6 +576,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/0f90dcf5dfca0226d72573f8fac3cfb1575ab2c9/analysis/inspect-glmnet-models.Rmd" target="_blank">0f90dcf</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-03-11
+</td>
+<td>
+workflowr::wflow_publish(“analysis/inspect-glmnet-models.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pat-s/2019-feature-selection/0ce0893a1deb9008846367f2eb33efc2b97ce085/docs/inspect-glmnet-models.html" target="_blank">0ce0893</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-03-11
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -703,11 +737,11 @@ wflow_publish(knitr_in(“analysis/inspect-glmnet-models.Rmd”), view =
 </div>
 </div>
 <p>Last update:</p>
-<p>[1] “Wed Mar 11 15:18:30 2020”</p>
+<p>[1] “Wed Mar 11 19:00:33 2020”</p>
 <div id="general-glmnet-notes" class="section level2">
 <h2>General glmnet notes</h2>
 <ul>
-<li>{glmnet} does its own internal 10-fold CV optimization when using <code>cv.glmnet()</code>. It iterates over <code>lambda</code> and chooses the most robust values for prediction via parameter <code>s</code> in <code>predict.glmnet()</code>. Supplying a custom lambda sequence does not make much sense since the internal heuristics are quite good (if one wants to use non-spatial optimization). See this <a href="https://stats.stackexchange.com/a/415248/101464">stats.stackexchange questions</a> for how lambda defaults are estimated.</li>
+<li>{glmnet} does its own internal 10-fold CV optimization when using <code>cv.glmnet()</code>. It iterates over <code>lambda</code> and chooses the most robust values for prediction via parameter <code>s</code> in <code>predict.glmnet()</code>. Supplying a custom lambda sequence does not make much sense since the internal heuristics are quite good (if one wants to use non-spatial optimization). See this <a href="https://stats.stackexchange.com/a/415248/101464">stats.stackexchange question</a> for how lambda defaults are estimated.</li>
 <li>To conduct a spatial optimization, one needs to use <code>glmnet()</code> directly. This implementation does not do an internal optimization for <code>lambda</code> and hence <code>s</code> can/needs to be tuned directly by the user. Because it is hard to come up with good tuning ranges in this case, one can fit a <code>cv.glmnet()</code> on the data and use the borders of the estimated <code>lambda</code> as upper and lower borders of the tuning space.</li>
 </ul>
 </div>
@@ -942,6 +976,40 @@ bf2_Vogelmann2   6.48132112495
 bf2_Vogelmann3   5.67673100608
 bf2_Vogelmann4   4.98343236576</code></pre>
 <p>Feature “bf2_PRI_norm” has a quite high value.</p>
+<pre class="r"><code>plotres(modf4)</code></pre>
+<p><img src="figure/inspect-glmnet-models.Rmd/unnamed-chunk-14-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot_glmnet(modf4$glmnet.fit)</code></pre>
+<p><img src="figure/inspect-glmnet-models.Rmd/unnamed-chunk-15-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plotmo(modf4$glmnet.fit)</code></pre>
+<pre><code> plotmo grid:    bf2_Boochs bf2_Boochs2 bf2_CARI bf2_Carter2 bf2_Carter3
+                   1.998693    2.845148 80.11412   0.1234949  0.08682775
+ bf2_Carter4 bf2_Carter5 bf2_Carter6   bf2_CI  bf2_CI2 bf2_ClAInt
+   0.2861524    1.622418    19.10886 1.087452 5.280886   877.1538
+   bf2_CRI1   bf2_CRI2 bf2_CRI3  bf2_CRI4   bf2_D1    bf2_D2  bf2_Datt
+ 0.04910712 0.06965439 -9.37543 -6.282868 1.514274 0.7339561 0.8177696
+ bf2_Datt2 bf2_Datt3  bf2_Datt4 bf2_Datt5 bf2_Datt6   bf2_DD   bf2_DDn
+  4.216579 0.7465023 0.01912338 0.7204213 0.3120446 63.41494 -266.1666
+   bf2_DPI bf2_DWSI4 bf2_EGFR  bf2_EVI bf2_GDVI_2 bf2_GDVI_3 bf2_GDVI_4
+ 0.5886079  1.382126 7.359851 4.944853  0.9875098  0.9989018  0.9998978
+  bf2_GI bf2_Gitelson bf2_Gitelson2 bf2_GMI1 bf2_GMI2 bf2_Green.NDVI
+ 1.43903   0.04093419      8.943006 8.631567 5.866379        0.80809
+ bf2_Maccioni bf2_MCARI bf2_MCARI2 bf2_mND705 bf2_mNDVI bf2_MPRI bf2_MSAVI
+    0.7883106  25.39617   397.1709  0.6687387 0.9220925 9.782586 0.9283319
+  bf2_mSR bf2_mSR2 bf2_mSR705 bf2_MTCI bf2_MTVI  bf2_NDVI bf2_NDVI2
+ 28.73996  3.88811   5.140166 3.635395 247.0532 0.8593618 0.6208416
+ bf2_NDVI3  bf2_NPCI bf2_OSAVI bf2_PARS     bf2_PRI bf2_PRI_norm
+ -0.137058 0.2540456  1.005096 16.79849 -0.02239909 0.0009611926
+ bf2_PRI.CI2   bf2_PSRI bf2_PSSR  bf2_PSND bf2_SPVI.1  bf2_PWI bf2_RDVI
+  -0.1033416 0.03712631 13.42027 0.9324896    238.338 1.013997 11.67572
+ bf2_REP_Li bf2_SAVI bf2_SIPI bf2_SPVI.2   bf2_SR  bf2_SR1  bf2_SR2
+   724.5711  1.29702 1.042882    238.338 14.16137 5.866379 9.883037
+  bf2_SR3  bf2_SR4   bf2_SR5  bf2_SR6   bf2_SR7   bf2_SR8 bf2_Sum_Dr1
+ 8.631567 2.146826 0.4827658 3.288378 0.3703371 0.5433803    38.28711
+ bf2_Sum_Dr2  bf2_SRPI bf2_TCARI bf2_TCARI2  bf2_TGI  bf2_TVI
+    33.57344 0.6054507  31.51822   3.176928 922.7046 8765.983
+ bf2_Vogelmann bf2_Vogelmann2 bf2_Vogelmann3 bf2_Vogelmann4
+       1.84361     -0.2100082       1.316905     -0.2384276</code></pre>
+<p><img src="figure/inspect-glmnet-models.Rmd/unnamed-chunk-16-1.png" width="100%" style="display: block; margin: auto;" /></p>
 <p>Let’s figure out which are the ten most important features and create PDPs for these:</p>
 <pre class="r"><code>top_ten_abs &lt;- coef(modf4) %&gt;%
   as.matrix() %&gt;%
@@ -991,88 +1059,14 @@ mod_mlr &lt;- train(lrn, task_f4)</code></pre>
 <pre class="r"><code>pdp &lt;- generatePartialDependenceData(mod_mlr, task_f4, features = top_ten_abs)</code></pre>
 <pre><code>Loading required package: mmpf</code></pre>
 <pre class="r"><code>plotPartialDependence(pdp)</code></pre>
-<p><img src="figure/inspect-glmnet-models.Rmd/unnamed-chunk-20-1.png" width="100%" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-20-1">
-Past versions of unnamed-chunk-20-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-20-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/pat-s/2019-feature-selection/blob/6f0317af536e7919612c8cc47e595697aa379b72/docs/figure/inspect-glmnet-models.Rmd/unnamed-chunk-20-1.png" target="_blank">6f0317a</a>
-</td>
-<td>
-pat-s
-</td>
-<td>
-2020-03-11
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/inspect-glmnet-models.Rmd/unnamed-chunk-23-1.png" width="100%" style="display: block; margin: auto;" /></p>
 <p>Individual PDP</p>
 <pre class="r"><code>pdp_ind &lt;- generatePartialDependenceData(mod_mlr, task_f4,
   features = top_ten_abs,
   individual = TRUE
 )
 plotPartialDependence(pdp_ind)</code></pre>
-<p><img src="figure/inspect-glmnet-models.Rmd/unnamed-chunk-21-1.png" width="100%" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-21-1">
-Past versions of unnamed-chunk-21-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-21-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/pat-s/2019-feature-selection/blob/6f0317af536e7919612c8cc47e595697aa379b72/docs/figure/inspect-glmnet-models.Rmd/unnamed-chunk-21-1.png" target="_blank">6f0317a</a>
-</td>
-<td>
-pat-s
-</td>
-<td>
-2020-03-11
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/inspect-glmnet-models.Rmd/unnamed-chunk-24-1.png" width="100%" style="display: block; margin: auto;" /></p>
 <p>Let’s look at the x values for observation 737:</p>
 <pre class="r"><code>obs_train_f4[737, top_ten_abs]</code></pre>
 <pre><code>  bf2_PRI_norm     bf2_GDVI_3       bf2_Datt         bf2_CI   bf2_Maccioni 
@@ -1123,33 +1117,35 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
-[1] mmpf_0.0.5        tidyselect_0.2.5  magrittr_1.5      ggplot2_3.2.1    
-[5] glmnet_3.0-2      Matrix_1.2-15     mlr_2.17.0.9001   ParamHelpers_1.12
-[9] drake_7.10.0     
+ [1] mmpf_0.0.5         tidyselect_0.2.5   plotmo_3.5.6      
+ [4] TeachingDemos_2.10 plotrix_3.7-7      Formula_1.2-3     
+ [7] magrittr_1.5       ggplot2_3.2.1      glmnet_3.0-2      
+[10] Matrix_1.2-15      mlr_2.17.0.9001    ParamHelpers_1.12 
+[13] drake_7.10.0      
 
 loaded via a namespace (and not attached):
- [1] storr_1.2.1       shape_1.4.4       xfun_0.5         
- [4] purrr_0.3.3       lattice_0.20-38   splines_3.6.1    
- [7] colorspace_1.4-0  vctrs_0.2.1       htmltools_0.3.6  
-[10] yaml_2.2.0        XML_3.98-1.17     survival_2.43-3  
-[13] rlang_0.4.4       R.oo_1.23.0       later_1.0.0      
-[16] pillar_1.4.3      withr_2.1.2       txtq_0.1.4       
-[19] glue_1.3.1        R.utils_2.8.0     foreach_1.4.4    
-[22] stringr_1.4.0     munsell_0.5.0     gtable_0.2.0     
-[25] workflowr_1.6.0   R.methodsS3_1.7.1 codetools_0.2-16 
-[28] evaluate_0.13     labeling_0.3      knitr_1.23       
-[31] parallelMap_1.4   httpuv_1.4.5.1    parallel_3.6.1   
-[34] fansi_0.4.1       Rcpp_1.0.3        promises_1.0.1   
-[37] backports_1.1.5   scales_1.0.0      filelock_1.0.2   
-[40] checkmate_1.9.1   fs_1.3.1          fastmatch_1.1-0  
-[43] digest_0.6.23     stringi_1.3.1     BBmisc_1.11      
-[46] dplyr_0.8.3       rprojroot_1.3-2   grid_3.6.1       
-[49] tools_3.6.1       base64url_1.4     lazyeval_0.2.1   
-[52] tibble_2.1.3      crayon_1.3.4      whisker_0.3-2    
-[55] pkgconfig_2.0.3   zeallot_0.1.0     data.table_1.12.6
-[58] iterators_1.0.10  assertthat_0.2.1  rmarkdown_1.13   
-[61] R6_2.4.1          igraph_1.2.4.1    git2r_0.26.1     
-[64] compiler_3.6.1   </code></pre>
+ [1] Rcpp_1.0.3        txtq_0.1.4        lattice_0.20-38  
+ [4] assertthat_0.2.1  zeallot_0.1.0     rprojroot_1.3-2  
+ [7] digest_0.6.23     foreach_1.4.4     R6_2.4.1         
+[10] backports_1.1.5   evaluate_0.13     pillar_1.4.3     
+[13] rlang_0.4.4       lazyeval_0.2.1    data.table_1.12.6
+[16] whisker_0.3-2     R.utils_2.8.0     R.oo_1.23.0      
+[19] checkmate_1.9.1   rmarkdown_1.13    labeling_0.3     
+[22] splines_3.6.1     stringr_1.4.0     igraph_1.2.4.1   
+[25] munsell_0.5.0     compiler_3.6.1    httpuv_1.4.5.1   
+[28] xfun_0.5          pkgconfig_2.0.3   shape_1.4.4      
+[31] BBmisc_1.11       htmltools_0.3.6   tibble_2.1.3     
+[34] workflowr_1.6.0   codetools_0.2-16  XML_3.98-1.17    
+[37] fansi_0.4.1       crayon_1.3.4      dplyr_0.8.3      
+[40] withr_2.1.2       later_1.0.0       R.methodsS3_1.7.1
+[43] grid_3.6.1        gtable_0.2.0      git2r_0.26.1     
+[46] storr_1.2.1       scales_1.0.0      stringi_1.3.1    
+[49] fs_1.3.1          promises_1.0.1    parallelMap_1.4  
+[52] filelock_1.0.2    vctrs_0.2.1       fastmatch_1.1-0  
+[55] iterators_1.0.10  tools_3.6.1       glue_1.3.1       
+[58] purrr_0.3.3       parallel_3.6.1    survival_2.43-3  
+[61] yaml_2.2.0        colorspace_1.4-0  base64url_1.4    
+[64] knitr_1.23       </code></pre>
 </div>
 </div>
 
