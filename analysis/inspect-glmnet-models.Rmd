@@ -220,6 +220,14 @@ pdp_ind <- generatePartialDependenceData(mod_mlr, task_f4,
 plotPartialDependence(pdp_ind)
 ```
 
+Let's look at the x values for observation 737:
+
+```{r}
+obs_train_f4[737, top_ten_abs]
+```
+
+Looks ok.
+
 ## Compare arguments of the `do.call` call in the benchmark with the manual one
 
 `args` were saved during a debug call of `mlr::benchmark()`
