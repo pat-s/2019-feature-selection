@@ -23,20 +23,31 @@ R.utils::sourceDirectory("R")
 library("drake")
 library("mlr")
 library("glmnet")
+library("ggplot2")
+library("magrittr")
+
+options(crayon.enabled = TRUE, pillar.bold = TRUE, scipen = 999)
+fansi::set_knit_hooks(knitr::knit_hooks)
 
 # load drake objects
 loadd(
-  benchmark_models_new_penalized_buffer2,
+  benchmark_models_new_penalized_mbo_buffer2,
   task_new_buffer2
 )
-
 ```
 
 Last update: 
 
-```{r}
+```{r, echo=FALSE, results='asis'}
 date()
 ```
+
+## General glmnet notes
+
+- {glmnet} does its own internal 10-fold CV optimization when using `cv.glmnet()`.
+  It iterates over `lambda` and chooses the most robust values for prediction via parameter `s` in `predict.glmnet()`. Supplying a custom lambda sequence does not make much sense since the internal heuristics are quite good (if one wants to use non-spatial optimization).
+- To conduct a spatial optimization, one needs to use `glmnet()` directly. 
+  This implementation does not do an internal optimization for `lambda`  and hence `s` can/needs to be tuned directly by the user. Because it is hard to come up with good tuning ranges in this case, one can fit a `cv.glmnet()` on the data and use the borders of the estimated `lambda` as upper and lower borders of the tuning space.
 
 ## Inspect fitted models during CV
 
@@ -45,16 +56,16 @@ Inspect Ridge regression on VI task in detail because the error is enourmus.
 First extract the models.
 
 ```{r}
-models = benchmark_models_new_penalized_buffer2[[8]][["results"]][["vi_buffer2"]][["Ridge-CV"]][["models"]]
+models <- benchmark_models_new_penalized_mbo_buffer2[[8]][["results"]][["vi_buffer2"]][["Ridge-CV"]][["models"]]
 ```
 
 Then look at the fold performances
 
 ```{r}
-benchmark_models_new_penalized_buffer2[[8]][["results"]][["vi_buffer2"]][["Ridge-CV"]][["measures.test"]][["rmse"]]
+benchmark_models_new_penalized_mbo_buffer2[[8]][["results"]][["vi_buffer2"]][["Ridge-MBO"]][["measures.test"]][["rmse"]]
 ```
 
-We see a high error on Fold 1 (= Laukiz 2).
+We see a high error on Fold 2 (= Laukiz 2).
 The others are also quite high but not "out of bounds".
 
 Because this models used the internal optimization of the lambda sequence (`cv.glmnet`), let's look at the value which was chosen for prediction (parameter `s` which defaults to `s="lambda.1se"`):
@@ -63,7 +74,7 @@ Because this models used the internal optimization of the lambda sequence (`cv.g
 purrr::map_dbl(models, ~ .x[["learner.model"]][["lambda.1se"]])
 ```
 
-It seems that the `lambda.1se` value for Fold 1 is way smaller than for the other 3 folds.
+It seems that the `lambda.1se` value for Fold 4 is way higher than for the other 3 folds.
 However, all values seem to be quite high.
 
 Let's look at the full lambda sequence
@@ -79,19 +90,19 @@ Interestingly, the lambda length of fold 1 is not 100 (default) but only 5.
 To inspect further, let's refit a {glmnet} model directly on the training data of Fold 1 and inspect what `glmnet::cv.glmnet` estimates for the lambda sequence:
 
 ```{r}
-train_inds_fold1 = benchmark_models_new_penalized_buffer2[[8]][["results"]][["vi_buffer2"]][["Ridge-CV"]][["pred"]][["instance"]][["train.inds"]][[1]]
+train_inds_fold4 <- benchmark_models_new_penalized_mbo_buffer2[[8]][["results"]][["vi_buffer2"]][["Ridge-MBO"]][["pred"]][["instance"]][["train.inds"]][[4]]
 
-obs_train_f1 = as.matrix(task_new_buffer2[[2]]$env$data[train_inds_fold1, getTaskFeatureNames(task_new_buffer2[[2]])])
-target_f1 = getTaskTargets(task_new_buffer2[[2]])[train_inds_fold1]
+obs_train_f4 <- as.matrix(task_new_buffer2[[2]]$env$data[train_inds_fold4, getTaskFeatureNames(task_new_buffer2[[2]])])
+target_f4 <- getTaskTargets(task_new_buffer2[[2]])[train_inds_fold4]
 ```
 
 Fit `cv.glmnet`
 
 ```{r}
 set.seed(1)
-modf1 = glmnet::cv.glmnet(obs_train_f1, target_f1, nfolds = 5)
+modf4 <- glmnet::cv.glmnet(obs_train_f4, target_f4, alpha = 0)
 
-modf1$lambda.1se
+modf4$lambda.1se
 ```
 
 Ok, a value of `0.85` is **very** different to what happened during the CV (4.211054e+08).
@@ -99,50 +110,125 @@ Ok, a value of `0.85` is **very** different to what happened during the CV (4.21
 Predict on Laukiz 2 now.
 
 ```{r}
-pred_inds_fold1 = benchmark_models_new_penalized_buffer2[[8]][["results"]][["vi_buffer2"]][["Ridge-CV"]][["pred"]][["instance"]][["test.inds"]][[1]]
+pred_inds_fold4 <- benchmark_models_new_penalized_mbo_buffer2[[8]][["results"]][["vi_buffer2"]][["Ridge-MBO"]][["pred"]][["instance"]][["test.inds"]][[4]]
 
-obs_pred_f1 = as.matrix(task_new_buffer2[[2]]$env$data[pred_inds_fold1, getTaskFeatureNames(task_new_buffer2[[2]])])
+obs_pred_f4 <- as.matrix(task_new_buffer2[[2]]$env$data[pred_inds_fold4, getTaskFeatureNames(task_new_buffer2[[2]])])
 
-pred = predict(modf1, newx = obs_pred_f1)
+pred <- predict(modf4, newx = obs_pred_f4, s = modf4$lambda.1se)
 ```
 
 Calculate the error
 
 ```{r}
-truth = task_new_buffer2[[2]]$env$data[pred_inds_fold1, "defoliation"]
+truth <- task_new_buffer2[[2]]$env$data[pred_inds_fold4, "defoliation"]
 
 mlr:::measureRMSE(truth, pred)
 ```
 
-Ok, RMSE of 52. Still not great but at least not out of bounds.
-
-## Train/predict manually for Fold 1 via {mlr}
-
-Now let's fit the same subset (= Fold 1) via mlr
+Ok, RMSE of 97073324139.
+This is most likely because of a few. observations which were predicted completely out of bounds.
 
 ```{r}
-lrn = makeLearner("regr.cvglmnet", nfolds = 5)
-task_f1 = subsetTask(task_new_buffer2[[2]], train_inds_fold1)
+qplot(pred, geom = "histogram")
+```
+
+Ok, its one observation (row id  = 737).
+
+Let's have a look at the predictor values for this observation.
+
+```{r}
+summary(obs_train_f4[737, ])
+```
+
+Ok, how does this compare to summaries of other observations?
+
+```{r}
+lapply(seq(500:510), function(x) summary(obs_train_f4[x, ]))
+```
+
+We have some higher values for obs 737 but nothing which stands out.
+
+Let's look at the model coefficients and Partial Dependence Plots (PDP):
+
+```{r}
+coef(modf4)
+```
+
+Feature "bf2_PRI_norm" has a quite high value.
+
+Let's figure out which are the ten most important features and create PDPs for these:
+
+```{r}
+top_ten_abs <- coef(modf4) %>%
+  as.matrix() %>%
+  as.data.frame() %>%
+  dplyr::rename(coef = `1`) %>%
+  dplyr::mutate(feature = rownames(coef(modf4))) %>%
+  dplyr::slice(-1) %>%
+  dplyr::mutate(coef_abs = abs(coef)) %>%
+  dplyr::arrange(desc(coef_abs)) %>%
+  dplyr::slice(1:10) %>%
+  dplyr::pull(feature)
+```
+
+### Partial Dependence Plots
+
+For PDP we use a model trained with {mlr} and check for equality first.
+
+```{r}
+lrn <- makeLearner("regr.cvglmnet", alpha = 0)
+task_f4 <- subsetTask(task_new_buffer2[[2]], train_inds_fold4)
 
 set.seed(1)
-mod = train(lrn, task_f1)
+mod_mlr <- train(lrn, task_f4)
 ```
 
 Check lambda sequence and `lambda.1se`:
 
 ```{r}
-mod$learner.model$lambda
+mod_mlr$learner.model$lambda
 ```
 
 ```{r}
-mod$learner.model$lambda.1se
+mod_mlr$learner.model$lambda.1se
 ```
 
 Check for equality between {mlr} and {glmnet} directly
 
 ```{r}
-all.equal(modf1$lambda.1se, mod$learner.model$lambda.1se)
+all.equal(modf4$lambda.1se, mod_mlr$learner.model$lambda.1se)
 ```
 
-Ok, so {mlr} works correctly when fitting the model for a single fold. 
-Hence, somethings goes wrong during CV?
+```{r}
+pdp <- generatePartialDependenceData(mod_mlr, task_f4, features = top_ten_abs)
+```
+
+```{r}
+plotPartialDependence(pdp)
+```
+
+Individual PDP
+
+```{r}
+pdp_ind <- generatePartialDependenceData(mod_mlr, task_f4,
+  features = top_ten_abs,
+  individual = TRUE
+)
+plotPartialDependence(pdp_ind)
+```
+
+## Compare arguments of the `do.call` call in the benchmark with the manual one
+
+`args` were saved during a debug call of `mlr::benchmark()`
+
+```{r}
+args <- readRDS("args-bm-laukiz2.rda")
+target_bm <- args$y
+features_bm <- args$x
+
+train_inds_bm <- as.numeric(rownames(features_bm))
+
+all.equal(sort(target_bm), sort(target_f4))
+
+all.equal(sort(train_inds_bm), sort(train_inds_fold4))
+```
