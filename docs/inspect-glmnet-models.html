@@ -373,9 +373,12 @@ div.section {
 
 <div id="TOC">
 <ul>
+<li><a href="#general-glmnet-notes">General glmnet notes</a></li>
 <li><a href="#inspect-fitted-models-during-cv">Inspect fitted models during CV</a></li>
-<li><a href="#trainpredict-manually-for-fold-1-via-glmnet">Train/predict manually for Fold 1 via {glmnet}</a></li>
-<li><a href="#trainpredict-manually-for-fold-1-via-mlr">Train/predict manually for Fold 1 via {mlr}</a></li>
+<li><a href="#trainpredict-manually-for-fold-1-via-glmnet">Train/predict manually for Fold 1 via {glmnet}</a><ul>
+<li><a href="#partial-dependence-plots">Partial Dependence Plots</a></li>
+</ul></li>
+<li><a href="#compare-arguments-of-the-do.call-call-in-the-benchmark-with-the-manual-one">Compare arguments of the <code>do.call</code> call in the benchmark with the manual one</a></li>
 </ul>
 </div>
 
@@ -399,7 +402,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-03-08
+<strong>Last updated:</strong> 2020-03-11
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -490,10 +493,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontreeb7e12c1a954819206b777a5a6440be1672c231f9targetblankb7e12c1a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/b7e12c1a954819206b777a5a6440be1672c231f9" target="_blank">b7e12c1</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree37a838b5e7382b0dcb0a44879d1a034f1907aa8ctargetblank37a838ba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/37a838b5e7382b0dcb0a44879d1a034f1907aa8c" target="_blank">37a838b</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontreeb7e12c1a954819206b777a5a6440be1672c231f9targetblankb7e12c1a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree37a838b5e7382b0dcb0a44879d1a034f1907aa8ctargetblank37a838ba" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -517,12 +520,14 @@ Ignored files:
     Ignored:    rosm.cache/
 
 Untracked files:
+    Untracked:  args-bm-laukiz2.rda
     Untracked:  code/06-modeling/project/
 
 Unstaged changes:
     Modified:   .Rprofile
     Modified:   _drake.R
     Modified:   analysis/_site.yml
+    Modified:   analysis/about.Rmd
     Modified:   analysis/report-defoliation.Rmd
     Modified:   code/02-hyperspectral-processing.R
     Modified:   code/03-sentinel-processing.R
@@ -576,6 +581,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/37a838b5e7382b0dcb0a44879d1a034f1907aa8c/analysis/inspect-glmnet-models.Rmd" target="_blank">37a838b</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-03-11
+</td>
+<td>
+workflowr::wflow_publish(“analysis/inspect-glmnet-models.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pat-s/2019-feature-selection/2926d7ba8ee2908fbc914e347734dc4cbf74c960/docs/inspect-glmnet-models.html" target="_blank">2926d7b</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-03-08
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/b7e12c1a954819206b777a5a6440be1672c231f9/analysis/inspect-glmnet-models.Rmd" target="_blank">b7e12c1</a>
 </td>
 <td>
@@ -596,89 +635,280 @@ wflow_publish(knitr_in(“analysis/inspect-glmnet-models.Rmd”), view =
 </div>
 </div>
 <p>Last update:</p>
-<pre class="r"><code>date()</code></pre>
-<pre><code>[1] &quot;Sun Mar  8 18:49:29 2020&quot;</code></pre>
+<p>[1] “Wed Mar 11 14:56:48 2020”</p>
+<div id="general-glmnet-notes" class="section level2">
+<h2>General glmnet notes</h2>
+<ul>
+<li>{glmnet} does its own internal 10-fold CV optimization when using <code>cv.glmnet()</code>. It iterates over <code>lambda</code> and chooses the most robust values for prediction via parameter <code>s</code> in <code>predict.glmnet()</code>. Supplying a custom lambda sequence does not make much sense since the internal heuristics are quite good (if one wants to use non-spatial optimization).</li>
+<li>To conduct a spatial optimization, one needs to use <code>glmnet()</code> directly. This implementation does not do an internal optimization for <code>lambda</code> and hence <code>s</code> can/needs to be tuned directly by the user. Because it is hard to come up with good tuning ranges in this case, one can fit a <code>cv.glmnet()</code> on the data and use the borders of the estimated <code>lambda</code> as upper and lower borders of the tuning space.</li>
+</ul>
+</div>
 <div id="inspect-fitted-models-during-cv" class="section level2">
 <h2>Inspect fitted models during CV</h2>
 <p>Inspect Ridge regression on VI task in detail because the error is enourmus.</p>
 <p>First extract the models.</p>
-<pre class="r"><code>models = benchmark_models_new_penalized_buffer2[[8]][[&quot;results&quot;]][[&quot;vi_buffer2&quot;]][[&quot;Ridge-CV&quot;]][[&quot;models&quot;]]</code></pre>
+<pre class="r"><code>models &lt;- benchmark_models_new_penalized_mbo_buffer2[[8]][[&quot;results&quot;]][[&quot;vi_buffer2&quot;]][[&quot;Ridge-CV&quot;]][[&quot;models&quot;]]</code></pre>
 <p>Then look at the fold performances</p>
-<pre class="r"><code>benchmark_models_new_penalized_buffer2[[8]][[&quot;results&quot;]][[&quot;vi_buffer2&quot;]][[&quot;Ridge-CV&quot;]][[&quot;measures.test&quot;]][[&quot;rmse&quot;]]</code></pre>
-<pre><code>[1] 4.131716e+07 6.053429e+01 6.886208e+01 7.046982e+01</code></pre>
-<p>We see a high error on Fold 1 (= Laukiz 2). The others are also quite high but not “out of bounds”.</p>
+<pre class="r"><code>benchmark_models_new_penalized_mbo_buffer2[[8]][[&quot;results&quot;]][[&quot;vi_buffer2&quot;]][[&quot;Ridge-MBO&quot;]][[&quot;measures.test&quot;]][[&quot;rmse&quot;]]</code></pre>
+<pre><code>[1]           28.04421           21.44949           21.93398
+[4] 199291640366.92307</code></pre>
+<p>We see a high error on Fold 2 (= Laukiz 2). The others are also quite high but not “out of bounds”.</p>
 <p>Because this models used the internal optimization of the lambda sequence (<code>cv.glmnet</code>), let’s look at the value which was chosen for prediction (parameter <code>s</code> which defaults to <code>s="lambda.1se"</code>):</p>
 <pre class="r"><code>purrr::map_dbl(models, ~ .x[[&quot;learner.model&quot;]][[&quot;lambda.1se&quot;]])</code></pre>
-<pre><code>[1] 4.211054e+08 4.370350e+16 3.622142e+16 4.163667e+16</code></pre>
-<p>It seems that the <code>lambda.1se</code> value for Fold 1 is way smaller than for the other 3 folds. However, all values seem to be quite high.</p>
+<pre><code>numeric(0)</code></pre>
+<p>It seems that the <code>lambda.1se</code> value for Fold 4 is way higher than for the other 3 folds. However, all values seem to be quite high.</p>
 <p>Let’s look at the full lambda sequence</p>
 <pre class="r"><code>purrr::map_int(models, ~ length(.x[[&quot;learner.model&quot;]][[&quot;lambda&quot;]]))</code></pre>
-<pre><code>[1]   5 100 100 100</code></pre>
+<pre><code>integer(0)</code></pre>
 <p>Interestingly, the lambda length of fold 1 is not 100 (default) but only 5.</p>
 </div>
 <div id="trainpredict-manually-for-fold-1-via-glmnet" class="section level2">
 <h2>Train/predict manually for Fold 1 via {glmnet}</h2>
 <p>To inspect further, let’s refit a {glmnet} model directly on the training data of Fold 1 and inspect what <code>glmnet::cv.glmnet</code> estimates for the lambda sequence:</p>
-<pre class="r"><code>train_inds_fold1 = benchmark_models_new_penalized_buffer2[[8]][[&quot;results&quot;]][[&quot;vi_buffer2&quot;]][[&quot;Ridge-CV&quot;]][[&quot;pred&quot;]][[&quot;instance&quot;]][[&quot;train.inds&quot;]][[1]]
+<pre class="r"><code>train_inds_fold4 &lt;- benchmark_models_new_penalized_mbo_buffer2[[8]][[&quot;results&quot;]][[&quot;vi_buffer2&quot;]][[&quot;Ridge-MBO&quot;]][[&quot;pred&quot;]][[&quot;instance&quot;]][[&quot;train.inds&quot;]][[4]]
 
-obs_train_f1 = as.matrix(task_new_buffer2[[2]]$env$data[train_inds_fold1, getTaskFeatureNames(task_new_buffer2[[2]])])
-target_f1 = getTaskTargets(task_new_buffer2[[2]])[train_inds_fold1]</code></pre>
+obs_train_f4 &lt;- as.matrix(task_new_buffer2[[2]]$env$data[train_inds_fold4, getTaskFeatureNames(task_new_buffer2[[2]])])
+target_f4 &lt;- getTaskTargets(task_new_buffer2[[2]])[train_inds_fold4]</code></pre>
 <p>Fit <code>cv.glmnet</code></p>
 <pre class="r"><code>set.seed(1)
-modf1 = glmnet::cv.glmnet(obs_train_f1, target_f1, nfolds = 5)
+modf4 &lt;- glmnet::cv.glmnet(obs_train_f4, target_f4, alpha = 0)
 
-modf1$lambda.1se</code></pre>
-<pre><code>[1] 0.8509291</code></pre>
+modf4$lambda.1se</code></pre>
+<pre><code>[1] 17.09715</code></pre>
 <p>Ok, a value of <code>0.85</code> is <strong>very</strong> different to what happened during the CV (4.211054e+08).</p>
 <p>Predict on Laukiz 2 now.</p>
-<pre class="r"><code>pred_inds_fold1 = benchmark_models_new_penalized_buffer2[[8]][[&quot;results&quot;]][[&quot;vi_buffer2&quot;]][[&quot;Ridge-CV&quot;]][[&quot;pred&quot;]][[&quot;instance&quot;]][[&quot;test.inds&quot;]][[1]]
+<pre class="r"><code>pred_inds_fold4 &lt;- benchmark_models_new_penalized_mbo_buffer2[[8]][[&quot;results&quot;]][[&quot;vi_buffer2&quot;]][[&quot;Ridge-MBO&quot;]][[&quot;pred&quot;]][[&quot;instance&quot;]][[&quot;test.inds&quot;]][[4]]
 
-obs_pred_f1 = as.matrix(task_new_buffer2[[2]]$env$data[pred_inds_fold1, getTaskFeatureNames(task_new_buffer2[[2]])])
+obs_pred_f4 &lt;- as.matrix(task_new_buffer2[[2]]$env$data[pred_inds_fold4, getTaskFeatureNames(task_new_buffer2[[2]])])
 
-pred = predict(modf1, newx = obs_pred_f1)</code></pre>
+pred &lt;- predict(modf4, newx = obs_pred_f4, s = modf4$lambda.1se)</code></pre>
 <p>Calculate the error</p>
-<pre class="r"><code>truth = task_new_buffer2[[2]]$env$data[pred_inds_fold1, &quot;defoliation&quot;]
+<pre class="r"><code>truth &lt;- task_new_buffer2[[2]]$env$data[pred_inds_fold4, &quot;defoliation&quot;]
 
 mlr:::measureRMSE(truth, pred)</code></pre>
-<pre><code>[1] 52.42488</code></pre>
-<p>Ok, RMSE of 52. Still not great but at least not out of bounds.</p>
-</div>
-<div id="trainpredict-manually-for-fold-1-via-mlr" class="section level2">
-<h2>Train/predict manually for Fold 1 via {mlr}</h2>
-<p>Now let’s fit the same subset (= Fold 1) via mlr</p>
-<pre class="r"><code>lrn = makeLearner(&quot;regr.cvglmnet&quot;, nfolds = 5)
-task_f1 = subsetTask(task_new_buffer2[[2]], train_inds_fold1)
+<pre><code>[1] 97073324139</code></pre>
+<p>Ok, RMSE of 97073324139. This is most likely because of a few. observations which were predicted completely out of bounds.</p>
+<pre class="r"><code>qplot(pred, geom = &quot;histogram&quot;)</code></pre>
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<p><img src="figure/inspect-glmnet-models.Rmd/unnamed-chunk-10-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>Ok, its one observation (row id = 737).</p>
+<p>Let’s have a look at the predictor values for this observation.</p>
+<pre class="r"><code>summary(obs_train_f4[737, ])</code></pre>
+<pre><code>     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+ -465.332     0.495     1.248   244.077    13.569 15673.108 </code></pre>
+<p>Ok, how does this compare to summaries of other observations?</p>
+<pre class="r"><code>lapply(seq(500:510), function(x) summary(obs_train_f4[x, ]))</code></pre>
+<pre><code>[[1]]
+    Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+-241.698    0.543    1.342  136.208    9.122 8310.363 
+
+[[2]]
+    Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+-162.222    0.557    1.092   88.503    7.497 5026.049 
+
+[[3]]
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+ -358.944     0.452     1.286   198.458    10.548 12438.312 
+
+[[4]]
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+ -88.5556    0.5348    1.0245   54.8659    7.3913 2870.3848 
+
+[[5]]
+    Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+-104.903    0.545    1.063   61.960    8.315 3202.895 
+
+[[6]]
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+ -311.475     0.527     1.277   172.420     9.705 10713.079 
+
+[[7]]
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+ -440.426     0.488     1.384   226.684    11.486 14710.321 
+
+[[8]]
+    Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+-135.505    0.601    1.104   76.380    8.666 4416.709 
+
+[[9]]
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+ -408.230     0.563     1.243   217.687     9.761 13471.893 
+
+[[10]]
+    Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+-228.969    0.570    1.067   81.748    8.795 4882.058 
+
+[[11]]
+    Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+-180.651    0.539    1.101   91.665    7.273 5362.145 </code></pre>
+<p>We have some higher values for obs 737 but nothing which stands out.</p>
+<p>Let’s look at the model coefficients and Partial Dependence Plots (PDP):</p>
+<pre class="r"><code>coef(modf4)</code></pre>
+<pre><code>90 x 1 sparse Matrix of class &quot;dgCMatrix&quot;
+                             1
+(Intercept)    531.11225516839
+bf2_Boochs       0.01856478558
+bf2_Boochs2     -0.10174641139
+bf2_CARI        -0.00101151781
+bf2_Carter2     -0.54044992476
+bf2_Carter3     -4.74060904178
+bf2_Carter4      3.57395447927
+bf2_Carter5      2.40033358279
+bf2_Carter6     -0.01223220666
+bf2_CI          17.44558789878
+bf2_CI2         -0.09234363302
+bf2_ClAInt      -0.00029867499
+bf2_CRI1         3.93199597949
+bf2_CRI2         3.93621597231
+bf2_CRI3        -0.14102965215
+bf2_CRI4         0.07745521805
+bf2_D1          -0.21172763780
+bf2_D2           4.48364959574
+bf2_Datt       -29.92657011501
+bf2_Datt2       -0.44902414236
+bf2_Datt3       -5.82225051092
+bf2_Datt4        9.73689861012
+bf2_Datt5        0.43034087514
+bf2_Datt6        0.52067426584
+bf2_DD          -0.00466742370
+bf2_DDn          0.00165874779
+bf2_DPI         -2.94066199649
+bf2_DWSI4       -0.27682042303
+bf2_EGFR        -0.01998100611
+bf2_EVI         -0.00201410021
+bf2_GDVI_2      10.27846237651
+bf2_GDVI_3      31.18505681072
+bf2_GDVI_4       0.93958347942
+bf2_GI          -0.34477144062
+bf2_Gitelson     2.64273830373
+bf2_Gitelson2   -0.02585043394
+bf2_GMI1         0.16818982267
+bf2_GMI2        -0.05229428190
+bf2_Green.NDVI   1.73562944987
+bf2_Maccioni   -16.16650612962
+bf2_MCARI        0.00522029772
+bf2_MCARI2      -0.00049064534
+bf2_mND705      -0.64532841126
+bf2_mNDVI        3.53489589242
+bf2_MPRI        -0.03442634938
+bf2_MSAVI        3.65757418934
+bf2_mSR          0.00161463593
+bf2_mSR2        -0.08935382573
+bf2_mSR705      -0.09691169765
+bf2_MTCI        -0.43694064196
+bf2_MTVI        -0.00121734402
+bf2_NDVI         1.93976587113
+bf2_NDVI2       -0.49852301101
+bf2_NDVI3        0.71581375642
+bf2_NPCI         0.53555171520
+bf2_OSAVI        1.71019327640
+bf2_PARS         0.05888230273
+bf2_PRI         -3.59215290150
+bf2_PRI_norm   -95.26848890029
+bf2_PRI.CI2     -2.84067572332
+bf2_PSRI        -6.87122623622
+bf2_PSSR         0.01087461932
+bf2_PSND        -6.96686024116
+bf2_SPVI.1      -0.00146273294
+bf2_PWI         -2.54395514623
+bf2_RDVI        -0.03620253189
+bf2_REP_Li      -0.66792472297
+bf2_SAVI         1.27179842863
+bf2_SIPI        -5.23226754782
+bf2_SPVI.2      -0.00146824633
+bf2_SR          -0.01204737752
+bf2_SR1         -0.05555531799
+bf2_SR2         -0.01914132415
+bf2_SR3          0.16764479685
+bf2_SR4          0.99188378152
+bf2_SR5         -5.57341447292
+bf2_SR6         -0.22843650281
+bf2_SR7         -0.09924316268
+bf2_SR8         -1.27085004094
+bf2_Sum_Dr1     -0.01285185223
+bf2_Sum_Dr2     -0.00934767797
+bf2_SRPI         0.01663453441
+bf2_TCARI       -0.00050333567
+bf2_TCARI2       0.00193142448
+bf2_TGI         -0.00012288617
+bf2_TVI         -0.00002379354
+bf2_Vogelmann   -1.45492700073
+bf2_Vogelmann2   6.48132112495
+bf2_Vogelmann3   5.67673100608
+bf2_Vogelmann4   4.98343236576</code></pre>
+<p>Feature “bf2_PRI_norm” has a quite high value.</p>
+<p>Let’s figure out which are the ten most important features and create PDPs for these:</p>
+<pre class="r"><code>top_ten_abs &lt;- coef(modf4) %&gt;%
+  as.matrix() %&gt;%
+  as.data.frame() %&gt;%
+  dplyr::rename(coef = `1`) %&gt;%
+  dplyr::mutate(feature = rownames(coef(modf4))) %&gt;%
+  dplyr::slice(-1) %&gt;%
+  dplyr::mutate(coef_abs = abs(coef)) %&gt;%
+  dplyr::arrange(desc(coef_abs)) %&gt;%
+  dplyr::slice(1:10) %&gt;%
+  dplyr::pull(feature)</code></pre>
+<div id="partial-dependence-plots" class="section level3">
+<h3>Partial Dependence Plots</h3>
+<p>For PDP we use a model trained with {mlr} and check for equality first.</p>
+<pre class="r"><code>lrn &lt;- makeLearner(&quot;regr.cvglmnet&quot;, alpha = 0)
+task_f4 &lt;- subsetTask(task_new_buffer2[[2]], train_inds_fold4)
 
 set.seed(1)
-mod = train(lrn, task_f1)</code></pre>
+mod_mlr &lt;- train(lrn, task_f4)</code></pre>
 <p>Check lambda sequence and <code>lambda.1se</code>:</p>
-<pre class="r"><code>mod$learner.model$lambda</code></pre>
-<pre><code>  [1] 4.9839093118 4.5411525452 4.1377290693 3.7701446232 3.4352153661
-  [6] 3.1300403011 2.8519761478 2.5986144474 2.3677607022 2.1574153674
- [11] 1.9657565324 1.7911241401 1.6320056082 1.4870227281 1.3549197274
- [16] 1.2345523933 1.1248781613 1.0249470858 0.9338936117 0.8509290772
- [21] 0.7753348833 0.7064562693 0.6436966414 0.5865124060 0.5344082604
- [26] 0.4869329034 0.4436751264 0.4042602510 0.3683468845 0.3356239625
- [31] 0.3058080548 0.2786409100 0.2538872196 0.2313325788 0.2107816301
- [36] 0.1920563710 0.1749946123 0.1594485733 0.1452836015 0.1323770068
- [41] 0.1206169984 0.1099017167 0.1001383511 0.0912423360 0.0831366183
- [46] 0.0757509903 0.0690214811 0.0628898030 0.0573028462 0.0522122193
- [51] 0.0475738296 0.0433475017 0.0394966291 0.0359878575 0.0327907954
- [56] 0.0298777515 0.0272234944 0.0248050342 0.0226014233 0.0205935752
- [61] 0.0187640987 0.0170971479 0.0155782844 0.0141943526 0.0129333654
- [66] 0.0117844009 0.0107375072 0.0097836166 0.0089144671 0.0081225304
- [71] 0.0074009472 0.0067434674 0.0061443964 0.0055985451 0.0051011858
- [76] 0.0046480105 0.0042350941 0.0038588600 0.0035160495 0.0032036934
- [81] 0.0029190861 0.0026597625 0.0024234765 0.0022081816 0.0020120128
- [86] 0.0018332711 0.0016704084 0.0015220139 0.0013868024 0.0012636027
- [91] 0.0011513477 0.0010490651 0.0009558691 0.0008709523 0.0007935793
- [96] 0.0007230799 0.0006588435 0.0006003136 0.0005469834 0.0004983909</code></pre>
-<pre class="r"><code>mod$learner.model$lambda.1se</code></pre>
-<pre><code>[1] 0.8509291</code></pre>
+<pre class="r"><code>mod_mlr$learner.model$lambda</code></pre>
+<pre><code>  [1] 4983.9093118 4541.1525452 4137.7290693 3770.1446232 3435.2153661
+  [6] 3130.0403011 2851.9761478 2598.6144474 2367.7607022 2157.4153674
+ [11] 1965.7565324 1791.1241401 1632.0056082 1487.0227281 1354.9197274
+ [16] 1234.5523933 1124.8781613 1024.9470858  933.8936117  850.9290772
+ [21]  775.3348833  706.4562693  643.6966414  586.5124060  534.4082604
+ [26]  486.9329034  443.6751264  404.2602510  368.3468845  335.6239625
+ [31]  305.8080548  278.6409100  253.8872196  231.3325788  210.7816301
+ [36]  192.0563710  174.9946123  159.4485733  145.2836015  132.3770068
+ [41]  120.6169984  109.9017167  100.1383511   91.2423360   83.1366183
+ [46]   75.7509903   69.0214811   62.8898030   57.3028462   52.2122193
+ [51]   47.5738296   43.3475017   39.4966291   35.9878575   32.7907954
+ [56]   29.8777515   27.2234944   24.8050342   22.6014233   20.5935752
+ [61]   18.7640987   17.0971479   15.5782844   14.1943526   12.9333654
+ [66]   11.7844009   10.7375072    9.7836166    8.9144671    8.1225304
+ [71]    7.4009472    6.7434674    6.1443964    5.5985451    5.1011858
+ [76]    4.6480105    4.2350941    3.8588600    3.5160495    3.2036934
+ [81]    2.9190861    2.6597625    2.4234765    2.2081816    2.0120128
+ [86]    1.8332711    1.6704084    1.5220139    1.3868024    1.2636027
+ [91]    1.1513477    1.0490651    0.9558691    0.8709523    0.7935793
+ [96]    0.7230799    0.6588435    0.6003136    0.5469834    0.4983909</code></pre>
+<pre class="r"><code>mod_mlr$learner.model$lambda.1se</code></pre>
+<pre><code>[1] 17.09715</code></pre>
 <p>Check for equality between {mlr} and {glmnet} directly</p>
-<pre class="r"><code>all.equal(modf1$lambda.1se, mod$learner.model$lambda.1se)</code></pre>
+<pre class="r"><code>all.equal(modf4$lambda.1se, mod_mlr$learner.model$lambda.1se)</code></pre>
 <pre><code>[1] TRUE</code></pre>
-<p>Ok, so {mlr} works correctly when fitting the model for a single fold. Hence, somethings goes wrong during CV?</p>
+<pre class="r"><code>pdp &lt;- generatePartialDependenceData(mod_mlr, task_f4, features = top_ten_abs)</code></pre>
+<pre><code>Loading required package: mmpf</code></pre>
+<pre class="r"><code>plotPartialDependence(pdp)</code></pre>
+<p><img src="figure/inspect-glmnet-models.Rmd/unnamed-chunk-20-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>Individual PDP</p>
+<pre class="r"><code>pdp_ind &lt;- generatePartialDependenceData(mod_mlr, task_f4,
+  features = top_ten_abs,
+  individual = TRUE
+)
+plotPartialDependence(pdp_ind)</code></pre>
+<p><img src="figure/inspect-glmnet-models.Rmd/unnamed-chunk-21-1.png" width="100%" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="compare-arguments-of-the-do.call-call-in-the-benchmark-with-the-manual-one" class="section level2">
+<h2>Compare arguments of the <code>do.call</code> call in the benchmark with the manual one</h2>
+<p><code>args</code> were saved during a debug call of <code>mlr::benchmark()</code></p>
+<pre class="r"><code>args &lt;- readRDS(&quot;args-bm-laukiz2.rda&quot;)
+target_bm &lt;- args$y
+features_bm &lt;- args$x
+
+train_inds_bm &lt;- as.numeric(rownames(features_bm))
+
+all.equal(sort(target_bm), sort(target_f4))</code></pre>
+<pre><code>[1] TRUE</code></pre>
+<pre class="r"><code>all.equal(sort(train_inds_bm), sort(train_inds_fold4))</code></pre>
+<pre><code>[1] TRUE</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -707,8 +937,9 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
-[1] tidyselect_0.2.5  glmnet_3.0-2      Matrix_1.2-15     mlr_2.17.0.9001  
-[5] ParamHelpers_1.12 drake_7.10.0     
+[1] mmpf_0.0.5        tidyselect_0.2.5  magrittr_1.5      ggplot2_3.2.1    
+[5] glmnet_3.0-2      Matrix_1.2-15     mlr_2.17.0.9001   ParamHelpers_1.12
+[9] drake_7.10.0     
 
 loaded via a namespace (and not attached):
  [1] storr_1.2.1       shape_1.4.4       xfun_0.5         
@@ -716,22 +947,23 @@ loaded via a namespace (and not attached):
  [7] colorspace_1.4-0  vctrs_0.2.1       htmltools_0.3.6  
 [10] yaml_2.2.0        XML_3.98-1.17     survival_2.43-3  
 [13] rlang_0.4.4       R.oo_1.23.0       later_1.0.0      
-[16] pillar_1.4.3      txtq_0.1.4        glue_1.3.1       
-[19] R.utils_2.8.0     foreach_1.4.4     stringr_1.4.0    
-[22] munsell_0.5.0     gtable_0.2.0      workflowr_1.6.0  
-[25] R.methodsS3_1.7.1 codetools_0.2-16  evaluate_0.13    
-[28] knitr_1.23        parallelMap_1.4   httpuv_1.4.5.1   
-[31] parallel_3.6.1    Rcpp_1.0.3        promises_1.0.1   
-[34] backports_1.1.5   scales_1.0.0      filelock_1.0.2   
-[37] checkmate_1.9.1   fs_1.3.1          fastmatch_1.1-0  
-[40] ggplot2_3.2.1     digest_0.6.23     stringi_1.3.1    
-[43] BBmisc_1.11       dplyr_0.8.3       rprojroot_1.3-2  
-[46] grid_3.6.1        tools_3.6.1       magrittr_1.5     
-[49] base64url_1.4     lazyeval_0.2.1    tibble_2.1.3     
-[52] crayon_1.3.4      whisker_0.3-2     pkgconfig_2.0.3  
-[55] zeallot_0.1.0     data.table_1.12.6 iterators_1.0.10 
-[58] assertthat_0.2.1  rmarkdown_1.13    R6_2.4.1         
-[61] igraph_1.2.4.1    git2r_0.26.1      compiler_3.6.1   </code></pre>
+[16] pillar_1.4.3      withr_2.1.2       txtq_0.1.4       
+[19] glue_1.3.1        R.utils_2.8.0     foreach_1.4.4    
+[22] stringr_1.4.0     munsell_0.5.0     gtable_0.2.0     
+[25] workflowr_1.6.0   R.methodsS3_1.7.1 codetools_0.2-16 
+[28] evaluate_0.13     labeling_0.3      knitr_1.23       
+[31] parallelMap_1.4   httpuv_1.4.5.1    parallel_3.6.1   
+[34] fansi_0.4.1       Rcpp_1.0.3        promises_1.0.1   
+[37] backports_1.1.5   scales_1.0.0      filelock_1.0.2   
+[40] checkmate_1.9.1   fs_1.3.1          fastmatch_1.1-0  
+[43] digest_0.6.23     stringi_1.3.1     BBmisc_1.11      
+[46] dplyr_0.8.3       rprojroot_1.3-2   grid_3.6.1       
+[49] tools_3.6.1       base64url_1.4     lazyeval_0.2.1   
+[52] tibble_2.1.3      crayon_1.3.4      whisker_0.3-2    
+[55] pkgconfig_2.0.3   zeallot_0.1.0     data.table_1.12.6
+[58] iterators_1.0.10  assertthat_0.2.1  rmarkdown_1.13   
+[61] R6_2.4.1          igraph_1.2.4.1    git2r_0.26.1     
+[64] compiler_3.6.1   </code></pre>
 </div>
 </div>
 
