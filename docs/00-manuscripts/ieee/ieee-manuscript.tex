@@ -724,7 +724,9 @@ In modeling this means finding the best subset of covariates which provide the m
 'High-dimensionality' in contrast is a dataset attribute and applies when \(p > n\), where \(p\) is the number of covariates and \(n\) the number of observations\cite{hastie2001}.
 There is no absolute value at which the term applies, both for \(n\) and \(p\).
 Hence for this study the word ‘high-dimensionality‘ only applies to the
-experiments using the ‘NRI‘ feature set (> 7000 features for 1808 observations).
+experiments using the ‘NRI‘ feature set ($>$ 7000 features for 1808 observations).
+
+
 
 The case of a feature-rich dataset comes with several challenges for both model fitting and evaluation.
 
@@ -870,6 +872,14 @@ However, rather than only looking at these three groups we decided to also take 
 	\item HR + VI + NRI
 \end{itemize}
 
+Even though the feature selection task was handed over to the filter methods in this study, we ensured to not include features with a pair-wise correlation of 1.
+Having such can cause undesired effects during model fitting and feature importance calculation.
+To account for such, all pair-wise correlations between features were calculated.
+For pairs which exceeded the threshold of 0.9999999999 the one with the largest mean absolute correlation was removed.
+This process was repeated $p$ times, each time calculating a new correlation matrix.
+
+This preprocessing step resulted in the following final number of predictors: HR (122), VI (86), NRI ().
+
 \subsubsection{Hyperparameter Optimization}
 
 \noindent An exhaustive hyperparameter tuning was applied during nested spatial \ac{CV} for all algorithms.
@@ -963,8 +973,10 @@ Datasets containing derived features (VI, NRI) showed no improvement in performa
 % - all MBO penalized methods have no difference across tasks
 SVM combined with the 'Carscore' filter achieved the best performance (RMSE of 27.98) (\autoref{tab:perf-top-10}).
 %L1 penalized regression showed slightly better results in three out of six tasks when being optimized using the package internal 10-fold CV compared to MBO (RMSE of 50 vs 58).
-Regression with Ridge penalty (L2) showed a high variance when comparing results across tasks: In two out of six tasks (all including VI variables) the error was out of bounds (HR-NRI-VI, HR-VI, VI), for HR-NRI and HR the error was around 40 RMSE, and for task NRI the Ridge learner achieved almost the same score as the best performing model (32.9 RMSE) (\autoref{tab:perf-top-10}).
-%All penalized methods tuned using MBO showed exactly the same error across all tasks.
+Regression with Ridge penalty (L2) showed a high variance when comparing results across tasks: In two out of six tasks (all including VI variables) the error was out of bounds (HR-NRI-VI, HR-VI, VI). For HR-NRI and HR the error was around 40 RMSE, and for task NRI the Ridge learner achieved almost the same score as the best performing model (32.9 RMSE) (\autoref{tab:perf-top-10}).
+In all settings for which Ridge showed such a high error, only one observation in one fold was predicted which such a high value (in the millions).
+This then caused the error estimates of these folds and the average estimate across all folds to be out of bounds.
+% FIXME: All penalized methods tuned using MBO showed exactly the same error across all tasks.
 
 % filters
 % - influence varies based on algorithm and task (SVM no influence, RF medium, XGB medium)
@@ -1079,22 +1091,39 @@ The model overfitted on learning relationships related to medium-high defoliatio
 In cases when Laukiz2 is in the training set, the model is able to half the error and even reduce it down to a value of 9 RMSE in the case of Luiando.
 
 \subsection{Predictive Performance}
-The best aggregated performance of this study (27.98 RMSE) has to be seen in the light of model overfitting (see \autoref{subsec:perf-plot-char}).
-When leaving out Laukiz2 during aggregation, the mean RMSE would be 19.
-Taking into account the overfitting, more training data representing the health stages of a plot is needed.
-A model can only make robust predictions if it has learned relationships which span the whole range of the response variable.
-Hence, the aggregated mean RMSE of 27 here should not be used to make statements about the trained model of this study.
-In contrast, by inspecting the fold level performances, one can say that the model does a decent job predicting defoliation ranging from 50\% to 100\% but fails for 0\% - 50\%.
+The best aggregated performance of this study (SVM + Carscore filter, 27.98 RMSE) has to be seen in the light of model overfitting (see \autoref{subsec:perf-plot-char}).
+Leaving out the performance on Laukiz2 when aggregating results, the mean RMSE would be 19.
+However, leaving out a single plot would also change the prediction results for the other plots because the observations from Laukiz2 would not be available for model training.
+With the clear presence of model overfitting in this study it can be postulated that more training data representing all health stages of a plot is needed.
+A model can only make robust predictions if it has learned relationships across the whole range of the response.
+Hence, care should be taken when making statements about the overall performance of the fitted models of this study due to their high variance when predicting.
+However, when inspecting the fold level performances, one can say that the model does a decent job predicting defoliation ranging from 50\% to 100\% but fails for 0\% - 50\%.
 This applies to all learners of this study.
 
 \subsubsection{Algorithm differences}
+An interesting find is the strength of the SVM algorithm when comparing its predictive performance to its competitors (\autoref{tab:best-learner-perf}).
+% FIXME: Add refs
+In the environmental community we have rarely seen a study in the last years in which SVM outperforms other models that clearly.
+The absolute difference of around three percentage points is also worth noting: We could not find a study in which SVM came out as the best model in such clear way.
+All of these statements are based on the assumption that a proper hyperparameter tuning was conducted for all models (which we also claim for ourselves in this study).
 
+We were a bit surprised about the performances of the penalized methods Lasso and Ridge.
+The former was not able to achieve an error below 45.96 RMSE across any dataset while Ridge came at least somewhat close to RF and XGBoost for some feature sets.
+However, there were also three instances (VI, NRI-VI, HR-NRI-VI) for which the error of the fitted Ridge model was out of bounds.
+We cannot preclude possible mistakes on our side when optimizing the penalization terms of the penalized learners.
+
+% FIXME: Talk about L1 and L2 models
 
 \subsubsection{Feature set differences}
+One objective which this study aimed to answer was whether expert-based or data-driven feature engineering has a positive influence on model performance.
+With respect to \autoref{fig:perf-result} one can say that overall the different feature sets did not result in substantial changes in performance.
+RF and XGBoost showed a somewhat surprising decrease in performance of about six percentage points on task VI compared to all others.
+We have no explanation for this specific result, especially because the SVM does not show this difference.
+% FIXME: Talk about L1 and L2 models -> there we have quite some differences!
 
 \subsection{Feature selection methods}
 
-% - Ensemble FS show no advantage to simple methods -> maybe to less features, features too correlated? check diff between effect on NRI and VI
+% - Ensemble FS shows no advantage to simple methods -> maybe to less features, features too correlated? check diff between effect on NRI and VI
 % - Effect varies across learners -> suggest to use FS even on feature sets with p < 100?
 % - When calculating multiple filters, consider to only use ensemble filter?
 % - PCA shows similar performance but probably requires tuning of main components -> check runtime!
@@ -1108,11 +1137,12 @@ WIP
 % TODO: talk about the link to RS spectra
 
 \subsection{Comparison to other studies}
-% NOTE: no environmental studies use filter methods, some use FFS
-% NOTE: only few studies analyze defoliation
+% - no environmental studies use filter methods, some use FFS
+% - only few studies analyze defoliation
+% - most FS is done in bioinformatics
 
 \noindent Most other studies analyzing defoliation operated on the plot rather than the tree level.
-This originated simply due to spatial resolution of the satellite products that served as the input data\cite{townsend2012, debeurs2008, rengarajan2016}.
+This is due to the low spatial resolution of used satellite products which served as the input data, making a tree-level study infeasible \cite{townsend2012, debeurs2008, rengarajan2016}.
 
 Studies focusing on tree-level defoliation used ground-level methods such as \ac{ALS} or \ac{LiDAR}\cite{meng2018, kalin2019}.
 \cite{meng2018} used \ac{OLS} regression methods while\cite{kalin2019} retrieved information out of ground-level RGB photos using \ac{CNN}.
@@ -1122,17 +1152,30 @@ In addition, no spatial \ac{CV} or \ac{FS} was used.
 Study results indicated that spectral metrics were found to be most helpful for the model.
 Incorporating such metrics (both spectral and structural) could be a possible enhancement for future works.
 
-\cite{shendryk2016, ludwig2019} are studies which are more similar in their methodology but focus on a different response variable.
-\cite{shendryk2016} used machine-learning models with \ac{ALS} data to study dieback of trees for eucalyptus forests.
-A grid-search was used for hyperparameter tuning and a \ac{FFS} for variable selection.
-\cite{ludwig2019} analyzed woody cover in South Africa using spatial \ac{CV} and a relatively novel spatial \ac{FS} approach\cite{meyer2018} on a Random Forest classifier.
+\cite{shendryk2016, ludwig2019} are studies which are more similar in their methodology but focus on a different response variable (woody cover).
+\cite{shendryk2016} used machine learning with \ac{ALS} data to study dieback of trees for eucalyptus forests.
+A grid-search was used for hyperparameter tuning and \ac{FFS} for variable selection.
+\cite{ludwig2019} analyzed woody cover in South Africa using spatial \ac{CV} and \ac{FS} approach \cite{meyer2018} with a Random Forest classifier.
 
 In summary, we could not find studies using filter methods for \ac{FS} or \ac{NRI} indices in their work with a relation to forest health.
-Most studies used only one algorithm (usually Random Forest) without strong arguments why this particular one has been selected.
-In our view the number of possible derivable input features is often higher than the actual number of variables used in the end, missing out on potentially helpful information from the raw data.
-These findings underline the importance of this work in the field of forest health modeling.
+Most studies used only one algorithm (usually Random Forest) without (strong) arguments why this particular one has been selected or why only one model was used.
+This is not surprising: Most environmental/ecological datasets are not high-dimensional.
+In contrast, the number of predictors if often monadic and issues related to correlations are solved manually instead of relying on an automated approach.
+The bioinformatics field faces high-dimensional feature sets more often.
+Hence more studies using (filter-based) feature-selection approaches can be found for this field \cite{guo2019, radovic2017}.
+If a field only rarely faces high-dimensional dataset issues the motivation and expertise of using advanced methods to solve such are rather low.
+We hope that this work can give some guidance and serve as a starting point for tackling high-dimensional problems in environmental modeling.
 
 \section{Outlook and conclusion}
+This study analyzed defoliation at trees in north Spain by using hyperspectral data as input for machine learning models making heavy use of filter-based feature selection methods.
+It was shown that substantial differences in performance can occur depending on which feature selection methods and machine learning algorithms are combined.
+SVM showed the most robust behavior across all highly-correlated datasets and was able to predict the response variable of this study substantially better than other methods.
+
+Filter methods showed their ability to improve predictive performance for datasets with many features.
+Ensemble filter methods did not show a substantial improvement over legacy filter methods.
+
+The potential of predicting defoliation for single trees with the given toolset of this study was rather limited, seen on the average error of 27\%. 
+However, with better training data covering more variety of the response variable, performance could be highly improved in future studies.
 
 \appendices{}
 
