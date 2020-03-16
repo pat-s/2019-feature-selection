@@ -68,6 +68,7 @@ h6 {
 }
 </style>
 
+<link rel="stylesheet" href="style.css" type="text/css" />
 
 
 
@@ -329,6 +330,14 @@ $(document).ready(function () {
     <li>
       <a href="response-normality.html">Checking for normality of response</a>
     </li>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Side Analysis</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="inspect-glmnet-models.html">Inspect {glmnet} models</a>
+        </li>
+      </ul>
+    </li>
   </ul>
 </li>
 <li>
@@ -378,7 +387,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2019-08-31
+<strong>Last updated:</strong> 2020-03-08
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -388,7 +397,7 @@ div.section {
 </p>
 <p>
 This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
-  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.4.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
 </p>
 <hr>
 </div>
@@ -426,7 +435,7 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 </div>
 <div id="strongSeedstrongcodesetseed20190522code" class="panel-collapse collapse">
 <div class="panel-body">
-<p>The command <code>set.seed(20190522)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+<p>The command <code>set.seed(20190522)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
 </div>
 </div>
 </div>
@@ -469,10 +478,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontreeabd531fc7e657c9ccf8b88605f843792212c4db9targetblankabd531fa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/abd531fc7e657c9ccf8b88605f843792212c4db9" target="_blank">abd531f</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree44770bb81d661b57ee9981b345b747a54214e597targetblank44770bba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/44770bb81d661b57ee9981b345b747a54214e597" target="_blank">44770bb</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontreeabd531fc7e657c9ccf8b88605f843792212c4db9targetblankabd531fa" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree44770bb81d661b57ee9981b345b747a54214e597targetblank44770bba" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -483,31 +492,35 @@ Ignored files:
     Ignored:    .Rproj.user/
     Ignored:    .Ruserdata/
     Ignored:    .drake/
+    Ignored:    .vscode/
     Ignored:    analysis/rosm.cache/
     Ignored:    data/
     Ignored:    inst/Benchmark for Filter Methods for Feature Selection in High-Dimensional  Classification Data.pdf
+    Ignored:    inst/study-area-map/._study-area.qgs
     Ignored:    inst/study-area-map/study-area.qgs~
     Ignored:    log/
-    Ignored:    packrat/lib-R/
-    Ignored:    packrat/lib-ext/
-    Ignored:    packrat/lib/
+    Ignored:    renv/library/
+    Ignored:    renv/staging/
     Ignored:    reviews/
     Ignored:    rosm.cache/
-    Ignored:    tests/
 
 Untracked files:
-    Untracked:  .drake_history/
-    Untracked:  analysis/figure/
+    Untracked:  code/06-modeling/project/
 
 Unstaged changes:
+    Modified:   .Rprofile
     Modified:   _drake.R
-    Modified:   analysis/response-normality.Rmd
-    Modified:   code/05-modeling/paper/tune-wrapper.R
-    Modified:   code/06-benchmark-matrix.R
-    Modified:   code/061-aggregate.R
-    Modified:   code/98-paper/journal/defoliation-distribution-plot-1.pdf
-    Modified:   code/move-figures.R
-    Deleted:    docs/figure/eval-performance.Rmd/performance-results-1.pdf
+    Modified:   analysis/_site.yml
+    Modified:   analysis/report-defoliation.Rmd
+    Modified:   code/02-hyperspectral-processing.R
+    Modified:   code/03-sentinel-processing.R
+    Modified:   code/06-modeling/paper/02-param-sets.R
+    Modified:   code/06-modeling/paper/03-learner.R
+    Modified:   code/06-modeling/paper/04-filter-wrapper.R
+    Modified:   code/06-modeling/paper/07-tune-wrapper.R
+    Modified:   code/06-modeling/paper/08-train.R
+    Modified:   code/071-benchmark-matrix-buffer2.R
+    Modified:   code/09-reports.R
 
 </code></pre>
 <p>
@@ -546,6 +559,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/db070562ac7868db880f209e134d1f864cb43c56/analysis/about.Rmd" target="_blank">db07056</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-02-24
+</td>
+<td>
+add jose to authors
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pat-s/2019-feature-selection/7582c67afa5b1f5bd3175b9d2b37b037e9242daf/docs/about.html" target="_blank">7582c67</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-08-31
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -595,6 +642,40 @@ pat-s
 </td>
 <td>
 Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/4cf247ae7857285fff7002189f9afdd908ae8d9a/analysis/about.Rmd" target="_blank">4cf247a</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-06-18
+</td>
+<td>
+fix git
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pat-s/2019-feature-selection/4cf247ae7857285fff7002189f9afdd908ae8d9a/docs/about.html" target="_blank">4cf247a</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-06-18
+</td>
+<td>
+fix git
 </td>
 </tr>
 <tr>
@@ -828,10 +909,12 @@ Start workflowr project.
 <p><strong>Modeling defoliation as a proxy for tree health: Comparison of feature-selection methods across multiple feature sets derived from hyperspectral data</strong></p>
 <div id="authors" class="section level1">
 <h1>Authors</h1>
-<p><strong>Patrick Schratz</strong> (<a href="mailto:patrick.schratz@gmail.com" class="email">patrick.schratz@gmail.com</a>) <a href="http://orcid.org/0000-0003-0748-6624"><img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" /></a><br />
-Jannes Muenchow <a href="http://orcid.org/0000-0001-7834-4717"><img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" /></a><br />
-Bernd Bischl <a href="http://orcid.org/0000-0001-6002-6980"><img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" /></a><br />
-Alexander Brenning <a href="http://orcid.org/0000-0001-6640-679X"><img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" /></a></p>
+<p><strong>Patrick Schratz</strong> (<a href="mailto:patrick.schratz@gmail.com" class="email">patrick.schratz@gmail.com</a>) <a href="http://orcid.org/0000-0003-0748-6624"><img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" /></a></p>
+<p>Jannes Muenchow <a href="http://orcid.org/0000-0001-7834-4717"><img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" /></a></p>
+<p>Eugenia Iturritxa <a href="https://orcid.org/0000-0002-0577-3315"><img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" /></a></p>
+<p>José Cortés</p>
+<p>Bernd Bischl <a href="http://orcid.org/0000-0001-6002-6980"><img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" /></a></p>
+<p>Alexander Brenning <a href="http://orcid.org/0000-0001-6640-679X"><img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" /></a></p>
 </div>
 <div id="contents" class="section level1">
 <h1>Contents</h1>
@@ -914,13 +997,13 @@ r_make()</code></pre>
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
 <pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>R version 3.5.2 (2018-12-20)
+<pre><code>R version 3.6.1 (2019-07-05)
 Platform: x86_64-pc-linux-gnu (64-bit)
 Running under: CentOS Linux 7 (Core)
 
 Matrix products: default
-BLAS: /opt/R/3.5.2/lib64/R/lib/libRblas.so
-LAPACK: /usr/lib64/libopenblaso-r0.3.3.so
+BLAS:   /opt/spack/opt/spack/linux-centos7-x86_64/gcc-9.2.0/r-3.6.1-j25wr6zcofibs2zfjwg37357rjj26lqb/rlib/R/lib/libRblas.so
+LAPACK: /opt/spack/opt/spack/linux-centos7-x86_64/gcc-9.2.0/r-3.6.1-j25wr6zcofibs2zfjwg37357rjj26lqb/rlib/R/lib/libRlapack.so
 
 locale:
  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
@@ -934,11 +1017,12 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 loaded via a namespace (and not attached):
- [1] workflowr_1.4.0 Rcpp_1.0.0      digest_0.6.18   rprojroot_1.3-2
- [5] backports_1.1.3 git2r_0.24.0    magrittr_1.5    evaluate_0.13  
- [9] stringi_1.3.1   fs_1.2.6        whisker_0.3-2   rmarkdown_1.13 
-[13] tools_3.5.2     stringr_1.4.0   glue_1.3.0      xfun_0.5       
-[17] yaml_2.2.0      compiler_3.5.2  htmltools_0.3.6 knitr_1.23     </code></pre>
+ [1] workflowr_1.6.0 Rcpp_1.0.3      rprojroot_1.3-2 digest_0.6.23  
+ [5] later_1.0.0     R6_2.4.1        backports_1.1.5 git2r_0.26.1   
+ [9] magrittr_1.5    evaluate_0.13   stringi_1.3.1   fs_1.3.1       
+[13] promises_1.0.1  whisker_0.3-2   rmarkdown_1.13  tools_3.6.1    
+[17] stringr_1.4.0   glue_1.3.1      httpuv_1.4.5.1  xfun_0.5       
+[21] yaml_2.2.0      compiler_3.6.1  htmltools_0.3.6 knitr_1.23     </code></pre>
 </div>
 </div>
 
