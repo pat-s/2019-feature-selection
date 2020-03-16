@@ -515,7 +515,7 @@ The research questions of this study are the following:
 
 	\item Do different environmental feature sets show differences in performance when modeling defoliation at trees?
 	      
-	\item Does the combination of feature sets have an substantial effect on predictive performance?
+	\item Does combining feature sets have an substantial effect on predictive performance?
 	      
 	\item How are feature-selection methods influencing the predictive performance of the models?
 	      
@@ -719,14 +719,11 @@ Due to four corrupted bands of the sensor a total of 7471 indices were available
 \subsection{Dimension reduction}
 
 \noindent We want to stress the differences between 'dimension reduction' and 'high-dimensionality'.
-The former refers to the general idea of reducing features from a dataset\cite{vandermaaten2007}.
+The former refers to the general idea of reducing features from a dataset \cite{vandermaaten2007}.
 In modeling this means finding the best subset of covariates which provide the most predictive power to the model or extracting the main components of the features using a \ac{PCA}.
-'High-dimensionality' in contrast is a dataset attribute and applies when \(p > n\), where \(p\) is the number of covariates and \(n\) the number of observations\cite{hastie2001}.
+'High-dimensionality' in contrast is a dataset attribute and applies when \(p > n\), where \(p\) is the number of covariates and \(n\) the number of observations \cite{hastie2001}.
 There is no absolute value at which the term applies, both for \(n\) and \(p\).
-Hence for this study the word ‘high-dimensionality‘ only applies to the
-experiments using the ‘NRI‘ feature set ($>$ 7000 features for 1808 observations).
-
-
+Hence for this study the word ‘high-dimensionality‘ only applies to the experiments using the ‘NRI‘ feature set ($>$ 7000 features for 1808 observations).
 
 The case of a feature-rich dataset comes with several challenges for both model fitting and evaluation.
 
@@ -742,18 +739,18 @@ Due to the focus of this study on the use of filter methods, which are a sub-gro
 \subsubsection{Filter methods}
 
 % Filter methods
-\noindent The concept of filters originates on the idea of ranking features using certain heuristics of an algorithm\cite{chandrashekar2014}.
+\noindent The concept of filters originates on the idea of ranking features using certain heuristics of an algorithm \cite{chandrashekar2014}.
 Some filter methods are restricted towards specific types of variables (numeric or nominal).
 Filters do only rank features, they do not choose which covariates to drop or keep\cite{drotar2015}.
 The selection of features to keep for the model fitting step is usually done within the optimization phase of the model fitting, along with the hyperparameter tuning.
 Essentially, the number of covariates in the model is treated as a hyperparameter of the model.
 The goal is to optimize the number of features (using the ranked covariates) at which the model achieves the best performance.
-In well-implemented software solutions the filter calculation is only done once and then cached, saving comptutational resources\cite{mlr}.
+In well-implemented software solutions the filter calculation is only done once and then cached, saving computational resources \cite{mlr}.
 
 \paragraph{Ensemble filter methods}
 
 % Ensemble filter methods
-Besides the concept of choosing a specific filter method to rank variables, studies showed that combining several filters using statistical operations such as 'minimum', 'mean' or 'sum' are able to enhance the predictive performance of the resulting models\cite{abeel2010, drotar2017a}.
+Besides the concept of choosing a specific filter method to rank variables, studies showed that combining several filters using statistical operations such as 'minimum', 'mean' or 'sum' are able to enhance the predictive performance of the resulting models \cite{abeel2010, drotar2017a}.
 This approach is referred to as 'ensemble filter'~\cite{dietterich2000}.
 Ensemble filters align with the recent rise of the 'ensemble' approach in machine learning which uses stacking to combine the predictions of multiple models, aiming to enhance predictive performance~\cite{polikar2012, feurer2015}.
 In this work the 'Borda' ensemble filter was applied~\cite{drotar2017a}.
@@ -878,12 +875,12 @@ To account for such, all pair-wise correlations between features were calculated
 For pairs which exceeded the threshold of 0.9999999999 the one with the largest mean absolute correlation was removed.
 This process was repeated $p$ times, each time calculating a new correlation matrix.
 
-This preprocessing step resulted in the following final number of predictors: HR (122), VI (86), NRI ().
+This preprocessing step resulted in the following final number of predictors: HR (122), VI (86), NRI (7467).
 
 \subsubsection{Hyperparameter Optimization}
 
 \noindent An exhaustive hyperparameter tuning was applied during nested spatial \ac{CV} for all algorithms.
-Model-based Optimization\cite{mlrmbo} (MBO) was used for hyperparameter optimization.
+Model-based Optimization \cite{mlrmbo} (MBO) was used for hyperparameter optimization.
 This approach first composes \textit{n} randomly chosen hyperparameter settings out of a user defined search space.
 After these \textit{n} tries have been evaluated, a new hyperparameter setting, going to be evaluated next, is proposed by a fitted surrogate model (by default a kriging method).
 This strategy continues until a termination criterion, defined by the user, is reached\cite{hutter2011, jones1998}.
@@ -1171,9 +1168,21 @@ This study analyzed defoliation at trees in north Spain by using hyperspectral d
 It was shown that substantial differences in performance can occur depending on which feature selection methods and machine learning algorithms are combined.
 SVM showed the most robust behavior across all highly-correlated datasets and was able to predict the response variable of this study substantially better than other methods.
 
+% RQ3: How are feature-selection methods influencing the predictive performance of the models?
 Filter methods showed their ability to improve predictive performance for datasets with many features.
 Ensemble filter methods did not show a substantial improvement over legacy filter methods.
 
+% RQ2: Does combining feature sets have an substantial effect on predictive performance?
+% RQ1: Do different environmental feature sets show differences in performance when modeling defoliation at trees?
+Creating feature sets composed out of derivated features did not help.
+In contrast, dataset VI showed a substantial worse performance than the dataset with the original features (HR).
+Combining feature sets did not show a substantial improvement on predictive performance.
+
+% RQ4: Which features are most important for the models and how can these be interpreted in an ecological context?
+Features along the red-edge wavelength region were most important for models to achieve good predictions.
+With respect to dedicated vegetation indices, the "Vogelmann" index with all of its versions was seen as the most important index for the tested SVM algorithm.
+
+% What about the general potential of analyzing defol with hyperspectral data?
 The potential of predicting defoliation for single trees with the given toolset of this study was rather limited, seen on the average error of 27\%. 
 However, with better training data covering more variety of the response variable, performance could be highly improved in future studies.
 
