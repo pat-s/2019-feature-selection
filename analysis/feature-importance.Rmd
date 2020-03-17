@@ -26,12 +26,15 @@ library("ggplot2")
 library("ggpubr")
 library("ggpmisc")
 library("patchwork")
+library("iml")
 
 # load drake objects
 loadd(
   fi_permut_hr_buffer2,
   fi_permut_vi_buffer2,
 
+  fi_ale_hr_buffer2,
+  
   df_wavelengths_from_indices,
   spec_sigs
 )
@@ -447,3 +450,12 @@ Reference: `?hsdar::vegindex()`
 ```{r fi-hr-vi-abs-comb, fig.width=9.5, fig.asp=1.1}
 p2 / p3
 ```
+
+# ALE plots
+
+ALE plots via package {iml}
+
+```{r}
+fi_ale_hr_buffer2$plot(ncols = 2)
+```
+
