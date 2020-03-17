@@ -456,6 +456,6 @@ p2 / p3
 ALE plots via package {iml}
 
 ```{r}
-fi_ale_hr_buffer2$plot(ncols = 2)
+fi_ale_hr_buffer2$plot(ncol = 2)
 ```
 
