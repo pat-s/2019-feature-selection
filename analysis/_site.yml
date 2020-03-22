@@ -31,8 +31,6 @@ navbar:
       menu:
       - text: "Inspect {glmnet} models"
         href: inspect-glmnet-models.html
-  - text: Timeline
-    href: timeline.html
 
 output:
   workflowr::wflow_html:
