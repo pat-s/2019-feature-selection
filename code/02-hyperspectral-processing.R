@@ -120,4 +120,29 @@ hyperspectral_processing_plan <- drake_plan(
     ),
     dynamic = map(plot_names)
   ),
+
+  # spectral signatures for feature-importance.Rmd
+  spec_sigs = target({
+    speclibs <- lapply(data_hs_preprocessed[c(
+      "laukiz1", "laukiz2",
+      "luiando", "oiartzun"
+    )], hsdar::speclib,
+    wavelength = wavelength
+    )
+    spec_sig_num <- lapply(speclibs, function(x) as.numeric(spectra(apply(x, FUN = mean, na.rm = TRUE)))[5:126])
+    spec_sig_num_scale <- lapply(spec_sig_num, function(x) {
+      scale(x,
+        center = FALSE,
+        scale = max(x, na.rm = TRUE) / 2
+      )
+    })
+    spec_sig_num_scale_df = purrr::map_dfc(spec_sig_num_scale, cbind) %>%
+      set_colnames(c(
+        "laukiz1", "laukiz2",
+        "luiando", "oiartzun"
+      )) %>%
+      dplyr::mutate_all(as.numeric) %>%
+      mutate(wavelength = seq(420, 995, 4.75)) %>%
+      mutate(wavelength = round(wavelength))
+  })
 )
