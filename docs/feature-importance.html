@@ -27,6 +27,14 @@
 
 <div><img src="logo/fsu.png" align="left" style="width:200px;margin-top:15px" ></div>
 
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/master/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
   pre:not([class]) {
@@ -355,13 +363,6 @@ $(document).ready(function () {
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<!-- Add a small amount of space between sections. -->
-<style type="text/css">
-div.section {
-  padding-top: 12px;
-}
-</style>
-
 <div class="fluid-row" id="header">
 
 
@@ -384,7 +385,16 @@ div.section {
 </ul></li>
 <li><a href="#combined">Combined</a></li>
 </ul></li>
-<li><a href="#ale-plots">ALE plots</a></li>
+<li><a href="#ale-plots">ALE plots</a><ul>
+<li><a href="#p2-hr">P2 HR</a><ul>
+<li><a href="#grid-size-100">Grid size: 100</a></li>
+<li><a href="#grid-size-20">Grid size: 20</a></li>
+</ul></li>
+<li><a href="#p3-vi">P3 VI</a><ul>
+<li><a href="#grid-size-100-1">Grid size: 100</a></li>
+<li><a href="#grid-size-20-1">Grid size: 20</a></li>
+</ul></li>
+</ul></li>
 </ul>
 </div>
 
@@ -408,7 +418,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-03-17
+<strong>Last updated:</strong> 2020-03-22
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -418,7 +428,7 @@ div.section {
 </p>
 <p>
 This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
-  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.1). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
 </p>
 <hr>
 </div>
@@ -499,13 +509,19 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontreec3e1961178e694cedde28de2eac74583c7eba880targetblankc3e1961a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/c3e1961178e694cedde28de2eac74583c7eba880" target="_blank">c3e1961</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontreef61b799368e87efb7a11dd67e1e634008dd768bctargetblankf61b799a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/f61b799368e87efb7a11dd67e1e634008dd768bc" target="_blank">f61b799</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontreec3e1961178e694cedde28de2eac74583c7eba880targetblankc3e1961a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontreef61b799368e87efb7a11dd67e1e634008dd768bctargetblankf61b799a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
-Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version <a href="https://github.com/pat-s/2019-feature-selection/tree/f61b799368e87efb7a11dd67e1e634008dd768bc" target="_blank">f61b799</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 </p>
 <pre><code>
 Ignored files:
@@ -526,7 +542,6 @@ Ignored files:
     Ignored:    rosm.cache/
 
 Untracked files:
-    Untracked:  args-bm-laukiz2.rda
     Untracked:  code/06-modeling/project/
 
 Unstaged changes:
@@ -564,7 +579,7 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in t
 <div id="versions" class="tab-pane fade">
 
 <p>
-These are the previous versions of the R Markdown and HTML files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view them.
+These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/feature-importance.Rmd</code>) and HTML (<code>docs/feature-importance.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
 </p>
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
@@ -588,6 +603,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/f61b799368e87efb7a11dd67e1e634008dd768bc/analysis/feature-importance.Rmd" target="_blank">f61b799</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-03-22
+</td>
+<td>
+wflow_publish(knitr_in(“analysis/feature-importance.Rmd”), view = FALSE,
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pat-s/2019-feature-selection/72b9228d873feb17e5b7343ace126639f60a17ef/docs/feature-importance.html" target="_blank">72b9228</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-03-17
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -977,7 +1026,7 @@ pat-s
 </div>
 </div>
 </div>
-<div id="plots-by-dataset" class="section level1">
+<div id="plots-by-dataset" class="section level1 tabset tabset-fade">
 <h1>Plots by dataset</h1>
 <div id="hr" class="section level2">
 <h2>HR</h2>
@@ -1121,9 +1170,19 @@ pat-s
 </div>
 </div>
 </div>
-<div id="ale-plots" class="section level1">
+<div id="ale-plots" class="section level1 tabset tabset-fade">
 <h1>ALE plots</h1>
 <p>ALE plots via package {iml}</p>
+<div id="p2-hr" class="section level2">
+<h2>P2 HR</h2>
+<div id="grid-size-100" class="section level3">
+<h3>Grid size: 100</h3>
+<p>Top ten HR features from permutation Vimp</p>
+<p><img src="figure/feature-importance.Rmd/fi-hr-ale-1.png" width="100%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="grid-size-20" class="section level3">
+<h3>Grid size: 20</h3>
+<p>Top ten HR features from permutation Vimp</p>
 <p><img src="figure/feature-importance.Rmd/unnamed-chunk-1-1.png" width="100%" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-1-1">
@@ -1149,6 +1208,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/72b9228d873feb17e5b7343ace126639f60a17ef/docs/figure/feature-importance.Rmd/unnamed-chunk-1-1.png" target="_blank">72b9228</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-03-17
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/e2524477c6a7835837dec27331e6883b44fc7806/docs/figure/feature-importance.Rmd/unnamed-chunk-1-1.png" target="_blank">e252447</a>
 </td>
 <td>
@@ -1162,6 +1232,19 @@ pat-s
 </table>
 </div>
 </div>
+</div>
+</div>
+<div id="p3-vi" class="section level2">
+<h2>P3 VI</h2>
+<div id="grid-size-100-1" class="section level3">
+<h3>Grid size: 100</h3>
+<p>Top ten VI features from permutation Vimp</p>
+<p><img src="figure/feature-importance.Rmd/fi-vi-ale-1.png" width="100%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="grid-size-20-1" class="section level3">
+<h3>Grid size: 20</h3>
+<p>Top ten HR features from permutation Vimp</p>
+<p><img src="figure/feature-importance.Rmd/unnamed-chunk-2-1.png" width="100%" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1201,7 +1284,7 @@ loaded via a namespace (and not attached):
   [7] ParamHelpers_1.12  ggrepel_0.8.0      prodlim_2018.04.18
  [10] fansi_0.4.1        lubridate_1.7.4    codetools_0.2-16  
  [13] splines_3.6.1      knitr_1.23         mco_1.0-15.1      
- [16] zeallot_0.1.0      jsonlite_1.6       workflowr_1.6.0   
+ [16] zeallot_0.1.0      jsonlite_1.6       workflowr_1.6.1   
  [19] Metrics_0.1.4      kernlab_0.9-27     mlrMBO_1.1.2      
  [22] compiler_3.6.1     httr_1.4.0         backports_1.1.5   
  [25] assertthat_0.2.1   Matrix_1.2-15      lazyeval_0.2.1    
@@ -1231,6 +1314,8 @@ loaded via a namespace (and not attached):
  [97] git2r_0.26.1       ModelMetrics_1.2.2 digest_0.6.23     
 [100] tidyr_1.0.0        httpuv_1.4.5.1     stats4_3.6.1      
 [103] munsell_0.5.0      viridisLite_0.3.0 </code></pre>
+</div>
+</div>
 </div>
 </div>
 
