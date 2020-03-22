@@ -248,21 +248,22 @@ boxplot_defol <- vi_data_plot %>%
   scale_size(range = c(0.5, 0.5)) +
   annotate("text",
     label = expression(bold(atop("n = 559", bar(x) ~ "= 57.23"))), x = 1,
-    y = 112, size = 3, colour = "#BC3C29", fontface = 2
+    y = 112, size = 4, colour = "#BC3C29", fontface = 2
   ) +
   annotate("text",
     label = expression(bold(atop("n = 451", bar(x) ~ "= 13.54"))), x = 2,
-    y = 112, size = 3, colour = "#0072B5", fontface = 2
+    y = 112, size = 4, colour = "#0072B5", fontface = 2
   ) +
   annotate("text",
     label = expression(bold(atop("n = 301", bar(x) ~ "= 68.36"))), x = 3,
-    y = 112, size = 3, colour = "#E18727", fontface = 2
+    y = 112, size = 4, colour = "#E18727", fontface = 2
   ) +
   annotate("text",
-    label = expression(bold(atop("n = 407", bar(x) ~ "= 69.07"))), x = 4,
-    y = 112, size = 3, colour = "#20854E", fontface = 2
+    label = expression(bold(atop("n = 497", bar(x) ~ "= 69.07"))), x = 4,
+    y = 112, size = 4, colour = "#20854E", fontface = 2
   ) +
   scale_color_nejm() +
+  ggpubr::theme_pubr(base_size = 14) +
   theme(legend.position = "none") +
   labs(y = "Total defoliation per tree (%)", x = "Plot")
 boxplot_defol
