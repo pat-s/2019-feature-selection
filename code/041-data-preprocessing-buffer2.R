@@ -118,8 +118,10 @@ data_preprocessing_plan_buffer2 <- drake_plan(
 
   data_trim_defoliation_corrected_buffer2 = target(
     map(
-      list(data_vi_nri_clean_corrected_buffer2,
-           data_bands_clean_corrected_buffer2),
+      list(
+        data_vi_nri_clean_corrected_buffer2,
+        data_bands_clean_corrected_buffer2
+      ),
       ~ mutate_defol(.x)
     ) %>%
       set_names(c("data_vi_nri", "data_bands"))
@@ -190,8 +192,99 @@ data_preprocessing_plan_buffer2 <- drake_plan(
   ),
 
   hr_nri_vi_data_corrected_buffer2 = target(
-    cbind(bands_data_corrected_buffer2, nri_data_corrected_buffer2,
-          vi_data_corrected_buffer2) %>%
+    cbind(
+      bands_data_corrected_buffer2, nri_data_corrected_buffer2,
+      vi_data_corrected_buffer2
+    ) %>%
       subset(select = which(!duplicated(names(.)))) # remove duplicate "defoliation" column
-  )
+  ),
+
+  # data with max correlation between features of 0.99 %>% ---------------------
+
+  # removing the first column to not accidentally remove the response
+  # therefore, we need to shift the results by one positon to account for this shift
+
+  nri_data_corrected_buffer2_trim_cor = target({
+    inds <- caret::findCorrelation(cor(nri_data_corrected_buffer2[, -1]),
+      cutoff = 0.9999999999, exact = TRUE
+    )
+    if (length(inds) >= 1) {
+      inds <- inds + 1
+      nri_data_corrected_buffer2[, -inds]
+    } else {
+      nri_data_corrected_buffer2
+    }
+  }),
+
+  vi_data_corrected_buffer2_trim_cor = target({
+    inds <- caret::findCorrelation(cor(vi_data_corrected_buffer2[, -1]),
+      cutoff = 0.9999999999, exact = TRUE
+    )
+    if (length(inds) >= 1) {
+      inds <- inds + 1
+      vi_data_corrected_buffer2[, -inds]
+    } else {
+      vi_data_corrected_buffer2
+    }
+  }),
+
+  bands_data_corrected_buffer2_trim_cor = target({
+    inds <- caret::findCorrelation(cor(bands_data_corrected_buffer2[, -1]),
+      cutoff = 0.9999999999, exact = TRUE
+    )
+    if (length(inds) >= 1) {
+      inds <- inds + 1
+      bands_data_corrected_buffer2[, -inds]
+    } else {
+      bands_data_corrected_buffer2
+    }
+  }),
+
+  nri_vi_data_corrected_buffer2_trim_cor = target({
+    inds <- caret::findCorrelation(cor(nri_vi_data_corrected_buffer2[, -1]),
+      cutoff = 0.9999999999, exact = TRUE
+    )
+    if (length(inds) >= 1) {
+      inds <- inds + 1
+      nri_vi_data_corrected_buffer2[, -inds]
+    } else {
+      nri_vi_data_corrected_buffer2
+    }
+  }),
+
+  hr_nri_data_corrected_buffer2_trim_cor = target({
+    inds <- caret::findCorrelation(cor(hr_nri_data_corrected_buffer2[, -1]),
+      cutoff = 0.9999999999, exact = TRUE
+    )
+    if (length(inds) >= 1) {
+      inds <- inds + 1
+      hr_nri_data_corrected_buffer2[, -inds]
+    } else {
+      hr_nri_vi_data_corrected_buffer2
+    }
+  }),
+
+  hr_vi_data_corrected_buffer2_trim_cor = target({
+    inds <- caret::findCorrelation(cor(hr_vi_data_corrected_buffer2[, -1]),
+      cutoff = 0.9999999999, exact = TRUE
+    )
+    if (length(inds) >= 1) {
+      inds <- inds + 1
+      hr_vi_data_corrected_buffer2[, -inds]
+    } else {
+      hr_vi_data_corrected_buffer2
+    }
+  }),
+
+  hr_nri_vi_data_corrected_buffer2_trim_cor = target({
+    inds <- caret::findCorrelation(cor(hr_nri_vi_data_corrected_buffer2[, -1]),
+      cutoff = 0.9999999999, exact = TRUE
+    )
+    if (length(inds) >= 1) {
+      inds <- inds + 1
+      hr_nri_vi_data_corrected_buffer2[, -inds]
+    } else {
+      hr_nri_vi_data_corrected_buffer2
+    }
+  })
 )
