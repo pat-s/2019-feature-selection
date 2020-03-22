@@ -22,7 +22,8 @@ paste0(.x, filter_names_pretty)) %>%
   purrr::flatten_chr() %>%
   c(., sprintf("%sBorda", learner_names)) %>%
   c(., sprintf("%sPCA", learner_names)) %>%
-  c(., sprintf("%sNo Filter", learner_names))
+  c(., sprintf("%sNo Filter", learner_names)) %>%
+  append(c("Lasso-MBO", "Ridge-MBO"))
 
 # Plan -------------------------------------------------------------------------
 
@@ -54,14 +55,26 @@ tune_wrapper_plan <- drake_plan(
     # RF, SVM, XGB without filter wrappers
     list(ps_rf),
     list(ps_xgboost),
-    list(ps_svm)
+    list(ps_svm),
+
+    list(ps_lasso),
+    list(ps_ridge)
   ),
 
   # we need to create the repeated objects outside of `tune_ctrl_mbo` to be
   # picked up correctly
-  tune_ctrl_mbo_rf = rep(list(tune_ctrl_mbo_30n_70it_filter[[1]]), length(filter_names)), # rf
-  tune_ctrl_mbo_xgboost = rep(list(tune_ctrl_mbo_30n_70it_filter[[2]]), length(filter_names)), # xgboost
-  tune_ctrl_mbo_svm = rep(list(tune_ctrl_mbo_30n_70it_filter[[3]]), length(filter_names)), # svm
+  tune_ctrl_mbo_rf = rep(
+    list(tune_ctrl_mbo_30n_70it_filter[[1]]),
+    length(filter_names)
+  ), # rf
+  tune_ctrl_mbo_xgboost = rep(
+    list(tune_ctrl_mbo_30n_70it_filter[[2]]),
+    length(filter_names)
+  ), # xgboost
+  tune_ctrl_mbo_svm = rep(
+    list(tune_ctrl_mbo_30n_70it_filter[[3]]),
+    length(filter_names)
+  ), # svm
 
   # order is important here! Follows the order of 'filter_wrappers_all'
   tune_ctrl_mbo = c(
@@ -84,7 +97,10 @@ tune_wrapper_plan <- drake_plan(
     # RF, SVM, XGB without filter wrappers
     list(tune_ctrl_mbo_30n_70it_no_filter[[1]]), # rf
     list(tune_ctrl_mbo_30n_70it_no_filter[[2]]), # xgboost
-    list(tune_ctrl_mbo_30n_70it_no_filter[[3]]) # svm
+    list(tune_ctrl_mbo_30n_70it_no_filter[[3]]), # svm
+
+    list(tune_ctrl_mbo_30n_70it_no_filter[[4]]), # lasso
+    list(tune_ctrl_mbo_30n_70it_no_filter[[5]]) # ridge
   ),
 
   # MBO ------------------------------------------------------------------------
