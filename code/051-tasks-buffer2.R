@@ -36,6 +36,16 @@ tasks_plan_buffer2 <- drake_plan(
       hr_nri_vi_data_corrected_buffer2
     ),
 
+  data_corrected_buffer2_reduced_cor =
+    list(
+      bands_data_corrected_buffer2_trim_cor,
+      vi_data_corrected_buffer2_trim_cor,
+      nri_data_corrected_buffer2_trim_cor,
+      hr_nri_data_corrected_buffer2_trim_cor,
+      nri_vi_data_corrected_buffer2_trim_cor,
+      hr_nri_vi_data_corrected_buffer2_trim_cor
+    ),
+
   # Non-log transformed tasks ----------------------------------------------------
   task_old_buffer2 = target(
     makeRegrTask(
@@ -71,6 +81,21 @@ tasks_plan_buffer2 <- drake_plan(
     ),
     dynamic = map(
       data_corrected_buffer2,
+      task_names_buffer2,
+      coordinates_list_corrected
+    )
+  ),
+
+  task_new_buffer2_reduced_cor = target(
+    makeRegrTask(
+      id = task_names_buffer2,
+      data = data_corrected_buffer2_reduced_cor[[1]],
+      target = "defoliation",
+      coordinates = coordinates_list_corrected[[1]],
+      blocking = factor(rep(1:4, c(559, 451, 301, 497))),
+    ),
+    dynamic = map(
+      data_corrected_buffer2_reduced_cor,
       task_names_buffer2,
       coordinates_list_corrected
     )
