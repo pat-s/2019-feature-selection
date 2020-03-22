@@ -1,7 +1,6 @@
 param_sets_plan <- drake_plan(
 
   # XGBOOST --------------------------------------------------------------------
-
   ps_xgboost_filter = target(
     makeParamSet(
       makeIntegerParam("nrounds", lower = 10, upper = 600),
@@ -125,23 +124,33 @@ param_sets_plan <- drake_plan(
     # of of the 80% quantile from the min and max of the smallest and largest
     # task, respectively)
 
-    lambda_ridge_vi_train <- train(lrn_ridge, task_new_buffer2[[2]])
-    lambda_ridge_hr_nri_vi_train <- train(lrn_ridge, task_new_buffer2[[6]])
+    # lambda_ridge_vi_train <- train(lrn_ridge, task_new_buffer2[[2]])
+    lambda_ridge_vi_train <- train(
+      makeLearner("regr.cvglmnet"),
+      task_new_buffer2[[2]]
+    )
+    # lambda_ridge_hr_nri_vi_train <- train(lrn_ridge, task_new_buffer2[[6]])
+    lambda_ridge_hr_nri_vi_train <- train(
+      makeLearner("regr.cvglmnet"),
+      task_new_buffer2[[6]]
+    )
 
     lambda_ridge_min_vi <- min(lambda_ridge_vi_train$learner.model$lambda)
     lambda_ridge_max_hr_nri_vi <- max(lambda_ridge_hr_nri_vi_train$learner.model$lambda)
 
     quantile(
       x = c(lambda_ridge_min_vi, lambda_ridge_max_hr_nri_vi),
-      probs = c(0.20, 0.80)
+      probs = c(0.10, 0.90)
     )
   }),
 
   ps_ridge = target(
     makeParamSet(
       makeNumericParam("s",
-        lower = quan_ridge[1],
-        upper = quan_ridge[2]
+        # lower = quan_ridge[1],
+        # upper = quan_ridge[2]
+        lower = 0,
+        upper = 10000
       )
     )
   ),
@@ -160,8 +169,14 @@ param_sets_plan <- drake_plan(
     # consisting of of the 80% quantile from the min and max of the smallest and
     # largest task, respectively)
 
-    lambda_lasso_vi_train <- train(lrn_lasso, task_new_buffer2[[2]])
-    lambda_lasso_hr_nri_vi_train <- train(lrn_lasso, task_new_buffer2[[6]])
+    lambda_lasso_vi_train <- train(
+      makeLearner("regr.cvglmnet", alpha = 0),
+      task_new_buffer2[[2]]
+    )
+    lambda_lasso_hr_nri_vi_train <- train(
+      makeLearner("regr.cvglmnet", alpha = 0),
+      task_new_buffer2[[6]]
+    )
 
     lambda_lasso_min_vi <- min(lambda_lasso_vi_train$learner.model$lambda)
     lambda_lasso_max_hr_nri_vi <- max(lambda_lasso_hr_nri_vi_train$learner.model$lambda)
@@ -174,9 +189,10 @@ param_sets_plan <- drake_plan(
 
   ps_lasso = target(
     makeParamSet(makeNumericParam("s",
-      lower = quan_lasso[1],
-      upper = quan_lasso[2]
+      # lower = quan_lasso[1],
+      # upper = quan_lasso[2]
+      lower = 0,
+      upper = 10000
     ))
   )
-
 )
