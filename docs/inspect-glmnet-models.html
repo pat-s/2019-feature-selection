@@ -27,6 +27,14 @@
 
 <div><img src="logo/fsu.png" align="left" style="width:200px;margin-top:15px" ></div>
 
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/master/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
   pre:not([class]) {
@@ -344,9 +352,6 @@ $(document).ready(function () {
     </li>
   </ul>
 </li>
-<li>
-  <a href="timeline.html">Timeline</a>
-</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -354,13 +359,6 @@ $(document).ready(function () {
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
-
-<!-- Add a small amount of space between sections. -->
-<style type="text/css">
-div.section {
-  padding-top: 12px;
-}
-</style>
 
 <div class="fluid-row" id="header">
 
@@ -378,6 +376,7 @@ div.section {
 <li><a href="#trainpredict-via-glmnet-manually">Train/predict via {glmnet} manually</a><ul>
 <li><a href="#partial-dependence-plots">Partial Dependence Plots</a></li>
 </ul></li>
+<li><a href="#trainpredict-via-glmnet-manually-on-dataset-with-filtered-feature-correlation">Train/predict via {glmnet} manually on dataset with filtered feature correlation</a></li>
 </ul>
 </div>
 
@@ -401,7 +400,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-03-11
+<strong>Last updated:</strong> 2020-03-23
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -411,7 +410,7 @@ div.section {
 </p>
 <p>
 This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
-  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.1). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
 </p>
 <hr>
 </div>
@@ -492,13 +491,19 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree960355af1c168cc257d4cce7fdc4436625e30fb4targetblank960355aa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/960355af1c168cc257d4cce7fdc4436625e30fb4" target="_blank">960355a</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree0d13f6e04877431e40273c661aef4e2df93f47betargetblank0d13f6ea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/0d13f6e04877431e40273c661aef4e2df93f47be" target="_blank">0d13f6e</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree960355af1c168cc257d4cce7fdc4436625e30fb4targetblank960355aa" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree0d13f6e04877431e40273c661aef4e2df93f47betargetblank0d13f6ea" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
-Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version <a href="https://github.com/pat-s/2019-feature-selection/tree/0d13f6e04877431e40273c661aef4e2df93f47be" target="_blank">0d13f6e</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 </p>
 <pre><code>
 Ignored files:
@@ -507,6 +512,7 @@ Ignored files:
     Ignored:    .Ruserdata/
     Ignored:    .drake/
     Ignored:    .vscode/
+    Ignored:    analysis/figure/
     Ignored:    analysis/rosm.cache/
     Ignored:    data/
     Ignored:    inst/Benchmark for Filter Methods for Feature Selection in High-Dimensional  Classification Data.pdf
@@ -518,25 +524,13 @@ Ignored files:
     Ignored:    reviews/
     Ignored:    rosm.cache/
 
-Untracked files:
-    Untracked:  args-bm-laukiz2.rda
-    Untracked:  code/06-modeling/project/
-
 Unstaged changes:
-    Modified:   .Rprofile
     Modified:   _drake.R
-    Modified:   analysis/_site.yml
-    Modified:   analysis/about.Rmd
+    Modified:   analysis/eval-performance.Rmd
     Modified:   analysis/report-defoliation.Rmd
-    Modified:   code/02-hyperspectral-processing.R
     Modified:   code/03-sentinel-processing.R
-    Modified:   code/06-modeling/paper/02-param-sets.R
-    Modified:   code/06-modeling/paper/03-learner.R
-    Modified:   code/06-modeling/paper/04-filter-wrapper.R
-    Modified:   code/06-modeling/paper/07-tune-wrapper.R
-    Modified:   code/06-modeling/paper/08-train.R
-    Modified:   code/071-benchmark-matrix-buffer2.R
-    Modified:   code/09-reports.R
+    Modified:   renv.lock
+    Modified:   renv/activate.R
 
 </code></pre>
 <p>
@@ -551,7 +545,7 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in t
 <div id="versions" class="tab-pane fade">
 
 <p>
-These are the previous versions of the R Markdown and HTML files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view them.
+These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/inspect-glmnet-models.Rmd</code>) and HTML (<code>docs/inspect-glmnet-models.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
 </p>
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
@@ -575,6 +569,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/0d13f6e04877431e40273c661aef4e2df93f47be/analysis/inspect-glmnet-models.Rmd" target="_blank">0d13f6e</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-03-23
+</td>
+<td>
+wflow_publish(knitr_in(“analysis/inspect-glmnet-models.Rmd”),
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pat-s/2019-feature-selection/524429117b97a237d5aae03d1017d2c113921d6d/docs/inspect-glmnet-models.html" target="_blank">5244291</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-03-11
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -804,7 +832,7 @@ wflow_publish(knitr_in(“analysis/inspect-glmnet-models.Rmd”), view =
 </div>
 </div>
 <p>Last update:</p>
-<p>[1] “Wed Mar 11 19:43:24 2020”</p>
+<p>[1] “Mon Mar 23 12:09:19 2020”</p>
 <div id="general-glmnet-notes" class="section level2">
 <h2>General glmnet notes</h2>
 <ul>
@@ -1067,6 +1095,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/524429117b97a237d5aae03d1017d2c113921d6d/docs/figure/inspect-glmnet-models.Rmd/unnamed-chunk-14-1.png" target="_blank">5244291</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-03-11
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/c77844baa976580f3ab1e0fc2e554efd3ea04e73/docs/figure/inspect-glmnet-models.Rmd/unnamed-chunk-14-1.png" target="_blank">c77844b</a>
 </td>
 <td>
@@ -1115,6 +1154,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/524429117b97a237d5aae03d1017d2c113921d6d/docs/figure/inspect-glmnet-models.Rmd/unnamed-chunk-15-1.png" target="_blank">5244291</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-03-11
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/c77844baa976580f3ab1e0fc2e554efd3ea04e73/docs/figure/inspect-glmnet-models.Rmd/unnamed-chunk-15-1.png" target="_blank">c77844b</a>
@@ -1193,6 +1243,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/524429117b97a237d5aae03d1017d2c113921d6d/docs/figure/inspect-glmnet-models.Rmd/unnamed-chunk-16-1.png" target="_blank">5244291</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-03-11
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/c77844baa976580f3ab1e0fc2e554efd3ea04e73/docs/figure/inspect-glmnet-models.Rmd/unnamed-chunk-16-1.png" target="_blank">c77844b</a>
@@ -1298,6 +1359,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/524429117b97a237d5aae03d1017d2c113921d6d/docs/figure/inspect-glmnet-models.Rmd/unnamed-chunk-23-1.png" target="_blank">5244291</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-03-11
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/c77844baa976580f3ab1e0fc2e554efd3ea04e73/docs/figure/inspect-glmnet-models.Rmd/unnamed-chunk-23-1.png" target="_blank">c77844b</a>
 </td>
 <td>
@@ -1353,6 +1425,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/524429117b97a237d5aae03d1017d2c113921d6d/docs/figure/inspect-glmnet-models.Rmd/unnamed-chunk-24-1.png" target="_blank">5244291</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-03-11
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/c77844baa976580f3ab1e0fc2e554efd3ea04e73/docs/figure/inspect-glmnet-models.Rmd/unnamed-chunk-24-1.png" target="_blank">c77844b</a>
 </td>
 <td>
@@ -1384,6 +1467,32 @@ pat-s
     bf2_GDVI_2      bf2_Datt4       bf2_PSND       bf2_PSRI bf2_Vogelmann2 
   0.9946317460   0.0085985645   0.9510653828   0.0191196652  -0.2698871749 </code></pre>
 <p>Looks ok - they are all within a normal range with respectv to the PDP estimates.</p>
+</div>
+</div>
+<div id="trainpredict-via-glmnet-manually-on-dataset-with-filtered-feature-correlation" class="section level2">
+<h2>Train/predict via {glmnet} manually on dataset with filtered feature correlation</h2>
+<p>To inspect further, let’s refit a {glmnet} model directly on the training data of Fold 4 and inspect what <code>glmnet::cv.glmnet</code> estimates for the lambda sequence:</p>
+<pre class="r"><code>train_inds_fold4 &lt;- benchmark_models_new_penalized_mbo_buffer2[[8]][[&quot;results&quot;]][[&quot;vi_buffer2&quot;]][[&quot;Ridge-MBO&quot;]][[&quot;pred&quot;]][[&quot;instance&quot;]][[&quot;train.inds&quot;]][[4]]
+
+obs_train_f4 &lt;- as.matrix(task_new_buffer2_reduced_cor[[2]]$env$data[train_inds_fold4, getTaskFeatureNames(task_new_buffer2_reduced_cor[[2]])])
+target_f4 &lt;- getTaskTargets(task_new_buffer2_reduced_cor[[2]])[train_inds_fold4]</code></pre>
+<p>Fit <code>cv.glmnet</code></p>
+<pre class="r"><code>set.seed(1)
+modf4 &lt;- glmnet::cv.glmnet(obs_train_f4, target_f4, alpha = 0)
+
+modf4$lambda.1se</code></pre>
+<pre><code>[1] 17.09715</code></pre>
+<p>Predict on Laukiz 2 now.</p>
+<pre class="r"><code>pred_inds_fold4 &lt;- benchmark_models_new_penalized_mbo_buffer2[[8]][[&quot;results&quot;]][[&quot;vi_buffer2&quot;]][[&quot;Ridge-MBO&quot;]][[&quot;pred&quot;]][[&quot;instance&quot;]][[&quot;test.inds&quot;]][[4]]
+
+obs_pred_f4 &lt;- as.matrix(task_new_buffer2_reduced_cor[[2]]$env$data[pred_inds_fold4, getTaskFeatureNames(task_new_buffer2_reduced_cor[[2]])])
+
+pred &lt;- predict(modf4, newx = obs_pred_f4, s = modf4$lambda.1se)</code></pre>
+<p>Calculate the error</p>
+<pre class="r"><code>truth &lt;- task_new_buffer2_reduced_cor[[2]]$env$data[pred_inds_fold4, &quot;defoliation&quot;]
+
+mlr:::measureRMSE(truth, pred)</code></pre>
+<pre><code>[1] 97098172699</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1416,32 +1525,32 @@ other attached packages:
  [4] TeachingDemos_2.10 plotrix_3.7-7      Formula_1.2-3     
  [7] magrittr_1.5       ggplot2_3.2.1      glmnet_3.0-2      
 [10] Matrix_1.2-15      mlr_2.17.0.9001    ParamHelpers_1.12 
-[13] drake_7.10.0      
+[13] drake_7.11.0.9000 
 
 loaded via a namespace (and not attached):
  [1] Rcpp_1.0.3        txtq_0.1.4        lattice_0.20-38  
- [4] assertthat_0.2.1  zeallot_0.1.0     rprojroot_1.3-2  
- [7] digest_0.6.23     foreach_1.4.4     R6_2.4.1         
-[10] backports_1.1.5   evaluate_0.13     pillar_1.4.3     
-[13] rlang_0.4.4       lazyeval_0.2.1    data.table_1.12.6
-[16] whisker_0.3-2     R.utils_2.8.0     R.oo_1.23.0      
-[19] checkmate_1.9.1   rmarkdown_1.13    labeling_0.3     
-[22] splines_3.6.1     stringr_1.4.0     igraph_1.2.4.1   
-[25] munsell_0.5.0     compiler_3.6.1    httpuv_1.4.5.1   
-[28] xfun_0.5          pkgconfig_2.0.3   shape_1.4.4      
-[31] BBmisc_1.11       htmltools_0.3.6   tibble_2.1.3     
-[34] workflowr_1.6.0   codetools_0.2-16  XML_3.98-1.17    
-[37] fansi_0.4.1       crayon_1.3.4      dplyr_0.8.3      
-[40] withr_2.1.2       later_1.0.0       R.methodsS3_1.7.1
-[43] grid_3.6.1        gtable_0.2.0      git2r_0.26.1     
-[46] storr_1.2.1       scales_1.0.0      stringi_1.3.1    
-[49] fs_1.3.1          promises_1.0.1    parallelMap_1.4  
-[52] filelock_1.0.2    vctrs_0.2.1       fastmatch_1.1-0  
-[55] iterators_1.0.10  tools_3.6.1       glue_1.3.1       
-[58] purrr_0.3.3       parallel_3.6.1    survival_2.43-3  
-[61] yaml_2.2.0        colorspace_1.4-0  base64url_1.4    
-[64] knitr_1.23       </code></pre>
-</div>
+ [4] prettyunits_1.0.2 assertthat_0.2.1  zeallot_0.1.0    
+ [7] rprojroot_1.3-2   digest_0.6.23     foreach_1.4.4    
+[10] R6_2.4.1          backports_1.1.5   evaluate_0.13    
+[13] pillar_1.4.3      rlang_0.4.4       progress_1.2.0   
+[16] lazyeval_0.2.1    data.table_1.12.8 whisker_0.3-2    
+[19] R.utils_2.8.0     R.oo_1.23.0       checkmate_2.0.0  
+[22] rmarkdown_1.13    labeling_0.3      splines_3.6.1    
+[25] stringr_1.4.0     igraph_1.2.4.1    munsell_0.5.0    
+[28] compiler_3.6.1    httpuv_1.4.5.1    xfun_0.5         
+[31] pkgconfig_2.0.3   shape_1.4.4       BBmisc_1.11      
+[34] htmltools_0.3.6   tibble_2.1.3      workflowr_1.6.1  
+[37] codetools_0.2-16  XML_3.98-1.17     fansi_0.4.1      
+[40] crayon_1.3.4      dplyr_0.8.3       withr_2.1.2      
+[43] later_1.0.0       R.methodsS3_1.7.1 grid_3.6.1       
+[46] gtable_0.3.0      git2r_0.26.1      storr_1.2.1      
+[49] scales_1.0.0      cli_2.0.1         stringi_1.3.1    
+[52] fs_1.3.1          promises_1.0.1    parallelMap_1.4  
+[55] filelock_1.0.2    vctrs_0.2.1       fastmatch_1.1-0  
+[58] iterators_1.0.10  tools_3.6.1       glue_1.3.1       
+[61] purrr_0.3.3       hms_0.5.3         parallel_3.6.1   
+[64] survival_2.43-3   yaml_2.2.0        colorspace_1.4-0 
+[67] base64url_1.4     knitr_1.23       </code></pre>
 </div>
 </div>
 

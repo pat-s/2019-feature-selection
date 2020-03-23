@@ -26,11 +26,17 @@ library("ggplot2")
 library("ggpubr")
 library("ggpmisc")
 library("patchwork")
+library("iml")
 
 # load drake objects
 loadd(
   fi_permut_hr_buffer2,
   fi_permut_vi_buffer2,
+
+  fi_ale_hr_buffer2,
+  fi_ale_vi_buffer2,
+  fi_ale_hr_buffer2_gs20,
+  fi_ale_vi_buffer2_gs20,
 
   df_wavelengths_from_indices,
   spec_sigs
@@ -97,7 +103,7 @@ To join both data.frames we need to round the reflectance centers of the bands t
 fi_ranked_hr$wavelength <- round(fi_ranked_hr$wavelength)
 
 data_hr_merged <- left_join(spectra_df, fi_ranked_hr, by = c("wavelength")) %>%
-  left_join(spec_sigs, by = c("wavelength")) %>% 
+  left_join(spec_sigs, by = c("wavelength")) %>%
   mutate(class = "HR") %>%
   mutate(reflectance = as.numeric(reflectance))
 ```
@@ -137,44 +143,44 @@ plot_reflectance_imp_hr <- function(data) {
     geom_line(
       data = data_hr_merged[!is.na(data_hr_merged$laukiz1), ],
       aes(
-      x = wavelength, y = laukiz1,
-      color = "Spectral Signature of Laukiz1"
-    ),
-    na.rm = TRUE,
-    linetype = "solid",
-    size = 0.6
+        x = wavelength, y = laukiz1,
+        color = "Spectral Signature of Laukiz1"
+      ),
+      na.rm = TRUE,
+      linetype = "solid",
+      size = 0.6
     ) +
     geom_line(
       data = data_hr_merged[!is.na(data_hr_merged$laukiz2), ],
       aes(
-      x = wavelength, y = laukiz2,
-      color = "Spectral Signature of Laukiz2"
-    ),
-    na.rm = TRUE,
-    linetype = "solid",
-    size = 0.6
+        x = wavelength, y = laukiz2,
+        color = "Spectral Signature of Laukiz2"
+      ),
+      na.rm = TRUE,
+      linetype = "solid",
+      size = 0.6
     ) +
     geom_line(
       data = data_hr_merged[!is.na(data_hr_merged$luiando), ],
       aes(
-      x = wavelength, y = luiando,
-      color = "Spectral Signature of Luiando"
-    ),
-    na.rm = TRUE,
-    linetype = "solid",
-    size = 0.6
+        x = wavelength, y = luiando,
+        color = "Spectral Signature of Luiando"
+      ),
+      na.rm = TRUE,
+      linetype = "solid",
+      size = 0.6
     ) +
     geom_line(
       data = data_hr_merged[!is.na(data_hr_merged$oiartzun), ],
       aes(
-      x = wavelength, y = oiartzun,
-      color = "Spectral Signature of Oiartzun"
-    ),
-    na.rm = TRUE,
-    linetype = "solid",
-    size = 0.6
+        x = wavelength, y = oiartzun,
+        color = "Spectral Signature of Oiartzun"
+      ),
+      na.rm = TRUE,
+      linetype = "solid",
+      size = 0.6
     ) +
-    
+
     # HR: plot only rank 11:last
     geom_point(
       data = data_hr_merged[which(!(data_hr_merged$rank %in% c(1:10))), ],
@@ -186,7 +192,7 @@ plot_reflectance_imp_hr <- function(data) {
     # HR: plot only rank 1:10
     geom_point(
       data = data_hr_merged[which(data_hr_merged$rank %in% c(1:10)), ],
-      aes(color = "HR: 1:10"), 
+      aes(color = "HR: 1:10"),
       shape = 20,
       size = 1.8,
       na.rm = TRUE
@@ -213,7 +219,7 @@ plot_reflectance_imp_hr <- function(data) {
     guides(color = guide_legend(
       title = NULL,
       override.aes = list(
-        linetype = c("blank", "blank", "solid", "solid", "solid" ,"solid"),
+        linetype = c("blank", "blank", "solid", "solid", "solid", "solid"),
         shape = c(20, 1, NA, NA, NA, NA),
         color = c("black", "grey", "#BC3C29", "#0072B5", "#E18727", "#20854E")
       )
@@ -241,42 +247,42 @@ plot_reflectance_imp_vi <- function(data) {
     geom_line(
       data = data_hr_merged[!is.na(data_hr_merged$laukiz1), ],
       aes(
-      x = wavelength, y = laukiz1,
-      color = "Spectral Signature of Laukiz1"
-    ),
-    na.rm = TRUE,
-    linetype = "solid",
-    size = 0.6
+        x = wavelength, y = laukiz1,
+        color = "Spectral Signature of Laukiz1"
+      ),
+      na.rm = TRUE,
+      linetype = "solid",
+      size = 0.6
     ) +
     geom_line(
       data = data_hr_merged[!is.na(data_hr_merged$laukiz2), ],
       aes(
-      x = wavelength, y = laukiz2,
-      color = "Spectral Signature of Laukiz2"
-    ),
-    na.rm = TRUE,
-    linetype = "solid",
-    size = 0.6
+        x = wavelength, y = laukiz2,
+        color = "Spectral Signature of Laukiz2"
+      ),
+      na.rm = TRUE,
+      linetype = "solid",
+      size = 0.6
     ) +
     geom_line(
       data = data_hr_merged[!is.na(data_hr_merged$luiando), ],
       aes(
-      x = wavelength, y = luiando,
-      color = "Spectral Signature of Luiando"
-    ),
-    na.rm = TRUE,
-    linetype = "solid",
-    size = 0.6
+        x = wavelength, y = luiando,
+        color = "Spectral Signature of Luiando"
+      ),
+      na.rm = TRUE,
+      linetype = "solid",
+      size = 0.6
     ) +
     geom_line(
       data = data_hr_merged[!is.na(data_hr_merged$oiartzun), ],
       aes(
-      x = wavelength, y = oiartzun,
-      color = "Spectral Signature of Oiartzun"
-    ),
-    na.rm = TRUE,
-    linetype = "solid",
-    size = 0.6
+        x = wavelength, y = oiartzun,
+        color = "Spectral Signature of Oiartzun"
+      ),
+      na.rm = TRUE,
+      linetype = "solid",
+      size = 0.6
     ) +
 
     # VI: rank 1:10
@@ -327,7 +333,7 @@ plot_reflectance_imp_vi <- function(data) {
     guides(color = guide_legend(
       title = NULL,
       override.aes = list(
-        linetype = c("solid", "solid", "solid" ,"solid","dashed", "dashed"),
+        linetype = c("solid", "solid", "solid", "solid", "dashed", "dashed"),
         shape = c(NA, NA, NA, NA, 20, 1),
         color = c("#BC3C29", "#0072B5", "#E18727", "#20854E", "black", "grey")
       )
@@ -394,7 +400,7 @@ p12
 p11 / p12
 ```
 
-# Plots by dataset
+# Plots by dataset {.tabset .tabset-fade}
 
 ## HR
 
@@ -446,4 +452,56 @@ Reference: `?hsdar::vegindex()`
 
 ```{r fi-hr-vi-abs-comb, fig.width=9.5, fig.asp=1.1}
 p2 / p3
+```
+
+# ALE plots {.tabset .tabset-fade}
+
+ALE plots via package {iml}
+
+## P2 HR
+
+### Grid size: 100
+
+Top ten HR features from permutation Vimp
+
+```{r fi-hr-ale, dev = c("png", "pdf")}
+fi_ale_hr_buffer2$plot(
+  features = df_wavelengths_from_hr$class,
+  ncol = 2
+)
+```
+
+### Grid size: 20
+
+Top ten HR features from permutation Vimp
+
+```{r}
+fi_ale_hr_buffer2_gs20$plot(
+  features = df_wavelengths_from_hr$class,
+  ncol = 2
+)
+```
+
+## P3 VI
+
+### Grid size: 100
+
+Top ten VI features from permutation Vimp
+
+```{r fi-vi-ale, dev = c("png", "pdf")}
+fi_ale_vi_buffer2$plot(
+  features = paste0("bf2_", df_wavelengths_from_indices_label$class),
+  ncol = 2
+)
+```
+
+### Grid size: 20
+
+Top ten HR features from permutation Vimp
+
+```{r}
+fi_ale_vi_buffer2_gs20$plot(
+  features = paste0("bf2_", df_wavelengths_from_indices_label$class),
+  ncol = 2
+)
 ```

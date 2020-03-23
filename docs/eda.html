@@ -20,15 +20,20 @@
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
-<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
-<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 <div><img src="logo/life.jpg" align="right" style="width:200px;margin-top:15px" ></div>
 
 <div><img src="logo/fsu.png" align="left" style="width:200px;margin-top:15px" ></div>
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/master/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -268,90 +273,6 @@ $(document).ready(function () {
 
 
 
-<script>
-$(document).ready(function ()  {
-
-    // move toc-ignore selectors from section div to header
-    $('div.section.toc-ignore')
-        .removeClass('toc-ignore')
-        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
-
-    // establish options
-    var options = {
-      selectors: "h1,h2,h3",
-      theme: "bootstrap3",
-      context: '.toc-content',
-      hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
-      },
-      ignoreSelector: ".toc-ignore",
-      scrollTo: 0
-    };
-    options.showAndHide = true;
-    options.smoothScroll = true;
-
-    // tocify
-    var toc = $("#TOC").tocify(options).data("toc-tocify");
-});
-</script>
-
-<style type="text/css">
-
-#TOC {
-  margin: 25px 0px 20px 0px;
-}
-@media (max-width: 768px) {
-#TOC {
-  position: relative;
-  width: 100%;
-}
-}
-
-
-.toc-content {
-  padding-left: 30px;
-  padding-right: 40px;
-}
-
-div.main-container {
-  max-width: 1200px;
-}
-
-div.tocify {
-  width: 20%;
-  max-width: 260px;
-  max-height: 85%;
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-  div.tocify {
-    width: 25%;
-  }
-}
-
-@media (max-width: 767px) {
-  div.tocify {
-    width: 100%;
-    max-width: none;
-  }
-}
-
-.tocify ul, .tocify li {
-  line-height: 20px;
-}
-
-.tocify-subheader .tocify-item {
-  font-size: 0.90em;
-}
-
-.tocify .list-group-item {
-  border-radius: 0px;
-}
-
-
-</style>
-
-
 
 </head>
 
@@ -359,16 +280,6 @@ div.tocify {
 
 
 <div class="container-fluid main-container">
-
-
-<!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row-fluid">
-<div class="col-xs-12 col-sm-4 col-md-3">
-<div id="TOC" class="tocify">
-</div>
-</div>
-
-<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -431,6 +342,14 @@ div.tocify {
     <li>
       <a href="response-normality.html">Checking for normality of response</a>
     </li>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Side Analysis</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="inspect-glmnet-models.html">Inspect {glmnet} models</a>
+        </li>
+      </ul>
+    </li>
   </ul>
 </li>
 <li>
@@ -444,13 +363,6 @@ div.tocify {
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<!-- Add a small amount of space between sections. -->
-<style type="text/css">
-div.section {
-  padding-top: 12px;
-}
-</style>
-
 <div class="fluid-row" id="header">
 
 
@@ -460,6 +372,36 @@ div.section {
 
 </div>
 
+<div id="TOC">
+<ul>
+<li><a href="#datasets">Datasets</a><ul>
+<li><a href="#vi">VI</a><ul>
+<li><a href="#overview">Overview</a></li>
+<li><a href="#histograms">Histograms</a></li>
+<li><a href="#pca">PCA</a></li>
+<li><a href="#corr">Corr</a></li>
+</ul></li>
+<li><a href="#nri">NRI</a><ul>
+<li><a href="#overview-1">Overview</a></li>
+<li><a href="#histograms-1">Histograms</a></li>
+<li><a href="#pca-1">PCA</a></li>
+<li><a href="#corr-1">Corr</a></li>
+</ul></li>
+<li><a href="#hr">HR</a><ul>
+<li><a href="#overview-2">Overview</a></li>
+<li><a href="#histograms-2">Histograms</a></li>
+<li><a href="#pca-2">PCA</a></li>
+<li><a href="#corr-2">Corr</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#custom-plots">Custom plots</a></li>
+<li><a href="#mean-defoliation-per-plot">Mean defoliation per plot</a></li>
+<li><a href="#coefficient-of-variation">Coefficient of variation</a></li>
+<li><a href="#sd-skewness">sd / skewness</a></li>
+<li><a href="#point-density">Point density</a></li>
+<li><a href="#effects-of-different-buffer-sizes-when-extracting-values-to-trees">Effects of different buffer sizes when extracting values to trees</a></li>
+</ul>
+</div>
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
@@ -481,7 +423,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-02-15
+<strong>Last updated:</strong> 2020-03-22
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -491,7 +433,7 @@ div.section {
 </p>
 <p>
 This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
-  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.1). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
 </p>
 <hr>
 </div>
@@ -572,13 +514,19 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree5b2fa277967f87065242b052407e2efcd951811etargetblank5b2fa27a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/5b2fa277967f87065242b052407e2efcd951811e" target="_blank">5b2fa27</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontreef40ac65fedd1b92ea6cbfe04e965cca6f907c42btargetblankf40ac65a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/f40ac65fedd1b92ea6cbfe04e965cca6f907c42b" target="_blank">f40ac65</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree5b2fa277967f87065242b052407e2efcd951811etargetblank5b2fa27a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontreef40ac65fedd1b92ea6cbfe04e965cca6f907c42btargetblankf40ac65a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
-Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version <a href="https://github.com/pat-s/2019-feature-selection/tree/f40ac65fedd1b92ea6cbfe04e965cca6f907c42b" target="_blank">f40ac65</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 </p>
 <pre><code>
 Ignored files:
@@ -590,6 +538,7 @@ Ignored files:
     Ignored:    analysis/rosm.cache/
     Ignored:    data/
     Ignored:    inst/Benchmark for Filter Methods for Feature Selection in High-Dimensional  Classification Data.pdf
+    Ignored:    inst/study-area-map/._study-area.qgs
     Ignored:    inst/study-area-map/study-area.qgs~
     Ignored:    log/
     Ignored:    renv/library/
@@ -598,42 +547,24 @@ Ignored files:
     Ignored:    rosm.cache/
 
 Untracked files:
-    Untracked:  .circleci/
-    Untracked:  R/FeatureSelection.R
-    Untracked:  analysis/style.css
-    Untracked:  code/041-data-preprocessing-buffer2.R
-    Untracked:  code/042-data-preprocessing-no-buffer.R
-    Untracked:  code/051-tasks-buffer2.R
-    Untracked:  code/052-tasks-no-buffer.R
     Untracked:  code/06-modeling/project/
-    Untracked:  new-data.R
-    Untracked:  slurm_batchtools.tmpl
 
 Unstaged changes:
-    Modified:   R/01-fun-download.R
-    Modified:   R/02-fun-data-preprocessing.R
-    Modified:   R/03-fun-hyperspectral.R
-    Modified:   R/04-fun-sentinel-processing.R
-    Modified:   R/05-mlr-project.R
-    Modified:   R/06-mlr-paper.R
-    Modified:   R/07-fun-visualization.R
-    Modified:   R/90-eda-funs.R
     Modified:   _drake.R
-    Modified:   analysis/_site.yml
+    Modified:   analysis/about.Rmd
     Modified:   analysis/eval-performance.Rmd
-    Modified:   analysis/feature-importance.Rmd
-    Modified:   analysis/filter-correlation.Rmd
+    Modified:   analysis/inspect-glmnet-models.Rmd
     Modified:   analysis/report-defoliation.Rmd
-    Modified:   analysis/response-normality.Rmd
-    Modified:   code/02-hyperspectral-processing.R
     Modified:   code/03-sentinel-processing.R
-    Deleted:    code/04-data-preprocessing.R
-    Deleted:    code/05-tasks.R
-    Modified:   code/06-modeling/paper/01-eda.R
+    Modified:   code/041-data-preprocessing-buffer2.R
+    Modified:   code/051-tasks-buffer2.R
+    Modified:   code/06-modeling/paper/02-param-sets.R
     Modified:   code/06-modeling/paper/03-learner.R
-    Modified:   code/07-benchmark-matrix.R
-    Modified:   code/08-aggregate.R
-    Modified:   code/99-packages.R
+    Modified:   code/06-modeling/paper/04-filter-wrapper.R
+    Modified:   code/06-modeling/paper/07-tune-wrapper.R
+    Modified:   code/06-modeling/paper/08-train.R
+    Modified:   code/06-modeling/paper/09-feature-importance.R
+    Modified:   code/071-benchmark-matrix-buffer2.R
 
 </code></pre>
 <p>
@@ -648,7 +579,7 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in t
 <div id="versions" class="tab-pane fade">
 
 <p>
-These are the previous versions of the R Markdown and HTML files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view them.
+These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/eda.Rmd</code>) and HTML (<code>docs/eda.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
 </p>
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
@@ -672,6 +603,74 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/f40ac65fedd1b92ea6cbfe04e965cca6f907c42b/analysis/eda.Rmd" target="_blank">f40ac65</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-03-22
+</td>
+<td>
+wflow_publish(knitr_in(“analysis/eda.Rmd”), view = FALSE, verbose = TRUE)
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/8794c9d21f7b279c93805861bff474d14bdd9ab1/analysis/eda.Rmd" target="_blank">8794c9d</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-03-03
+</td>
+<td>
+remove copy_figures() from eda.Rmd
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/2e9f8a1c2d29e41ef8a6f6576ea77c19242e6e73/analysis/eda.Rmd" target="_blank">2e9f8a1</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-02-24
+</td>
+<td>
+do everything for buffer of 2m and no buffer
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pat-s/2019-feature-selection/3cab82e2289d916af2e781018d5c07d0cb402fae/docs/eda.html" target="_blank">3cab82e</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-02-15
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1401,6 +1400,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/3cab82e2289d916af2e781018d5c07d0cb402fae/docs/figure/eda.Rmd/eda-2-1.png" target="_blank">3cab82e</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-02-15
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/f2c521e2e99f9589cbd0ba013cec33d15953b834/docs/figure/eda.Rmd/eda-2-1.png" target="_blank">f2c521e</a>
 </td>
 <td>
@@ -1547,6 +1557,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/3cab82e2289d916af2e781018d5c07d0cb402fae/docs/figure/eda.Rmd/eda-2-2.png" target="_blank">3cab82e</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-02-15
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/f2c521e2e99f9589cbd0ba013cec33d15953b834/docs/figure/eda.Rmd/eda-2-2.png" target="_blank">f2c521e</a>
@@ -1719,6 +1740,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/3cab82e2289d916af2e781018d5c07d0cb402fae/docs/figure/eda.Rmd/eda-2-3.png" target="_blank">3cab82e</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-02-15
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/f2c521e2e99f9589cbd0ba013cec33d15953b834/docs/figure/eda.Rmd/eda-2-3.png" target="_blank">f2c521e</a>
 </td>
 <td>
@@ -1865,6 +1897,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/3cab82e2289d916af2e781018d5c07d0cb402fae/docs/figure/eda.Rmd/eda-2-4.png" target="_blank">3cab82e</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-02-15
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/f2c521e2e99f9589cbd0ba013cec33d15953b834/docs/figure/eda.Rmd/eda-2-4.png" target="_blank">f2c521e</a>
@@ -2037,6 +2080,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/3cab82e2289d916af2e781018d5c07d0cb402fae/docs/figure/eda.Rmd/eda-2-5.png" target="_blank">3cab82e</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-02-15
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/f2c521e2e99f9589cbd0ba013cec33d15953b834/docs/figure/eda.Rmd/eda-2-5.png" target="_blank">f2c521e</a>
 </td>
 <td>
@@ -2205,6 +2259,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/3cab82e2289d916af2e781018d5c07d0cb402fae/docs/figure/eda.Rmd/eda-2-6.png" target="_blank">3cab82e</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-02-15
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/f2c521e2e99f9589cbd0ba013cec33d15953b834/docs/figure/eda.Rmd/eda-2-6.png" target="_blank">f2c521e</a>
@@ -2380,6 +2445,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/3cab82e2289d916af2e781018d5c07d0cb402fae/docs/figure/eda.Rmd/eda-3-1.png" target="_blank">3cab82e</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-02-15
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/f2c521e2e99f9589cbd0ba013cec33d15953b834/docs/figure/eda.Rmd/eda-3-1.png" target="_blank">f2c521e</a>
 </td>
 <td>
@@ -2515,6 +2591,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/3cab82e2289d916af2e781018d5c07d0cb402fae/docs/figure/eda.Rmd/eda-3-2.png" target="_blank">3cab82e</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-02-15
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/f2c521e2e99f9589cbd0ba013cec33d15953b834/docs/figure/eda.Rmd/eda-3-2.png" target="_blank">f2c521e</a>
@@ -2688,6 +2775,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/3cab82e2289d916af2e781018d5c07d0cb402fae/docs/figure/eda.Rmd/eda-4-1.png" target="_blank">3cab82e</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-02-15
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/f2c521e2e99f9589cbd0ba013cec33d15953b834/docs/figure/eda.Rmd/eda-4-1.png" target="_blank">f2c521e</a>
@@ -3335,7 +3433,7 @@ pat-s
 </tr>
 <tr class="even">
 <td align="left">Columns</td>
-<td align="left">124</td>
+<td align="left">123</td>
 </tr>
 <tr class="odd">
 <td align="left">Discrete columns</td>
@@ -3343,7 +3441,7 @@ pat-s
 </tr>
 <tr class="even">
 <td align="left">Continuous columns</td>
-<td align="left">124</td>
+<td align="left">123</td>
 </tr>
 <tr class="odd">
 <td align="left">All missing columns</td>
@@ -3359,7 +3457,7 @@ pat-s
 </tr>
 <tr class="even">
 <td align="left">Total observations</td>
-<td align="left">224,192</td>
+<td align="left">222,384</td>
 </tr>
 </tbody>
 </table>
@@ -4625,6 +4723,43 @@ $Oiartzun
 <p>For this EDA only the direct reflectance values are used. It is assumed that the VI and NRI datasets will be affected in the same way by the different buffer sizes.</p>
 <pre><code>Warning: Removed 1 rows containing missing values (geom_path).</code></pre>
 <p><img src="figure/eda.Rmd/unnamed-chunk-1-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-1-1">
+Past versions of unnamed-chunk-1-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-1-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/3cab82e2289d916af2e781018d5c07d0cb402fae/docs/figure/eda.Rmd/unnamed-chunk-1-1.png" target="_blank">3cab82e</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-02-15
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -4652,36 +4787,36 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] raster_2.8-4       sp_1.3-1           purrr_0.3.3       
- [4] knitr_1.23         ggpubr_0.1.6       magrittr_1.5      
+ [1] fs_1.3.1           raster_3.0-12      sp_1.3-1          
+ [4] purrr_0.3.3        knitr_1.23         ggpubr_0.1.6      
  [7] ggplot2_3.2.1      ggsci_2.9          dplyr_0.8.3       
-[10] DataExplorer_0.8.0 tidyselect_0.2.5  
+[10] DataExplorer_0.8.0 tidyselect_0.2.5   magrittr_1.5      
+[13] drake_7.10.0      
 
 loaded via a namespace (and not attached):
  [1] Rcpp_1.0.3        txtq_0.1.4        lattice_0.20-38  
  [4] tidyr_1.0.0       class_7.3-15      assertthat_0.2.1 
  [7] zeallot_0.1.0     rprojroot_1.3-2   digest_0.6.23    
 [10] utf8_1.1.4        R6_2.4.1          plyr_1.8.4       
-[13] backports_1.1.5   drake_7.10.0      evaluate_0.13    
-[16] e1071_1.7-0.1     highr_0.7         pillar_1.3.1     
-[19] rlang_0.4.4       lazyeval_0.2.1    data.table_1.12.6
-[22] whisker_0.3-2     R.utils_2.8.0     R.oo_1.23.0      
-[25] rmarkdown_1.13    labeling_0.3      rgdal_1.4-4      
-[28] stringr_1.4.0     htmlwidgets_1.3   igraph_1.2.4.1   
-[31] munsell_0.5.0     compiler_3.6.1    httpuv_1.4.5.1   
-[34] xfun_0.5          pkgconfig_2.0.3   htmltools_0.3.6  
-[37] tibble_2.1.3      gridExtra_2.3     workflowr_1.6.0  
-[40] codetools_0.2-16  fansi_0.4.1       crayon_1.3.4     
-[43] withr_2.1.2       later_1.0.0       sf_0.7-7         
-[46] R.methodsS3_1.7.1 grid_3.6.1        lifecycle_0.1.0  
-[49] DBI_1.0.0         gtable_0.2.0      git2r_0.26.1     
-[52] storr_1.2.1       units_0.6-2       scales_1.0.0     
-[55] cli_2.0.1         stringi_1.3.1     reshape2_1.4.3   
-[58] fs_1.3.1          promises_1.0.1    filelock_1.0.2   
-[61] vctrs_0.2.1       tools_3.6.1       glue_1.3.1       
-[64] networkD3_0.4     parallel_3.6.1    yaml_2.2.0       
-[67] colorspace_1.4-0  classInt_0.3-1    base64url_1.4    
-[70] patchwork_1.0.0  </code></pre>
+[13] backports_1.1.5   evaluate_0.13     e1071_1.7-0.1    
+[16] highr_0.7         pillar_1.4.3      rlang_0.4.4      
+[19] lazyeval_0.2.1    data.table_1.12.8 whisker_0.3-2    
+[22] R.utils_2.8.0     R.oo_1.23.0       rmarkdown_1.13   
+[25] labeling_0.3      rgdal_1.4-8       stringr_1.4.0    
+[28] htmlwidgets_1.3   igraph_1.2.4.1    munsell_0.5.0    
+[31] compiler_3.6.1    httpuv_1.4.5.1    xfun_0.5         
+[34] pkgconfig_2.0.3   htmltools_0.3.6   tibble_2.1.3     
+[37] gridExtra_2.3     workflowr_1.6.1   codetools_0.2-16 
+[40] fansi_0.4.1       crayon_1.3.4      withr_2.1.2      
+[43] later_1.0.0       sf_0.7-7          R.methodsS3_1.7.1
+[46] grid_3.6.1        lifecycle_0.1.0   DBI_1.0.0        
+[49] gtable_0.3.0      git2r_0.26.1      storr_1.2.1      
+[52] units_0.6-2       scales_1.0.0      cli_2.0.1        
+[55] stringi_1.3.1     reshape2_1.4.3    promises_1.0.1   
+[58] filelock_1.0.2    vctrs_0.2.1       tools_3.6.1      
+[61] glue_1.3.1        networkD3_0.4     parallel_3.6.1   
+[64] yaml_2.2.0        colorspace_1.4-0  classInt_0.3-1   
+[67] base64url_1.4     patchwork_1.0.0  </code></pre>
 </div>
 </div>
 
@@ -4699,8 +4834,6 @@ footer is added to webpages before the MathJax javascript. -->
 </script>
 
 
-</div>
-</div>
 
 </div>
 

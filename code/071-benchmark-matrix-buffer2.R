@@ -24,14 +24,14 @@ benchmark_plan_buffer2 <- drake_plan(
         setAggregation(rmse, test.mean)
       )
     ),
-    dynamic = cross(tune_wrappers_mbo, task_new_buffer2)
+    dynamic = cross(tune_wrappers_mbo, task_new_buffer2_reduced_cor)
   ),
 
-  benchmark_no_models_new_penalized_buffer2 = target(
+  benchmark_models_new_penalized_mbo_buffer2 = target(
     benchmark(
       learners = learners_penalized,
       tasks = task_new_buffer2,
-      models = FALSE,
+      models = TRUE,
       keep.pred = TRUE,
       resamplings = makeResampleDesc("CV", fixed = TRUE),
       show.info = TRUE,
@@ -42,11 +42,11 @@ benchmark_plan_buffer2 <- drake_plan(
     dynamic = cross(learners_penalized, task_new_buffer2)
   ),
 
-  benchmark_models_new_penalized_buffer2 = target(
+  benchmark_no_models_new_penalized_mbo_buffer2 = target(
     benchmark(
       learners = learners_penalized,
       tasks = task_new_buffer2,
-      models = TRUE,
+      models = FALSE,
       keep.pred = TRUE,
       resamplings = makeResampleDesc("CV", fixed = TRUE),
       show.info = TRUE,
@@ -86,5 +86,20 @@ benchmark_plan_buffer2 <- drake_plan(
       )
     ),
     dynamic = cross(tune_wrappers_mbo, task_old_buffer2)
+  ),
+
+  benchmark_models_new_penalized_mbo_buffer2_trim_cor = target(
+    benchmark(
+      learners = learners_penalized,
+      tasks = task_new_buffer2,
+      models = TRUE,
+      keep.pred = TRUE,
+      resamplings = makeResampleDesc("CV", fixed = TRUE),
+      show.info = TRUE,
+      measures = list(
+        setAggregation(rmse, test.mean)
+      )
+    ),
+    dynamic = cross(learners_penalized, task_new_buffer2_reduced_cor)
   ),
 )

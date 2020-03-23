@@ -17,7 +17,7 @@ Jannes Muenchow [![](https://orcid.org/sites/default/files/images/orcid_16x16.pn
 
 Eugenia Iturritxa [![](https://orcid.org/sites/default/files/images/orcid_16x16.png)](https://orcid.org/0000-0002-0577-3315) 
 
-José Cortés
+José Cortés [![](https://orcid.org/sites/default/files/images/orcid_16x16.png)](http://orcid.org/0000-0003-2567-8689)
 
 Bernd Bischl [![](https://orcid.org/sites/default/files/images/orcid_16x16.png)](http://orcid.org/0000-0001-6002-6980)
 
@@ -109,6 +109,7 @@ r_make()
 # Literature
 
 - What to do first (Feature selection or tuning): https://datascience.stackexchange.com/a/19778/24475
+- {glmnet}: How to select lambda and alpha: https://stats.stackexchange.com/questions/357190/glmnet-how-to-select-lambda-and-alpha/415248#415248
 - Hastie, T., Friedman, J., & Tibshirani, R. (2001). The Elements of Statistical Learning. Springer New York. https://doi.org/10.1007/978-0-387-21606-5 (Kapitel 16)
 - FSel algs overview: http://featureselection.asu.edu/algorithms.php
 - De Jay, N., Papillon-Cavanagh, S., Olsen, C., El-Hachem, N., Bontempi, G., & Haibe-Kains, B. (2013). mRMRe: an R package for parallelized mRMR ensemble feature selection. Bioinformatics, 29(18), 2365–2368. https://doi.org/10/f48vxc

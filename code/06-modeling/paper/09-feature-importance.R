@@ -56,5 +56,69 @@ feature_imp_plan <- drake_plan(
       dplyr::distinct()
 
     return(df_wide_formatted)
+  }),
+
+  fi_ale_hr_buffer2 = target({
+    mod_hr <- mlr::train(
+      tune_wrappers_mbo[[13]], # SVM MBO Car
+      task_new_buffer2_reduced_cor[[1]]
+    )
+    pred <- iml::Predictor$new(
+      mod_hr, # SVM MBO Car fitted
+      task_new_buffer2_reduced_cor[[1]]$env$data,
+    )
+    fe <- FeatureEffects$new(pred,
+      method = "ale",
+      grid.size = 100
+    )
+    return(fe)
+  }),
+
+    fi_ale_hr_buffer2_gs20 = target({
+    mod_hr <- mlr::train(
+      tune_wrappers_mbo[[13]], # SVM MBO Car
+      task_new_buffer2_reduced_cor[[1]]
+    )
+    pred <- iml::Predictor$new(
+      mod_hr, # SVM MBO Car fitted
+      task_new_buffer2_reduced_cor[[1]]$env$data,
+    )
+    fe <- FeatureEffects$new(pred,
+      method = "ale",
+      grid.size = 20
+    )
+    return(fe)
+  }),
+
+  fi_ale_vi_buffer2 = target({
+    mod_hr <- mlr::train(
+      tune_wrappers_mbo[[13]], # SVM MBO Car
+      task_new_buffer2_reduced_cor[[2]]
+    )
+    pred <- iml::Predictor$new(
+      mod_hr, # SVM MBO Car fitted
+      task_new_buffer2_reduced_cor[[2]]$env$data,
+    )
+    fe <- FeatureEffects$new(pred,
+      method = "ale",
+      grid.size = 100
+    )
+    return(fe)
+  }),
+
+    fi_ale_vi_buffer2_gs20 = target({
+    mod_hr <- mlr::train(
+      tune_wrappers_mbo[[13]], # SVM MBO Car
+      task_new_buffer2_reduced_cor[[2]]
+    )
+    pred <- iml::Predictor$new(
+      mod_hr, # SVM MBO Car fitted
+      task_new_buffer2_reduced_cor[[2]]$env$data,
+    )
+    fe <- FeatureEffects$new(pred,
+      method = "ale",
+      grid.size = 20
+    )
+    return(fe)
   })
 )

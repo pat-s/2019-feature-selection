@@ -45,6 +45,10 @@ filter_wrapper_plan <- drake_plan(
     pca_wrappers,
 
     # RF, SVM, XGB without filter wrappers
-    learners
+    learners,
+
+    # Lasso and Ridge
+    list(lrn_lasso),
+    list(lrn_ridge)
   ))
 )

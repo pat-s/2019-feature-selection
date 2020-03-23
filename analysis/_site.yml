@@ -27,8 +27,10 @@ navbar:
       href: spectral-signatures.html
     - text: "Checking for normality of response"
       href: response-normality.html
-  - text: Timeline
-    href: timeline.html
+    - text: Side Analysis
+      menu:
+      - text: "Inspect {glmnet} models"
+        href: inspect-glmnet-models.html
 
 output:
   workflowr::wflow_html:

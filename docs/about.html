@@ -23,6 +23,14 @@
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/master/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
   pre:not([class]) {
@@ -351,13 +359,6 @@ $(document).ready(function () {
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<!-- Add a small amount of space between sections. -->
-<style type="text/css">
-div.section {
-  padding-top: 12px;
-}
-</style>
-
 <div class="fluid-row" id="header">
 
 
@@ -387,7 +388,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-03-08
+<strong>Last updated:</strong> 2020-03-22
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -397,7 +398,7 @@ div.section {
 </p>
 <p>
 This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
-  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.1). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
 </p>
 <hr>
 </div>
@@ -478,13 +479,19 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree44770bb81d661b57ee9981b345b747a54214e597targetblank44770bba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/44770bb81d661b57ee9981b345b747a54214e597" target="_blank">44770bb</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontreefc147e44be6b089279f10adbdb69d6cc5b035c7etargetblankfc147e4a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/fc147e44be6b089279f10adbdb69d6cc5b035c7e" target="_blank">fc147e4</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree44770bb81d661b57ee9981b345b747a54214e597targetblank44770bba" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontreefc147e44be6b089279f10adbdb69d6cc5b035c7etargetblankfc147e4a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
-Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version <a href="https://github.com/pat-s/2019-feature-selection/tree/fc147e44be6b089279f10adbdb69d6cc5b035c7e" target="_blank">fc147e4</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 </p>
 <pre><code>
 Ignored files:
@@ -504,23 +511,12 @@ Ignored files:
     Ignored:    reviews/
     Ignored:    rosm.cache/
 
-Untracked files:
-    Untracked:  code/06-modeling/project/
-
 Unstaged changes:
-    Modified:   .Rprofile
     Modified:   _drake.R
-    Modified:   analysis/_site.yml
+    Modified:   analysis/eval-performance.Rmd
+    Modified:   analysis/inspect-glmnet-models.Rmd
     Modified:   analysis/report-defoliation.Rmd
-    Modified:   code/02-hyperspectral-processing.R
     Modified:   code/03-sentinel-processing.R
-    Modified:   code/06-modeling/paper/02-param-sets.R
-    Modified:   code/06-modeling/paper/03-learner.R
-    Modified:   code/06-modeling/paper/04-filter-wrapper.R
-    Modified:   code/06-modeling/paper/07-tune-wrapper.R
-    Modified:   code/06-modeling/paper/08-train.R
-    Modified:   code/071-benchmark-matrix-buffer2.R
-    Modified:   code/09-reports.R
 
 </code></pre>
 <p>
@@ -535,7 +531,7 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in t
 <div id="versions" class="tab-pane fade">
 
 <p>
-These are the previous versions of the R Markdown and HTML files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view them.
+These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/about.Rmd</code>) and HTML (<code>docs/about.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
 </p>
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
@@ -559,6 +555,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/fc147e44be6b089279f10adbdb69d6cc5b035c7e/analysis/about.Rmd" target="_blank">fc147e4</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-03-22
+</td>
+<td>
+workflowr::wflow_publish(“analysis/about.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pat-s/2019-feature-selection/649886e8bc6bd4a5fbd2d1e10df4e5668b799583/docs/about.html" target="_blank">649886e</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-03-08
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -912,7 +942,7 @@ Start workflowr project.
 <p><strong>Patrick Schratz</strong> (<a href="mailto:patrick.schratz@gmail.com" class="email">patrick.schratz@gmail.com</a>) <a href="http://orcid.org/0000-0003-0748-6624"><img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" /></a></p>
 <p>Jannes Muenchow <a href="http://orcid.org/0000-0001-7834-4717"><img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" /></a></p>
 <p>Eugenia Iturritxa <a href="https://orcid.org/0000-0002-0577-3315"><img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" /></a></p>
-<p>José Cortés</p>
+<p>José Cortés <a href="http://orcid.org/0000-0003-2567-8689"><img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" /></a></p>
 <p>Bernd Bischl <a href="http://orcid.org/0000-0001-6002-6980"><img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" /></a></p>
 <p>Alexander Brenning <a href="http://orcid.org/0000-0001-6640-679X"><img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" /></a></p>
 </div>
@@ -981,6 +1011,7 @@ r_make()</code></pre>
 <h1>Literature</h1>
 <ul>
 <li>What to do first (Feature selection or tuning): <a href="https://datascience.stackexchange.com/a/19778/24475" class="uri">https://datascience.stackexchange.com/a/19778/24475</a></li>
+<li>{glmnet}: How to select lambda and alpha: <a href="https://stats.stackexchange.com/questions/357190/glmnet-how-to-select-lambda-and-alpha/415248#415248" class="uri">https://stats.stackexchange.com/questions/357190/glmnet-how-to-select-lambda-and-alpha/415248#415248</a></li>
 <li>Hastie, T., Friedman, J., &amp; Tibshirani, R. (2001). The Elements of Statistical Learning. Springer New York. <a href="https://doi.org/10.1007/978-0-387-21606-5" class="uri">https://doi.org/10.1007/978-0-387-21606-5</a> (Kapitel 16)</li>
 <li>FSel algs overview: <a href="http://featureselection.asu.edu/algorithms.php" class="uri">http://featureselection.asu.edu/algorithms.php</a></li>
 <li>De Jay, N., Papillon-Cavanagh, S., Olsen, C., El-Hachem, N., Bontempi, G., &amp; Haibe-Kains, B. (2013). mRMRe: an R package for parallelized mRMR ensemble feature selection. Bioinformatics, 29(18), 2365–2368. <a href="https://doi.org/10/f48vxc" class="uri">https://doi.org/10/f48vxc</a></li>
@@ -1017,7 +1048,7 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 loaded via a namespace (and not attached):
- [1] workflowr_1.6.0 Rcpp_1.0.3      rprojroot_1.3-2 digest_0.6.23  
+ [1] workflowr_1.6.1 Rcpp_1.0.3      rprojroot_1.3-2 digest_0.6.23  
  [5] later_1.0.0     R6_2.4.1        backports_1.1.5 git2r_0.26.1   
  [9] magrittr_1.5    evaluate_0.13   stringi_1.3.1   fs_1.3.1       
 [13] promises_1.0.1  whisker_0.3-2   rmarkdown_1.13  tools_3.6.1    

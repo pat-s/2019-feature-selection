@@ -33,7 +33,8 @@ fansi::set_knit_hooks(knitr::knit_hooks)
 # load drake objects
 loadd(
   benchmark_models_new_penalized_mbo_buffer2,
-  task_new_buffer2
+  task_new_buffer2,
+  task_new_buffer2_reduced_cor
 )
 ```
 
@@ -238,3 +239,40 @@ obs_train_f4[737, top_ten_abs]
 
 Looks ok - they are all within a normal range with respectv to the PDP estimates.
 
+## Train/predict via {glmnet} manually on dataset with filtered feature correlation
+
+To inspect further, let's refit a {glmnet} model directly on the training data of Fold 4 and inspect what `glmnet::cv.glmnet` estimates for the lambda sequence:
+
+```{r}
+train_inds_fold4 <- benchmark_models_new_penalized_mbo_buffer2[[8]][["results"]][["vi_buffer2"]][["Ridge-MBO"]][["pred"]][["instance"]][["train.inds"]][[4]]
+
+obs_train_f4 <- as.matrix(task_new_buffer2_reduced_cor[[2]]$env$data[train_inds_fold4, getTaskFeatureNames(task_new_buffer2_reduced_cor[[2]])])
+target_f4 <- getTaskTargets(task_new_buffer2_reduced_cor[[2]])[train_inds_fold4]
+```
+
+Fit `cv.glmnet`
+
+```{r}
+set.seed(1)
+modf4 <- glmnet::cv.glmnet(obs_train_f4, target_f4, alpha = 0)
+
+modf4$lambda.1se
+```
+
+Predict on Laukiz 2 now.
+
+```{r}
+pred_inds_fold4 <- benchmark_models_new_penalized_mbo_buffer2[[8]][["results"]][["vi_buffer2"]][["Ridge-MBO"]][["pred"]][["instance"]][["test.inds"]][[4]]
+
+obs_pred_f4 <- as.matrix(task_new_buffer2_reduced_cor[[2]]$env$data[pred_inds_fold4, getTaskFeatureNames(task_new_buffer2_reduced_cor[[2]])])
+
+pred <- predict(modf4, newx = obs_pred_f4, s = modf4$lambda.1se)
+```
+
+Calculate the error
+
+```{r}
+truth <- task_new_buffer2_reduced_cor[[2]]$env$data[pred_inds_fold4, "defoliation"]
+
+mlr:::measureRMSE(truth, pred)
+```

@@ -27,6 +27,14 @@
 
 <div><img src="logo/fsu.png" align="left" style="width:200px;margin-top:15px" ></div>
 
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/master/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
   pre:not([class]) {
@@ -334,6 +342,14 @@ $(document).ready(function () {
     <li>
       <a href="response-normality.html">Checking for normality of response</a>
     </li>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Side Analysis</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="inspect-glmnet-models.html">Inspect {glmnet} models</a>
+        </li>
+      </ul>
+    </li>
   </ul>
 </li>
 <li>
@@ -346,13 +362,6 @@ $(document).ready(function () {
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
-
-<!-- Add a small amount of space between sections. -->
-<style type="text/css">
-div.section {
-  padding-top: 12px;
-}
-</style>
 
 <div class="fluid-row" id="header">
 
@@ -375,6 +384,16 @@ div.section {
 <li><a href="#p3-absolute-permutation-based-var-imp">P3 Absolute permutation based Var Imp</a></li>
 </ul></li>
 <li><a href="#combined">Combined</a></li>
+</ul></li>
+<li><a href="#ale-plots">ALE plots</a><ul>
+<li><a href="#p2-hr">P2 HR</a><ul>
+<li><a href="#grid-size-100">Grid size: 100</a></li>
+<li><a href="#grid-size-20">Grid size: 20</a></li>
+</ul></li>
+<li><a href="#p3-vi">P3 VI</a><ul>
+<li><a href="#grid-size-100-1">Grid size: 100</a></li>
+<li><a href="#grid-size-20-1">Grid size: 20</a></li>
+</ul></li>
 </ul></li>
 </ul>
 </div>
@@ -399,7 +418,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-03-05
+<strong>Last updated:</strong> 2020-03-22
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -409,7 +428,7 @@ div.section {
 </p>
 <p>
 This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
-  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.1). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
 </p>
 <hr>
 </div>
@@ -490,13 +509,19 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontreeb37ee3b73ffc2f5cf7375265e38a7bf2933c9898targetblankb37ee3ba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/b37ee3b73ffc2f5cf7375265e38a7bf2933c9898" target="_blank">b37ee3b</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontreef61b799368e87efb7a11dd67e1e634008dd768bctargetblankf61b799a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/f61b799368e87efb7a11dd67e1e634008dd768bc" target="_blank">f61b799</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontreeb37ee3b73ffc2f5cf7375265e38a7bf2933c9898targetblankb37ee3ba" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontreef61b799368e87efb7a11dd67e1e634008dd768bctargetblankf61b799a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
-Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version <a href="https://github.com/pat-s/2019-feature-selection/tree/f61b799368e87efb7a11dd67e1e634008dd768bc" target="_blank">f61b799</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 </p>
 <pre><code>
 Ignored files:
@@ -522,10 +547,24 @@ Untracked files:
 Unstaged changes:
     Modified:   .Rprofile
     Modified:   _drake.R
+    Modified:   analysis/_site.yml
+    Modified:   analysis/about.Rmd
+    Modified:   analysis/eda.Rmd
+    Modified:   analysis/eval-performance.Rmd
+    Modified:   analysis/inspect-glmnet-models.Rmd
     Modified:   analysis/report-defoliation.Rmd
     Modified:   code/02-hyperspectral-processing.R
     Modified:   code/03-sentinel-processing.R
+    Modified:   code/041-data-preprocessing-buffer2.R
+    Modified:   code/051-tasks-buffer2.R
+    Modified:   code/06-modeling/paper/02-param-sets.R
+    Modified:   code/06-modeling/paper/03-learner.R
+    Modified:   code/06-modeling/paper/04-filter-wrapper.R
+    Modified:   code/06-modeling/paper/07-tune-wrapper.R
     Modified:   code/06-modeling/paper/08-train.R
+    Modified:   code/06-modeling/paper/09-feature-importance.R
+    Modified:   code/071-benchmark-matrix-buffer2.R
+    Modified:   code/09-reports.R
 
 </code></pre>
 <p>
@@ -540,7 +579,7 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in t
 <div id="versions" class="tab-pane fade">
 
 <p>
-These are the previous versions of the R Markdown and HTML files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view them.
+These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/feature-importance.Rmd</code>) and HTML (<code>docs/feature-importance.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
 </p>
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
@@ -564,6 +603,125 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/f61b799368e87efb7a11dd67e1e634008dd768bc/analysis/feature-importance.Rmd" target="_blank">f61b799</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-03-22
+</td>
+<td>
+wflow_publish(knitr_in(“analysis/feature-importance.Rmd”), view = FALSE,
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pat-s/2019-feature-selection/72b9228d873feb17e5b7343ace126639f60a17ef/docs/feature-importance.html" target="_blank">72b9228</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-03-17
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pat-s/2019-feature-selection/c3e1961178e694cedde28de2eac74583c7eba880/docs/feature-importance.html" target="_blank">c3e1961</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-03-17
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/997567bab254c476b958c626c214c27924fbfb39/analysis/feature-importance.Rmd" target="_blank">997567b</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-03-17
+</td>
+<td>
+workflowr::wflow_publish(“analysis/feature-importance.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pat-s/2019-feature-selection/e2524477c6a7835837dec27331e6883b44fc7806/docs/feature-importance.html" target="_blank">e252447</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-03-17
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/42abfde12aba0a7bb8d0fbc7e51d9b2bd78f175e/analysis/feature-importance.Rmd" target="_blank">42abfde</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-03-17
+</td>
+<td>
+workflowr::wflow_publish(“analysis/feature-importance.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pat-s/2019-feature-selection/16366b0262722e35cb82a2c6a0de4b6a38f64153/docs/feature-importance.html" target="_blank">16366b0</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-03-05
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -821,6 +979,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/16366b0262722e35cb82a2c6a0de4b6a38f64153/docs/figure/feature-importance.Rmd/fi-permut-vi-hr-1.png" target="_blank">16366b0</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-03-05
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/c57d17df4577726ff3c4c8387d4dfaba8d20acc7/docs/figure/feature-importance.Rmd/fi-permut-vi-hr-1.png" target="_blank">c57d17d</a>
 </td>
 <td>
@@ -857,7 +1026,7 @@ pat-s
 </div>
 </div>
 </div>
-<div id="plots-by-dataset" class="section level1">
+<div id="plots-by-dataset" class="section level1 tabset tabset-fade">
 <h1>Plots by dataset</h1>
 <div id="hr" class="section level2">
 <h2>HR</h2>
@@ -999,6 +1168,83 @@ pat-s
 </table>
 </div>
 </div>
+</div>
+</div>
+<div id="ale-plots" class="section level1 tabset tabset-fade">
+<h1>ALE plots</h1>
+<p>ALE plots via package {iml}</p>
+<div id="p2-hr" class="section level2">
+<h2>P2 HR</h2>
+<div id="grid-size-100" class="section level3">
+<h3>Grid size: 100</h3>
+<p>Top ten HR features from permutation Vimp</p>
+<p><img src="figure/feature-importance.Rmd/fi-hr-ale-1.png" width="100%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="grid-size-20" class="section level3">
+<h3>Grid size: 20</h3>
+<p>Top ten HR features from permutation Vimp</p>
+<p><img src="figure/feature-importance.Rmd/unnamed-chunk-1-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-1-1">
+Past versions of unnamed-chunk-1-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-1-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/72b9228d873feb17e5b7343ace126639f60a17ef/docs/figure/feature-importance.Rmd/unnamed-chunk-1-1.png" target="_blank">72b9228</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-03-17
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/e2524477c6a7835837dec27331e6883b44fc7806/docs/figure/feature-importance.Rmd/unnamed-chunk-1-1.png" target="_blank">e252447</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-03-17
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div id="p3-vi" class="section level2">
+<h2>P3 VI</h2>
+<div id="grid-size-100-1" class="section level3">
+<h3>Grid size: 100</h3>
+<p>Top ten VI features from permutation Vimp</p>
+<p><img src="figure/feature-importance.Rmd/fi-vi-ale-1.png" width="100%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="grid-size-20-1" class="section level3">
+<h3>Grid size: 20</h3>
+<p>Top ten HR features from permutation Vimp</p>
+<p><img src="figure/feature-importance.Rmd/unnamed-chunk-2-1.png" width="100%" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1026,40 +1272,49 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] tidyselect_0.2.5 patchwork_1.0.0  ggpmisc_0.3.3    ggpubr_0.1.6    
- [5] magrittr_1.5     dplyr_0.8.3      hsdar_0.5.2      caret_6.0-81    
- [9] ggplot2_3.2.1    lattice_0.20-38  signal_0.7-6     rootSolve_1.7   
-[13] rgdal_1.4-8      raster_3.0-12    sp_1.3-1         drake_7.10.0    
+ [1] tidyselect_0.2.5 iml_0.10.0       patchwork_1.0.0  ggpmisc_0.3.3   
+ [5] ggpubr_0.1.6     magrittr_1.5     dplyr_0.8.3      hsdar_0.5.2     
+ [9] caret_6.0-81     ggplot2_3.2.1    lattice_0.20-38  signal_0.7-6    
+[13] rootSolve_1.7    rgdal_1.4-8      raster_3.0-12    sp_1.3-1        
+[17] drake_7.10.0    
 
 loaded via a namespace (and not attached):
- [1] tidyr_1.0.0        splines_3.6.1      foreach_1.4.4     
- [4] prodlim_2018.04.18 assertthat_0.2.1   stats4_3.6.1      
- [7] base64url_1.4      ggrepel_0.8.0      yaml_2.2.0        
-[10] ipred_0.9-8        pillar_1.4.3       backports_1.1.5   
-[13] glue_1.3.1         digest_0.6.23      checkmate_1.9.1   
-[16] promises_1.0.1     colorspace_1.4-0   recipes_0.1.4     
-[19] mlr_2.17.0.9001    htmltools_0.3.6    httpuv_1.4.5.1    
-[22] Matrix_1.2-15      plyr_1.8.4         timeDate_3043.102 
-[25] pkgconfig_2.0.3    purrr_0.3.3        scales_1.0.0      
-[28] parallelMap_1.4    whisker_0.3-2      later_1.0.0       
-[31] gower_0.1.2        lava_1.6.5         git2r_0.26.1      
-[34] tibble_2.1.3       txtq_0.1.4         generics_0.0.2    
-[37] withr_2.1.2        nnet_7.3-12        lazyeval_0.2.1    
-[40] cli_2.0.1          survival_2.43-3    crayon_1.3.4      
-[43] evaluate_0.13      storr_1.2.1        fansi_0.4.1       
-[46] fs_1.3.1           nlme_3.1-142       MASS_7.3-51.4     
-[49] class_7.3-15       tools_3.6.1        data.table_1.12.6 
-[52] lifecycle_0.1.0    BBmisc_1.11        stringr_1.4.0     
-[55] munsell_0.5.0      compiler_3.6.1     rlang_0.4.4       
-[58] grid_3.6.1         iterators_1.0.10   igraph_1.2.4.1    
-[61] labeling_0.3       rmarkdown_1.13     gtable_0.2.0      
-[64] ModelMetrics_1.2.2 codetools_0.2-16   reshape2_1.4.3    
-[67] R6_2.4.1           ParamHelpers_1.12  lubridate_1.7.4   
-[70] knitr_1.23         utf8_1.1.4         zeallot_0.1.0     
-[73] fastmatch_1.1-0    filelock_1.0.2     workflowr_1.6.0   
-[76] rprojroot_1.3-2    stringi_1.3.1      parallel_3.6.1    
-[79] Rcpp_1.0.3         vctrs_0.2.1        rpart_4.1-13      
-[82] xfun_0.5          </code></pre>
+  [1] colorspace_1.4-0   smoof_1.5.1        class_7.3-15      
+  [4] rprojroot_1.3-2    fs_1.3.1           listenv_0.8.0     
+  [7] ParamHelpers_1.12  ggrepel_0.8.0      prodlim_2018.04.18
+ [10] fansi_0.4.1        lubridate_1.7.4    codetools_0.2-16  
+ [13] splines_3.6.1      knitr_1.23         mco_1.0-15.1      
+ [16] zeallot_0.1.0      jsonlite_1.6       workflowr_1.6.1   
+ [19] Metrics_0.1.4      kernlab_0.9-27     mlrMBO_1.1.2      
+ [22] compiler_3.6.1     httr_1.4.0         backports_1.1.5   
+ [25] assertthat_0.2.1   Matrix_1.2-15      lazyeval_0.2.1    
+ [28] cli_2.0.1          later_1.0.0        htmltools_0.3.6   
+ [31] tools_3.6.1        igraph_1.2.4.1     misc3d_0.8-4      
+ [34] gtable_0.3.0       glue_1.3.1         reshape2_1.4.3    
+ [37] fastmatch_1.1-0    Rcpp_1.0.3         parallelMap_1.4   
+ [40] vctrs_0.2.1        RJSONIO_1.3-1.1    nlme_3.1-142      
+ [43] iterators_1.0.10   timeDate_3043.102  gower_0.1.2       
+ [46] xfun_0.5           mlr_2.17.0.9001    stringr_1.4.0     
+ [49] globals_0.12.5     lifecycle_0.1.0    future_1.16.0     
+ [52] MASS_7.3-51.4      scales_1.0.0       ipred_0.9-8       
+ [55] promises_1.0.1     parallel_3.6.1     plot3D_1.1.1      
+ [58] RColorBrewer_1.1-2 BBmisc_1.11        yaml_2.2.0        
+ [61] gridExtra_2.3      DiceKriging_1.5.6  rpart_4.1-13      
+ [64] stringi_1.3.1      foreach_1.4.4      checkmate_2.0.0   
+ [67] lhs_1.0.1          filelock_1.0.2     lava_1.6.5        
+ [70] storr_1.2.1        rlang_0.4.4        pkgconfig_2.0.3   
+ [73] evaluate_0.13      purrr_0.3.3        prediction_0.3.14 
+ [76] recipes_0.1.4      htmlwidgets_1.3    labeling_0.3      
+ [79] plyr_1.8.4         R6_2.4.1           generics_0.0.2    
+ [82] base64url_1.4      txtq_0.1.4         pillar_1.4.3      
+ [85] whisker_0.3-2      withr_2.1.2        survival_2.43-3   
+ [88] nnet_7.3-12        future.apply_1.4.0 tibble_2.1.3      
+ [91] crayon_1.3.4       utf8_1.1.4         plotly_4.8.0      
+ [94] rmarkdown_1.13     grid_3.6.1         data.table_1.12.8 
+ [97] git2r_0.26.1       ModelMetrics_1.2.2 digest_0.6.23     
+[100] tidyr_1.0.0        httpuv_1.4.5.1     stats4_3.6.1      
+[103] munsell_0.5.0      viridisLite_0.3.0 </code></pre>
+</div>
 </div>
 </div>
 </div>

@@ -92,4 +92,12 @@ copy_figures <- function() {
     here::here("docs/figure/feature-importance.Rmd/fi-permut-vi-hr-1.pdf"),
     here::here("docs/00-manuscripts/ieee/pdf/")
   )
+  file_cp_ts(
+    here::here("docs/figure/feature-importance.Rmd/fi-hr-ale-1.pdf"),
+    here::here("docs/00-manuscripts/ieee/pdf/")
+  )
+  file_cp_ts(
+    here::here("docs/figure/feature-importance.Rmd/fi-vi-ale-1.pdf"),
+    here::here("docs/00-manuscripts/ieee/pdf/")
+  )
 }
