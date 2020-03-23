@@ -1,84 +1,8 @@
-%%%% using 'arara' 4.0
-% arara: pdflatex: {synctex: yes, interaction: nonstopmode}
-% arara: bibtex
-% arara: latexindent
-% arara: pdflatex: {synctex: yes, interaction: nonstopmode}
-% arara: pdflatex: {synctex: yes, interaction: nonstopmode}
-
-%% bare_jrnl.tex
-%% V1.4b
-%% 2015/08/26
-%% by Michael Shell
-%% see http://www.michaelshell.org/
-%% for current contact information.
-%%
-%% This is a skeleton file demonstrating the use of IEEEtran.cls
-%% (requires IEEEtran.cls version 1.8b or later) with an IEEE
-%% journal paper.
-%%
-%% Support sites:
-%% http://www.michaelshell.org/tex/ieeetran/
-%% http://www.ctan.org/pkg/ieeetran
-%% and
-%% http://www.ieee.org/
-
-%%*************************************************************************
-%% Legal Notice:
-%% This code is offered as-is without any warranty either expressed or
-%% implied; without even the implied warranty of MERCHANTABILITY or
-%% FITNESS FOR A PARTICULAR PURPOSE!
-%% User assumes all risk.
-%% In no event shall the IEEE or any contributor to this code be liable for
-%% any damages or losses, including, but not limited to, incidental,
-%% consequential, or any other damages, resulting from the use or misuse
-%% of any information contained here.
-%%
-%% All comments are the opinions of their respective authors and are not
-%% necessarily endorsed by the IEEE.
-%%
-%% This work is distributed under the LaTeX Project Public License (LPPL)
-%% ( http://www.latex-project.org/ ) version 1.3, and may be freely used,
-%% distributed and modified. A copy of the LPPL, version 1.3, is included
-%% in the base LaTeX documentation of all distributions of LaTeX released
-%% 2003/12/01 or later.
-%% Retain all contribution notices and credits.
-%% ** Modified files should be clearly indicated as such, including  **
-%% ** renaming them and changing author support contact information. **
-%%*************************************************************************
-
-% *** Authors should verify (and, if needed, correct) their LaTeX system  ***
-% *** with the testflow diagnostic prior to trusting their LaTeX platform ***
-% *** with production work. The IEEE's font choices and paper sizes can   ***
-% *** trigger bugs that do not appear when using other class files.       ***                          ***
-% The testflow support page is at:
-% http://www.michaelshell.org/tex/testflow/
-
 \documentclass[letterpaper, peerreview]{IEEEtran}
 %
 % If IEEEtran.cls has not been installed into the LaTeX system files,
 % manually specify the path to it like:
 % \documentclass[journal]{../sty/IEEEtran}
-
-% Some very useful LaTeX packages include:
-% (uncomment the ones you want to load)
-
-% *** MISC UTILITY PACKAGES ***
-%
-%\usepackage{ifpdf}
-% Heiko Oberdiek's ifpdf.sty is very useful if you need conditional
-% compilation based on whether the output is pdf or dvi.
-% usage:
-% \ifpdf
-%   % pdf code
-% \else
-%   % dvi code
-% \fi
-% The latest version of ifpdf.sty can be obtained from:
-% http://www.ctan.org/pkg/ifpdf
-% Also, note that IEEEtran.cls V1.7 and later provides a builtin
-% \ifCLASSINFOpdf conditional that works the same way.
-% When switching from latex to pdflatex and vice-versa, the compiler may
-% have to be run twice to clear warning/error messages.
 
 % *** CITATION PACKAGES ***
 %
@@ -119,25 +43,6 @@
   % every instance of \includegraphics
   % \DeclareGraphicsExtensions{.eps}
 \fi
-% graphicx was written by David Carlisle and Sebastian Rahtz. It is
-% required if you want graphics, photos, etc. graphicx.sty is already
-% installed on most LaTeX systems. The latest version and documentation
-% can be obtained at:
-% http://www.ctan.org/pkg/graphicx
-% Another good source of documentation is 'Using Imported Graphics in
-% LaTeX2e' by Keith Reckdahl which can be found at:
-% http://www.ctan.org/pkg/epslatex
-%
-% latex, and pdflatex in dvi mode, support graphics in encapsulated
-% postscript (.eps) format. pdflatex in pdf mode supports graphics
-% in .pdf, .jpeg, .png and .mps (metapost) formats. Users should ensure
-% that all non-photo figures use a vector format (.eps, .pdf, .mps) and
-% not a bitmapped formats (.jpeg, .png). The IEEE frowns on bitmapped formats
-% which can result in 'jaggedy'/blurry rendering of lines and letters as
-% well as large increases in file sizes.
-%
-% You can find documentation about the pdfTeX application at:
-% http://www.tug.org/applications/pdftex
 
 % *** MATH PACKAGES ***
 %
@@ -145,31 +50,8 @@
 \newcommand*\mean[1]{\bar{#1}}
 % A popular package from the American Mathematical Society that provides
 % many useful and powerful commands for dealing with mathematics.
-%
-% Note that the amsmath package sets \interdisplaylinepenalty to 10000
-% thus preventing page breaks from occurring within multiline equations. Use:
-%\interdisplaylinepenalty=2500
-% after loading amsmath to restore such page breaks as IEEEtran.cls normally
-% does. amsmath.sty is already installed on most LaTeX systems. The latest
-% version and documentation can be obtained at:
-% http://www.ctan.org/pkg/amsmath
 
 % *** SPECIALIZED LIST PACKAGES ***
-%
-%\usepackage{algorithmic}
-% algorithmic.sty was written by Peter Williams and Rogerio Brito.
-% This package provides an algorithmic environment fo describing algorithms.
-% You can use the algorithmic environment in-text or within a figure
-% environment to provide for a floating algorithm. Do NOT use the algorithm
-% floating environment provided by algorithm.sty (by the same authors) or
-% algorithm2e.sty (by Christophe Fiorio) as the IEEE does not use dedicated
-% algorithm float types and packages that provide these will not provide
-% correct IEEE style captions. The latest version and documentation of
-% algorithmic.sty can be obtained at:
-% http://www.ctan.org/pkg/algorithms
-% Also of interest may be the (relatively newer and more customizable)
-% algorithmicx.sty package by Szasz Janos:
-% http://www.ctan.org/pkg/algorithmicx
 
 % *** ALIGNMENT PACKAGES ***
 %
@@ -189,11 +71,11 @@
 % quality.
 
 % *** SUBFIGURE PACKAGES ***
-%\ifCLASSOPTIONcompsoc
-%  \usepackage[caption=false,font=normalsize,labelfont=sf,textfont=sf]{subfig}
-%\else
-%  \usepackage[caption=false,font=footnotesize]{subfig}
-%\fi
+\ifCLASSOPTIONcompsoc
+ \usepackage[caption=false,font=normalsize,labelfont=sf,textfont=sf]{subfig}
+\else
+ \usepackage[caption=false,font=footnotesize]{subfig}
+\fi
 % subfig.sty, written by Steven Douglas Cochran, is the modern replacement
 % for subfigure.sty, the latter of which is no longer maintained and is
 % incompatible with some LaTeX packages including fixltx2e. However,
@@ -207,9 +89,6 @@
 % than the serif footnote size font used in traditional IEEE formatting
 % and thus the need to invoke different subfig.sty package options depending
 % on whether compsoc mode has been enabled.
-%
-% The latest version and documentation of subfig.sty can be obtained at:
-% http://www.ctan.org/pkg/subfig
 
 % *** FLOAT PACKAGES ***
 %
@@ -254,58 +133,12 @@
 % The latest version can be found at:
 % http://www.ctan.org/pkg/dblfloatfix
 
-%\ifCLASSOPTIONcaptionsoff
-%  \usepackage[nomarkers]{endfloat}
-% \let\MYoriglatexcaption\caption
-% \renewcommand{\caption}[2][\relax]{\MYoriglatexcaption[#2]{#2}}
-%\fi
-% endfloat.sty was written by James Darrell McCauley, Jeff Goldberg and
-% Axel Sommerfeldt. This package may be useful when used in conjunction with
-% IEEEtran.cls'  captionsoff option. Some IEEE journals/societies require that
-% submissions have lists of figures/tables at the end of the paper and that
-% figures/tables without any captions are placed on a page by themselves at
-% the end of the document. If needed, the draftcls IEEEtran class option or
-% \CLASSINPUTbaselinestretch interface can be used to increase the line
-% spacing as well. Be sure and use the nomarkers option of endfloat to
-% prevent endfloat from 'marking' where the figures would have been placed
-% in the text. The two hack lines of code above are a slight modification of
-% that suggested by in the endfloat docs (section 8.4.1) to ensure that
-% the full captions always appear in the list of figures/tables - even if
-% the user used the short optional argument of \caption[]{}.
-% IEEE papers do not typically make use of \caption[]'s optional argument,
-% so this should not be an issue. A similar trick can be used to disable
-% captions of packages such as subfig.sty that lack options to turn off
-% the subcaptions:
-% For subfig.sty:
-% \let\MYorigsubfloat\subfloat
-% \renewcommand{\subfloat}[2][\relax]{\MYorigsubfloat[]{#2}}
-% However, the above trick will not work if both optional arguments of
-% the \subfloat command are used. Furthermore, there needs to be a
-% description of each subfigure *somewhere* and endfloat does not add
-% subfigure captions to its list of figures. Thus, the best approach is to
-% avoid the use of subfigure captions (many IEEE journals avoid them anyway)
-% and instead reference/explain all the subfigures within the main caption.
-% The latest version of endfloat.sty and its documentation can obtained at:
-% http://www.ctan.org/pkg/endfloat
-%
-% The IEEEtran \ifCLASSOPTIONcaptionsoff conditional can also be used
-% later in the document, say, to conditionally put the References on a
-% page by themselves.
-
 % *** PDF, URL AND HYPERLINK PACKAGES ***
 %
 \usepackage{url}
 % url.sty was written by Donald Arseneau. It provides better support for
 % handling and breaking URLs. url.sty is already installed on most LaTeX
 % systems. The latest version and documentation can be obtained at:
-% http://www.ctan.org/pkg/url
-% Basically, \url{my_url_here}.
-
-% *** Do not adjust lengths that control margins, column widths, etc. ***
-% *** Do not use packages that alter fonts (such as pslatex).         ***
-% There should be no need to do such things with IEEEtran.cls V1.6 and later.
-% (Unless specifically asked to do so by the journal or conference you plan
-% to submit to, of course. )
 
 % correct bad hyphenation here
 \hyphenation{op-tical net-works semi-conduc-tor}
@@ -523,11 +356,9 @@ The research questions of this study are the following:
 	      
 \end{itemize}
 
-% FIXME: Rephrase
-\noindent \ac{RF}, \ac{SVM} and extreme gradient boosting were compared using six feature sets across different feature selection methods, including a new promising approach of ensemble filters.
-Bayesian Optimization, also known as model-based optimization, was used for hyperparameter tuning.
-The feature set size was optimized at the same time.
-By this, we avoided multiple optimization layers which may result in a biased performance estimation or long model fitting times.
+\noindent \ac{RF}, \ac{SVM} and extreme gradient boosting were fitted on six feature sets using different feature selection methods.
+Bayesian Optimization, also known as model-based optimization, was used for hyperparameter tuning and optimization of the number of features.
+By merging all optimization steps into a single step, multiple optimization stages, which may introduce bias cause long model fitting times, were avoided.
 A spatial \ac{CV} approach on the plot level was used to account for spatial autocorrelation in the data.
 
 % needed in second column of first page if using \IEEEpubid
@@ -883,12 +714,11 @@ This preprocessing step resulted in the following final number of predictors: HR
 Model-based Optimization \cite{mlrmbo} (MBO) was used for hyperparameter optimization.
 This approach first composes \textit{n} randomly chosen hyperparameter settings out of a user defined search space.
 After these \textit{n} tries have been evaluated, a new hyperparameter setting, going to be evaluated next, is proposed by a fitted surrogate model (by default a kriging method).
-This strategy continues until a termination criterion, defined by the user, is reached\cite{hutter2011, jones1998}.
+This strategy continues until a termination criterion, defined by the user, is reached \cite{hutter2011, jones1998}.
 
 An initial design of 30 randomly composed hyperparameter settings and a termination criterion of 70 iterations was used, resulting in a total budget of 100 evaluated hyperparameter settings per fold.
 The advantage of this tuning approach is the substantial reduction of the tuning budget required to find a setting which is close to the global minimum.
-\ac{MBO} shines when being compared to methods that do not use information from previous runs, such as random search or grid search\cite{bergstra2012}.
-For the Lasso and Ridge models however the internal non-spatial CV approach due to promising results in previous applications.
+\ac{MBO} shines when being compared to methods that do not use information from previous runs, such as random search or grid search \cite{bergstra2012}.
 
 For the filter methods, the percentage of features was added to the models as a hyperparameter.
 For \ac{PCA}, the number of main components was tuned instead.
@@ -901,7 +731,7 @@ Hence, the value of \texttt{\(m_{try}\)} needs to be created dynamically based o
 
 \subsubsection{Spatial resampling}
 
-\noindent A spatial nested cross-validation on the plot level was chosen to reduce the influence of spatial autocorrelation as much as possible\cite{schratz2019, sperrorest}.
+\noindent A spatial nested cross-validation on the plot level was chosen to reduce the influence of spatial autocorrelation as much as possible \cite{schratz2019, sperrorest}.
 Each plot served as one fold within the cross-validation setting, resulting in four iterations total.
 For the inner level (hyperparameter tuning), \(y - 1\) folds were used (with \(y\) being the number of plots).
 
@@ -912,30 +742,31 @@ In total the benchmarking matrix consisted of 156 experiments (6 feature sets * 
 % FIXME Talk about the bias of permutation FI in highly correlated settings
 \noindent Estimating feature importance for highly-correlated datasets is a complicated task.
 The correlation between covariates makes it challenging to calculate an unbiased estimate for single features.
-Methods like \ac{PDP} do not produce reliable estimates in such situations because they create unrealistic situations between covariates.
+Methods like \ac{PDP} do not produce reliable estimates in such scenarios because unrealistic situations between covariates are created \cite{molnar2019}.
+% FIXME: Add ref
 Due to the noisiness of the dataset, estimates from model-agnostic approaches such as permutation-based feature importance should also be taken with care.
+This method calculates the loss of predictive performance for each feature by permuting it in a random manner.
+The more important the feature is for the model, the higher the variance in the measure, reflecting the importance of the specific feature for the current model.
+Permuting every feature $y$ times comes with some computational cost.
+To balance the effort/gain ratio and cope with limited visual space in plots, we estimated the feature importance only for datasets HR and VI using the best performing learner of the benchmark.
 
 However, as of today there are no unbiased approaches for estimating feature importance for (highly-) correlated datasets.
-Nevertheless, recent methods like \ac{ALE} plots aim to tackle this problem by utilizing marginal distributions of features over a small window to focus on the effect of a single feature.
-However, 
+Nevertheless, recent methods like \ac{ALE} plots aim to tackle this problem by utilizing marginal distributions of features over a small window to focus on the effect of a single feature \cite{apley2019, molnar2019}.
+However, ALE plots need visual inspection and as the number of features increases, making objective comparisons becomes more complicated.
 
 In this work we applied permutation-based feature importance and \ac{ALE} plots to calculate feature importance for the HR dataset.
 With the limitations of both methods in mind we aimed to get a general overview of the feature importance of the hyperspectral bands while keeping modest on over-interpreting the results.
-We used the algorithm which showed the best performance for the HR task to calculate the feature importance.
-
-This method calculates the loss of predictive performance for each feature by permuting it in a random manner.
-The more important the feature is for the model, the higher the loss in the used error measure will be, reflecting the importance of the specific feature for the current model.
-Permuting every feature $y$ times comes with some computational cost.
-To balance the effort/gain ratio and to be able to relate the results to wavelength regions, we decided to estimate feature importance only for the dataset with the raw reflectance values (HR).
-
+We used the algorithm which showed the best performance for the HR (SVM) task to calculate the feature importance.
 
 \subsection{Linking feature importance to wavelength regions}
+
 \noindent For ecological interpretation purposes we linked the ten most important indices of the winning models for each feature set to the spectral regions of the hyperspectral data.
 For feature set HR and NRI a direct linking to the respective bands of the hyperspectral sensor was done.
 For the vegetation indices all bands covered by the spectral range of calculated vegetation indices were counted and summed up.
 
 \subsection{Research compendium}
 
+% FIXME: Update used packages
 \noindent The complete study was done using the open-source statistical programming language R\cite{rcoreteam2018}.
 The algorithm implementations of the following packages have been used: \textit{xgboost}\cite{chen2016} (\textit{xgboost}), \textit{kernlab}\cite{kernlab} (Support Vector Machine) and \textit{glmnet}\cite{glmnet} (Ridge Regression).
 The filter methods of the following packages were used: \textit{praznik\cite{praznik}}, \textit{FSelectorRcpp}\cite{fselectorrcpp}.
@@ -963,6 +794,7 @@ A high intra-fold variance was observed: Predicting on Luiando resulted in an RM
 The combination of feature sets showed small increases in performance for some learners.
 RF and XGBoost scored slightly better on the combined datasets HR-NRI and NRI-VI, respectively (\autoref{fig:perf-result}).
 Datasets containing derived features (VI, NRI) showed no improvement in performance compared to the raw hyperspectral band information (HR).
+All learners besides SVM show a substantially worse performance on the VI dataset (around five percentage points).
 
 % learner
 % - SVM Car is the overall winner
@@ -974,6 +806,7 @@ Regression with Ridge penalty (L2) showed a high variance when comparing results
 In all settings for which Ridge showed such a high error, only one observation in one fold was predicted which such a high value (in the millions).
 This then caused the error estimates of these folds and the average estimate across all folds to be out of bounds.
 % FIXME: All penalized methods tuned using MBO showed exactly the same error across all tasks.
+% FIXME: Mention the bad perf of RIDGE on VI
 
 % filters
 % - influence varies based on algorithm and task (SVM no influence, RF medium, XGB medium)
@@ -999,8 +832,11 @@ The Borda filter did not achieve the best performance for any learner across any
 For RF and XGBoost it ranked within the first 50\% when looking at all filters used for a task.
 For XGBoost on the VI task the Borda filter scored the second worst performance.
 
-% latex table top 20 absolute performances
+% latex table top 10 absolute performances
 \input{performance-top-10}
+
+% latex table worst 10 absolute performances
+%\input{performance-worst-10}
 
 % latex table best performance per learner
 \input{performance-best-per-learner.tex}
@@ -1044,11 +880,10 @@ For XGBoost on the VI task the Borda filter scored the second worst performance.
 % - All: Clustering around the red edge (700 - 750 nm)
 % - Overall highest: 1.7 RMSE decrease - not that much
 
-% FIXME: explain in methods why only 2 datasets are shown
 The most important features of each dataset showed an average decrease in RMSE of 1.57 (HR, B69) and 1.79 (VI, Vogelmann2) (\autoref{fig:fi-permut-vi-hr}).
-For both datasets most features among the ten most important ones cluster around a wavelength range of 700 nm - 750 nm.
-For feature set HR four features in the infrared region (920 nm  - 1000 nm) were identified by the model to be important due to causing a mean RMSE decrease of around one percentage point.
-Overall, most features show a small importance only with average decreases in RMSE below 0.5.
+For both datasets most features among the ten most important ones cluster around a wavelength range of 700 nm - 750 nm (the so called "red-edge").
+For feature set HR four features in the infrared region (920 nm - 1000 nm) were identified by the model to be most important (causing a mean decrease in RMSE of around one percentage point).
+Overall, most features show only a small importance with average decreases in RMSE below 0.5.
 
 % permutation based var imp for datasets HR and VI
 \begin{figure} [t!]
@@ -1058,6 +893,11 @@ Overall, most features show a small importance only with average decreases in RM
 		\caption{Variable importance for feature sets HR and VI: Mean decrease in RMSE for one-hundred feature permutations using the SVM learner. The wavelength range on the x-axis matches the range of the hyperspectral sensor (400 nm - 1000 nm). For each dataset, the ten most important features were highlighted as black dots and labeled by name. Grey dots represent features from importance rank 11 to last. The spectral signature (mean) of each plot was added as a reference on a normalized reflectance scale [0, 1] (secondary y-axis). VI features were decomposed into their individual formula parts; all instances being connected via dashed lines. Each VI feature is composed out of at least two instances.}\label{fig:fi-permut-vi-hr}
 	\end{center}
 \end{figure}
+
+\subsubsection{ALE plots}
+
+In addition to permutation-based variable importance, \ac{ALE} plots were used to analyze the importance of features.
+ALE plots
 
 \section{Discussion}
 
@@ -1188,14 +1028,25 @@ However, with better training data covering more variety of the response variabl
 
 \appendices{}
 
-% \section{Spectral signatures of each plot}
+\section{SVM ALE plots for task HR}
 
-% \begin{figure} [ht]
-% 	\begin{center}
-% 		\includegraphics[width=0.48\textwidth] {spectral-signatures-1.pdf}
-% 		\caption{Spectral signatures (mean and standard deviation) of Laukiz1, Laukiz2, Luiando and Oiartzun.}\label{fig:spectral-signatures}
-% 	\end{center}
-% \end{figure}
+\begin{figure} [ht]
+	\begin{center}
+		\includegraphics[width=0.48\textwidth] {fi-hr-ale-1.pdf}
+		\caption{ALE plots on dataset HR of SVM learner. Subset showing the ten most important features according to the permutation-based variable importance.}\label{fig:fi-hr-ale}
+	\end{center}
+\end{figure}
+
+\pagebreak
+
+\section{SVM ALE plots for task VI}
+
+\begin{figure} [ht]
+	\begin{center}
+		\includegraphics[width=0.48\textwidth] {fi-vi-ale-1.pdf}
+		\caption{ALE plots on dataset VI of SVM learner. Subset showing the ten most important features according to the permutation-based variable importance.}\label{fig:fi-vi-ale}
+	\end{center}
+\end{figure}
 
 \pagebreak
 
