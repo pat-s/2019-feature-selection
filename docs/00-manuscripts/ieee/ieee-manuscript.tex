@@ -946,6 +946,7 @@ This study is available as a research compendium on Zenodo (\url{10.5281/zenodo.
 SVM showed no differences in RMSE across feature sets whereas other learners like RF differed up to seven percentage points (HR-NRI vs. VI) (\autoref{fig:perf-result}).
 Ridge and Lasso faced major issues up to the point of not achieving an error below 50 for datasets HR-NRI-VI and NRI-VI.
 SVM showed the best performance of all learners with an absolute difference up around three percentage points to the next model (RF) (\autoref{tab:best-learner-perf}).
+A high intra-fold variance was observed: Predicting on Luiando resulted in an RMSE value of 9.0 for learner SVM (without filter) but up to 54.26 RMSE when testing on Laukiz2 (\autoref{tab:svm-single-fold-perf}).
 
 % tasks
 % - no substantial difference between feature sets
@@ -995,6 +996,9 @@ For XGBoost on the VI task the Borda filter scored the second worst performance.
 % latex table best performance per learner
 \input{performance-best-per-learner.tex}
 
+% latex table top 20 absolute performances
+\input{performance-svm-single-plot.tex}
+
 % plot performance results
 \begin{figure} [t!]
 	\centering
@@ -1022,7 +1026,9 @@ For XGBoost on the VI task the Borda filter scored the second worst performance.
 	\end{center}
 \end{figure}
 
-\subsection{Permutation-based variable importance}
+\subsection{Variable importance}
+
+\subsubsection{Permutation-based Variable Importance}
 
 % Variable Importance
 % - VI: Vogelmann indices are best
@@ -1032,7 +1038,7 @@ For XGBoost on the VI task the Borda filter scored the second worst performance.
 % FIXME: explain in methods why only 2 datasets are shown
 The most important features of each dataset showed an average decrease in RMSE of 1.57 (HR, B69) and 1.79 (VI, Vogelmann2) (\autoref{fig:fi-permut-vi-hr}).
 For both datasets most features among the ten most important ones cluster around a wavelength range of 700 nm - 750 nm.
-For feature set HR four features in the infrared region (920 nm  - 1000 nm) were identified to be important by causing a mean RMSE decrease of around one percentage point.
+For feature set HR four features in the infrared region (920 nm  - 1000 nm) were identified by the model to be important due to causing a mean RMSE decrease of around one percentage point.
 Overall, most features show a small importance only with average decreases in RMSE below 0.5.
 
 % permutation based var imp for datasets HR and VI
@@ -1048,25 +1054,41 @@ Overall, most features show a small importance only with average decreases in RM
 
 \subsection{Derivation of Indices}
 
-\noindent The decision to use a buffer of 2 m to generate the index value for each observation is questionable.
-When using no buffer at all, the possibility is high that a pixel value gets assigned to a tree which does not spatially match with the actual recorded hyperspectral reflectance due to the geometric offset of 1 m.
-
+\noindent The decision to use a buffer of 2 m to generate the index value for each observation has to be seen critical.
+Due to the reported geometric offset of up to 1 m for the hyperspectral data, the possibility of assigning a wrong pixel value to a tree observation would be high.
 Using a buffer of more than 2 meters increases the probability of including information from other trees into the pixel value, blurring the actual value of the tree observation.
 In our view using a buffer of 2 m is a good compromise between both worlds.
+In addition, a side-analysis showed that some trees would be assigned missing values when relying on a single pixel.
+This then would result in the removal of that particular tree which we wanted to avoid.
+Even though we provide no results showing the influence of multiple buffer values on the extraction, we hypothesize that the relationships between features would not change substantially, leading to the almost identical model results.
 
 Another critical point is that the exact number of contributing pixels to the final index value of an observation cannot be determined as it depends on the location of the tree within the pixel grid.
-As the buffer is circular, determining the total number of contributing pixels depends on the exact location of a tree within that pixel as this sets the base how many pixels in each direction will be touched by the buffer.
-If a tree observation is located at the border of the plot, some directions of the buffer will contain no values and the subsequent index value will be calculated using less pixels than if the tree observation is located in the middle of the plot.
-
-The magnitude of bias introduced by these facts cannot be quantified.
-However, it has to be considered when making interpretations about the outcome of this study.
+According to the extract function of the \texttt{raster} package, a pixel is included if the buffer of the point observation hits the centroid of the respective pixel, not just any part of it.
+As the buffer is circular, determining the total number of contributing pixels for each tree depends on the exact location of a tree within the pixel grid.
+Next, if a tree observation is located at the border of the plot, some directions of the buffer will contain no values and the subsequent index value will be calculated using less pixels than if the tree observation is located in the middle of the plot.
+The magnitude of uncertainty introduced by these facts cannot be quantified.
+However, we assume these to be of minor importance for the subsequent model fitting step.
 
 \subsection{Performance vs.\ plot characteristics}
-% TODO: Really needed?
+\label{subsec:perf-plot-char}
+
+\noindent The high differences in RMSE observed for the fold performances (\autoref{tab:svm-single-fold-perf}) are a result of model overfitting.
+An RMSE of 54.26 indicates a complete failure of the model in the prediction stage for this plot (Laukiz2).
+Laukiz2 differs highly in the distribution of the response variable defoliation compared to all other plots (\autoref{fig:defol-distr}).
+The model overfitted on learning relationships related to medium-high defoliation values but missed out on low defoliation values.
+In cases when Laukiz2 is in the training set, the model is able to half the error and even reduce it down to a value of 9 RMSE in the case of Luiando.
 
 \subsection{Predictive Performance}
+The best aggregated performance of this study (27.98 RMSE) has to be seen in the light of model overfitting (see \autoref{subsec:perf-plot-char}).
+When leaving out Laukiz2 during aggregation, the mean RMSE would be 19.
+Taking into account the overfitting, more training data representing the health stages of a plot is needed.
+A model can only make robust predictions if it has learned relationships which span the whole range of the response variable.
+Hence, the aggregated mean RMSE of 27 here should not be used to make statements about the trained model of this study.
+In contrast, by inspecting the fold level performances, one can say that the model does a decent job predicting defoliation ranging from 50\% to 100\% but fails for 0\% - 50\%.
+This applies to all learners of this study.
 
 \subsubsection{Algorithm differences}
+
 
 \subsubsection{Feature set differences}
 
@@ -1093,17 +1115,17 @@ WIP
 This originated simply due to spatial resolution of the satellite products that served as the input data\cite{townsend2012, debeurs2008, rengarajan2016}.
 
 Studies focusing on tree-level defoliation used ground-level methods such as \ac{ALS} or \ac{LiDAR}\cite{meng2018, kalin2019}.
-\~cite{meng2018} used \ac{OLS} regression methods while\cite{kalin2019} retrieved information out of ground-level RGB photos using \ac{CNN}.
+\cite{meng2018} used \ac{OLS} regression methods while\cite{kalin2019} retrieved information out of ground-level RGB photos using \ac{CNN}.
 Both study designs are substantially different compared to the setup of this work.
 In addition, no spatial \ac{CV} or \ac{FS} was used.
-\~cite{goodbody2018} used a \ac{PLS} model with high-resolution \ac{DAP} to predict cumulative defoliation caused by the spruce budworm.
+\cite{goodbody2018} used a \ac{PLS} model with high-resolution \ac{DAP} to predict cumulative defoliation caused by the spruce budworm.
 Study results indicated that spectral metrics were found to be most helpful for the model.
 Incorporating such metrics (both spectral and structural) could be a possible enhancement for future works.
 
-\~cite{shendryk2016, ludwig2019} are studies which are more similar in their methodology but focus on a different response variable.
-\~cite{shendryk2016} used machine-learning models with \ac{ALS} data to study dieback of trees for eucalyptus forests.
+\cite{shendryk2016, ludwig2019} are studies which are more similar in their methodology but focus on a different response variable.
+\cite{shendryk2016} used machine-learning models with \ac{ALS} data to study dieback of trees for eucalyptus forests.
 A grid-search was used for hyperparameter tuning and a \ac{FFS} for variable selection.
-\~cite{ludwig2019} analyzed woody cover in South Africa using spatial \ac{CV} and a relatively novel spatial \ac{FS} approach\cite{meyer2018} on a Random Forest classifier.
+\cite{ludwig2019} analyzed woody cover in South Africa using spatial \ac{CV} and a relatively novel spatial \ac{FS} approach\cite{meyer2018} on a Random Forest classifier.
 
 In summary, we could not find studies using filter methods for \ac{FS} or \ac{NRI} indices in their work with a relation to forest health.
 Most studies used only one algorithm (usually Random Forest) without strong arguments why this particular one has been selected.
