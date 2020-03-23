@@ -516,7 +516,7 @@ Filter methods can be classified as follows:
 \begin{adjustbox}{width={0.48\textwidth},totalheight={\textheight},keepaspectratio}
 	\begin{tabular}{lll}
 		\\
-		Name                                         & Group                             & Reference          \\
+		Name                                         & Group                             & Ref.               \\
 		\toprule
 		Linear correlation (Pearson)                 & univariate, linear, correlation   & \cite{pearson1901} \\
 		Information gain                             & univariate, non-linear, entropy   & \cite{quinlan1986} \\
@@ -660,6 +660,7 @@ However, ALE plots need visual inspection and as the number of features increase
 In this work we applied permutation-based feature importance and \ac{ALE} plots to calculate feature importance for the HR dataset.
 With the limitations of both methods in mind we aimed to get a general overview of the feature importance of the hyperspectral bands while keeping modest on over-interpreting the results.
 We used the algorithm which showed the best performance for the HR (SVM) task to calculate the feature importance.
+ALE plots were not discussed in greater detail and are available as supplementarty material.
 
 \subsection{Linking feature importance to wavelength regions}
 
@@ -801,11 +802,6 @@ Overall, most features show only a small importance with average decreases in RM
 	\end{center}
 \end{figure}
 
-\subsubsection{ALE plots}
-
-In addition to permutation-based variable importance, \ac{ALE} plots were used to analyze the importance of features.
-ALE plots
-
 \section{Discussion}
 
 \subsection{Derivation of Indices}
@@ -888,13 +884,14 @@ It shines in terms of runtime since it reduces the amount of features highly.
 However, it also removes the option for a post-analysis of feature importance by squashing predictors into principal components and users need to decided upfront what they value more.
 Since filters are only calculated once due to caching, the runtime advantage might in fact be neglibile in practice.
 
-\subsubsection{Variable importance vs.\ filter methods}
+\subsubsection{Linking feature importance to spectral characteristics}
 
-WIP
+Not surpringly the most important features for both HR and VI datasets were identified around the red egde of the spectra, specifically in the range of 700 nm to 750 nm.
 
-\subsubsection{Ecological Interpretation}
-
-% TODO: talk about the link to RS spectra
+FIXME: Add ref
+This area has the highest ability to distinguish between reflectances related to a high density / high healthiness of vegetation and its opposite.
+It is also worth mentioning that four out of ten of the most important features of dataset HR lie between 920 nm and 1000 nm.
+Looking at the spectral curves of the plots, we can observe quite some variance in this area, especially for Oiartzun, which might explain why these features were considered as important by the model.
 
 \subsection{Comparison to other studies}
 % - no environmental studies use filter methods, some use FFS
@@ -960,8 +957,6 @@ However, with better training data covering more variety of the response variabl
 	\end{center}
 \end{figure}
 
-\pagebreak
-
 \section{SVM ALE plots for task VI}
 
 \begin{figure} [ht]
@@ -971,9 +966,9 @@ However, with better training data covering more variety of the response variabl
 	\end{center}
 \end{figure}
 
-\pagebreak
-
 \section{Correlation among filter methods}
+
+\pagebreak
 
 \begin{figure} [ht]
 	\begin{center}
@@ -991,7 +986,7 @@ However, with better training data covering more variety of the response variabl
 	\end{center}
 \end{figure}
 
-
+\pagebreak
 
 \bibliographystyle{IEEEtran}
 \bibliography{Biblio}
