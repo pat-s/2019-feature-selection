@@ -267,8 +267,8 @@
 	\acro{DAP}{digital aerial photogrammetry}
 	\acro{ENM}{environmental niche modeling}
 	\acro{FPR}{false positive rate}
-	\acro{FFS}{forward feature-selection}
-	\acro{FS}{feature-selection}
+	\acro{FFS}{forward feature selection}
+	\acro{FS}{feature selection}
 	\acro{GAM}{generalized additive model}
 	\acro{GBM}{gradient boosting machine}
 	\acro{GLM}{generalized linear model}
@@ -335,7 +335,7 @@ Especially when working with hyperspectral data, hundreds of \ac{NRI} features c
 
 Despite its popularity in environmental modeling, there are no studies so far which used machine learning algorithms in combination with remote sensing data to analyze defoliation on a tree level.
 This study aims to close this gap by analyzing defoliation at trees in northern Spain using airborne hyperspectral data.
-We make use of the latest state-of-the-art methodology in machine learning by combining feature-selection and hyperparameter tuning across multiple algorithms.
+We make use of the latest state-of-the-art methodology in machine learning by combining feature selection and hyperparameter tuning across multiple algorithms.
 Incorporating the idea of creating data-driven \ac{NRI}s, this study also discusses the practical problems of high-dimensionality in environmental modeling \cite{trunk1979, xu2016}.
 
 Even though \ac{ML} algorithms are capable of handling highly-correlated input variables, the fitting time of models increase substantially and the interpretation of results becomes more complicated.
@@ -549,7 +549,7 @@ First a (random) subset of features is chosen based on the selected algorithm.
 In comparison to filters, no ranking is done in this step.
 Now the model is fitted on the data and the performance is evaluated.
 This is done multiple times, depending on the defined stopping criteria set by the user (performance, runtime, evaluations).
-A disadvantage of this approach is that hyperparameter tuning can only be applied after the feature-selection optimization finished.
+A disadvantage of this approach is that hyperparameter tuning can only be applied after the feature selection optimization finished.
 Hence, the 'wrapper approach' is an expensive optimization method because two stages need to be run in sequential order.
 Due to their extensive runtimes, wrappers were not considered in this work.
 
