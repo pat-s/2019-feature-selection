@@ -438,12 +438,9 @@ where \(i\) and \(j\) are the respective band numbers.
 
 \bigbreak{}
 
-\noindent To account for geometric offsets (which were reported with up to 1 m from \ac{ICGC}) within the hyperspectral data, a buffer of two meters around the centroid of each tree was used during extraction of the reflectance values.
-Subsequently, the value assigned to a tree observations was the mean of all pixels which were touched by the buffer drawn around each tree.
+\noindent To account for geometric offsets (which were reported with up to 1 m from \ac{ICGC}) within the hyperspectral data, a buffer of two meters around the centroid of each tree was used for extraction of the reflectance values.
 A pixel was considered to fall into a tree's buffer zone if the centroid of the respective pixel was touched by the buffer.
-This is how the \texttt{extract()} function of the R package $\left\{raster\right\}$ handles buffer extraction.
-In total, \(\frac{125*126}{2} = 7875\) NRIs were calculated.
-Due to four corrupted bands of the sensor a total of 7471 indices were available for each observation.
+In total, \(\frac{121*122}{2} = 7471\) NRIs were calculated due to the first four bands of the sensor being corrupted.
 
 \subsection{Dimension reduction}
 
