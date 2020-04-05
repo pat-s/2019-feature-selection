@@ -455,8 +455,8 @@ The case of a feature-rich dataset comes with several challenges for both model 
 
 \begin{itemize}
 	\item Model fitting times increase.
-	\item Noise is possibly introduced into models by highly-correlated variables\cite{johnstoneiainm.2009}.
-	\item Model interpretation and prediction become more challenging\cite{johnstoneiainm.2009}.
+	\item Noise is possibly introduced into models by highly-correlated variables \cite{johnstoneiainm.2009}.
+	\item Model interpretation and prediction become more challenging \cite{johnstoneiainm.2009}.
 \end{itemize}
 
 \noindent In the following sections a brief overview of feature selection sub-categories is given.
@@ -467,7 +467,7 @@ Due to the focus of this study on the use of filter methods, which are a sub-gro
 % Filter methods
 \noindent The concept of filters originates from the idea of ranking features using certain heuristics of an algorithm \cite{chandrashekar2014}.
 Some filter methods are restricted towards specific types of variables (numeric or nominal).
-Filters do only rank features, they do not choose which covariates to drop or keep\cite{drotar2015}.
+Filters do only rank features, they do not choose which covariates to drop or keep \cite{drotar2015}.
 The selection of features to keep for the model fitting step is usually done within the optimization phase of the model fitting, along with the hyperparameter tuning.
 Essentially, the number of covariates in the model is treated as a hyperparameter of the model.
 The goal is to optimize the number of features (using the ranked covariates) at which the model achieves the best performance.
@@ -475,10 +475,10 @@ The goal is to optimize the number of features (using the ranked covariates) at 
 \paragraph{Ensemble filter methods}
 
 % Ensemble filter methods
-Besides the concept of choosing a specific filter method to rank variables, studies showed that combining several filters using statistical operations such as 'minimum', 'mean' or 'sum' are able to enhance the predictive performance of the resulting models \cite{abeel2010, drotar2017a}.
-This approach is referred to as 'ensemble filter'~\cite{dietterich2000}.
-Ensemble filters align with the recent rise of the 'ensemble' approach in machine learning which uses stacking to combine the predictions of multiple models, aiming to enhance predictive performance~\cite{polikar2012, feurer2015}.
-In this work the 'Borda' ensemble filter was applied~\cite{drotar2017a}.
+Besides the concept of choosing a specific filter method to rank variables, studies showed that combining several filters using statistical operations such as 'minimum' or 'mean' are able to enhance the predictive performance of the resulting models \cite{abeel2010, drotar2017a}.
+This approach is referred to as 'ensemble filtering' \cite{dietterich2000}.
+Ensemble filters align with the recent rise of the 'ensemble' approach in machine learning which uses stacking to combine the predictions of multiple models, aiming to enhance predictive performance \cite{polikar2012, feurer2015}.
+In this work the 'Borda' ensemble filter was applied \cite{drotar2017a}.
 For this filter, the final order is the sum of all single filters.
 
 \paragraph{Ensuring a fair weighting in the ensemble}
