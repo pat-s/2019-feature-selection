@@ -547,10 +547,11 @@ Due to their high computational cost, wrappers were not considered in this work.
 % PCA
 A method with a completely different approach compared to filters and wrappers is the \ac{PCA}\cite{pearson1901, jolliffe2016}.
 Here, the main components of the feature space are extracted and combined.
-Most often the first two extracted main components are used since these contain the major information of the covariates.
+The number of principal components needed to explain a large portion of the variance is dynamic and depends on the dataset.
+In practice, this number often ranges between two and five.
 By using the (automatically estimated) explained variance of the main components, the model can rely on a few features containing the majority of information available in the data.
 This enables cheap model fitting with balanced loss of predictor information.
-The disadvantage of this methodology is the lack of interpretability because the main components cannot be related back to the original covariates.
+A disadvantage is the reduced interpretability due to the main components being a squashed version of the original covariates.
 
 \subsection{Benchmarking design}
 
