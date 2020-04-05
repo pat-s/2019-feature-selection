@@ -535,7 +535,7 @@ While the number of bins can be treated as a hyperparameter of the filter method
 \noindent Other approaches to assess feature importance are so called 'wrapper methods' and the \ac{PCA}\cite{das2001, jolliffe2016}.
 
 % Wrapper approach
-\noindent Wrappers \cite{chandrashekar2014, kohavi1997} apply algorithms that are also used for hyperparameter optimization such as 'Random Search' or 'Generic Simulated Annealing'.
+\noindent Wrappers \cite{chandrashekar2014, kohavi1997} apply search algorithms such as 'random search' or 'generic simulated annealing'.
 First a (random) subset of features is chosen based on the selected algorithm.
 In comparison to filters, no ranking is done in this step.
 Now the model is fitted on the data and the performance is evaluated.
