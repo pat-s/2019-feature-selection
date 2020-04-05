@@ -235,7 +235,7 @@
 
 % Note that keywords are not normally used for peer-review papers.
 \begin{IEEEkeywords}
-	hyperspectral imagery, forest health modeling, machine-learning, feature-selection, model comparison
+	hyperspectral imagery, forest health monitoring, machine learning, feature selection, model comparison, imaging spectroscopy
 \end{IEEEkeywords}
 
 % For peer review papers, you can put extra information on the cover
@@ -660,7 +660,7 @@ However, ALE plots need visual inspection and as the number of features increase
 In this work we applied permutation-based feature importance and \ac{ALE} plots to calculate feature importance for the HR dataset.
 With the limitations of both methods in mind we aimed to get a general overview of the feature importance of the hyperspectral bands while keeping modest on over-interpreting the results.
 We used the algorithm which showed the best performance for the HR (SVM) task to calculate the feature importance.
-ALE plots were not discussed in greater detail and are available as supplementarty material.
+ALE plots were not discussed in greater detail and are available as supplementary material.
 
 \subsection{Linking feature importance to wavelength regions}
 
@@ -882,11 +882,11 @@ However, this cannot be known upfront and we believe that an ensemble filter sho
 The PCA approach did neither show the best or worst result in the lineup.
 It shines in terms of runtime since it reduces the amount of features highly.
 However, it also removes the option for a post-analysis of feature importance by squashing predictors into principal components and users need to decided upfront what they value more.
-Since filters are only calculated once due to caching, the runtime advantage might in fact be neglibile in practice.
+Since filters are only calculated once due to caching, the runtime advantage might in fact be negligible in practice.
 
 \subsubsection{Linking feature importance to spectral characteristics}
 
-Not surpringly the most important features for both HR and VI datasets were identified around the red egde of the spectra, specifically in the range of 700 nm to 750 nm.
+Not surprisingly the most important features for both HR and VI datasets were identified around the red edge of the spectra, specifically in the range of 700 nm to 750 nm.
 
 FIXME: Add ref
 This area has the highest ability to distinguish between reflectances related to a high density / high healthiness of vegetation and its opposite.
@@ -934,6 +934,7 @@ Ensemble filter methods did not show a substantial improvement over legacy filte
 
 % RQ2: Does combining feature sets have an substantial effect on predictive performance?
 % RQ1: Do different environmental feature sets show differences in performance when modeling defoliation at trees?
+FIXME: "derivated" is not a real word?
 Creating feature sets composed out of derivated features did not help.
 In contrast, dataset VI showed a substantial worse performance than the dataset with the original features (HR).
 Combining feature sets did not show a substantial improvement on predictive performance.
