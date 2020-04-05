@@ -465,13 +465,12 @@ Due to the focus of this study on the use of filter methods, which are a sub-gro
 \subsubsection{Filter methods}
 
 % Filter methods
-\noindent The concept of filters originates on the idea of ranking features using certain heuristics of an algorithm \cite{chandrashekar2014}.
+\noindent The concept of filters originates from the idea of ranking features using certain heuristics of an algorithm \cite{chandrashekar2014}.
 Some filter methods are restricted towards specific types of variables (numeric or nominal).
 Filters do only rank features, they do not choose which covariates to drop or keep\cite{drotar2015}.
 The selection of features to keep for the model fitting step is usually done within the optimization phase of the model fitting, along with the hyperparameter tuning.
 Essentially, the number of covariates in the model is treated as a hyperparameter of the model.
 The goal is to optimize the number of features (using the ranked covariates) at which the model achieves the best performance.
-In well-implemented software solutions the filter calculation is only done once and then cached, saving computational resources \cite{mlr}.
 
 \paragraph{Ensemble filter methods}
 
