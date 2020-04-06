@@ -616,12 +616,12 @@ The advantage of this tuning approach is the substantial reduction of the tuning
 
 For the filter methods, the percentage of dataset's features was added to the models as a hyperparameter.
 For \ac{PCA}, the number of principal components was tuned instead.
-Random Forest hyperparameter \texttt{\(m_{try}\)} was modified into power transformed \(p^{m_{try}}\) (ranging from 1 to $p$) to work on relative values of the respective datasets feature count.
+Random Forest hyperparameter \texttt{\(m_{try}\)} was modified into power transformed \(p^{m_{try}}\) (ranging from 1 to $p$) to work on relative values of the respective dataset's feature count.
 Here \(p\) is the number of features of the dataset.
-This was necessary to ensure that \texttt{\(m_{try}\)} was not chosen out of bounds during tuning with respect to the datasets feature count.
-After the filtering, only a subset of features of the task is used for optimizing the models hyperparameters.
-The size of this subset is always different since the number of features is also optimized.
-Hence, the value of \texttt{\(m_{try}\)} needs to be created dynamically based on the datasets feature count.
+This was necessary to ensure that \texttt{\(m_{try}\)} was not chosen out of bounds during tuning with respect to the dataset's feature count'
+After the filtering, only a subset of features of the task is used for optimizing the model's hyperparameters.
+The size of this subset is always different since the number of features is also optimized'
+Hence, the value of \texttt{\(m_{try}\)} needs to be created dynamically based on the dataset's feature count.
 
 \subsubsection{Spatial resampling}
 
