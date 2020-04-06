@@ -645,13 +645,13 @@ The more important the feature is for the model, the higher the mean loss in the
 Fitting many models on the dataset containing the permuted feature comes with some computational cost.
 For increased efficiency, we estimated the feature importance only for datasets HR and VI using the best performing learner of the benchmark.
 
-However, as of today there are no unbiased approaches for estimating feature importance for (highly-) correlated datasets.
+However, as of today there are no completely satisfactory approaches for estimating feature importance for (highly) correlated datasets.
 Nevertheless, recent methods like \ac{ALE} plots aim to tackle this problem by utilizing marginal distributions of features over a small window to focus on the effect of a single feature \cite{apley2019, molnar2019}.
 However, ALE plots need visual inspection and as the number of features increases, making objective comparisons becomes more complicated.
 
 In this work we applied permutation-based feature importance and \ac{ALE} plots to calculate feature importance for the HR dataset.
-With the limitations of both methods in mind we aimed to get a general overview of the feature importance of the hyperspectral bands while keeping modest on over-interpreting the results.
-We used the algorithm which showed the best performance for the HR (SVM) task to calculate the feature importance.
+With the limitations of both methods in mind we aimed to get a general overview of the feature importance of the hyperspectral bands while trying to avoid the over-interpretation of results.
+We used the best-performing algorithm from the HR task (i.e. SVM) to calculate the feature importance.
 ALE plots were not discussed in greater detail and are available as supplementary material.
 
 \subsection{Linking feature importance to wavelength regions}
