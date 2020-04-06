@@ -718,13 +718,14 @@ SVM showed no variation in performance across filters (\autoref{fig:filter-effec
 Using filters for RF showed a substantial increase in performance for all tasks with the exception of VI, for which the difference among all filters was also the smallest (\autoref{fig:filter-effects-no-filter}).
 XGBoost showed a high dependency on filtering the data: In 4 out of 6 tasks using no filter would results in the worst or second worst performance.
 However, in contrast for dataset NRI using no filter results in the best performance.
-XGBoost shows the highest overall differences between filters for a single task: For dataset HR, the range is up to 14 percentage points (Carscore vs. no filter)(\autoref{fig:filter-effects-no-filter}).
+XGBoost shows the highest overall differences between filters for a single task:
+For feature set HR, the range is up to 14 percentage points (Carscore vs. no filter)(\autoref{fig:filter-effects-no-filter}).
 
 % filter vs. no filter
 % - Substantial effect for XGBoost and RF
 % - SVM unaffected
 When comparing the usage of filters against using no filter at all, there was only one instance (XGBoost on the NRI task) when the model without filtering showed a slighly better performance than the best filtered one (\autoref{fig:filter-effects-no-filter}).
-For SVM filters and no filter come in at the same performance for tasks VI and NRI even though \autoref{fig:filter-effects-no-filter} lists "No Filter" as the best option.
+For SVM, all filters and 'no filter' achieved the same performance on tasks VI and NRI even though \autoref{fig:fig:perf-result} lists "No Filter" as the best option.
 
 % Borda vs. other filters
 % - most often among the first best filters for each task
