@@ -605,8 +605,7 @@ This preprocessing step reduced the feature sets to 122 HR features, 86 VIs and 
 
 \subsubsection{Hyperparameter Optimization}
 
-\noindent An exhaustive hyperparameter tuning was applied during nested spatial \ac{CV} for all algorithms.
-Model-based Optimization \cite{mlrmbo} (MBO) was used for hyperparameter optimization.
+\noindent Hyperparameters were tuned using model-based optimization within a nested spatial CV \cite{mlrmbo, schratz2019}.
 This approach first composes \textit{n} randomly chosen hyperparameter settings out of a user defined search space.
 After these \textit{n} tries have been evaluated, a new hyperparameter setting, going to be evaluated next, is proposed by a fitted surrogate model (by default a kriging method).
 This strategy continues until a termination criterion, defined by the user, is reached \cite{hutter2011, jones1998}.
