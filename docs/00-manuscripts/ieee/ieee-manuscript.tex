@@ -725,7 +725,7 @@ For feature set HR, the range is up to 14 percentage points (Carscore vs. no fil
 % - Substantial effect for XGBoost and RF
 % - SVM unaffected
 When comparing the usage of filters against using no filter at all, there was only one instance (XGBoost on the NRI task) when the model without filtering showed a slighly better performance than the best filtered one (\autoref{fig:filter-effects-no-filter}).
-For SVM, all filters and 'no filter' achieved the same performance on tasks VI and NRI even though \autoref{fig:fig:perf-result} lists "No Filter" as the best option.
+For SVM, all filters and 'no filter' achieved the same performance on tasks VI and NRI even though \autoref{fig:perf-result} lists "No Filter" as the best option.
 
 % Borda vs. other filters
 % - most often among the first best filters for each task
@@ -782,7 +782,7 @@ For XGBoost on the VI task the Borda filter scored the second worst performance.
 % - All: Clustering around the red edge (700 - 750 nm)
 % - Overall highest: 1.7 RMSE decrease - not that much
 
-The most important features of each dataset showed an average decrease in RMSE of 1.57 (HR, B69) and 1.79 (VI, Vogelmann2) (\autoref{fig:fi-permut-vi-hr}).
+The most important features of each dataset showed an average decrease in RMSE of 1.57 p.p. (HR, B69) and 1.79 p.p (VI, Vogelmann2) (\autoref{fig:fi-permut-vi-hr}).
 For both datasets most features among the ten most important ones cluster around a wavelength range of 700 nm - 750 nm (the so called "red-edge").
 For feature set HR four features in the infrared region (920 nm - 1000 nm) were identified by the model to be most important (causing a mean decrease in RMSE of around one percentage point).
 Overall, most features show only a small importance with average decreases in RMSE below 0.5.
