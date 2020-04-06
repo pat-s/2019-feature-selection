@@ -605,14 +605,14 @@ This preprocessing step reduced the feature sets to 122 HR features, 86 VIs and 
 
 \subsubsection{Hyperparameter Optimization}
 
-\noindent Hyperparameters were tuned using model-based optimization within a nested spatial CV \cite{mlrmbo, schratz2019}.
+\noindent Hyperparameters were tuned using \ac{MBO} within a nested spatial CV \cite{mlrmbo, schratz2019}.
 This approach first composes \textit{n} randomly chosen hyperparameter settings out of a user defined search space.
 After these \textit{n} tries have been evaluated, a new hyperparameter setting, going to be evaluated next, is proposed by a fitted surrogate model (by default a kriging method).
 This strategy continues until a termination criterion, defined by the user, is reached \cite{hutter2011, jones1998}.
 
 An initial design of 30 randomly composed hyperparameter settings and a termination criterion of 70 iterations was used, resulting in a total budget of 100 evaluated hyperparameter settings per fold.
 The advantage of this tuning approach is the substantial reduction of the tuning budget required to find a setting which is close to the global minimum.
-\ac{MBO} shines when being compared to methods that do not use information from previous runs, such as random search or grid search \cite{bergstra2012}.
+\ac{MBO} may outperform methods that do not use information from previous iterations, such as random search or grid search \cite{bergstra2012}.
 
 For the filter methods, the percentage of features was added to the models as a hyperparameter.
 For \ac{PCA}, the number of main components was tuned instead.
