@@ -701,8 +701,9 @@ All learners besides SVM show a substantially worse performance when using only 
 % - all MBO penalized methods have no difference across tasks
 SVM combined with the 'Carscore' filter achieved the best overall performance (RMSE of 27.98 p.p.) (\autoref{tab:perf-top-10}).
 %L1 penalized regression showed slightly better results in three out of six tasks when being optimized using the package internal 10-fold CV compared to MBO (RMSE of 50 vs 58).
-Regression with ridge penalty (L2) showed a high variance when comparing results across tasks: In two out of six tasks (all including VI variables) the error was out of bounds (HR-NRI-VI, HR-VI, VI). For HR-NRI and HR the error was around 40 RMSE, and for task NRI the ridge learner achieved almost the same score as the best performing model (32.9 RMSE) (\autoref{tab:perf-top-10}).
+Regression with ridge penalty (L2) showed a high variance when comparing results across tasks: In two out of six tasks (all including VI variables) the error was out of bounds (HR-NRI-VI, HR-VI, VI). For HR-NRI and HR RMSE was around 40 p.p., and for task NRI the ridge learner achieved almost the same score as the best performing model (32.9 p.p) (\autoref{tab:perf-top-10}).
 In all settings for which ridge showed such a high error, only one observation in one fold was predicted which such a high value (in the millions).
+The influential observation showed no obvious signs of being anomalous, e.g. extreme values in individual features or in principal components of features.
 This then caused the error estimates of these folds and the average estimate across all folds to be out of bounds.
 
 FIXME: Mention: All penalized methods tuned using MBO showed exactly the same error across all tasks.
