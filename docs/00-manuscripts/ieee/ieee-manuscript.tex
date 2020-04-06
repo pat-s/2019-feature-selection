@@ -715,7 +715,7 @@ FIXME: Mention the bad perf of RIDGE on VI
 % - no advantage of ensemble borda filter compared to others
 Effects of filter methods on performance differed greatly between algorithms:
 SVM showed no variation in performance across filters (\autoref{fig:filter-effects-no-filter}).
-Using filters for RF showed a substantial increase in performance for all tasks besides VI for which the overall difference of all filters was also smallest (\autoref{fig:filter-effects-no-filter}).
+Using filters for RF showed a substantial increase in performance for all tasks with the exception of VI, for which the difference among all filters was also the smallest (\autoref{fig:filter-effects-no-filter}).
 XGBoost showed a high dependency on filtering the data: In 4 out of 6 tasks using no filter would results in the worst or second worst performance.
 However, in contrast for dataset NRI using no filter results in the best performance.
 XGBoost shows the highest overall differences between filters for a single task: For dataset HR, the range is up to 14 percentage points (Carscore vs. no filter)(\autoref{fig:filter-effects-no-filter}).
