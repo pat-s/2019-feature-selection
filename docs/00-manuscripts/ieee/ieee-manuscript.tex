@@ -570,7 +570,7 @@ A disadvantage is the reduced interpretability due to the main components being 
 \ac{XGBOOST} (commonly abbreviated as XGBOOST) showed promising results in benchmark competitions in recent years.
 Penalized regression is a statistical modeling technique capable of dealing with highly-correlated covariates by applying a penalization term which shrinks the coefficients of the model\cite{hastie2001}.
 Common penalties are 'lasso' (L1) and 'ridge' (L2).
-The former does not allow the full removal of variables from the model (penalization to zero) while the latter does.
+The latter does not allow the full removal of variables from the model (penalization to zero) while the former does.
 Both penalties can also be combined.
 The combined approach is called 'elastic net' but was not used in this work.
 
@@ -585,7 +585,7 @@ The combined approach is called 'elastic net' but was not used in this work.
 	\item Normalized Ratio Indices (\ac{NRI}): Data-driven feature engineering)
 \end{itemize}
 
-The idea of splitting the features into different sets originated from the question whether feature engineered indices from reflectance values have a positive effect on model performance.
+The idea of splitting the features into different sets originated from the question whether feature engineered indices from reflectance values have a positive effect on model performance, as for example demonstrated previously in a spectrotemporal setting \cite{pena2017}.
 Benchmarking all models on these distinct groups of features makes it easier to draw conclusions on their impact when keeping all other variables such as model type, tuning strategy and partitioning method constant.
 However, rather than only looking at these three groups we decided to also take their combinations into account for the overall comparison:
 
@@ -595,7 +595,7 @@ However, rather than only looking at these three groups we decided to also take 
 	\item HR + VI + NRI
 \end{itemize}
 
-Even though the feature selection task was handed over to the filter methods in this study, we ensured to not include features with a pair-wise correlation of 1.
+Even though the feature selection task was handed over to the filter methods in this study, we ensured to not include features with a pairwise correlation of 1.
 Having such can cause undesired effects during model fitting and feature importance calculation.
 To account for such, all pair-wise correlations between features were calculated.
 For pairs which exceeded the threshold of 0.9999999999 the one with the largest mean absolute correlation was removed.
