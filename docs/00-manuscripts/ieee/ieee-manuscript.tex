@@ -641,9 +641,9 @@ Methods like \ac{PDP} do not produce reliable estimates in such scenarios becaus
 % FIXME: Add ref
 Due to the noisiness of the dataset, estimates from model-agnostic approaches such as permutation-based feature importance should also be taken with care.
 This method calculates the loss of predictive performance for each feature by permuting it in a random manner.
-The more important the feature is for the model, the higher the variance in the measure, reflecting the importance of the specific feature for the current model.
-Permuting every feature $y$ times comes with some computational cost.
-To balance the effort/gain ratio and cope with limited visual space in plots, we estimated the feature importance only for datasets HR and VI using the best performing learner of the benchmark.
+The more important the feature is for the model, the higher the mean loss in the measure, reflecting the importance of the specific feature for the current model.
+Fitting many models on the dataset containing the permuted feature comes with some computational cost.
+For increased efficiency, we estimated the feature importance only for datasets HR and VI using the best performing learner of the benchmark.
 
 However, as of today there are no unbiased approaches for estimating feature importance for (highly-) correlated datasets.
 Nevertheless, recent methods like \ac{ALE} plots aim to tackle this problem by utilizing marginal distributions of features over a small window to focus on the effect of a single feature \cite{apley2019, molnar2019}.
