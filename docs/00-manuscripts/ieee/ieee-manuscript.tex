@@ -751,7 +751,7 @@ For XGBoost on the VI task the Borda filter scored the second worst performance.
 	\centering
 	\begin{center}
 		\includegraphics[width=0.48\textwidth] {performance-results-1.pdf}
-		\caption{Scored predictive performance (RMSE) of models across tasks. Prefix 'CV' denotes that the learner was optimized using internal 10-fold CV while prefix 'MBO' means that Bayesian optimization was used for hyperparameter optimization. The abbreviations on the y-axis refer to the combinations of feature sets on which each model was scored on. Labels attached to each point in space show which filter method was used for scoring features during the feature selection process (NF = no filter, Car = 'Carscore', Info = 'Information Gain', Borda = 'Borda'). The second value in the attached label of each point shows the scored RMSE value of the respective setting.}\label{fig:perf-result}
+		\caption{Predictive performance (RMSE) of models across tasks. Suffix 'CV' denotes that the learner was optimized using internal 10-fold CV while prefix 'MBO' means that Bayesian optimization was used for hyperparameter optimization. Abbreviations on the vertical axis refer to the combinations of feature sets on which each model was scored on. Labels represent the feature selection method (NF = no filter, Car = 'Carscore', Info = 'Information Gain', Borda = 'Borda'). The second value of each label shows the RMSE value of the respective setting.}\label{fig:perf-result}
 	\end{center}
 \end{figure}
 
