@@ -595,7 +595,7 @@ However, rather than only looking at these three groups we decided to also take 
 	\item HR + VI + NRI
 \end{itemize}
 
-Even though the feature selection task was handed over to the filter methods in this study, we ensured to not include features with a pairwise correlation of 1.
+Even though the feature selection step was passed onto the filter methods in this study, we ensured to not include features with a pairwise correlation of 1.
 Having such can cause undesired effects during model fitting and feature importance calculation.
 To account for such, all pair-wise correlations between features were calculated.
 For pairs which exceeded the threshold of 0.9999999999 the one with the largest mean absolute correlation was removed.
