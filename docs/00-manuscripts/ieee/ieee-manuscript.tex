@@ -562,7 +562,7 @@ A disadvantage is the reduced interpretability due to the main components being 
 \begin{itemize}
 	\item  Extreme Gradient Boosting (XGBOOST)
 	\item  Random Forest (RF)
-	\item  Penalized Regression (both L1 (Lasso) and L2 (Ridge))
+	\item  Penalized Regression (both L1 (lasso) and L2 (ridge))
 	\item  Support Vector Machine (SVM)
 \end{itemize}
 
@@ -666,7 +666,7 @@ For the vegetation indices all bands covered by the spectral range of calculated
 All R packages used in this study can be found in linked repositories.
 Due to space limitations we will only mention the packages of the used algorithms and filter methods.
 
-The algorithm implementations of the following packages have been used: \textit{xgboost}\cite{chen2016} (\textit{xgboost}), \textit{kernlab}\cite{kernlab} (Support Vector Machine) and \textit{glmnet}\cite{glmnet} (Ridge Regression).
+The algorithm implementations of the following packages have been used: \textit{xgboost}\cite{chen2016} (\textit{xgboost}), \textit{kernlab}\cite{kernlab} (Support Vector Machine) and \textit{glmnet}\cite{glmnet} (ridge regression).
 The filter implementations of the following packages have been used: \textit{praznik\cite{praznik}}, \textit{FSelectorRcpp}\cite{fselectorrcpp}.
 The R package \textit{mlr} \cite{mlr} was used for all modeling related steps.
 \textit{drake} \cite{drake} was used for structuring the work and reproducibility.
@@ -680,8 +680,8 @@ The code base is available on GitHub (\url{https://github.com/pat-s/2019-feature
 % - RMSE around 27
 % - MBO tuned penalized methods are substantially worse
 \noindent Overall, the response variable 'tree defoliation' could be modeled with an \ac{RMSE} of 28 \% percentage points (p.p.).
-SVM showed no differences in RMSE across feature sets whereas other learners (RF, SVM, XGBoost, Lasso and Ridge) differed up to seven percentage points (\autoref{fig:perf-result}).
-Ridge and Lasso faced major issues up to the point of not achieving an error below 50 for datasets HR-NRI-VI and NRI-VI.
+SVM showed no differences in RMSE across feature sets whereas other learners (RF, SVM, XGBoost, lasso and ridge) differed up to seven percentage points (\autoref{fig:perf-result}).
+Ridge and lasso faced major issues up to the point of not achieving an error below 50 for datasets HR-NRI-VI and NRI-VI.
 SVM showed the best performance of all learners with a difference of around three percentage points to the next best model (RF) (\autoref{tab:best-learner-perf}).
 Performance differences between test folds were large: Predicting on Luiando resulted in an RMSE of 9.0 for learner SVM (without filter) but up to 54.26 p.p. when testing on Laukiz2 (\autoref{tab:svm-single-fold-perf}).
 
@@ -701,8 +701,8 @@ All learners besides SVM show a substantially worse performance when using only 
 % - all MBO penalized methods have no difference across tasks
 SVM combined with the 'Carscore' filter achieved the best performance (RMSE of 27.98) (\autoref{tab:perf-top-10}).
 %L1 penalized regression showed slightly better results in three out of six tasks when being optimized using the package internal 10-fold CV compared to MBO (RMSE of 50 vs 58).
-Regression with Ridge penalty (L2) showed a high variance when comparing results across tasks: In two out of six tasks (all including VI variables) the error was out of bounds (HR-NRI-VI, HR-VI, VI). For HR-NRI and HR the error was around 40 RMSE, and for task NRI the Ridge learner achieved almost the same score as the best performing model (32.9 RMSE) (\autoref{tab:perf-top-10}).
-In all settings for which Ridge showed such a high error, only one observation in one fold was predicted which such a high value (in the millions).
+Regression with ridge penalty (L2) showed a high variance when comparing results across tasks: In two out of six tasks (all including VI variables) the error was out of bounds (HR-NRI-VI, HR-VI, VI). For HR-NRI and HR the error was around 40 RMSE, and for task NRI the ridge learner achieved almost the same score as the best performing model (32.9 RMSE) (\autoref{tab:perf-top-10}).
+In all settings for which ridge showed such a high error, only one observation in one fold was predicted which such a high value (in the millions).
 This then caused the error estimates of these folds and the average estimate across all folds to be out of bounds.
 
 FIXME: Mention: All penalized methods tuned using MBO showed exactly the same error across all tasks.
@@ -841,9 +841,9 @@ The absolute difference of around three percentage points is also worth noting:
 We could not find a study in which SVM came out as the best model in such clear way.
 All of these statements are based on the assumption that a proper hyperparameter tuning was conducted for all models (which we also claim for ourselves in this study).
 
-We were a bit surprised about the performances of the penalized methods Lasso and Ridge.
-The former was not able to achieve an error below 45.96 RMSE across any dataset while Ridge came at least somewhat close to RF and XGBoost for some feature sets.
-However, there were also three instances (VI, NRI-VI, HR-NRI-VI) for which the error of the fitted Ridge model was out of bounds.
+We were a bit surprised about the performances of the penalized methods lasso and ridge.
+The former was not able to achieve an error below 45.96 RMSE across any dataset while ridge came at least somewhat close to RF and XGBoost for some feature sets.
+However, there were also three instances (VI, NRI-VI, HR-NRI-VI) for which the error of the fitted ridge model was out of bounds.
 We cannot preclude possible mistakes on our side when optimizing the penalization terms of the penalized learners.
 
 FIXME: Talk about L1 and L2 model performance
