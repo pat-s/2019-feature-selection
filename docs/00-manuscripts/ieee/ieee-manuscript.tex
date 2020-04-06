@@ -637,7 +637,7 @@ In total the benchmarking matrix consisted of 156 experiments (6 feature sets $\
 % FIXME Talk about the bias of permutation FI in highly correlated settings
 \noindent Estimating feature importance for highly-correlated datasets is a complicated task.
 The correlation between covariates makes it challenging to calculate an unbiased estimate for single features.
-Methods like \ac{PDP} do not produce reliable estimates in such scenarios because unrealistic situations between covariates are created \cite{molnar2019}.
+Methods like \ac{PDP} do not produce reliable estimates in such scenarios because unrealistic combinations between covariates are created \cite{molnar2019}.
 % FIXME: Add ref
 Due to the noisiness of the dataset, estimates from model-agnostic approaches such as permutation-based feature importance should also be taken with care.
 This method calculates the loss of predictive performance for each feature by permuting it in a random manner.
