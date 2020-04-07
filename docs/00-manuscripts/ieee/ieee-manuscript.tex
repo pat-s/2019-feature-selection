@@ -886,10 +886,10 @@ Since filter scores only need to be calculated once in a benchmark setting, the 
 
 Not surprisingly the most important features for both HR and VI datasets were identified around the red edge of the spectra, specifically in the range of 700 nm to 750 nm.
 
-FIXME: Add ref
-This area has the highest ability to distinguish between reflectances related to a high density / high healthiness of vegetation and its opposite.
+FIXME: Add ref.
+This area has the highest ability to distinguish between reflectances related to a high density / high healthiness of vegetation and their respective opposites.
 It is also worth mentioning that four out of ten of the most important features of dataset HR lie between 920 nm and 1000 nm.
-Looking at the spectral curves of the plots, we can observe quite some variance in this area, especially for Oiartzun, which might explain why these features were considered as important by the model.
+Looking at the spectral curves of the plots, we can observe quite some dynamic in this area, especially for Oiartzun, which might explain why these features were considered as important by the model.
 
 \subsection{Comparison to other studies}
 % - no environmental studies use filter methods, some use FFS
@@ -900,7 +900,7 @@ Looking at the spectral curves of the plots, we can observe quite some variance 
 This is due to the low spatial resolution of used satellite products which served as the input data, making a tree-level study infeasible \cite{townsend2012, debeurs2008, rengarajan2016}.
 
 Studies focusing on tree-level defoliation used ground-level methods such as \ac{ALS} or \ac{LiDAR}\cite{meng2018, kalin2019}.
-\cite{meng2018} used \ac{OLS} regression methods while\cite{kalin2019} retrieved information out of ground-level RGB photos using \ac{CNN}.
+\cite{meng2018} used \ac{OLS} regression methods while\cite{kalin2019} retrieved information from ground-level RGB photos using \ac{CNN}.
 Both study designs are substantially different compared to the setup of this work.
 In addition, no spatial \ac{CV} or \ac{FS} was used.
 \cite{goodbody2018} used a \ac{PLS} model with high-resolution \ac{DAP} to predict cumulative defoliation caused by the spruce budworm.
@@ -909,17 +909,17 @@ Incorporating such metrics (both spectral and structural) could be a possible en
 
 \cite{shendryk2016, ludwig2019} are studies which are more similar in their methodology but focus on a different response variable (woody cover).
 \cite{shendryk2016} used machine learning with \ac{ALS} data to study dieback of trees for eucalyptus forests.
-A grid-search was used for hyperparameter tuning and \ac{FFS} for variable selection.
-\cite{ludwig2019} analyzed woody cover in South Africa using spatial \ac{CV} and \ac{FS} approach \cite{meyer2018} with a Random Forest classifier.
+A grid search was used for hyperparameter tuning and \ac{FFS} for variable selection.
+\cite{ludwig2019} analyzed woody cover in South Africa using spatial \ac{CV} and \ac{FS} approach \cite{meyer2018} with a random forest classifier.
 
 In summary, we could not find studies using filter methods for \ac{FS} or \ac{NRI} indices in their work with a relation to forest health.
-Most studies used only one algorithm (usually Random Forest) without (strong) arguments why this particular one has been selected or why only one model was used.
+Most studies used only one algorithm without (strong) arguments why this particular one has been selected or why only one model was used.
 This is not surprising: Most environmental/ecological datasets are not high-dimensional.
-In contrast, the number of predictors if often monadic and issues related to correlations are solved manually instead of relying on an automated approach.
+In contrast, the number of predictors is often less than ten and issues related to correlations are solved manually instead of relying on an automated approach.
 The bioinformatics field faces high-dimensional feature sets more often.
 Hence more studies using (filter-based) feature-selection approaches can be found for this field \cite{guo2019, radovic2017}.
 If a field only rarely faces high-dimensional dataset issues the motivation and expertise of using advanced methods to solve such are rather low.
-We hope that this work can give some guidance and serve as a starting point for tackling high-dimensional problems in environmental modeling.
+We hope that this work can give some guidance and serve as a starting point for tackling high-dimensional problems in environmental remote sensing.
 
 \section{Outlook and conclusion}
 This study analyzed defoliation at trees in north Spain by using hyperspectral data as input for machine learning models making heavy use of filter-based feature selection methods.
