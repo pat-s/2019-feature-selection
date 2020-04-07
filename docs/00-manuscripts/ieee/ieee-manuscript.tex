@@ -808,7 +808,7 @@ In addition, a side-analysis showed that some trees would be assigned missing va
 This then would result in the removal of that particular tree which we wanted to avoid.
 Even though we provide no results showing the influence of multiple buffer values on the extraction, we hypothesize that the relationships between features would not change substantially, leading to the almost identical model results.
 
-Another critical point is that the exact number of contributing pixels to the final index value of an observation cannot be determined as it depends on the location of the tree within the pixel grid.
+Another relevant point is that the exact number of contributing pixels to the final index value of an observation cannot be determined as it depends on the location of the tree within the pixel grid.
 According to the extract function of the \texttt{raster} package, a pixel is included if the buffer of the point observation hits the centroid of the respective pixel, not just any part of it.
 As the buffer is circular, determining the total number of contributing pixels for each tree depends on the exact location of a tree within the pixel grid.
 Next, if a tree observation is located at the border of the plot, some directions of the buffer will contain no values and the subsequent index value will be calculated using less pixels than if the tree observation is located in the middle of the plot.
