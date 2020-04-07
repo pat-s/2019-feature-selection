@@ -846,8 +846,9 @@ All of these statements are based on the assumption that a proper hyperparameter
 
 We were a bit surprised about the performances of the penalized methods lasso and ridge.
 The former was not able to achieve an RMSE below 46.0 p.p. across any feature set while ridge came at least somewhat close to RF and XGBoost for some feature sets.
-However, there were also three settings (VI, NRI-VI, HR-NRI-VI) for which the RMSE of the ridge model was out of bounds.
-That said, we cannot preclude possible mistakes on our side when optimizing the penalization terms of the penalized learners.
+However, there were also three settings (VI, NRI-VI, HR-NRI-VI) for which the RMSE of the ridge model was unreasonably large.
+Careful inspection of the hyperparameter optimization of these learners did not reveal any implementation mistakes. However, one observation turned out to be influential even though careful multivariate exploratory data analysis showed no reason for flagging this observation a priori.
+We therefore left it in the model, but we acknowledge that these learners seemed particularly sensitive to the input data.
 
 FIXME: Talk about L1 and L2 model performance
 
