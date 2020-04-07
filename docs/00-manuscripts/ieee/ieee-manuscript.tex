@@ -864,14 +864,15 @@ FIXME: Talk about L1 and L2 models -> there we have quite some differences!
 \subsection{Feature selection methods}
 
 % - Effect varies across learners -> suggest to use FS even on feature sets with p < 100?
-The usefulness of filters in this study was apparent across all feature sets, even when $p$ was rather small (HR).
+The usefulness of filters in this study was apparent across all feature sets, even for the smallest feature set, HR.
 Even though the effect of feature selection methods varied across algorithms, small to substantial improvement in predictive performance were achieved in almost all cases.
 No optimal algorithm/filter/dataset setting was observed in this study, leading to the conclusion that one needs to try out various combinations of such to find the best performing one.
 
 % - Ensemble FS shows no advantage to simple methods -> maybe to less features, features too correlated? check diff between effect on NRI and VI
 We have no explanation why the Borda ensemble method used in this study did not score better than the average performance of other filter methods.
-Ensemble methods shine in complicated scenarios when simple filter methods face problems due to their focus on certain areas of features.
-We assume that the datasets used in this study were not complex enough to bring up these problems for simple features.
+FIXME: Add ref when and why Borda filters are good.
+Ensemble methods have been proven to outperform simple filters in complicated scenarios when the latter face problems due to their focus on certain feature characteristics.
+We suggest that the datasets used in this study were not complex enough to bring up these problems for simple features.
 Therefore it makes sense that, due to its averaging nature, the Borda filter scored average results across all instances.
 However, this cannot be known upfront and we believe that an ensemble filter should be part of every filter portfolio when doing filter-based feature selection.
 
