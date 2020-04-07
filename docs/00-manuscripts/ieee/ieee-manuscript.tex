@@ -854,9 +854,10 @@ FIXME: Talk about L1 and L2 model performance
 
 \subsubsection{Feature set differences}
 One objective which this study aimed to answer was whether expert-based or data-driven feature engineering has a positive influence on model performance.
-With respect to \autoref{fig:perf-result} one can say that overall the different feature sets did not result in substantial changes in performance.
+With respect to \autoref{fig:perf-result} one can say that overall the different feature sets did not result in substantial and consistent changes in performance.
 RF and XGBoost showed a somewhat surprising decrease in performance of about six percentage points on task VI compared to all others.
-We have no explanation for this specific result, especially because the SVM does not show this difference.
+We have no explanation for this specific result, especially because the best performing SVM model does not reflect this difference.
+In addition, all learners showed a slightly better average performance on feature sets which included NRIs (e.g. NRI-VI, HR-NRI, HR-NRI-VI) than on those which did not (i.e. VI and HR only).
 
 FIXME: Talk about L1 and L2 models -> there we have quite some differences!
 
