@@ -877,10 +877,10 @@ Therefore it makes sense that, due to its averaging nature, the Borda filter sco
 However, this cannot be known upfront and we believe that an ensemble filter should be part of every filter portfolio when doing filter-based feature selection.
 
 % - PCA shows similar performance but probably requires tuning of main components -> check runtime!
-The PCA approach did neither show the best or worst result in the lineup.
-It shines in terms of runtime since it reduces the amount of features highly.
-However, it also removes the option for a post-analysis of feature importance by squashing predictors into principal components and users need to decided upfront what they value more.
-Since filters are only calculated once due to caching, the runtime advantage might in fact be negligible in practice.
+The PCA approach did neither show the best or worst result when being compared to other feature-selection approaches.
+It is able to reduce model fitting times substantially due to its nature of reducing the number of predictors to a minimum.
+However, it also removes the possibility to conduct a post-analysis of feature importance by combining predictors into principal components, forcing users to decide upfront what they value more.
+Since filter scores only need to be calculated once in a benchmark setting, the runtime advantage might in fact be negligible in practice.
 
 \subsubsection{Linking feature importance to spectral characteristics}
 
