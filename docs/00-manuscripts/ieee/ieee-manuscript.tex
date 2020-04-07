@@ -788,13 +788,13 @@ For feature set HR four features in the infrared region (920 nm - 1000 nm) were 
 Overall, most features show only a small importance with average decreases in RMSE below 0.5.
 
 % permutation based var imp for datasets HR and VI
-\begin{figure} [t!]
+\begin{figure*} [t!]
 	\centering
 	\begin{center}
-		\includegraphics[width=0.48\textwidth] {fi-permut-vi-hr-1.pdf}
+		\includegraphics[width=0.98\textwidth] {fi-permut-vi-hr-1.pdf}
 		\caption{Variable importance for feature sets HR and VI: Mean decrease in RMSE for one-hundred feature permutations using the SVM learner. The wavelength range on the x-axis matches the range of the hyperspectral sensor (400 nm - 1000 nm). For each dataset, the ten most important features were highlighted as black dots and labeled by name. Grey dots represent features from importance rank 11 to last. The spectral signature (mean) of each plot was added as a reference on a normalized reflectance scale [0, 1] (secondary y-axis). VI features were decomposed into their individual formula parts; all instances being connected via dashed lines. Each VI feature is composed out of at least two instances.}\label{fig:fi-permut-vi-hr}
 	\end{center}
-\end{figure}
+\end{figure*}
 
 \section{Discussion}
 
@@ -809,20 +809,21 @@ This then would result in the removal of that particular tree which we wanted to
 Even though we provide no results showing the influence of multiple buffer values on the extraction, we hypothesize that the relationships between features would not change substantially, leading to the almost identical model results.
 
 Another relevant point is that the exact number of contributing pixels to the final index value of an observation cannot be determined as it depends on the location of the tree within the pixel grid.
-According to the extract function of the \texttt{raster} package, a pixel is included if the buffer of the point observation hits the centroid of the respective pixel, not just any part of it.
+According to the extract function of the \texttt{raster} package, a pixel is included if its centroid (and not just any part of the grid cell) falls inside the buffer.
 As the buffer is circular, determining the total number of contributing pixels for each tree depends on the exact location of a tree within the pixel grid.
-Next, if a tree observation is located at the border of the plot, some directions of the buffer will contain no values and the subsequent index value will be calculated using less pixels than if the tree observation is located in the middle of the plot.
+Next, if a tree observation is located on the border of the plot, some directions of the buffer will contain no values and the subsequent index value will be calculated using fewer pixels than if the tree observation is located in the middle of the plot.
 The magnitude of uncertainty introduced by these facts cannot be quantified.
 However, we assume these to be of minor importance for the subsequent model fitting step.
 
 \subsection{Performance vs.\ plot characteristics}
 \label{subsec:perf-plot-char}
 
-\noindent The high differences in RMSE observed for the fold performances (\autoref{tab:svm-single-fold-perf}) are a result of model overfitting.
-An RMSE of 54.26 indicates a complete failure of the model in the prediction stage for this plot (Laukiz2).
+The large differences in RMSE obtained on different test folds are attributed to model overfitting (\autoref{tab:svm-single-fold-perf}).
+An RMSE of 54.26 p.p. indicates a complete failure of the model in the prediction stage for this plot (Laukiz2).
 Laukiz2 differs highly in the distribution of the response variable defoliation compared to all other plots (\autoref{fig:defol-distr}).
-The model overfitted on learning relationships related to medium-high defoliation values but missed out on low defoliation values.
-In cases when Laukiz2 is in the training set, the model is able to half the error and even reduce it down to a value of 9 RMSE in the case of Luiando.
+In this specific case, the model was trained on data containing mostly medium-high defoliation values and only few low ones.
+This caused overfitting on the medium-high values, degrading predictive performance in other scenarios.
+In cases when Laukiz2 was in the training set, the overall aggregated RMSE was reduced by up to 50\% with single fold performances as good as 9 p.p. RMSE (with Luiando as test set).
 
 \subsection{Predictive Performance}
 The best aggregated performance of this study (SVM + Carscore filter, 27.98 RMSE) has to be seen in the light of model overfitting (see \autoref{subsec:perf-plot-char}).
