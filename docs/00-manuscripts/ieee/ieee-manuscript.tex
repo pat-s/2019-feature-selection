@@ -922,18 +922,19 @@ If a field only rarely faces high-dimensional dataset issues the motivation and 
 We hope that this work can give some guidance and serve as a starting point for tackling high-dimensional problems in environmental remote sensing.
 
 \section{Outlook and conclusion}
-This study analyzed defoliation at trees in north Spain by using hyperspectral data as input for machine learning models making heavy use of filter-based feature selection methods.
+
+This study analyzed defoliation at trees in north Spain by using hyperspectral data as input for machine learning models making heavy use of filter-based feature-selection methods.
 It was shown that substantial differences in performance can occur depending on which feature selection methods and machine learning algorithms are combined.
 SVM showed the most robust behavior across all highly-correlated datasets and was able to predict the response variable of this study substantially better than other methods.
 
 % RQ3: How are feature-selection methods influencing the predictive performance of the models?
-Filter methods showed their ability to improve predictive performance for datasets with many features.
-Ensemble filter methods did not show a substantial improvement over legacy filter methods.
+Filter methods are able to improve predictive performance for datasets with many features in certain instances.
+Their effectiveness depends on the chosen algorithm and dataset characteristics.
+Ensemble filter methods did not show a substantial improvement over individual filter methods.
 
 % RQ2: Does combining feature sets have an substantial effect on predictive performance?
 % RQ1: Do different environmental feature sets show differences in performance when modeling defoliation at trees?
-FIXME: "derivated" is not a real word?
-Creating feature sets composed out of derivated features did not help.
+The creation of derived feature sets did not contribute to an improvement in model performance.
 In contrast, dataset VI showed a substantial worse performance than the dataset with the original features (HR).
 Combining feature sets did not show a substantial improvement on predictive performance.
 
