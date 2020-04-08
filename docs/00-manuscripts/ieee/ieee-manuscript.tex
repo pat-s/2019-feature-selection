@@ -804,8 +804,6 @@ Overall, most features show only a small importance with average decreases in RM
 Due to the reported geometric offset of up to 1 m for the hyperspectral data, the possibility of assigning a wrong pixel value to a tree observation would be high.
 Using a buffer of more than 2 meters increases the probability of including information from other trees into the pixel value, blurring the actual value of the tree observation.
 In our view using a buffer of 2 m is a good compromise between including information of too many surrounding trees and not accounting for the geometric offset.
-In addition, a side-analysis showed that some trees would be assigned missing values when relying on a single pixel.
-This then would result in the removal of that particular tree which we wanted to avoid.
 Even though we provide no results showing the influence of multiple buffer values on the extraction, we hypothesize that the relationships between features would not change substantially, leading to the almost identical model results.
 
 Another relevant point is that the exact number of contributing pixels to the final index value of an observation cannot be determined as it depends on the location of the tree within the pixel grid.
