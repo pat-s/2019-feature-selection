@@ -67,23 +67,23 @@ copy_figures <- function() {
     here::here("docs/00-manuscripts/ieee/pdf/")
   )
   file_cp_ts(
-    "docs/figure/eval-performance.Rmd/filter-effect-all-vs-no-filter-1.pdf",
-    "docs/00-manuscripts/ieee/pdf/"
+    here::here("docs/figure/eval-performance.Rmd/filter-effect-all-vs-no-filter-1.pdf"),
+    here::here("docs/00-manuscripts/ieee/pdf/")
   )
   file_cp_ts(
-    "docs/figure/eval-performance.Rmd/filter-effect-all-vs-borda-filter-1.pdf",
-    "docs/00-manuscripts/ieee/pdf/"
+    here::here("docs/figure/eval-performance.Rmd/filter-effect-all-vs-borda-filter-1.pdf"),
+    here::here("docs/00-manuscripts/ieee/pdf/")
   )
 
   # filter-correlation.Rmd -----------------------------------------------------
 
   file_cp_ts(
-    "docs/figure/filter-correlation.Rmd/correlation-nbins-1.pdf",
-    "docs/00-manuscripts/ieee/pdf/"
+    here::here("docs/figure/filter-correlation.Rmd/correlation-nbins-1.pdf"),
+    here::here("docs/00-manuscripts/ieee/pdf/")
   )
   file_cp_ts(
-    "docs/figure/filter-correlation.Rmd/correlation-filter-nri-1.pdf",
-    "docs/00-manuscripts/ieee/pdf/"
+    here::here("docs/figure/filter-correlation.Rmd/correlation-filter-nri-1.pdf"),
+    here::here("docs/00-manuscripts/ieee/pdf/")
   )
 
   # feature-importance.Rmd -----------------------------------------------------
