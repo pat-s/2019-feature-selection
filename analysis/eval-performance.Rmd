@@ -295,7 +295,7 @@ results_aggr %>%
   scale_color_nejm(breaks = sort(levels(results_aggr$learner_group))) +
   labs(x = "RMSE", y = "Task", color = "Learner") +
   guides(size = FALSE) +
-  scale_x_continuous(limits = c(27, 47)) +
+  scale_x_continuous(limits = c(27, 40), breaks = seq(28, 40, 2)) +
   geom_label_repel(
     # subset data to remove out of bounds values
     data = results_aggr[results_aggr$rmse_aggr < 100, ],
