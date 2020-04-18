@@ -133,6 +133,7 @@ table1 <- df_perf %>%
   ungroup() %>%
   mutate(Filter = replace(Filter, is.na(Filter), "No Filter")) %>%
   select(-iter, -`Learner ID`) %>%
+  mutate(RMSE = round(RMSE, 3)) %>% 
   arrange(RMSE)
 
 # save as latex table
@@ -229,6 +230,7 @@ table3 <- df_perf %>%
   ungroup() %>%
   mutate(Filter = replace(Filter, is.na(Filter), "No Filter")) %>%
   select(-iter, -`Learner ID`) %>%
+  mutate(RMSE = round(RMSE, 3)) %>% 
   arrange(RMSE)
 
 # save as latex table
