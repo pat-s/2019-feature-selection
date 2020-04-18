@@ -1,84 +1,8 @@
-%%%% using 'arara' 4.0
-% arara: pdflatex: {synctex: yes, interaction: nonstopmode}
-% arara: bibtex
-% arara: latexindent
-% arara: pdflatex: {synctex: yes, interaction: nonstopmode}
-% arara: pdflatex: {synctex: yes, interaction: nonstopmode}
-
-%% bare_jrnl.tex
-%% V1.4b
-%% 2015/08/26
-%% by Michael Shell
-%% see http://www.michaelshell.org/
-%% for current contact information.
-%%
-%% This is a skeleton file demonstrating the use of IEEEtran.cls
-%% (requires IEEEtran.cls version 1.8b or later) with an IEEE
-%% journal paper.
-%%
-%% Support sites:
-%% http://www.michaelshell.org/tex/ieeetran/
-%% http://www.ctan.org/pkg/ieeetran
-%% and
-%% http://www.ieee.org/
-
-%%*************************************************************************
-%% Legal Notice:
-%% This code is offered as-is without any warranty either expressed or
-%% implied; without even the implied warranty of MERCHANTABILITY or
-%% FITNESS FOR A PARTICULAR PURPOSE!
-%% User assumes all risk.
-%% In no event shall the IEEE or any contributor to this code be liable for
-%% any damages or losses, including, but not limited to, incidental,
-%% consequential, or any other damages, resulting from the use or misuse
-%% of any information contained here.
-%%
-%% All comments are the opinions of their respective authors and are not
-%% necessarily endorsed by the IEEE.
-%%
-%% This work is distributed under the LaTeX Project Public License (LPPL)
-%% ( http://www.latex-project.org/ ) version 1.3, and may be freely used,
-%% distributed and modified. A copy of the LPPL, version 1.3, is included
-%% in the base LaTeX documentation of all distributions of LaTeX released
-%% 2003/12/01 or later.
-%% Retain all contribution notices and credits.
-%% ** Modified files should be clearly indicated as such, including  **
-%% ** renaming them and changing author support contact information. **
-%%*************************************************************************
-
-% *** Authors should verify (and, if needed, correct) their LaTeX system  ***
-% *** with the testflow diagnostic prior to trusting their LaTeX platform ***
-% *** with production work. The IEEE's font choices and paper sizes can   ***
-% *** trigger bugs that do not appear when using other class files.       ***                          ***
-% The testflow support page is at:
-% http://www.michaelshell.org/tex/testflow/
-
 \documentclass[letterpaper, peerreview]{IEEEtran}
 %
 % If IEEEtran.cls has not been installed into the LaTeX system files,
 % manually specify the path to it like:
 % \documentclass[journal]{../sty/IEEEtran}
-
-% Some very useful LaTeX packages include:
-% (uncomment the ones you want to load)
-
-% *** MISC UTILITY PACKAGES ***
-%
-%\usepackage{ifpdf}
-% Heiko Oberdiek's ifpdf.sty is very useful if you need conditional
-% compilation based on whether the output is pdf or dvi.
-% usage:
-% \ifpdf
-%   % pdf code
-% \else
-%   % dvi code
-% \fi
-% The latest version of ifpdf.sty can be obtained from:
-% http://www.ctan.org/pkg/ifpdf
-% Also, note that IEEEtran.cls V1.7 and later provides a builtin
-% \ifCLASSINFOpdf conditional that works the same way.
-% When switching from latex to pdflatex and vice-versa, the compiler may
-% have to be run twice to clear warning/error messages.
 
 % *** CITATION PACKAGES ***
 %
@@ -119,25 +43,6 @@
   % every instance of \includegraphics
   % \DeclareGraphicsExtensions{.eps}
 \fi
-% graphicx was written by David Carlisle and Sebastian Rahtz. It is
-% required if you want graphics, photos, etc. graphicx.sty is already
-% installed on most LaTeX systems. The latest version and documentation
-% can be obtained at:
-% http://www.ctan.org/pkg/graphicx
-% Another good source of documentation is 'Using Imported Graphics in
-% LaTeX2e' by Keith Reckdahl which can be found at:
-% http://www.ctan.org/pkg/epslatex
-%
-% latex, and pdflatex in dvi mode, support graphics in encapsulated
-% postscript (.eps) format. pdflatex in pdf mode supports graphics
-% in .pdf, .jpeg, .png and .mps (metapost) formats. Users should ensure
-% that all non-photo figures use a vector format (.eps, .pdf, .mps) and
-% not a bitmapped formats (.jpeg, .png). The IEEE frowns on bitmapped formats
-% which can result in 'jaggedy'/blurry rendering of lines and letters as
-% well as large increases in file sizes.
-%
-% You can find documentation about the pdfTeX application at:
-% http://www.tug.org/applications/pdftex
 
 % *** MATH PACKAGES ***
 %
@@ -145,31 +50,8 @@
 \newcommand*\mean[1]{\bar{#1}}
 % A popular package from the American Mathematical Society that provides
 % many useful and powerful commands for dealing with mathematics.
-%
-% Note that the amsmath package sets \interdisplaylinepenalty to 10000
-% thus preventing page breaks from occurring within multiline equations. Use:
-%\interdisplaylinepenalty=2500
-% after loading amsmath to restore such page breaks as IEEEtran.cls normally
-% does. amsmath.sty is already installed on most LaTeX systems. The latest
-% version and documentation can be obtained at:
-% http://www.ctan.org/pkg/amsmath
 
 % *** SPECIALIZED LIST PACKAGES ***
-%
-%\usepackage{algorithmic}
-% algorithmic.sty was written by Peter Williams and Rogerio Brito.
-% This package provides an algorithmic environment fo describing algorithms.
-% You can use the algorithmic environment in-text or within a figure
-% environment to provide for a floating algorithm. Do NOT use the algorithm
-% floating environment provided by algorithm.sty (by the same authors) or
-% algorithm2e.sty (by Christophe Fiorio) as the IEEE does not use dedicated
-% algorithm float types and packages that provide these will not provide
-% correct IEEE style captions. The latest version and documentation of
-% algorithmic.sty can be obtained at:
-% http://www.ctan.org/pkg/algorithms
-% Also of interest may be the (relatively newer and more customizable)
-% algorithmicx.sty package by Szasz Janos:
-% http://www.ctan.org/pkg/algorithmicx
 
 % *** ALIGNMENT PACKAGES ***
 %
@@ -189,11 +71,11 @@
 % quality.
 
 % *** SUBFIGURE PACKAGES ***
-%\ifCLASSOPTIONcompsoc
-%  \usepackage[caption=false,font=normalsize,labelfont=sf,textfont=sf]{subfig}
-%\else
-%  \usepackage[caption=false,font=footnotesize]{subfig}
-%\fi
+\ifCLASSOPTIONcompsoc
+ \usepackage[caption=false,font=normalsize,labelfont=sf,textfont=sf]{subfig}
+\else
+ \usepackage[caption=false,font=footnotesize]{subfig}
+\fi
 % subfig.sty, written by Steven Douglas Cochran, is the modern replacement
 % for subfigure.sty, the latter of which is no longer maintained and is
 % incompatible with some LaTeX packages including fixltx2e. However,
@@ -207,9 +89,6 @@
 % than the serif footnote size font used in traditional IEEE formatting
 % and thus the need to invoke different subfig.sty package options depending
 % on whether compsoc mode has been enabled.
-%
-% The latest version and documentation of subfig.sty can be obtained at:
-% http://www.ctan.org/pkg/subfig
 
 % *** FLOAT PACKAGES ***
 %
@@ -254,58 +133,12 @@
 % The latest version can be found at:
 % http://www.ctan.org/pkg/dblfloatfix
 
-%\ifCLASSOPTIONcaptionsoff
-%  \usepackage[nomarkers]{endfloat}
-% \let\MYoriglatexcaption\caption
-% \renewcommand{\caption}[2][\relax]{\MYoriglatexcaption[#2]{#2}}
-%\fi
-% endfloat.sty was written by James Darrell McCauley, Jeff Goldberg and
-% Axel Sommerfeldt. This package may be useful when used in conjunction with
-% IEEEtran.cls'  captionsoff option. Some IEEE journals/societies require that
-% submissions have lists of figures/tables at the end of the paper and that
-% figures/tables without any captions are placed on a page by themselves at
-% the end of the document. If needed, the draftcls IEEEtran class option or
-% \CLASSINPUTbaselinestretch interface can be used to increase the line
-% spacing as well. Be sure and use the nomarkers option of endfloat to
-% prevent endfloat from 'marking' where the figures would have been placed
-% in the text. The two hack lines of code above are a slight modification of
-% that suggested by in the endfloat docs (section 8.4.1) to ensure that
-% the full captions always appear in the list of figures/tables - even if
-% the user used the short optional argument of \caption[]{}.
-% IEEE papers do not typically make use of \caption[]'s optional argument,
-% so this should not be an issue. A similar trick can be used to disable
-% captions of packages such as subfig.sty that lack options to turn off
-% the subcaptions:
-% For subfig.sty:
-% \let\MYorigsubfloat\subfloat
-% \renewcommand{\subfloat}[2][\relax]{\MYorigsubfloat[]{#2}}
-% However, the above trick will not work if both optional arguments of
-% the \subfloat command are used. Furthermore, there needs to be a
-% description of each subfigure *somewhere* and endfloat does not add
-% subfigure captions to its list of figures. Thus, the best approach is to
-% avoid the use of subfigure captions (many IEEE journals avoid them anyway)
-% and instead reference/explain all the subfigures within the main caption.
-% The latest version of endfloat.sty and its documentation can obtained at:
-% http://www.ctan.org/pkg/endfloat
-%
-% The IEEEtran \ifCLASSOPTIONcaptionsoff conditional can also be used
-% later in the document, say, to conditionally put the References on a
-% page by themselves.
-
 % *** PDF, URL AND HYPERLINK PACKAGES ***
 %
 \usepackage{url}
 % url.sty was written by Donald Arseneau. It provides better support for
 % handling and breaking URLs. url.sty is already installed on most LaTeX
 % systems. The latest version and documentation can be obtained at:
-% http://www.ctan.org/pkg/url
-% Basically, \url{my_url_here}.
-
-% *** Do not adjust lengths that control margins, column widths, etc. ***
-% *** Do not use packages that alter fonts (such as pslatex).         ***
-% There should be no need to do such things with IEEEtran.cls V1.6 and later.
-% (Unless specifically asked to do so by the journal or conference you plan
-% to submit to, of course. )
 
 % correct bad hyphenation here
 \hyphenation{op-tical net-works semi-conduc-tor}
@@ -333,8 +166,8 @@
 % not capitalized unless they are the first or last word of the title.
 % Linebreaks \\ can be used within to get better formatting as desired.
 % Do not put math or special symbols in the title.
-\title{Supporting Ecological Decision Making Using Feature-Selection and Variable Importance}
-\IEEEpeerreviewmaketitle{Supporting Ecological Decision Making Using Feature-Selection and Variable Importance}
+\title{Monitoring forest health using hyperspectral imagery: Does feature selection improve the performance of machine-learning techniques?}
+\IEEEpeerreviewmaketitle{Monitoring forest health using hyperspectral imagery: Does feature selection improve the performance of machine-learning techniques?}
 %
 %
 % author names and IEEE memberships
@@ -402,7 +235,7 @@
 
 % Note that keywords are not normally used for peer-review papers.
 \begin{IEEEkeywords}
-	hyperspectral imagery, forest health modeling, machine-learning, feature-selection, model comparison
+	hyperspectral imagery, forest health monitoring, machine learning, feature selection, model comparison, imaging spectroscopy
 \end{IEEEkeywords}
 
 % For peer review papers, you can put extra information on the cover
@@ -434,8 +267,8 @@
 	\acro{DAP}{digital aerial photogrammetry}
 	\acro{ENM}{environmental niche modeling}
 	\acro{FPR}{false positive rate}
-	\acro{FFS}{forward feature-selection}
-	\acro{FS}{feature-selection}
+	\acro{FFS}{forward feature selection}
+	\acro{FS}{feature selection}
 	\acro{GAM}{generalized additive model}
 	\acro{GBM}{gradient boosting machine}
 	\acro{GLM}{generalized linear model}
@@ -477,37 +310,37 @@
 
 \IEEEPARstart{T}{he} use of \ac{ML} algorithms for analyzing remote sensing data has seen a huge increase in the last decade~\cite{lary2016}.
 This goes in line with the increased availability of remote sensing imagery, especially since the launch of the first Sentinel satellite in the year 2014.
-At the same time, the implementation and usability of learning algorithms has been greatly simplified with many contributions from open-source efforts.
+At the same time, the implementation and usability of learning algorithms has been greatly simplified with many contributions from the open-source community.
 Scientists can nowadays relatively easily process large amounts of (environmental) information using various learning algorithms.
 This makes it possible to extend the matrix of possible options in a semi-automated way, possibly stumbling across unexpected findings of process settings that would have never been tested otherwise~\cite{ma2015}.
 
 % link to forest health analysis and show exemplary studies
 
-Machine learning methods in combination with remote sensing data are used in many environmental fields such as vegetation cover analysis or forest carbon storage mapping\cite{mascaro2014, urban2018}.
+Machine learning methods in combination with remote sensing data are used in many environmental fields such as vegetation cover analysis or forest carbon storage mapping \cite{mascaro2014, urban2018}.
 The ability of predicting to large unknown areas qualifies these tools as a promising toolset for such tasks.
-One aspect of this research field is to enhance the understanding of biotic and abiotic triggers, for example by analyzing defoliation at trees\cite{hawrylo2018}.
+One aspect of this research field is to enhance the understanding of biotic and abiotic triggers, for example by analyzing defoliation at trees \cite{hawrylo2018}.
 
-Other approaches for analyzing forest health include temporal change detection\cite{zhang2016} or describing the current health status of forests on a stand level\cite{townsend2012}.
-In such studies, the defoliation of trees serves as a proxy for forest health by describing the impact of biotic and abiotic pest triggers\cite{townsend2012, goodbody2018}.
+Other approaches for analyzing forest health include temporal change detection \cite{zhang2016} or describing the current health status of forests on a stand level \cite{townsend2012}.
+In such studies, the defoliation of trees serves as a proxy for forest health by describing the impact of biotic and abiotic pest triggers \cite{townsend2012, goodbody2018}.
 
-Vegetation indices have shown the potential to provide valuable information when analyzing forest health\cite{jiang2014, adamczyk2015}.
+Vegetation indices have shown the potential to provide valuable information when analyzing forest health \cite{jiang2014, adamczyk2015}.
 Most vegetation indices were developed with the aim of being sensitive to changes of specific wavelength regions, serving as a proxy for underlying plant processes. 
-However, often enough indices developed for different purposes than the one to be analyzed can help explaining complex relationships.
-This emphasizes the need to extract as much information as possible from the available input data to generate promising features which can help understanding the modeled relationship.
-A less known index type which can be derived from spectral information is called normalized ratio index (NRI).
-In contrast to \ac{VI}, \ac{NRI}s are not based on an expert-based formulas following environmental heuristics but use a data-driven feature engineering approach by combining (arbitrary) combinations of spectral bands.
-Especially when working with hyperspectral data, hundreds of \ac{NRI} features can be derived this way.
+However, often enough indices developed for different purposes than the one to be analyzed can help to explain complex relationships.
+This emphasizes the need to extract as much information as possible from the available input data to generate promising features which can help to understand the modeled relationship.
+A less known index type which can be derived from spectral information is the normalized ratio index (NRI).
+In contrast to most \ac{VI} indices, the \ac{NRI} does not use an expert-based formula following environmental heuristics but instead makes use of a data-driven feature engineering approach by combining (arbitrary) combinations of spectral bands.
+Especially when working with hyperspectral data, thousands of \ac{NRI} features can be derived this way.
 
 % now that we introduced the importance of remote sensing indices for forest health,
 
 Despite its popularity in environmental modeling, there are no studies so far which used machine learning algorithms in combination with remote sensing data to analyze defoliation on a tree level.
 This study aims to close this gap by analyzing defoliation at trees in northern Spain using airborne hyperspectral data.
-We make use of the latest state-of-the-art methodology in machine learning by combining feature-selection and hyperparameter tuning across multiple algorithms.
+Method-wise it makes use of machine-learning methods in combination with feature selection and hyperparameter tuning.
 Incorporating the idea of creating data-driven \ac{NRI}s, this study also discusses the practical problems of high-dimensionality in environmental modeling \cite{trunk1979, xu2016}.
 
-Even though \ac{ML} algorithms are capable of handling highly-correlated input variables, the fitting time of models increase substantially and the interpretation of results becomes more complicated.
-At the same time, one has to deal with the presence of spatial autocorrelation in the data.
-The dataset used in this study comes with a spatial grouping at the plot level which needs to be accounted for.
+Even though \ac{ML} algorithms are capable of handling highly-correlated input variables, model fitting becomes computationally more demanding, and model interpretation more complex.
+At the same time, it is necessary to account for the presence of spatial autocorrelation in the data.
+The dataset used in this study comes with a spatial grouping at the plot level which needs to be accounted for \cite{sperrorest, pena2015}.
 
 The research questions of this study are the following:
 
@@ -515,7 +348,7 @@ The research questions of this study are the following:
 
 	\item Do different environmental feature sets show differences in performance when modeling defoliation at trees?
 	      
-	\item Does the combination of feature sets have an substantial effect on predictive performance?
+	\item Can predictive performance be substantially improved by combining feature sets?
 	      
 	\item How are feature-selection methods influencing the predictive performance of the models?
 	      
@@ -523,117 +356,13 @@ The research questions of this study are the following:
 	      
 \end{itemize}
 
-% FIXME: Rephrase
-\noindent \ac{RF}, \ac{SVM} and extreme gradient boosting were compared using six feature sets across different feature selection methods, including a new promising approach of ensemble filters.
-Bayesian Optimization, also known as model-based optimization, was used for hyperparameter tuning.
-The feature set size was optimized at the same time.
-By this, we avoided multiple optimization layers which may result in a biased performance estimation or long model fitting times.
-A spatial \ac{CV} approach on the plot level was used to account for spatial autocorrelation in the data.
-
-% needed in second column of first page if using \IEEEpubid
-%\IEEEpubidadjcol
-
-% An example of a floating figure using the graphicx package.
-% Note that \label must occur AFTER (or within) \caption.
-% For figures, \caption should occur after the \includegraphics.
-% Note that IEEEtran v1.7 and later has special internal code that
-% is designed to preserve the operation of \label within \caption
-% even when the captionsoff option is in effect. However, because
-% of issues like this, it may be the safest practice to put all your
-% \label just after \caption rather than within \caption{}.
-%
-% Reminder: the 'draftcls' or 'draftclsnofoot', not 'draft', class
-% option should be used if it is desired that the figures are to be
-% displayed while in draft mode.
-%
-%\begin{figure}[!t]
-%\centering
-%\includegraphics[width=2.5in]{myfigure}
-% where an .eps filename suffix will be assumed under latex,
-% and a .pdf suffix will be assumed for pdflatex; or what has been declared
-% via \DeclareGraphicsExtensions.
-%\caption{Simulation results for the network.}
-%\label{fig_sim}
-%\end{figure}
-
-% Note that the IEEE typically puts floats only at the top, even when this
-% results in a large percentage of a column being occupied by floats.
-
-
-% An example of a double column floating figure using two subfigures.
-% (The subfig.sty package must be loaded for this to work.)
-% The subfigure \label commands are set within each subfloat command,
-% and the \label for the overall figure must come after \caption.
-% \hfil is used as a separator to get equal spacing.
-% Watch out that the combined width of all the subfigures on a
-% line do not exceed the text width or a line break will occur.
-%
-%\begin{figure*}[!t]
-%\centering
-%\subfloat[Case I]{\includegraphics[width=2.5in]{box}%
-%\label{fig_first_case}}
-%\hfil
-%\subfloat[Case II]{\includegraphics[width=2.5in]{box}%
-%\label{fig_second_case}}
-%\caption{Simulation results for the network.}
-%\label{fig_sim}
-%\end{figure*}
-%
-% Note that often IEEE papers with subfigures do not employ subfigure
-% captions (using the optional argument to \subfloat[]), but instead will
-% reference/describe all of them (a), (b), etc., within the main caption.
-% Be aware that for subfig.sty to generate the (a), (b), etc., subfigure
-% labels, the optional argument to \subfloat must be present. If a
-% subcaption is not desired, just leave its contents blank,
-% e.g., \subfloat[].
-
-
-% An example of a floating table. Note that, for IEEE style tables, the
-% \caption command should come BEFORE the table and, given that table
-% captions serve much like titles, are usually capitalized except for words
-% such as a, an, and, as, at, but, by, for, in, nor, of, on, or, the, to
-% and up, which are usually not capitalized unless they are the first or
-% last word of the caption. Table text will default to \footnotesize as
-% the IEEE normally uses this smaller font for tables.
-% The \label must come after \caption as always.
-%
-%\begin{table}[!t]
-%% increase table row spacing, adjust to taste
-%\renewcommand{\arraystretch}{1.3}
-% if using array.sty, it might be a good idea to tweak the value of
-% \extrarowheight as needed to properly center the text within the cells
-%\caption{An Example of a Table}
-%\label{table_example}
-%\centering
-%% Some packages, such as MDW tools, offer better commands for making tables
-%% than the plain LaTeX2e tabular which is used here.
-%\begin{tabular}{|c||c|}
-%\hline
-%One & Two\\
-%\hline
-%Three & Four\\
-%\hline
-%\end{tabular}
-%\end{table}
-
-
-% Note that the IEEE does not put floats in the very first column
-% - or typically anywhere on the first page for that matter. Also,
-% in-text middle ('here') positioning is typically not used, but it
-% is allowed and encouraged for Computer Society conferences (but
-% not Computer Society journals). Most IEEE journals/conferences use
-% top floats exclusively.
-% Note that, LaTeX2e, unlike IEEE journals/conferences, places
-% footnotes above bottom floats. This can be corrected via the
-% \fnbelowfloat command of the stfloats package.
-
 \section{Data and study area}
 
 \noindent Airborne hyperspectral data with a spatial resolution of one meter and 126 spectral bands was available for four Monterey Pine (\textit{Pinus radiata}) plantations in northern Spain.
 The trees in the study area plots suffer from infections of invasive pathogens such as \textit{Diplodia sapinea}, \textit{Fusarium circinatum}, \textit{Armillaria mellea} or \textit{Heterobasidion annosum}, leading to a spread of cankers or defoliation~\cite{mesanza2016, iturritxa2017}.
-In-situ measurements of defoliation at trees (serving as a proxy for tree health) were collected to serve as the response variable \textit{defoliation} which ranges from 0\% - 100\% (\autoref{fig:defol-distr}). % chktex 8
-The fungi are assumed to infect the trees through open wounds, possibly caused by previous hail damage\cite{iturritxa2014}.
-The dieback of these trees, which are mainly used as timber, causes high economic damages\cite{ganley2009}.
+In-situ measurements of defoliation at trees (serving as a proxy for tree health) were collected to serve as the response variable \textit{defoliation} which ranges from 0 - 100 (in \%) (\autoref{fig:defol-distr}).
+The fungi are assumed to infect the trees through open wounds, possibly caused by previous hail damage \cite{iturritxa2014}.
+The dieback of these trees, which are mainly used as timber, causes high economic damages \cite{ganley2009}.
 
 \begin{figure} [t!]
 	\centering
@@ -670,9 +399,9 @@ The data was surveyed in September 2016.
 
 \subsection{Hyperspectral data}
 
-\noindent The airborne hyperspectral data was acquired during two flight campaigns on September 28th and October 5th 2016, both around 12 am.
+\noindent The airborne hyperspectral data was acquired during two flight campaigns on September 28th and October 5th 2016, both around noon.
 The images were taken using a AISAEAGLE-II sensor.
-All preprocessing steps (geometric, radiometric, atmospheric) have been conducted by the \ac{ICGC}.
+All preprocessing steps (geometric, radiometric, atmospheric) were conducted by the \ac{ICGC}.
 The first four bands are corrupted, leaving 122 bands with valid information.
 Additional metadata information is available in \autoref{tab:hyperparameter_limits}.
 
@@ -709,57 +438,52 @@ where \(i\) and \(j\) are the respective band numbers.
 
 \bigbreak{}
 
-\noindent To account for geometric offsets (which were reported with up to 1 m from \ac{ICGC}) within the hyperspectral data, a buffer of two meters around the centroid of each tree was used during extraction of the reflectance values.
-Subsequently, the value assigned to a tree observations was the mean of all pixels which were touched by the buffer drawn around each tree.
+\noindent To account for geometric offsets (which were reported with up to 1 m from \ac{ICGC}) within the hyperspectral data, a buffer of two meters around the centroid of each tree was used for extraction of the reflectance values.
 A pixel was considered to fall into a tree's buffer zone if the centroid of the respective pixel was touched by the buffer.
-This is how the \texttt{extract()} function of the R package $\left\{raster\right\}$ handles buffer extraction.
-In total, \(\frac{125*126}{2} = 7875\) NRIs were calculated.
-Due to four corrupted bands of the sensor a total of 7471 indices were available for each observation.
+In total, \(\frac{121*122}{2} = 7471\) NRIs were calculated due to the first four bands of the sensor being corrupted.
 
 \subsection{Dimension reduction}
 
 \noindent We want to stress the differences between 'dimension reduction' and 'high-dimensionality'.
-The former refers to the general idea of reducing features from a dataset\cite{vandermaaten2007}.
+The former refers to the general idea of reducing features from a dataset \cite{vandermaaten2007}.
 In modeling this means finding the best subset of covariates which provide the most predictive power to the model or extracting the main components of the features using a \ac{PCA}.
-'High-dimensionality' in contrast is a dataset attribute and applies when \(p > n\), where \(p\) is the number of covariates and \(n\) the number of observations\cite{hastie2001}.
+'High-dimensionality' in contrast is a dataset attribute and applies when \(p > n\), where \(p\) is the number of covariates and \(n\) the number of observations \cite{hastie2001}.
 There is no absolute value at which the term applies, both for \(n\) and \(p\).
-Hence for this study the word ‘high-dimensionality‘ only applies to the
-experiments using the ‘NRI‘ feature set (> 7000 features for 1808 observations).
+Hence for this study the word ‘high-dimensionality‘ only applies to the experiments using the ‘NRI‘ feature set ($>$ 7000 features for 1808 observations).
 
 The case of a feature-rich dataset comes with several challenges for both model fitting and evaluation.
 
 \begin{itemize}
 	\item Model fitting times increase.
-	\item Noise is possibly introduced into models by highly-correlated variables\cite{johnstoneiainm.2009}.
-	\item Model interpretation and prediction tasks become more challenging\cite{johnstoneiainm.2009}.
+	\item Noise is possibly introduced into models by highly-correlated variables \cite{johnstoneiainm.2009}.
+	\item Model interpretation and prediction become more challenging \cite{johnstoneiainm.2009}.
 \end{itemize}
 
-\noindent In the following sections a brief overview about sub-categories of feature selection approaches is given.
+\noindent In the following sections a brief overview of feature selection sub-categories is given.
 Due to the focus of this study on the use of filter methods, which are a sub-group of feature selection methods, other approaches were grouped into a single section.
 
 \subsubsection{Filter methods}
 
 % Filter methods
-\noindent The concept of filters originates on the idea of ranking features using certain heuristics of an algorithm\cite{chandrashekar2014}.
+\noindent The concept of filters originates from the idea of ranking features using certain heuristics of an algorithm \cite{chandrashekar2014}.
 Some filter methods are restricted towards specific types of variables (numeric or nominal).
-Filters do only rank features, they do not choose which covariates to drop or keep\cite{drotar2015}.
+Filters do only rank features, they do not choose which covariates to drop or keep \cite{drotar2015}.
 The selection of features to keep for the model fitting step is usually done within the optimization phase of the model fitting, along with the hyperparameter tuning.
 Essentially, the number of covariates in the model is treated as a hyperparameter of the model.
 The goal is to optimize the number of features (using the ranked covariates) at which the model achieves the best performance.
-In well-implemented software solutions the filter calculation is only done once and then cached, saving comptutational resources\cite{mlr}.
 
 \paragraph{Ensemble filter methods}
 
 % Ensemble filter methods
-Besides the concept of choosing a specific filter method to rank variables, studies showed that combining several filters using statistical operations such as 'minimum', 'mean' or 'sum' are able to enhance the predictive performance of the resulting models\cite{abeel2010, drotar2017a}.
-This approach is referred to as 'ensemble filter'~\cite{dietterich2000}.
-Ensemble filters align with the recent rise of the 'ensemble' approach in machine learning which uses stacking to combine the predictions of multiple models, aiming to enhance predictive performance~\cite{polikar2012, feurer2015}.
-In this work the 'Borda' ensemble filter was applied~\cite{drotar2017a}.
+Besides the concept of choosing a specific filter method to rank variables, studies showed that combining several filters using statistical operations such as 'minimum' or 'mean' are able to enhance the predictive performance of the resulting models \cite{abeel2010, drotar2017a}.
+This approach is referred to as 'ensemble filtering' \cite{dietterich2000}.
+Ensemble filters align with the recent rise of the 'ensemble' approach in machine learning which uses stacking to combine the predictions of multiple models, aiming to enhance predictive performance \cite{polikar2012, feurer2015}.
+In this work the 'Borda' ensemble filter was applied \cite{drotar2017a}.
 For this filter, the final order is the sum of all single filters.
 
 \paragraph{Ensuring a fair weighting in the ensemble}
 
-Filter methods can be grouped into classes: Correlation based, entropy based, linear and non-linear methods.
+Filter methods can be grouped into classes: Correlation-based, entropy-based, linear and non-linear methods.
 It is important to not give certain classes too much weight in the ensemble as otherwise the final result will be biased towards these.
 In this study this was taken care of by checking the rank correlations (Spearman's correlation) of the generated feature rankings of all methods against each other.
 In case pairs of filters with a correlation above 0.9 were discovered, only one of these was included into the ensemble filter.
@@ -772,7 +496,7 @@ Filter methods can be classified as follows:
 \begin{itemize}
 	\item univariate/multivariate (scoring based on a single variable / multiple variables)
 	\item linear/non-linear (calculation of linear/non-linear interaction terms)
-	\item entropy/correlation (scoring based on derivations of entropy or correlation based approaches)
+	\item entropy/correlation (scoring based on derivations of entropy or correlation-based approaches)
 \end{itemize}
 
 % filter methods
@@ -783,7 +507,7 @@ Filter methods can be classified as follows:
 \begin{adjustbox}{width={0.48\textwidth},totalheight={\textheight},keepaspectratio}
 	\begin{tabular}{lll}
 		\\
-		Name                                         & Group                             & Reference          \\
+		Name                                         & Group                             & Ref.               \\
 		\toprule
 		Linear correlation (Pearson)                 & univariate, linear, correlation   & \cite{pearson1901} \\
 		Information gain                             & univariate, non-linear, entropy   & \cite{quinlan1986} \\
@@ -811,22 +535,23 @@ While the number of bins can be treated as a hyperparameter of the filter method
 \noindent Other approaches to assess feature importance are so called 'wrapper methods' and the \ac{PCA}\cite{das2001, jolliffe2016}.
 
 % Wrapper approach
-\noindent Wrappers \cite{chandrashekar2014, kohavi1997} apply algorithms that are also used for hyperparameter optimization such as 'Random Search' or 'Generic Simulated Annealing'.
+\noindent Wrappers \cite{chandrashekar2014, kohavi1997} apply search algorithms such as 'random search' or 'generic simulated annealing'.
 First a (random) subset of features is chosen based on the selected algorithm.
 In comparison to filters, no ranking is done in this step.
 Now the model is fitted on the data and the performance is evaluated.
 This is done multiple times, depending on the defined stopping criteria set by the user (performance, runtime, evaluations).
-A disadvantage of this approach is that hyperparameter tuning can only be applied after the feature-selection optimization finished.
+A disadvantage of this approach is that hyperparameter tuning can only be applied after the feature selection optimization finished.
 Hence, the 'wrapper approach' is an expensive optimization method because two stages need to be run in sequential order.
-Due to their extensive runtimes, wrappers were not considered in this work.
+Due to their high computational cost, wrappers were not considered in this work.
 
 % PCA
 A method with a completely different approach compared to filters and wrappers is the \ac{PCA}\cite{pearson1901, jolliffe2016}.
 Here, the main components of the feature space are extracted and combined.
-Most often the first two extracted main components are used since these contain the major information of the covariates.
+The number of principal components needed to explain a large portion of the variance is dynamic and depends on the dataset.
+In practice, this number often ranges between two and five.
 By using the (automatically estimated) explained variance of the main components, the model can rely on a few features containing the majority of information available in the data.
 This enables cheap model fitting with balanced loss of predictor information.
-The disadvantage of this methodology is the lack of interpretability because the main components cannot be related back to the original covariates.
+A disadvantage is the reduced interpretability due to the main components being a squashed version of the original covariates.
 
 \subsection{Benchmarking design}
 
@@ -837,7 +562,7 @@ The disadvantage of this methodology is the lack of interpretability because the
 \begin{itemize}
 	\item  Extreme Gradient Boosting (XGBOOST)
 	\item  Random Forest (RF)
-	\item  Penalized Regression (both L1 (Lasso) and L2 (Ridge))
+	\item  Penalized Regression (both L1 (lasso) and L2 (ridge))
 	\item  Support Vector Machine (SVM)
 \end{itemize}
 
@@ -845,7 +570,7 @@ The disadvantage of this methodology is the lack of interpretability because the
 \ac{XGBOOST} (commonly abbreviated as XGBOOST) showed promising results in benchmark competitions in recent years.
 Penalized regression is a statistical modeling technique capable of dealing with highly-correlated covariates by applying a penalization term which shrinks the coefficients of the model\cite{hastie2001}.
 Common penalties are 'lasso' (L1) and 'ridge' (L2).
-The former does not allow the full removal of variables from the model (penalization to zero) while the latter does.
+The latter does not allow the full removal of variables from the model (penalization to zero) while the former does.
 Both penalties can also be combined.
 The combined approach is called 'elastic net' but was not used in this work.
 
@@ -860,7 +585,7 @@ The combined approach is called 'elastic net' but was not used in this work.
 	\item Normalized Ratio Indices (\ac{NRI}): Data-driven feature engineering)
 \end{itemize}
 
-The idea of splitting the features into different sets originated from the question whether feature engineered indices from reflectance values have a positive effect on model performance.
+The idea of splitting the features into different sets originated from the question whether feature engineered indices from reflectance values have a positive effect on model performance, as for example demonstrated previously in a spectrotemporal setting \cite{pena2017}.
 Benchmarking all models on these distinct groups of features makes it easier to draw conclusions on their impact when keeping all other variables such as model type, tuning strategy and partitioning method constant.
 However, rather than only looking at these three groups we decided to also take their combinations into account for the overall comparison:
 
@@ -870,71 +595,83 @@ However, rather than only looking at these three groups we decided to also take 
 	\item HR + VI + NRI
 \end{itemize}
 
+Even though the feature selection step was passed onto the filter methods in this study, we ensured to not include features with a pairwise correlation of 1.
+Having such can cause undesired effects during model fitting and feature importance calculation.
+To account for such, all pair-wise correlations between features were calculated.
+For pairs which exceeded the threshold of 0.9999999999 the one with the largest mean absolute correlation was removed.
+This process was repeated $p$ times, each time calculating a new correlation matrix.
+
+This preprocessing step reduced the feature sets to 122 HR features, 86 VIs and 7467 NRIs.
+
 \subsubsection{Hyperparameter Optimization}
 
-\noindent An exhaustive hyperparameter tuning was applied during nested spatial \ac{CV} for all algorithms.
-Model-based Optimization\cite{mlrmbo} (MBO) was used for hyperparameter optimization.
+\noindent Hyperparameters were tuned using \ac{MBO} within a nested spatial CV \cite{mlrmbo, schratz2019}.
 This approach first composes \textit{n} randomly chosen hyperparameter settings out of a user defined search space.
 After these \textit{n} tries have been evaluated, a new hyperparameter setting, going to be evaluated next, is proposed by a fitted surrogate model (by default a kriging method).
-This strategy continues until a termination criterion, defined by the user, is reached\cite{hutter2011, jones1998}.
+This strategy continues until a termination criterion, defined by the user, is reached \cite{hutter2011, jones1998}.
 
 An initial design of 30 randomly composed hyperparameter settings and a termination criterion of 70 iterations was used, resulting in a total budget of 100 evaluated hyperparameter settings per fold.
 The advantage of this tuning approach is the substantial reduction of the tuning budget required to find a setting which is close to the global minimum.
-\ac{MBO} shines when being compared to methods that do not use information from previous runs, such as random search or grid search\cite{bergstra2012}.
-For the Lasso and Ridge models however the internal non-spatial CV approach due to promising results in previous applications.
+\ac{MBO} may outperform methods that do not use information from previous iterations, such as random search or grid search \cite{bergstra2012}.
 
-For the filter methods, the percentage of features was added to the models as a hyperparameter.
-For \ac{PCA}, the number of main components was tuned instead.
-Random Forest hyperparameter \texttt{\(m_{try}\)} was modified into power transformed version \(p^{m_{try}}\) (ranging from 1 to $p$) to work on relative values of the respective datasets feature count.
+For the filter methods, the percentage of dataset's features was added to the models as a hyperparameter.
+For \ac{PCA}, the number of principal components was tuned instead.
+Random Forest hyperparameter \texttt{\(m_{try}\)} was modified into power transformed \(p^{m_{try}}\) (ranging from 1 to $p$) to work on relative values of the respective dataset's feature count.
 Here \(p\) is the number of features of the dataset.
-This was necessary to ensure that \texttt{\(m_{try}\)} was not chosen out of bounds during tuning with respect to the datasets feature count.
-After the filtering, only a subset of features of the task is used for optimizing the models hyperparameters.
-The size of this subset is always different since the number of features is also optimized.
-Hence, the value of \texttt{\(m_{try}\)} needs to be created dynamically based on the datasets feature count.
+This was necessary to ensure that \texttt{\(m_{try}\)} was not chosen out of bounds during tuning with respect to the dataset's feature count'
+After the filtering, only a subset of features of the task is used for optimizing the model's hyperparameters.
+The size of this subset is always different since the number of features is also optimized'
+Hence, the value of \texttt{\(m_{try}\)} needs to be created dynamically based on the dataset's feature count.
 
 \subsubsection{Spatial resampling}
 
-\noindent A spatial nested cross-validation on the plot level was chosen to reduce the influence of spatial autocorrelation as much as possible\cite{schratz2019, sperrorest}.
-Each plot served as one fold within the cross-validation setting, resulting in four iterations total.
-For the inner level (hyperparameter tuning), \(y - 1\) folds were used (with \(y\) being the number of plots).
+\noindent A spatial nested cross-validation on the plot level was chosen to reduce the influence of spatial autocorrelation as much as possible \cite{schratz2019, sperrorest}.
+The \ac{RMSE} was chosen as the error measure.
+Each plot served as one fold within the cross-validation setting, resulting in four iterations in total.
+For the inner level (hyperparameter tuning), \(k - 1\) folds were used where \(k\) is the number of plots.
 
-In total the benchmarking matrix consisted of 156 experiments (6 feature sets * 3 ML algorithms * 8 feature-selection methods + 2 * 6 L1 and L2 models).
+In total the benchmarking matrix consisted of 156 experiments (6 feature sets $\times$ 3 ML algorithms $\times$ 8 feature-selection methods + 2 $\times$ 6 L1 and L2 models).
 
 \subsection{Feature importance estimation}
 
 % FIXME Talk about the bias of permutation FI in highly correlated settings
 \noindent Estimating feature importance for highly-correlated datasets is a complicated task.
 The correlation between covariates makes it challenging to calculate an unbiased estimate for single features.
-Methods like \ac{PDP} do not produce reliable estimates in such situations because they create unrealistic situations between covariates.
+Methods like \ac{PDP} do not produce reliable estimates in such scenarios because unrealistic combinations between covariates are created \cite{molnar2019}.
+% FIXME: Add ref
 Due to the noisiness of the dataset, estimates from model-agnostic approaches such as permutation-based feature importance should also be taken with care.
+This method calculates the loss of predictive performance for each feature by permuting it in a random manner.
+The more important the feature is for the model, the higher the mean loss in the measure, reflecting the importance of the specific feature for the current model.
+Predicting and calculating the error measure multiple times per feature comes with some computational cost.
+For increased efficiency, we estimated the feature importance only for datasets HR and VI using the best performing learner of the benchmark.
 
-However, as of today there are no unbiased approaches for estimating feature importance for (highly-) correlated datasets.
-Nevertheless, recent methods like \ac{ALE} plots aim to tackle this problem by utilizing marginal distributions of features over a small window to focus on the effect of a single feature.
-However, 
+However, as of today there are no completely satisfactory approaches for estimating feature importance for (highly) correlated datasets.
+Nevertheless, recent methods like \ac{ALE} plots aim to tackle this problem by utilizing marginal distributions of features over a small window to focus on the effect of a single feature \cite{apley2019, molnar2019}.
+However, ALE plots need visual inspection and as the number of features increases, making objective comparisons becomes more complicated.
 
 In this work we applied permutation-based feature importance and \ac{ALE} plots to calculate feature importance for the HR dataset.
-With the limitations of both methods in mind we aimed to get a general overview of the feature importance of the hyperspectral bands while keeping modest on over-interpreting the results.
-We used the algorithm which showed the best performance for the HR task to calculate the feature importance.
-
-This method calculates the loss of predictive performance for each feature by permuting it in a random manner.
-The more important the feature is for the model, the higher the loss in the used error measure will be, reflecting the importance of the specific feature for the current model.
-Permuting every feature $y$ times comes with some computational cost.
-To balance the effort/gain ratio and to be able to relate the results to wavelength regions, we decided to estimate feature importance only for the dataset with the raw reflectance values (HR).
-
+With the limitations of both methods in mind we aimed to get a general overview of the feature importance of the hyperspectral bands while trying to avoid the over-interpretation of results.
+We used the best-performing algorithm from the HR task (i.e. SVM) to calculate the feature importance.
+ALE plots were not discussed in greater detail and are available as supplementary material.
 
 \subsection{Linking feature importance to wavelength regions}
+
 \noindent For ecological interpretation purposes we linked the ten most important indices of the winning models for each feature set to the spectral regions of the hyperspectral data.
 For feature set HR and NRI a direct linking to the respective bands of the hyperspectral sensor was done.
 For the vegetation indices all bands covered by the spectral range of calculated vegetation indices were counted and summed up.
 
 \subsection{Research compendium}
 
-\noindent The complete study was done using the open-source statistical programming language R\cite{rcoreteam2018}.
-The algorithm implementations of the following packages have been used: \textit{xgboost}\cite{chen2016} (\textit{xgboost}), \textit{kernlab}\cite{kernlab} (Support Vector Machine) and \textit{glmnet}\cite{glmnet} (Ridge Regression).
-The filter methods of the following packages were used: \textit{praznik\cite{praznik}}, \textit{FSelectorRcpp}\cite{fselectorrcpp}.
-The R package \textit{mlr}\cite{mlr} was used for all modeling related steps.
-\textit{drake} was used for structuring the work and ensuring reproducibility.
+\noindent The complete study was done using the open-source statistical programming language R \cite{rcoreteam2019}.
+All R packages used in this study can be found in linked repositories.
+Due to space limitations we will only mention the packages of the used algorithms and filter methods.
+
+The algorithm implementations of the following packages have been used: \textit{xgboost}\cite{chen2016} (\textit{xgboost}), \textit{kernlab}\cite{kernlab} (Support Vector Machine) and \textit{glmnet}\cite{glmnet} (ridge regression).
+The filter implementations of the following packages have been used: \textit{praznik\cite{praznik}}, \textit{FSelectorRcpp}\cite{fselectorrcpp}.
+The R package \textit{mlr} \cite{mlr} was used for all modeling related steps.
+\textit{drake} \cite{drake} was used for structuring the work and reproducibility.
 This study is available as a research compendium on Zenodo (\url{10.5281/zenodo.2635403}).
+The code base is available on GitHub (\url{https://github.com/pat-s/2019-feature-selection}).
 
 \section{Results}
 
@@ -942,11 +679,11 @@ This study is available as a research compendium on Zenodo (\url{10.5281/zenodo.
 
 % - RMSE around 27
 % - MBO tuned penalized methods are substantially worse
-\noindent Overall, the response variable 'defoliation at trees' could be modeled with an error of 28 \%.
-SVM showed no differences in RMSE across feature sets whereas other learners like RF differed up to seven percentage points (HR-NRI vs. VI) (\autoref{fig:perf-result}).
-Ridge and Lasso faced major issues up to the point of not achieving an error below 50 for datasets HR-NRI-VI and NRI-VI.
-SVM showed the best performance of all learners with an absolute difference up around three percentage points to the next model (RF) (\autoref{tab:best-learner-perf}).
-A high intra-fold variance was observed: Predicting on Luiando resulted in an RMSE value of 9.0 for learner SVM (without filter) but up to 54.26 RMSE when testing on Laukiz2 (\autoref{tab:svm-single-fold-perf}).
+\noindent Overall, the response variable 'tree defoliation' could be modeled with an \ac{RMSE} of 28 \% percentage points (p.p.).
+SVM showed no differences in RMSE across feature sets whereas other learners (RF, SVM, XGBoost, lasso and ridge) differed up to seven percentage points (\autoref{fig:perf-result}).
+Ridge and lasso faced major issues up to the point of not achieving an error below 50 for datasets HR-NRI-VI and NRI-VI.
+SVM showed the best performance of all learners with a difference of around three percentage points to the next best model (RF) (\autoref{tab:best-learner-perf}).
+Performance differences between test folds were large: Predicting on Luiando resulted in an RMSE of 9.0 for learner SVM (without filter) but up to 54.26 p.p. when testing on Laukiz2 (\autoref{tab:svm-single-fold-perf}).
 
 % tasks
 % - no substantial difference between feature sets
@@ -954,17 +691,23 @@ A high intra-fold variance was observed: Predicting on Luiando resulted in an RM
 % - expert based feature sets show no better result than data-driven ones
 % - penalized methods seem to have problems with VI feature set
 The combination of feature sets showed small increases in performance for some learners.
-RF and XGBoost scored slightly better on the combined datasets HR-NRI and NRI-VI, respectively (\autoref{fig:perf-result}).
-Datasets containing derived features (VI, NRI) showed no improvement in performance compared to the raw hyperspectral band information (HR).
+RF and XGBoost scored slightly better on the combined datasets HR-NRI and NRI-VI, respectively, compared to their standalone variants (HR, NRI, VI) (\autoref{fig:perf-result}).
+Datasets containing derived features only (VI, NRI) showed no improvement in performance compared to the raw hyperspectral band information (HR).
+All learners besides SVM show a substantially worse performance when using only the VI dataset (around five percentage points worse than their respective best performance).
 
 % learner
 % - SVM Car is the overall winner
 % - Ridge-CV hit and miss (hit = NRI, miss = VI)
 % - all MBO penalized methods have no difference across tasks
-SVM combined with the 'Carscore' filter achieved the best performance (RMSE of 27.98) (\autoref{tab:perf-top-10}).
+SVM combined with the 'Carscore' filter achieved the best overall performance (RMSE of 27.98 p.p.) (\autoref{tab:perf-top-10}).
 %L1 penalized regression showed slightly better results in three out of six tasks when being optimized using the package internal 10-fold CV compared to MBO (RMSE of 50 vs 58).
-Regression with Ridge penalty (L2) showed a high variance when comparing results across tasks: In two out of six tasks (all including VI variables) the error was out of bounds (HR-NRI-VI, HR-VI, VI), for HR-NRI and HR the error was around 40 RMSE, and for task NRI the Ridge learner achieved almost the same score as the best performing model (32.9 RMSE) (\autoref{tab:perf-top-10}).
-%All penalized methods tuned using MBO showed exactly the same error across all tasks.
+Regression with ridge penalty (L2) showed a high variance when comparing results across tasks: In two out of six tasks (all including VI variables) the error was out of bounds (HR-NRI-VI, HR-VI, VI). For HR-NRI and HR RMSE was around 40 p.p., and for task NRI the ridge learner achieved almost the same score as the best performing model (32.9 p.p) (\autoref{tab:perf-top-10}).
+In all settings for which ridge showed such a high error, only one observation in one fold was predicted which such a high value (in the millions).
+The influential observation showed no obvious signs of being anomalous, e.g. extreme values in individual features or in principal components of features.
+This then caused the error estimates of these folds and the average estimate across all folds to be out of bounds.
+
+FIXME: Mention: All penalized methods tuned using MBO showed exactly the same error across all tasks.
+FIXME: Mention the bad perf of RIDGE on VI
 
 % filters
 % - influence varies based on algorithm and task (SVM no influence, RF medium, XGB medium)
@@ -972,16 +715,17 @@ Regression with Ridge penalty (L2) showed a high variance when comparing results
 % - no advantage of ensemble borda filter compared to others
 Effects of filter methods on performance differed greatly between algorithms:
 SVM showed no variation in performance across filters (\autoref{fig:filter-effects-no-filter}).
-Using filters for RF showed a substantial increase in performance for all tasks besides VI for which the overall difference of all filters was also smallest (\autoref{fig:filter-effects-no-filter}).
+Using filters for RF showed a substantial increase in performance for all tasks with the exception of VI, for which the difference among all filters was also the smallest (\autoref{fig:filter-effects-no-filter}).
 XGBoost showed a high dependency on filtering the data: In 4 out of 6 tasks using no filter would results in the worst or second worst performance.
 However, in contrast for dataset NRI using no filter results in the best performance.
-XGBoost shows the highest overall differences between filters for a single task: For dataset HR, the range is up to 14 percentage points (Carscore vs. no filter)(\autoref{fig:filter-effects-no-filter}).
+XGBoost shows the highest overall differences between filters for a single task:
+For feature set HR, the range is up to 14 percentage points (Carscore vs. no filter)(\autoref{fig:filter-effects-no-filter}).
 
 % filter vs. no filter
 % - Substantial effect for XGBoost and RF
 % - SVM unaffected
 When comparing the usage of filters against using no filter at all, there was only one instance (XGBoost on the NRI task) when the model without filtering showed a slighly better performance than the best filtered one (\autoref{fig:filter-effects-no-filter}).
-For SVM filters and no filter come in at the same performance for tasks VI and NRI even though \autoref{fig:filter-effects-no-filter} lists "No Filter" as the best option.
+For SVM, all filters and 'no filter' achieved the same performance on tasks VI and NRI even though \autoref{fig:perf-result} lists "No Filter" as the best option.
 
 % Borda vs. other filters
 % - most often among the first best filters for each task
@@ -990,8 +734,11 @@ The Borda filter did not achieve the best performance for any learner across any
 For RF and XGBoost it ranked within the first 50\% when looking at all filters used for a task.
 For XGBoost on the VI task the Borda filter scored the second worst performance.
 
-% latex table top 20 absolute performances
+% latex table top 10 absolute performances
 \input{performance-top-10}
+
+% latex table worst 10 absolute performances
+%\input{performance-worst-10}
 
 % latex table best performance per learner
 \input{performance-best-per-learner.tex}
@@ -1004,7 +751,7 @@ For XGBoost on the VI task the Borda filter scored the second worst performance.
 	\centering
 	\begin{center}
 		\includegraphics[width=0.48\textwidth] {performance-results-1.pdf}
-		\caption{Scored predictive performance (RMSE) of models across tasks. Prefix 'CV' denotes that the learner was optimized using internal 10-fold CV while prefix 'MBO' means that Bayesian optimization was used for hyperparameter optimization. The abbreviations on the y-axis refer to the combinations of feature sets on which each model was scored on. Labels attached to each point in space show which filter method was used for scoring features during the feature selection process (NF = no filter, Car = 'Carscore', Info = 'Information Gain', Borda = 'Borda'). The second value in the attached label of each point shows the scored RMSE value of the respective setting.}\label{fig:perf-result}
+		\caption{Predictive performance (RMSE) of models across tasks. Suffix 'CV' denotes that the learner was optimized using internal 10-fold CV while prefix 'MBO' means that Bayesian optimization was used for hyperparameter optimization. Abbreviations on the vertical axis refer to the combinations of feature sets on which each model was scored on. Labels represent the feature selection method (NF = no filter, Car = 'Carscore', Info = 'Information Gain', Borda = 'Borda'). The second value of each label shows the RMSE value of the respective setting.}\label{fig:perf-result}
 	\end{center}
 \end{figure}
 
@@ -1022,7 +769,7 @@ For XGBoost on the VI task the Borda filter scored the second worst performance.
 	\centering
 	\begin{center}
 		\includegraphics[width=0.48\textwidth] {filter-effect-all-vs-borda-filter-1.pdf}
-		\caption{Model performances in RMSE when using the Borda filter method compared to all other filters for each learner across all tasks.}\label{fig:filter-effects-borda}
+		\caption{Predictive performances in RMSE when using the Borda filter method compared to all other filters for each learner across all tasks.}\label{fig:filter-effects-borda}
 	\end{center}
 \end{figure}
 
@@ -1035,20 +782,19 @@ For XGBoost on the VI task the Borda filter scored the second worst performance.
 % - All: Clustering around the red edge (700 - 750 nm)
 % - Overall highest: 1.7 RMSE decrease - not that much
 
-% FIXME: explain in methods why only 2 datasets are shown
-The most important features of each dataset showed an average decrease in RMSE of 1.57 (HR, B69) and 1.79 (VI, Vogelmann2) (\autoref{fig:fi-permut-vi-hr}).
-For both datasets most features among the ten most important ones cluster around a wavelength range of 700 nm - 750 nm.
-For feature set HR four features in the infrared region (920 nm  - 1000 nm) were identified by the model to be important due to causing a mean RMSE decrease of around one percentage point.
-Overall, most features show a small importance only with average decreases in RMSE below 0.5.
+The most important features of each dataset showed an average decrease in RMSE of 1.57 p.p. (HR, B69) and 1.79 p.p (VI, Vogelmann2) (\autoref{fig:fi-permut-vi-hr}).
+For both datasets most features among the ten most important ones cluster around a wavelength range of 700 nm - 750 nm (the so called "red-edge").
+For feature set HR four features in the infrared region (920 nm - 1000 nm) were identified by the model to be most important (causing a mean decrease in RMSE of around one percentage point).
+Overall, most features show only a small importance with average decreases in RMSE below 0.5.
 
 % permutation based var imp for datasets HR and VI
-\begin{figure} [t!]
+\begin{figure*} [t!]
 	\centering
 	\begin{center}
-		\includegraphics[width=0.48\textwidth] {fi-permut-vi-hr-1.pdf}
+		\includegraphics[width=0.98\textwidth] {fi-permut-vi-hr-1.pdf}
 		\caption{Variable importance for feature sets HR and VI: Mean decrease in RMSE for one-hundred feature permutations using the SVM learner. The wavelength range on the x-axis matches the range of the hyperspectral sensor (400 nm - 1000 nm). For each dataset, the ten most important features were highlighted as black dots and labeled by name. Grey dots represent features from importance rank 11 to last. The spectral signature (mean) of each plot was added as a reference on a normalized reflectance scale [0, 1] (secondary y-axis). VI features were decomposed into their individual formula parts; all instances being connected via dashed lines. Each VI feature is composed out of at least two instances.}\label{fig:fi-permut-vi-hr}
 	\end{center}
-\end{figure}
+\end{figure*}
 
 \section{Discussion}
 
@@ -1057,102 +803,175 @@ Overall, most features show a small importance only with average decreases in RM
 \noindent The decision to use a buffer of 2 m to generate the index value for each observation has to be seen critical.
 Due to the reported geometric offset of up to 1 m for the hyperspectral data, the possibility of assigning a wrong pixel value to a tree observation would be high.
 Using a buffer of more than 2 meters increases the probability of including information from other trees into the pixel value, blurring the actual value of the tree observation.
-In our view using a buffer of 2 m is a good compromise between both worlds.
-In addition, a side-analysis showed that some trees would be assigned missing values when relying on a single pixel.
-This then would result in the removal of that particular tree which we wanted to avoid.
+In our view using a buffer of 2 m is a good compromise between including information of too many surrounding trees and not accounting for the geometric offset.
 Even though we provide no results showing the influence of multiple buffer values on the extraction, we hypothesize that the relationships between features would not change substantially, leading to the almost identical model results.
 
-Another critical point is that the exact number of contributing pixels to the final index value of an observation cannot be determined as it depends on the location of the tree within the pixel grid.
-According to the extract function of the \texttt{raster} package, a pixel is included if the buffer of the point observation hits the centroid of the respective pixel, not just any part of it.
+Another relevant point is that the exact number of contributing pixels to the final index value of an observation cannot be determined as it depends on the location of the tree within the pixel grid.
+According to the extract function of the \texttt{raster} package, a pixel is included if its centroid (and not just any part of the grid cell) falls inside the buffer.
 As the buffer is circular, determining the total number of contributing pixels for each tree depends on the exact location of a tree within the pixel grid.
-Next, if a tree observation is located at the border of the plot, some directions of the buffer will contain no values and the subsequent index value will be calculated using less pixels than if the tree observation is located in the middle of the plot.
+Next, if a tree observation is located on the border of the plot, some directions of the buffer will contain no values and the subsequent index value will be calculated using fewer pixels than if the tree observation is located in the middle of the plot.
 The magnitude of uncertainty introduced by these facts cannot be quantified.
 However, we assume these to be of minor importance for the subsequent model fitting step.
 
 \subsection{Performance vs.\ plot characteristics}
 \label{subsec:perf-plot-char}
 
-\noindent The high differences in RMSE observed for the fold performances (\autoref{tab:svm-single-fold-perf}) are a result of model overfitting.
-An RMSE of 54.26 indicates a complete failure of the model in the prediction stage for this plot (Laukiz2).
+The large differences in RMSE obtained on different test folds are attributed to model overfitting (\autoref{tab:svm-single-fold-perf}).
+An RMSE of 54.26 p.p. indicates a complete failure of the model in the prediction stage for this plot (Laukiz2).
 Laukiz2 differs highly in the distribution of the response variable defoliation compared to all other plots (\autoref{fig:defol-distr}).
-The model overfitted on learning relationships related to medium-high defoliation values but missed out on low defoliation values.
-In cases when Laukiz2 is in the training set, the model is able to half the error and even reduce it down to a value of 9 RMSE in the case of Luiando.
+In this specific case, the model was trained on data containing mostly medium-high defoliation values and only few low ones.
+This caused overfitting on the medium-high values, degrading predictive performance in other scenarios.
+In cases when Laukiz2 was in the training set, the overall aggregated RMSE was reduced by up to 50\% with single fold performances as good as 9 p.p. RMSE (with Luiando as test set).
 
 \subsection{Predictive Performance}
-The best aggregated performance of this study (27.98 RMSE) has to be seen in the light of model overfitting (see \autoref{subsec:perf-plot-char}).
-When leaving out Laukiz2 during aggregation, the mean RMSE would be 19.
-Taking into account the overfitting, more training data representing the health stages of a plot is needed.
-A model can only make robust predictions if it has learned relationships which span the whole range of the response variable.
-Hence, the aggregated mean RMSE of 27 here should not be used to make statements about the trained model of this study.
-In contrast, by inspecting the fold level performances, one can say that the model does a decent job predicting defoliation ranging from 50\% to 100\% but fails for 0\% - 50\%.
+The best aggregated performance of this study (SVM + Carscore filter, RMSE 27.98 p.p.) has to be seen in the light of model overfitting (see \autoref{subsec:perf-plot-char}).
+Leaving out the performance on Laukiz2 when aggregating results, the mean RMSE would be 19 p.p..
+However, leaving out a single plot would also change the prediction results for the other plots because the observations from Laukiz2 would not be available for model training.
+With the clear presence of model overfitting in this study it can be postulated that more training data representing all health stages of a plot is needed.
+A model can only make robust predictions if it has learned relationships across the whole range of the response.
+Hence, care should be taken when predicting to the landscape scale using models fitted on this dataset due to their lack of generalizability caused by a suboptimal distributed training data.
+However, when inspecting the fold level performances, one can say that the model does a decent job predicting defoliation ranging from 50\% to 100\% but fails for 0\% - 50\%.
 This applies to all learners of this study.
 
 \subsubsection{Algorithm differences}
+An interesting find is the strength of the SVM algorithm when comparing its predictive performance to its competitors (\autoref{tab:best-learner-perf}).
 
+FIXME: Add refs when SVM was clearly worse then other algs.
+In other (environmental) studies in recent years, SVM showed most often less good performances and was not able to outperform competing algorithms such as RF.
+The difference to the second best performing model of around three percentage points is also worth noting:
+We are not aware of a study in which SVM ranked as the best model that clearly.
+All of these statements are based on the assumption that a proper hyperparameter tuning was conducted for all models (which we also claim for ourselves in this study).
+
+We were a bit surprised about the performances of the penalized methods lasso and ridge.
+The former was not able to achieve an RMSE below 46.0 p.p. across any feature set while ridge came at least somewhat close to RF and XGBoost for some feature sets.
+However, there were also three settings (VI, NRI-VI, HR-NRI-VI) for which the RMSE of the ridge model was unreasonably large.
+Careful inspection of the hyperparameter optimization of these learners did not reveal any implementation mistakes. However, one observation turned out to be influential even though careful multivariate exploratory data analysis showed no reason for flagging this observation a priori.
+We therefore left it in the model, but we acknowledge that these learners seemed particularly sensitive to the input data.
+
+FIXME: Talk about L1 and L2 model performance
 
 \subsubsection{Feature set differences}
+One objective which this study aimed to answer was whether expert-based or data-driven feature engineering has a positive influence on model performance.
+With respect to \autoref{fig:perf-result} one can say that overall the different feature sets did not result in substantial and consistent changes in performance.
+RF and XGBoost showed a somewhat surprising decrease in performance of about six percentage points on task VI compared to all others.
+We have no explanation for this specific result, especially because the best performing SVM model does not reflect this difference.
+In addition, all learners showed a slightly better average performance on feature sets which included NRIs (e.g. NRI-VI, HR-NRI, HR-NRI-VI) than on those which did not (i.e. VI and HR only).
+
+FIXME: Talk about L1 and L2 models -> there we have quite some differences!
 
 \subsection{Feature selection methods}
 
-% - Ensemble FS show no advantage to simple methods -> maybe to less features, features too correlated? check diff between effect on NRI and VI
 % - Effect varies across learners -> suggest to use FS even on feature sets with p < 100?
-% - When calculating multiple filters, consider to only use ensemble filter?
+The usefulness of filters in this study was apparent across all feature sets, even for the smallest feature set, HR.
+Even though the effect of feature selection methods varied across algorithms, small to substantial improvement in predictive performance were achieved in almost all cases.
+No optimal algorithm/filter/dataset setting was observed in this study, leading to the conclusion that one needs to try out various combinations of such to find the best performing one.
+
+% - Ensemble FS shows no advantage to simple methods -> maybe to less features, features too correlated? check diff between effect on NRI and VI
+We have no explanation why the Borda ensemble method used in this study did not score better than the average performance of other filter methods.
+FIXME: Add ref when and why Borda filters are good.
+Ensemble methods have been proven to outperform simple filters in complicated scenarios when the latter face problems due to their focus on certain feature characteristics.
+We suggest that the datasets used in this study were not complex enough to bring up these problems for simple features.
+Therefore it makes sense that, due to its averaging nature, the Borda filter scored average results across all instances.
+However, this cannot be known upfront and we believe that an ensemble filter should be part of every filter portfolio when doing filter-based feature selection.
+
 % - PCA shows similar performance but probably requires tuning of main components -> check runtime!
+The PCA approach did neither show the best or worst result when being compared to other feature-selection approaches.
+It is able to reduce model fitting times substantially due to its nature of reducing the number of predictors to a minimum.
+However, it also removes the possibility to conduct a post-analysis of feature importance by combining predictors into principal components, forcing users to decide upfront what they value more.
+Since filter scores only need to be calculated once in a benchmark setting, the runtime advantage might in fact be negligible in practice.
 
-\subsubsection{Variable importance vs.\ filter methods}
+\subsubsection{Linking feature importance to spectral characteristics}
 
-WIP
+Not surprisingly the most important features for both HR and VI datasets were identified around the red edge of the spectra, specifically in the range of 700 nm to 750 nm.
 
-\subsubsection{Ecological Interpretation}
-
-% TODO: talk about the link to RS spectra
+FIXME: Add ref.
+This area has the highest ability to distinguish between reflectances related to a high density / high healthiness of vegetation and their respective opposites.
+It is also worth mentioning that four out of ten of the most important features of dataset HR lie between 920 nm and 1000 nm.
+Looking at the spectral curves of the plots, we can observe quite some dynamic in this area, especially for Oiartzun, which might explain why these features were considered as important by the model.
 
 \subsection{Comparison to other studies}
-% NOTE: no environmental studies use filter methods, some use FFS
-% NOTE: only few studies analyze defoliation
+% - no environmental studies use filter methods, some use FFS
+% - only few studies analyze defoliation
+% - most FS is done in bioinformatics
 
 \noindent Most other studies analyzing defoliation operated on the plot rather than the tree level.
-This originated simply due to spatial resolution of the satellite products that served as the input data\cite{townsend2012, debeurs2008, rengarajan2016}.
+This is due to the low spatial resolution of used satellite products which served as the input data, making a tree-level study infeasible \cite{townsend2012, debeurs2008, rengarajan2016}.
 
 Studies focusing on tree-level defoliation used ground-level methods such as \ac{ALS} or \ac{LiDAR}\cite{meng2018, kalin2019}.
-\cite{meng2018} used \ac{OLS} regression methods while\cite{kalin2019} retrieved information out of ground-level RGB photos using \ac{CNN}.
+\cite{meng2018} used \ac{OLS} regression methods while\cite{kalin2019} retrieved information from ground-level RGB photos using \ac{CNN}.
 Both study designs are substantially different compared to the setup of this work.
 In addition, no spatial \ac{CV} or \ac{FS} was used.
 \cite{goodbody2018} used a \ac{PLS} model with high-resolution \ac{DAP} to predict cumulative defoliation caused by the spruce budworm.
 Study results indicated that spectral metrics were found to be most helpful for the model.
 Incorporating such metrics (both spectral and structural) could be a possible enhancement for future works.
 
-\cite{shendryk2016, ludwig2019} are studies which are more similar in their methodology but focus on a different response variable.
-\cite{shendryk2016} used machine-learning models with \ac{ALS} data to study dieback of trees for eucalyptus forests.
-A grid-search was used for hyperparameter tuning and a \ac{FFS} for variable selection.
-\cite{ludwig2019} analyzed woody cover in South Africa using spatial \ac{CV} and a relatively novel spatial \ac{FS} approach\cite{meyer2018} on a Random Forest classifier.
+\cite{shendryk2016, ludwig2019} are studies which are more similar in their methodology but focus on a different response variable (woody cover).
+\cite{shendryk2016} used machine learning with \ac{ALS} data to study dieback of trees for eucalyptus forests.
+A grid search was used for hyperparameter tuning and \ac{FFS} for variable selection.
+\cite{ludwig2019} analyzed woody cover in South Africa using spatial \ac{CV} and \ac{FS} approach \cite{meyer2018} with a random forest classifier.
 
 In summary, we could not find studies using filter methods for \ac{FS} or \ac{NRI} indices in their work with a relation to forest health.
-Most studies used only one algorithm (usually Random Forest) without strong arguments why this particular one has been selected.
-In our view the number of possible derivable input features is often higher than the actual number of variables used in the end, missing out on potentially helpful information from the raw data.
-These findings underline the importance of this work in the field of forest health modeling.
+Most studies used only one algorithm without (strong) arguments why this particular one has been selected or why only one model was used.
+This is not surprising: Most environmental/ecological datasets are not high-dimensional.
+In contrast, the number of predictors is often less than ten and issues related to correlations are solved manually instead of relying on an automated approach.
+The bioinformatics field faces high-dimensional feature sets more often.
+Hence more studies using (filter-based) feature-selection approaches can be found for this field \cite{guo2019, radovic2017}.
+If a field only rarely faces high-dimensional dataset issues the motivation and expertise of using advanced methods to solve such are rather low.
+We hope that this work can give some guidance and serve as a starting point for tackling high-dimensional problems in environmental remote sensing.
 
 \section{Outlook and conclusion}
 
+This study analyzed defoliation at trees in north Spain by using hyperspectral data as input for machine learning models making heavy use of filter-based feature-selection methods.
+It was shown that substantial differences in performance can occur depending on which feature selection methods and machine learning algorithms are combined.
+SVM showed the most robust behavior across all highly-correlated datasets and was able to predict the response variable of this study substantially better than other methods.
+
+% RQ3: How are feature-selection methods influencing the predictive performance of the models?
+Filter methods are able to improve predictive performance for datasets with many features in certain instances.
+Their effectiveness depends on the chosen algorithm and dataset characteristics.
+Ensemble filter methods did not show a substantial improvement over individual filter methods.
+
+% RQ2: Does combining feature sets have an substantial effect on predictive performance?
+% RQ1: Do different environmental feature sets show differences in performance when modeling defoliation at trees?
+The creation of derived feature sets did not contribute to an improvement in model performance.
+In contrast, dataset VI showed a substantially poorer performance than the dataset with the original features (HR).
+Combining feature sets did not show a substantial improvement on predictive performance.
+
+% RQ4: Which features are most important for the models and how can these be interpreted in an ecological context?
+Features along the red-edge wavelength region were most important for models to achieve good predictions.
+With respect to dedicated vegetation indices, the "Vogelmann" index with all of its versions was seen as the most important index for the tested SVM algorithm.
+
+% What about the general potential of analyzing defol with hyperspectral data?
+The potential of predicting defoliation for single trees as conducted in this study was rather limited with an average RMSE of 27 p.p..
+We suggest that training data covering a wider range of defoliation values in a larger number of forest plantations would further improve the proposed models and result in more generalizable monitoring algorithms.
+
 \appendices{}
 
-% \section{Spectral signatures of each plot}
+\section{SVM ALE plots for task HR}
 
-% \begin{figure} [ht]
-% 	\begin{center}
-% 		\includegraphics[width=0.48\textwidth] {spectral-signatures-1.pdf}
-% 		\caption{Spectral signatures (mean and standard deviation) of Laukiz1, Laukiz2, Luiando and Oiartzun.}\label{fig:spectral-signatures}
-% 	\end{center}
-% \end{figure}
+\begin{figure} [ht]
+	\begin{center}
+		\includegraphics[width=0.48\textwidth] {fi-hr-ale-1.pdf}
+		\caption{ALE plots on dataset HR of SVM learner. Subset showing the ten most important features according to the permutation-based variable importance. The y-axis shows the deviation to the mean prediction for each feature, with the mean prediction being centered at zero.}\label{fig:fi-hr-ale}
+	\end{center}
+\end{figure}
 
-\pagebreak
+\section{SVM ALE plots for task VI}
+
+\begin{figure} [ht]
+	\begin{center}
+		\includegraphics[width=0.48\textwidth] {fi-vi-ale-1.pdf}
+		\caption{ALE plots on dataset VI of SVM learner. Subset showing the ten most important features according to the permutation-based variable importance. The y-axis shows the deviation to the mean prediction for each feature, with the mean prediction being centered at zero.}\label{fig:fi-vi-ale}
+	\end{center}
+\end{figure}
 
 \section{Correlation among filter methods}
+
+\pagebreak
 
 \begin{figure} [ht]
 	\begin{center}
 		\includegraphics[width=0.48\textwidth] {correlation-filter-nri-1.pdf}
-		\caption{Spearman correlation of filter rankings between various filter methods. Results of the NRI feature set are shown.}\label{fig:correlation-filters}
+		\caption{Spearman correlations of NRI feature rankings obtained with different filters.}\label{fig:correlation-filters}
 	\end{center}
 \end{figure}
 
@@ -1161,11 +980,11 @@ These findings underline the importance of this work in the field of forest heal
 \begin{figure} [ht]
 	\begin{center}
 		\includegraphics[width=0.48\textwidth] {correlation-nbins-1.pdf}
-		\caption{Spearman correlation of filter information gain using different \texttt{\(n_{bins}\)} values for discretization of the numeric response.}\label{fig:correlation-nbins}
+		\caption{Spearman correlations of rankings obtained with the information gain filter using different \texttt{\(n_{bins}\)} values for discretization of the numeric response.}\label{fig:correlation-nbins}
 	\end{center}
 \end{figure}
 
-
+\pagebreak
 
 \bibliographystyle{IEEEtran}
 \bibliography{Biblio}
