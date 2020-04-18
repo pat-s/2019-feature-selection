@@ -19,6 +19,10 @@ knitr::opts_chunk$set(
   echo = FALSE
 )
 
+options(
+scipen = 999
+)
+
 R.utils::sourceDirectory("R")
 library("drake")
 
@@ -26,6 +30,7 @@ library("drake")
 loadd(
   bm_aggregated_new_buffer2
 )
+
 library("xtable")
 library("flextable")
 library("ggbeeswarm")
@@ -45,7 +50,7 @@ date()
 ```
 
 ```{r, warning = FALSE}
-df_perf <- getBMRPerformances(bm_aggregated_new_buffer2, as.df = T) %>%
+df_perf <- getBMRPerformances(bm_aggregated_new_buffer2, as.df = TRUE) %>%
   mutate(task.id = recode_factor(task.id,
     `hr_buffer2` = "HR",
     `vi_buffer2` = "VI",
@@ -58,7 +63,10 @@ df_perf <- getBMRPerformances(bm_aggregated_new_buffer2, as.df = T) %>%
   tidyr::separate(learner.id, c("learner_group", "filter"),
     remove = FALSE,
     sep = " MBO "
-  )
+  ) %>%
+  mutate(learner_group = recode_factor(learner_group,
+    `XGBOOST` = "XGBoost"
+  ))
 ```
 
 ```{r aggr-perf}
@@ -90,13 +98,13 @@ df_tab <- df %>%
   dplyr::mutate(Plot = forcats::fct_recode(Plot,
     Laukiz1 = "2", Laukiz2 = "3",
     Luiando = "1", Oiartzun = "4"
-  )) %>% 
+  )) %>%
   dplyr::mutate(RMSE = round(RMSE, 2))
 
 df_tab %>%
   xtable::xtable(
     type = "latex",
-    caption = "Single fold performances for learner SVM on the HR dataset without using a filter.",
+    caption = "Test fold performances for learner SVM on the HR dataset without using a filter. For each row, the model was trained on observations from fold all other plots and tested on the observations of the given plot.",
     label = "tab:svm-single-fold-perf"
   ) %>%
   print(
@@ -115,7 +123,7 @@ flextable::flextable(df_tab)
 
 ## (Table) T1 All leaner/filter/task combinations ordered by performance.
 
-Overall leaderboard across all settings, sorted descending by performance.
+Overall leaderboard across all settings, sorted ascending by performance.
 
 ```{r eval-performance-1, warning=FALSE}
 table1 <- df_perf %>%
@@ -132,6 +140,7 @@ table1 <- df_perf %>%
   ungroup() %>%
   mutate(Filter = replace(Filter, is.na(Filter), "No Filter")) %>%
   select(-iter, -`Learner ID`) %>%
+  mutate(RMSE = round(RMSE, 3)) %>%
   arrange(RMSE)
 
 # save as latex table
@@ -153,7 +162,7 @@ table1 %>%
     timestamp = NULL
   )
 
-saveRDS(table1, here("docs/00-manuscripts/presentation/table-perf.rda"))
+saveRDS(table1, here("docs/00-manuscripts/presentation/table-perf-top-10.rda"))
 
 table1 %>%
   flextable() %>%
@@ -209,12 +218,63 @@ table2 %>%
   autofit()
 ```
 
+## (Table) T3 All leaner/filter/task combinations ordered descending by performance.
+
+Overall leaderboard across all settings, sorted descending by performance.
+
+```{r eval-performance-3, warning=FALSE}
+table3 <- df_perf %>%
+  group_by(learner.id, task.id, filter) %>%
+  slice(which.min(rmse_aggr)) %>%
+  dplyr::rename(
+    "Model" = learner_group,
+    "Learner ID" = learner.id,
+    "Task" = task.id,
+    "Filter" = filter,
+    "RMSE" = rmse_aggr,
+    "SE" = se,
+  ) %>%
+  ungroup() %>%
+  mutate(Filter = replace(Filter, is.na(Filter), "No Filter")) %>%
+  select(-iter, -`Learner ID`) %>%
+  mutate(RMSE = round(RMSE, 3)) %>%
+  arrange(RMSE)
+
+# save as latex table
+table3 %>%
+  ungroup() %>%
+  arrange(desc(RMSE)) %>%
+  slice(1:10) %>%
+  xtable(
+    type = "latex",
+    caption = "Worst 10 results for any task/learner/filter combination, sorted by performance.",
+    label = "tab:perf-worst-10"
+  ) %>%
+  print(
+    file = here("docs/00-manuscripts/ieee/performance-worst-10.tex"),
+    include.rownames = TRUE,
+    latex.environments = c("center"),
+    table.placement = "ht!",
+    caption.placement = "top",
+    timestamp = NULL
+  )
+
+saveRDS(table3, here("docs/00-manuscripts/presentation/table-perf-worst-10.rda"))
+
+table3 %>%
+  ungroup() %>%
+  arrange(desc(RMSE)) %>%
+  slice(1:10) %>%
+  flextable() %>%
+  autofit()
+```
+
 ## (Plot) P1 Best learner/filter combs for all tasks
 
 ```{r performance-results, warning=FALSE, dev = c("png", "pdf")}
 results_aggr <- df_perf %>%
   mutate(filter = replace(filter, is.na(filter), "NF")) %>%
-  mutate(learner_group = recode_factor(learner_group, `XG` = "XGBOOST")) %>%
+  mutate(learner_group = recode_factor(learner_group, `XG` = "XGBoost")) %>%
   group_by(learner_group, filter, task.id) %>%
   ### get the best performance per learner and task
   # this group_by() & slice() approach is better than summarise() because we can
@@ -251,8 +311,8 @@ results_aggr %>%
   theme(
     panel.grid.major.y = element_line(size = 0.1, linetype = "dashed"),
     axis.title.y = element_blank(),
-    legend.text = element_text(size = 14),
-    legend.title = element_text(size = 14),
+    legend.text = element_text(size = 13),
+    legend.title = element_text(size = 13),
     axis.text.y = element_text(angle = 45),
     plot.margin = unit(c(6, 6, 6, 0), "pt")
   )
@@ -265,8 +325,8 @@ All filters are colored in the same way whereas using "no filter" appears in a d
 
 ```{r filter-effect-all-vs-no-filter, warning=FALSE, dev = c("png", "pdf")}
 results_aggr1 <- df_perf %>%
-  filter(learner_group != "Ridge-CV") %>%
-  filter(learner_group != "Lasso-CV") %>%
+  filter(learner_group != "Ridge-MBO") %>%
+  filter(learner_group != "Lasso-MBO") %>%
   # mutate(filter = replace(filter, "No Filter", "NF")) %>%
   mutate(learner_group = as.factor(learner_group)) %>%
   mutate(learner_group = recode(learner_group, `XGBoost` = "XG")) %>%
@@ -279,7 +339,7 @@ results_aggr1 <- df_perf %>%
   ungroup() %>%
   # we need to reverse the order on porpuse here so that ggplot reverses it
   # again later
-  mutate(learner_group = fct_relevel(learner_group, "XGBOOST", "SVM", "RF"))
+  mutate(learner_group = fct_relevel(learner_group, "XGBoost", "SVM", "RF"))
 
 results_aggr1 %>%
   ggplot(aes(x = perf, y = learner_group)) +
@@ -313,8 +373,8 @@ All filters are summarized into a a single color whereas the "Borda" filter appe
 ```{r filter-effect-all-vs-borda-filter, warning=FALSE, dev = c("png", "pdf")}
 results_aggr2 <- df_perf %>%
   na.omit() %>%
-  filter(learner_group != "Ridge-CV") %>%
-  filter(learner_group != "Lasso-CV") %>%
+  filter(learner_group != "Ridge-MBO") %>%
+  filter(learner_group != "Lasso-MBO") %>%
   mutate(learner_group = recode_factor(learner_group, `XGBoost` = "XG")) %>%
   group_by(learner_group, task.id, filter) %>%
   # we actually took the mean already in chunk 'aggr-perf'. This is only to get
@@ -323,7 +383,7 @@ results_aggr2 <- df_perf %>%
   ungroup() %>%
   # we need to reverse the order on porpuse here so that ggplot reverses it
   # again later
-  mutate(learner_group = fct_relevel(learner_group, "XGBOOST", "SVM", "RF"))
+  mutate(learner_group = fct_relevel(learner_group, "XGBoost", "SVM", "RF"))
 
 results_aggr2 %>%
   ggplot(aes(x = perf, y = learner_group)) +
