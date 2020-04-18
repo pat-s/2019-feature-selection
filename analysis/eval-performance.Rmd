@@ -23,10 +23,10 @@ R.utils::sourceDirectory("R")
 library("drake")
 
 # load drake objects
-# loadd(
-#   bm_aggregated_new_buffer2
-# )
-bm_aggregated_new_buffer2 = readRDS(here::here("temporary-bmr.rda"))
+loadd(
+  bm_aggregated_new_buffer2
+)
+
 library("xtable")
 library("flextable")
 library("ggbeeswarm")
@@ -265,7 +265,7 @@ table3 %>%
 ```{r performance-results, warning=FALSE, dev = c("png", "pdf")}
 results_aggr <- df_perf %>%
   mutate(filter = replace(filter, is.na(filter), "NF")) %>%
-  mutate(learner_group = recode_factor(learner_group, `XG` = "XGBOOST")) %>%
+  mutate(learner_group = recode_factor(learner_group, `XG` = "XGBoost")) %>%
   group_by(learner_group, filter, task.id) %>%
   ### get the best performance per learner and task
   # this group_by() & slice() approach is better than summarise() because we can
@@ -303,7 +303,7 @@ results_aggr %>%
     panel.grid.major.y = element_line(size = 0.1, linetype = "dashed"),
     axis.title.y = element_blank(),
     legend.text = element_text(size = 13),
-    legend.title = element_text(size = 14),
+    legend.title = element_text(size = 13),
     axis.text.y = element_text(angle = 45),
     plot.margin = unit(c(6, 6, 6, 0), "pt")
   )
@@ -330,7 +330,7 @@ results_aggr1 <- df_perf %>%
   ungroup() %>%
   # we need to reverse the order on porpuse here so that ggplot reverses it
   # again later
-  mutate(learner_group = fct_relevel(learner_group, "XGBOOST", "SVM", "RF"))
+  mutate(learner_group = fct_relevel(learner_group, "XGBoost", "SVM", "RF"))
 
 results_aggr1 %>%
   ggplot(aes(x = perf, y = learner_group)) +
@@ -374,7 +374,7 @@ results_aggr2 <- df_perf %>%
   ungroup() %>%
   # we need to reverse the order on porpuse here so that ggplot reverses it
   # again later
-  mutate(learner_group = fct_relevel(learner_group, "XGBOOST", "SVM", "RF"))
+  mutate(learner_group = fct_relevel(learner_group, "XGBoost", "SVM", "RF"))
 
 results_aggr2 %>%
   ggplot(aes(x = perf, y = learner_group)) +
