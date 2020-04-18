@@ -19,6 +19,10 @@ knitr::opts_chunk$set(
   echo = FALSE
 )
 
+options(
+scipen = 999
+)
+
 R.utils::sourceDirectory("R")
 library("drake")
 
@@ -46,7 +50,7 @@ date()
 ```
 
 ```{r, warning = FALSE}
-df_perf <- getBMRPerformances(bm_aggregated_new_buffer2, as.df = T) %>%
+df_perf <- getBMRPerformances(bm_aggregated_new_buffer2, as.df = TRUE) %>%
   mutate(task.id = recode_factor(task.id,
     `hr_buffer2` = "HR",
     `vi_buffer2` = "VI",
