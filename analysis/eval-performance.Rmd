@@ -20,7 +20,7 @@ knitr::opts_chunk$set(
 )
 
 options(
-scipen = 999
+  scipen = 999
 )
 
 R.utils::sourceDirectory("R")

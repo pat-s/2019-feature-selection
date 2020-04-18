@@ -148,10 +148,10 @@ stack_bands <- function(records, image_unzip) {
         scenes_20[[9]]
       )
 
-    writeRaster(ras_stack, file_out(paste0(
+    writeRaster(ras_stack, paste0(
       "data/sentinel/image_stack/",
       str_remove(.x, ".SAFE"), ".tif"
-    )),
+    ),
     overwrite = TRUE
     )
   })

@@ -19,6 +19,10 @@ knitr::opts_chunk$set(
   echo = FALSE
 )
 
+options(
+  scipen = 999
+)
+
 library("drake")
 library("hsdar")
 library("dplyr")
@@ -184,7 +188,7 @@ plot_reflectance_imp_hr <- function(data) {
     # HR: plot only rank 11:last
     geom_point(
       data = data_hr_merged[which(!(data_hr_merged$rank %in% c(1:10))), ],
-      aes(color = "HR: 11:122"),
+      aes(color = "HR: Rank 11:122"),
       size = 1.8,
       shape = 1,
       na.rm = TRUE
@@ -192,15 +196,15 @@ plot_reflectance_imp_hr <- function(data) {
     # HR: plot only rank 1:10
     geom_point(
       data = data_hr_merged[which(data_hr_merged$rank %in% c(1:10)), ],
-      aes(color = "HR: 1:10"),
+      aes(color = "HR: Rank 1:10"),
       shape = 20,
       size = 1.8,
       na.rm = TRUE
     ) +
 
     scale_color_manual(values = c(
-      "HR: 11:122" = "grey",
-      "HR: 1:10" = "black",
+      "HR: Rank 11:122" = "grey",
+      "HR: Rank 1:10" = "black",
       "Spectral Signature of Laukiz1" = "#BC3C29",
       "Spectral Signature of Laukiz2" = "#0072B5",
       "Spectral Signature of Luiando" = "#E18727",
@@ -294,7 +298,7 @@ plot_reflectance_imp_vi <- function(data) {
     # VI: rank 1:10
     geom_line(
       data = df_wavelengths_from_indices_imp[which((df_wavelengths_from_indices_imp$rank %in% c(1:10))), ],
-      aes(x = wavelength, y = importance, group = class, color = "VI: 1:10"),
+      aes(x = wavelength, y = importance, group = class, color = "VI: Rank 1:10"),
       size = 0.2, linetype = "dashed"
     ) +
 
@@ -308,13 +312,13 @@ plot_reflectance_imp_vi <- function(data) {
     # VI: rank 11:89
     geom_line(
       data = df_wavelengths_from_indices_imp[which(!(df_wavelengths_from_indices_imp$rank %in% c(1:10))), ],
-      aes(x = wavelength, y = importance, group = class, color = "VI: 11:89"),
+      aes(x = wavelength, y = importance, group = class, color = "VI: Rank 11:89"),
       size = 0.2, linetype = "dashed"
     ) +
 
     scale_color_manual(values = c(
-      "VI: 11:89" = "grey",
-      "VI: 1:10" = "black",
+      "VI: Rank 11:89" = "grey",
+      "VI: Rank 1:10" = "black",
       "Spectral Signature of Laukiz1" = "#BC3C29",
       "Spectral Signature of Laukiz2" = "#0072B5",
       "Spectral Signature of Luiando" = "#E18727",
@@ -468,8 +472,8 @@ Top ten HR features from permutation Vimp
 fi_ale_hr_buffer2$plot(
   features = df_wavelengths_from_hr$class,
   ncol = 2
-) +
-  theme_pubr(base_size = 14) +
+) &
+  theme_pubr(base_size = 12) &
   theme(
     legend.text = element_text(size = 13),
     legend.title = element_text(size = 13)
@@ -484,8 +488,8 @@ Top ten HR features from permutation Vimp
 fi_ale_hr_buffer2_gs20$plot(
   features = df_wavelengths_from_hr$class,
   ncol = 2
-) +
-  theme_pubr(base_size = 14) +
+) &
+  theme_pubr(base_size = 12) &
   theme(
     legend.text = element_text(size = 13),
     legend.title = element_text(size = 13)
@@ -502,8 +506,8 @@ Top ten VI features from permutation Vimp
 fi_ale_vi_buffer2$plot(
   features = paste0("bf2_", df_wavelengths_from_indices_label$class),
   ncol = 2
-) +
-  theme_pubr(base_size = 14) +
+) &
+  theme_pubr(base_size = 12) &
   theme(
     legend.text = element_text(size = 13),
     legend.title = element_text(size = 13)
@@ -518,8 +522,8 @@ Top ten HR features from permutation Vimp
 fi_ale_vi_buffer2_gs20$plot(
   features = paste0("bf2_", df_wavelengths_from_indices_label$class),
   ncol = 2
-) +
-  theme_pubr(base_size = 14) +
+) &
+  theme_pubr(base_size = 12) &
   theme(
     legend.text = element_text(size = 13),
     legend.title = element_text(size = 13)
