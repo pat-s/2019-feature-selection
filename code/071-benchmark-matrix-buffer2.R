@@ -15,7 +15,7 @@ benchmark_plan_buffer2 <- drake_plan(
   benchmark_no_models_new_buffer2 = target(
     benchmark(
       learners = tune_wrappers_mbo,
-      tasks = task_new_buffer2,
+      tasks = task_new_buffer2_reduced_cor,
       models = FALSE,
       keep.pred = TRUE,
       resamplings = makeResampleDesc("CV", fixed = TRUE),
