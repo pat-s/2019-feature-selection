@@ -909,12 +909,24 @@ In addition, four our out of ten of the most important features in the HR datase
 This is due to the low spatial resolution of used satellite products which served as the input data, making a tree-level study infeasible \cite{townsend2012, debeurs2008, rengarajan2016}.
 
 Studies focusing on tree-level defoliation used ground-level methods such as \ac{ALS} or \ac{LiDAR}\cite{meng2018, kalin2019}.
-\cite{meng2018} used \ac{OLS} regression methods while\cite{kalin2019} retrieved information from ground-level RGB photos using \ac{CNN}.
+\cite{meng2018} used \ac{OLS} regression methods while \cite{kalin2019} retrieved information from ground-level RGB photos using \ac{CNN}.
 Both study designs are substantially different compared to the setup of this work.
 In addition, no spatial \ac{CV} or \ac{FS} was used.
 \cite{goodbody2018} used a \ac{PLS} model with high-resolution \ac{DAP} to predict cumulative defoliation caused by the spruce budworm.
 Study results indicated that spectral metrics were found to be most helpful for the model.
 Incorporating such metrics (both spectral and structural) could be a possible enhancement for future works.
+
+% write about hyperspectral remote sensing
+The field of (hyperspectral) remote sensing has a strong focus on using random forest for modeling in recent years \cite{belgiu2016}.
+In high-dimensional scenarios, tuning parameter \texttt{\(m_{try}\)} becomes computational expensive.
+To account for this and the high-dimensionality in general, studies used feature selection approaches like semi-supervised feature extraction \cite{xia2015}, wrapper methods \cite{fassnacht2014, feng2016}, PCA and adjusted feature selection \cite{rochac2016}.
+We could not find a study which made use of filter methods in combination with hyperparameter tuning in the field of (hyperspectral) remote sensing.
+Potential reasons could be an easier access of applying wrappers methods and a higher general awareness of such compared to filter methods.
+Applying the filter-based feature selection methodology shown in this study and its related code provided in the research compendium might be a helpful reference for upcoming modeling studies using hyperspectral remote sensing data.
+
+% RS studies with more/other algs than RF
+Studies which include more than one model usually operate in a low-dimensional setting 
+\cite{xu2019}.
 
 \cite{shendryk2016, ludwig2019} are studies which are more similar in their methodology but focus on a different response variable (woody cover).
 \cite{shendryk2016} used machine learning with \ac{ALS} data to study dieback of trees for eucalyptus forests.
