@@ -528,7 +528,7 @@ Filter methods can be classified as follows:
 
 where \(H\) is the conditional entropy of the response variable (class) or the feature (attribute), respectively.
 To be able to use this method with a numeric response (defoliation in our case), the variable is discretized into equal bins and treated as a class variable.
-While the number of bins can be treated as a hyperparameter of the filter method, we decided to use \texttt{\(n_{bin}\) = 10} after rank correlations of $> 0.9$ for different bin sizes were observed in a side analysis.
+While the number of bins can be treated as a hyperparameter of the filter method, we decided to use \texttt{\(n_{bin}\) = 10} after rank correlations of $> 0.9$ for different bin sizes were observed during data exploration.
 
 \subsubsection{Wrapper methods and PCA}
 
@@ -957,12 +957,12 @@ We suggest that training data covering a wider range of defoliation values in a 
 
 \section{SVM ALE plots for task VI}
 
-\begin{figure} [ht]
-	\begin{center}
-		\includegraphics[width=0.48\textwidth] {fi-vi-ale-1.pdf}
-		\caption{ALE plots on dataset VI of SVM learner. Subset showing the ten most important features according to the permutation-based variable importance. The y-axis shows the deviation to the mean prediction for each feature, with the mean prediction being centered at zero.}\label{fig:fi-vi-ale}
-	\end{center}
-\end{figure}
+% \begin{figure} [ht]
+% 	\begin{center}
+% 		\includegraphics[width=0.48\textwidth] {fi-vi-ale-1.pdf}
+% 		\caption{ALE plots on dataset VI of SVM learner. Subset showing the ten most important features according to the permutation-based variable importance. The y-axis shows the deviation to the mean prediction for each feature, with the mean prediction being centered at zero.}\label{fig:fi-vi-ale}
+% 	\end{center}
+% \end{figure}
 
 \section{Correlation among filter methods}
 
