@@ -476,7 +476,9 @@ fi_ale_hr_buffer2$plot(
   theme_pubr(base_size = 12) &
   theme(
     legend.text = element_text(size = 13),
-    legend.title = element_text(size = 13)
+    legend.title = element_text(size = 13),
+    axis.title.y = element_text(size = 10),
+    axis.text.y = element_text(size = 10)
   )
 ```
 
@@ -492,7 +494,9 @@ fi_ale_hr_buffer2_gs20$plot(
   theme_pubr(base_size = 12) &
   theme(
     legend.text = element_text(size = 13),
-    legend.title = element_text(size = 13)
+    legend.title = element_text(size = 13),
+    axis.title.y = element_text(size = 10),
+    axis.text.y = element_text(size = 10)
   )
 ```
 
@@ -510,7 +514,9 @@ fi_ale_vi_buffer2$plot(
   theme_pubr(base_size = 12) &
   theme(
     legend.text = element_text(size = 13),
-    legend.title = element_text(size = 13)
+    legend.title = element_text(size = 13),
+    axis.title.y = element_text(size = 10),
+    axis.text.y = element_text(size = 10)
   )
 ```
 
@@ -526,6 +532,8 @@ fi_ale_vi_buffer2_gs20$plot(
   theme_pubr(base_size = 12) &
   theme(
     legend.text = element_text(size = 13),
-    legend.title = element_text(size = 13)
+    legend.title = element_text(size = 13),
+    axis.title.y = element_text(size = 10),
+    axis.text.y = element_text(size = 10)
   )
 ```
