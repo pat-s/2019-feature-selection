@@ -798,36 +798,6 @@ Overall, most features show only a small importance with average decreases in RM
 
 \section{Discussion}
 
-\subsection{Derivation of Indices}
-
-\noindent The decision to use a buffer of 2 m to generate the index value for each observation has to be seen critical.
-Due to the reported geometric offset of up to 1 m for the hyperspectral data, the possibility of assigning a wrong pixel value to a tree observation would be high.
-Using a buffer of more than 2 meters increases the probability of including information from other trees into the pixel value, blurring the actual value of the tree observation.
-In our view using a buffer of 2 m is a good compromise between including information of too many surrounding trees and not accounting for the geometric offset.
-Even though we provide no results showing the influence of multiple buffer values on the extraction, we hypothesize that the relationships between features would not change substantially, leading to the almost identical model results.
-
-Another relevant point is that the exact number of contributing pixels to the final index value of an observation cannot be determined as it depends on the location of the tree within the pixel grid.
-According to the extract function of the \texttt{raster} package, a pixel is included if its centroid (and not just any part of the grid cell) falls inside the buffer.
-As the buffer is circular, the total number of contributing pixels of each tree depends on the exact location of that tree within the pixel grid.
-Next, if a tree observation is located on the border of the plot, some directions of the buffer will contain no values and the subsequent index value will be calculated with fewer pixels than if the tree observation would be located in the middle of the plot.
-
-The hsdar R package was used for the calculation of vegetation indices \cite{hsdar}.
-All indices that could be calculated with the given spectral range of the data were used.
-Even though this selection included a large number of available indices, some possibly relevant indices might have been missed by relying on this preselection.
-
-The magnitude of uncertainty introduced by the mentioned effects during index derivation cannot be quantified.
-Such limitations and uncertainties apply to most applied studies and cannot be completely avoided.
-
-\subsection{Performance vs.\ plot characteristics}
-\label{subsec:perf-plot-char}
-
-The large differences in RMSE obtained on different test folds are attributed to model overfitting (\autoref{tab:svm-single-fold-perf}).
-An RMSE of 54.26 p.p. indicates a complete failure of the model in the prediction stage for this plot (Laukiz2).
-Laukiz2 differs highly in the distribution of the response variable defoliation compared to all other plots (\autoref{fig:defol-distr}).
-In this specific case, the model was trained on data containing mostly medium-high defoliation values and only few low ones.
-This caused overfitting on the medium-high values, degrading predictive performance in other scenarios.
-In cases when Laukiz2 was in the training set, the overall aggregated RMSE was reduced by up to 50\% with single fold performances as good as 9 p.p. RMSE (with Luiando as test set).
-
 \subsection{Predictive Performance}
 The best aggregated performance of this study (SVM + Carscore filter, RMSE 27.98 p.p.) has to be seen in the light of model overfitting (see \autoref{subsec:perf-plot-char}).
 Leaving out the performance on Laukiz2 when aggregating results, the mean RMSE would be 19 p.p..
@@ -838,7 +808,7 @@ Hence, care should be taken when predicting to the landscape scale using models 
 However, when inspecting the fold level performances, one can say that the model does a decent job predicting defoliation ranging from 50\% to 100\% but fails for 0\% - 50\%.
 This applies to all learners of this study.
 
-\subsubsection{Algorithm differences}
+\subsubsection{Model differences}
 An interesting find is the strength of the SVM algorithm when comparing its predictive performance to its competitors (\autoref{tab:best-learner-perf}).
 
 FIXME: Add refs when SVM was clearly worse then other algs.
@@ -862,7 +832,15 @@ RF and XGBoost showed a somewhat surprising decrease in performance of about six
 We have no explanation for this specific result, especially because the best performing SVM model does not reflect this difference.
 In addition, all learners showed a slightly better average performance on feature sets which included NRIs (e.g. NRI-VI, HR-NRI, HR-NRI-VI) than on those which did not (i.e. VI and HR only).
 
-FIXME: Talk about L1 and L2 models -> there we have quite some differences!
+\subsection{Performance vs.\ plot characteristics}
+\label{subsec:perf-plot-char}
+
+The large differences in RMSE obtained on different test folds are attributed to model overfitting (\autoref{tab:svm-single-fold-perf}).
+An RMSE of 54.26 p.p. indicates a complete failure of the model in the prediction stage for this plot (Laukiz2).
+Laukiz2 differs highly in the distribution of the response variable defoliation compared to all other plots (\autoref{fig:defol-distr}).
+In this specific case, the model was trained on data containing mostly medium-high defoliation values and only few low ones.
+This caused overfitting on the medium-high values, degrading predictive performance in other scenarios.
+In cases when Laukiz2 was in the training set, the overall aggregated RMSE was reduced by up to 50\% with single fold performances as good as 9 p.p. RMSE (with Luiando as test set).
 
 \subsection{Feature selection methods}
 
@@ -885,7 +863,30 @@ It is able to reduce model fitting times substantially due to its nature of redu
 However, it also removes the possibility to conduct a post-analysis of feature importance by combining predictors into principal components, forcing users to decide upfront what they value more.
 Since filter scores only need to be calculated once in a benchmark setting, the runtime advantage might in fact be negligible in practice.
 
-\subsubsection{Linking feature importance to spectral characteristics}
+\subsection{Quality of the data}
+
+\noindent The decision to use a buffer of 2 m for the extraction of an observation's reflectance value was a complex decision.
+Due to the reported geometric offset of up to 1 m within the hyperspectral data, the possibility of assigning a value to an observation which would actually refer to a different observation was reasonably high.
+By using a buffer of 2 meters (or more), the probability of including information from other trees into the final value increases, blurring the actual value of the tree observation.
+However, the difference between single pixel values might often be higher than the difference between a smoothed value composed out of a buffer.
+In our view using a buffer of 2 m was a good compromise between including information of too many surrounding trees and not accounting for the geometric offset at all.
+Even though no results showing the influence of multiple buffer values on the extraction were provided, we hypothesize that the relationships between features would not change substantially, leading to the almost identical model results.
+
+Another relevant point is that the exact number of contributing pixels to the final index value of an observation cannot be determined as it depends on the location of the tree within the pixel grid.
+According to the extract function of the \texttt{raster} package, a pixel is included if its centroid (and not just any part of the grid cell) falls inside the buffer.
+As the buffer is circular, the total number of contributing pixels of each tree depends on the exact location of that tree within the pixel grid.
+Next, if a tree observation is located on the border of the plot, some directions of the buffer will contain no values and the subsequent index value will be calculated with fewer pixels than if the tree observation would be located in the middle of the plot.
+
+The hsdar R package was used for the calculation of vegetation indices \cite{hsdar}.
+All indices that could be calculated with the given spectral range of the data were used.
+Even though this selection included a large number of available indices, some possibly relevant indices might have been missed by relying on this preselection.
+
+The magnitude of uncertainty introduced by the mentioned effects during index derivation cannot be quantified.
+Such limitations and uncertainties apply to most applied studies and cannot be completely avoided.
+
+FIXME: Talk about L1 and L2 models -> there we have quite some differences!
+
+\subsection{Linking feature importance to spectral characteristics}
 
 Not surprisingly the most important features for both HR and VI datasets were identified around the red edge of the spectra, specifically in the range of 700 nm to 750 nm.
 
@@ -945,7 +946,7 @@ Combining feature sets did not show a substantial improvement on predictive perf
 Features along the red-edge wavelength region were most important for models to achieve good predictions.
 With respect to dedicated vegetation indices, the "Vogelmann" index with all of its derivatives was seen as the most important index for the best performing SVM model.
 This matches well with the actual purpose of these indices: 
-These were invented to detect defoliation on sugar marple trees (\textit{Acer saccharum Marsh.}) caused by pear thrips (\textit{Taeniothrips inconsequens Uzel}) in 1988 \cite{vogelmann1993}.
+These were invented to detect defoliation on sugar maple trees (\textit{Acer saccharum Marsh.}) caused by pear thrips (\textit{Taeniothrips inconsequens Uzel}) in 1988 \cite{vogelmann1993}.
 
 % What about the general potential of analyzing defol with hyperspectral data?
 The potential of predicting defoliation for single trees as conducted in this study was rather limited with an average RMSE of 27 p.p..
