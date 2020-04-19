@@ -473,12 +473,12 @@ fi_ale_hr_buffer2$plot(
   features = df_wavelengths_from_hr$class,
   ncol = 2
 ) &
-  theme_pubr(base_size = 12) &
+  theme_pubr(base_size = 14) &
   theme(
     legend.text = element_text(size = 13),
     legend.title = element_text(size = 13),
-    axis.title.y = element_text(size = 10),
-    axis.text.y = element_text(size = 10)
+    axis.title.y = element_text(size = 8),
+    axis.text.y = element_text(size = 9)
   )
 ```
 
@@ -491,12 +491,12 @@ fi_ale_hr_buffer2_gs20$plot(
   features = df_wavelengths_from_hr$class,
   ncol = 2
 ) &
-  theme_pubr(base_size = 12) &
+  theme_pubr(base_size = 14) &
   theme(
     legend.text = element_text(size = 13),
     legend.title = element_text(size = 13),
-    axis.title.y = element_text(size = 10),
-    axis.text.y = element_text(size = 10)
+    axis.title.y = element_text(size = 8),
+    axis.text.y = element_text(size = 9)
   )
 ```
 
@@ -511,12 +511,12 @@ fi_ale_vi_buffer2$plot(
   features = paste0("bf2_", df_wavelengths_from_indices_label$class),
   ncol = 2
 ) &
-  theme_pubr(base_size = 12) &
+  theme_pubr(base_size = 14) &
   theme(
     legend.text = element_text(size = 13),
     legend.title = element_text(size = 13),
-    axis.title.y = element_text(size = 10),
-    axis.text.y = element_text(size = 10)
+    axis.title.y = element_text(size = 8),
+    axis.text.y = element_text(size = 9)
   )
 ```
 
@@ -529,11 +529,11 @@ fi_ale_vi_buffer2_gs20$plot(
   features = paste0("bf2_", df_wavelengths_from_indices_label$class),
   ncol = 2
 ) &
-  theme_pubr(base_size = 12) &
+  theme_pubr(base_size = 14) &
   theme(
     legend.text = element_text(size = 13),
     legend.title = element_text(size = 13),
-    axis.title.y = element_text(size = 10),
-    axis.text.y = element_text(size = 10)
+    axis.title.y = element_text(size = 8),
+    axis.text.y = element_text(size = 9)
   )
 ```
