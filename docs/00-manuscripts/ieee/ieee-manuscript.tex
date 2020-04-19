@@ -888,12 +888,17 @@ FIXME: Talk about L1 and L2 models -> there we have quite some differences!
 
 \subsection{Linking feature importance to spectral characteristics}
 
-Not surprisingly the most important features for both HR and VI datasets were identified around the red edge of the spectra, specifically in the range of 700 nm to 750 nm.
+Not surprisingly the most important features for both HR and VI datasets were identified around the red edge of the spectra, specifically in the range of 680 nm to 750 nm.
 
-FIXME: Add ref.
-This area has the highest ability to distinguish between reflectances related to a high density / high healthiness of vegetation and their respective opposites.
+This area has the highest ability to distinguish between reflectances related to a high density / high healthiness of vegetation and their respective opposites \cite{horler1983}.
 It is also worth mentioning that four out of ten of the most important features of dataset HR lie between 920 nm and 1000 nm.
 Looking at the spectral curves of the plots, we can observe quite some dynamic in this area, especially for Oiartzun, which might explain why these features were considered as important by the model.
+
+A possible explanation for the less good performances of the models scored on the VI dataset compared to all other feature sets could be the lack of features in the area between 850 nm and 1000 nm (\autoref{fig:fi-permut-vi-hr}).
+The majority of the VI covers the range 550 nm - 800 nm.
+Only one index (PWI) covers information in the range beyond 900 nm.
+The spectral signatures of the plots show some variation around 940 nm, especially plot Oiartzun, which could be of potential help for the models when distinguishing between high and low defoliation.
+In addition, four our out of ten of the most important features in the HR dataset (B113, B115, B124 and B126) are located in this range (930 nm - 1000 nm), confirming the importance of this spectral range.
 
 \subsection{Comparison to other studies}
 % - no environmental studies use filter methods, some use FFS
