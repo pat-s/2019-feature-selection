@@ -473,7 +473,8 @@ fi_ale_hr_buffer2$plot(
   features = df_wavelengths_from_hr$class,
   ncol = 2
 ) & scale_y_continuous(
-  n.breaks = 3
+  n.breaks = 3,
+  minor_breaks = NULL
 ) &
   labs(y = "ALE") &
   theme_pubr(base_size = 14) &
@@ -494,7 +495,8 @@ fi_ale_hr_buffer2_gs20$plot(
   features = df_wavelengths_from_hr$class,
   ncol = 2
 ) & scale_y_continuous(
-  n.breaks = 3
+  n.breaks = 3,
+  minor_breaks = NULL
 ) &
   labs(y = "ALE") &
   theme_pubr(base_size = 14) &
@@ -517,7 +519,8 @@ fi_ale_vi_buffer2$plot(
   features = paste0("bf2_", df_wavelengths_from_indices_label$class),
   ncol = 2
 ) & scale_y_continuous(
-  n.breaks = 3
+  n.breaks = 3,
+  minor_breaks = NULL
 ) &
   labs(y = "ALE") &
   theme_pubr(base_size = 14) &
@@ -538,7 +541,8 @@ fi_ale_vi_buffer2_gs20$plot(
   features = paste0("bf2_", df_wavelengths_from_indices_label$class),
   ncol = 2
 ) & scale_y_continuous(
-  n.breaks = 3
+  n.breaks = 3,
+  minor_breaks = NULL
 ) &
   labs(y = "ALE") &
   theme_pubr(base_size = 14) &
