@@ -77,12 +77,12 @@ fi_ranked_vi <- fi_permut_vi_buffer2$res %>%
 fi_ranked_vi
 ```
 
-# Create a virtual spectral signature of vegetation using PROSAIL.
+# Create a virtual Spectral Signature (mean) of vegetation using PROSAIL.
 
-PROSAIL is a algorithm simulating spectral signatures of vegetation, see `?hsdar::PROSAIL`.
+PROSAIL is a algorithm simulating Spectral Signature (mean)s of vegetation, see `?hsdar::PROSAIL`.
 Reflectance is scaled to 0-10 to be able to plot it in the same plot as the feature importance rankings -> the axis limits for the y and z axis needs to match.
 
-PROSAIL returns a spectral signature from 400 nm to 2500 nm -> we take the values only and subset to 400 nm - 1000 nm.
+PROSAIL returns a Spectral Signature (mean) from 400 nm to 2500 nm -> we take the values only and subset to 400 nm - 1000 nm.
 Because we order from 1 - 10 with 1 being the best rank, we have to reverse the scaling of the reflectance values.
 
 ```{r feature-importance-2 }
@@ -148,7 +148,7 @@ plot_reflectance_imp_hr <- function(data) {
       data = data_hr_merged[!is.na(data_hr_merged$laukiz1), ],
       aes(
         x = wavelength, y = laukiz1,
-        color = "Spectral Signature of Laukiz1"
+        color = "Spectral Signature (mean) of Laukiz1"
       ),
       na.rm = TRUE,
       linetype = "solid",
@@ -158,7 +158,7 @@ plot_reflectance_imp_hr <- function(data) {
       data = data_hr_merged[!is.na(data_hr_merged$laukiz2), ],
       aes(
         x = wavelength, y = laukiz2,
-        color = "Spectral Signature of Laukiz2"
+        color = "Spectral Signature (mean) of Laukiz2"
       ),
       na.rm = TRUE,
       linetype = "solid",
@@ -168,7 +168,7 @@ plot_reflectance_imp_hr <- function(data) {
       data = data_hr_merged[!is.na(data_hr_merged$luiando), ],
       aes(
         x = wavelength, y = luiando,
-        color = "Spectral Signature of Luiando"
+        color = "Spectral Signature (mean) of Luiando"
       ),
       na.rm = TRUE,
       linetype = "solid",
@@ -178,7 +178,7 @@ plot_reflectance_imp_hr <- function(data) {
       data = data_hr_merged[!is.na(data_hr_merged$oiartzun), ],
       aes(
         x = wavelength, y = oiartzun,
-        color = "Spectral Signature of Oiartzun"
+        color = "Spectral Signature (mean) of Oiartzun"
       ),
       na.rm = TRUE,
       linetype = "solid",
@@ -198,17 +198,17 @@ plot_reflectance_imp_hr <- function(data) {
       data = data_hr_merged[which(data_hr_merged$rank %in% c(1:10)), ],
       aes(color = "HR: Rank 1:10"),
       shape = 20,
-      size = 1.8,
+      size = 2.2,
       na.rm = TRUE
     ) +
 
     scale_color_manual(values = c(
       "HR: Rank 11:122" = "grey",
       "HR: Rank 1:10" = "black",
-      "Spectral Signature of Laukiz1" = "#BC3C29",
-      "Spectral Signature of Laukiz2" = "#0072B5",
-      "Spectral Signature of Luiando" = "#E18727",
-      "Spectral Signature of Oiartzun" = "#20854E"
+      "Spectral Signature (mean) of Laukiz1" = "#BC3C29",
+      "Spectral Signature (mean) of Laukiz2" = "#0072B5",
+      "Spectral Signature (mean) of Luiando" = "#E18727",
+      "Spectral Signature (mean) of Oiartzun" = "#20854E"
     )) +
     scale_x_continuous(limits = c(400, 1000), breaks = scales::pretty_breaks()) +
     scale_y_continuous(
@@ -234,7 +234,7 @@ plot_reflectance_imp_hr <- function(data) {
         "The ten most important features are labeled by their band number."
       ),
       caption = "Learner: SVM; 100 Monte-Carlo Iterations",
-      y = "Mean decrease in RMSE", x = "Wavelength [nm]"
+      y = "Mean Decrease in RMSE", x = "Wavelength [nm]"
     ) +
     ggrepel::geom_label_repel(
       # only label the best 10 features
@@ -252,7 +252,7 @@ plot_reflectance_imp_vi <- function(data) {
       data = data_hr_merged[!is.na(data_hr_merged$laukiz1), ],
       aes(
         x = wavelength, y = laukiz1,
-        color = "Spectral Signature of Laukiz1"
+        color = "Spectral Signature (mean) of Laukiz1"
       ),
       na.rm = TRUE,
       linetype = "solid",
@@ -262,7 +262,7 @@ plot_reflectance_imp_vi <- function(data) {
       data = data_hr_merged[!is.na(data_hr_merged$laukiz2), ],
       aes(
         x = wavelength, y = laukiz2,
-        color = "Spectral Signature of Laukiz2"
+        color = "Spectral Signature (mean) of Laukiz2"
       ),
       na.rm = TRUE,
       linetype = "solid",
@@ -272,7 +272,7 @@ plot_reflectance_imp_vi <- function(data) {
       data = data_hr_merged[!is.na(data_hr_merged$luiando), ],
       aes(
         x = wavelength, y = luiando,
-        color = "Spectral Signature of Luiando"
+        color = "Spectral Signature (mean) of Luiando"
       ),
       na.rm = TRUE,
       linetype = "solid",
@@ -282,7 +282,7 @@ plot_reflectance_imp_vi <- function(data) {
       data = data_hr_merged[!is.na(data_hr_merged$oiartzun), ],
       aes(
         x = wavelength, y = oiartzun,
-        color = "Spectral Signature of Oiartzun"
+        color = "Spectral Signature (mean) of Oiartzun"
       ),
       na.rm = TRUE,
       linetype = "solid",
@@ -293,7 +293,7 @@ plot_reflectance_imp_vi <- function(data) {
     geom_point(
       data = df_wavelengths_from_indices_imp[which((df_wavelengths_from_indices_imp$rank %in% c(1:10))), ],
       aes(x = wavelength, y = importance, group = class),
-      size = 1.4, shape = 20
+      size = 2.2, shape = 20
     ) +
     # VI: rank 1:10
     geom_line(
@@ -319,10 +319,10 @@ plot_reflectance_imp_vi <- function(data) {
     scale_color_manual(values = c(
       "VI: Rank 11:89" = "grey",
       "VI: Rank 1:10" = "black",
-      "Spectral Signature of Laukiz1" = "#BC3C29",
-      "Spectral Signature of Laukiz2" = "#0072B5",
-      "Spectral Signature of Luiando" = "#E18727",
-      "Spectral Signature of Oiartzun" = "#20854E"
+      "Spectral Signature (mean) of Laukiz1" = "#BC3C29",
+      "Spectral Signature (mean) of Laukiz2" = "#0072B5",
+      "Spectral Signature (mean) of Luiando" = "#E18727",
+      "Spectral Signature (mean) of Oiartzun" = "#20854E"
     )) +
     scale_x_continuous(limits = c(400, 1000), breaks = scales::pretty_breaks()) +
     scale_y_continuous(
@@ -348,7 +348,7 @@ plot_reflectance_imp_vi <- function(data) {
         "The ten most important features are labeled by their index name."
       ),
       caption = "Learner: SVM; 100 Monte-Carlo Iterations",
-      y = "Mean decrease in RMSE", x = "Wavelength [nm]"
+      y = "Mean Decrease in RMSE", x = "Wavelength [nm]"
     ) +
     ggrepel::geom_label_repel(
       # only label the best 10 features
