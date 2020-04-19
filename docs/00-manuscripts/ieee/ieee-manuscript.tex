@@ -808,10 +808,15 @@ Even though we provide no results showing the influence of multiple buffer value
 
 Another relevant point is that the exact number of contributing pixels to the final index value of an observation cannot be determined as it depends on the location of the tree within the pixel grid.
 According to the extract function of the \texttt{raster} package, a pixel is included if its centroid (and not just any part of the grid cell) falls inside the buffer.
-As the buffer is circular, determining the total number of contributing pixels for each tree depends on the exact location of a tree within the pixel grid.
-Next, if a tree observation is located on the border of the plot, some directions of the buffer will contain no values and the subsequent index value will be calculated using fewer pixels than if the tree observation is located in the middle of the plot.
-The magnitude of uncertainty introduced by these facts cannot be quantified.
-However, we assume these to be of minor importance for the subsequent model fitting step.
+As the buffer is circular, the total number of contributing pixels of each tree depends on the exact location of that tree within the pixel grid.
+Next, if a tree observation is located on the border of the plot, some directions of the buffer will contain no values and the subsequent index value will be calculated with fewer pixels than if the tree observation would be located in the middle of the plot.
+
+The hsdar R package was used for the calculation of vegetation indices \cite{hsdar}.
+All indices that could be calculated with the given spectral range of the data were used.
+Even though this selection included a large number of available indices, some possibly relevant indices might have been missed by relying on this preselection.
+
+The magnitude of uncertainty introduced by the mentioned effects during index derivation cannot be quantified.
+Such limitations and uncertainties apply to most applied studies and cannot be completely avoided.
 
 \subsection{Performance vs.\ plot characteristics}
 \label{subsec:perf-plot-char}
@@ -951,7 +956,7 @@ We suggest that training data covering a wider range of defoliation values in a 
 \begin{figure} [ht]
 	\begin{center}
 		\includegraphics[width=0.48\textwidth] {fi-hr-ale-1.pdf}
-		\caption{ALE plots on dataset HR of SVM learner. Subset showing the ten most important features according to the permutation-based variable importance. The y-axis shows the deviation to the mean prediction for each feature, with the mean prediction being centered at zero.}\label{fig:fi-hr-ale}
+		\caption{ALE plots of SVM on dataset HR. The ten most important features from the permutation-based variable importance estimation were used. The y-axis shows the deviation to the mean prediction for each feature, with the mean prediction being centered at zero.}\label{fig:fi-hr-ale}
 	\end{center}
 \end{figure}
 
