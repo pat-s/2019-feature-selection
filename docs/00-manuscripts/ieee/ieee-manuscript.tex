@@ -98,7 +98,7 @@
 % in the LaTeX2e kernel, the most notable of which is that in current
 % LaTeX2e releases, the ordering of single and double column floats is not
 % guaranteed to be preserved. Thus, an unpatched LaTeX2e can allow a
-% single column figure to be placed prior to an earlier double column
+% single column figure to Gbe placed prior to an earlier double column
 % figure.
 % Be aware that LaTeX2e kernels dated 2015 and later have fixltx2e.sty's
 % corrections already built into the system in which case a warning will
@@ -788,10 +788,10 @@ For feature set HR four features in the infrared region (920 nm - 1000 nm) were 
 Overall, most features show only a small importance with average decreases in RMSE below 0.5.
 
 % permutation based var imp for datasets HR and VI
-\begin{figure*} [t!]
+\begin{figure*} [ht!]
 	\centering
 	\begin{center}
-		\includegraphics[width=0.98\textwidth] {fi-permut-vi-hr-1.pdf}
+		\includegraphics[width=0.9\textwidth] {fi-permut-vi-hr-1.pdf}
 		\caption{Variable importance for feature sets HR and VI: Mean decrease in RMSE for one-hundred feature permutations using the SVM learner. The wavelength range on the x-axis matches the range of the hyperspectral sensor (400 nm - 1000 nm). For each dataset, the ten most important features were highlighted as black dots and labeled by name. Grey dots represent features from importance rank 11 to last. The spectral signature (mean) of each plot was added as a reference on a normalized reflectance scale [0, 1] (secondary y-axis). VI features were decomposed into their individual formula parts; all instances being connected via dashed lines. Each VI feature is composed out of at least two instances.}\label{fig:fi-permut-vi-hr}
 	\end{center}
 \end{figure*}
@@ -992,4 +992,3 @@ We suggest that training data covering a wider range of defoliation values in a 
 \section*{References}
 
 \end{document}
-
