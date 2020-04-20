@@ -508,7 +508,7 @@ ale_p1[[9]] = ale_p1[[9]] + scale_y_continuous(
 ale_p1[[10]] = ale_p1[[10]] + scale_y_continuous(
   n.breaks = 4
 )
-
+ale_p1
 ```
 
 ### Grid size: 20
@@ -553,6 +553,7 @@ ale_p2[[7]] = ale_p2[[7]] + scale_y_continuous(
 ale_p2[[10]] = ale_p2[[10]] + scale_y_continuous(
   n.breaks = 3
 )
+ale_p2
 ```
 
 ## P3 VI
@@ -590,6 +591,7 @@ ale_p3[[3]] = ale_p3[[3]] + scale_y_continuous(
 ale_p3[[4]] = ale_p3[[4]] + scale_y_continuous(
   n.breaks = 4
 )
+ale_p3
 ```
 
 ### Grid size: 20
@@ -622,4 +624,5 @@ ale_p4[[3]] = ale_p3[[3]] + scale_y_continuous(
 ale_p4[[4]] = ale_p3[[4]] + scale_y_continuous(
   n.breaks = 4
 )
+ale_p4
 ```
