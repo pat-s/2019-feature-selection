@@ -379,6 +379,7 @@ $(document).ready(function () {
 <li><a href="#plot-p1-best-learnerfilter-combs-for-all-tasks">(Plot) P1 Best learner/filter combs for all tasks</a></li>
 <li><a href="#plot-p2-scatterplots-of-filter-methods-vs.-no-filter-for-each-learner-and-task">(Plot) P2 Scatterplots of filter methods vs. no filter for each learner and task</a></li>
 <li><a href="#plot-p3-scatterplots-of-filter-methods-vs.-borda-for-each-learner-and-task">(Plot) P3 Scatterplots of filter methods vs. Borda for each learner and task</a></li>
+<li><a href="#table-t4-number-of-features-selected-during-tuning">(Table) T4 Number of features selected during tuning</a></li>
 </ul>
 </div>
 
@@ -402,7 +403,7 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-04-19
+<strong>Last updated:</strong> 2020-04-29
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -493,16 +494,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree7c202ce3b2c799982df44c21cc865d1f2c39fb12targetblank7c202cea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/7c202ce3b2c799982df44c21cc865d1f2c39fb12" target="_blank">7c202ce</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree4c8c63373afbc7a75b13d71edfb44f699d5d29b6targetblank4c8c633a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/4c8c63373afbc7a75b13d71edfb44f699d5d29b6" target="_blank">4c8c633</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree7c202ce3b2c799982df44c21cc865d1f2c39fb12targetblank7c202cea" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree4c8c63373afbc7a75b13d71edfb44f699d5d29b6targetblank4c8c633a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/pat-s/2019-feature-selection/tree/7c202ce3b2c799982df44c21cc865d1f2c39fb12" target="_blank">7c202ce</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/pat-s/2019-feature-selection/tree/4c8c63373afbc7a75b13d71edfb44f699d5d29b6" target="_blank">4c8c633</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -526,10 +527,9 @@ Ignored files:
     Ignored:    rosm.cache/
 
 Unstaged changes:
-    Modified:   .Rprofile
-    Modified:   _drake.R
     Modified:   analysis/report-defoliation.Rmd
     Modified:   code/03-sentinel-processing.R
+    Modified:   code/071-benchmark-matrix-buffer2.R
 
 </code></pre>
 <p>
@@ -568,6 +568,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/4c8c63373afbc7a75b13d71edfb44f699d5d29b6/analysis/eval-performance.Rmd" target="_blank">4c8c633</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-04-29
+</td>
+<td>
+wflow_publish(knitr_in(“analysis/eval-performance.Rmd”), view = FALSE,
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pat-s/2019-feature-selection/72c4b828b1b8f86bdda667d444b2aeb1b8c691e8/docs/eval-performance.html" target="_blank">72c4b82</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-04-19
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -1681,7 +1715,7 @@ add eval-performance report
 </div>
 </div>
 <p>Last update:</p>
-<pre><code>[1] &quot;Sun Apr 19 13:45:28 2020&quot;</code></pre>
+<pre><code>[1] &quot;Wed Apr 29 11:17:20 2020&quot;</code></pre>
 <p>Fold performances of “SVM MBO No Filter” on the HR Task</p>
 <ul>
 <li>Fold 1: Luiando</li>
@@ -1689,7 +1723,7 @@ add eval-performance report
 <li>Fold 3: Laukiz2</li>
 <li>Fold 4: Oiartzun</li>
 </ul>
-<div class="tabwid"><table style='border-collapse:collapse;width:108px;'><thead><tr style="overflow-wrap:break-word;"><td style="width:54px;background-color:transparent;vertical-align: middle;border-bottom: 2.00px solid rgba(0, 0, 0, 1.00);border-top: 2.00px solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Arial';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">Plot</span></p></td><td style="width:54px;background-color:transparent;vertical-align: middle;border-bottom: 2.00px solid rgba(0, 0, 0, 1.00);border-top: 2.00px solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Arial';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">RMSE</span></p></td></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td style="width:54px;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Arial';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">Luiando</span></p></td><td style="width:54px;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Arial';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">21.17</span></p></td></tr><tr style="overflow-wrap:break-word;"><td style="width:54px;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Arial';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">Laukiz1</span></p></td><td style="width:54px;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Arial';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">28.05</span></p></td></tr><tr style="overflow-wrap:break-word;"><td style="width:54px;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Arial';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">Laukiz2</span></p></td><td style="width:54px;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Arial';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">9.00</span></p></td></tr><tr style="overflow-wrap:break-word;"><td style="width:54px;background-color:transparent;vertical-align: middle;border-bottom: 2.00px solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Arial';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">Oiartzun</span></p></td><td style="width:54px;background-color:transparent;vertical-align: middle;border-bottom: 2.00px solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Arial';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">54.26</span></p></td></tr></tbody></table></div>
+<div class="tabwid"><table style='border-collapse:collapse;width:108px;'><thead><tr style="overflow-wrap:break-word;"><td style="width:54px;background-color:transparent;vertical-align: middle;border-bottom: 2.00px solid rgba(0, 0, 0, 1.00);border-top: 2.00px solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Arial';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">Plot</span></p></td><td style="width:54px;background-color:transparent;vertical-align: middle;border-bottom: 2.00px solid rgba(0, 0, 0, 1.00);border-top: 2.00px solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Arial';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">RMSE</span></p></td></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td style="width:54px;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Arial';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">Laukiz1</span></p></td><td style="width:54px;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Arial';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">21.17</span></p></td></tr><tr style="overflow-wrap:break-word;"><td style="width:54px;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Arial';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">Oiartzun</span></p></td><td style="width:54px;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Arial';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">28.05</span></p></td></tr><tr style="overflow-wrap:break-word;"><td style="width:54px;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Arial';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">Luiando</span></p></td><td style="width:54px;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Arial';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">9.00</span></p></td></tr><tr style="overflow-wrap:break-word;"><td style="width:54px;background-color:transparent;vertical-align: middle;border-bottom: 2.00px solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Arial';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">Laukiz2</span></p></td><td style="width:54px;background-color:transparent;vertical-align: middle;border-bottom: 2.00px solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;"><p style="margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;"><span style="font-family:'Arial';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">54.26</span></p></td></tr></tbody></table></div>
 <div id="table-t1-all-leanerfiltertask-combinations-ordered-by-performance." class="section level2">
 <h2>(Table) T1 All leaner/filter/task combinations ordered by performance.</h2>
 <p>Overall leaderboard across all settings, sorted ascending by performance.</p>
@@ -2205,6 +2239,17 @@ pat-s
 </table>
 </div>
 </div>
+</div>
+<div id="table-t4-number-of-features-selected-during-tuning" class="section level2">
+<h2>(Table) T4 Number of features selected during tuning</h2>
+<p>The model/task combinations which were selected relate to the best performance of the respective algorithm on the HR-NRI-VI task in the overall benchmark.</p>
+<p>Aggregated mean and standard deviation:</p>
+<pre><code># A tibble: 3 x 3
+  Learner       `Mean (Features (%))` `SD (Features (%))`
+  &lt;chr&gt;                         &lt;dbl&gt;               &lt;dbl&gt;
+1 RF Car                      0.00872              0.0146
+2 SVM Relief                  0.591                0.410 
+3 XGBoost Borda               0.671                0.467 </code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -2235,39 +2280,40 @@ other attached packages:
  [1] forcats_0.4.0     dplyr_0.8.3       mlr_2.17.0.9001  
  [4] ParamHelpers_1.12 here_0.1          ggpubr_0.1.6     
  [7] magrittr_1.5      ggrepel_0.8.0     ggsci_2.9        
-[10] ggbeeswarm_0.7.0  ggplot2_3.2.1     flextable_0.5.8  
+[10] ggbeeswarm_0.7.0  ggplot2_3.3.0     flextable_0.5.8  
 [13] xtable_1.8-3      tidyselect_0.2.5  drake_7.12.0     
 
 loaded via a namespace (and not attached):
  [1] fs_1.4.1           filelock_1.0.2     RColorBrewer_1.1-2
  [4] progress_1.2.0     httr_1.4.0         rprojroot_1.3-2   
- [7] tools_3.6.1        backports_1.1.5    R6_2.4.1          
-[10] vipor_0.4.5        lazyeval_0.2.1     colorspace_1.4-0  
-[13] withr_2.1.2        prettyunits_1.0.2  mco_1.0-15.1      
-[16] compiler_3.6.1     git2r_0.26.1       parallelMap_1.4   
-[19] cli_2.0.2          xml2_1.2.2         plotly_4.8.0      
-[22] officer_0.3.7      labeling_0.3       scales_1.0.0      
-[25] checkmate_2.0.0    plot3D_1.1.1       systemfonts_0.1.1 
-[28] stringr_1.4.0      digest_0.6.25      txtq_0.1.4        
-[31] rmarkdown_1.13     R.utils_2.8.0      smoof_1.5.1       
-[34] base64enc_0.1-3    pkgconfig_2.0.3    htmltools_0.3.6   
-[37] lhs_1.0.1          htmlwidgets_1.3    rlang_0.4.5       
-[40] BBmisc_1.11        mlrMBO_1.1.2       jsonlite_1.6      
-[43] zip_2.0.4          R.oo_1.23.0        Matrix_1.2-15     
-[46] Rcpp_1.0.3         munsell_0.5.0      fansi_0.4.1       
-[49] gdtools_0.2.1      lifecycle_0.1.0    R.methodsS3_1.7.1 
-[52] stringi_1.3.1      whisker_0.3-2      yaml_2.2.0        
-[55] storr_1.2.1        RJSONIO_1.3-1.1    grid_3.6.1        
-[58] misc3d_0.8-4       parallel_3.6.1     promises_1.0.1    
-[61] crayon_1.3.4       lattice_0.20-38    splines_3.6.1     
-[64] hms_0.5.3          knitr_1.23         pillar_1.4.3      
-[67] igraph_1.2.4.1     uuid_0.1-2         base64url_1.4     
-[70] fastmatch_1.1-0    glue_1.4.0         evaluate_0.13     
-[73] data.table_1.12.8  vctrs_0.2.4        httpuv_1.4.5.1    
-[76] gtable_0.3.0       purrr_0.3.4        tidyr_1.0.0       
-[79] assertthat_0.2.1   xfun_0.5           later_1.0.0       
-[82] survival_2.43-3    viridisLite_0.3.0  tibble_2.1.3      
-[85] beeswarm_0.2.3     workflowr_1.6.1    ellipsis_0.3.0    </code></pre>
+ [7] tools_3.6.1        backports_1.1.5    utf8_1.1.4        
+[10] R6_2.4.1           vipor_0.4.5        lazyeval_0.2.1    
+[13] colorspace_1.4-0   withr_2.1.2        prettyunits_1.0.2 
+[16] mco_1.0-15.1       compiler_3.6.1     git2r_0.26.1      
+[19] parallelMap_1.4    cli_2.0.2          DiceKriging_1.5.6 
+[22] xml2_1.2.2         plotly_4.8.0       officer_0.3.7     
+[25] labeling_0.3       scales_1.1.0       checkmate_2.0.0   
+[28] plot3D_1.1.1       systemfonts_0.1.1  stringr_1.4.0     
+[31] digest_0.6.25      txtq_0.1.4         rmarkdown_1.13    
+[34] R.utils_2.8.0      smoof_1.5.1        base64enc_0.1-3   
+[37] pkgconfig_2.0.3    htmltools_0.3.6    lhs_1.0.1         
+[40] htmlwidgets_1.3    rlang_0.4.5        BBmisc_1.11       
+[43] farver_2.0.3       mlrMBO_1.1.2       jsonlite_1.6      
+[46] zip_2.0.4          R.oo_1.23.0        Matrix_1.2-15     
+[49] Rcpp_1.0.3         munsell_0.5.0      fansi_0.4.1       
+[52] gdtools_0.2.1      lifecycle_0.1.0    R.methodsS3_1.7.1 
+[55] stringi_1.3.1      whisker_0.3-2      yaml_2.2.0        
+[58] storr_1.2.1        RJSONIO_1.3-1.1    grid_3.6.1        
+[61] misc3d_0.8-4       parallel_3.6.1     promises_1.0.1    
+[64] crayon_1.3.4       lattice_0.20-38    splines_3.6.1     
+[67] hms_0.5.3          knitr_1.23         pillar_1.4.3      
+[70] igraph_1.2.4.1     uuid_0.1-2         base64url_1.4     
+[73] fastmatch_1.1-0    glue_1.4.0         evaluate_0.13     
+[76] data.table_1.12.8  vctrs_0.2.4        httpuv_1.4.5.1    
+[79] gtable_0.3.0       purrr_0.3.4        tidyr_1.0.0       
+[82] assertthat_0.2.1   xfun_0.5           later_1.0.0       
+[85] survival_2.43-3    viridisLite_0.3.0  tibble_2.1.3      
+[88] beeswarm_0.2.3     workflowr_1.6.1    ellipsis_0.3.0    </code></pre>
 </div>
 </div>
 
