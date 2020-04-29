@@ -56,6 +56,15 @@ Last update:
 date()
 ```
 
+```{r}
+sgr.string <- c(
+  "\033[43;34mday > night\033[0m",
+  "\033[44;33mdawn < dusk\033[0m"
+)
+writeLines(sgr.string)
+```
+
+
 ```{r, warning = FALSE}
 df_perf <- getBMRPerformances(bm_aggregated_new_buffer2, as.df = TRUE) %>%
   mutate(task.id = recode_factor(task.id,
@@ -449,6 +458,8 @@ df_tbl <- getBMRTuneResults(bmr_inspect_tune, as.df = TRUE) %>%
   dplyr::group_by(Learner) %>%
   dplyr::select(Learner, Plot, "Features (%)", RMSE)
 
+df_tbl
+
 rle.lengths <- rle(df_tbl[[1]])$lengths
 first <- !duplicated(df_tbl[[1]])
 df_tbl[[1]][!first] <- ""
@@ -470,8 +481,6 @@ df_tbl %>%
     caption.placement = "top",
     timestamp = NULL
   )
-
-df_tbl
 ```
 
 Aggregated mean and standard deviation:
