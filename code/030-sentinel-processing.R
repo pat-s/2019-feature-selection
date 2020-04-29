@@ -1,11 +1,12 @@
 sentinel_processing_plan <- drake_plan(
 
-  # load area of interest ------------------------------
+  # load area of interest ------------------------------------------------------
+
   aoi = target(
     download_aoi("https://zenodo.org/record/3476044/files/aoi.gpkg")
   ),
 
-  # get records from copernicus open access hub ------------------------------
+  # get records from copernicus open access hub --------------------------------
 
   records_2017 = target(
     map(list(
@@ -32,40 +33,46 @@ sentinel_processing_plan <- drake_plan(
       rbind_list()
   ),
 
-  # download images from copernicus open access hub ------------------------------
+  # download images from copernicus open access hub ----------------------------
   images_zip = target(
     map(list(records_2017, records_2018), ~ download_images(.x))
   ),
 
-  # unzip images ------------------------------
+  # unzip images ---------------------------------------------------------------
+
+  # unzip_images(): parallelized
   images_unzip = target(
     map(images_zip, c("2017", "2018"), ~ unzip_images(.x, pattern = .y))
   ),
 
-  # stack bands for each image ------------------------------
+  # stack bands for each image -------------------------------------------------
+
   # One date takes around 25 GB RAM -> max 4 at a time
+  # stack_bands(): max 4 cores, 100 GB RAM per job
   images_stack = target(
     map2(list(records_2017, records_2018), images_unzip, ~ stack_bands(.x, .y))
   ),
 
   # copy cloud covers from unziped files ------------------------------
+  # 2 cores, ??? mem
   cloud_stack = target(
     future_map2(list(records_2017, records_2018), images_unzip, ~ copy_cloud(.x, .y))
   ),
 
   # mosaic cloud covers of same date ------------------------------
   cloud_mosaic = target(
-    future_map2(list(records_2017, records_2018), cloud_stack, ~ mosaic_clouds(.x, .y))
+    map(list(records_2017, records_2018), ~ mosaic_clouds(.x))
   ),
 
   # mosaic images of the same date ------------------------------
+  # 5 GB mem
   mosaic = target(
-    future_map2(list(records_2017, records_2018), images_stack, ~ mosaic_images(.x, .y))
+    map(list(records_2017, records_2018), ~ mosaic_images(.x))
   ),
 
   # mask mosaics ------------------------------
   mosaic_masked = target(
-    future_map2(mosaic, cloud_mosaic, ~ mask_mosaic(.x, .y, aoi, forest_mask))
+    map2(mosaic, cloud_mosaic, ~ mask_mosaic(.x, .y, aoi, forest_mask))
   ),
 
   # calculate vegetation indices ------------------------------
@@ -75,28 +82,28 @@ sentinel_processing_plan <- drake_plan(
 
   # create raster objects of vegetation indices ------------------------------
   ras_veg_inds = target(
-    future_map(mosaic_vi, ~ mask_vi(.x))
+    lapply(mosaic_vi, mask_vi)
   ),
 
   # create sf objects of vegetation indices ------------------------------
   sf_veg_inds = target(
-    map(ras_veg_inds, ~ ras_to_sf(.x))
+    lapply(ras_veg_inds, ras_to_sf)
   ),
 
   # get coordinates from sf object for vegetation indices ------------------------------
   coordinates = target(
-    future_map(sf_veg_inds, ~ get_coordinates(.x))
+    lapply(sf_veg_inds, get_coordinates)
   ),
 
   # create prediction data ------------------------------
   prediction_df = target(
-    future_map(sf_veg_inds, ~ create_prediction_df(.x, model = train_xgboost))
+    lapply(sf_veg_inds, create_prediction_df, model = train_xgboost_project)
   ),
 
   # predict defoliation ------------------------------
   defoliation_df = target(
     future_map2(prediction_df, coordinates, ~
-    predict_defoliation(.x, model = train_xgboost, .y))
+    predict_defoliation(.x, model = train_xgboost_project, .y))
   ),
 
   # write defoliation raster ------------------------------
@@ -107,7 +114,7 @@ sentinel_processing_plan <- drake_plan(
 
   # scale predicted defoliation -------------------------------------------------------
   defoliation_df_relative = target(
-    future_map(defoliation_df, ~ scale_defoliation(.x))
+    lapply(defoliation_df, scale_defoliation)
   ),
 
   # write defoliation raster ------------------------------
