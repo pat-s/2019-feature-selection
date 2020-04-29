@@ -494,16 +494,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontreec79c23d13ab3e10078f4c3802bc49db9357bf153targetblankc79c23da"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/c79c23d13ab3e10078f4c3802bc49db9357bf153" target="_blank">c79c23d</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree1b98cddb36add06cb31702c3b7e1baf57ce4f0cdtargetblank1b98cdda"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/1b98cddb36add06cb31702c3b7e1baf57ce4f0cd" target="_blank">1b98cdd</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontreec79c23d13ab3e10078f4c3802bc49db9357bf153targetblankc79c23da" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree1b98cddb36add06cb31702c3b7e1baf57ce4f0cdtargetblank1b98cdda" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/pat-s/2019-feature-selection/tree/c79c23d13ab3e10078f4c3802bc49db9357bf153" target="_blank">c79c23d</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/pat-s/2019-feature-selection/tree/1b98cddb36add06cb31702c3b7e1baf57ce4f0cd" target="_blank">1b98cdd</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -527,6 +527,7 @@ Ignored files:
     Ignored:    rosm.cache/
 
 Unstaged changes:
+    Modified:   .Rprofile
     Modified:   analysis/report-defoliation.Rmd
     Modified:   code/03-sentinel-processing.R
     Modified:   code/071-benchmark-matrix-buffer2.R
@@ -568,6 +569,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/1b98cddb36add06cb31702c3b7e1baf57ce4f0cd/analysis/eval-performance.Rmd" target="_blank">1b98cdd</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-04-29
+</td>
+<td>
+wflow_publish(knitr_in(“analysis/eval-performance.Rmd”), view = FALSE,
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pat-s/2019-feature-selection/01b8c7472bc7a95292f1d1457728d86367106a48/docs/eval-performance.html" target="_blank">01b8c74</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-04-29
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1752,7 +1787,10 @@ add eval-performance report
 PRE.fansi SPAN {padding-top: .25em; padding-bottom: .25em};
 </STYLE>
 <p>Last update:</p>
-<pre><code>[1] &quot;Wed Apr 29 11:25:36 2020&quot;</code></pre>
+<pre><code>[1] &quot;Wed Apr 29 11:36:34 2020&quot;</code></pre>
+<PRE class="fansi fansi-output"><CODE><span style='color: #0000BB;background-color: #BBBB00;'>day &gt; night</span><span>
+</span><span style='color: #BBBB00;background-color: #0000BB;'>dawn &lt; dusk</span><span>
+</span></CODE></PRE>
 <p>Fold performances of “SVM MBO No Filter” on the HR Task</p>
 <ul>
 <li>Fold 1: Luiando</li>
@@ -2315,20 +2353,20 @@ pat-s
 <p>The model/task combinations which were selected relate to the best performance of the respective algorithm on the HR-NRI-VI task in the overall benchmark.</p>
 <pre><code># A tibble: 12 x 4
 # Groups:   Learner [3]
-   Learner                                     Plot    `Features (%)`  RMSE
-   &lt;chr&gt;                                       &lt;chr&gt;            &lt;dbl&gt; &lt;dbl&gt;
- 1 &quot;\\midrule\\multirow{4}{*}{\\textbf{RF Car… Laukiz1      0.00443    27.5
- 2 &quot;&quot;                                          Oiartz…      0.0000428  37.2
- 3 &quot;&quot;                                          Luiando      0.0000176  37.0
- 4 &quot;&quot;                                          Laukiz2      0.0304     15.4
- 5 &quot;\\midrule\\multirow{4}{*}{\\textbf{XGBoos… Laukiz1      0.00604    15.0
- 6 &quot;&quot;                                          Oiartz…      0.682      36.1
- 7 &quot;&quot;                                          Luiando      0.995      38.2
- 8 &quot;&quot;                                          Laukiz2      1.00       29.6
- 9 &quot;\\midrule\\multirow{4}{*}{\\textbf{SVM Re… Laukiz1      0.000173   35.5
-10 &quot;&quot;                                          Oiartz…      0.711      37.5
-11 &quot;&quot;                                          Luiando      0.707      14.9
-12 &quot;&quot;                                          Laukiz2      0.947      37.2</code></pre>
+   Learner       Plot     `Features (%)`  RMSE
+   &lt;chr&gt;         &lt;chr&gt;             &lt;dbl&gt; &lt;dbl&gt;
+ 1 RF Car        Laukiz1       0.00443    27.5
+ 2 RF Car        Oiartzun      0.0000428  37.2
+ 3 RF Car        Luiando       0.0000176  37.0
+ 4 RF Car        Laukiz2       0.0304     15.4
+ 5 XGBoost Borda Laukiz1       0.00604    15.0
+ 6 XGBoost Borda Oiartzun      0.682      36.1
+ 7 XGBoost Borda Luiando       0.995      38.2
+ 8 XGBoost Borda Laukiz2       1.00       29.6
+ 9 SVM Relief    Laukiz1       0.000173   35.5
+10 SVM Relief    Oiartzun      0.711      37.5
+11 SVM Relief    Luiando       0.707      14.9
+12 SVM Relief    Laukiz2       0.947      37.2</code></pre>
 <p>Aggregated mean and standard deviation:</p>
 <pre><code># A tibble: 3 x 3
   Learner       `Mean (Features (%))` `SD (Features (%))`
