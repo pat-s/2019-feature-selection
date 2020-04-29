@@ -46,10 +46,6 @@ library("dplyr")
 library("forcats")
 ```
 
-```{r, comment="", results="asis", echo=FALSE}
-old.hooks <- fansi::set_knit_hooks(knitr::knit_hooks)
-```
-
 Last update: 
 
 ```{r}
