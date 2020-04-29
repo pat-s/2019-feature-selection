@@ -45,9 +45,11 @@ if (
   }, delay = 1)
 }
 
-runAllChunks <- function(rmd, envir=globalenv()){
+runAllChunks <- function(rmd, envir = globalenv()) {
   tempR <- tempfile(tmpdir = ".", fileext = ".R")
   on.exit(unlink(tempR))
-  knitr::purl(rmd, output=tempR)
-  sys.source(tempR, envir=envir)
+  knitr::purl(rmd, output = tempR)
+  sys.source(tempR, envir = envir)
 }
+
+options(crayon.enabled = TRUE)
