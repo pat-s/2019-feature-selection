@@ -27,6 +27,27 @@ benchmark_plan_buffer2 <- drake_plan(
     dynamic = cross(tune_wrappers_mbo, task_new_buffer2_reduced_cor)
   ),
 
+  tune_wrappers_mbo_inspect_tune = tune_wrappers_mbo[c(1, 20, 15)],
+  task_hr_nri_vi = task_new_buffer2_reduced_cor[6],
+  benchmark_tune_results_hr_nri_vi = target(
+    benchmark(
+      learners = tune_wrappers_mbo_inspect_tune,
+      tasks = task_hr_nri_vi,
+      models = FALSE,
+      keep.pred = TRUE,
+      resamplings = makeResampleDesc("CV", fixed = TRUE),
+      show.info = TRUE,
+      measures = list(
+        setAggregation(rmse, test.mean)
+      ),
+      keep.extract = TRUE
+    ),
+    # SVM: Relief
+    # RF: Car
+    # XG: Borda
+    dynamic = cross(tune_wrappers_mbo_inspect_tune, task_hr_nri_vi)
+  ),
+
   benchmark_models_new_penalized_mbo_buffer2 = target(
     benchmark(
       learners = learners_penalized,
