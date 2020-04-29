@@ -46,6 +46,10 @@ library("dplyr")
 library("forcats")
 ```
 
+```{r, comment="", results="asis", echo=FALSE}
+old.hooks <- fansi::set_knit_hooks(knitr::knit_hooks)
+```
+
 Last update: 
 
 ```{r}
@@ -466,6 +470,8 @@ df_tbl %>%
     caption.placement = "top",
     timestamp = NULL
   )
+
+df_tbl
 ```
 
 Aggregated mean and standard deviation:
