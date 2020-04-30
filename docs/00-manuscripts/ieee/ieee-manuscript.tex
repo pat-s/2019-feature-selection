@@ -478,7 +478,7 @@ The goal is to optimize the number of features (using the ranked covariates) at 
 % Ensemble filter methods
 Besides the concept of choosing a specific filter method to rank variables, studies showed that combining several filters using statistical operations such as 'minimum' or 'mean' are able to enhance the predictive performance of the resulting models \cite{abeel2010, drotar2017a}.
 This approach is referred to as 'ensemble filtering' \cite{dietterich2000}.
-Ensemble filters align with the recent rise of the 'ensemble' approach in machine learning which uses stacking to combine the predictions of multiple models, aiming to enhance predictive performance \cite{polikar2012, feurer2015}.
+Ensemble filters align with the recent rise of the 'ensemble' approach in machine learning which uses stacking to combine the predictions of multiple models, aiming to enhance predictive performance \cite{polikar2012, feurer2015, bolon-canedo2019}.
 In this work the 'Borda' ensemble filter was applied \cite{drotar2017a}.
 For this filter, the final order is the sum of all single filters.
 
@@ -858,13 +858,16 @@ The usefulness of filters in this study was apparent across all feature sets, ev
 Even though the effect of feature selection methods varied across algorithms, small to substantial improvement in predictive performance were achieved in almost all cases.
 No optimal algorithm/filter/dataset setting was observed in this study, leading to the conclusion that one needs to try out various combinations of such to find the best performing one.
 
-% - Ensemble FS shows no advantage to simple methods -> maybe to less features, features too correlated? check diff between effect on NRI and VI
-We have no explanation why the Borda ensemble method used in this study did not score better than the average performance of other filter methods.
-FIXME: Add ref when and why Borda filters are good.
-Ensemble methods have been proven to outperform simple filters in complicated scenarios when the latter face problems due to their focus on certain feature characteristics.
-We suggest that the datasets used in this study were not complex enough to bring up these problems for simple features.
-Therefore it makes sense that, due to its averaging nature, the Borda filter scored average results across all instances.
-However, this cannot be known upfront and we believe that an ensemble filter should be part of every filter portfolio when doing filter-based feature selection.
+% - Ensemble FS shows no advantage to simple methods -> always one simple filter which is better. Ensemble filters are good across many different datasets
+The models which used the Borda ensemble method in this study did not score better on average than models which used a single filter or no filter at all.
+Ensemble methods have higher stability and robustness than single ones and have shown promising results in \cite{drotar2017a}.
+Hence, their main advantage are stable performances across datasets with varying characteristics.
+Certain single filter methods might yield better model performances for certain datasets but fail on others.
+The fact that this study used multiple feature sets but only one dataset and tested many single filters could be a potential explanation why in almost all cases (besides XGBOOST on task HR-NRI-VI) a single filter outperformed the ensemble filter.
+However, studies which used ensemble filters are still rare and usually these are not compared against single filters \cite{ghosh2019}.
+Therefore no general statement can yet be made if the use of ensemble filters leads to a substantial better performance than applying one of the various single filter methods.
+More case studies applying ensemble filter methods are needed.
+We believe that ensemble filters can be a promising option in a machine-learning feature-selection portfolio.
 
 % - PCA shows similar performance but probably requires tuning of main components -> check runtime!
 The PCA approach did neither show the best or worst result when being compared to other feature-selection approaches.
