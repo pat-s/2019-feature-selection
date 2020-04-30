@@ -37,17 +37,19 @@ if (
 ) {
   # Use later to delay until RStudio is ready
   later::later(function() {
-    rsthemes::set_theme_light("One Light {rsthemes}") # light theme
-    rsthemes::set_theme_dark("Mojave Dark (Static)") # dark theme
+    rsthemes::set_theme_light("base16 Tomorrow {rsthemes}") # light theme
+    rsthemes::set_theme_dark("base16 Gruvbox dark, pale {rsthemes}") # dark theme
 
     # To automatically choose theme based on time of day
-    rsthemes::use_theme_auto(dark_start = "17:00", dark_end = "8:00")
+    rsthemes::use_theme_auto(dark_start = "20:00", dark_end = "8:00")
   }, delay = 1)
 }
 
-runAllChunks <- function(rmd, envir=globalenv()){
+runAllChunks <- function(rmd, envir = globalenv()) {
   tempR <- tempfile(tmpdir = ".", fileext = ".R")
   on.exit(unlink(tempR))
-  knitr::purl(rmd, output=tempR)
-  sys.source(tempR, envir=envir)
+  knitr::purl(rmd, output = tempR)
+  sys.source(tempR, envir = envir)
 }
+
+options(crayon.enabled = TRUE)

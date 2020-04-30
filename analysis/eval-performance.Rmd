@@ -28,7 +28,10 @@ library("drake")
 
 # load drake objects
 loadd(
-  bm_aggregated_new_buffer2
+  bm_aggregated_new_buffer2,
+
+  # for T4
+  benchmark_tune_results_hr_nri_vi
 )
 
 library("xtable")
@@ -96,8 +99,8 @@ df_tab <- df %>%
   dplyr::rename(Plot = iter, RMSE = rmse) %>%
   dplyr::mutate(Plot = as.character(Plot)) %>%
   dplyr::mutate(Plot = forcats::fct_recode(Plot,
-    Laukiz1 = "2", Laukiz2 = "3",
-    Luiando = "1", Oiartzun = "4"
+    Laukiz1 = "1", Laukiz2 = "4",
+    Luiando = "3", Oiartzun = "2"
   )) %>%
   dplyr::mutate(RMSE = round(RMSE, 2))
 
@@ -415,3 +418,81 @@ results_aggr2 %>%
     legend.title = element_text(size = 14),
   )
 ```
+
+## (Table) T4 Number of features selected during tuning
+
+The model/task combinations which were selected relate to the best performance of the respective algorithm on the HR-NRI-VI task in the overall benchmark.
+
+```{r eval-performance-5}
+bmr_inspect_tune <- mergeBenchmarkResults(benchmark_tune_results_hr_nri_vi)
+
+df_tbl <- getBMRTuneResults(bmr_inspect_tune, as.df = TRUE) %>%
+  dplyr::rename(Learner = learner.id) %>%
+  dplyr::rename(Plot = iter) %>%
+  dplyr::rename(RMSE = rmse.test.mean) %>%
+  dplyr::rename("Features (%)" = fw.perc) %>%
+  dplyr::mutate(Plot = as.character(Plot)) %>%
+  dplyr::mutate(Plot = forcats::fct_recode(Plot,
+    Oiartzun = "2", Luiando = "3",
+    Laukiz1 = "1", Laukiz2 = "4"
+  )) %>%
+  dplyr::mutate(Learner = forcats::fct_recode(Learner,
+    "RF Car" = "RF MBO Car", "XGBoost Borda" = "XGBOOST MBO Borda",
+    "SVM Relief" = "SVM MBO Relief"
+  )) %>%
+  dplyr::mutate(Learner = as.character(Learner)) %>%
+  dplyr::mutate(Plot = as.character(Plot)) %>%
+  dplyr::group_by(Learner) %>%
+  dplyr::select(Learner, Plot, "Features (%)", RMSE)
+
+df_tbl
+
+rle.lengths <- rle(df_tbl[[1]])$lengths
+first <- !duplicated(df_tbl[[1]])
+df_tbl[[1]][!first] <- ""
+
+# define appearance of \multirow
+df_tbl[[1]][first] <-
+  paste0("\\midrule\\multirow{", rle.lengths, "}{*}{\\textbf{", df_tbl[[1]][first], "}}")
+df_tbl %>%
+  xtable::xtable(
+    type = "latex",
+    caption = "Percentage of selected features of each fold during optimization for selected learners",
+    label = "tab:tune-perc-sel-features"
+  ) %>%
+  print(
+    file = here("docs/00-manuscripts/ieee/tune-perc-sel-features.tex"),
+    include.rownames = TRUE,
+    latex.environments = c("center"),
+    table.placement = "ht!",
+    caption.placement = "top",
+    timestamp = NULL
+  )
+```
+
+Aggregated mean and standard deviation:
+
+```{r}
+getBMRTuneResults(bmr_inspect_tune, as.df = TRUE) %>%
+  dplyr::rename(Learner = learner.id) %>%
+  dplyr::rename(Plot = iter) %>%
+  dplyr::rename(RMSE = rmse.test.mean) %>%
+  dplyr::rename("Features (%)" = fw.perc) %>%
+  dplyr::mutate(Plot = as.character(Plot)) %>%
+  dplyr::mutate(Plot = forcats::fct_recode(Plot,
+    Oiartzun = "2", Luiando = "3",
+    Laukiz1 = "1", Laukiz2 = "4"
+  )) %>%
+  dplyr::mutate(Learner = forcats::fct_recode(Learner,
+    "RF Car" = "RF MBO Car", "XGBoost Borda" = "XGBOOST MBO Borda",
+    "SVM Relief" = "SVM MBO Relief"
+  )) %>%
+  dplyr::mutate(Learner = as.character(Learner)) %>%
+  dplyr::mutate(Plot = as.character(Plot)) %>%
+  dplyr::group_by(Learner) %>%
+  dplyr::summarise(
+    "Mean (Features (%))" = mean(`Features (%)`),
+    "SD (Features (%))" = sd(`Features (%)`)
+  )
+```
+

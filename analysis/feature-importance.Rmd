@@ -469,10 +469,13 @@ ALE plots via package {iml}
 Top ten HR features from permutation Vimp
 
 ```{r fi-hr-ale, dev = c("png", "pdf")}
-fi_ale_hr_buffer2$plot(
+ale_p1 = fi_ale_hr_buffer2$plot(
   features = df_wavelengths_from_hr$class,
   ncol = 2
+) & scale_y_continuous(
+  n.breaks = 2
 ) &
+  labs(y = "ALE") &
   theme_pubr(base_size = 14) &
   theme(
     legend.text = element_text(size = 13),
@@ -480,6 +483,32 @@ fi_ale_hr_buffer2$plot(
     axis.title.y = element_text(size = 8),
     axis.text.y = element_text(size = 9)
   )
+
+# Custom y axis breaks for subplots
+ale_p1[[2]] = ale_p1[[2]] + scale_y_continuous(
+  n.breaks = 3
+)
+
+ale_p1[[3]] = ale_p1[[3]] + scale_y_continuous(
+  n.breaks = 4
+)
+
+ale_p1[[7]] = ale_p1[[7]] + scale_y_continuous(
+  n.breaks = 4
+)
+
+ale_p1[[8]] = ale_p1[[8]] + scale_y_continuous(
+  n.breaks = 4
+)
+
+ale_p1[[9]] = ale_p1[[9]] + scale_y_continuous(
+  n.breaks = 4
+)
+
+ale_p1[[10]] = ale_p1[[10]] + scale_y_continuous(
+  n.breaks = 4
+)
+ale_p1
 ```
 
 ### Grid size: 20
@@ -487,10 +516,13 @@ fi_ale_hr_buffer2$plot(
 Top ten HR features from permutation Vimp
 
 ```{r}
-fi_ale_hr_buffer2_gs20$plot(
+ale_p2 = fi_ale_hr_buffer2_gs20$plot(
   features = df_wavelengths_from_hr$class,
   ncol = 2
+) & scale_y_continuous(
+  n.breaks = 2
 ) &
+  labs(y = "ALE") &
   theme_pubr(base_size = 14) &
   theme(
     legend.text = element_text(size = 13),
@@ -498,6 +530,30 @@ fi_ale_hr_buffer2_gs20$plot(
     axis.title.y = element_text(size = 8),
     axis.text.y = element_text(size = 9)
   )
+
+# Custom y axis breaks for subplots
+ale_p2[[1]] = ale_p2[[1]] + scale_y_continuous(
+  n.breaks = 4
+)
+ale_p2[[2]] = ale_p2[[2]] + scale_y_continuous(
+  n.breaks = 5
+)
+ale_p2[[3]] = ale_p2[[3]] + scale_y_continuous(
+  n.breaks = 4
+)
+ale_p2[[4]] = ale_p2[[4]] + scale_y_continuous(
+  n.breaks = 4
+)
+ale_p2[[6]] = ale_p2[[6]] + scale_y_continuous(
+  n.breaks = 4
+)
+ale_p2[[7]] = ale_p2[[7]] + scale_y_continuous(
+  n.breaks = 4
+)
+ale_p2[[10]] = ale_p2[[10]] + scale_y_continuous(
+  n.breaks = 3
+)
+ale_p2
 ```
 
 ## P3 VI
@@ -507,10 +563,13 @@ fi_ale_hr_buffer2_gs20$plot(
 Top ten VI features from permutation Vimp
 
 ```{r fi-vi-ale, dev = c("png", "pdf")}
-fi_ale_vi_buffer2$plot(
+ale_p3 = fi_ale_vi_buffer2$plot(
   features = paste0("bf2_", df_wavelengths_from_indices_label$class),
   ncol = 2
+) & scale_y_continuous(
+  n.breaks = 2
 ) &
+  labs(y = "ALE") &
   theme_pubr(base_size = 14) &
   theme(
     legend.text = element_text(size = 13),
@@ -518,6 +577,21 @@ fi_ale_vi_buffer2$plot(
     axis.title.y = element_text(size = 8),
     axis.text.y = element_text(size = 9)
   )
+
+# Custom y axis breaks for subplots
+ale_p3[[1]] = ale_p3[[1]] + scale_y_continuous(
+  n.breaks = 4
+)
+ale_p3[[2]] = ale_p3[[2]] + scale_y_continuous(
+  n.breaks = 4
+)
+ale_p3[[3]] = ale_p3[[3]] + scale_y_continuous(
+  n.breaks = 4
+)
+ale_p3[[4]] = ale_p3[[4]] + scale_y_continuous(
+  n.breaks = 4
+)
+ale_p3
 ```
 
 ### Grid size: 20
@@ -525,10 +599,13 @@ fi_ale_vi_buffer2$plot(
 Top ten HR features from permutation Vimp
 
 ```{r}
-fi_ale_vi_buffer2_gs20$plot(
+ale_p4 = fi_ale_vi_buffer2_gs20$plot(
   features = paste0("bf2_", df_wavelengths_from_indices_label$class),
   ncol = 2
+) & scale_y_continuous(
+  n.breaks = 2
 ) &
+  labs(y = "ALE") &
   theme_pubr(base_size = 14) &
   theme(
     legend.text = element_text(size = 13),
@@ -536,4 +613,16 @@ fi_ale_vi_buffer2_gs20$plot(
     axis.title.y = element_text(size = 8),
     axis.text.y = element_text(size = 9)
   )
+
+# Custom y axis breaks for subplots
+ale_p4[[2]] = ale_p3[[2]] + scale_y_continuous(
+  n.breaks = 4
+)
+ale_p4[[3]] = ale_p3[[3]] + scale_y_continuous(
+  n.breaks = 4
+)
+ale_p4[[4]] = ale_p3[[4]] + scale_y_continuous(
+  n.breaks = 4
+)
+ale_p4
 ```
