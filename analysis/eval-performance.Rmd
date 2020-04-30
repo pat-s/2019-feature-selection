@@ -477,16 +477,9 @@ table4 %>%
 saveRDS(table4, here("docs/00-manuscripts/presentation/tune-perc-sel-feature.rda"))
 
 table4 %>%
-  print(
-    include.rownames = FALSE,
-    latex.environments = c("center"),
-    table.placement = "ht!",
-    caption.placement = "top",
-    timestamp = NULL,
-    booktabs = TRUE,
-    # important to treat content of multirow as latex content
-    sanitize.text.function = force
-  )
+  flextable() %>% 
+  autofit() %>% 
+  fontsize(size = 13)
 ```
 
 Aggregated mean and standard deviation:
@@ -514,6 +507,7 @@ getBMRTuneResults(bmr_inspect_tune, as.df = TRUE) %>%
     "SD (Features (%))" = sd(`Features (%)`)
   ) %>% 
   flextable() %>% 
-  autofit()
+  autofit() %>% 
+  fontsize(size = 13)
 ```
 
