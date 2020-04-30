@@ -239,7 +239,7 @@ table3 <- df_perf %>%
   ) %>%
   ungroup() %>%
   mutate(Filter = replace(Filter, is.na(Filter), "No Filter")) %>%
-  select(-iter, -`Learner ID`) %>%
+  select(-iter, -`Learner ID`, -SE) %>%
   mutate(RMSE = round(RMSE, 3)) %>%
   arrange(RMSE)
 
@@ -250,7 +250,7 @@ table3 %>%
   slice(1:10) %>%
   xtable(
     type = "latex",
-    caption = "Worst 10 results for any task/learner/filter combination, sorted by performance.",
+    caption = "Worst 10 results for any task/learner/filter combination, sorted descreasing by RMSE",
     label = "tab:perf-worst-10"
   ) %>%
   print(
@@ -455,7 +455,7 @@ df_tbl[[1]][first] <-
 table4 <- df_tbl %>%
   xtable::xtable(
     type = "latex",
-    caption = "Percentage of selected features of each fold during optimization for selected learners",
+    caption = "Optimized number of features for selected learner-filter settings across folds.",
     label = "tab:tune-perc-sel-features",
     digits = c(0, 0, 0, 5, 2)
   )
