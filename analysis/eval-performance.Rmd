@@ -460,6 +460,7 @@ table4 <- df_tbl %>%
     digits = c(0, 0, 0, 5, 2)
   )
 
+# save to file
 table4 %>%
   print(
     file = here("docs/00-manuscripts/ieee/tune-perc-sel-features.tex"),
@@ -476,8 +477,16 @@ table4 %>%
 saveRDS(table4, here("docs/00-manuscripts/presentation/tune-perc-sel-feature.rda"))
 
 table4 %>%
-  flextable() %>%
-  autofit()
+  print(
+    include.rownames = FALSE,
+    latex.environments = c("center"),
+    table.placement = "ht!",
+    caption.placement = "top",
+    timestamp = NULL,
+    booktabs = TRUE,
+    # important to treat content of multirow as latex content
+    sanitize.text.function = force
+  )
 ```
 
 Aggregated mean and standard deviation:
