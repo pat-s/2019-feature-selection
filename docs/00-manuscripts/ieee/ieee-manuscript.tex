@@ -682,7 +682,7 @@ The code base is available on GitHub (\url{https://github.com/pat-s/2019-feature
 % - MBO tuned penalized methods are substantially worse
 \noindent Overall, the response variable 'tree defoliation' could be modeled with an \ac{RMSE} of 28 \% percentage points (p.p.).
 SVM showed no differences in RMSE across feature sets whereas other learners (RF, SVM, XGBoost, lasso and ridge) differed up to seven percentage points (\autoref{fig:perf-result}).
-Ridge and lasso faced major issues up to the point of not achieving an error below 50 for datasets HR-NRI-VI and NRI-VI.
+Ridge faced major issues in four tasks due to one observation that was predicted off the scale.
 SVM showed the best performance of all learners with a difference of around three percentage points to the next best model (RF) (\autoref{tab:best-learner-perf}).
 Performance differences between test folds were large: Predicting on Luiando resulted in an RMSE of 9.0 for learner SVM (without filter) but up to 54.26 p.p. when testing on Laukiz2 (\autoref{tab:svm-single-fold-perf}).
 
@@ -706,7 +706,7 @@ Regression with ridge penalty (L2) showed a high variance when comparing results
 For NRI and HR RMSE was 31.16 and 35.45 p.p., respectively.
 In all settings for which ridge showed such a high error, only one observation in one fold was predicted which such a high value (in the millions).
 The specific observation showed no obvious signs of being anomalous, e.g. extreme values in individual features or in principal components of features.
-This one outlier caused the error estimates of these folds and the average estimate across all folds to be out of bounds.
+This one outlier caused the error estimates of these folds and the average estimate across all folds to be off the scale.
 
 % filters
 % - influence varies based on algorithm and task (SVM no influence, RF medium, XGB medium)
@@ -825,13 +825,12 @@ The difference to the second best performing model of around three percentage po
 We are not aware of a study in which SVM ranked as the best model that clearly.
 All of these statements are based on the assumption that a proper hyperparameter tuning was conducted for all models (which we also claim for ourselves in this study).
 
-We were a bit surprised about the performances of the penalized methods lasso and ridge.
-The former was not able to achieve an RMSE below 46.0 p.p. across any feature set while ridge came at least somewhat close to RF and XGBoost for some feature sets.
-However, there were also three settings (VI, NRI-VI, HR-NRI-VI) for which the RMSE of the ridge model was unreasonably large.
-Careful inspection of the hyperparameter optimization of these learners did not reveal any implementation mistakes. However, one observation turned out to be influential even though careful multivariate exploratory data analysis showed no reason for flagging this observation a priori.
+Penalized methods showed promising performances, especially when taking runtime into account.
+When removing features with a correlation of 1, lasso is able to score performances around 31 p.p. and shows somewhat surprisingly the best performance on the VI task.
+The same general conclusion applies to ridge if one discards the problematic results on four tasks.
+A careful inspection of the hyperparameter optimization procedure of these models did not reveal any implementation mistakes.
+One observation turned out to be influential in causing the outlier prediction value even though careful multivariate exploratory data analysis showed no reason for flagging this observation a priori.
 We therefore left it in the model, but we acknowledge that these learners seemed particularly sensitive to the input data.
-
-FIXME: Talk about L1 and L2 model performance
 
 \subsubsection{Feature set differences}
 One objective which this study aimed to answer was whether expert-based or data-driven feature engineering has a positive influence on model performance.
