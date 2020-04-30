@@ -52,15 +52,6 @@ Last update:
 date()
 ```
 
-```{r}
-sgr.string <- c(
-  "\033[43;34mday > night\033[0m",
-  "\033[44;33mdawn < dusk\033[0m"
-)
-writeLines(sgr.string)
-```
-
-
 ```{r, warning = FALSE}
 df_perf <- getBMRPerformances(bm_aggregated_new_buffer2, as.df = TRUE) %>%
   mutate(task.id = recode_factor(task.id,
