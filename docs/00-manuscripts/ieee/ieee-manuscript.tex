@@ -818,12 +818,8 @@ This applies to all learners of this study.
 
 \subsubsection{Model differences}
 An interesting find is the strength of the SVM algorithm when comparing its predictive performance to its competitors (\autoref{tab:best-learner-perf}).
-
-FIXME: Add refs when SVM was clearly worse then other algs.
-In other (environmental) studies in recent years, SVM showed most often less good performances and was not able to outperform competing algorithms such as RF.
-The difference to the second best performing model of around three percentage points is also worth noting:
-We are not aware of a study in which SVM ranked as the best model that clearly.
-All of these statements are based on the assumption that a proper hyperparameter tuning was conducted for all models (which we also claim for ourselves in this study).
+These cluster around a performance of 31 p.p while SVM is able to score about 3 p.p. better than all other methods.
+Comparing these differences (both relatively and absolute) to other studies would not be fair since many study design points have an influence on the final result (optimization strategy, data characteristics, feature selection methods, etc.).
 
 Penalized methods showed promising performances, especially when taking runtime into account.
 When removing features with a correlation of 1, lasso is able to score performances around 31 p.p. and shows somewhat surprisingly the best performance on the VI task.
@@ -841,7 +837,6 @@ In addition, all learners showed a slightly better average performance on featur
 
 \subsection{Performance vs.\ plot characteristics}
 \label{subsec:perf-plot-char}
-
 The large differences in RMSE obtained on different test folds are attributed to model overfitting (\autoref{tab:svm-single-fold-perf}).
 An RMSE of 54.26 p.p. indicates a complete failure of the model in the prediction stage for this plot (Laukiz2).
 Laukiz2 differs highly in the distribution of the response variable defoliation compared to all other plots (\autoref{fig:defol-distr}).
