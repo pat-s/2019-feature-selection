@@ -430,7 +430,7 @@ df_tbl <- getBMRTuneResults(bmr_inspect_tune, as.df = TRUE) %>%
   dplyr::rename(Learner = learner.id) %>%
   dplyr::rename(Plot = iter) %>%
   dplyr::rename(RMSE = rmse.test.mean) %>%
-  dplyr::rename("Features (%)" = fw.perc) %>%
+  dplyr::rename("Features (\\%)" = fw.perc) %>%
   dplyr::mutate(Plot = as.character(Plot)) %>%
   dplyr::mutate(Plot = forcats::fct_recode(Plot,
     Oiartzun = "2", Luiando = "3",
@@ -443,9 +443,7 @@ df_tbl <- getBMRTuneResults(bmr_inspect_tune, as.df = TRUE) %>%
   dplyr::mutate(Learner = as.character(Learner)) %>%
   dplyr::mutate(Plot = as.character(Plot)) %>%
   dplyr::group_by(Learner) %>%
-  dplyr::select(Learner, Plot, "Features (%)", RMSE)
-
-df_tbl
+  dplyr::select(Learner, Plot, "Features (\\%)", RMSE)
 
 rle.lengths <- rle(df_tbl[[1]])$lengths
 first <- !duplicated(df_tbl[[1]])
@@ -454,20 +452,32 @@ df_tbl[[1]][!first] <- ""
 # define appearance of \multirow
 df_tbl[[1]][first] <-
   paste0("\\midrule\\multirow{", rle.lengths, "}{*}{\\textbf{", df_tbl[[1]][first], "}}")
-df_tbl %>%
+table4 <- df_tbl %>%
   xtable::xtable(
     type = "latex",
     caption = "Percentage of selected features of each fold during optimization for selected learners",
-    label = "tab:tune-perc-sel-features"
-  ) %>%
+    label = "tab:tune-perc-sel-features",
+    digits = c(0, 0, 0, 5, 2)
+  )
+
+table4 %>%
   print(
     file = here("docs/00-manuscripts/ieee/tune-perc-sel-features.tex"),
-    include.rownames = TRUE,
+    include.rownames = FALSE,
     latex.environments = c("center"),
     table.placement = "ht!",
     caption.placement = "top",
-    timestamp = NULL
+    timestamp = NULL,
+    booktabs = TRUE,
+    # important to treat content of multirow as latex content
+    sanitize.text.function = force
   )
+
+saveRDS(table4, here("docs/00-manuscripts/presentation/tune-perc-sel-feature.rda"))
+
+table4 %>%
+  flextable() %>%
+  autofit()
 ```
 
 Aggregated mean and standard deviation:
@@ -493,6 +503,8 @@ getBMRTuneResults(bmr_inspect_tune, as.df = TRUE) %>%
   dplyr::summarise(
     "Mean (Features (%))" = mean(`Features (%)`),
     "SD (Features (%))" = sd(`Features (%)`)
-  )
+  ) %>% 
+  flextable() %>% 
+  autofit()
 ```
 
