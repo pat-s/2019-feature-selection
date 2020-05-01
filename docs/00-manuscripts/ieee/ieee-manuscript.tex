@@ -635,13 +635,10 @@ In total the benchmarking matrix consisted of 156 experiments (6 feature sets $\
 
 \subsection{Feature importance estimation}
 
-% FIXME Talk about the bias of permutation FI in highly correlated settings
 \noindent Estimating feature importance for highly-correlated datasets is a complicated task.
 The correlation between covariates makes it challenging to calculate an unbiased estimate for single features.
-Methods like \ac{PDP} do not produce reliable estimates in such scenarios because unrealistic combinations between covariates are created \cite{molnar2019}.
-% FIXME: Add ref
-Due to the noisiness of the dataset, estimates from model-agnostic approaches such as permutation-based feature importance should also be taken with care.
-This method calculates the loss of predictive performance for each feature by permuting it in a random manner.
+Methods like \ac{PDP} or permutation-based approaches do not produce reliable estimates in such scenarios because unrealistic combinations between covariates are created \cite{molnar2019}.
+Permutation feature importance calculates the loss of predictive performance for each feature by permuting it in a random manner.
 The more important the feature is for the model, the higher the mean loss in the measure, reflecting the importance of the specific feature for the current model.
 Predicting and calculating the error measure multiple times per feature comes with some computational cost.
 For increased efficiency, we estimated the feature importance only for datasets HR and VI using the best performing learner of the benchmark.
@@ -894,9 +891,7 @@ All indices that could be calculated with the given spectral range of the data w
 Even though this selection included a large number of available indices, some possibly relevant indices might have been missed by relying on this preselection.
 
 The magnitude of uncertainty introduced by the mentioned effects during index derivation cannot be quantified.
-Such limitations and uncertainties apply to most applied studies and cannot be completely avoided.
-
-FIXME: Talk about L1 and L2 models -> there we have quite some differences!
+Such limitations and uncertainties apply to many environmental studies and cannot be completely avoided.
 
 \subsection{Linking feature importance to spectral characteristics}
 
