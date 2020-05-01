@@ -795,10 +795,10 @@ We therefore left it in the model, but we acknowledge that these learners seemed
 
 \subsubsection{Feature set differences}
 One objective which this study aimed to answer was whether expert-based or data-driven feature engineering has a positive influence on model performance.
-With respect to \autoref{fig:perf-result} one can say that overall the different feature sets did not result in substantial and consistent changes in performance.
-RF and XGBoost showed a somewhat surprising decrease in performance of about six percentage points on task VI compared to all others.
-We have no explanation for this specific result, especially because the best performing SVM model does not reflect this difference.
-In addition, all learners showed a slightly better average performance on feature sets which included NRIs (e.g. NRI-VI, HR-NRI, HR-NRI-VI) than on those which did not (i.e. VI and HR only).
+With respect to \autoref{fig:perf-result}, no overall trend was found for all models that related to specific feature sets.
+The performance of RF and XGBoost on the VI feature set was about six percentage points lower than on others.
+One reason could be the lack of coverage in the wavelength area between 810 nm and 1000 nm (\autoref{fig:fi-permut-vi-hr}).
+In addition, for all learners but SVM a better performance was observed when NRI indices were included in the feature set (i.e. NRI-VI, HR-NRI, HR-NRI-VI).
 
 \subsection{Performance vs.\ plot characteristics}
 \label{subsec:perf-plot-char}
