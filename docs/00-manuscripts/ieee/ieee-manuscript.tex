@@ -615,10 +615,11 @@ However, as of today there are no completely satisfactory approaches for estimat
 Nevertheless, recent methods like \ac{ALE} plots aim to tackle this problem by utilizing marginal distributions of features over a small window to focus on the effect of a single feature \cite{apley2019, molnar2019}.
 However, ALE plots need visual inspection and as the number of features increases, making objective comparisons becomes more complicated.
 
-In this work we applied permutation-based feature importance and \ac{ALE} plots to calculate feature importance for the HR dataset.
+In this work we applied permutation-based feature importance and \ac{ALE} plots to calculate feature importance for the HR dataset, with a focus on the former.
 With the limitations of both methods in mind we aimed to get a general overview of the feature importance of the hyperspectral bands while trying to avoid the over-interpretation of results.
 We used the best-performing algorithm from the HR task (i.e. SVM) to calculate the feature importance.
-ALE plots were not discussed in greater detail and are available as supplementary material.
+The ALE plots show a small relative change compared to their respective mean effects for all chosen features ($< \mid 0.001 \mid$) (\autoref{fig:fi-hr-ale}).
+Most ALE curves show a high dynamic across the value range of each variable, within their respective effect range.
 
 \subsection{Linking feature importance to wavelength regions}
 
@@ -846,7 +847,7 @@ Since filter scores only need to be calculated once in a benchmark setting, the 
 
 \subsection{Quality of the data}
 
-\noindent The decision to use a buffer of two meters for the extraction of an observation's reflectance value was a complex decision.
+The decision to use a buffer of two meters for the extraction of an observation's reflectance value was a complex decision.
 Due to the reported geometric offset of up to 1 m within the hyperspectral data, the possibility of assigning a value to an observation which would actually refer to a different observation was reasonably high.
 By using a buffer of two meters (or more), the probability of including information from other trees into the final value increases, blurring the actual value of the tree observation.
 However, the difference between single pixel values might often be higher than the difference between a smoothed value composed out of a buffer.
@@ -871,13 +872,21 @@ Not surprisingly the most important features for both HR and VI datasets were id
 
 This area has the highest ability to distinguish between reflectances related to a high density / high healthiness of vegetation and their respective opposites \cite{horler1983}.
 It is also worth mentioning that four out of ten of the most important features of dataset HR lie between 920 nm and 1000 nm.
-Looking at the spectral curves of the plots, we can observe quite some dynamic in this area, especially for Oiartzun, which might explain why these features were considered as important by the model.
+Looking at the spectral curves of the plots, one can observe some apparent reflectance differences in this area, especially for Oiartzun, which might explain why these features were considered as important by the model.
 
 A possible explanation for the less good performances of the models scored on the VI dataset compared to all other feature sets could be the lack of features in the area between 850 nm and 1000 nm (\autoref{fig:fi-permut-vi-hr}).
 The majority of the VI covers the range 550 nm - 800 nm.
 Only one index (PWI) covers information in the range beyond 900 nm.
 The spectral signatures of the plots show some variation around 940 nm, especially plot Oiartzun, which could be of potential help for the models when distinguishing between high and low defoliation.
 In addition, four our out of ten of the most important features in the HR dataset (B113, B115, B124 and B126) are located in this range (930 nm - 1000 nm), confirming the importance of this spectral range.
+
+% ALE plots
+The ALE plots are hard to interpret due to their semi-meaningful absolute values which differ for each band.
+For example, a reflectance value of 100 has a very different meaning in B67 than in B124 because for the latter reflectance values of vegetation are naturally higher.
+Hence, a reflectance value of 100 would be considered high for B67 but low for B124 with respect to a spectral curve of vegetation.
+However, no baseline reflectance value for every feature exists since the absolute reflectance values depend on the sensor characteristics.
+Hence, it is hard to make reasonable interpretations of harsh drops/jumps within curves of certain features, e.g. the one at value 240 for feature B115.
+ALE plots can be a powerful tool for interpreting feature importances of correlated features but might be limited in interpretability if the absolute feature values are only semi-meaningful.
 
 \subsection{Comparison to other studies}
 % - no environmental studies use filter methods, some use FFS
@@ -958,7 +967,7 @@ More training data covering a wider range of defoliation values in a larger numb
 	\end{center}
 \end{figure}
 
-\section{SVM ALE plots for task VI}
+%\section{SVM ALE plots for task VI}
 
 % \begin{figure} [ht]
 % 	\begin{center}
@@ -967,9 +976,9 @@ More training data covering a wider range of defoliation values in a larger numb
 % 	\end{center}
 % \end{figure}
 
+\pagebreak
 \section{Correlation among filter methods}
 
-\pagebreak
 
 \begin{figure} [ht]
 	\begin{center}
