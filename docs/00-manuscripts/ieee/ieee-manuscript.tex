@@ -300,7 +300,7 @@
 	\acro{SVM}{support vector machine}
 	\acro{TPR}{true positive rate}
 	\acro{VI}{vegetation index}
-	\acro{XGBOOST}{extreme gradient boosting}
+	\acro{XGBoost}{extreme gradient boosting}
 \end{acronym}
 \renewcommand{\IEEEiedlistdecl}{\relax}% reset back
 
@@ -529,14 +529,14 @@ While the number of bins can be treated as a hyperparameter of the filter method
 \noindent The benchmarking matrix of this study consists of the following algorithms:
 
 \begin{itemize}
-	\item  Extreme Gradient Boosting (XGBOOST)
+	\item  Extreme Gradient Boosting (XGBoost)
 	\item  Random Forest (RF)
 	\item  Penalized Regression (both L1 (lasso) and L2 (ridge))
 	\item  Support Vector Machine (SVM)
 \end{itemize}
 
 \noindent \ac{RF} and {SVM} are well established algorithms that are widely used in environmental modeling.
-\ac{XGBOOST} (commonly abbreviated as XGBOOST) showed promising results in benchmark competitions in recent years.
+\ac{XGBoost} (commonly abbreviated as XGBoost) showed promising results in benchmark competitions in recent years.
 Penalized regression is a statistical modeling technique capable of dealing with highly-correlated covariates by applying a penalization term which shrinks the coefficients of the model\cite{hastie2001}.
 Common penalties are 'lasso' (L1) and 'ridge' (L2).
 The latter does not allow the full removal of variables from the model (penalization to zero) while the former does.
@@ -828,7 +828,7 @@ The models which used the Borda ensemble method in this study did not score bett
 Ensemble methods have higher stability and robustness than single ones and have shown promising results in \cite{drotar2017a}.
 Hence, their main advantage are stable performances across datasets with varying characteristics.
 Certain single filter methods might yield better model performances for certain datasets but fail on others.
-The fact that this study used multiple feature sets but only one dataset and tested many single filters could be a potential explanation why in almost all cases (besides XGBOOST on task HR-NRI-VI) a single filter outperformed the ensemble filter.
+The fact that this study used multiple feature sets but only one dataset and tested many single filters could be a potential explanation why in almost all cases (besides XGBoost on task HR-NRI-VI) a single filter outperformed the ensemble filter.
 However, studies which used ensemble filters are still rare and usually these are not compared against single filters \cite{ghosh2019}.
 Therefore no general statement can yet be made if the use of ensemble filters leads to a substantial better performance than applying one of the various single filter methods.
 More case studies applying ensemble filter methods are needed.
