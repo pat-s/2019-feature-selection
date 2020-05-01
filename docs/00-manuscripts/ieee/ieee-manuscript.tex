@@ -916,31 +916,32 @@ If a field only rarely faces high-dimensional dataset issues (like environmental
 We hope that this work can give some guidance and serve as a starting point for tackling high-dimensional problems in environmental remote sensing.
 
 \section{Outlook and conclusion}
-
-This study analyzed defoliation at trees in north Spain by using hyperspectral data as input for machine learning models making heavy use of filter-based feature-selection methods.
-It was shown that substantial differences in performance can occur depending on which feature selection methods and machine learning algorithms are combined.
+This study analyzed defoliation at trees in northern Spain by using hyperspectral data as input for machine-learning models which incorporated hyperparameter tuning and filter-based feature selection.
+Substantial differences in performance occurred depending on which feature selection and machine learning methods were combined.
 SVM showed the most robust behavior across all highly-correlated datasets and was able to predict the response variable of this study substantially better than other methods.
 
 % RQ3: How are feature-selection methods influencing the predictive performance of the models?
-Filter methods are able to improve predictive performance for datasets with many features in certain instances.
-Their effectiveness depends on the chosen algorithm and dataset characteristics.
-Ensemble filter methods did not show a substantial improvement over individual filter methods.
+Filter methods were able to improve the predictive performance on datasets in some instances.
+Their effectiveness depends on the algorithm and the dataset characteristics.
+Ensemble filter methods did not show a substantial improvement over individual filter methods in this study.
 
 % RQ2: Does combining feature sets have an substantial effect on predictive performance?
 % RQ1: Do different environmental feature sets show differences in performance when modeling defoliation at trees?
-The creation of derived feature sets did not contribute to an improvement in model performance.
-In contrast, dataset VI showed a substantially poorer performance than the dataset with the original features (HR).
-Combining feature sets did not show a substantial improvement on predictive performance.
+The creation of derived feature sets was able to improve predictive performance in most cases.
+In contrast, datasets which covered only a fraction of the available spectral range (i.e. dataset VI) showed a worse performance than the ones which covered the full range (400 nm - 1000 nm; HR, NRI).
+Combining feature sets helped most models in improving their predictive performance.
 
 % RQ4: Which features are most important for the models and how can these be interpreted in an ecological context?
 Features along the red-edge wavelength region were most important for models to achieve good predictions.
 With respect to dedicated vegetation indices, the "Vogelmann" index with all of its derivatives was seen as the most important index for the best performing SVM model.
 This matches well with the actual purpose of these indices: 
 These were invented to detect defoliation on sugar maple trees (\textit{Acer saccharum Marsh.}) caused by pear thrips (\textit{Taeniothrips inconsequens Uzel}) in 1988 \cite{vogelmann1993}.
+However, feature importance for highly-correlated features is challenging.
+Results might be biased and should be taken with care.
 
 % What about the general potential of analyzing defol with hyperspectral data?
-The potential of predicting defoliation for single trees as conducted in this study was rather limited with an average RMSE of 27 p.p..
-We suggest that training data covering a wider range of defoliation values in a larger number of forest plantations would further improve the proposed models and result in more generalizable monitoring algorithms.
+The potential of predicting defoliation with the given study design was rather limited with respect to the average RMSE of 27 percentage points scored by the best performing model.
+More training data covering a wider range of defoliation values in a larger number of forest plantations would probably help to build better models that can achieve more robust predictions.
 
 \appendices{}
 
