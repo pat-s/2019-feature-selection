@@ -339,9 +339,9 @@ This study aims to close this gap by analyzing defoliation at trees in northern 
 Method-wise it makes use of machine-learning methods in combination with feature selection and hyperparameter tuning.
 Incorporating the idea of creating data-driven \ac{NRI}s, this study also discusses the practical problems of high-dimensionality in environmental modeling \cite{trunk1979, xu2016}.
 
+% mention why FS is used / important
 Even though \ac{ML} algorithms are capable of handling highly-correlated input variables, model fitting becomes computationally more demanding, and model interpretation more complex.
-At the same time, it is necessary to account for the presence of spatial autocorrelation in the data.
-The dataset used in this study comes with a spatial grouping at the plot level which needs to be accounted for \cite{sperrorest, pena2015}.
+Feature selection approaches can help to address this issue, reducing possible in the feature space, simplify model interpretability and possibly enhance predictive performance \cite{cai2018}.
 
 The research questions of this study are the following:
 
@@ -444,14 +444,7 @@ These averaged reflectance values were used as the base to derive all feature se
 A pixel was considered to fall into a tree's buffer zone if the centroid of the respective pixel was touched by the buffer.
 In total, \(\frac{121*122}{2} = 7471\) NRIs were calculated due to the first four bands of the sensor being corrupted.
 
-\subsection{Dimension reduction}
-
-\noindent We want to stress the differences between 'dimension reduction' and 'high-dimensionality'.
-The former refers to the general idea of reducing features from a dataset \cite{vandermaaten2007}.
-In modeling this means finding the best subset of covariates which provide the most predictive power to the model or extracting the main components of the features using a \ac{PCA}.
-'High-dimensionality' in contrast is a dataset attribute and applies when \(p > n\), where \(p\) is the number of covariates and \(n\) the number of observations \cite{hastie2001}.
-There is no absolute value at which the term applies, both for \(n\) and \(p\).
-Hence for this study the word ‘high-dimensionality‘ only applies to the experiments using the ‘NRI‘ feature set ($>$ 7000 features for 1808 observations).
+\subsection{Feature selection}
 
 The case of a feature-rich dataset comes with several challenges for both model fitting and evaluation.
 
@@ -461,20 +454,18 @@ The case of a feature-rich dataset comes with several challenges for both model 
 	\item Model interpretation and prediction become more challenging \cite{johnstoneiainm.2009}.
 \end{itemize}
 
-\noindent In the following sections a brief overview of feature selection sub-categories is given.
-Due to the focus of this study on the use of filter methods, which are a sub-group of feature selection methods, other approaches were grouped into a single section.
+To reduce the dimensions of a dataset, conceptually different approaches exist: wrapper methods, filters, penalization methods (lasso and ridge) or approaches like \ac{PCA} \cite{das2001, jolliffe2016}.
+Since the main focus of this study is on investigating the effect of filter methods on predictive performance, only this sub-group will be introduced in more detail in the following.
 
 \subsubsection{Filter methods}
 
 % Filter methods
-\noindent The concept of filters originates from the idea of ranking features using certain heuristics of an algorithm \cite{chandrashekar2014}.
+The concept of filters originates from the idea of ranking features using certain heuristics of an algorithm \cite{chandrashekar2014}.
 Some filter methods are restricted towards specific types of variables (numeric or nominal).
 Filters do only rank features, they do not choose which covariates to drop or keep \cite{drotar2015}.
 The selection of features to keep for the model fitting step is usually done within the optimization phase of the model fitting, along with the hyperparameter tuning.
 Essentially, the number of covariates in the model is treated as a hyperparameter of the model.
 The goal is to optimize the number of features (using the ranked covariates) at which the model achieves the best performance.
-
-\paragraph{Ensemble filter methods}
 
 % Ensemble filter methods
 Besides the concept of choosing a specific filter method to rank variables, studies showed that combining several filters using statistical operations such as 'minimum' or 'mean' are able to enhance the predictive performance of the resulting models \cite{abeel2010, drotar2017a}.
@@ -483,15 +474,14 @@ Ensemble filters align with the recent rise of the 'ensemble' approach in machin
 In this work the 'Borda' ensemble filter was applied \cite{drotar2017a}.
 For this filter, the final order is the sum of all single filters.
 
-\paragraph{Ensuring a fair weighting in the ensemble}
-
+% Ensuring a fair weighting in the ensemble
 Filter methods can be grouped into classes: Correlation-based, entropy-based, linear and non-linear methods.
 It is important to not give certain classes too much weight in the ensemble as otherwise the final result will be biased towards these.
 In this study this was taken care of by checking the rank correlations (Spearman's correlation) of the generated feature rankings of all methods against each other.
 In case pairs of filters with a correlation above 0.9 were discovered, only one of these was included into the ensemble filter.
 By this we ensured that the ensemble filter is not biased towards a certain group of methods yielding highly similar rankings.
 
-\paragraph{Description of used filter methods}
+\subsubsection{Description of used filter methods}
 
 Filter methods can be classified as follows:
 
@@ -531,29 +521,6 @@ Filter methods can be classified as follows:
 where \(H\) is the conditional entropy of the response variable (class) or the feature (attribute), respectively.
 To be able to use this method with a numeric response (defoliation in our case), the variable is discretized into equal bins and treated as a class variable.
 While the number of bins can be treated as a hyperparameter of the filter method, we decided to use \texttt{\(n_{bin}\) = 10} after rank correlations of $> 0.9$ for different bin sizes were observed during data exploration.
-
-\subsubsection{Wrapper methods and PCA}
-
-\noindent Other approaches to assess feature importance are so called 'wrapper methods' and the \ac{PCA}\cite{das2001, jolliffe2016}.
-
-% Wrapper approach
-\noindent Wrappers \cite{chandrashekar2014, kohavi1997} apply search algorithms such as 'random search' or 'generic simulated annealing'.
-First a (random) subset of features is chosen based on the selected algorithm.
-In comparison to filters, no ranking is done in this step.
-Now the model is fitted on the data and the performance is evaluated.
-This is done multiple times, depending on the defined stopping criteria set by the user (performance, runtime, evaluations).
-A disadvantage of this approach is that hyperparameter tuning can only be applied after the feature selection optimization finished.
-Hence, the 'wrapper approach' is an expensive optimization method because two stages need to be run in sequential order.
-Due to their high computational cost, wrappers were not considered in this work.
-
-% PCA
-A method with a completely different approach compared to filters and wrappers is the \ac{PCA}\cite{pearson1901, jolliffe2016}.
-Here, the main components of the feature space are extracted and combined.
-The number of principal components needed to explain a large portion of the variance is dynamic and depends on the dataset.
-In practice, this number often ranges between two and five.
-By using the (automatically estimated) explained variance of the main components, the model can rely on a few features containing the majority of information available in the data.
-This enables cheap model fitting with balanced loss of predictor information.
-A disadvantage is the reduced interpretability due to the main components being a squashed version of the original covariates.
 
 \subsection{Benchmarking design}
 
