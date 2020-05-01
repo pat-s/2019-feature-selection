@@ -917,8 +917,7 @@ This is due to the low spatial resolution of used satellite products which serve
 
 Studies focusing on tree-level defoliation used ground-level methods such as \ac{ALS} or \ac{LiDAR}\cite{meng2018, kalin2019}.
 \cite{meng2018} used \ac{OLS} regression methods while \cite{kalin2019} retrieved information from ground-level RGB photos using \ac{CNN}.
-Both study designs are substantially different compared to the setup of this work.
-In addition, no spatial \ac{CV} or \ac{FS} was used.
+However, both did not use spatial \ac{CV} or \ac{FS}.
 \cite{goodbody2018} used a \ac{PLS} model with high-resolution \ac{DAP} to predict cumulative defoliation caused by the spruce budworm.
 Study results indicated that spectral metrics were found to be most helpful for the model.
 Incorporating such metrics (both spectral and structural) could be a possible enhancement for future works.
@@ -927,25 +926,25 @@ Incorporating such metrics (both spectral and structural) could be a possible en
 The field of (hyperspectral) remote sensing has a strong focus on using random forest for modeling in recent years \cite{belgiu2016}.
 In high-dimensional scenarios, tuning parameter \texttt{\(m_{try}\)} becomes computational expensive.
 To account for this and the high-dimensionality in general, studies used feature selection approaches like semi-supervised feature extraction \cite{xia2015}, wrapper methods \cite{fassnacht2014, feng2016, georganos2018}, PCA and adjusted feature selection \cite{rochac2016}.
-We could not find a study which made use of filter methods in combination with hyperparameter tuning in the field of (hyperspectral) remote sensing.
+However, we could not find a study which made use of filter methods in combination with hyperparameter tuning in the field of (hyperspectral) remote sensing.
 Potential reasons could be an easier access of applying wrappers methods and a higher general awareness of such compared to filter methods.
 Applying the filter-based feature selection methodology shown in this study and its related code provided in the research compendium might be a helpful reference for upcoming modeling studies using hyperspectral remote sensing data.
 
-% RS studies with more/other algs than RF	
+% RS studies with more/other algorithms than RF	
 Remote sensing studies comparing multiple models often operate in a low-dimensional predictor space \cite{xu2019} or use wrapper methods explicitly \cite{georganos2018}.
 
-\cite{shendryk2016, ludwig2019} are studies which are more similar in their methodology but focus on a different response variable (woody cover).
+\cite{shendryk2016, ludwig2019} are more similar in their methodology but focus on a different response variable (woody cover).
 \cite{shendryk2016} used machine learning with \ac{ALS} data to study dieback of trees for eucalyptus forests.
 A grid search was used for hyperparameter tuning and \ac{FFS} for variable selection.
 \cite{ludwig2019} analyzed woody cover in South Africa using spatial \ac{CV} and \ac{FS} approach \cite{meyer2018} with a random forest classifier.
 
 In summary, we could not find studies using filter methods for \ac{FS} or \ac{NRI} indices in their work with a relation to forest health.
-Most studies used only one algorithm without (strong) arguments why this particular one has been selected or why only one model was used.
-This is not surprising: Most environmental/ecological datasets are not high-dimensional.
-In contrast, the number of predictors is often less than ten and issues related to correlations are solved manually instead of relying on an automated approach.
-The bioinformatics field faces high-dimensional feature sets more often.
+Also, most environmental/ecological datasets are not high-dimensional.
+In fact, the number of predictors is often less than ten and issues related to correlations are solved manually instead of relying on an automated approach.
+The bioinformatics field faces high-dimensional datasets more often.
 Hence more studies using (filter-based) feature-selection approaches can be found for this field \cite{guo2019, radovic2017}.
-If a field only rarely faces high-dimensional dataset issues the motivation and expertise of using advanced methods to solve such are rather low.
+However bioinformatics differs conceptually in many ways from environmental modeling and we do not want to dig deeper just for the sake of finding any similar studies.
+If a field only rarely faces high-dimensional dataset issues (like environmental modeling) the motivation and expertise of using advanced methods to solve such are rather low.
 We hope that this work can give some guidance and serve as a starting point for tackling high-dimensional problems in environmental remote sensing.
 
 \section{Outlook and conclusion}
