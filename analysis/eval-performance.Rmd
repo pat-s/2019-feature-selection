@@ -455,7 +455,7 @@ df_tbl[[1]][first] <-
 table4 <- df_tbl %>%
   xtable::xtable(
     type = "latex",
-    caption = "Optimized number of features for selected learner-filter settings across folds.",
+    caption = "Optimized number of features for selected learner-filter settings across folds for task HR-NRI-VI.",
     label = "tab:tune-perc-sel-features",
     digits = c(0, 0, 0, 5, 2)
   )
