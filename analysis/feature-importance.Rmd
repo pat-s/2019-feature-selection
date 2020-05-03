@@ -468,7 +468,7 @@ ALE plots via package {iml}
 
 Top ten HR features from permutation Vimp
 
-```{r fi-hr-ale, dev = c("png", "pdf")}
+```{r fi-hr-ale, dev = c("png", "pdf"), warning=FALSE}
 ale_p1 = fi_ale_hr_buffer2$plot(
   features = df_wavelengths_from_hr$class,
   ncol = 2
@@ -506,7 +506,7 @@ ale_p1[[9]] = ale_p1[[9]] + scale_y_continuous(
 )
 
 ale_p1[[10]] = ale_p1[[10]] + scale_y_continuous(
-  n.breaks = 4
+  n.breaks = 5
 )
 ale_p1
 ```
@@ -515,7 +515,7 @@ ale_p1
 
 Top ten HR features from permutation Vimp
 
-```{r}
+```{r, warning=FALSE}
 ale_p2 = fi_ale_hr_buffer2_gs20$plot(
   features = df_wavelengths_from_hr$class,
   ncol = 2
@@ -562,7 +562,7 @@ ale_p2
 
 Top ten VI features from permutation Vimp
 
-```{r fi-vi-ale, dev = c("png", "pdf")}
+```{r fi-vi-ale, dev = c("png", "pdf"), warning=FALSE}
 ale_p3 = fi_ale_vi_buffer2$plot(
   features = paste0("bf2_", df_wavelengths_from_indices_label$class),
   ncol = 2
@@ -598,7 +598,7 @@ ale_p3
 
 Top ten HR features from permutation Vimp
 
-```{r}
+```{r, warning=FALSE}
 ale_p4 = fi_ale_vi_buffer2_gs20$plot(
   features = paste0("bf2_", df_wavelengths_from_indices_label$class),
   ncol = 2
