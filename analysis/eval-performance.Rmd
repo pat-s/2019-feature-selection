@@ -153,7 +153,7 @@ table1 %>%
   slice(1:10) %>%
   xtable(
     type = "latex",
-    caption = "Top 10 results for any task/learner/filter combination, sorted by performance.",
+    caption = "Best ten results for any task/learner/filter combination, sorted ascending by RMSE",
     label = "tab:perf-top-10"
   ) %>%
   print(
@@ -201,7 +201,7 @@ table2 <- df_perf %>%
 table2 %>%
   xtable(
     type = "latex",
-    caption = "Best performance of each learner across any task and filter method.",
+    caption = "Best performance of each learner across any task and filter method, sorted ascending by RMSE",
     label = "tab:best-learner-perf"
   ) %>%
   print(
@@ -250,7 +250,7 @@ table3 %>%
   slice(1:10) %>%
   xtable(
     type = "latex",
-    caption = "Worst 10 results for any task/learner/filter combination, sorted descreasing by RMSE",
+    caption = "Lower ten results for any task/learner/filter combination, sorted decreasing by RMSE",
     label = "tab:perf-worst-10"
   ) %>%
   print(
@@ -437,7 +437,7 @@ df_tbl <- getBMRTuneResults(bmr_inspect_tune, as.df = TRUE) %>%
     Laukiz1 = "1", Laukiz2 = "4"
   )) %>%
   dplyr::mutate(Learner = forcats::fct_recode(Learner,
-    "RF Car" = "RF MBO Car", "XGBoost Borda" = "XGBOOST MBO Borda",
+    "RF Car" = "RF MBO Car", "XGB Borda" = "XGBOOST MBO Borda",
     "SVM Relief" = "SVM MBO Relief"
   )) %>%
   dplyr::mutate(Learner = as.character(Learner)) %>%
@@ -455,7 +455,7 @@ df_tbl[[1]][first] <-
 table4 <- df_tbl %>%
   xtable::xtable(
     type = "latex",
-    caption = "Optimized number of features for selected learner-filter settings across folds.",
+    caption = "Selected feature portions during tuning for selected learner-filter settings across folds for task HR-NRI-VI, sorted ascending by RMSE",
     label = "tab:tune-perc-sel-features",
     digits = c(0, 0, 0, 5, 2)
   )
