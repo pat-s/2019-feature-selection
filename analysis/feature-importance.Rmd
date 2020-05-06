@@ -506,7 +506,7 @@ ale_p1[[9]] = ale_p1[[9]] + scale_y_continuous(
 )
 
 ale_p1[[10]] = ale_p1[[10]] + scale_y_continuous(
-  n.breaks = 5
+  n.breaks = 4
 )
 ale_p1
 ```
