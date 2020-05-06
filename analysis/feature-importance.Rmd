@@ -189,7 +189,7 @@ plot_reflectance_imp_hr <- function(data) {
     geom_point(
       data = data_hr_merged[which(!(data_hr_merged$rank %in% c(1:10))), ],
       aes(color = "HR: Rank 11:122"),
-      size = 1.8,
+      size = 2.5,
       shape = 1,
       na.rm = TRUE
     ) +
@@ -198,7 +198,7 @@ plot_reflectance_imp_hr <- function(data) {
       data = data_hr_merged[which(data_hr_merged$rank %in% c(1:10)), ],
       aes(color = "HR: Rank 1:10"),
       shape = 20,
-      size = 2.2,
+      size = 3,
       na.rm = TRUE
     ) +
 
@@ -293,7 +293,7 @@ plot_reflectance_imp_vi <- function(data) {
     geom_point(
       data = df_wavelengths_from_indices_imp[which((df_wavelengths_from_indices_imp$rank %in% c(1:10))), ],
       aes(x = wavelength, y = importance, group = class),
-      size = 2.2, shape = 20
+      size = 3, shape = 20
     ) +
     # VI: rank 1:10
     geom_line(
@@ -307,7 +307,7 @@ plot_reflectance_imp_vi <- function(data) {
       data = df_wavelengths_from_indices_imp[which(!(df_wavelengths_from_indices_imp$rank %in% c(1:10))), ],
       aes(x = wavelength, y = importance, group = class),
       color = "grey",
-      shape = 1, size = 2
+      shape = 1, size = 2.5
     ) +
     # VI: rank 11:89
     geom_line(
