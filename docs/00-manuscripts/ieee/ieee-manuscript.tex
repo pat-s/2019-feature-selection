@@ -146,6 +146,7 @@
 \usepackage[nolist]{acronym}
 
 \usepackage{booktabs}
+\usepackage{multirow}
 \usepackage{adjustbox}
 
 \usepackage[utf8]{inputenc}
@@ -701,13 +702,11 @@ All learners besides SVM show a substantially worse performance when using only 
 % - all MBO penalized methods have no difference across tasks
 SVM combined with the 'Carscore' filter achieved the best overall performance (RMSE of 27.98 p.p.) (\autoref{tab:perf-top-10}).
 %L1 penalized regression showed slightly better results in three out of six tasks when being optimized using the package internal 10-fold CV compared to MBO (RMSE of 50 vs 58).
-Regression with ridge penalty (L2) showed a high variance when comparing results across tasks: In two out of six tasks (all including VI variables) the error was out of bounds (HR-NRI-VI, HR-VI, VI). For HR-NRI and HR RMSE was around 40 p.p., and for task NRI the ridge learner achieved almost the same score as the best performing model (32.9 p.p) (\autoref{tab:perf-top-10}).
+Regression with ridge penalty (L2) showed a high variance when comparing results across tasks: In four out of six tasks (all which VI variables and HR-NRI) the error was out of bounds (\autoref{tab:perf-worst-10}).
+For NRI and HR RMSE was 31.16 and 35.45 p.p., respectively.
 In all settings for which ridge showed such a high error, only one observation in one fold was predicted which such a high value (in the millions).
-The influential observation showed no obvious signs of being anomalous, e.g. extreme values in individual features or in principal components of features.
-This then caused the error estimates of these folds and the average estimate across all folds to be out of bounds.
-
-FIXME: Mention: All penalized methods tuned using MBO showed exactly the same error across all tasks.
-FIXME: Mention the bad perf of RIDGE on VI
+The specific observation showed no obvious signs of being anomalous, e.g. extreme values in individual features or in principal components of features.
+This one outlier caused the error estimates of these folds and the average estimate across all folds to be out of bounds.
 
 % filters
 % - influence varies based on algorithm and task (SVM no influence, RF medium, XGB medium)
@@ -734,17 +733,26 @@ The Borda filter did not achieve the best performance for any learner across any
 For RF and XGBoost it ranked within the first 50\% when looking at all filters used for a task.
 For XGBoost on the VI task the Borda filter scored the second worst performance.
 
+% Selected percentage of features across plots
+High differences were observed between the amount of features selected during tuning for the subsequent fitting process.
+Most features were selected during optimization for plot Laukiz2 and least for Laukiz1 (\autoref{tab:tune-perc-sel-features}).
+RF used only one feature for plots Luiando and Oiartzun (7675 $\times$ 0.00004) while for Laukiz1 34 and for Laukiz2 230 features were seen as optimal by the optimizer.
+In contrast, XGBoost and SVM used in all cases but Laukiz1 (less than 50 features) more than two-third of all available features.
+
 % latex table top 10 absolute performances
 \input{performance-top-10}
 
 % latex table worst 10 absolute performances
-%\input{performance-worst-10}
+\input{performance-worst-10}
 
 % latex table best performance per learner
 \input{performance-best-per-learner.tex}
 
 % latex table top 20 absolute performances
 \input{performance-svm-single-plot.tex}
+
+% latex table percentage of selected features during tuning
+\input{tune-perc-sel-features.tex}
 
 % plot performance results
 \begin{figure} [t!]
@@ -842,6 +850,13 @@ In this specific case, the model was trained on data containing mostly medium-hi
 This caused overfitting on the medium-high values, degrading predictive performance in other scenarios.
 In cases when Laukiz2 was in the training set, the overall aggregated RMSE was reduced by up to 50\% with single fold performances as good as 9 p.p. RMSE (with Luiando as test set).
 
+The high differences of selected features per plot plot during tuning give interesting insights into internals of the used models (\autoref{tab:tune-perc-sel-features}).
+While SVM and XGBoost require a substantial portion of features in most cases to achieve robust predictions, RF is able to achieve the best results with a relatively low amount of features.
+This fact leads to reduced computational runtime, especially if model parameters are dependent on the amount of features (e.g. \texttt{\(m_{try}\)}).
+Hence, regardless of the potential advantage of using filters for increased predictive performance, these can have a strong positive effect on runtime, at least for RF in this study.
+However, the results of (\autoref{tab:tune-perc-sel-features}) should be taken with care as they rely on single model-filter combinations and are subject to random variation.
+More in-depth research is needed to investigate the effect of filters on other criteria (such as runtime) than performance, leading to a multi-criteria optimization problem.
+
 \subsection{Feature selection methods}
 
 % - Effect varies across learners -> suggest to use FS even on feature sets with p < 100?
@@ -919,14 +934,13 @@ Incorporating such metrics (both spectral and structural) could be a possible en
 % write about hyperspectral remote sensing
 The field of (hyperspectral) remote sensing has a strong focus on using random forest for modeling in recent years \cite{belgiu2016}.
 In high-dimensional scenarios, tuning parameter \texttt{\(m_{try}\)} becomes computational expensive.
-To account for this and the high-dimensionality in general, studies used feature selection approaches like semi-supervised feature extraction \cite{xia2015}, wrapper methods \cite{fassnacht2014, feng2016}, PCA and adjusted feature selection \cite{rochac2016}.
+To account for this and the high-dimensionality in general, studies used feature selection approaches like semi-supervised feature extraction \cite{xia2015}, wrapper methods \cite{fassnacht2014, feng2016, georganos2018}, PCA and adjusted feature selection \cite{rochac2016}.
 We could not find a study which made use of filter methods in combination with hyperparameter tuning in the field of (hyperspectral) remote sensing.
 Potential reasons could be an easier access of applying wrappers methods and a higher general awareness of such compared to filter methods.
 Applying the filter-based feature selection methodology shown in this study and its related code provided in the research compendium might be a helpful reference for upcoming modeling studies using hyperspectral remote sensing data.
 
-% RS studies with more/other algs than RF
-Studies which include more than one model usually operate in a low-dimensional setting 
-\cite{xu2019}.
+% RS studies with more/other algs than RF	
+Remote sensing studies comparing multiple models often operate in a low-dimensional predictor space \cite{xu2019} or use wrapper methods explicitly \cite{georganos2018}.
 
 \cite{shendryk2016, ludwig2019} are studies which are more similar in their methodology but focus on a different response variable (woody cover).
 \cite{shendryk2016} used machine learning with \ac{ALS} data to study dieback of trees for eucalyptus forests.
