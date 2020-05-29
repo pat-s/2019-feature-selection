@@ -149,6 +149,10 @@
 \usepackage{multirow}
 \usepackage{adjustbox}
 
+% line breaks in table cells
+\newcommand{\specialcell}[2][l]{%
+  \begin{tabular}[#1]{@{}l@{}}#2\end{tabular}}
+
 \usepackage{csquotes}
 
 \usepackage[utf8]{inputenc}
@@ -193,7 +197,7 @@
 	and Alexander~Brenning
 	\thanks{P.Schratz, J.Muenchow, J.Cortés and A.Brenning are with the Department
 		of Geography, GIScience group, Friedrich-Schiller-University of Jena, Germany.}% <-this % stops a space
-	\thanks{B.Bischl is head of the statistical learning and data science group at the Department of Statistics, Ludwig-Maximilian-University Munich.}% <-this % stops a space
+	\thanks{B.Bischl is head of the computational statistics group at the Department of Statistics, Ludwig-Maximilian-University Munich.}% <-this % stops a space
 	\thanks{E.Iturritxa is with NEIKER Tecnalia, Vitoria-Gasteiz, Arab, Spain.}% <-this % stops a space
 	%\thanks{Manuscript received April 19, 2005; revised August 26, 2015.}
 }
@@ -349,6 +353,7 @@ Especially when working with hyperspectral data, thousands of \ac{NRI} features 
 Despite its popularity in environmental modeling, there are no studies so far which used machine-learning algorithms in combination with remote sensing data to analyze defoliation on a tree level.
 This study aims to close this gap by analyzing defoliation at trees in northern Spain using airborne hyperspectral data.
 The methodology of this study uses of machine-learning methods in combination with feature selection and hyperparameter tuning.
+In addition, feature importance and feature effects are evaluated.
 Incorporating the idea of creating data-driven \ac{NRI}s, this study also discusses the practical problems of high-dimensionality in environmental modeling \cite{trunk1979, xu2016}.
 
 % mention why FS is used / important
@@ -465,13 +470,14 @@ The case of a feature-rich dataset comes with several challenges for both model 
 	\item Model interpretation and prediction become more challenging \cite{johnstoneiainm.2009}.
 \end{itemize}
 
-To reduce the feature space of a dataset, conceptually differing approaches exist: wrapper methods, filters, penalization methods (lasso and ridge) or \ac{PCA} \cite{das2001, jolliffe2016}.
-Since this study focuses mainly on filter methods, only this sub-group will be introduced in greater detail in the following subsections.
+To reduce the feature space of a dataset, conceptually differing approaches exist: wrapper methods, filters, penalization methods (lasso and ridge) or \ac{PCA} \cite{das2001, guyon2003, jolliffe2016}.
+In contrast to wrapper methods, filters can be added to the hyperparameter optimization step and have a lower computational footprint.
+Due to the focus on filter methods, only this sub-group of feature selection methods will be introduced in greater detail in the following subsections.
 
 \subsubsection{Filter methods}
 
 % Filter methods
-The concept of filters originates from the idea of ranking features using certain heuristics of an algorithm \cite{chandrashekar2014}.
+The concept of filters originates from the idea of ranking features using certain heuristics of an algorithm \cite{guyon2003}.
 Some filter methods can only deal with specific types of variables (numeric or nominal).
 Filters only rank features, they do not decide which covariates to drop or keep \cite{drotar2015}.
 The selection which features to keep for model fitting is usually done within the optimization phase of the model fitting, along with the hyperparameter tuning.
@@ -494,11 +500,11 @@ By this it was ensured that the ensemble filter composition was not biased towar
 
 \subsubsection{Description of used filter methods}
 
-Filter methods can be classified as follows:
+Filter methods can be classified as follows (\autoref{tab:filter-methods}):
 
 \begin{itemize}
 	\item Univariate/multivariate (scoring based on a single variable / multiple variables).
-	\item Linear/non-linear (calculation of linear/non-linear interaction terms).
+	\item Linear/non-linear (usage of linear/non-linear calculations).
 	\item Entropy/correlation (scoring based on derivations of entropy or correlation-based approaches).
 \end{itemize}
 
@@ -543,7 +549,7 @@ The following learners were used in this work:
 	\item  Extreme Gradient Boosting (XGBoost)
 	\item  Random Forest (RF)
 	\item  Penalized Regression (both L1 (lasso) and L2 (ridge))
-	\item  Support Vector Machine (SVM)
+	\item  Support Vector Machine (SVM, RBF Kernel)
 \end{itemize}
 
 Random forest and {SVM} are well established algorithms widely used in (environmental) modeling.
@@ -605,7 +611,7 @@ For the inner level (hyperparameter tuning), \(k - 1\) folds were used with \(k\
 
 In total the benchmarking grid consisted of 156 experiments (6 feature sets $\times$ 3 ML algorithms $\times$ 8 feature-selection methods + 2 $\times$ 6 L1 and L2 models).
 
-\subsection{Feature importance estimation}
+\subsection{Feature importance and feature effects}
 
 \noindent Estimating feature importance for highly-correlated datasets is a complicated task.
 The correlation between covariates makes it challenging to calculate an unbiased estimate for single features \cite{molnar2019}.
@@ -670,11 +676,11 @@ All learners besides SVM showed a substantially worse performance on the VI data
 % - all MBO penalized methods have no difference across tasks
 SVM combined with the \enquote{Carscore} filter achieved the best overall performance (RMSE of 27.98 p.p.) (\autoref{tab:perf-top-10}).
 %L1 penalized regression showed slightly better results in three out of six tasks when being optimized using the package internal 10-fold CV compared to MBO (RMSE of 50 vs 58).
-Regression with ridge penalty (L2) showed a high variance when comparing results across tasks: In four out of six tasks (all which VI variables and HR-NRI) the error was enourmous (\autoref{tab:perf-worst-10}).
+Regression with ridge penalty (L2) showed a high variance when comparing results across tasks: In four out of six tasks (all which VI variables and HR-NRI) the error was enormous (\autoref{tab:perf-worst-10}).
 For NRI and HR RMSE was 31.16 p.p. and 35.45 p.p., respectively.
 In all settings for which ridge showed such a high error, only one observation in one fold was predicted which such a high defoliation value (in the millions).
 The specific observation showed no obvious signs of being anomalous, e.g. extreme values in individual features or in principal components of features.
-This one outlier caused the error estimates of these folds and the average estimate across all folds to be offscale.
+This one outlier caused the error estimates of these folds and the average estimate across all folds to be off scale.
 
 % filters
 % - influence varies based on algorithm and task (SVM no influence, RF medium, XGB medium)
@@ -799,7 +805,7 @@ However, comparing this finding (both relatively and absolute) to other studies 
 Penalized methods showed promising performances, especially when taking runtime into account.
 When removing features with a correlation of nearly 1, lasso is able to score performances around 31 p.p. and shows, somewhat surprisingly, the best performance on the VI task.
 The same general conclusion applies to ridge if one discards the problematic results on four tasks.
-Regarding the problematic predictions of the rigde learner, a careful inspection of the hyperparameter optimization procedure of the fitted models did not reveal any apparent implementation mistakes.
+Regarding the problematic predictions of the ridge learner, a careful inspection of the hyperparameter optimization procedure of the fitted models did not reveal any apparent implementation mistakes.
 One observation turned out to be influential in causing the outlier prediction value even though careful multivariate exploratory data analysis showed no reason for flagging this observation a priori.
 It was therefore left in the model, but it should be acknowledged that these learners seemed particularly sensitive to the input data.
 
@@ -826,7 +832,7 @@ While in most cases, SVM and XGBoost require a substantial portion of all availa
 This fact leads to reduced computational runtime, especially if model parameters are dependent on the amount of features (e.g. \texttt{\(m_{try}\)}).
 Hence, regardless of the potential advantage of using filters for increased predictive performance, it should be noted that these can have a strong positive effect on runtime, at least for RF in this study.
 
-Ultimatevily, the results of (\autoref{tab:tune-perc-sel-features}) should be taken with care as they rely on single model-filter combinations and are subject to random variation.
+Ultimately, the results of (\autoref{tab:tune-perc-sel-features}) should be taken with care as they rely on single model-filter combinations and are subject to random variation.
 More in-depth research is needed to investigate the effect of filters on other criteria than performance (such as runtime), leading to a multi-criteria optimization problem.
 
 \subsection{Feature selection methods}
@@ -1007,6 +1013,40 @@ More training data covering a wider range of defoliation values in a larger numb
 		\caption{Spearman correlations of rankings obtained with the information gain filter using different \texttt{\(n_{bins}\)} values for discretization of the numeric response.}\label{fig:correlation-nbins}
 	\end{center}
 \end{figure}
+
+\pagebreak
+
+\section{Hyperparameter tuning ranges}
+
+% parameter limits
+\begin{table}[b!]
+\centering
+\caption[t]{Hyperparameter ranges and types for each model.
+	Hyperparameter notations from the respective R packages were used.}
+\begingroup\footnotesize
+\begin{tabular}{llllrrr}
+	\\
+	\specialcell{Model                                          \\ (package)}                & Hyperparameter              & Type    & Start     & End      & Default \\
+	\toprule
+	\multirow{3}{*}{\specialcell{RF                                 \\ (ranger)}}       & \texttt{$m_{try}.power$}    & int & 0         & 0.5      & -       \\
+	 & \texttt{min.node.size}      & int & 1        & 10      & 1   \\
+	 & \texttt{sample.fraction}    & dbl & 0.2      & 0.9     & 1   \\
+	\midrule
+	\multirow{2}{*}{\specialcell{SVM                                \\ (kernlab)}}     & \texttt{C}                  & dbl & $2^{-10}$ & $2^{10}$ & 1       \\
+	 & \texttt{$\sigma$}           & dbl & $2^{-5}$ & $2^{5}$ & 1   \\
+	\midrule
+	\multirow{7}{*}{\specialcell{XGBoost                            \\ (xgboost)}} & \texttt{nrounds}            & int & 10        & 600      & -       \\
+	 & \texttt{colsample\_bytree}  & dbl & 0.3      & 0.7     & 1   \\
+	 & \texttt{subsample}          & dbl & 0.25     & 1       & 1   \\
+	 & \texttt{max\_depth}         & int & 1        & 10      & 6   \\
+	 & \texttt{gamma}              & int & 0        & 10      & 0   \\
+	 & \texttt{eta}                & dbl & 0.01     & 0.6     & 0.3 \\
+	 & \texttt{min\_child\_weight} & int & 0        & 20      & 1   \\
+	\bottomrule
+\end{tabular}
+\endgroup
+\label{tab:hyperparameter_limits}
+\end{table}
 
 \pagebreak
 
