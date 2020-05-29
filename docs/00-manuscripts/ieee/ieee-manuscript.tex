@@ -581,7 +581,7 @@ However, rather than only looking at these three groups also combinations of suc
 
 Even though the feature-selection step should be solely left to the filter methods in this study,it was ensured a priori to account for features with a pairwise correlation of 1.
 Having such features within the data can cause undesired effects during model fitting and feature importance calculation.
-Hence, after having calculated all pair-wise correlations between features, for pairs which exceeded the threshold of 0.9999999999, the feature with the largest mean absolute correlation was removed from the dataset.
+Hence, after having calculated all pair-wise correlations between features, for pairs which exceeded the threshold of 0.9999999999, the feature with the largest mean absolute correlation across all variables was removed from the dataset.
 This process was repeated $p$ times, each time calculating a fresh correlation matrix.
 
 This preprocessing step reduced the amount of covariates to 122 (HR), 86 (VI) and 7467 (NRI).
