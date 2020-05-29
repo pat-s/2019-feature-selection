@@ -237,22 +237,28 @@
 % As a general rule, do not put math, special symbols or citations
 % in the abstract or keywords.
 \begin{abstract}
-	Analyzing highly-correlated feature-rich datasets from hyperspectral remote sensing data is a challenging task.
-	This study compared multiple machine-learning and statistical learning methods using filter-based feature-selection methods on a hyperspectral dataset.
-	In the case study, defoliation at trees (\%) in northern Spain was modeled as a function of band reflectance.
-	Multiple feature sets were compared using derived features (expert-based and data-driven).
-	Among the selected methods, support vector machine (SVM) outperformed others such as random forest (RF), extreme gradient boosting (XGBoost), lasso (L1) and ridge (L2) regression by about three percentage points.
-	The combination of feature sets showed small increases in predictive performance while no substantial differences between single feature sets were observed.
-	Filter methods helped in certain task-learner-filter settings to achieve better predictive performances while ensemble filters did not have a substantial impact on performance.
-	Depending on the dataset-learner combination, filter methods can help to improve predictive performance and lower computational runtime.
+	This study analyzed highly-correlated, feature-rich datasets from hyperspectral remote sensing data using multiple machine and statistical-learning methods.
+	The effect of filter-based feature-selection methods on predictive performance was compared.
+	Also, the effect of multiple expert-based and data-driven feature sets, derived from the reflectance data, was investigated.
+	Feature wise, defoliation at trees (\%) was modeled as a function of band reflectance.
+	Variable importance was assed using permutation-based feature importance.
+
+	With respect to the used models, support vector machine (SVM) outperformed others such as random forest (RF), extreme gradient boosting (XGBoost), lasso (L1) and ridge (L2) regression by at least three percentage points.
+	The combination of certain feature sets showed small increases in predictive performance while no substantial differences between single feature sets were observed.
+	Filter methods helped in certain dataset-learner-filter settings to achieve better predictive performances while ensemble filters did not have a substantial impact on performance.
+	For certain dataset-learner combinations, filter methods helped to improve predictive performance and lower computational runtime.
+
 	Permutation-based feature importance estimated features around the red edge to be most important for the models.
-	However, features in the near-infrared region (800 nm - 1000 nm) were also important to achieve acceptable performances.
-	The dataset used in this work was suboptimal and more training data is needed for more generalizable conclusions.
+	However, the presence of features in the near-infrared region (800 nm - 1000 nm) was essential to achieve the best performances.
+
+	The dataset used in this work was suboptimal with respect to the achieved preditive performances and more training data is needed for more generalizable conclusions.
+	Filter methods have potential to help in high-dimensional situations while still keeping the ability to interpret feature effects of fitted models, which is an essential constrain in environmental modeling studies.
+
 \end{abstract}
 
 % Note that keywords are not normally used for peer-review papers.
 \begin{IEEEkeywords}
-	hyperspectral imagery, forest health monitoring, machine learning, feature selection, model comparison, filter, imaging spectroscopy
+	hyperspectral imagery, forest health monitoring, machine learning, feature selection, feature effects, model comparison, filter, imaging spectroscopy
 \end{IEEEkeywords}
 
 % For peer review papers, you can put extra information on the cover
