@@ -454,7 +454,8 @@ Additional metadata information is available in \autoref{tab:hyperparameter_limi
 \section{Methods}
 
 \subsection{Derivation of indices}
-\noindent To use the hyperspectral data's full potential, all possible vegetation indices supported by the R package hsdar (89 in total) as well as all possible \ac{NRI} combinations were calculated from the reflectances.
+
+To use the hyperspectral data's full potential, all possible vegetation indices supported by the R package hsdar (89 in total) as well as all possible \ac{NRI} combinations were calculated from the reflectances.
 The following formula was used for the NRI calculation:
 
 \begin{equation}
@@ -466,7 +467,7 @@ where \(i\) and \(j\) are the respective band numbers.
 
 \bigbreak{}
 
-\noindent To account for geometric offsets within the hyperspectral data, which were reported with up to 1 m from \ac{ICGC}, a buffer of two meters around the centroid of each tree was used when extracting the reflectance values.
+To account for geometric offsets within the hyperspectral data, which were reported with up to 1 m from \ac{ICGC}, a buffer of two meters around the centroid of each tree was used when extracting the reflectance values.
 A pixel was considered to fall into a tree's buffer zone if the centroid of the respective pixel was touched by the buffer.
 All of those pixels formed the final reflectance value of a single tree and were used as the base information to derive all additional feature sets.
 In total, \(\frac{121*122}{2} = 7471\) NRIs were calculated due to the first four bands of the sensor being corrupted.
