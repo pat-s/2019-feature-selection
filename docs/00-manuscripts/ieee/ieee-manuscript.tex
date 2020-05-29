@@ -76,69 +76,12 @@
 \else
  \usepackage[caption=false,font=footnotesize]{subfig}
 \fi
-% subfig.sty, written by Steven Douglas Cochran, is the modern replacement
-% for subfigure.sty, the latter of which is no longer maintained and is
-% incompatible with some LaTeX packages including fixltx2e. However,
-% subfig.sty requires and automatically loads Axel Sommerfeldt's caption.sty
-% which will override IEEEtran.cls' handling of captions and this will result
-% in non-IEEE style figure/table captions. To prevent this problem, be sure
-% and invoke subfig.sty's 'caption=false' package option (available since
-% subfig.sty version 1.3, 2005/06/28) as this is will preserve IEEEtran.cls
-% handling of captions.
-% Note that the Computer Society format requires a larger sans serif font
-% than the serif footnote size font used in traditional IEEE formatting
-% and thus the need to invoke different subfig.sty package options depending
-% on whether compsoc mode has been enabled.
 
 % *** FLOAT PACKAGES ***
-%
-%\usepackage{fixltx2e}
-% fixltx2e, the successor to the earlier fix2col.sty, was written by
-% Frank Mittelbach and David Carlisle. This package corrects a few problems
-% in the LaTeX2e kernel, the most notable of which is that in current
-% LaTeX2e releases, the ordering of single and double column floats is not
-% guaranteed to be preserved. Thus, an unpatched LaTeX2e can allow a
-% single column figure to Gbe placed prior to an earlier double column
-% figure.
-% Be aware that LaTeX2e kernels dated 2015 and later have fixltx2e.sty's
-% corrections already built into the system in which case a warning will
-% be issued if an attempt is made to load fixltx2e.sty as it is no longer
-% needed.
-% The latest version and documentation can be found at:
-% http://www.ctan.org/pkg/fixltx2e
-
-%\usepackage{stfloats}
-% stfloats.sty was written by Sigitas Tolusis. This package gives LaTeX2e
-% the ability to do double column floats at the bottom of the page as well
-% as the top. (e.g., '\begin{figure*}[!b]' is not normally possible in
-% LaTeX2e). It also provides a command:
-%\fnbelowfloat
-% to enable the placement of footnotes below bottom floats (the standard
-% LaTeX2e kernel puts them above bottom floats). This is an invasive package
-% which rewrites many portions of the LaTeX2e float routines. It may not work
-% with other packages that modify the LaTeX2e float routines. The latest
-% version and documentation can be obtained at:
-% http://www.ctan.org/pkg/stfloats
-% Do not use the stfloats baselinefloat ability as the IEEE does not allow
-% \baselineskip to stretch. Authors submitting work to the IEEE should note
-% that the IEEE rarely uses double column equations and that authors should try
-% to avoid such use. Do not be tempted to use the cuted.sty or midfloat.sty
-% packages (also by Sigitas Tolusis) as the IEEE does not format its papers in
-% such ways.
-% Do not attempt to use stfloats with fixltx2e as they are incompatible.
-% Instead, use Morten Hogholm'a dblfloatfix which combines the features
-% of both fixltx2e and stfloats:
-%
-% \usepackage{dblfloatfix}
-% The latest version can be found at:
-% http://www.ctan.org/pkg/dblfloatfix
 
 % *** PDF, URL AND HYPERLINK PACKAGES ***
 %
 \usepackage{url}
-% url.sty was written by Donald Arseneau. It provides better support for
-% handling and breaking URLs. url.sty is already installed on most LaTeX
-% systems. The latest version and documentation can be obtained at:
 
 % correct bad hyphenation here
 \hyphenation{op-tical net-works semi-conduc-tor}
@@ -156,7 +99,7 @@
 \usepackage{csquotes}
 
 \usepackage[utf8]{inputenc}
-% enables custom font styles which are not available in IEEEtrans by default
+% enables custom font styles which are not available in IEEEtran by default
 % https://tex.stackexchange.com/questions/331228/there-is-no-bold-text-italics-in-ieeetran
 
 \renewcommand{\sfdefault}{cmss}
@@ -178,7 +121,7 @@
 %
 %
 % author names and IEEE memberships
-% note positions of commas and nonbreaking spaces ( ~ ) LaTeX will not break
+% note positions of commas and non-breaking spaces ( ~ ) LaTeX will not break
 % a structure at a ~ so this keeps an author's name from being broken across
 % two lines.
 % use \thanks{} to gain access to the first footnote area
@@ -241,7 +184,7 @@
 	The effect of filter-based feature-selection methods on predictive performance was compared.
 	Also, the effect of multiple expert-based and data-driven feature sets, derived from the reflectance data, was investigated.
 	Feature wise, defoliation at trees (\%) was modeled as a function of band reflectance.
-	Variable importance was assed using permutation-based feature importance.
+	Variable importance was assessed using permutation-based feature importance.
 
 	With respect to the used models, support vector machine (SVM) outperformed others such as random forest (RF), extreme gradient boosting (XGBoost), lasso (L1) and ridge (L2) regression by at least three percentage points.
 	The combination of certain feature sets showed small increases in predictive performance while no substantial differences between single feature sets were observed.
@@ -251,7 +194,7 @@
 	Permutation-based feature importance estimated features around the red edge to be most important for the models.
 	However, the presence of features in the near-infrared region (800 nm - 1000 nm) was essential to achieve the best performances.
 
-	The dataset used in this work was suboptimal with respect to the achieved preditive performances and more training data is needed for more generalizable conclusions.
+	The dataset used in this work was suboptimal with respect to the achieved predictive performances and more training data is needed for more generalizable conclusions.
 	Filter methods have potential to help in high-dimensional situations while still keeping the ability to interpret feature effects of fitted models, which is an essential constrain in environmental modeling studies.
 
 \end{abstract}
@@ -260,12 +203,6 @@
 \begin{IEEEkeywords}
 	hyperspectral imagery, forest health monitoring, machine learning, feature selection, feature effects, model comparison, filter, imaging spectroscopy
 \end{IEEEkeywords}
-
-% For peer review papers, you can put extra information on the cover
-% page as needed:
-\ifCLASSOPTIONpeerreview{}
-%\begin{center} \bfseries EDICS Category: 3-BBND \end{center}
-\fi
 
 % For peer-review papers, this IEEEtran command inserts a page break and
 % creates the second title. It will be ignored for other modes.
@@ -331,7 +268,7 @@
 
 % Link remote sensing and machine-learning
 
-\IEEEPARstart{T}{he} use of \ac{ML} algorithms for analyzing remote sensing data has seen a huge increase in the last decade~ cite{lary2016}.
+\IEEEPARstart{T}{he} use of \ac{ML} algorithms for analyzing remote sensing data has seen a huge increase in the last decade \cite{lary2016}.
 This goes in line with the increased availability of remote sensing imagery, especially since the launch of the first Sentinel satellite in the year 2014.
 At the same time, the implementation and usability of learning algorithms has been greatly simplified with many contributions from the open-source community.
 Scientists can nowadays relatively easily process large amounts of (environmental) information using various learning algorithms.
@@ -388,7 +325,7 @@ That said, the research questions of this study are the following:
 \section{Data and study area}
 
 Airborne hyperspectral data with a spatial resolution of one meter and 126 spectral bands was available for four Monterey Pine (\textit{Pinus radiata}) plantations in northern Spain.
-The trees in the plots suffer from infections of invasive pathogens such as \textit{Diplodia sapinea}, \textit{Fusarium circinatum}, \textit{Armillaria mellea} or \textit{Heterobasidion annosum}, leading to a spread of cankers or defoliation~\cite{mesanza2016, iturritxa2017}.
+The trees in the plots suffer from infections of invasive pathogens such as \textit{Diplodia sapinea}, \textit{Fusarium circinatum}, \textit{Armillaria mellea} or \textit{Heterobasidion annosum}, leading to a spread of cankers or defoliation \cite{mesanza2016, iturritxa2017}.
 In-situ measurements of defoliation at trees (serving as a proxy for tree health) were collected to serve as the response variable \textit{defoliation} which ranges from 0 - 100 (in \%) (\autoref{fig:defol-distr}).
 It is assumed that the fungi infect the trees through open wounds, possibly caused by previous hail damage \cite{iturritxa2014}.
 The dieback of these trees, which are mainly used as timber, causes high economic damages \cite{ganley2009}.
@@ -455,7 +392,7 @@ Additional metadata information is available in \autoref{tab:hyperparameter_limi
 
 \subsection{Derivation of indices}
 
-To use the hyperspectral data's full potential, all possible vegetation indices supported by the R package hsdar (89 in total) as well as all possible \ac{NRI} combinations were calculated from the reflectances.
+To use the full potential of the hyperspectral data, all possible vegetation indices supported by the R package hsdar (89 in total) as well as all possible \ac{NRI} combinations were calculated from the reflectances.
 The following formula was used for the NRI calculation:
 
 \begin{equation}
@@ -569,7 +506,7 @@ Extreme Gradient Boosting (commonly abbreviated as XGBoost) showed promising res
 Penalized regression is a statistical modeling technique capable of dealing with highly-correlated covariates by penalizing the coefficients of the model \cite{hastie2001}.
 Common penalties are 'lasso' (L1) and 'ridge' (L2).
 Ridge does not remove variables from the model (penalization to zero) but just shrinks them to effectively zero, keeping them in the model.
-The combination of both penalities is called 'elastic net' but was not used in this work.
+The combination of both penalties is called 'elastic net' but was not used in this work.
 
 \subsubsection{Feature sets}
 
@@ -888,7 +825,7 @@ If a tree observation is located on the border of the plot, some directions of t
 
 The R package hsdar was used for the calculation of vegetation indices \cite{hsdar}.
 All indices that could be calculated with the given spectral range of the data were used.
-Even though this selection included a large number of available indices, some possibly relevant indices might have been missed by relying on the preselection of indices offered by the package.
+Even though this selection included a large number of available indices, some possibly relevant indices might have been missed by relying on the pre-selection of indices offered by the package.
 
 Overall, the magnitude of uncertainty introduced by the mentioned effects during index derivation cannot be quantified.
 Such limitations and uncertainties apply to most environmental studies and cannot be completely avoided.
@@ -911,7 +848,7 @@ For example, a reflectance value of 100 has a very different meaning in B67 than
 Hence, a reflectance value of 100 would be considered high for B67 but low for B124 with respect to a spectral curve of vegetation.
 However, no baseline reflectance value for every feature exists since the absolute reflectance values depend on the sensor characteristics.
 Hence, it is hard to make reasonable interpretations of harsh drops/jumps within curves of certain features, e.g. the one at value 240 for feature B115.
-ALE plots can be a powerful tool for interpreting feature importances of correlated features but might be limited in interpretability if the absolute feature values are only semi-meaningful.
+ALE plots can be a powerful tool for interpreting feature importance of correlated features but might be limited in interpretability if the absolute feature values are only semi-meaningful.
 
 \subsection{Comparison to other studies}
 % - no environmental studies use filter methods, some use FFS
@@ -952,7 +889,7 @@ The bioinformatics field faces high-dimensional datasets more often.
 Hence more studies using (filter-based) feature-selection approaches can be found for this field \cite{guo2019, radovic2017}.
 Yet bioinformatics differs conceptually in many ways from environmental modeling and digging deeper just for the sake of finding any similar studies is not a good idea.
 If a field only rarely faces high-dimensional dataset issues (like environmental modeling) the motivation and expertise of using advanced methods to solve such are rather low.
-We hope that this work and its methodology raises awarness about the application of filter methods to tackle high-dimensional problems in the environmental modeling field.
+We hope that this work and its methodology raises awareness about the application of filter methods to tackle high-dimensional problems in the environmental modeling field.
 
 \section{Outlook and conclusion}
 
