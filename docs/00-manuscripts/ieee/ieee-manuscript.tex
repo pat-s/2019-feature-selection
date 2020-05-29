@@ -809,6 +809,10 @@ Regarding the problematic predictions of the ridge learner, a careful inspection
 One observation turned out to be influential in causing the outlier prediction value even though careful multivariate exploratory data analysis showed no reason for flagging this observation a priori.
 It was therefore left in the model, but it should be acknowledged that these learners seemed particularly sensitive to the input data.
 
+The upper range of 600 used for hyperparameter {\texttt{nrounds}} for model XGBoost in this study could a potential limiting factor with respect to the performance of the datasets including NRI variables (\autoref{tab:hyperparameter_limits}).
+This setting was a compromise between runtime and tuning space extension aimed to work well for most feature sets.
+It could be that better predictive performances could have been achieved with a {\texttt{nrounds}} upper limit close to the number of features of the NRI datasets.
+
 \subsubsection{Feature set differences}
 
 One objective which this study aimed to answer was whether expert-based or data-driven feature engineering has a positive influence on model performance.
