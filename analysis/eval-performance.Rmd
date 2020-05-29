@@ -75,11 +75,11 @@ df_perf <- getBMRPerformances(bm_aggregated_new_buffer2, as.df = TRUE) %>%
 ```{r aggr-perf}
 # Aggregate performances and add standard error column.
 df_perf %<>%
-  group_by(task.id, learner.id, filter) %>%
-  mutate(rmse_aggr = round(mean(rmse), 3)) %>%
-  mutate(se = round(sd(rmse), 3)) %>%
-  select(-rmse, iter) %>%
-  ungroup()
+  dplyr::group_by(task.id, learner.id, filter) %>%
+  dplyr::mutate(rmse_aggr = round(mean(rmse), 3)) %>%
+  dplyr::mutate(se = round(sd(rmse), 3)) %>%
+  dplyr::select(-rmse, iter) %>%
+  dplyr::ungroup()
 ```
 
 Fold performances of "SVM MBO No Filter" on the HR Task
@@ -437,13 +437,19 @@ df_tbl <- getBMRTuneResults(bmr_inspect_tune, as.df = TRUE) %>%
     Laukiz1 = "1", Laukiz2 = "4"
   )) %>%
   dplyr::mutate(Learner = forcats::fct_recode(Learner,
-    "RF Car" = "RF MBO Car", "XGB Borda" = "XGBOOST MBO Borda",
-    "SVM Relief" = "SVM MBO Relief"
+    "RF \\\\ Car" = "RF MBO Car", "XGB \\\\ Borda" = "XGBOOST MBO Borda",
+    "SVM \\\\ Relief" = "SVM MBO Relief"
   )) %>%
   dplyr::mutate(Learner = as.character(Learner)) %>%
   dplyr::mutate(Plot = as.character(Plot)) %>%
+  dplyr::mutate("\\#" = case_when(
+    Plot == "Laukiz1" ~ ceiling(`Features (\\%)` * 559),
+    Plot == "Laukiz2" ~ ceiling(`Features (\\%)` * 451),
+    Plot == "Luiando" ~ ceiling(`Features (\\%)` * 301),
+    Plot == "Oiartzun" ~ ceiling(`Features (\\%)` * 497),
+  )) %>% 
   dplyr::group_by(Learner) %>%
-  dplyr::select(Learner, Plot, "Features (\\%)", RMSE)
+  dplyr::select(Learner, Plot, "Features (\\%)", "\\#", RMSE)
 
 rle.lengths <- rle(df_tbl[[1]])$lengths
 first <- !duplicated(df_tbl[[1]])
@@ -451,13 +457,16 @@ df_tbl[[1]][!first] <- ""
 
 # define appearance of \multirow
 df_tbl[[1]][first] <-
-  paste0("\\midrule\\multirow{", rle.lengths, "}{*}{\\textbf{", df_tbl[[1]][first], "}}")
+  paste0("\\midrule\\multirow{", rle.lengths, "}{*}{\\specialcell{", df_tbl[[1]][first], "}}")
+# remove redundant midrule from first entry
+df_tbl[[1]][first][1] = gsub("\\\\midrule", "", df_tbl[[1]][first][1])
+
 table4 <- df_tbl %>%
   xtable::xtable(
     type = "latex",
     caption = "Selected feature portions during tuning for selected learner-filter settings across folds for task HR-NRI-VI, sorted ascending by RMSE",
     label = "tab:tune-perc-sel-features",
-    digits = c(0, 0, 0, 5, 2)
+    digits = c(0, 0, 0, 5, 0, 2)
   )
 
 # save to file
