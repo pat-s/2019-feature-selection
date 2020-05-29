@@ -615,7 +615,7 @@ This was necessary to ensure that \texttt{\(m_{try}\)} was not chosen higher tha
 
 \subsubsection{Spatial resampling}
 
-\noindent A spatial nested cross-validation on the plot level was chosen to reduce the influence of spatial autocorrelation as much as possible \cite{schratz2019, sperrorest}.
+A spatial nested cross-validation on the plot level was chosen to reduce the influence of spatial autocorrelation as much as possible \cite{schratz2019, sperrorest}.
 The \ac{RMSE} was chosen as the error measure.
 Each plot served as one fold within the cross-validation setting, resulting in four iterations in total.
 For the inner level (hyperparameter tuning), \(k - 1\) folds were used with \(k\) being the number of plots.
@@ -624,22 +624,15 @@ In total the benchmarking grid consisted of 156 experiments (6 feature sets $\ti
 
 \subsection{Feature importance and feature effects}
 
-\noindent Estimating feature importance for highly-correlated datasets is a complicated task.
+Estimating feature importance for datasets with highly-correlated features is a complicated task.
 The correlation between covariates makes it challenging to calculate an unbiased estimate for single features \cite{molnar2019}.
-Methods like \ac{PDP} or permutation-based approaches do not produce reliable estimates in such scenarios because unrealistic combinations between covariates are created \cite{molnar2019}.
-Permutation feature importance calculates the loss of predictive performance for each feature by permuting it in a random manner during prediction.
-The more important the feature is for the model, the higher the mean loss in the measure, reflecting the importance of the specific feature for the current model.
-Predicting and calculating the error measure multiple times per feature comes with some computational cost.
-For increased efficiency, we estimated the feature importance only for datasets HR and VI using the best performing learner of the benchmark.
+Methods like \ac{PDP} or permutation-based approaches may produce unreliable estimates in such scenarios because unrealistic situations between covariates are created \cite{molnar2019}.
+Estimating feature importance for machine learning methods is a complicated procedure for which many different approaches, model-specific and agnostic, exist \cite{friedman2001, hastie2001, greenwell2018}.
+The development of robust methods which enable an unbiased estimation of feature importance for highly-correlated variables are subject to current research.
 
-However, as of today there are no unbiased approaches for estimating feature importance for (highly) correlated datasets.
-Nevertheless, recent methods like \ac{ALE} plots aim to tackle this problem by utilizing marginal distributions of features over a small window to focus on the effect of a single feature \cite{apley2019, molnar2019}.
-However, ALE plots need visual inspection and as the number of features increases, making objective comparisons/conclusions becomes challenging.
-
-In this work we applied permutation-based feature importance and \ac{ALE} plots (HR only) to estimate feature importance.
-With the limitations of both methods in mind we aimed to get a general overview of the feature importance of the hyperspectral bands while trying to avoid the over-interpretation of results.
-We used the best-performing algorithm on the HR task (i.e. SVM) to calculate the feature importance.
-
+In this work permutation-based feature importance and \ac{ALE} plots (HR only) were calculated to estimate feature importance / effects \cite{apley2019, molnar2019}.
+With the limitations of both methods in mind when applied to correlated features, the aim was to get a general overview of the feature importance of the hyperspectral bands while trying to avoid an over-interpretation of results.
+The best-performing algorithm on the HR task (i.e. SVM) was used for the feature importance calculation.
 
 \subsection{Linking feature importance to wavelength regions}
 
