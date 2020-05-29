@@ -482,7 +482,7 @@ The case of a feature-rich dataset comes with several challenges for both model 
 	\item Model interpretation and prediction become more challenging \cite{johnstoneiainm.2009}.
 \end{itemize}
 
-To reduce the feature space of a dataset, conceptually differing approaches exist: wrapper methods, filters, penalization methods (lasso and ridge) or \ac{PCA} \cite{das2001, guyon2003, jolliffe2016}.
+To reduce the feature space of a dataset, conceptually differing approaches exist: wrapper methods, filters, penalization methods (lasso and ridge) or \ac{PCA} \cite{bommert2020, das2001, guyon2003, jolliffe2016}.
 In contrast to wrapper methods, filters can be added to the hyperparameter optimization step and have a lower computational footprint.
 Due to the focus on filter methods, only this sub-group of feature selection methods will be introduced in greater detail in the following subsections.
 
@@ -600,7 +600,7 @@ This preprocessing step reduced the amount of covariates to 122 (HR), 86 (VI) an
 
 \subsubsection{Hyperparameter Optimization}
 
-Hyperparameters were tuned using \ac{MBO} within a nested spatial \ac{CV} \cite{mlrmbo, schratz2019}.
+Hyperparameters were tuned using \ac{MBO} within a nested spatial \ac{CV} \cite{mlrmbo, binder2020, schratz2019}.
 In MBO first \textit{n} randomly chosen hyperparameter settings out of a user defined search space are composed.
 After these \textit{n} settings have been evaluated, one new setting, which going to be evaluated next, is proposed by a fitted surrogate model (by default a kriging method).
 This strategy continues until a termination criterion, defined by the user, is reached \cite{hutter2011, jones1998}.
@@ -609,7 +609,7 @@ In this work, an initial design of 30 randomly composed hyperparameter settings 
 The advantage of this tuning approach is the substantial reduction of the tuning budget which is required to find a setting close to the global optimization minimum.
 \ac{MBO} may outperform methods that do not use information from previous iterations, such as random search or grid search \cite{bergstra2012}.
 
-To optimize the number of features used for model fitting, the percentage of features was added as a hyperparameter during the optimization stage.
+To optimize the number of features used for model fitting, the percentage of features was added as a hyperparameter during the optimization stage (\cite{binder2020}).
 For \ac{PCA}, the number of principal components was tuned instead.
 The RF hyperparameter \texttt{\(m_{try}\)} was modified into power transformed \(p^{m_{try}}\) (ranging from 1 to $p$, with \(p\) being the number of features of the dataset) to work on relative values of the respective dataset's feature count.
 This was necessary to ensure that \texttt{\(m_{try}\)} was not chosen higher than the available number of features left after optimizing the feature percentage during tuning.
