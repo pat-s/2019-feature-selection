@@ -195,7 +195,7 @@
 	However, the presence of features in the near-infrared region (800 nm - 1000 nm) was essential to achieve the best performances.
 
 	The dataset used in this work was suboptimal with respect to the achieved predictive performances and more training data is needed for more generalizable conclusions.
-	Filter methods have potential to help in high-dimensional situations while still keeping the ability to interpret feature effects of fitted models, which is an essential constrain in environmental modeling studies.
+	Filter methods show potential to be helpful in high-dimensional situations while still keeping the ability to interpret feature effects of fitted models, which is an essential constrain in environmental modeling studies.
 
 \end{abstract}
 
@@ -272,12 +272,12 @@
 This goes in line with the increased availability of remote sensing imagery, especially since the launch of the first Sentinel satellite in the year 2014.
 At the same time, the implementation and usability of learning algorithms has been greatly simplified with many contributions from the open-source community.
 Scientists can nowadays relatively easily process large amounts of (environmental) information using various learning algorithms.
-This makes it possible to extend the benchmark comparison matrix of studies in a semi-automated way, possibly stumbling across unexpected findings of process settings that would have never been tested otherwise \cite{ma2015}.
+This makes it possible to extend the benchmark comparison matrix of studies in a semi-automated way, possibly stumbling across unexpected findings of process settings that would never have been tested otherwise \cite{ma2015}.
 
 % link to forest health analysis and show exemplary studies
 
-Machine learning methods in combination with remote sensing data are used in many environmental fields such as vegetation cover analysis or forest carbon storage mapping \cite{mascaro2014, urban2018}.
-The ability of predicting to large unknown areas qualifies these tools as a promising toolset for such tasks.
+Machine-learning methods in combination with remote sensing data are used in many environmental fields such as vegetation cover analysis or forest carbon storage mapping \cite{mascaro2014, urban2018}.
+The ability of predicting into unknown space qualifies these tools as a promising toolset for such tasks.
 One aspect of this research field is to enhance the understanding of biotic and abiotic triggers, for example by analyzing defoliation at trees \cite{hawrylo2018}.
 
 Other approaches for analyzing forest health include temporal change detection \cite{zhang2016} or describing the current health status of forests on a stand level \cite{townsend2012}.
@@ -295,7 +295,7 @@ Especially when working with hyperspectral data, thousands of \ac{NRI} features 
 
 Despite its popularity in environmental modeling, there are no studies so far which used machine-learning algorithms in combination with remote sensing data to analyze defoliation on a tree level.
 This study aims to close this gap by analyzing defoliation at trees in northern Spain using airborne hyperspectral data.
-The methodology of this study uses of machine-learning methods in combination with feature selection and hyperparameter tuning.
+The methodology of this study uses machine-learning methods in combination with feature selection and hyperparameter tuning.
 In addition, feature importance and feature effects are evaluated.
 Incorporating the idea of creating data-driven \ac{NRI}s, this study also discusses the practical problems of high-dimensionality in environmental modeling \cite{trunk1979, xu2016}.
 
@@ -438,11 +438,11 @@ Besides the concept of choosing a specific filter method to rank variables, stud
 This approach is referred to as 'ensemble filtering' \cite{dietterich2000}.
 Ensemble filters align with the recent rise of the 'ensemble' approach in machine learning which uses the idea of stacking to combine the predictions of multiple models, aiming to enhance predictive performance \cite{polikar2012, feurer2015, bolon-canedo2019}.
 In this work the 'Borda' ensemble filter was applied \cite{drotar2017a}.
-For this filter, the final feature order is the sum of all single filters ranks.
+It's final feature order is determined by the sum of all single filters ranks.
 
 % Ensuring a fair weighting in the ensemble
 Filter methods can be grouped into classes: Correlation-based, entropy-based, linear and non-linear methods.
-Care needs to be taken to not weight certain classes more than others in the ensemble as otherwise the final ranking result will be biased.
+Care needs to be taken to not weigh certain classes more than others in the ensemble as otherwise the final ranking result will be biased.
 In this study this was taken care of by checking the rank correlations (Spearman's correlation) of the generated feature rankings of all methods against each other.
 If filter pairs showed a correlation of 0.9 or higher, only one of the two was included into the ensemble filter, selected at random.
 By this it was ensured that the ensemble filter composition was not biased towards a certain group of filter methods.
@@ -486,7 +486,7 @@ The filter 'Information Gain' is only defined for nominal response variables:
 
 where \(H\) is the conditional entropy of the response variable (class) or the feature (attribute), respectively.
 In order to use this method with a numeric response (percentage defoliation at trees), the variable was discretized into equal bins and treated as a class variable.
-While the number of bins could be treated as a hyperparameter of the filter method, it was decided to use \texttt{\(n_{bin}\) = 10} after rank correlations of $> 0.9$ for different bin sizes were observed during data exploration.
+After feature rank correlations of $> 0.9$ betwforeen different bin sizes were observed in a side analysis, \texttt{\(n_{bin}\) = 10} was found to be a reasonable setting to go with.
 
 \subsection{Benchmarking design}
 
@@ -502,7 +502,7 @@ The following learners were used in this work:
 \end{itemize}
 
 Random forest and {SVM} are well established algorithms widely used in (environmental) modeling.
-Extreme Gradient Boosting (commonly abbreviated as XGBoost) showed promising results in benchmark studies in recent years.
+Extreme Gradient Boosting (commonly abbreviated as XGBoost) has shown promising results in benchmark studies in recent years.
 Penalized regression is a statistical modeling technique capable of dealing with highly-correlated covariates by penalizing the coefficients of the model \cite{hastie2001}.
 Common penalties are 'lasso' (L1) and 'ridge' (L2).
 Ridge does not remove variables from the model (penalization to zero) but just shrinks them to effectively zero, keeping them in the model.
@@ -539,7 +539,7 @@ This preprocessing step reduced the amount of covariates to 122 (HR), 86 (VI) an
 
 Hyperparameters were tuned using \ac{MBO} within a nested spatial \ac{CV} \cite{mlrmbo, binder2020, schratz2019}.
 In MBO first \textit{n} randomly chosen hyperparameter settings out of a user defined search space are composed.
-After these \textit{n} settings have been evaluated, one new setting, which going to be evaluated next, is proposed by a fitted surrogate model (by default a kriging method).
+After these \textit{n} settings have been evaluated, one new setting, which is going to be evaluated next, is proposed by a fitted surrogate model (by default a kriging method).
 This strategy continues until a termination criterion, defined by the user, is reached \cite{hutter2011, jones1998}.
 
 In this work, an initial design of 30 randomly composed hyperparameter settings in combination with a termination criterion of 70 iterations was used, resulting in a total budget of 100 evaluated hyperparameter settings per fold.
@@ -575,7 +575,7 @@ The best-performing algorithm on the HR task (i.e. SVM) was used for the feature
 \subsection{Linking feature importance to wavelength regions}
 
 For environmental interpretation purposes the ten most important indices of the best performing models of feature sets HR and VI were linked to the spectral regions of the hyperspectral data.
-The aim was to visualize the most important features along the spectral curve of the plots to better understand which spectral regions were most important for the model
+The aim was to visualize the most important features along the spectral curve of the plots to better understand which spectral regions were most important for the model.
 
 \subsection{Research compendium}
 
@@ -588,7 +588,7 @@ The filter implementations of the following packages have been used: praznik \ci
 Package mlr \cite{mlr} was used for all modeling related steps.
 drake \cite{drake} was used for structuring the work and reproducibility.
 This study is available as a research compendium on Zenodo (\url{10.5281/zenodo.2635403}).
-Besides the availability of code and manuscript sources, a static webpage is available at (\url{https://github.com/pat-s/2019-feature-selection}),listing more side-analyses that were carried out through the creation of this study.
+Besides the availability of code and manuscript sources, a static webpage is available at (\url{https://github.com/pat-s/2019-feature-selection}),listing more side-analyses that were carried out during the creation of this study.
 
 \section{Results}
 
@@ -599,7 +599,7 @@ Besides the availability of code and manuscript sources, a static webpage is ava
 Overall, the response variable \enquote{tree defoliation} could be modeled with an \ac{RMSE} of 28 \% percentage points (p.p.).
 SVM showed no differences in RMSE across feature sets whereas other learners (RF, SVM, XGBoost, lasso and ridge) differed up to seven percentage points (\autoref{fig:perf-result}).
 Ridge faced major issues in four tasks due to one observation which was predicted off the response scale (i.e. $> 100$).
-SVM showed the best performance overall with a difference of around three percentage points to the next best model (RF) (\autoref{tab:best-learner-perf}).
+SVM showed the best overall performance with a difference of around three percentage points to the next best model (RF) (\autoref{tab:best-learner-perf}).
 Performance differences between test folds were large: Predicting on Luiando resulted in an RMSE of 9.0 for learner SVM (without filter) but up to 54.26 p.p. when testing on Laukiz2 (\autoref{tab:svm-single-fold-perf}).
 
 % feature sets
@@ -645,7 +645,7 @@ For SVM, all filters and \enquote{no filter} achieved the same performance on ta
 % Borda vs. other filters
 % - most often among the first best filters for each task
 % - never the best
-The Borda filter did not achieve the best performance for any learner across any task \autoref{fig:filter-effects-borda}.
+The Borda filter did not achieve the best performance for any learner across any task (\autoref{fig:filter-effects-borda}).
 For RF and XGBoost it most often ranked within the first 50\% with respect to all filters of a specific task.
 For XGBoost on the VI task, the Borda filter scored the second worst performance.
 
@@ -734,7 +734,7 @@ Leaving out the performance on Laukiz2 when aggregating results, the mean RMSE w
 However, leaving out a single plot would also change the prediction results for the other plots because the observations from Laukiz2 would not be available for model training.
 Due to the apparent presence of model overfitting in this study it can be postulated that more training data representing all health stages of a plot is needed.
 A model can only make robust predictions if it has learned relationships across the whole range of the response.
-Hence, care should be taken when predicting to the landscape scale using models fitted on this dataset due to their lack of generalizability caused by a suboptimal distributed training data.
+Hence, care should be taken when predicting to the landscape scale using models fitted on this dataset due to their lack of generalizability caused by suboptimal distributed training data.
 However, when inspecting the fold level performances, it can be concluded that the model did a decent job predicting defoliation ranging from 50\% to 100\% but failed for 0\% - 50\%.
 This applied to all learners of this study.
 
@@ -751,7 +751,7 @@ Regarding the problematic predictions of the ridge learner, a careful inspection
 One observation turned out to be influential in causing the outlier prediction value even though careful multivariate exploratory data analysis showed no reason for flagging this observation a priori.
 It was therefore left in the model, but it should be acknowledged that these learners seemed particularly sensitive to the input data.
 
-The upper range of 600 used for hyperparameter {\texttt{nrounds}} for model XGBoost in this study could a potential limiting factor with respect to the performance of the datasets including NRI variables (\autoref{tab:hyperparameter_limits}).
+The upper range of 600 used for hyperparameter {\texttt{nrounds}} for model XGBoost in this study could be a potential limiting factor with respect to the performance of the datasets including NRI variables (\autoref{tab:hyperparameter_limits}).
 This setting was a compromise between runtime and tuning space extension aimed to work well for most feature sets.
 It could be that better predictive performances could have been achieved with a {\texttt{nrounds}} upper limit close to the number of features of the NRI datasets.
 
@@ -787,7 +787,7 @@ More in-depth research is needed to investigate the effect of filters on other c
 % - Filters can also have a negative impact
 % - Filters are interesting for reducing runtime and improve interpretability, not only for performance
 The usefulness of filters with respect to predictive performance in this study varied.
-While some filters were able to enhance model performances (up to 5 p.p. for RF and XGBoost), some caused a worse performance than using no filter at all \autoref{fig:filter-effects-no-filter}.
+While some filters were able to enhance model performances (up to 5 p.p. for RF and XGBoost), some caused a worse performance than using no filter at all (\autoref{fig:filter-effects-no-filter}).
 Since these negative cases were not caused by a specific filter method, it is recommended to test multiple filters in a study if filters are going to be used.
 While filters can improve the performance of models, they might be of more interesting in other aspects than performance: reducing variables can reduce computational efforts in high-dimensional scenarios and might enhance the interpretability of models.
 Here, filters are a lot cheaper than wrapper methods due to their ability of being treated as a hyperparameter during the optimization stage.
@@ -816,12 +816,12 @@ Due to the reported geometric offset of up to 1 m within the hyperspectral data,
 By using a buffer of two meters (or more), the probability of including information from other trees into the final value increases, blurring the actual value of the tree observation.
 However, when using no buffer at all, the difference between single, neighboring pixels might even be higher compared to a smoothed value composed out of a buffer.
 It was concluded that using a buffer of two meters is a good compromise between the inclusion of information from too many surrounding trees and not accounting for the geometric offset at all.
-Even though no results showing the influence of multiple buffer values on the extraction were provided, it is hypothesized that the relationships between features would not change substantially, leading to the almost identical model results.
+Even though no results showing the influence of multiple buffer values on the extraction were provided, it is hypothesized that the relationships between features would not change substantially, leading to almost identical model results.
 
 Another point worth discussing is that the exact number of contributing pixels to the final index value of an observation cannot be exactly determined: it depends on the location of the tree within the pixel grid.
 According to the extract function of the raster package, a pixel is included if its centroid (and not just any part of the grid cell) falls inside the buffer.
 As the buffer is circular, the total number of contributing pixels of each tree depends on the exact location of a tree within the pixel grid.
-If a tree observation is located on the border of the plot, some directions of the buffer will contain no values and the subsequent index value will be calculated with fewer pixels than if the tree observation would be located in the middle of the plot.
+If a tree observation is located on the border of the plot, some directions of the buffer will contain no values and the subsequent index value will be calculated with fewer pixels than if the tree observation is located in the middle of the plot.
 
 The R package hsdar was used for the calculation of vegetation indices \cite{hsdar}.
 All indices that could be calculated with the given spectral range of the data were used.
@@ -836,9 +836,9 @@ Not surprisingly the most important features for both HR and VI datasets were id
 
 This area has the highest ability to distinguish between reflectances related to a high density / high healthiness of vegetation and its respective counterpart \cite{horler1983}.
 However, four out of ten of the most important features of dataset HR are located between 920 nm and 1000 nm.
-Looking at the spectral curves of the plots, apparent reflectance differences can be observed in this spectral area - especially for plot Oiartzun - which might explain why these features were considered as important by the model.
+Looking at the spectral curves of the plots, apparent reflectance differences can be observed in this spectral area - especially for plot Oiartzun - which might explain why these features were considered important by the model.
 
-A possible explanation for the less good performances of most models scored on the VI dataset compared to all other feature sets could be the lack of features covering the area between 850 nm and 1000 nm (\autoref{fig:fi-permut-vi-hr}).
+A possible explanation for the worse performances of most models scored on the VI dataset compared to all other feature sets could be the lack of features covering the area between 850 nm and 1000 nm (\autoref{fig:fi-permut-vi-hr}).
 The majority of VI features covers the range between 550 nm - 800 nm.
 Only one index (PWI) covers information in the range beyond 900 nm.
 
@@ -866,8 +866,8 @@ Study results indicated that spectral metrics were found to be most helpful for 
 Incorporating such metrics (both spectral and structural) could be a possible enhancement for future works.
 
 % write about hyperspectral remote sensing
-The field of (hyperspectral) remote sensing has a strong focus on using random forest for modeling in recent years \cite{belgiu2016}.
-However, in high-dimensional scenarios, tuning parameter \texttt{\(m_{try}\)} becomes computational expensive.
+The field of (hyperspectral) remote sensing has a strong focus on using random forests for modeling in recent years \cite{belgiu2016}.
+However, in high-dimensional scenarios, tuning parameter \texttt{\(m_{try}\)} becomes computationally expensive.
 To account for this and the high-dimensionality in general, studies used feature selection approaches like semi-supervised feature extraction \cite{xia2015}, wrapper methods \cite{fassnacht2014, feng2016, georganos2018}, PCA and adjusted feature selection \cite{rochac2016}.
 However, no study which made use of filter methods in combination with hyperparameter tuning in the field of (hyperspectral) remote sensing could be found.
 Potential reasons for this gap could be an easier access of applying wrappers methods and a higher general awareness of such compared to filter methods.
