@@ -1,16 +1,16 @@
 % latex table generated in R 3.6.1 by xtable 1.8-3 package
 \begin{table}[ht!]
 \centering
-\caption{Test fold performances for learner SVM on the HR dataset without using a filter. For each row, the model was trained on observations from fold all other plots and tested on the observations of the given plot.} 
+\caption{Test fold performances for learner SVM on the HR dataset without using a filter. For each row, the model was trained on observations from all others plots but the given one and tested on the observations of the given plot.} 
 \label{tab:svm-single-fold-perf}
-\begin{tabular}{rlr}
+\begin{tabular}{rrrl}
   \hline
- & Plot & RMSE \\ 
+ & Plot & RMSE & Test Plot \\ 
   \hline
-1 & Laukiz1 & 21.17 \\ 
-  2 & Oiartzun & 28.05 \\ 
-  3 & Luiando & 9.00 \\ 
-  4 & Laukiz2 & 54.26 \\ 
+1 &   1 & 21.17 & Laukiz1 \\ 
+  2 &   2 & 28.05 & Oiartzun \\ 
+  3 &   3 & 9.00 & Luiando \\ 
+  4 &   4 & 54.26 & Laukiz2 \\ 
    \hline
 \end{tabular}
 \end{table}
