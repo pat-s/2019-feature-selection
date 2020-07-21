@@ -544,8 +544,9 @@ The advantage of this tuning approach is a substantial reduction of the tuning b
 
 To optimize the number of features used for model fitting, the percentage of features was added as a hyperparameter during the optimization stage (\cite{binder2020}).
 For \ac{PCA}, the number of principal components was tuned instead.
-The RF hyperparameter \texttt{\(m_{try}\)} was re-expressed as $m_try = p^{x_try}$.
-The exponent $x_try$, (ranging from 1 to $p_sel$, where $p_sel$ is the number of features selected with the corresponding filter settings), was optimized between 0 (one randomly selected feature) and 0.5 ($\sqrt{p_sel}$ randomly selected candidate features).
+%The RF hyperparameter \texttt{\(m_{try}\)} was re-expressed as $m_{try} = p^x_{try}$.
+The RF hyperparameter \texttt{\(m_{try}\)} was re-expressed as $m_\textrm{try} = p_\textrm{sel}^t$ as a function of the number of selected features, $p_\textrm{sel}$.
+It was thus tuned on a logarithmic scale by varying $t$ between 0 (i.e. $m_\textrm{try} = 1$) and 0.5 (i.e. $m_\textrm{try}=\sqrt{p_\textrm{sel}}$).
 This was necessary to ensure that \texttt{\(m_{try}\)} was not chosen higher than the available number of features left after optimizing the feature percentage during tuning.
 
 \subsubsection{Spatial resampling}
@@ -648,9 +649,9 @@ For XGBoost on the VI task, the Borda filter scored the second worst performance
 % Selected percentage of features across plots
 % FIXME: Lösung einfügen nach Klärung mit Alex
 Large differences were observed between the numbers of features selected during tuning for the subsequent fitting process.
-Most features were selected during optimization for plot Laukiz2 and least for Laukiz1 (\autoref{tab:tune-perc-sel-features}).
-RF used only one feature for plots Luiando and Oiartzun (0.00004 \% of 7675) while for Laukiz1 34 and for Laukiz2 230 features were seen as optimal during optimization.
-In contrast, XGBoost and SVM used in all cases but Laukiz1 (less than 50 features) more than two-thirds of all available features.
+Most features were selected during optimization when training without Laukiz2 and least when Laukiz1 served as the test set (\autoref{tab:tune-perc-sel-features}).
+RF used only one feature when Luiando and Oiartzun served as the test data (0.00004 \% of 7675) while 34 and 230 features were seen as optimal during optimization when Laukiz1 and Laukiz2 were the test data, respectively.
+In contrast, XGBoost and SVM used in all cases but Laukiz1 (less than 50 features; test set) more than two-thirds of all available features.
 
 % latex table top 10 absolute performances
 \input{performance-top-10}
@@ -772,7 +773,7 @@ When Laukiz2 was in the training set, the overall mean RMSE was reduced by up to
 
 The large differences of selected features per fold during tuning give interesting insights into internals of the used models (\autoref{tab:tune-perc-sel-features}).
 While in most cases, SVM and XGBoost require a substantial portion of all available features to achieve robust predictions, RF was able to achieve the best results with a relatively small amount of features.
-Realizing early that few features are needed during tuning to reach adequate performances can reduce the overall computational runtime substantially, especially when iterating on features like \texttt{\(m_{try}\)} which are dependent on the number of features.
+Realizing early that few features are needed during tuning to reach adequate performances can reduce the overall computational runtime substantially, especially when iterating over parameters such as $m_\textrm{try}$ whose optimum (and range) depends on the number of features.
 Hence, regardless of the potential advantage of using filters for increased predictive performance, it should be noted that these can have a strong positive effect on runtime, at least for RF in this study.
 
 Ultimately, the results of \autoref{tab:tune-perc-sel-features} should be taken with care as they rely on single model-filter combinations and are subject to random variation.
@@ -801,10 +802,11 @@ More case studies applying ensemble filter methods are needed to verify this fin
 Nevertheless, ensemble filters can be a promising addition to a machine-learning feature-selection portfolio.
 
 % - PCA shows similar performance but probably requires tuning of main components -> check runtime!
-PCA used as a filter in this work did neither show the best nor worst result compared to other feature-selection approaches.
+PCA, acting as a filter method in this work, did neither show the best nor worst result compared to other feature-selection approaches.
 It was able to reduce model fitting times substantially.
-However, it also removed the possibility to conduct a post-hoc analysis of feature importance by combining predictors into principal components, forcing users to decide upfront what they value more.
-Since filter scores only need to be calculated once in a benchmark setting, the runtime advantage might in fact be negligible in practice.
+Depending on the use case, PCA can be an interesting option to reduce dimensionality while keeping runtime low.
+However, information about the total number of features used by the model is lost when applying this technique.
+Since filter scores only need to be calculated once for a given dataset in a benchmark setting, the runtime advantage of a PCA vs. filter methods might in fact be negligible in practice.
 
 \subsection{Linking feature importance to spectral characteristics}
 
