@@ -348,9 +348,6 @@ $(document).ready(function () {
     </li>
   </ul>
 </li>
-<li>
-  <a href="timeline.html">Timeline</a>
-</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -388,7 +385,7 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-03-22
+<strong>Last updated:</strong> 2020-08-05
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -479,16 +476,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontreefc147e44be6b089279f10adbdb69d6cc5b035c7etargetblankfc147e4a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/fc147e44be6b089279f10adbdb69d6cc5b035c7e" target="_blank">fc147e4</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree48ac48f7ca9454259533f51736fd82dabeb783d3targetblank48ac48fa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/48ac48f7ca9454259533f51736fd82dabeb783d3" target="_blank">48ac48f</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontreefc147e44be6b089279f10adbdb69d6cc5b035c7etargetblankfc147e4a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree48ac48f7ca9454259533f51736fd82dabeb783d3targetblank48ac48fa" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/pat-s/2019-feature-selection/tree/fc147e44be6b089279f10adbdb69d6cc5b035c7e" target="_blank">fc147e4</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/pat-s/2019-feature-selection/tree/48ac48f7ca9454259533f51736fd82dabeb783d3" target="_blank">48ac48f</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -512,11 +509,8 @@ Ignored files:
     Ignored:    rosm.cache/
 
 Unstaged changes:
-    Modified:   _drake.R
-    Modified:   analysis/eval-performance.Rmd
-    Modified:   analysis/inspect-glmnet-models.Rmd
     Modified:   analysis/report-defoliation.Rmd
-    Modified:   code/03-sentinel-processing.R
+    Deleted:    tic.R
 
 </code></pre>
 <p>
@@ -555,6 +549,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/944c037775c602066ccb6f671a0efdb0be1bbdc6/analysis/about.Rmd" target="_blank">944c037</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-08-05
+</td>
+<td>
+update about.Rmd
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pat-s/2019-feature-selection/d513e783e2d8d42d2d00d888eb281bc78da81ff5/docs/about.html" target="_blank">d513e78</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-03-22
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -955,10 +983,14 @@ Start workflowr project.
 <li><p>Using machine-learning algorithms to model defoliation of <em>Pinus Radiata</em> trees.</p></li>
 <li><p>keywords</p>
 <ul>
-<li>high-dimensional data handling</li>
+<li>hyperspectral imagery</li>
+<li>forest health monitoring</li>
+<li>machine learning</li>
 <li>feature selection</li>
-<li>machine-learning</li>
-<li>ecology</li>
+<li>feature effects</li>
+<li>model comparison</li>
+<li>filter</li>
+<li>imaging spectroscopy</li>
 </ul></li>
 <li><p>Compare filtering methods (ensemble filter methods) across various algorithms and datasets</p></li>
 <li><p>Predict defoliation to all available plots (24) and the whole Basque Country (at 200 m resolution)</p></li>
@@ -987,38 +1019,21 @@ Start workflowr project.
 </div>
 <div id="install-the-r-package" class="section level2">
 <h2>Install the R package</h2>
-<p><a href="https://travis-ci.org/pat-s/paper_hyperspectral"><img src="https://travis-ci.org/pat-s/paper_hyperspectral.svg?branch=master" alt="Build Status" /></a></p>
 <p>This repository is organized as an R package, providing functions and raw data to reproduce and extend the analysis reported in the publication. Note that this package has been written explicitly for this project and may not be suitable for more general use.</p>
 <p>This project is setup with a <a href="https://github.com/ropensci/drake">drake workflow</a>, ensuring reproducibility. Intermediate targets/objects will be stored in a hidden <code>.drake</code> directory.</p>
-<p>The R library of this project is managed by <a href="https://rstudio.github.io/packrat/">packrat</a>. This makes sure that the exact same package versions are used when recreating the project. When calling <code>packrat::restore()</code>, all required packages will be installed with their specific version.</p>
-<p>Please note that this project was built with R version 3.5.2 on a Debian 9 operating system. The packrat packages from this project <strong>are not compatible with R versions prior version 3.5.0.</strong> For reproducibility, it is recommended to replicate the analysis using the included Dockerfile. Instructions can be found <a href="https://github.com/pat-s/paper_hyperspectral#docker">ħere</a>. (In general, it should be possible to reproduce the analysis on any other operating system.)</p>
+<p>The R library of this project is managed by <a href="https://rstudio.github.io/renv/index.html">renv</a>. This makes sure that the exact same package versions are used when recreating the project. When calling <code>renv::restore()</code>, all required packages will be installed with their specific version.</p>
+<p>Please note that this project was built with R version 3.6.1 on a CentOS 7 operating system. Some packages from this project <strong>are not compatible with R versions prior version 3.6.0.</strong></p>
 <p>To clone the project, a working installation of <code>git</code> is required. Open a terminal in the directory of your choice and execute:</p>
-<pre class="sh"><code>git clone git@github.com:pat-s/paper_hyperspectral.git</code></pre>
+<pre class="sh"><code>git clone https://github.com/pat-s/2019-feature-selection.git</code></pre>
 <p>Then start R in this directory and run</p>
-<pre class="r"><code>packrat::restore()
+<pre class="r"><code>renv::restore()
 r_make()</code></pre>
 </div>
 </div>
 <div id="notes-and-resources" class="section level1">
 <h1>Notes and resources</h1>
 <ul>
-<li><p>The <a href="https://github.com/pat-s/paper_hyperspectral/issues">issues tracker</a> is the place to report problems or ask questions</p></li>
-<li><p>See the repository <a href="https://github.com/pat-s/paper_hyperspectral/commits/master">history</a> for a fine-grained view of progress and changes.</p></li>
-<li><p>The organisation of this compendium is based on the work of <a href="http://www.carlboettiger.info/">Carl Boettiger</a> and <a href="https://github.com/benmarwick">Ben Marwick</a>.</p></li>
-</ul>
-</div>
-<div id="literature" class="section level1">
-<h1>Literature</h1>
-<ul>
-<li>What to do first (Feature selection or tuning): <a href="https://datascience.stackexchange.com/a/19778/24475" class="uri">https://datascience.stackexchange.com/a/19778/24475</a></li>
-<li>{glmnet}: How to select lambda and alpha: <a href="https://stats.stackexchange.com/questions/357190/glmnet-how-to-select-lambda-and-alpha/415248#415248" class="uri">https://stats.stackexchange.com/questions/357190/glmnet-how-to-select-lambda-and-alpha/415248#415248</a></li>
-<li>Hastie, T., Friedman, J., &amp; Tibshirani, R. (2001). The Elements of Statistical Learning. Springer New York. <a href="https://doi.org/10.1007/978-0-387-21606-5" class="uri">https://doi.org/10.1007/978-0-387-21606-5</a> (Kapitel 16)</li>
-<li>FSel algs overview: <a href="http://featureselection.asu.edu/algorithms.php" class="uri">http://featureselection.asu.edu/algorithms.php</a></li>
-<li>De Jay, N., Papillon-Cavanagh, S., Olsen, C., El-Hachem, N., Bontempi, G., &amp; Haibe-Kains, B. (2013). mRMRe: an R package for parallelized mRMR ensemble feature selection. Bioinformatics, 29(18), 2365–2368. <a href="https://doi.org/10/f48vxc" class="uri">https://doi.org/10/f48vxc</a></li>
-<li>Drotár, P., Gazda, J., &amp; Smékal, Z. (2015). An experimental comparison of feature selection methods on two-class biomedical datasets. Computers in Biology and Medicine, 66, 1–10. <a href="https://doi.org/10/f72ttc" class="uri">https://doi.org/10/f72ttc</a></li>
-<li>Drotár, P., Šimoňák, S., Pietriková, E., Chovanec, M., Chovancová, E., Ádám, N., … Biňas, M. (2017). Comparison of Filter Techniques for Two-Step Feature Selection. COMPUTING AND INFORMATICS, 36(3), 597–617. <a href="https://doi.org/10/gbntp7" class="uri">https://doi.org/10/gbntp7</a></li>
-<li>Drotár, P., Gazda, M., &amp; Gazda, J. (2017). Heterogeneous ensemble feature selection based on weighted Borda count. In 2017 9th International Conference on Information Technology and Electrical Engineering (ICITEE) (pp. 1–4). <a href="https://doi.org/10.1109/ICITEED.2017.8250495" class="uri">https://doi.org/10.1109/ICITEED.2017.8250495</a></li>
-<li>Nie, F., Huang, H., Cai, X., &amp; Ding, C. H. (2010). Efficient and Robust Feature Selection via Joint 2,1-Norms Minimization. In J. D. Lafferty, C. K. I. Williams, J. Shawe-Taylor, R. S. Zemel, &amp; A. Culotta (Eds.), Advances in Neural Information Processing Systems 23 (pp. 1813–1821). Curran Associates, Inc. Retrieved from <a href="http://papers.nips.cc/paper/3988-efficient-and-robust-feature-selection-via-joint-l21-norms-minimization.pdf" class="uri">http://papers.nips.cc/paper/3988-efficient-and-robust-feature-selection-via-joint-l21-norms-minimization.pdf</a></li>
+<li>The organisation of this compendium is based on the work of <a href="http://www.carlboettiger.info/">Carl Boettiger</a> and <a href="https://github.com/benmarwick">Ben Marwick</a>.</li>
 </ul>
 <br>
 <p>
@@ -1048,11 +1063,11 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 loaded via a namespace (and not attached):
- [1] workflowr_1.6.1 Rcpp_1.0.3      rprojroot_1.3-2 digest_0.6.23  
+ [1] workflowr_1.6.1 Rcpp_1.0.3      rprojroot_1.3-2 digest_0.6.25  
  [5] later_1.0.0     R6_2.4.1        backports_1.1.5 git2r_0.26.1   
- [9] magrittr_1.5    evaluate_0.13   stringi_1.3.1   fs_1.3.1       
+ [9] magrittr_1.5    evaluate_0.13   stringi_1.3.1   fs_1.4.1       
 [13] promises_1.0.1  whisker_0.3-2   rmarkdown_1.13  tools_3.6.1    
-[17] stringr_1.4.0   glue_1.3.1      httpuv_1.4.5.1  xfun_0.5       
+[17] stringr_1.4.0   glue_1.4.0      httpuv_1.4.5.1  xfun_0.5       
 [21] yaml_2.2.0      compiler_3.6.1  htmltools_0.3.6 knitr_1.23     </code></pre>
 </div>
 </div>
