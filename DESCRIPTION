@@ -1,6 +1,6 @@
-Package: FeatureSelection
+Package: RCschratz2019
 Title: Research Compendium package for the publication
-    "Placeholder"
+    "Monitoring forest health using hyperspectral imagery: Does feature selection improve the performance of machine-learning techniques?"
 Version: 0.0.0.9000
 Authors@R:
     person(given = "Patrick",
@@ -8,10 +8,10 @@ Authors@R:
            role = c("aut", "cre"),
            email = "patrick.schratz@gmail.com",
            comment = c(ORCID = "0000-0003-0748-6624"))
-Description: What the package does (one paragraph)
+Description: Provides functions for the referenced study
 License: MIT + file LICENSE
 URL: https://github.com/pat-s/2019-feature-selection
-BugReports: 
+BugReports:
     https://github.com/pat-s/2019-feature-selection/issues
 Imports:
     cli,
@@ -44,7 +44,7 @@ Imports:
     sf,
     stringr,
     usethis
-Remotes: 
+Remotes:
     16EAGLE/getSpatialData,
     pat-s/hsdar@9de91c8f67c4b19b39bca7d2c03d37d7641b2b33
 ByteCompile: true
