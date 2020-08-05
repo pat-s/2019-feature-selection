@@ -29,8 +29,6 @@ Alexander Brenning [![](https://orcid.org/sites/default/files/images/orcid_16x16
 
 This repository contains the research compendium of our work on comparing algorithms across multiple feature sets and filtering methods (including ensemble filter methods).
 
-- Using machine-learning algorithms to model defoliation of _Pinus Radiata_ trees.
-
 - keywords
 
   - hyperspectral imagery
@@ -41,6 +39,8 @@ This repository contains the research compendium of our work on comparing algori
   - model comparison
   - filter
   - imaging spectroscopy
+
+- Using machine-learning algorithms to model defoliation of _Pinus Radiata_ trees.
 
 - Compare filtering methods (ensemble filter methods) across various algorithms and datasets
 
@@ -59,19 +59,19 @@ The following directories belong to this project
 
 In addition, this repo contains the workflow for an analysis related to the [LIFE 14 ENV/ES/000179 LIFE HEALTHY FOREST](http://www.lifehealthyforest.com/) project: Predicting defoliation at trees for the Basque Country (for the years 2017 and 2018) using Sentinel-2 data.
 
-Target `defoliation_maps_wfr` builds are targets necessary for the final results [report](https://2019-feature-selection.pjs-web.de/report-defoliation.html).
+Target `defoliation_maps_wfr` builds subsequent argets which are necessary for the final results [report](https://pat-s.github.io/2019-feature-selection/report-defoliation.html).
 
 # How to use
 
 ## Read the code, access the data
 
 See the [`code`](https://github.com/pat-s/paper_hyperspectral/tree/master/analysis) directory on GitHub for the source code that generated the figures and statistical results contained in the manuscript.
-See the [`data`](https://github.com/pat-s/paper_hyperspectral/tree/master/analysis/data) directory for instructions how to access the raw data discussed in the manuscript.
+See the [`data`](https://github.com/pat-s/paper_hyperspectral/tree/master/analysis/data) directory for instructions how to access the raw data used in the manuscript.
 
 ## Install the R package
 
 This repository is organized as an R package, providing functions and raw data to reproduce and extend the analysis reported in the publication.
-Note that this package has been written explicitly for this project and may not be suitable for more general use.
+Note that this package has been written explicitly for this project and is not suited a for more general use.
 
 This project is setup with a [drake workflow](https://github.com/ropensci/drake), ensuring reproducibility.
 Intermediate targets/objects will be stored in a hidden `.drake` directory.
@@ -99,4 +99,4 @@ r_make()
 
 # Notes and resources
 
-* The organisation of this compendium is based on the work of [Carl Boettiger](http://www.carlboettiger.info/) and [Ben Marwick](https://github.com/benmarwick).
+* The organisation of this compendium was inspired by the works of [Carl Boettiger](http://www.carlboettiger.info/) and [Ben Marwick](https://github.com/benmarwick).
