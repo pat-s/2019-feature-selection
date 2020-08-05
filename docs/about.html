@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
 
 
 <title>About</title>
 
+<script src="site_libs/header-attrs-2.3/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
@@ -30,6 +31,8 @@ div.section {
   padding-top: 12px;
 }
 </style>
+
+
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -92,7 +95,6 @@ code {
 }
 img {
   max-width:100%;
-  height: auto;
 }
 .tabbed-pane {
   padding-top: 12px;
@@ -241,6 +243,7 @@ $(document).ready(function () {
   border: none;
   display: inline-block;
   border-radius: 4px;
+  background-color: transparent;
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li {
@@ -252,18 +255,6 @@ $(document).ready(function () {
   display: none;
 }
 </style>
-
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-
-$(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
-  });
-});
-</script>
 
 <!-- code folding -->
 
@@ -367,7 +358,7 @@ $(document).ready(function () {
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -376,7 +367,7 @@ $(document).ready(function () {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -388,14 +379,14 @@ $(document).ready(function () {
 <strong>Last updated:</strong> 2020-08-05
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>2019-feature-selection/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
 </p>
 <p>
 This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
-  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.1). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.2). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
 </p>
 <hr>
 </div>
@@ -416,12 +407,45 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongobjectspresent"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>Environment:</strong> objects present </a>
 </p>
 </div>
-<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div id="strongEnvironmentstrongobjectspresent" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+<p>
+The global environment had objects present when the code in the R Markdown file was run. These objects can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment. Use <code>wflow_publish</code> or <code>wflow_build</code> to ensure that the code is always run in an empty environment.
+</p>
+<p>
+The following objects were defined in the global environment when these results were created:
+</p>
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th style="text-align:left;">
+Name
+</th>
+<th style="text-align:left;">
+Class
+</th>
+<th style="text-align:left;">
+Size
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+runAllChunks
+</td>
+<td style="text-align:left;">
+function
+</td>
+<td style="text-align:left;">
+3 Kb
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>
@@ -476,41 +500,31 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree48ac48f7ca9454259533f51736fd82dabeb783d3targetblank48ac48fa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/48ac48f7ca9454259533f51736fd82dabeb783d3" target="_blank">48ac48f</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree9fef27500442556413224090a76b7f80c2bfb7a6targetblank9fef275a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/9fef27500442556413224090a76b7f80c2bfb7a6" target="_blank">9fef275</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree48ac48f7ca9454259533f51736fd82dabeb783d3targetblank48ac48fa" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree9fef27500442556413224090a76b7f80c2bfb7a6targetblank9fef275a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/pat-s/2019-feature-selection/tree/48ac48f7ca9454259533f51736fd82dabeb783d3" target="_blank">48ac48f</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/pat-s/2019-feature-selection/tree/9fef27500442556413224090a76b7f80c2bfb7a6" target="_blank">9fef275</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 </p>
 <pre><code>
 Ignored files:
+    Ignored:    .DS_Store
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
-    Ignored:    .Ruserdata/
-    Ignored:    .drake/
     Ignored:    .vscode/
-    Ignored:    analysis/rosm.cache/
-    Ignored:    data/
-    Ignored:    inst/Benchmark for Filter Methods for Feature Selection in High-Dimensional  Classification Data.pdf
-    Ignored:    inst/study-area-map/._study-area.qgs
-    Ignored:    inst/study-area-map/study-area.qgs~
-    Ignored:    log/
+    Ignored:    code/98-paper/
+    Ignored:    ieee-manuscript.log
+    Ignored:    packrat/
     Ignored:    renv/library/
     Ignored:    renv/staging/
-    Ignored:    reviews/
-    Ignored:    rosm.cache/
-
-Unstaged changes:
-    Modified:   analysis/report-defoliation.Rmd
-    Deleted:    tic.R
 
 </code></pre>
 <p>
@@ -549,6 +563,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/9fef27500442556413224090a76b7f80c2bfb7a6/analysis/about.Rmd" target="_blank">9fef275</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-08-05
+</td>
+<td>
+workflowr::wflow_publish(“analysis/about.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pat-s/2019-feature-selection/90d099fe8b7df0473f06c9874def3def894fd19d/docs/about.html" target="_blank">90d099f</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-08-05
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -980,7 +1028,6 @@ Start workflowr project.
 <h2>Paper</h2>
 <p>This repository contains the research compendium of our work on comparing algorithms across multiple feature sets and filtering methods (including ensemble filter methods).</p>
 <ul>
-<li><p>Using machine-learning algorithms to model defoliation of <em>Pinus Radiata</em> trees.</p></li>
 <li><p>keywords</p>
 <ul>
 <li>hyperspectral imagery</li>
@@ -992,6 +1039,7 @@ Start workflowr project.
 <li>filter</li>
 <li>imaging spectroscopy</li>
 </ul></li>
+<li><p>Using machine-learning algorithms to model defoliation of <em>Pinus Radiata</em> trees.</p></li>
 <li><p>Compare filtering methods (ensemble filter methods) across various algorithms and datasets</p></li>
 <li><p>Predict defoliation to all available plots (24) and the whole Basque Country (at 200 m resolution)</p></li>
 </ul>
@@ -1008,18 +1056,18 @@ Start workflowr project.
 <div id="other-content" class="section level2">
 <h2>Other Content</h2>
 <p>In addition, this repo contains the workflow for an analysis related to the <a href="http://www.lifehealthyforest.com/">LIFE 14 ENV/ES/000179 LIFE HEALTHY FOREST</a> project: Predicting defoliation at trees for the Basque Country (for the years 2017 and 2018) using Sentinel-2 data.</p>
-<p>Target <code>defoliation_maps_wfr</code> builds are targets necessary for the final results <a href="https://2019-feature-selection.pjs-web.de/report-defoliation.html">report</a>.</p>
+<p>Target <code>defoliation_maps_wfr</code> builds subsequent argets which are necessary for the final results <a href="https://pat-s.github.io/2019-feature-selection/report-defoliation.html">report</a>.</p>
 </div>
 </div>
 <div id="how-to-use" class="section level1">
 <h1>How to use</h1>
 <div id="read-the-code-access-the-data" class="section level2">
 <h2>Read the code, access the data</h2>
-<p>See the <a href="https://github.com/pat-s/paper_hyperspectral/tree/master/analysis"><code>code</code></a> directory on GitHub for the source code that generated the figures and statistical results contained in the manuscript. See the <a href="https://github.com/pat-s/paper_hyperspectral/tree/master/analysis/data"><code>data</code></a> directory for instructions how to access the raw data discussed in the manuscript.</p>
+<p>See the <a href="https://github.com/pat-s/paper_hyperspectral/tree/master/analysis"><code>code</code></a> directory on GitHub for the source code that generated the figures and statistical results contained in the manuscript. See the <a href="https://github.com/pat-s/paper_hyperspectral/tree/master/analysis/data"><code>data</code></a> directory for instructions how to access the raw data used in the manuscript.</p>
 </div>
 <div id="install-the-r-package" class="section level2">
 <h2>Install the R package</h2>
-<p>This repository is organized as an R package, providing functions and raw data to reproduce and extend the analysis reported in the publication. Note that this package has been written explicitly for this project and may not be suitable for more general use.</p>
+<p>This repository is organized as an R package, providing functions and raw data to reproduce and extend the analysis reported in the publication. Note that this package has been written explicitly for this project and is not suited a for more general use.</p>
 <p>This project is setup with a <a href="https://github.com/ropensci/drake">drake workflow</a>, ensuring reproducibility. Intermediate targets/objects will be stored in a hidden <code>.drake</code> directory.</p>
 <p>The R library of this project is managed by <a href="https://rstudio.github.io/renv/index.html">renv</a>. This makes sure that the exact same package versions are used when recreating the project. When calling <code>renv::restore()</code>, all required packages will be installed with their specific version.</p>
 <p>Please note that this project was built with R version 3.6.1 on a CentOS 7 operating system. Some packages from this project <strong>are not compatible with R versions prior version 3.6.0.</strong></p>
@@ -1033,7 +1081,7 @@ r_make()</code></pre>
 <div id="notes-and-resources" class="section level1">
 <h1>Notes and resources</h1>
 <ul>
-<li>The organisation of this compendium is based on the work of <a href="http://www.carlboettiger.info/">Carl Boettiger</a> and <a href="https://github.com/benmarwick">Ben Marwick</a>.</li>
+<li>The organisation of this compendium was inspired by the works of <a href="http://www.carlboettiger.info/">Carl Boettiger</a> and <a href="https://github.com/benmarwick">Ben Marwick</a>.</li>
 </ul>
 <br>
 <p>
@@ -1043,32 +1091,33 @@ r_make()</code></pre>
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
 <pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>R version 3.6.1 (2019-07-05)
-Platform: x86_64-pc-linux-gnu (64-bit)
-Running under: CentOS Linux 7 (Core)
+<pre><code>R version 4.0.2 Patched (2020-06-30 r78761)
+Platform: x86_64-apple-darwin17.0 (64-bit)
+Running under: macOS Catalina 10.15.6
 
 Matrix products: default
-BLAS:   /opt/spack/opt/spack/linux-centos7-x86_64/gcc-9.2.0/r-3.6.1-j25wr6zcofibs2zfjwg37357rjj26lqb/rlib/R/lib/libRblas.so
-LAPACK: /opt/spack/opt/spack/linux-centos7-x86_64/gcc-9.2.0/r-3.6.1-j25wr6zcofibs2zfjwg37357rjj26lqb/rlib/R/lib/libRlapack.so
+BLAS:   /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRblas.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRlapack.dylib
 
 locale:
- [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
- [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
- [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
- [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
- [9] LC_ADDRESS=C               LC_TELEPHONE=C            
-[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
 
 attached base packages:
-[1] stats     graphics  grDevices utils     datasets  methods   base     
+[1] stats     graphics  grDevices datasets  utils     methods   base     
+
+other attached packages:
+[1] usethis_1.6.1 magrittr_1.5 
 
 loaded via a namespace (and not attached):
- [1] workflowr_1.6.1 Rcpp_1.0.3      rprojroot_1.3-2 digest_0.6.25  
- [5] later_1.0.0     R6_2.4.1        backports_1.1.5 git2r_0.26.1   
- [9] magrittr_1.5    evaluate_0.13   stringi_1.3.1   fs_1.4.1       
-[13] promises_1.0.1  whisker_0.3-2   rmarkdown_1.13  tools_3.6.1    
-[17] stringr_1.4.0   glue_1.4.0      httpuv_1.4.5.1  xfun_0.5       
-[21] yaml_2.2.0      compiler_3.6.1  htmltools_0.3.6 knitr_1.23     </code></pre>
+ [1] Rcpp_1.0.5      whisker_0.4     knitr_1.29      workflowr_1.6.2
+ [5] R6_2.4.1        rlang_0.4.7     highr_0.8       stringr_1.4.0  
+ [9] tools_4.0.2     xfun_0.16       git2r_0.27.1    htmltools_0.5.0
+[13] ellipsis_0.3.1  rprojroot_1.3-2 yaml_2.2.1      digest_0.6.25  
+[17] tibble_3.0.3    lifecycle_0.2.0 crayon_1.3.4    later_1.1.0.1  
+[21] vctrs_0.3.2     fs_1.5.0        promises_1.1.1  glue_1.4.1     
+[25] evaluate_0.14   rmarkdown_2.3   stringi_1.4.6   compiler_4.0.2 
+[29] pillar_1.4.6    backports_1.1.8 httpuv_1.5.4    renv_0.11.0    
+[33] pkgconfig_2.0.3</code></pre>
 </div>
 </div>
 
@@ -1087,6 +1136,8 @@ footer is added to webpages before the MathJax javascript. -->
 
 
 
+
+
 </div>
 
 <script>
@@ -1101,6 +1152,23 @@ $(document).ready(function () {
 
 
 </script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
