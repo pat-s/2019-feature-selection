@@ -395,11 +395,11 @@ To use the full potential of the hyperspectral data, all possible vegetation ind
 The following formula was used for the NRI calculation:
 
 \begin{equation}
-	NRI_{i,j} = \frac{b_{i} - b_{j}}{b_{i} + b_{j}}
+	NRI_{i,j} = \frac{band_{i} - band_{j}}{band_{i} + band_{j}}
 \end{equation}
 
 \noindent
-where \(i\) and \(j\) are the respective band numbers.
+with \(i\) and \(j\) being the respective band numbers.
 
 \bigbreak{}
 
@@ -561,7 +561,7 @@ In total the benchmarking grid consisted of 156 experiments (6 feature sets $\ti
 
 \subsection{Feature importance and feature effects}
 
-Estimating feature importance for datasets with highly correlated features is a complicated task for which many different approaches, model-specific and agnostic, exist \cite{friedman2001, hastie2001, greenwell2018}..
+Estimating feature importance for datasets with highly correlated features is a complicated task for which many different approaches, model-specific and agnostic, exist \cite{friedman2001, hastie2001, greenwell2018}.
 The correlation between covariates makes it challenging to calculate an unbiased estimate for single features \cite{molnar2019}.
 Methods like \ac{PDP} or permutation-based approaches may produce unreliable estimates in such scenarios because unrealistic situations between covariates are created \cite{molnar2019}.
 The development of robust methods which enable an unbiased estimation of feature importance for highly correlated variables are subject to current research.
@@ -871,7 +871,7 @@ The field of (hyperspectral) remote sensing has a strong focus on using random f
 However, in high-dimensional scenarios, tuning parameter \texttt{\(m_{try}\)} becomes computationally expensive.
 To account for this and the high dimensionality in general, studies used feature selection approaches like semi-supervised feature extraction \cite{xia2015}, wrapper methods \cite{fassnacht2014, feng2016, georganos2018}, PCA and adjusted feature selection \cite{rochac2016}.
 However, no study that made use of filter methods in combination with hyperparameter tuning in the field of (hyperspectral) remote sensing could be found.
-Potential reasons for this gap could be an easier access to wrappers methods and a higher general awareness of such compared to filter methods.
+Potential reasons for this gap could be an easier access to wrapper methods and a higher general awareness of such compared to filter methods.
 Applying the filter-based feature selection methodology shown in this study and its related code provided in the research compendium might be a helpful reference for future studies using hyperspectral remote sensing data.
 
 % RS studies with more/other algorithms than RF
@@ -1007,8 +1007,6 @@ More training data covering a wider range of defoliation values in a larger numb
 \bibliographystyle{IEEEtran}
 \bibliography{Biblio}
 
-\section*{References}
-
 \pagebreak
 
 % The photo area is 1 in wide and 1.25 in long. The IEEE recommends that author photo images should be of 220 dpi (dots per inch) resolution and in gray scale with 8 bits/sample.
@@ -1038,7 +1036,7 @@ More training data covering a wider range of defoliation values in a larger numb
 	[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{./jpg/jcortes.png}}]{José Cortés}
 	received his B.S. in Mathematics and M.S. in Statistics from Arizona State University, Arizona, USA, in 2014 and 2016, respectively.
 	Currently he is a PhD student at Friedrich-Schiller-University, Jena, Germany.
-	He is a member of the International Max Planck Research School on Global Biogeochemical Cycles (IMPRS-gBGC, a joint program with the Max Planck Institute for Biogeochemistry.
+	He is a member of the International Max Planck Research School on Global Biogeochemical Cycles (IMPRS-gBGC), a joint program with the Max Planck Institute for Biogeochemistry.
 	His research focuses on spatio-temporal trend detection in environmental data.
 \end{IEEEbiography}
 \begin{IEEEbiography}
