@@ -22,7 +22,7 @@ See [https://pat-s.github.io/2019-feature-selection/](https://pat-s.github.io/20
 
 :notebook_with_decorative_cover: `analysis/`: Reporting documents (R Markdown)
 
-:notebook_with_decorative_cover: `docs/`: HTML docs created via [workflowr](https://jdblischak.github.io/workflowr/) using the .Rmd sources from the `analysis/` directory.
+:notebook_with_decorative_cover: `docs/`: HTML docs created via [{workflowr}](https://jdblischak.github.io/workflowr/) using the .Rmd sources from the `analysis/` directory.
 
 The data is hosted at [Zenodo](https://doi.org/10.5281/zenodo.2635403) and automatically downloaded and processed when invoking the workflow via `drake::r_make()`.
 
