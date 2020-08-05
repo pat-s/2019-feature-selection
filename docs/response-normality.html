@@ -27,6 +27,14 @@
 
 <div><img src="logo/fsu.png" align="left" style="width:200px;margin-top:15px" ></div>
 
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/master/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
   pre:not([class]) {
@@ -334,10 +342,15 @@ $(document).ready(function () {
     <li>
       <a href="response-normality.html">Checking for normality of response</a>
     </li>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Side Analysis</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="inspect-glmnet-models.html">Inspect {glmnet} models</a>
+        </li>
+      </ul>
+    </li>
   </ul>
-</li>
-<li>
-  <a href="timeline.html">Timeline</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -346,13 +359,6 @@ $(document).ready(function () {
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
-
-<!-- Add a small amount of space between sections. -->
-<style type="text/css">
-div.section {
-  padding-top: 12px;
-}
-</style>
 
 <div class="fluid-row" id="header">
 
@@ -397,7 +403,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-02-25
+<strong>Last updated:</strong> 2020-08-05
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -407,7 +413,7 @@ div.section {
 </p>
 <p>
 This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
-  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.1). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
 </p>
 <hr>
 </div>
@@ -488,13 +494,19 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree6d8c0bed69861e44788ec8fe82a3f19f2eaff9a8targetblank6d8c0bea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/6d8c0bed69861e44788ec8fe82a3f19f2eaff9a8" target="_blank">6d8c0be</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree9fe93ea8f0c74df4db686d4855cc3e478e04ba33targetblank9fe93eaa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/9fe93ea8f0c74df4db686d4855cc3e478e04ba33" target="_blank">9fe93ea</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree6d8c0bed69861e44788ec8fe82a3f19f2eaff9a8targetblank6d8c0bea" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree9fe93ea8f0c74df4db686d4855cc3e478e04ba33targetblank9fe93eaa" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
-Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version <a href="https://github.com/pat-s/2019-feature-selection/tree/9fe93ea8f0c74df4db686d4855cc3e478e04ba33" target="_blank">9fe93ea</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 </p>
 <pre><code>
 Ignored files:
@@ -514,16 +526,8 @@ Ignored files:
     Ignored:    reviews/
     Ignored:    rosm.cache/
 
-Untracked files:
-    Untracked:  code/06-modeling/project/
-
 Unstaged changes:
-    Modified:   _drake.R
-    Modified:   analysis/eda.Rmd
-    Modified:   analysis/feature-importance.Rmd
     Modified:   analysis/report-defoliation.Rmd
-    Modified:   analysis/spectral-signatures.Rmd
-    Modified:   code/03-sentinel-processing.R
 
 </code></pre>
 <p>
@@ -538,7 +542,7 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in t
 <div id="versions" class="tab-pane fade">
 
 <p>
-These are the previous versions of the R Markdown and HTML files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view them.
+These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/response-normality.Rmd</code>) and HTML (<code>docs/response-normality.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
 </p>
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
@@ -562,6 +566,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pat-s/2019-feature-selection/7c7c7d9271333796486f54c6bcca4d8ea25cbd8a/docs/response-normality.html" target="_blank">7c7c7d9</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-02-25
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -808,7 +829,7 @@ add response-normality Rmd
 </div>
 </div>
 <p>Last update:</p>
-<pre><code>[1] &quot;Tue Feb 25 17:17:59 2020&quot;</code></pre>
+<pre><code>[1] &quot;Wed Aug  5 18:21:10 2020&quot;</code></pre>
 <p>This document originated from the fear of having a response variable which is not normally distributed “enough”.</p>
 <p>The response variable looks as follows:</p>
 <p><img src="figure/response-normality.Rmd/response-normality-1-1.png" width="100%" style="display: block; margin: auto;" /></p>
@@ -834,6 +855,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/7c7c7d9271333796486f54c6bcca4d8ea25cbd8a/docs/figure/response-normality.Rmd/response-normality-1-1.png" target="_blank">7c7c7d9</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-02-25
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/4edabc061fa8461e27807e162e153f7a06213f49/docs/figure/response-normality.Rmd/response-normality-1-1.png" target="_blank">4edabc0</a>
@@ -916,6 +948,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/7c7c7d9271333796486f54c6bcca4d8ea25cbd8a/docs/figure/response-normality.Rmd/response-normality-3-1.png" target="_blank">7c7c7d9</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-02-25
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/8d8443880340b78a231f444620ad9b55be4a7d43/docs/figure/response-normality.Rmd/response-normality-3-1.png" target="_blank">8d84438</a>
@@ -1025,6 +1068,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/7c7c7d9271333796486f54c6bcca4d8ea25cbd8a/docs/figure/response-normality.Rmd/response-normality-4-1.png" target="_blank">7c7c7d9</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-02-25
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/8d8443880340b78a231f444620ad9b55be4a7d43/docs/figure/response-normality.Rmd/response-normality-4-1.png" target="_blank">8d84438</a>
 </td>
 <td>
@@ -1118,6 +1172,43 @@ pat-s
 <h3>Box-Cox Transformation</h3>
 <p>Applying it on the response of the data.</p>
 <p><img src="figure/response-normality.Rmd/response-normality-5-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-response-normality-5-1">
+Past versions of response-normality-5-1.png
+</button>
+</p>
+<div id="fig-response-normality-5-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/7c7c7d9271333796486f54c6bcca4d8ea25cbd8a/docs/figure/response-normality.Rmd/response-normality-5-1.png" target="_blank">7c7c7d9</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-02-25
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>[1] 0.7878788</code></pre>
 <pre><code>
     Shapiro-Wilk normality test
@@ -1133,6 +1224,43 @@ data:  y_new2
 W = 0.8433, p-value &lt; 2.2e-16</code></pre>
 <p>Exploring the residuals of a Lasso model with no transformation of the response variable.</p>
 <p><img src="figure/response-normality.Rmd/response-normality-7-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-response-normality-7-1">
+Past versions of response-normality-7-1.png
+</button>
+</p>
+<div id="fig-response-normality-7-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/7c7c7d9271333796486f54c6bcca4d8ea25cbd8a/docs/figure/response-normality.Rmd/response-normality-7-1.png" target="_blank">7c7c7d9</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-02-25
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <!-- ### Tukey Transformation -->
 <!-- A slightly different way is to se the so called "Tukey" transformation instead of the "Box-Cox" transformation. -->
 <!-- ```{r response-normality-8} -->
@@ -1195,40 +1323,42 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
-[1] tidyselect_0.2.5 MASS_7.3-51.4    ggplot2_3.2.1    drake_7.10.0    
+[1] tidyselect_0.2.5 MASS_7.3-51.4    ggplot2_3.3.0    drake_7.12.0    
 
 loaded via a namespace (and not attached):
- [1] fs_1.3.1           filelock_1.0.2     RColorBrewer_1.1-2
- [4] httr_1.4.0         rprojroot_1.3-2    tools_3.6.1       
- [7] backports_1.1.5    R6_2.4.1           lazyeval_0.2.1    
-[10] colorspace_1.4-0   withr_2.1.2        mco_1.0-15.1      
-[13] curl_3.3           compiler_3.6.1     git2r_0.26.1      
-[16] parallelMap_1.4    glmnet_2.0-16      DiceKriging_1.5.6 
-[19] plotly_4.8.0       labeling_0.3       scales_1.0.0      
-[22] checkmate_1.9.1    plot3D_1.1.1       stringr_1.4.0     
-[25] digest_0.6.23      foreign_0.8-72     txtq_0.1.4        
-[28] rmarkdown_1.13     rio_0.5.16         smoof_1.5.1       
-[31] pkgconfig_2.0.3    htmltools_0.3.6    lhs_1.0.1         
-[34] htmlwidgets_1.3    rlang_0.4.4        readxl_1.3.0      
-[37] BBmisc_1.11        mlrMBO_1.1.2       jsonlite_1.6      
-[40] dplyr_0.8.3        zip_2.0.0          car_3.0-3         
-[43] magrittr_1.5       Matrix_1.2-15      Rcpp_1.0.3        
-[46] munsell_0.5.0      abind_1.4-5        lifecycle_0.1.0   
-[49] stringi_1.3.1      whisker_0.3-2      yaml_2.2.0        
-[52] carData_3.0-2      storr_1.2.1        RJSONIO_1.3-1.1   
-[55] grid_3.6.1         misc3d_0.8-4       parallel_3.6.1    
-[58] promises_1.0.1     forcats_0.4.0      crayon_1.3.4      
-[61] lattice_0.20-38    haven_2.1.0        splines_3.6.1     
-[64] hms_0.5.3          zeallot_0.1.0      knitr_1.23        
-[67] mlr_2.17.0.9001    pillar_1.3.1       igraph_1.2.4.1    
-[70] base64url_1.4      codetools_0.2-16   fastmatch_1.1-0   
-[73] glue_1.3.1         evaluate_0.13      ParamHelpers_1.12 
-[76] data.table_1.12.6  vctrs_0.2.1        httpuv_1.4.5.1    
-[79] foreach_1.4.4      cellranger_1.1.0   gtable_0.2.0      
-[82] purrr_0.3.3        tidyr_1.0.0        kernlab_0.9-27    
-[85] assertthat_0.2.1   xfun_0.5           openxlsx_4.1.0    
-[88] later_1.0.0        survival_2.43-3    viridisLite_0.3.0 
-[91] tibble_2.1.3       iterators_1.0.10   workflowr_1.6.0   </code></pre>
+ [1] fs_1.4.1           filelock_1.0.2     RColorBrewer_1.1-2
+ [4] progress_1.2.0     httr_1.4.0         rprojroot_1.3-2   
+ [7] tools_3.6.1        backports_1.1.5    R6_2.4.1          
+[10] lazyeval_0.2.1     colorspace_1.4-0   withr_2.1.2       
+[13] prettyunits_1.0.2  mco_1.0-15.1       curl_3.3          
+[16] compiler_3.6.1     git2r_0.26.1       parallelMap_1.4   
+[19] glmnet_3.0-2       cli_2.0.2          DiceKriging_1.5.6 
+[22] plotly_4.8.0       labeling_0.3       scales_1.1.0      
+[25] checkmate_2.0.0    plot3D_1.1.1       stringr_1.4.0     
+[28] digest_0.6.25      foreign_0.8-72     txtq_0.1.4        
+[31] rmarkdown_1.13     rio_0.5.16         smoof_1.5.1       
+[34] pkgconfig_2.0.3    htmltools_0.3.6    lhs_1.0.1         
+[37] readxl_1.3.0       htmlwidgets_1.3    rlang_0.4.5       
+[40] BBmisc_1.11        shape_1.4.4        farver_2.0.3      
+[43] mlrMBO_1.1.2       jsonlite_1.6       zip_2.0.4         
+[46] dplyr_0.8.3        car_3.0-3          magrittr_1.5      
+[49] Matrix_1.2-15      Rcpp_1.0.3         munsell_0.5.0     
+[52] fansi_0.4.1        abind_1.4-5        lifecycle_0.1.0   
+[55] stringi_1.3.1      whisker_0.3-2      yaml_2.2.0        
+[58] carData_3.0-2      storr_1.2.1        RJSONIO_1.3-1.1   
+[61] grid_3.6.1         misc3d_0.8-4       parallel_3.6.1    
+[64] promises_1.0.1     forcats_0.4.0      crayon_1.3.4      
+[67] lattice_0.20-38    haven_2.1.0        splines_3.6.1     
+[70] hms_0.5.3          knitr_1.23         mlr_2.17.0.9001   
+[73] pillar_1.4.3       igraph_1.2.4.1     base64url_1.4     
+[76] codetools_0.2-16   fastmatch_1.1-0    glue_1.4.0        
+[79] evaluate_0.13      ParamHelpers_1.12  data.table_1.12.8 
+[82] vctrs_0.2.4        httpuv_1.4.5.1     foreach_1.4.4     
+[85] cellranger_1.1.0   gtable_0.3.0       purrr_0.3.4       
+[88] tidyr_1.0.0        kernlab_0.9-27     assertthat_0.2.1  
+[91] openxlsx_4.1.0     xfun_0.5           later_1.0.0       
+[94] survival_2.43-3    viridisLite_0.3.0  tibble_2.1.3      
+[97] iterators_1.0.10   workflowr_1.6.1   </code></pre>
 </div>
 </div>
 </div>
