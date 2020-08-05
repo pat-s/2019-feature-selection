@@ -1,0 +1,106 @@
+1) mein chair heisst jetzt anders
+chair of statistical learning and data science
+
+2) sprache nochmal iterieren / von jemaand anders checken lassen. prinzipiell liest es sich nicht schlecht, mir fällt nur wenig auf, ich achte jetzt aber aus "wesentliches" nicht sowas hier.
+
+3) in der intro wird gesagt, dass ML in der domäne noch nicht so viel verwendet wird. dann wird sehr viel drüber geredet in den research questions, wie man predictive perf verbessern kann. ich finde man sollte aber klarer sagen, was das ZIEL der analyse ist. das ist ja nicht einen toll-funktioniernenden blackbox predictor zu bauen? sondern die zusammenhänge in den daten zu verstehen. das ist halt mit ML "schwieriger", deswegen sollte man vermutlich mehr über IML auch reden. das kommt mir etwas kurz. es kommt nur im letzten bullet point der reserach qquestions vor.
+
+> Ja beides, guten predictor und interpretieren. Und das in einem guten Gewicht. IML ist definitiv wichtig aber wir wollten auch nicht zu viel davon reinpacken. Daher hatten wir die ALE plots schon in den Appendix geschoben. 
+> Primärer Punkt ist ja auch die Verwendung von Filtern und nicht die IML Sache. 
+> Hab Bedenken, dass es zu viel wird wenn noch mehr IML mit rein kommt.
+> Ursprünglich war auch weniger IML in Sachen "IML" das Ziel sonder auch eher dieses linken der important features zu der Wellenlänge.
+> Macht das so Sinn?
+> Oder denkst du weiterhin, es muss mehr Fokus auf IML?
+
+4) seite 5 oben. statt [18] ist die standard ref für feature sel eigentlich
+http://www.jmlr.org/papers/volume3/guyon03a/guyon03a.pdf
+man sollte auch kurz sagen WARUM man mur filter betrachtet und das andere nicht
+[21] ist auch eine komische ref für die aussage dass filter nur ranken, nicht auswählen. da würde ich auch eher wieder guyon zitieren.
+
+> Danke, hab guyon eingebaut in beiden Fällen.
+> Dazu nochmal in den Paragraph gesagt warum nur filter verwendet werden.
+
+5) seite 5, rechts, punkt "2)"
+linear/nonlinear. vorsicht, meinst du hier hier wirklich interaction terms? ich denke nein.
+
+> Was ist genau falsch mit dem term "interaction terms"? Kann mir keinen direkten Reim drauf machen.
+
+der text ist da auch ein bisserl komisch, weil du statt im text zuschreiben was du verwendest, dann nur einschränkend was zu info-gain schreibts. du musst mindestens kurz table II erwähnen DANN was zu infogain.
+
+> InfoGain spreche ich an, weil der filter eigentlich nur für factor responses definiert ist, man über "binning" diesen auch mit regr responses verwenden kann. Ich weiß, dass er hier etwas in der Luft hängt aber ist auch der einzige zu dem man was sagen sollte finde ich. 
+> Finde es aber auch nicht total out out context an der Stelle - blöde Situation.
+> Hab die Tabelle vorher nochmal verlinkt, guter Hinweis.
+
+6) seite 6, benchmark design.
+schreibst du irgendwo über welche params du in welchen ranges du gehst? das MUSS ich sehen können. mindestens drauf verlinken, gehört aber eigentlich als tab IMHO ins paper. und: bei SVM immer sagen welchen kernel du verwendest, im text.
+
+> Tabelle hatte ich im ersten paper. Da im zweiten der Fokus weniger auf den tuning ranges liegt, haben wir diese rausgelassen.
+Verstehe schon, dass sie eigentlich drin sein sollten. Aber auf mein research compendium zu linken, wäre wohl nicht stable genug.
+Was hälst du von einer Tabelle im Appendix?
+RBF Kernel hab ich im Text eingebaut.
+
+6) seite 6, rechts punkt "2".
+es ist etwas unkalr welches feature entfernt wird. largest mean correlation mit was? dem gesamtdatensatz?
+außerdem sollte man irgendeinen link einbauen so dass ein leser genauer sehen kann WELCHE feature am ende entfert worden sind / noch drin bleiben. ich vermute das kann ich in deinem online material sehen? dann sag das hier auch.
+
+> Largest mean correlation: Bei den correlation-pairs muss entschieden werden welches der feature entfernt wird. Hier wird das genommen welches "looks at the mean absolute correlation of each variable and removes the variable with the largest mean absolute correlation." -> ?caret::findCorrelation()
+> Wenn wir das unklar ist, ist das wording wohl suboptimal? Hast du einen besseren Vorschlag hier?
+
+> Bezüglich features die drin bleiben: Das ginge ja in die hunderte/tausende, selbst bei den geringen % Zahlen. 
+> Weiß nicht ob ich das wirklich genauer rausholen sollte - das gibts auch nicht anders im research compendium.
+> Im Prinzip schaue ich auf den optiminierte "perc" Wert mit dem das Modell für den jeweiligen fold fitted wurde.
+> Die Modelle für jeden Fold speichere ich nicht im benchmark() call.
+> In welcher Darstellungsform würdest du das denn übersichtlich darstellen?
+
+7) seite 7, rechts. der ganze abschnitt D. erstmal machst du ja nicht nur "importance" sondern siehst dir auch die effete kann. deswegen würde ich das auch so überschreiben und auch in der intro usw so sagen. sind zwei aspekte, nicht einer. 
+und generell finde ich deine diskussion da auch nicht so gut / überzeugend, ich weiß auch nicht ob die in das paper reingehört. zb sagst du: wenns hochkorrel ist, dann sind perm-based sachen doof. die nutzt du dann aber, auf deinen hochkorell daten... 
+--> kürze die sektion, sag was du genutzt hast, und ganz kurz warum. das "fass" mit den korrelationen würd ich nicht zu sehr aufmachen.
+
+> Ok. Hab versucht FE bissl mehr mit hervorzuheben.
+> Ich weiß um die Problematik mit den permutationsmethoden. Problem:
+> - Es gibt keine unbiased method in der Hinsicht
+> - Man kann die Ergebnisse gut interpretieren
+> - Es steht schon sehr viel Zeit drin und das Kind ist quasi in den Brunnen gefallen, i.e. wir kommen aus der Nummer nicht mehr raus
+ 
+> Ich weiß das ich mit mit der Diskussion angreifbar mache aber dies deswegen ganz zu ignorieren fühlt sich auch falsch an.
+> Was ist der beste Mittelweg? Schwer.
+> Welchen Abschnitt meinst du hier speziell? Kannst du den nochmal raussuchen?
+
+
+8) seite 8, links, F.
+ich glaub du undersellest deine tolles kompendium etwas. das hatte doch richtig schöne visualisierungen drin usw? das klingt etwas so wie: mein (schlechter) code liet hier auf github. sag mit 1-2 sätzen mehr was ich da tolles sehen kann und dass man da reinsehen soll.
+
+> Ich mag das compendium schon aber mir wird auch gesagt "alles was im paper steht zählt, der Rest ist Zusatz auf den man nicht direkt verweisen soll". 
+> URL links will ich auch nicht reinpacken und alle semi-wichtigen Ergebnisse sind auch im Appendix.
+> Weiß aber auch nicht wie ich das passiv besser bewerben soll ohne "needy" zu wirken. Ist halt auch ein neues "tool" so was zu machen stößt bei konservativen reviewern/Kollegen nicht immer auf Gegenliebe.
+
+9) ergebnisse: es ist wirklich eher unplausibel dass XGB so schlecht bei dir ist. das würde mich als reviewer stutzi machen. SICHER dass du das in vernünftigen ranges tunest? 
+
+Hab mich auch gewundert aber hab denke ich keine unplausiblen ranges verwendet:
+
+      makeIntegerParam("nrounds", lower = 10, upper = 600),
+      makeNumericParam("colsample_bytree", lower = 0.3, upper = 0.7),
+      makeNumericParam("subsample", lower = 0.25, upper = 1),
+      makeIntegerParam("max_depth", lower = 1, upper = 10),
+      makeNumericParam("gamma", lower = 0, upper = 10),
+      makeNumericParam("eta", lower = 0.001, upper = 0.6),
+      makeNumericParam("min_child_weight", lower = 0, upper = 20),
+      makeNumericParam("fw.perc", lower = 0, upper = 1)
+
+
+table VII: waäre es nicht lesbarer die feature-spalte in absoluten zahlen anzugeben statt prozent?
+
+> Wahrscheinlich wäre beides wichtig um gut vergleichen zu können.
+
+
+11) wäre es nicht sinnvoll diese beiden paper noch zu zitieren?
+
+Benchmark for filter methods for feature selection in high-dimensional classification dataA Bommert, X Sun, B Bischl, J Rahnenführer, M Lang
+Computational Statistics & Data Analysis 143, 106839
+
+
+Multi-Objective Hyperparameter Tuning and Feature Selection using Filter EnsemblesM Binder, J Moosbauer, J Thomas, B Bischl
+stat 1050, 13
+
+> Jo danke! Ersteres hatte ich bei der research damals nicht auf dem Schirm.
+> Zweiteres kannte ich auch noch nicht - lese ich morgen.
