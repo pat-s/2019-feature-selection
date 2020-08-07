@@ -1,8 +1,0 @@
-# Notes
-
-- I like the introduction, very well-written and leading to three specific research questions
-- predictive performance not very convincing (RMSE: 28), hence, predictions are most certainly unreliable.
-However, this is what ecologists would be interested most.
-Considering the efforts (marking 1000s of trees, hyperspectral imagery campaign, advanced ml approaches), the results are rather mediocre
-
-
