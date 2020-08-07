@@ -751,7 +751,7 @@ When removing features with a correlation of nearly 1, lasso is able to score pe
 The same general conclusion applies to ridge if one discards the problematic results on four tasks.
 Regarding the problematic predictions of the ridge learner, a careful inspection of the hyperparameter optimization procedure of the fitted models ensured again that everything was correctly implemented.
 One observation turned out to be influential in causing the outlier prediction value even though careful multivariate exploratory data analysis showed no reason for flagging this observation a priori.
-It was therefore left in the model, but it should be acknowledged that this learners seemed particularly sensitive to the input data.
+It was therefore left in the model, but it should be acknowledged that this learner seemed particularly sensitive to the input data.
 
 A potential limiting factor in this study could be the upper limit of 600 iterations used for the XGBoost algorithm (hyperparameter \texttt{nrounds}), especially for feature sets including NRIs (\autoref{tab:hyperparameter_limits}).
 This setting was a compromise between runtime and tuning space extension with the goal to work well for most feature sets.
