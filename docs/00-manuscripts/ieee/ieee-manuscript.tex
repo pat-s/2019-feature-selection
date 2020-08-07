@@ -749,7 +749,7 @@ However, we refrain from comparing these results (both relatively and absolute) 
 Penalized methods showed promising performances, especially when taking runtime into account.
 When removing features with a correlation of nearly 1, lasso is able to score performances around 31 p.p. and shows, somewhat surprisingly, the best performance on the VI task.
 The same general conclusion applies to ridge if one discards the problematic results on four tasks.
-Regarding the problematic predictions of the ridge learner, a careful inspection of the hyperparameter optimization procedure of the fitted models did not reveal any apparent implementation mistakes.
+Regarding the problematic predictions of the ridge learner, a careful inspection of the hyperparameter optimization procedure of the fitted models ensured again that everything was correctly implemented.
 One observation turned out to be influential in causing the outlier prediction value even though careful multivariate exploratory data analysis showed no reason for flagging this observation a priori.
 It was therefore left in the model, but it should be acknowledged that this learners seemed particularly sensitive to the input data.
 
