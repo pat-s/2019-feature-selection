@@ -184,7 +184,6 @@
 	The effect of filter-based feature-selection methods on predictive performance was compared.
 	Also, the effect of multiple expert-based and data-driven feature sets, derived from the reflectance data, was investigated.
 	Defoliation of trees (\%) was modeled as a function of reflectance, and variable importance was assessed using permutation-based feature importance.
-% JM: I wouldn't indicate abbreviations in the abstract if you don't use them anymore within the abstract
 	Overall support vector machine (SVM) outperformed others such as random forest (RF), extreme gradient boosting (XGBoost), lasso (L1) and ridge (L2) regression by at least three percentage points.
 	The combination of certain feature sets showed small increases in predictive performance while no substantial differences between individual feature sets were observed.
 	For some combinations of learners and feature sets, filter methods achieved better predictive performances than the unfiltered feature sets, while ensemble filters did not have a substantial impact on performance.
@@ -436,12 +435,10 @@ The goal is to optimize the number of ranked features to the point at which the 
 Besides the concept of choosing a specific filter method to rank variables, studies showed that combining several filters using statistical operations such as 'minimum' or 'mean' can enhance the predictive performance of the resulting models, especially when applied to multiple datasets \cite{abeel2010, drotar2017a}.
 This approach is referred to as 'ensemble filtering' \cite{dietterich2000}.
 Ensemble filters align with the recent rise of the 'ensemble' approach in machine learning which uses the idea of stacking to combine the predictions of multiple models, aiming to enhance predictive performance \cite{polikar2012, feurer2015, bolon-canedo2019}.
-% JM: I have no idea what the Borda ensemble filter is. Maybe add one more sentence on this specific filter
 In this work the 'Borda' ensemble filter was applied \cite{drotar2017a}.
 Its final feature order is determined by the sum of all single filters ranks.
 
 % Ensuring a fair weighting in the ensemble
-% JM: reading further on, it might be that there are only three classes, please refine, Patrick!
 Filter methods can be grouped into groups which are formed out of three binary classes: multivariate or univariate feature use, correlation or entropy-based importance weighting and linear and non-linear filter methodology.
 Care needs to be taken to not weigh certain classes more than others in the ensemble as otherwise the final ranking result will be biased.
 In this study this was taken care of by checking the rank correlations (Spearman's correlation) of the generated feature rankings of all methods against each other.
@@ -521,7 +518,6 @@ Three feature sets were used in this study, each representing a different approa
 
 The idea of splitting the features into different sets originated from the question whether feature-engineered indices derived from reflectance values have a positive effect on model performance.
 \cite{pena2017} is an exemplary study which used this approach in a spectro-temporal setting.
-% JM: just a little reminder to avoid sentences where the main verb appears long after the sentence has started
 Benchmarking learners on these feature sets while keeping all other variables such as model type, tuning strategy and partitioning method constant makes it possible to draw conclusions on their individual impact.
 However, rather than only looking at these three groups also combinations of such were taken into account:
 
