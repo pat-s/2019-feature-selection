@@ -461,7 +461,8 @@ Filter methods can be classified as follows (\autoref{tab:filter-methods}):
 % filter methods
 \begin{table}[b!]
 \centering
-\caption[t]{List of filter methods used in this work}
+\caption{List of filter methods used in this work}
+\label{tab:filter-methods}
 \begingroup\footnotesize
 \begin{adjustbox}{width={0.48\textwidth},totalheight={\textheight},keepaspectratio}
 	\begin{tabular}{lll}
@@ -472,11 +473,11 @@ Filter methods can be classified as follows (\autoref{tab:filter-methods}):
 		Information gain                             & univariate, non-linear, entropy   & \cite{quinlan1986} \\
 		Minimum redundancy, maximum relevance        & multivariate, non-linear, entropy & \cite{zhao2013}    \\
 		Carscore                                     & multivariate, linear, correlation & \cite{zuber2011}   \\
-		Relief                                       & multivariate, linear, entropy,    & \cite{kira1992}    \\
+		Relief                                       & multivariate, linear, entropy    & \cite{kira1992}    \\
 		Conditional minimal information maximization & multivariate, linear, entropy     & \cite{fleuret2004}
 	\end{tabular}
 \end{adjustbox}
-\endgroup\label{tab:filter-methods}
+\endgroup
 \end{table}
 
 The filter 'Information Gain' is only defined for nominal response variables:
