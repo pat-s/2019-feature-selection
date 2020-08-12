@@ -88,6 +88,7 @@
 
 \usepackage[nolist]{acronym}
 
+\usepackage{tabularx}
 \usepackage{booktabs}
 \usepackage{multirow}
 \usepackage{adjustbox}
@@ -979,7 +980,7 @@ More training data covering a wider range of defoliation values in a larger numb
 \caption[t]{Hyperparameter ranges and types for each model.
 	Hyperparameter notations from the respective R packages were used.}
 \begingroup\footnotesize
-\begin{tabular}{llllrrr}
+\begin{tabularx}{.5\textwidth}{llXXrXX}
 	\\
 	\specialcell{Model                                          \\ (package)}                & Hyperparameter              & Type    & Start     & End      & Default \\
 	\toprule
@@ -998,7 +999,7 @@ More training data covering a wider range of defoliation values in a larger numb
 	 & \texttt{eta}                & dbl & 0.01     & 0.6     & 0.3 \\
 	 & \texttt{min\_child\_weight} & int & 0        & 20      & 1   \\
 	\bottomrule
-\end{tabular}
+\end{tabularx}
 \endgroup
 \label{tab:hyperparameter_limits}
 \end{table}
