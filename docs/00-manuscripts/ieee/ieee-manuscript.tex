@@ -184,7 +184,7 @@
 	The effect of filter-based feature-selection methods on predictive performance was compared.
 	Also, the effect of multiple expert-based and data-driven feature sets, derived from the reflectance data, was investigated.
 	Defoliation of trees (\%) was modeled as a function of reflectance, and variable importance was assessed using permutation-based feature importance.
-
+% JM: I wouldn't indicate abbreviations in the abstract if you don't use them anymore within the abstract
 	Overall support vector machine (SVM) outperformed others such as random forest (RF), extreme gradient boosting (XGBoost), lasso (L1) and ridge (L2) regression by at least three percentage points.
 	The combination of certain feature sets showed small increases in predictive performance while no substantial differences between individual feature sets were observed.
 	For some combinations of learners and feature sets, filter methods achieved better predictive performances than the unfiltered feature sets, while ensemble filters did not have a substantial impact on performance.
@@ -267,9 +267,9 @@
 % Link remote sensing and machine-learning
 
 \IEEEPARstart{T}{he} use of \ac{ML} algorithms for analyzing remote sensing data has seen a huge increase in the last decade \cite{lary2016}.
-This goes in line with the increased availability of remote sensing imagery, especially since the launch of the first Sentinel satellite in the year 2014.
+Naturally, this coincided with the increased availability of remote sensing imagery, especially since the launch of the first Sentinel satellite in the year 2014.
 At the same time, the implementation and usability of learning algorithms has been greatly simplified with many contributions from the open-source community.
-Scientists can nowadays relatively easily process large amounts of (environmental) information using various learning algorithms.
+Scientists can nowadays process large amounts of (environmental) information with relative ease using various learning algorithms.
 This makes it possible to extend the benchmark comparison matrix of studies in a semi-automated way, possibly stumbling across unexpected findings of process settings that would never have been explored otherwise \cite{ma2015}.
 
 % link to forest health analysis and show exemplary studies
@@ -342,7 +342,7 @@ The dieback of these trees, which are mainly used as timber, causes high economi
 The \textit{Pinus radiata} plots of this study, namely Laukiz1, Laukiz2, Luiando and Oiartzun, are located in the northern part of the Basque Country (\autoref{fig:study_area}).
 Oiartzun has the most observations (n = 559) while Laukiz2 shows the largest area size (1.44 ha).
 All plots besides Luiando are located within 100 km from the coast (\autoref{fig:study_area}).
-In total 1808 observations are available Laukiz1 = 559, Laukiz2 = 451, Luiando = 301, Oiartzun = 497).
+In total 1808 observations are available (Laukiz1 = 559, Laukiz2 = 451, Luiando = 301, Oiartzun = 497).
 Field surveys were conducted in September 2016.
 
 \begin{figure} [t!]
@@ -363,7 +363,7 @@ Field surveys were conducted in September 2016.
 
 \subsection{Hyperspectral data}
 
-The airborne hyperspectral data was acquired during two flight campaigns on September 28th and October 5th 2016, both around noon.
+The airborne hyperspectral data was acquired during two flight campaigns which took place at noon on September 28th and October 5th 2016.
 The images were taken by an AISAEAGLE-II sensor.
 All preprocessing steps (geometric, radiometric, atmospheric) were conducted by the \ac{ICGC}.
 The first four bands were corrupted, leaving 122 bands with valid information.
@@ -410,7 +410,7 @@ In total, \(\frac{121*122}{2} = 7471\) NRIs were calculated.
 
 \subsection{Feature selection}
 
-High-dimensional, feature-rich datasets come with with several challenges for both model fitting and evaluation.
+High-dimensional, feature-rich datasets come with several challenges for both model fitting and evaluation.
 
 \begin{itemize}
 	\item Model fitting times increase.
@@ -420,7 +420,7 @@ High-dimensional, feature-rich datasets come with with several challenges for bo
 
 To reduce the feature space of a dataset, conceptually differing approaches exist: wrapper methods, filters, penalization methods (lasso and ridge) or \ac{PCA} \cite{bommert2020, das2001, guyon2003, jolliffe2016}.
 In contrast to wrapper methods, filters can be added to the hyperparameter optimization step and have a lower computational footprint.
-Due to the focus on filter methods, only this sub-group of feature selection methods will be introduced in greater detail in the following subsections.
+Due to the focus on filter methods in this manuscript, only this sub-group of feature selection methods will be introduced in greater detail in the following subsections.
 
 \subsubsection{Filter methods}
 
@@ -433,18 +433,20 @@ Essentially, the number of covariates in the model is treated as a additional hy
 The goal is to optimize the number of ranked features to the point at which the model achieves the best performance.
 
 % Ensemble filter methods
-Besides the concept of choosing a specific filter method to rank variables, studies showed that combining several filters using statistical operations such as 'minimum' or 'mean' is able to enhance the predictive performance of the resulting models, especially when applied to multiple datasets \cite{abeel2010, drotar2017a}.
+Besides the concept of choosing a specific filter method to rank variables, studies showed that combining several filters using statistical operations such as 'minimum' or 'mean' can enhance the predictive performance of the resulting models, especially when applied to multiple datasets \cite{abeel2010, drotar2017a}.
 This approach is referred to as 'ensemble filtering' \cite{dietterich2000}.
 Ensemble filters align with the recent rise of the 'ensemble' approach in machine learning which uses the idea of stacking to combine the predictions of multiple models, aiming to enhance predictive performance \cite{polikar2012, feurer2015, bolon-canedo2019}.
+% JM: I have no idea what the Borda ensemble filter is. Maybe add one more sentence on this specific filter
 In this work the 'Borda' ensemble filter was applied \cite{drotar2017a}.
 Its final feature order is determined by the sum of all single filters ranks.
 
 % Ensuring a fair weighting in the ensemble
-Filter methods can be grouped into classes: Correlation-based, entropy-based, linear and non-linear methods.
+% JM: reading further on, it might be that there are only three classes, please refine, Patrick!
+Filter methods can be grouped into groups which are formed out of three binary classes: multivariate or univariate feature use, correlation or entropy-based importance weighting and linear and non-linear filter methodology.
 Care needs to be taken to not weigh certain classes more than others in the ensemble as otherwise the final ranking result will be biased.
 In this study this was taken care of by checking the rank correlations (Spearman's correlation) of the generated feature rankings of all methods against each other.
 If filter pairs showed a correlation of 0.9 or higher, only one of the two was included into the ensemble filter, selected at random.
-By this it was ensured that the ensemble filter composition was not biased towards a certain group of filter methods.
+This ensured that the ensemble filter composition was not biased towards a certain group of filter methods.
 
 \subsubsection{Description of used filter methods}
 
@@ -516,7 +518,9 @@ Three feature sets were used in this study, each representing a different approa
 	\item Normalized Ratio Indices (\ac{NRI}s): data-driven feature engineering)
 \end{itemize}
 
-The idea of splitting the features into different sets originated from the question whether feature-engineered indices from reflectance values have a positive effect on model performance, as for example demonstrated previously in a spectro-temporal setting \cite{pena2017}.
+The idea of splitting the features into different sets originated from the question whether feature-engineered indices derived from reflectance values have a positive effect on model performance.
+\cite{pena2017} is an exemplary study which used this approach in a spectro-temporal setting.
+% JM: just a little reminder to avoid sentences where the main verb appears long after the sentence has started
 Benchmarking learners on these feature sets while keeping all other variables such as model type, tuning strategy and partitioning method constant makes it possible to draw conclusions on their individual impact.
 However, rather than only looking at these three groups also combinations of such were taken into account:
 
@@ -746,17 +750,17 @@ However, we refrain from comparing these results (both relatively and absolute) 
 Penalized methods showed promising performances, especially when taking runtime into account.
 When removing features with a correlation of nearly 1, lasso is able to score performances around 31 p.p. and shows, somewhat surprisingly, the best performance on the VI task.
 The same general conclusion applies to ridge if one discards the problematic results on four tasks.
-Regarding the problematic predictions of the ridge learner, a careful inspection of the hyperparameter optimization procedure of the fitted models did not reveal any apparent implementation mistakes.
+Regarding the problematic predictions of the ridge learner, a careful inspection of the hyperparameter optimization procedure of the fitted models ensured again that everything was correctly implemented.
 One observation turned out to be influential in causing the outlier prediction value even though careful multivariate exploratory data analysis showed no reason for flagging this observation a priori.
-It was therefore left in the model, but it should be acknowledged that this learners seemed particularly sensitive to the input data.
+It was therefore left in the model, but it should be acknowledged that this learner seemed particularly sensitive to the input data.
 
 A potential limiting factor in this study could be the upper limit of 600 iterations used for the XGBoost algorithm (hyperparameter \texttt{nrounds}), especially for feature sets including NRIs (\autoref{tab:hyperparameter_limits}).
 This setting was a compromise between runtime and tuning space extension with the goal to work well for most feature sets.
-It may be recommendable to increase this upper limit to a value closer to the number of features in the dataset in order to be able to exploit the full spectrum of this hyperparameter.
+It may be recommendable to increase this upper limit to a value closer to the number of features in the dataset in order to be able to exploit the full potential of this hyperparameter.
 
 \subsubsection{Feature set differences}
 
-One objective which this study aimed to answer was whether expert-based or data-driven feature engineering has a positive influence on model performance.
+One objective of this study was whether expert-based or data-driven feature engineering has a positive influence on model performance.
 With respect to \autoref{fig:perf-result}, no overall positive or negative trend was found for all models that related to specific feature sets.
 The performance of RF and XGBoost on the VI feature set was about six percentage points lower than on others.
 One reason could be the lack of coverage in the wavelength area between 810 nm and 1000 nm (\autoref{fig:fi-permut-vi-hr}).
