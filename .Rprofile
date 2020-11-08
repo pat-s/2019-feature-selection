@@ -32,26 +32,9 @@ if (interactive() && "tibble" %in% rownames(utils::installed.packages())) {
   }
 }
 
-if (
-  interactive() &&
-    requireNamespace("rsthemes", quietly = TRUE) &&
-    requireNamespace("later", quietly = TRUE)
-) {
-  # Use later to delay until RStudio is ready
-  later::later(function() {
-    rsthemes::set_theme_light("base16 Tomorrow {rsthemes}") # light theme
-    rsthemes::set_theme_dark("base16 Gruvbox dark, pale {rsthemes}") # dark theme
-
-    # To automatically choose theme based on time of day
-    rsthemes::use_theme_auto(dark_start = "20:00", dark_end = "8:00")
-  }, delay = 1)
-}
-
 runAllChunks <- function(rmd, envir = globalenv()) {
   tempR <- tempfile(tmpdir = ".", fileext = ".R")
   on.exit(unlink(tempR))
   knitr::purl(rmd, output = tempR)
   sys.source(tempR, envir = envir)
 }
-
-options(crayon.enabled = TRUE)
