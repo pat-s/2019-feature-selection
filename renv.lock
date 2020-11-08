@@ -1,6 +1,6 @@
 {
   "R": {
-    "Version": "3.6.1",
+    "Version": "3.6.2",
     "Repositories": [
       {
         "Name": "BioCsoft",
@@ -332,10 +332,10 @@
     },
     "classInt": {
       "Package": "classInt",
-      "Version": "0.3-1",
+      "Version": "0.4-3",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "a03610616d29a8451e235cd83e019742"
+      "Hash": "17bdfa3c51df4a6c82484d13b11fb380"
     },
     "cli": {
       "Package": "cli",
@@ -451,10 +451,10 @@
     },
     "drake": {
       "Package": "drake",
-      "Version": "7.12.0",
+      "Version": "7.12.7",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "56abc5fbb1031d6eb69808a17af3d60e"
+      "Hash": "9c958b9f23453b9855abd2eb4b5ba4b9"
     },
     "e1071": {
       "Package": "e1071",
@@ -1394,8 +1394,10 @@
     },
     "renv": {
       "Package": "renv",
-      "Version": "0.11.0",
-      "Source": "Repository"
+      "Version": "0.12.2",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "398cc1ea892e1aade66d1ecbb2874d24"
     },
     "reshape2": {
       "Package": "reshape2",
@@ -1406,10 +1408,10 @@
     },
     "rgdal": {
       "Package": "rgdal",
-      "Version": "1.4-8",
+      "Version": "1.5-18",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "a60887cdff80ba8a4b34a624b281b448"
+      "Hash": "402fc3169948d26581d585360825c65c"
     },
     "rgenoud": {
       "Package": "rgenoud",
@@ -1434,10 +1436,10 @@
     },
     "rlang": {
       "Package": "rlang",
-      "Version": "0.4.5",
+      "Version": "0.4.8",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "1cc1b38e4db40ea6eb19ab8080bbed3b"
+      "Hash": "843a6af51414bce7f8a8e372f11d6cd0"
     },
     "rmarkdown": {
       "Package": "rmarkdown",
@@ -1504,10 +1506,10 @@
     },
     "sf": {
       "Package": "sf",
-      "Version": "0.7-7",
+      "Version": "0.9-6",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "4ad50149099f6ab0b64b406c77b6741a"
+      "Hash": "bf0ef23231efe31576e08d69772892ef"
     },
     "shape": {
       "Package": "shape",
@@ -1630,10 +1632,10 @@
     },
     "tidyselect": {
       "Package": "tidyselect",
-      "Version": "0.2.5",
+      "Version": "1.1.0",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "971842fead8ee9e150495a0ede343a98"
+      "Hash": "6ea435c354e8448819627cf686f66e0a"
     },
     "timeDate": {
       "Package": "timeDate",
@@ -1651,10 +1653,10 @@
     },
     "txtq": {
       "Package": "txtq",
-      "Version": "0.1.4",
+      "Version": "0.2.3",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "99aa592c9f3ecaaa3dc4a84b7a60435b"
+      "Hash": "38a421b8003ba704b5b8471e6c3762a7"
     },
     "units": {
       "Package": "units",
