@@ -549,21 +549,17 @@
     },
     "furrr": {
       "Package": "furrr",
-      "Version": "0.1.0.9002",
-      "Source": "GitHub",
-      "RemoteType": "github",
-      "RemoteRepo": "furrr",
-      "RemoteUsername": "DavisVaughan",
-      "RemoteRef": "master",
-      "RemoteSha": "b4ad6addda5cb2fab4baf51434bdacf7a75a94ad",
-      "Hash": "731a4ae91d334684512a86b9fe5ffd93"
+      "Version": "0.2.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "af63be5cfd08a23db9bbf92acbccd11c"
     },
     "future": {
       "Package": "future",
-      "Version": "1.16.0",
+      "Version": "1.20.1",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "20c20385da360f28c07364f2d099a6d7"
+      "Hash": "ba8048a1641465f807c52b78d1eae18a"
     },
     "future.apply": {
       "Package": "future.apply",
@@ -713,10 +709,10 @@
     },
     "globals": {
       "Package": "globals",
-      "Version": "0.12.5",
+      "Version": "0.13.1",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "e9e529fb7a579ad4b4ff65e052e76ed8"
+      "Hash": "3eb799a11cf9d28314691e44a2eaaa14"
     },
     "glue": {
       "Package": "glue",
@@ -948,10 +944,10 @@
     },
     "lifecycle": {
       "Package": "lifecycle",
-      "Version": "0.1.0",
+      "Version": "0.2.0",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "dc0e9c03b3635ff433b045ce6bf0612d"
+      "Hash": "361811f31f71f8a617a9a68bf63f1f42"
     },
     "listenv": {
       "Package": "listenv",
@@ -1154,6 +1150,13 @@
       "Repository": "CRAN",
       "Hash": "693f13e3f905439239bfe6c5ec387084"
     },
+    "parallelly": {
+      "Package": "parallelly",
+      "Version": "1.21.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "bbf1e5cf8653a539e4659c8c40f17b72"
+    },
     "patchwork": {
       "Package": "patchwork",
       "Version": "1.0.0",
@@ -1345,10 +1348,10 @@
     },
     "raster": {
       "Package": "raster",
-      "Version": "3.0-12",
+      "Version": "3.3-13",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "019d5fc373bec143779d33bfb88757d1"
+      "Hash": "51cfecf7b9518d46b119f92d581616b6"
     },
     "rcmdcheck": {
       "Package": "rcmdcheck",
@@ -1548,10 +1551,10 @@
     },
     "sp": {
       "Package": "sp",
-      "Version": "1.3-1",
+      "Version": "1.4-4",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "87a2c501aafad3c0bc6242527aeeff07"
+      "Hash": "e0485290545c0e768c2b50390114da1f"
     },
     "splus2R": {
       "Package": "splus2R",
@@ -1688,10 +1691,10 @@
     },
     "vctrs": {
       "Package": "vctrs",
-      "Version": "0.2.4",
+      "Version": "0.3.5",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "6c839a149a30cb4ffc70443efa74c197"
+      "Hash": "d25c5bea636cf892edbfd64fc3d20c20"
     },
     "vipor": {
       "Package": "vipor",
