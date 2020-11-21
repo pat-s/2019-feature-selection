@@ -19,7 +19,9 @@ options(
   clustermq.scheduler = "slurm",
   clustermq.template = "slurm_clustermq.tmpl",
 
-  precommit.executable = "/home/patrick/.local/bin/pre-commit"
+  precommit.executable = "/home/patrick/.local/bin/pre-commit",
+
+  renv.settings.auto.snapshot = TRUE
 )
 suppressMessages(require(drake))
 suppressMessages(require(magrittr))
