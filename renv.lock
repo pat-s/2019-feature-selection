@@ -577,10 +577,10 @@
     },
     "gdalUtils": {
       "Package": "gdalUtils",
-      "Version": "2.0.1.7",
+      "Version": "2.0.3.2",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "7bcdbbfe211522cea468b622934b7fcb"
+      "Hash": "05ee75453c7c7cf6741a050af30927ba"
     },
     "gdtools": {
       "Package": "gdtools",
