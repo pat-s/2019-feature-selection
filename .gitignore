@@ -161,9 +161,6 @@ acs-*.bib
 # endnotes
 *.ent
 
-# fixme
-*.lox
-
 # feynmf/feynmp
 *.mf
 *.mp
