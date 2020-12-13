@@ -88,6 +88,7 @@
 
 \usepackage[nolist]{acronym}
 
+\usepackage{tabularx}
 \usepackage{booktabs}
 \usepackage{multirow}
 \usepackage{adjustbox}
@@ -184,7 +185,6 @@
 	The effect of filter-based feature-selection methods on predictive performance was compared.
 	Also, the effect of multiple expert-based and data-driven feature sets, derived from the reflectance data, was investigated.
 	Defoliation of trees (\%) was modeled as a function of reflectance, and variable importance was assessed using permutation-based feature importance.
-% JM: I wouldn't indicate abbreviations in the abstract if you don't use them anymore within the abstract
 	Overall support vector machine (SVM) outperformed others such as random forest (RF), extreme gradient boosting (XGBoost), lasso (L1) and ridge (L2) regression by at least three percentage points.
 	The combination of certain feature sets showed small increases in predictive performance while no substantial differences between individual feature sets were observed.
 	For some combinations of learners and feature sets, filter methods achieved better predictive performances than the unfiltered feature sets, while ensemble filters did not have a substantial impact on performance.
@@ -199,7 +199,7 @@
 
 % Note that keywords are not normally used for peer-review papers.
 \begin{IEEEkeywords}
-	hyperspectral imagery, forest health monitoring, machine learning, feature selection, feature effects, model comparison, filter, imaging spectroscopy
+	hyperspectral imagery, forest health monitoring, machine learning, feature selection, feature effects, model comparison
 \end{IEEEkeywords}
 
 % For peer-review papers, this IEEEtran command inserts a page break and
@@ -212,7 +212,6 @@
 	% geringerer Zeilenabstand
 
 	%\setlength{\itemsep}{-\parsep}
-
 	\acro{AGB}{above-ground biomass}
 	\acro{ALE}{accumulated local effects}
 	\acro{ALS}{airborne laser scanning}
@@ -436,12 +435,10 @@ The goal is to optimize the number of ranked features to the point at which the 
 Besides the concept of choosing a specific filter method to rank variables, studies showed that combining several filters using statistical operations such as 'minimum' or 'mean' can enhance the predictive performance of the resulting models, especially when applied to multiple datasets \cite{abeel2010, drotar2017a}.
 This approach is referred to as 'ensemble filtering' \cite{dietterich2000}.
 Ensemble filters align with the recent rise of the 'ensemble' approach in machine learning which uses the idea of stacking to combine the predictions of multiple models, aiming to enhance predictive performance \cite{polikar2012, feurer2015, bolon-canedo2019}.
-% JM: I have no idea what the Borda ensemble filter is. Maybe add one more sentence on this specific filter
 In this work the 'Borda' ensemble filter was applied \cite{drotar2017a}.
 Its final feature order is determined by the sum of all single filters ranks.
 
 % Ensuring a fair weighting in the ensemble
-% JM: reading further on, it might be that there are only three classes, please refine, Patrick!
 Filter methods can be grouped into groups which are formed out of three binary classes: multivariate or univariate feature use, correlation or entropy-based importance weighting and linear and non-linear filter methodology.
 Care needs to be taken to not weigh certain classes more than others in the ensemble as otherwise the final ranking result will be biased.
 In this study this was taken care of by checking the rank correlations (Spearman's correlation) of the generated feature rankings of all methods against each other.
@@ -461,7 +458,8 @@ Filter methods can be classified as follows (\autoref{tab:filter-methods}):
 % filter methods
 \begin{table}[b!]
 \centering
-\caption[t]{List of filter methods used in this work}
+\caption{List of filter methods used in this work}
+\label{tab:filter-methods}
 \begingroup\footnotesize
 \begin{adjustbox}{width={0.48\textwidth},totalheight={\textheight},keepaspectratio}
 	\begin{tabular}{lll}
@@ -472,11 +470,11 @@ Filter methods can be classified as follows (\autoref{tab:filter-methods}):
 		Information gain                             & univariate, non-linear, entropy   & \cite{quinlan1986} \\
 		Minimum redundancy, maximum relevance        & multivariate, non-linear, entropy & \cite{zhao2013}    \\
 		Carscore                                     & multivariate, linear, correlation & \cite{zuber2011}   \\
-		Relief                                       & multivariate, linear, entropy,    & \cite{kira1992}    \\
+		Relief                                       & multivariate, linear, entropy    & \cite{kira1992}    \\
 		Conditional minimal information maximization & multivariate, linear, entropy     & \cite{fleuret2004}
 	\end{tabular}
 \end{adjustbox}
-\endgroup\label{tab:filter-methods}
+\endgroup
 \end{table}
 
 The filter 'Information Gain' is only defined for nominal response variables:
@@ -520,7 +518,6 @@ Three feature sets were used in this study, each representing a different approa
 
 The idea of splitting the features into different sets originated from the question whether feature-engineered indices derived from reflectance values have a positive effect on model performance.
 \cite{pena2017} is an exemplary study which used this approach in a spectro-temporal setting.
-% JM: just a little reminder to avoid sentences where the main verb appears long after the sentence has started
 Benchmarking learners on these feature sets while keeping all other variables such as model type, tuning strategy and partitioning method constant makes it possible to draw conclusions on their individual impact.
 However, rather than only looking at these three groups also combinations of such were taken into account:
 
@@ -932,6 +929,9 @@ Results might be biased and should be taken with care to avoid overgeneralizing 
 Finally, the potential of predicting defoliation with the given study design was rather limited with respect to the average RMSE of 27 percentage points scored by the best performing model.
 More training data covering a wider range of defoliation values in a larger number of forest plantations is needed to train better models which can create more robust predictions.
 
+\section{Acknowledgments}
+This work was funded by the EU LIFE Healthy Forest project (LIFE14 ENV/ES/000179) and the German Scholars Organization/Carl Zeiss Foundation.
+
 \appendices{}
 
 \section{SVM ALE plots for task HR}
@@ -982,7 +982,7 @@ More training data covering a wider range of defoliation values in a larger numb
 \caption[t]{Hyperparameter ranges and types for each model.
 	Hyperparameter notations from the respective R packages were used.}
 \begingroup\footnotesize
-\begin{tabular}{llllrrr}
+\begin{tabularx}{.5\textwidth}{llXXrXX}
 	\\
 	\specialcell{Model                                          \\ (package)}                & Hyperparameter              & Type    & Start     & End      & Default \\
 	\toprule
@@ -1001,7 +1001,7 @@ More training data covering a wider range of defoliation values in a larger numb
 	 & \texttt{eta}                & dbl & 0.01     & 0.6     & 0.3 \\
 	 & \texttt{min\_child\_weight} & int & 0        & 20      & 1   \\
 	\bottomrule
-\end{tabular}
+\end{tabularx}
 \endgroup
 \label{tab:hyperparameter_limits}
 \end{table}
