@@ -851,10 +851,16 @@ The available hyperspectral data covered a wavelength between 400 nm and 1000 nm
 Hence, the wavelength range of the shortwave infrared (SWIR) region is not covered in this study.
 Given that this wavelength range is often used in forest health studies \cite{hais2019}, e.g. when calculating the \ac{NDMI} index \cite{gao1996}, this marks a clear limitation of the dataset at hand.
 
+The dataset consists of in-situ data collected within September 2016 matched against remote sensing data acquired at the end of September 2016.
+A multi-temporal dataset consisting of in-situ data from different phenology stages would possibly improve the achieved model performances.
+However, this would also require matching hyperspectral data of these additional timestamps.
+
 The R package hsdar was used for the calculation of vegetation indices \cite{lehnert2016}.
 All indices that could be calculated with the given spectral range of the data (400 nm - 1000 nm) were used.
 This means even though \autoref{tab:vegindices} lists all available indices of the package, not all listed indices were used in this study.
 Even though this selection included a large number of indices, some possibly helpful indices might have been missed due to the restriction of the hyperspectral data.
+
+
 
 Overall, the magnitude of uncertainty introduced by the mentioned effects during index derivation cannot be quantified.
 Such limitations and uncertainties apply to most environmental studies and cannot be completely avoided.
