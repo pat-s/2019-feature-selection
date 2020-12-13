@@ -240,6 +240,7 @@
 	\acro{NDII}{normalized difference infrared index}
 	\acro{NIR}{near-infrared}
 	\acro{NRI}{normalized ratio index}
+	\acro{NDMI}{normalized difference moisture index}
 	\acro{OLS}{ordinary least squares}
 	\acro{LiDAR}{light detection and ranging}
 	\acro{LOWESS}{locally weighted scatter plot smoothing}
@@ -346,13 +347,13 @@ All plots besides Luiando are located within 100 km from the coast (\autoref{fig
 In total 1808 observations are available (Laukiz1 = 559, Laukiz2 = 451, Luiando = 301, Oiartzun = 497).
 Field surveys were conducted in September 2016.
 
-% \begin{figure} [t!]
-% 	\begin{center}
-% 		\centering
-% 		\includegraphics[width=0.48\textwidth] {study-area-hyperspectral.pdf}
-% 		\caption{Information about location, size and spatial distribution of trees for all plots used in this study.}\label{fig:study_area}
-% 	\end{center}
-% \end{figure}
+\begin{figure*} [ht!]
+	\begin{center}
+		\centering
+		\includegraphics[width=\textwidth] {study-area-hyperspectral.pdf}
+		\caption{Information about location, size and spatial distribution of trees for all plots used in this study.}\label{fig:study_area}
+	\end{center}
+\end{figure*}
 
 %\begin{figure} [t!]
 %	\begin{center}
@@ -651,7 +652,6 @@ For RF and XGBoost it most often ranked within the first 50\% with respect to al
 For XGBoost on the VI task, the Borda filter scored the second worst performance.
 
 % Selected percentage of features across plots
-% FIXME: Lösung einfügen nach Klärung mit Alex
 Large differences were observed between the numbers of features selected during tuning for the subsequent fitting process.
 Most features were selected during optimization when training without Laukiz2 and least when Laukiz1 served as the test set (\autoref{tab:tune-perc-sel-features}).
 RF used only one feature when Luiando and Oiartzun served as the test data (0.00004 \% of 7675) while 34 and 230 features were seen as optimal during optimization when Laukiz1 and Laukiz2 were the test data, respectively.
@@ -847,9 +847,14 @@ According to the extract function of the raster package, a pixel is included if 
 As the buffer is circular, the total number of contributing pixels of each tree depends on the exact location of a tree within the pixel grid.
 If a tree observation is located on the border of the plot, some directions of the buffer will contain no values and the subsequent index value will be calculated with fewer pixels than if the tree observation is located in the middle of the plot.
 
-The R package hsdar was used for the calculation of vegetation indices \cite{hsdar}.
-All indices that could be calculated with the given spectral range of the data were used.
-Even though this selection included a large number of available indices, some possibly relevant indices might have been missed by relying on the pre-selection of indices offered by the package.
+The available hyperspectral data covered a wavelength between 400 nm and 1000 nm.
+Hence, the wavelength range of the shortwave infrared (SWIR) region is not covered in this study.
+Given that this wavelength range is often used in forest health studies \cite{hais2019}, e.g. when calculating the \ac{NDMI} index \cite{gao1996}, this marks a clear limitation of the dataset at hand.
+
+The R package hsdar was used for the calculation of vegetation indices \cite{lehnert2016}.
+All indices that could be calculated with the given spectral range of the data (400 nm - 1000 nm) were used.
+This means even though \autoref{tab:vegindices} lists all available indices of the package, not all listed indices were used in this study.
+Even though this selection included a large number of indices, some possibly helpful indices might have been missed due to the restriction of the hyperspectral data.
 
 Overall, the magnitude of uncertainty introduced by the mentioned effects during index derivation cannot be quantified.
 Such limitations and uncertainties apply to most environmental studies and cannot be completely avoided.
@@ -956,7 +961,6 @@ This work was funded by the EU LIFE Healthy Forest project (LIFE14 ENV/ES/000179
 
 \pagebreak
 \section{Correlation among filter methods}
-
 
 \begin{figure} [ht]
 	\begin{center}
@@ -1148,6 +1152,7 @@ This work was funded by the EU LIFE Healthy Forest project (LIFE14 ENV/ES/000179
 	Vogelmann3     & $\frac{D_{715}}{D_{705}}$                                                                            & \cite{vogelmann1993} \\
 	Vogelmann4     & $\frac{R_{734}-R_{747}}{R_{715}+R_{720}}$                                                            & \cite{vogelmann1993} \\
 \end{xtabular*}
+\label{tab:vegindices}
 \endgroup
 
 \pagebreak
