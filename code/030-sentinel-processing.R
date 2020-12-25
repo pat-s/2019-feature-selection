@@ -30,7 +30,7 @@ sentinel_processing_plan <- drake_plan(
       c("2018-09-26", "2018-09-27")
     ), ~
     get_records(aoi, date = .x, processing_level = "Level-2A")) %>%
-      rbind_list()
+      bind_rows()
   ),
 
   # download images from copernicus open access hub ----------------------------
