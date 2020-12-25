@@ -28,4 +28,17 @@ The data is hosted at [Zenodo](https://doi.org/10.5281/zenodo.2635403) and autom
 
 **Reproducibility**
 
-Besides making use of [{drake}](https://docs.ropensci.org/drake/) for streamlining the workflow execution, [{renv}](https://rstudio.github.io/renv/index.html) was used in this project to ensure a consistent set of fixed package versions that corresponds to the one which were used to create this study.
+Besides making use of [{drake}](https://docs.ropensci.org/drake/) for streamlining the workflow execution, [{renv}](https://rstudio.github.io/renv/index.html) is used in this project to ensure a consistent set of fixed R package versions.
+
+By calling `r_make()` from the repository root, the recreation of the complete study is started.
+Intermediate/single objects can be computed by specifying these explicitly in `drake_config(targets = )` in `_drake.R`.
+Note that while most targets are cheap to compute, the modeling part is pretty expensive.
+These were run on a High-Performance-Computing (HPC) system and executing those on a local desktop machine is not recommended.
+
+**Known Issues**
+
+This study relies partly on the download of Sentinel2 images.
+For this task the R package [{getSpatialData}](https://github.com/16EAGLE/getSpatialData) is used.
+After a required refactoring to the latest version of the package in November 2020 (due to outdated/non-working functionality with the initial implementation from 2019), the Sentinel2 download became very unstable.
+
+
