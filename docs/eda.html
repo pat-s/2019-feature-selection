@@ -420,7 +420,7 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-08-12
+<strong>Last updated:</strong> 2020-12-25
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -511,16 +511,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree073e62afd42a52580106054dd382b2be53423585targetblank073e62aa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/073e62afd42a52580106054dd382b2be53423585" target="_blank">073e62a</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree1143bc11f110af82c2046c5eb1c0b57d468867cbtargetblank1143bc1a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/1143bc11f110af82c2046c5eb1c0b57d468867cb" target="_blank">1143bc1</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree073e62afd42a52580106054dd382b2be53423585targetblank073e62aa" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree1143bc11f110af82c2046c5eb1c0b57d468867cbtargetblank1143bc1a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/pat-s/2019-feature-selection/tree/073e62afd42a52580106054dd382b2be53423585" target="_blank">073e62a</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/pat-s/2019-feature-selection/tree/1143bc11f110af82c2046c5eb1c0b57d468867cb" target="_blank">1143bc1</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -532,6 +532,7 @@ Ignored files:
     Ignored:    .Ruserdata/
     Ignored:    .drake/
     Ignored:    .vscode/
+    Ignored:    analysis/figure/
     Ignored:    analysis/rosm.cache/
     Ignored:    data/
     Ignored:    inst/Benchmark for Filter Methods for Feature Selection in High-Dimensional  Classification Data.pdf
@@ -544,6 +545,8 @@ Ignored files:
     Ignored:    rosm.cache/
 
 Unstaged changes:
+    Modified:   R/99-utils.R
+    Modified:   _drake.R
     Modified:   analysis/report-defoliation.Rmd
 
 </code></pre>
@@ -583,6 +586,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/1143bc11f110af82c2046c5eb1c0b57d468867cb/analysis/eda.Rmd" target="_blank">1143bc1</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-12-25
+</td>
+<td>
+wflow_publish(knitr_in(“analysis/eda.Rmd”), view = FALSE, verbose = TRUE)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pat-s/2019-feature-selection/a9532999bf97763b02b6812cbddc57d08545944d/docs/eda.html" target="_blank">a953299</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-08-12
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -1338,6 +1375,7 @@ wflow_publish(knitr_in(“analysis/eda.Rmd”), view = FALSE)
 </div>
 </div>
 </div>
+<p>VI = Vegetation Indices NRI = Normalized Ratio Indices HR = Hyperspectral reflectances (image bands)</p>
 <div id="datasets" class="section level1 tabset tabset-fade">
 <h1>Datasets</h1>
 <div id="vi" class="section level2">
@@ -2774,6 +2812,7 @@ pat-s
 </table>
 </div>
 </div>
+<p><img src="figure/eda.Rmd/eda-3-3.png" width="100%" style="display: block; margin: auto;" /><img src="figure/eda.Rmd/eda-3-4.png" width="100%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="corr" class="section level3">
 <h3>Corr</h3>
@@ -2967,7 +3006,7 @@ pat-s
 </tr>
 <tr class="even">
 <td align="left">Columns</td>
-<td align="left">7,382</td>
+<td align="left">7,381</td>
 </tr>
 <tr class="odd">
 <td align="left">Discrete columns</td>
@@ -2975,7 +3014,7 @@ pat-s
 </tr>
 <tr class="even">
 <td align="left">Continuous columns</td>
-<td align="left">7,382</td>
+<td align="left">7,381</td>
 </tr>
 <tr class="odd">
 <td align="left">All missing columns</td>
@@ -2991,7 +3030,7 @@ pat-s
 </tr>
 <tr class="even">
 <td align="left">Total observations</td>
-<td align="left">13,346,656</td>
+<td align="left">13,344,848</td>
 </tr>
 </tbody>
 </table>
@@ -3320,6 +3359,7 @@ pat-s
 </table>
 </div>
 </div>
+<p><img src="figure/eda.Rmd/eda-6-3.png" width="100%" style="display: block; margin: auto;" /><img src="figure/eda.Rmd/eda-6-4.png" width="100%" style="display: block; margin: auto;" /><img src="figure/eda.Rmd/eda-6-5.png" width="100%" style="display: block; margin: auto;" /><img src="figure/eda.Rmd/eda-6-6.png" width="100%" style="display: block; margin: auto;" /><img src="figure/eda.Rmd/eda-6-7.png" width="100%" style="display: block; margin: auto;" /><img src="figure/eda.Rmd/eda-6-8.png" width="100%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="corr-1" class="section level3">
 <h3>Corr</h3>
@@ -3491,7 +3531,7 @@ pat-s
 </tr>
 <tr class="even">
 <td align="left">Columns</td>
-<td align="left">123</td>
+<td align="left">122</td>
 </tr>
 <tr class="odd">
 <td align="left">Discrete columns</td>
@@ -3499,7 +3539,7 @@ pat-s
 </tr>
 <tr class="even">
 <td align="left">Continuous columns</td>
-<td align="left">123</td>
+<td align="left">122</td>
 </tr>
 <tr class="odd">
 <td align="left">All missing columns</td>
@@ -3515,7 +3555,7 @@ pat-s
 </tr>
 <tr class="even">
 <td align="left">Total observations</td>
-<td align="left">222,384</td>
+<td align="left">220,576</td>
 </tr>
 </tbody>
 </table>
@@ -4379,247 +4419,7 @@ pat-s
 </div>
 <div id="pca-2" class="section level3">
 <h3>PCA</h3>
-<p><img src="figure/eda.Rmd/eda-10-1.png" width="100%" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-eda-10-1">
-Past versions of eda-10-1.png
-</button>
-</p>
-<div id="fig-eda-10-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/pat-s/2019-feature-selection/blob/8b5e42288e529ac965f2a751afbdefaf586b9ff2/docs/figure/eda.Rmd/eda-10-1.png" target="_blank">8b5e422</a>
-</td>
-<td>
-pat-s
-</td>
-<td>
-2020-08-05
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/pat-s/2019-feature-selection/blob/2be34b0d052be51c4fbe0d16e694e8df4d45a5be/docs/figure/eda.Rmd/eda-10-1.png" target="_blank">2be34b0</a>
-</td>
-<td>
-pat-s
-</td>
-<td>
-2020-03-22
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/pat-s/2019-feature-selection/blob/f2c521e2e99f9589cbd0ba013cec33d15953b834/docs/figure/eda.Rmd/eda-10-1.png" target="_blank">f2c521e</a>
-</td>
-<td>
-pat-s
-</td>
-<td>
-2020-02-14
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/pat-s/2019-feature-selection/blob/b1f675fa8bac03d4e426ebcfb94a086ca56c1841/docs/figure/eda.Rmd/eda-10-1.png" target="_blank">b1f675f</a>
-</td>
-<td>
-pat-s
-</td>
-<td>
-2020-01-08
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/pat-s/2019-feature-selection/blob/f93458f5c301ca749aacfb977c2a3217b6989e72/docs/figure/eda.Rmd/eda-10-1.png" target="_blank">f93458f</a>
-</td>
-<td>
-pat-s
-</td>
-<td>
-2019-12-21
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/pat-s/2019-feature-selection/blob/4f6bc44f1a703a37fc3fd4f6fca4532f8aeceaaf/docs/figure/eda.Rmd/eda-10-1.png" target="_blank">4f6bc44</a>
-</td>
-<td>
-pat-s
-</td>
-<td>
-2019-07-02
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/pat-s/2019-feature-selection/blob/b5ca1142a50dae5977025a9d7bb5de1839ee6198/docs/figure/eda.Rmd/eda-10-1.png" target="_blank">b5ca114</a>
-</td>
-<td>
-pat-s
-</td>
-<td>
-2019-06-21
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/pat-s/2019-feature-selection/blob/4cf247ae7857285fff7002189f9afdd908ae8d9a/docs/figure/eda.Rmd/eda-10-1.png" target="_blank">4cf247a</a>
-</td>
-<td>
-pat-s
-</td>
-<td>
-2019-06-18
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/pat-s/2019-feature-selection/blob/5230081805b2d9f02675d4a8517c39e619c961fa/docs/figure/eda.Rmd/eda-10-1.png" target="_blank">5230081</a>
-</td>
-<td>
-pat-s
-</td>
-<td>
-2019-06-15
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p><img src="figure/eda.Rmd/eda-10-2.png" width="100%" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-eda-10-2">
-Past versions of eda-10-2.png
-</button>
-</p>
-<div id="fig-eda-10-2" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/pat-s/2019-feature-selection/blob/2be34b0d052be51c4fbe0d16e694e8df4d45a5be/docs/figure/eda.Rmd/eda-10-2.png" target="_blank">2be34b0</a>
-</td>
-<td>
-pat-s
-</td>
-<td>
-2020-03-22
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/pat-s/2019-feature-selection/blob/f2c521e2e99f9589cbd0ba013cec33d15953b834/docs/figure/eda.Rmd/eda-10-2.png" target="_blank">f2c521e</a>
-</td>
-<td>
-pat-s
-</td>
-<td>
-2020-02-14
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/pat-s/2019-feature-selection/blob/b1f675fa8bac03d4e426ebcfb94a086ca56c1841/docs/figure/eda.Rmd/eda-10-2.png" target="_blank">b1f675f</a>
-</td>
-<td>
-pat-s
-</td>
-<td>
-2020-01-08
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/pat-s/2019-feature-selection/blob/f93458f5c301ca749aacfb977c2a3217b6989e72/docs/figure/eda.Rmd/eda-10-2.png" target="_blank">f93458f</a>
-</td>
-<td>
-pat-s
-</td>
-<td>
-2019-12-21
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/pat-s/2019-feature-selection/blob/4f6bc44f1a703a37fc3fd4f6fca4532f8aeceaaf/docs/figure/eda.Rmd/eda-10-2.png" target="_blank">4f6bc44</a>
-</td>
-<td>
-pat-s
-</td>
-<td>
-2019-07-02
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/pat-s/2019-feature-selection/blob/b5ca1142a50dae5977025a9d7bb5de1839ee6198/docs/figure/eda.Rmd/eda-10-2.png" target="_blank">b5ca114</a>
-</td>
-<td>
-pat-s
-</td>
-<td>
-2019-06-21
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/pat-s/2019-feature-selection/blob/4cf247ae7857285fff7002189f9afdd908ae8d9a/docs/figure/eda.Rmd/eda-10-2.png" target="_blank">4cf247a</a>
-</td>
-<td>
-pat-s
-</td>
-<td>
-2019-06-18
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/pat-s/2019-feature-selection/blob/5230081805b2d9f02675d4a8517c39e619c961fa/docs/figure/eda.Rmd/eda-10-2.png" target="_blank">5230081</a>
-</td>
-<td>
-pat-s
-</td>
-<td>
-2019-06-15
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/eda.Rmd/eda-10%20pca-bands-1.png" width="100%" style="display: block; margin: auto;" /><img src="figure/eda.Rmd/eda-10%20pca-bands-2.png" width="100%" style="display: block; margin: auto;" /><img src="figure/eda.Rmd/eda-10%20pca-bands-3.png" width="100%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="corr-2" class="section level3">
 <h3>Corr</h3>
@@ -4979,13 +4779,13 @@ pat-s
 </button>
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
-<pre><code>R version 3.6.1 (2019-07-05)
+<pre><code>R version 3.6.2 (2019-12-12)
 Platform: x86_64-pc-linux-gnu (64-bit)
 Running under: CentOS Linux 7 (Core)
 
 Matrix products: default
-BLAS:   /opt/spack/opt/spack/linux-centos7-x86_64/gcc-9.2.0/r-3.6.1-j25wr6zcofibs2zfjwg37357rjj26lqb/rlib/R/lib/libRblas.so
-LAPACK: /opt/spack/opt/spack/linux-centos7-x86_64/gcc-9.2.0/r-3.6.1-j25wr6zcofibs2zfjwg37357rjj26lqb/rlib/R/lib/libRlapack.so
+BLAS:   /opt/spack/opt/spack/linux-centos7-x86_64/gcc-9.2.0/r-3.6.2-sqpyonnenmuqbwdscxgxyfr2tm42unxr/rlib/R/lib/libRblas.so
+LAPACK: /opt/spack/opt/spack/linux-centos7-x86_64/gcc-9.2.0/r-3.6.2-sqpyonnenmuqbwdscxgxyfr2tm42unxr/rlib/R/lib/libRlapack.so
 
 locale:
  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
@@ -4999,37 +4799,36 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] fs_1.4.1           raster_3.0-12      sp_1.3-1          
+ [1] fs_1.4.1           raster_3.3-13      sp_1.4-4          
  [4] purrr_0.3.4        knitr_1.23         ggpubr_0.1.6      
  [7] ggplot2_3.3.0      ggsci_2.9          dplyr_0.8.3       
-[10] DataExplorer_0.8.0 tidyselect_0.2.5   magrittr_1.5      
-[13] drake_7.12.0      
+[10] DataExplorer_0.8.0 magrittr_1.5       drake_7.12.7      
 
 loaded via a namespace (and not attached):
- [1] Rcpp_1.0.3        txtq_0.1.4        lattice_0.20-38  
- [4] tidyr_1.0.0       class_7.3-15      prettyunits_1.0.2
- [7] assertthat_0.2.1  rprojroot_1.3-2   digest_0.6.25    
-[10] utf8_1.1.4        R6_2.4.1          plyr_1.8.4       
-[13] backports_1.1.5   e1071_1.7-0.1     evaluate_0.13    
-[16] highr_0.7         pillar_1.4.3      rlang_0.4.5      
-[19] progress_1.2.0    data.table_1.12.8 whisker_0.3-2    
-[22] R.utils_2.8.0     R.oo_1.23.0       rmarkdown_1.13   
-[25] labeling_0.3      rgdal_1.4-8       stringr_1.4.0    
-[28] htmlwidgets_1.3   igraph_1.2.4.1    munsell_0.5.0    
-[31] compiler_3.6.1    httpuv_1.4.5.1    xfun_0.5         
-[34] pkgconfig_2.0.3   htmltools_0.3.6   tibble_2.1.3     
-[37] gridExtra_2.3     workflowr_1.6.1   codetools_0.2-16 
-[40] fansi_0.4.1       sf_0.7-7          crayon_1.3.4     
-[43] withr_2.1.2       later_1.0.0       R.methodsS3_1.7.1
-[46] grid_3.6.1        DBI_1.0.0         gtable_0.3.0     
-[49] lifecycle_0.1.0   git2r_0.26.1      storr_1.2.1      
-[52] units_0.6-2       scales_1.1.0      cli_2.0.2        
-[55] stringi_1.3.1     farver_2.0.3      reshape2_1.4.3   
-[58] promises_1.0.1    filelock_1.0.2    vctrs_0.2.4      
-[61] tools_3.6.1       glue_1.4.0        hms_0.5.3        
-[64] networkD3_0.4     parallel_3.6.1    yaml_2.2.0       
-[67] colorspace_1.4-0  classInt_0.3-1    base64url_1.4    
-[70] patchwork_1.0.0  </code></pre>
+ [1] Rcpp_1.0.3         txtq_0.2.3         lattice_0.20-38   
+ [4] tidyr_1.0.0        class_7.3-15       prettyunits_1.0.2 
+ [7] assertthat_0.2.1   rprojroot_1.3-2    digest_0.6.25     
+[10] utf8_1.1.4         R6_2.4.1           plyr_1.8.4        
+[13] backports_1.1.5    e1071_1.7-0.1      evaluate_0.13     
+[16] highr_0.7          pillar_1.4.3       rlang_0.4.8       
+[19] progress_1.2.0     data.table_1.12.8  whisker_0.3-2     
+[22] R.utils_2.8.0      R.oo_1.23.0        rmarkdown_1.13    
+[25] labeling_0.3       rgdal_1.5-18       stringr_1.4.0     
+[28] htmlwidgets_1.3    igraph_1.2.4.1     munsell_0.5.0     
+[31] compiler_3.6.2     httpuv_1.4.5.1     xfun_0.5          
+[34] pkgconfig_2.0.3    htmltools_0.3.6    tidyselect_1.1.0  
+[37] tibble_2.1.3       gridExtra_2.3      workflowr_1.6.1   
+[40] codetools_0.2-16   fansi_0.4.1        sf_0.9-6          
+[43] crayon_1.3.4       withr_2.1.2        later_1.0.0       
+[46] R.methodsS3_1.7.1  grid_3.6.2         DBI_1.0.0         
+[49] gtable_0.3.0       lifecycle_0.2.0    git2r_0.26.1      
+[52] storr_1.2.1        units_0.6-2        scales_1.1.0      
+[55] KernSmooth_2.23-15 cli_2.0.2          stringi_1.3.1     
+[58] farver_2.0.3       reshape2_1.4.3     promises_1.0.1    
+[61] filelock_1.0.2     vctrs_0.3.5        tools_3.6.2       
+[64] glue_1.4.0         hms_0.5.3          networkD3_0.4     
+[67] parallel_3.6.2     yaml_2.2.0         colorspace_1.4-0  
+[70] classInt_0.4-3     base64url_1.4      patchwork_1.0.0   </code></pre>
 </div>
 </div>
 
