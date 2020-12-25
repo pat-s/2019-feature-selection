@@ -47,6 +47,10 @@ library("raster")
 library("fs")
 ```
 
+VI = Vegetation Indices
+NRI = Normalized Ratio Indices
+HR = Hyperspectral reflectances (image bands)
+
 # Datasets {.tabset .tabset-fade}
 
 ## VI
@@ -85,7 +89,13 @@ plot_histogram(vi_data_corrected_buffer2)
 ### PCA
 
 ```{r eda-3 }
-plot_prcomp(vi_data_corrected_buffer2)
+vi_data_corrected_buffer2_no_defol = vi_data_corrected_buffer2
+vi_data_corrected_buffer2_no_defol$defoliation <- NULL
+pca <- DataExplorer::plot_prcomp(vi_data_corrected_buffer2_no_defol,
+  variance_cap = 0.98,
+  ggtheme = ggpubr::theme_pubclean()
+)
+pca[[1]]
 ```
 
 ### Corr
@@ -99,6 +109,9 @@ plot_correlation(vi_data_corrected_buffer2)
 ### Overview
 
 ```{r eda-5 }
+# remove response
+nri_data_corrected_buffer2$defoliation <- NULL
+
 intro <- introduce(nri_data_corrected_buffer2)
 intro_df <- data.frame(
   "Name" = c(
@@ -128,7 +141,11 @@ No histograms for NRI -> too many features.
 ### PCA
 
 ```{r eda-6 }
-plot_prcomp(nri_data_corrected_buffer2)
+pca <- DataExplorer::plot_prcomp(nri_data_corrected_buffer2,
+  variance_cap = 0.98,
+  ggtheme = ggpubr::theme_pubclean()
+)
+pca[[1]]
 ```
 
 ### Corr
@@ -142,6 +159,9 @@ plot_correlation(nri_data_corrected_buffer2)
 ### Overview
 
 ```{r eda-8 }
+# remove response
+bands_data_corrected_buffer2$defoliation <- NULL
+
 intro <- introduce(bands_data_corrected_buffer2)
 intro_df <- data.frame(
   "Name" = c(
@@ -172,8 +192,12 @@ plot_histogram(bands_data_corrected_buffer2)
 
 ### PCA
 
-```{r eda-10 }
-plot_prcomp(bands_data_corrected_buffer2)
+```{r eda-10 pca-bands, dev = c("png", "pdf")}
+pca <- DataExplorer::plot_prcomp(bands_data_corrected_buffer2,
+  variance_cap = 0.98,
+  ggtheme = ggpubr::theme_pubclean()
+)
+pca[[1]]
 ```
 
 ### Corr
