@@ -20,13 +20,18 @@ get_records <- function(aoi, date, processing_level) {
   login_CopHub("be-marc", password = "ISQiwQDl")
 
   # Get records from Sentinel-2 in time range
-  records <- getSentinel_query(date,
-    platform = "Sentinel-2"
+  records <- getSpatialData::get_records(time_range = date,
+    products = "Sentinel-2", as_sf = FALSE
   )
 
   records %<>%
-    filter(processinglevel == processing_level) %>%
-    arrange(beginposition)
+    # geom needs to be dropped as certain time ranges return different types of
+    # sf columns and then fail when being rbinded
+    # sf::st_drop_geometry() %>%
+    dplyr::filter(level == processing_level) %>%
+    dplyr::arrange(start_time) %>%
+    # see https://github.com/16EAGLE/getSpatialData/issues/76
+    dplyr::mutate(download_available = TRUE)
 
   return(records)
 }
@@ -39,13 +44,14 @@ get_records <- function(aoi, date, processing_level) {
 #' @export
 download_images <- function(records) {
   # Set working directory for getSpatial package
-  set_archive("data/sentinel/image_zip")
+  getSpatialData::set_archive("data/sentinel/image_zip")
 
   # Connect to Copernicus Open Access Hub
-  login_CopHub("be-marc", password = "ISQiwQDl")
+  # getSpatialData::login_CopHub("be-marc", password = "ISQiwQDl")
+  getSpatialData::login_CopHub("pat-s", password = "@nNYCXRnT!iP6z8aQ8hHLh6G")
 
   # Download images
-  sentinel_dataset <- getSentinel_data(records, force = FALSE)
+  sentinel_dataset <- getSpatialData::getSentinel_data(records, force = FALSE)
 }
 
 #' @title download_images
@@ -205,7 +211,7 @@ mosaic_images <- function(records) {
   # Get stack filenames
   file_stack <-
     unique(records$beginposition) %>%
-    map(~ filter(records, beginposition == .)) %>%
+    map(~ dplyr::filter(records, beginposition == .)) %>%
     map(~ dplyr::pull(., filename)) %>%
     map(~ str_remove(., ".SAFE")) %>%
     map_depth(2, ~ str_glue("data/sentinel/image_stack/", ., ".tif")) %>%
@@ -214,15 +220,17 @@ mosaic_images <- function(records) {
   # Set mosaic filename
   file_mosaic <-
     records$filename %>%
-    str_sub(1, 41) %>%
+    str_sub(1, 30) %>%
     unique() %>%
     map_chr(~ str_glue("data/sentinel/image_mosaic/", ., ".tif"))
 
-  cat("Building mosaic.")
+  cli_alert("Building mosaic.")
+
+  browser()
 
   # Build mosaic
   # 18 GB per mosaic 3 moscaics in total -> 20 GB mem in parallel
-  future_map2(
+  map2(
     file_stack, file_mosaic,
     ~ gdalUtils::mosaic_rasters(.x, .y, verbose = TRUE)
   )
@@ -262,13 +270,13 @@ mosaic_clouds <- function(records) {
   # Set cloud mask filename
   file_mosaic_cloud_mask <-
     records$filename %>%
-    str_sub(1, 41) %>%
+    str_sub(1, 30) %>%
     unique() %>%
     map(~ str_glue("data/sentinel/image_mosaic/", ., "_cloud_mask.gpkg"))
 
   # Write cloud mask mosaic
   list(vec_mosaic_cloud_mask, file_mosaic_cloud_mask) %>%
-    pwalk(~ st_write(.x, .y, layer_options = "OVERWRITE=true"))
+    pwalk(~ st_write(.x, .y, append = FALSE))
 
   # Return for drake
   return(file_mosaic_cloud_mask)
