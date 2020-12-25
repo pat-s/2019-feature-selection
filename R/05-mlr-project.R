@@ -56,7 +56,7 @@ train_wrapper <- function(learner, tune_object, task) {
   lrn_xgboost <- setHyperPars(makeLearner(learner),
     par.vals = tune_object$x
   )
-  m <- train(lrn_xgboost, task)
+  m <- mlr::train(lrn_xgboost, task)
 
   return(m)
 }
