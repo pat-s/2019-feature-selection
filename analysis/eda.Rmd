@@ -96,7 +96,7 @@ vi_data_corrected_buffer2_no_defol_no_response$defoliation <- NULL
 pca_vi <- DataExplorer::plot_prcomp(vi_data_corrected_buffer2_no_defol_no_response,
   variance_cap = 0.90,
   ggtheme = ggpubr::theme_pubclean(),
-  geom_label_args = list(size = 2),
+  geom_label_args = list(size = 3),
   parallel = TRUE
 )
 pca_vi = pca_vi[[1]] +
@@ -151,7 +151,7 @@ nri_data_corrected_buffer2_no_response$defoliation <- NULL
 pca_nri <- DataExplorer::plot_prcomp(nri_data_corrected_buffer2_no_response,
   variance_cap = 0.9,
   ggtheme = ggpubr::theme_pubclean(),
-  geom_label_args = list(size = 2),
+  geom_label_args = list(size = 3),
   parallel = TRUE
 )
 pca_nri = pca_nri[[1]] + 
@@ -205,7 +205,7 @@ bands_data_corrected_buffer2_no_response$defoliation <- NULL
 
 pca_hr <- DataExplorer::plot_prcomp(bands_data_corrected_buffer2_no_response,
   variance_cap = 0.98,
-  geom_label_args = list(size = 2),
+  geom_label_args = list(size = 3),
   ggtheme = ggpubr::theme_pubclean()
 )
 pca_hr = pca_hr[[1]] + 
@@ -425,9 +425,9 @@ Comparing the "proportion of variance explained" (POV) for all feature sets.
 ```{r pca-pov-comparison, dev = c("png", "pdf")}
 pca_vi / pca_nri / pca_hr *
   theme(
-    plot.title = element_text(size = 8),
+    plot.title = element_text(size = 10),
     axis.title.y = element_text(size = 8),
-    axis.title.x = element_text(size = 8)
+    axis.title.x = element_text(size = 10)
   ) +
   patchwork::plot_annotation(
     tag_levels = list(c("VI", "NRI", "HR")),
