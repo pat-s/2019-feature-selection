@@ -1,8 +1,4 @@
 \documentclass[letterpaper, peerreview, draftcls]{IEEEtran}
-%
-% If IEEEtran.cls has not been installed into the LaTeX system files,
-% manually specify the path to it like:
-% \documentclass[journal]{../sty/IEEEtran}
 
 % *** CITATION PACKAGES ***
 %
@@ -245,9 +241,11 @@
 	\acro{LiDAR}{light detection and ranging}
 	\acro{LOWESS}{locally weighted scatter plot smoothing}
 	\acro{PISR}{potential incoming solar radiation}
+    \acro{PC}{principal component}
 	\acro{PCA}{principal component analysis}
 	\acro{PDP}{partial dependence plots}
 	\acro{PLS}{partial least-squares}
+	\acro{POV}{proportion of variance explained}
 	\acro{RBF}{radial basis function}
 	\acro{RF}{random forest}
 	\acro{RMSE}{root mean square error}
@@ -362,6 +360,10 @@ Field surveys were conducted in September 2016.
 %		\label{fig:defol-trees}
 %	\end{center}
 %\end{figure}
+
+\subsection{Correlation among predictors}
+
+A \ac{PCA} was done to analyse the correlation within the variables of the different feature sets (FIXME figref).
 
 \subsection{Hyperspectral data}
 
@@ -593,6 +595,22 @@ This study is available as a research compendium on Zenodo (\url{10.5281/zenodo.
 Besides the availability of code and manuscript sources, a static webpage is available at (\url{https://github.com/pat-s/2019-feature-selection}), listing more side-analyses that were carried out during the creation of this study.
 
 \section{Results}
+
+\subsection{Correlation analysis}
+
+Inspecting the results of the \ac{PCA} for all feature sets, HR showed a high correlation among variables with a \ac{POV} of 84\% in the first \ac{PC} and 14\% in the second \ac{PC}, summing up to a cumulative \ac{POV} of 98\% (\autoref{fig:pca-pov}).
+
+Feature sets VI (51\% PC1, 25\% PC2, 7\% PC3) and NRI (51\% PC1, 25\% PC2, 8\% PC3) showed a more diverse distribution across their respective \ac{PC}s.
+
+\begin{figure} [t!]
+	\centering
+	\begin{center}
+		\includegraphics[width=0.48\textwidth] {pca-pov-comparison-1.pdf}
+		\caption{Proportion of variance explained by a Principal Component Analysis for all feature sets.
+		To show at least 2 PC for every feature set, the target POV was set to 98\% for VI and NRI and to 90\% for HR.}
+		\label{fig:pca-pov}
+	\end{center}
+\end{figure}
 
 \subsection{Predictive performance}
 
