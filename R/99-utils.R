@@ -53,6 +53,11 @@ copy_figures <- function() {
     here::here("docs/00-manuscripts/ieee/pdf/")
   )
 
+  file_cp_ts(
+    here::here("docs/figure/eda.Rmd/pca-pov-comparison-1.pdf"),
+    here::here("docs/00-manuscripts/ieee/pdf/")
+  )
+
   # spectral-signatures.Rmd ----------------------------------------------------
 
   file_cp_ts(
