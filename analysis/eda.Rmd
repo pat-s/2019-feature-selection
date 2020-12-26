@@ -47,9 +47,9 @@ library("raster")
 library("fs")
 ```
 
-VI = Vegetation Indices
-NRI = Normalized Ratio Indices
-HR = Hyperspectral reflectances (image bands)
+- VI = Vegetation Indices
+- NRI = Normalized Ratio Indices
+- HR = Hyperspectral reflectances (image bands)
 
 # Datasets {.tabset .tabset-fade}
 
@@ -192,7 +192,7 @@ plot_histogram(bands_data_corrected_buffer2)
 
 ### PCA
 
-```{r eda-10 pca-bands, dev = c("png", "pdf")}
+```{r pca-bands, dev = c("png", "pdf")}
 pca <- DataExplorer::plot_prcomp(bands_data_corrected_buffer2,
   variance_cap = 0.98,
   ggtheme = ggpubr::theme_pubclean()
@@ -323,6 +323,8 @@ dist_plots <- unlist(dist)
 ```{r eda-19, echo = FALSE}
 # file_move("docs/figure/eda.Rmd/defoliation-distribution-plot-1.pdf",
 #           "code/98-paper/journal/")
+# file_move("docs/figure/eda.Rmd/pca-bands-1.pdf",
+          # "code/98-paper/journal/")
 ```
 
 # Effects of different buffer sizes when extracting values to trees
@@ -385,7 +387,7 @@ compare_buffer <- function(trees_with_buffer, trees_without_buffer, plot_name) {
 }
 ```
 
-```{r}
+```{r buffer-size-comp-plot}
 map(
   c("laukiz1", "laukiz2", "luiando", "oiartzun"),
   ~ compare_buffer(
