@@ -99,7 +99,9 @@ pca_vi <- DataExplorer::plot_prcomp(vi_data_corrected_buffer2_no_defol_no_respon
   geom_label_args = list(size = 3),
   parallel = TRUE
 )
-pca_vi[[1]]
+pca_vi = pca_vi[[1]] +
+  labs(title = "Target POV: 90%")
+pca_vi
 ```
 
 ### Corr
@@ -152,7 +154,9 @@ pca_nri <- DataExplorer::plot_prcomp(nri_data_corrected_buffer2_no_response,
   geom_label_args = list(size = 3),
   parallel = TRUE
 )
-pca_nri[[1]]
+pca_nri = pca_nri[[1]] + 
+  labs(title = "Target POV: 90%")
+pca_nri
 ```
 
 ### Corr
@@ -200,11 +204,13 @@ bands_data_corrected_buffer2_no_response <- bands_data_corrected_buffer2
 bands_data_corrected_buffer2_no_response$defoliation <- NULL
 
 pca_hr <- DataExplorer::plot_prcomp(bands_data_corrected_buffer2_no_response,
-  variance_cap = 0.90,
+  variance_cap = 0.98,
   geom_label_args = list(size = 3),
   ggtheme = ggpubr::theme_pubclean()
 )
-pca_hr[[1]]
+pca_hr = pca_hr[[1]] + 
+  labs(title = "Target POV: 90%")
+pca_hr
 ```
 
 ### Corr
@@ -417,18 +423,15 @@ map(
 Comparing the "proportion of variance explained" (POV) for all feature sets.
 
 ```{r pca-pov-comparison, dev = c("png", "pdf")}
-pca_vi[[1]] / pca_nri[[1]] / pca_hr[[1]] *
-  labs(title = NULL) *
+pca_vi / pca_nri / pca_hr *
   theme(
+    plot.title = element_text(size = 8),
     axis.title.y = element_text(size = 8),
     axis.title.x = element_text(size = 8)
   ) +
   patchwork::plot_annotation(
     tag_levels = list(c("VI", "NRI", "HR")),
-    title = "Proportin of variance explained by principal components",
+    title = "Proportion of variance explained by principal components",
     subtitle = "Labels indicate cumulative % of explained variance"
   )
 ```
-
-
-
