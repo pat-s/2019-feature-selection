@@ -397,6 +397,7 @@ $(document).ready(function () {
 <li><a href="#sd-skewness">sd / skewness</a></li>
 <li><a href="#point-density">Point density</a></li>
 <li><a href="#effects-of-different-buffer-sizes-when-extracting-values-to-trees">Effects of different buffer sizes when extracting values to trees</a></li>
+<li><a href="#pca-feature-set-comparison">PCA feature set comparison</a></li>
 </ul>
 </div>
 
@@ -511,16 +512,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree084bb6d3a3089f7fcacad5024e9afddbb1c7403atargetblank084bb6da"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/084bb6d3a3089f7fcacad5024e9afddbb1c7403a" target="_blank">084bb6d</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontreee8b74873bbd291be7961847e19bae5054b2b535btargetblanke8b7487a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/e8b74873bbd291be7961847e19bae5054b2b535b" target="_blank">e8b7487</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree084bb6d3a3089f7fcacad5024e9afddbb1c7403atargetblank084bb6da" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontreee8b74873bbd291be7961847e19bae5054b2b535btargetblanke8b7487a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/pat-s/2019-feature-selection/tree/084bb6d3a3089f7fcacad5024e9afddbb1c7403a" target="_blank">084bb6d</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/pat-s/2019-feature-selection/tree/e8b74873bbd291be7961847e19bae5054b2b535b" target="_blank">e8b7487</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -585,6 +586,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/e8b74873bbd291be7961847e19bae5054b2b535b/analysis/eda.Rmd" target="_blank">e8b7487</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-12-26
+</td>
+<td>
+wflow_publish(knitr_in(“analysis/eda.Rmd”), view = FALSE, verbose = TRUE)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pat-s/2019-feature-selection/ea4e83ef076f94d4727173f94a34ea658fcffd90/docs/eda.html" target="_blank">ea4e83e</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-12-26
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -2909,44 +2944,6 @@ pat-s
 </table>
 </div>
 </div>
-<p><img src="figure/eda.Rmd/eda-3-4.png" width="100%" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-eda-3-4">
-Past versions of eda-3-4.png
-</button>
-</p>
-<div id="fig-eda-3-4" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/pat-s/2019-feature-selection/blob/a016ad6ab215d2becb5315a5e93eee95c4727373/docs/figure/eda.Rmd/eda-3-4.png" target="_blank">a016ad6</a>
-</td>
-<td>
-pat-s
-</td>
-<td>
-2020-12-25
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
 </div>
 <div id="corr" class="section level3">
 <h3>Corr</h3>
@@ -3140,7 +3137,7 @@ pat-s
 </tr>
 <tr class="even">
 <td align="left">Columns</td>
-<td align="left">7,381</td>
+<td align="left">7,382</td>
 </tr>
 <tr class="odd">
 <td align="left">Discrete columns</td>
@@ -3148,7 +3145,7 @@ pat-s
 </tr>
 <tr class="even">
 <td align="left">Continuous columns</td>
-<td align="left">7,381</td>
+<td align="left">7,382</td>
 </tr>
 <tr class="odd">
 <td align="left">All missing columns</td>
@@ -3164,7 +3161,7 @@ pat-s
 </tr>
 <tr class="even">
 <td align="left">Total observations</td>
-<td align="left">13,344,848</td>
+<td align="left">13,346,656</td>
 </tr>
 </tbody>
 </table>
@@ -3553,358 +3550,10 @@ pat-s
 </table>
 </div>
 </div>
-<p><img src="figure/eda.Rmd/eda-6-4.png" width="100%" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-eda-6-4">
-Past versions of eda-6-4.png
-</button>
-</p>
-<div id="fig-eda-6-4" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/pat-s/2019-feature-selection/blob/a016ad6ab215d2becb5315a5e93eee95c4727373/docs/figure/eda.Rmd/eda-6-4.png" target="_blank">a016ad6</a>
-</td>
-<td>
-pat-s
-</td>
-<td>
-2020-12-25
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p><img src="figure/eda.Rmd/eda-6-5.png" width="100%" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-eda-6-5">
-Past versions of eda-6-5.png
-</button>
-</p>
-<div id="fig-eda-6-5" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/pat-s/2019-feature-selection/blob/a016ad6ab215d2becb5315a5e93eee95c4727373/docs/figure/eda.Rmd/eda-6-5.png" target="_blank">a016ad6</a>
-</td>
-<td>
-pat-s
-</td>
-<td>
-2020-12-25
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p><img src="figure/eda.Rmd/eda-6-6.png" width="100%" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-eda-6-6">
-Past versions of eda-6-6.png
-</button>
-</p>
-<div id="fig-eda-6-6" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/pat-s/2019-feature-selection/blob/a016ad6ab215d2becb5315a5e93eee95c4727373/docs/figure/eda.Rmd/eda-6-6.png" target="_blank">a016ad6</a>
-</td>
-<td>
-pat-s
-</td>
-<td>
-2020-12-25
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p><img src="figure/eda.Rmd/eda-6-7.png" width="100%" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-eda-6-7">
-Past versions of eda-6-7.png
-</button>
-</p>
-<div id="fig-eda-6-7" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/pat-s/2019-feature-selection/blob/a016ad6ab215d2becb5315a5e93eee95c4727373/docs/figure/eda.Rmd/eda-6-7.png" target="_blank">a016ad6</a>
-</td>
-<td>
-pat-s
-</td>
-<td>
-2020-12-25
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p><img src="figure/eda.Rmd/eda-6-8.png" width="100%" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-eda-6-8">
-Past versions of eda-6-8.png
-</button>
-</p>
-<div id="fig-eda-6-8" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/pat-s/2019-feature-selection/blob/a016ad6ab215d2becb5315a5e93eee95c4727373/docs/figure/eda.Rmd/eda-6-8.png" target="_blank">a016ad6</a>
-</td>
-<td>
-pat-s
-</td>
-<td>
-2020-12-25
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
 </div>
 <div id="corr-1" class="section level3">
 <h3>Corr</h3>
-<p><img src="figure/eda.Rmd/eda-7-1.png" width="100%" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-eda-7-1">
-Past versions of eda-7-1.png
-</button>
-</p>
-<div id="fig-eda-7-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/pat-s/2019-feature-selection/blob/a016ad6ab215d2becb5315a5e93eee95c4727373/docs/figure/eda.Rmd/eda-7-1.png" target="_blank">a016ad6</a>
-</td>
-<td>
-pat-s
-</td>
-<td>
-2020-12-25
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/pat-s/2019-feature-selection/blob/8b5e42288e529ac965f2a751afbdefaf586b9ff2/docs/figure/eda.Rmd/eda-7-1.png" target="_blank">8b5e422</a>
-</td>
-<td>
-pat-s
-</td>
-<td>
-2020-08-05
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/pat-s/2019-feature-selection/blob/f2c521e2e99f9589cbd0ba013cec33d15953b834/docs/figure/eda.Rmd/eda-7-1.png" target="_blank">f2c521e</a>
-</td>
-<td>
-pat-s
-</td>
-<td>
-2020-02-14
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/pat-s/2019-feature-selection/blob/b1f675fa8bac03d4e426ebcfb94a086ca56c1841/docs/figure/eda.Rmd/eda-7-1.png" target="_blank">b1f675f</a>
-</td>
-<td>
-pat-s
-</td>
-<td>
-2020-01-08
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/pat-s/2019-feature-selection/blob/f93458f5c301ca749aacfb977c2a3217b6989e72/docs/figure/eda.Rmd/eda-7-1.png" target="_blank">f93458f</a>
-</td>
-<td>
-pat-s
-</td>
-<td>
-2019-12-21
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/pat-s/2019-feature-selection/blob/6f633ffefbeb028c9860c6646a7c9d2a4e240ec8/docs/figure/eda.Rmd/eda-7-1.png" target="_blank">6f633ff</a>
-</td>
-<td>
-pat-s
-</td>
-<td>
-2019-09-02
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/pat-s/2019-feature-selection/blob/7582c67afa5b1f5bd3175b9d2b37b037e9242daf/docs/figure/eda.Rmd/eda-7-1.png" target="_blank">7582c67</a>
-</td>
-<td>
-pat-s
-</td>
-<td>
-2019-08-31
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/pat-s/2019-feature-selection/blob/abed0ec6e0139458cc128e74edb5f5ec8d28fec8/docs/figure/eda.Rmd/eda-7-1.png" target="_blank">abed0ec</a>
-</td>
-<td>
-pat-s
-</td>
-<td>
-2019-08-12
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/pat-s/2019-feature-selection/blob/4f6bc44f1a703a37fc3fd4f6fca4532f8aeceaaf/docs/figure/eda.Rmd/eda-7-1.png" target="_blank">4f6bc44</a>
-</td>
-<td>
-pat-s
-</td>
-<td>
-2019-07-02
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/pat-s/2019-feature-selection/blob/b5ca1142a50dae5977025a9d7bb5de1839ee6198/docs/figure/eda.Rmd/eda-7-1.png" target="_blank">b5ca114</a>
-</td>
-<td>
-pat-s
-</td>
-<td>
-2019-06-21
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/pat-s/2019-feature-selection/blob/4cf247ae7857285fff7002189f9afdd908ae8d9a/docs/figure/eda.Rmd/eda-7-1.png" target="_blank">4cf247a</a>
-</td>
-<td>
-pat-s
-</td>
-<td>
-2019-06-18
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/pat-s/2019-feature-selection/blob/5230081805b2d9f02675d4a8517c39e619c961fa/docs/figure/eda.Rmd/eda-7-1.png" target="_blank">5230081</a>
-</td>
-<td>
-pat-s
-</td>
-<td>
-2019-06-15
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p>No correlation plot for NRI -&gt; too many features.</p>
 </div>
 </div>
 <div id="hr" class="section level2">
@@ -3925,7 +3574,7 @@ pat-s
 </tr>
 <tr class="even">
 <td align="left">Columns</td>
-<td align="left">122</td>
+<td align="left">123</td>
 </tr>
 <tr class="odd">
 <td align="left">Discrete columns</td>
@@ -3933,7 +3582,7 @@ pat-s
 </tr>
 <tr class="even">
 <td align="left">Continuous columns</td>
-<td align="left">122</td>
+<td align="left">123</td>
 </tr>
 <tr class="odd">
 <td align="left">All missing columns</td>
@@ -3949,7 +3598,7 @@ pat-s
 </tr>
 <tr class="even">
 <td align="left">Total observations</td>
-<td align="left">220,576</td>
+<td align="left">222,384</td>
 </tr>
 </tbody>
 </table>
@@ -4901,7 +4550,270 @@ pat-s
 </div>
 <div id="pca-2" class="section level3">
 <h3>PCA</h3>
-<p><img src="figure/eda.Rmd/pca-bands-1.png" width="100%" style="display: block; margin: auto;" /><img src="figure/eda.Rmd/pca-bands-2.png" width="100%" style="display: block; margin: auto;" /><img src="figure/eda.Rmd/pca-bands-3.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="figure/eda.Rmd/eda-10-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-eda-10-1">
+Past versions of eda-10-1.png
+</button>
+</p>
+<div id="fig-eda-10-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/a016ad6ab215d2becb5315a5e93eee95c4727373/docs/figure/eda.Rmd/eda-10-1.png" target="_blank">a016ad6</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-12-25
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/8b5e42288e529ac965f2a751afbdefaf586b9ff2/docs/figure/eda.Rmd/eda-10-1.png" target="_blank">8b5e422</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-08-05
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/2be34b0d052be51c4fbe0d16e694e8df4d45a5be/docs/figure/eda.Rmd/eda-10-1.png" target="_blank">2be34b0</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-03-22
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/f2c521e2e99f9589cbd0ba013cec33d15953b834/docs/figure/eda.Rmd/eda-10-1.png" target="_blank">f2c521e</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-02-14
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/b1f675fa8bac03d4e426ebcfb94a086ca56c1841/docs/figure/eda.Rmd/eda-10-1.png" target="_blank">b1f675f</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-01-08
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/f93458f5c301ca749aacfb977c2a3217b6989e72/docs/figure/eda.Rmd/eda-10-1.png" target="_blank">f93458f</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-12-21
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/4f6bc44f1a703a37fc3fd4f6fca4532f8aeceaaf/docs/figure/eda.Rmd/eda-10-1.png" target="_blank">4f6bc44</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-07-02
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/b5ca1142a50dae5977025a9d7bb5de1839ee6198/docs/figure/eda.Rmd/eda-10-1.png" target="_blank">b5ca114</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-06-21
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/4cf247ae7857285fff7002189f9afdd908ae8d9a/docs/figure/eda.Rmd/eda-10-1.png" target="_blank">4cf247a</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-06-18
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/5230081805b2d9f02675d4a8517c39e619c961fa/docs/figure/eda.Rmd/eda-10-1.png" target="_blank">5230081</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-06-15
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/eda.Rmd/eda-10-2.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-eda-10-2">
+Past versions of eda-10-2.png
+</button>
+</p>
+<div id="fig-eda-10-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/a016ad6ab215d2becb5315a5e93eee95c4727373/docs/figure/eda.Rmd/eda-10-2.png" target="_blank">a016ad6</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-12-25
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/2be34b0d052be51c4fbe0d16e694e8df4d45a5be/docs/figure/eda.Rmd/eda-10-2.png" target="_blank">2be34b0</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-03-22
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/f2c521e2e99f9589cbd0ba013cec33d15953b834/docs/figure/eda.Rmd/eda-10-2.png" target="_blank">f2c521e</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-02-14
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/b1f675fa8bac03d4e426ebcfb94a086ca56c1841/docs/figure/eda.Rmd/eda-10-2.png" target="_blank">b1f675f</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-01-08
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/f93458f5c301ca749aacfb977c2a3217b6989e72/docs/figure/eda.Rmd/eda-10-2.png" target="_blank">f93458f</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-12-21
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/4f6bc44f1a703a37fc3fd4f6fca4532f8aeceaaf/docs/figure/eda.Rmd/eda-10-2.png" target="_blank">4f6bc44</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-07-02
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/b5ca1142a50dae5977025a9d7bb5de1839ee6198/docs/figure/eda.Rmd/eda-10-2.png" target="_blank">b5ca114</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-06-21
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/4cf247ae7857285fff7002189f9afdd908ae8d9a/docs/figure/eda.Rmd/eda-10-2.png" target="_blank">4cf247a</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-06-18
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/5230081805b2d9f02675d4a8517c39e619c961fa/docs/figure/eda.Rmd/eda-10-2.png" target="_blank">5230081</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-06-15
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/eda.Rmd/eda-10-3.png" width="100%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="corr-2" class="section level3">
 <h3>Corr</h3>
@@ -5239,6 +5151,48 @@ $Oiartzun
 <p>For this EDA only the direct reflectance values are used. It is assumed that the VI and NRI datasets will be affected in the same way by the different buffer sizes.</p>
 <pre><code>Warning: Removed 1 row(s) containing missing values (geom_path).</code></pre>
 <p><img src="figure/eda.Rmd/buffer-size-comp-plot-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-buffer-size-comp-plot-1">
+Past versions of buffer-size-comp-plot-1.png
+</button>
+</p>
+<div id="fig-buffer-size-comp-plot-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/ea4e83ef076f94d4727173f94a34ea658fcffd90/docs/figure/eda.Rmd/buffer-size-comp-plot-1.png" target="_blank">ea4e83e</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-12-26
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="pca-feature-set-comparison" class="section level1">
+<h1>PCA feature set comparison</h1>
+<p>Comparing the “proportion of variance explained” (POV) for all feature sets.</p>
+<p><img src="figure/eda.Rmd/pca-pov-comparison-1.png" width="100%" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -5295,7 +5249,7 @@ loaded via a namespace (and not attached):
 [61] filelock_1.0.2     vctrs_0.3.5        tools_3.6.2       
 [64] glue_1.4.0         hms_0.5.3          networkD3_0.4     
 [67] parallel_3.6.2     yaml_2.2.0         colorspace_1.4-0  
-[70] classInt_0.4-3     base64url_1.4      patchwork_1.0.0   </code></pre>
+[70] classInt_0.4-3     base64url_1.4      patchwork_1.1.1   </code></pre>
 </div>
 </div>
 
