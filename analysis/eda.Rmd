@@ -89,13 +89,17 @@ plot_histogram(vi_data_corrected_buffer2)
 ### PCA
 
 ```{r eda-3 }
-vi_data_corrected_buffer2_no_defol = vi_data_corrected_buffer2
-vi_data_corrected_buffer2_no_defol$defoliation <- NULL
-pca <- DataExplorer::plot_prcomp(vi_data_corrected_buffer2_no_defol,
-  variance_cap = 0.98,
-  ggtheme = ggpubr::theme_pubclean()
+# remove response
+vi_data_corrected_buffer2_no_defol_no_response <- vi_data_corrected_buffer2
+vi_data_corrected_buffer2_no_defol_no_response$defoliation <- NULL
+
+pca_vi <- DataExplorer::plot_prcomp(vi_data_corrected_buffer2_no_defol_no_response,
+  variance_cap = 0.90,
+  ggtheme = ggpubr::theme_pubclean(),
+  geom_label_args = list(size = 3),
+  parallel = TRUE
 )
-pca[[1]]
+pca_vi[[1]]
 ```
 
 ### Corr
@@ -109,9 +113,6 @@ plot_correlation(vi_data_corrected_buffer2)
 ### Overview
 
 ```{r eda-5 }
-# remove response
-nri_data_corrected_buffer2$defoliation <- NULL
-
 intro <- introduce(nri_data_corrected_buffer2)
 intro_df <- data.frame(
   "Name" = c(
@@ -141,27 +142,28 @@ No histograms for NRI -> too many features.
 ### PCA
 
 ```{r eda-6 }
-pca <- DataExplorer::plot_prcomp(nri_data_corrected_buffer2,
-  variance_cap = 0.98,
-  ggtheme = ggpubr::theme_pubclean()
+# remove response
+nri_data_corrected_buffer2_no_response <- nri_data_corrected_buffer2
+nri_data_corrected_buffer2_no_response$defoliation <- NULL
+
+pca_nri <- DataExplorer::plot_prcomp(nri_data_corrected_buffer2_no_response,
+  variance_cap = 0.9,
+  ggtheme = ggpubr::theme_pubclean(),
+  geom_label_args = list(size = 3),
+  parallel = TRUE
 )
-pca[[1]]
+pca_nri[[1]]
 ```
 
 ### Corr
 
-```{r eda-7 }
-plot_correlation(nri_data_corrected_buffer2)
-```
+No correlation plot for NRI -> too many features.
 
 ## HR
 
 ### Overview
 
 ```{r eda-8 }
-# remove response
-bands_data_corrected_buffer2$defoliation <- NULL
-
 intro <- introduce(bands_data_corrected_buffer2)
 intro_df <- data.frame(
   "Name" = c(
@@ -192,12 +194,17 @@ plot_histogram(bands_data_corrected_buffer2)
 
 ### PCA
 
-```{r pca-bands, dev = c("png", "pdf")}
-pca <- DataExplorer::plot_prcomp(bands_data_corrected_buffer2,
-  variance_cap = 0.98,
+```{r eda-10 }
+# remove response
+bands_data_corrected_buffer2_no_response <- bands_data_corrected_buffer2
+bands_data_corrected_buffer2_no_response$defoliation <- NULL
+
+pca_hr <- DataExplorer::plot_prcomp(bands_data_corrected_buffer2_no_response,
+  variance_cap = 0.90,
+  geom_label_args = list(size = 3),
   ggtheme = ggpubr::theme_pubclean()
 )
-pca[[1]]
+pca_hr[[1]]
 ```
 
 ### Corr
@@ -324,7 +331,7 @@ dist_plots <- unlist(dist)
 # file_move("docs/figure/eda.Rmd/defoliation-distribution-plot-1.pdf",
 #           "code/98-paper/journal/")
 # file_move("docs/figure/eda.Rmd/pca-bands-1.pdf",
-          # "code/98-paper/journal/")
+# "code/98-paper/journal/")
 ```
 
 # Effects of different buffer sizes when extracting values to trees
@@ -404,3 +411,24 @@ map(
     subtitle = "Mean values of each hyperspectral band for each plot "
   )
 ```
+
+# PCA feature set comparison
+
+Comparing the "proportion of variance explained" (POV) for all feature sets.
+
+```{r pca-pov-comparison, dev = c("png", "pdf")}
+pca_vi[[1]] / pca_nri[[1]] / pca_hr[[1]] *
+  labs(title = NULL) *
+  theme(
+    axis.title.y = element_text(size = 8),
+    axis.title.x = element_text(size = 8)
+  ) +
+  patchwork::plot_annotation(
+    tag_levels = list(c("VI", "NRI", "HR")),
+    title = "Proportin of variance explained by principal components",
+    subtitle = "Labels indicate cumulative % of explained variance"
+  )
+```
+
+
+
