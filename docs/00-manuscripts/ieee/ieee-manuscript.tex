@@ -398,7 +398,7 @@ Additional metadata information is available in \autoref{tab:hyperparameter_meta
 \subsection{Derivation of indices}
 
 To use the full potential of the hyperspectral data, all possible vegetation indices supported by the R package hsdar (89 in total) as well as all possible \ac{NRI} combinations were calculated from the reflectances.
-The following formula was used for the NRI calculation:
+The following NDVI-based formula was used for the NRI calculation:
 
 \begin{equation}
 	NRI_{i,j} = \frac{band_{i} - band_{j}}{band_{i} + band_{j}}
@@ -408,6 +408,8 @@ The following formula was used for the NRI calculation:
 with \(i\) and \(j\) being the respective band numbers.
 
 \bigbreak{}
+
+The choice of NDVI serving as the base formula for NRI calculation was determined by the implementation of the \texttt{nri} function in the \texttt{hsdar} R package.
 
 To account for geometric offsets within the hyperspectral data, which were reported with up to 1 m from \ac{ICGC}, a buffer of two meters around the centroid of each tree was used when extracting the reflectance values.
 A pixel was considered to fall into a tree's buffer zone if the centroid of the respective pixel was touched by the buffer.
@@ -1010,7 +1012,7 @@ This work was funded by the EU LIFE Healthy Forest project (LIFE14 ENV/ES/000179
 \section{Hyperparameter tuning ranges}
 
 % parameter limits
-\begin{table}[b!]
+\begin{table}[h!]
 	\centering
 	\caption[t]{Hyperparameter ranges and types for each model.
 		Hyperparameter notations from the respective R packages were used.}
@@ -1038,6 +1040,8 @@ This work was funded by the EU LIFE Healthy Forest project (LIFE14 ENV/ES/000179
 	\endgroup
 	\label{tab:hyperparameter_limits}
 \end{table}
+
+\section{Vegetation index formulas}
 
 \begingroup\scriptsize
 \setlength\tabcolsep{4pt}  % default value: 6pt

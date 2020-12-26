@@ -7,3 +7,4 @@
 - Add PCA for all feature sets to showcase the information redundancy among the variables of each feature set (Fig. 3)
 - explicitly label the achieved performance as "fair"
 - In-situ data: add details how the data was surveyed
+- Explain why NDVI was chosen as the base for NRI calculation
