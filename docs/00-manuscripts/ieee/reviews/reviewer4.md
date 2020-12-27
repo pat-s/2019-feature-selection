@@ -24,9 +24,8 @@ In our case we tried to discuss the issues in the data (see section Discussion -
 > - Please proved more information of the hyperspectral data-set. How was the radiometric, atmospheric and geometric correction done? Why two acquisition dates?
 
 We agree that this is an important metadata information.
-We added the information to FIXME.
 Note that these preprocessing tasks were done externally and not by ourselves.
-Because we think that this detailed information on data preprocessing might extend the data section too much, we decided to add this information into the appendix (FIXME).
+Because we think that this detailed information on data preprocessing might extend the data section too much, we decided to add this information into appendix F.
 
 **Radiometric Correction**
 
