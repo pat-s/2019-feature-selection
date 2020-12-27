@@ -9,3 +9,4 @@
 - In-situ data: add details how the data was surveyed
 - Explain why NDVI was chosen as the base for NRI calculation
 - Add geometric, radiometric and atmospheric correction information to appendix F
+- Add line-numbers for peerreview mode
