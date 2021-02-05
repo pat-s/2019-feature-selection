@@ -836,11 +836,12 @@
       "Version": "0.5.2",
       "Source": "GitHub",
       "RemoteType": "github",
+      "RemoteHost": "api.github.com",
       "RemoteRepo": "hsdar",
       "RemoteUsername": "pat-s",
-      "RemoteRef": "master",
+      "RemoteRef": "9de91c8f67c4b19b39bca7d2c03d37d7641b2b33",
       "RemoteSha": "9de91c8f67c4b19b39bca7d2c03d37d7641b2b33",
-      "Hash": "64fb088d764b301f6b085d1f6b50e51d"
+      "Hash": "af7d580a164748fe89fe7e956fcc5bee"
     },
     "htmltools": {
       "Package": "htmltools",
@@ -1560,6 +1561,13 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "bc4bac38960b446c183957bfd563e763"
+    },
+    "rootSolve": {
+      "Package": "rootSolve",
+      "Version": "1.8.2.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "d62eb8dc158952de565c611ea8498e4c"
     },
     "rosm": {
       "Package": "rosm",
