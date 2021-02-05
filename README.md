@@ -3,7 +3,7 @@
 _Research study_
 
 <!-- badges: start -->
-[!R version](https://img.shields.io/badge/R=-3.6.3-brightgreen.svg)](https://cran.r-project.org/)
+[![R version](https://img.shields.io/badge/R_Version-3.6.3-brightgreen.svg)](https://cran.r-project.org/)
 [![License](https://img.shields.io/github/license/mashape/apistatus.svg)](http://choosealicense.com/licenses/mit/)
 <!-- badges: end -->
 

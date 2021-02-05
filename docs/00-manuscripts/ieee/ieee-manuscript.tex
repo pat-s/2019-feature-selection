@@ -1,8 +1,7 @@
-\documentclass[letterpaper, peerreview, draftcls]{IEEEtran}
-%
-% If IEEEtran.cls has not been installed into the LaTeX system files,
-% manually specify the path to it like:
-% \documentclass[journal]{../sty/IEEEtran}
+% \documentclass[letterpaper, onecolumn, peerreview]{IEEEtran}
+\documentclass[peerreview]{IEEEtran}
+
+\usepackage[switch]{lineno}
 
 % *** CITATION PACKAGES ***
 %
@@ -112,6 +111,7 @@
 \usepackage[detect-all]{siunitx}
 
 \begin{document}
+\linenumbers
 %
 % paper title
 % Titles are generally capitalized except for words such as a, an, and, as,
@@ -245,9 +245,11 @@
 	\acro{LiDAR}{light detection and ranging}
 	\acro{LOWESS}{locally weighted scatter plot smoothing}
 	\acro{PISR}{potential incoming solar radiation}
+    \acro{PC}{principal component}
 	\acro{PCA}{principal component analysis}
 	\acro{PDP}{partial dependence plots}
 	\acro{PLS}{partial least-squares}
+	\acro{POV}{proportion of variance explained}
 	\acro{RBF}{radial basis function}
 	\acro{RF}{random forest}
 	\acro{RMSE}{root mean square error}
@@ -346,6 +348,8 @@ Oiartzun has the most observations (n = 559) while Laukiz2 shows the largest are
 All plots besides Luiando are located within 100 km from the coast (\autoref{fig:study_area}).
 In total 1808 observations are available (Laukiz1 = 559, Laukiz2 = 451, Luiando = 301, Oiartzun = 497).
 Field surveys were conducted in September 2016.
+Defoliation was measured via visual inspection using 5\% intervals.
+No estimation error was recorded.
 
 \begin{figure*} [ht!]
 	\begin{center}
@@ -362,6 +366,10 @@ Field surveys were conducted in September 2016.
 %		\label{fig:defol-trees}
 %	\end{center}
 %\end{figure}
+
+\subsection{Correlation among predictors}
+
+A \ac{PCA} was done to analyse the correlation within the variables of the different feature sets (FIXME figref).
 
 \subsection{Hyperspectral data}
 
@@ -394,7 +402,7 @@ Additional metadata information is available in \autoref{tab:hyperparameter_meta
 \subsection{Derivation of indices}
 
 To use the full potential of the hyperspectral data, all possible vegetation indices supported by the R package hsdar (89 in total) as well as all possible \ac{NRI} combinations were calculated from the reflectances.
-The following formula was used for the NRI calculation:
+The following NDVI-based formula was used for the NRI calculation:
 
 \begin{equation}
 	NRI_{i,j} = \frac{band_{i} - band_{j}}{band_{i} + band_{j}}
@@ -404,6 +412,8 @@ The following formula was used for the NRI calculation:
 with \(i\) and \(j\) being the respective band numbers.
 
 \bigbreak{}
+
+The choice of NDVI serving as the base formula for NRI calculation was determined by the implementation of the \texttt{nri} function in the \texttt{hsdar} R package.
 
 To account for geometric offsets within the hyperspectral data, which were reported with up to 1 m from \ac{ICGC}, a buffer of two meters around the centroid of each tree was used when extracting the reflectance values.
 A pixel was considered to fall into a tree's buffer zone if the centroid of the respective pixel was touched by the buffer.
@@ -594,6 +604,22 @@ Besides the availability of code and manuscript sources, a static webpage is ava
 
 \section{Results}
 
+\subsection{Correlation analysis}
+
+Inspecting the results of the \ac{PCA} for all feature sets, HR showed a high correlation among variables with a \ac{POV} of 84\% in the first \ac{PC} and 14\% in the second \ac{PC}, summing up to a cumulative \ac{POV} of 98\% (\autoref{fig:pca-pov}).
+
+Feature sets VI (51\% PC1, 25\% PC2, 7\% PC3) and NRI (51\% PC1, 25\% PC2, 8\% PC3) showed a more diverse distribution across their respective \ac{PC}s.
+
+\begin{figure} [t!]
+	\centering
+	\begin{center}
+		\includegraphics[width=0.48\textwidth] {pca-pov-comparison-1.pdf}
+		\caption{Proportion of variance explained by a Principal Component Analysis for all feature sets.
+		To show at least 2 PC for every feature set, the target POV was set to 98\% for VI and NRI and to 90\% for HR.}
+		\label{fig:pca-pov}
+	\end{center}
+\end{figure}
+
 \subsection{Predictive performance}
 
 % - RMSE around 27
@@ -739,6 +765,7 @@ A model can only make robust predictions if it has learned relationships across 
 Hence, care should be taken when predicting to the landscape scale using models fitted on this dataset due to their lack of generalizability caused by the limitations of the available training data.
 However, when inspecting the fold level performances, it can be concluded that the model performed reasonably well predicting defoliation greater than 50\% but failed for lower levels.
 This applied to all learners of this study.
+The overall performance achieved in this study can be classified as "fair".
 
 \subsubsection{Model differences}
 
@@ -989,7 +1016,7 @@ This work was funded by the EU LIFE Healthy Forest project (LIFE14 ENV/ES/000179
 \section{Hyperparameter tuning ranges}
 
 % parameter limits
-\begin{table}[b!]
+\begin{table}[h!]
 	\centering
 	\caption[t]{Hyperparameter ranges and types for each model.
 		Hyperparameter notations from the respective R packages were used.}
@@ -1017,6 +1044,8 @@ This work was funded by the EU LIFE Healthy Forest project (LIFE14 ENV/ES/000179
 	\endgroup
 	\label{tab:hyperparameter_limits}
 \end{table}
+
+\section{Vegetation index formulas}
 
 \begingroup\scriptsize
 \setlength\tabcolsep{4pt}  % default value: 6pt
@@ -1160,6 +1189,50 @@ This work was funded by the EU LIFE Healthy Forest project (LIFE14 ENV/ES/000179
 \end{xtabular*}
 \label{tab:vegindices}
 \endgroup
+
+\pagebreak
+
+\section{Radiometric, Geometric and Atmospheric correction of hyperspectral data}
+
+The following information was provided externally by the company which was in charge for the image acquisition and preprocessing of the data.
+
+\textbf{Radiometric Correction}
+
+\begin{quote}
+The conversion of DNs to spectral radiance was made by using a software designed for the instrument.
+Images are originally scaled in 12 bits but they were radiometrically calibrated to 16 bits, reserving the highest value: 65535, for null values.
+The procedure was applied on the 23 previously selected images.
+Thereafter, the geometric and atmospheric corrections were further applied on them.
+\end{quote}
+
+\textbf{Geometric Correction}
+
+\begin{quote}
+The aim of this procedure was to reduce the positional errors of the images.
+The cartography of reference was GeoEuskadi, UTM, zone 30, datum ETRS-89.
+The position was accomplished by coupling an Applanix POS AV 410 system to the sensor, which integrates GPS and IMU systems.
+The system provides geographic coordinates of the terrain and relative coordinates of the aircraft (attitude) at each scanned line. Additionally a DSM from GeoEuskadi with a spatial resolution of 1 m was used.
+The ortorectified hyperspectral images were compared to orthoimages 1:5000 of GeoEuskadi and the RMSE was calculated, which was below the GSD in the across and along track directions
+\end{quote}
+
+\textbf{Atmospheric Correction}
+
+\begin{quote}
+The radiance measured by and instrument depends on the illumination geometry and the reflective properties of the observed surface.
+Radiation may be absorbed or scattered (Rayleigh and Mie scattering). Scattering is responsible of the adjacency effect, i.e., radiation coming from neighbors areas to the target pixel.
+The MODTRAN code was used to modelling the effect of the atmosphere on the radiation.
+To represent the aerosols of the study area it was used the rural model, and the optical thickness was estimated on pixels with a high vegetation cover.
+Columnar water vapor was estimated by a linear regression ratio where the spectral radiance of each pixel at the band of the maximum water absorption (~906 nm) is compared to its theoretical value in absence of absorption. Nonetheless, this technique is unreliable when a spectral resolution as the one required here is used.
+To solve that, a manual selection of the water vapor parameter was made according to the smoothness observed on the reflectance peak at 960 nm.
+The mid-latitude summer atmosphere model was also used.
+The output of this procedure was reflectance from the target pixel scaled between 0 and 10,000.
+\end{quote}
+
+\textbf{Acquisition days}
+
+\begin{quote}
+The image acquisitions were originally attempted during one day (29) but due to the variable meteorological conditions some stands had to be imaged the next day.
+\end{quote}
 
 \pagebreak
 
