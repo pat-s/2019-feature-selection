@@ -21,7 +21,8 @@ benchmark_plan_buffer2 <- drake_plan(
       resamplings = makeResampleDesc("CV", fixed = TRUE),
       show.info = TRUE,
       measures = list(
-        setAggregation(rmse, test.mean)
+        setAggregation(rmse, test.mean),
+        setAggregation(rsq, test.mean)
       )
     ),
     dynamic = cross(tune_wrappers_mbo, task_new_buffer2_reduced_cor)
@@ -38,7 +39,8 @@ benchmark_plan_buffer2 <- drake_plan(
       resamplings = makeResampleDesc("CV", fixed = TRUE),
       show.info = TRUE,
       measures = list(
-        setAggregation(rmse, test.mean)
+        setAggregation(rmse, test.mean),
+        setAggregation(rsq, test.mean)
       ),
       keep.extract = TRUE
     ),
@@ -57,7 +59,8 @@ benchmark_plan_buffer2 <- drake_plan(
       resamplings = makeResampleDesc("CV", fixed = TRUE),
       show.info = TRUE,
       measures = list(
-        setAggregation(rmse, test.mean)
+        setAggregation(rmse, test.mean),
+        setAggregation(rsq, test.mean)
       )
     ),
     dynamic = cross(learners_penalized, task_new_buffer2)
@@ -72,7 +75,8 @@ benchmark_plan_buffer2 <- drake_plan(
       resamplings = makeResampleDesc("CV", fixed = TRUE),
       show.info = TRUE,
       measures = list(
-        setAggregation(rmse, test.mean)
+        setAggregation(rmse, test.mean),
+        setAggregation(rsq, test.mean)
       )
     ),
     dynamic = cross(learners_penalized, task_new_buffer2)
@@ -88,7 +92,8 @@ benchmark_plan_buffer2 <- drake_plan(
       resamplings = makeResampleDesc("CV", fixed = TRUE),
       show.info = TRUE,
       measures = list(
-        setAggregation(rmse, test.mean)
+        setAggregation(rmse, test.mean),
+        setAggregation(rsq, test.mean)
       )
     ),
     dynamic = cross(learners_keep_models[[1]], task_new_buffer2)
@@ -103,7 +108,8 @@ benchmark_plan_buffer2 <- drake_plan(
       resamplings = makeResampleDesc("CV", fixed = TRUE),
       show.info = TRUE,
       measures = list(
-        setAggregation(rmse, test.mean)
+        setAggregation(rmse, test.mean),
+        setAggregation(rsq, test.mean)
       )
     ),
     dynamic = cross(tune_wrappers_mbo, task_old_buffer2)
@@ -118,7 +124,8 @@ benchmark_plan_buffer2 <- drake_plan(
       resamplings = makeResampleDesc("CV", fixed = TRUE),
       show.info = TRUE,
       measures = list(
-        setAggregation(rmse, test.mean)
+        setAggregation(rmse, test.mean),
+        setAggregation(rsq, test.mean)
       )
     ),
     dynamic = cross(learners_penalized, task_new_buffer2_reduced_cor)

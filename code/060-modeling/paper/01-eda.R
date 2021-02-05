@@ -2,7 +2,7 @@ filter_eda_plan <- drake_plan(
   filter_names = c(
     "carscore",
     "FSelectorRcpp_information.gain",
-    "FSelector_relief",
+    "FSelectorRcpp_relief",
     "linear.correlation",
     "praznik_MRMR",
     "praznik_CMIM"
@@ -17,7 +17,7 @@ filter_eda_plan <- drake_plan(
 
   names_filter_values = c(
     "carscore",
-    "FSelector_relief",
+    "FSelectorRcpp_relief",
     "linear.correlation",
     "rank.correlation",
     "praznik_MRMR",

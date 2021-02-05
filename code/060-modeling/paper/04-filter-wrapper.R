@@ -24,7 +24,7 @@ filter_wrapper_plan <- drake_plan(
         "linear.correlation",
         "praznik_MRMR", "praznik_CMIM",
         "carscore",
-        "FSelector_relief"
+        "FSelectorRcpp_relief"
       ),
       more.args = list("FSelectorRcpp_information.gain" = list(
         equal = TRUE,
