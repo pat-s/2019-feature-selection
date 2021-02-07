@@ -225,29 +225,29 @@
 	\acro{CV}{cross-validation}
 	\acro{DAP}{digital aerial photogrammetry}
 	\acro{ENM}{environmental niche modeling}
-	\acro{FPR}{false positive rate}
 	\acro{FFS}{forward feature selection}
+	\acro{FPR}{false positive rate}
 	\acro{FS}{feature selection}
 	\acro{GAM}{generalized additive model}
 	\acro{GBM}{gradient boosting machine}
 	\acro{GLM}{generalized linear model}
 	\acro{ICGC}{Institut Cartografic i Geologic de Catalunya}
 	\acro{IQR}{interquartile range}
+	\acro{LiDAR}{light detection and ranging}
+	\acro{LOWESS}{locally weighted scatter plot smoothing}
 	\acro{MARS}{multivariate adaptive regression splines}
 	\acro{MBO}{model-based optimization}
 	\acro{MEM}{maximum entropy model}
 	\acro{ML}{machine learning}
 	\acro{NDII}{normalized difference infrared index}
+	\acro{NDMI}{normalized difference moisture index}
 	\acro{NIR}{near-infrared}
 	\acro{NRI}{normalized ratio index}
-	\acro{NDMI}{normalized difference moisture index}
 	\acro{OLS}{ordinary least squares}
-	\acro{LiDAR}{light detection and ranging}
-	\acro{LOWESS}{locally weighted scatter plot smoothing}
-	\acro{PISR}{potential incoming solar radiation}
-    \acro{PC}{principal component}
+	\acro{OMNBR}{optimized multiple narrow-band reflectance}
 	\acro{PCA}{principal component analysis}
 	\acro{PDP}{partial dependence plots}
+	\acro{PISR}{potential incoming solar radiation}
 	\acro{PLS}{partial least-squares}
 	\acro{POV}{proportion of variance explained}
 	\acro{RBF}{radial basis function}
@@ -262,6 +262,7 @@
 	\acro{TPR}{true positive rate}
 	\acro{VI}{vegetation index}
 	\acro{XGBoost}{extreme gradient boosting}
+    \acro{PC}{principal component}
 \end{acronym}
 \renewcommand{\IEEEiedlistdecl}{\relax}% reset back
 
@@ -369,7 +370,7 @@ No estimation error was recorded.
 
 \subsection{Correlation among predictors}
 
-A \ac{PCA} was done to analyse the correlation within the variables of the different feature sets (FIXME figref).
+A \ac{PCA} was done to analyse the correlation within the variables of the different feature sets (\autoref{fig:pca-pov}).
 
 \subsection{Hyperspectral data}
 
@@ -401,8 +402,11 @@ Additional metadata information is available in \autoref{tab:hyperparameter_meta
 
 \subsection{Derivation of indices}
 
-To use the full potential of the hyperspectral data, all possible vegetation indices supported by the R package hsdar (89 in total) as well as all possible \ac{NRI} combinations were calculated from the reflectances.
-The following NDVI-based formula was used for the NRI calculation:
+To use the full potential of the hyperspectral data, all possible vegetation indices supported by the R package hsdar (89 in total) as well as all possible \ac{NRI} combinations were calculated.
+
+NRIs follow the \ac{OMNBR} concept of data-driven information extraction from narrow-band indices of hyperspectral data \cite{thenkabail2000,thenkabail2018}.
+In principal any index can be used for this data-driven concept.
+Due to the popularity of the NDVI index in vegetation applications and the availability of this index in the \texttt{nri()} function of the \texttt{hsdar} R package, the following formula was applied to every available band combination:
 
 \begin{equation}
 	NRI_{i,j} = \frac{band_{i} - band_{j}}{band_{i} + band_{j}}
@@ -412,8 +416,6 @@ The following NDVI-based formula was used for the NRI calculation:
 with \(i\) and \(j\) being the respective band numbers.
 
 \bigbreak{}
-
-The choice of NDVI serving as the base formula for NRI calculation was determined by the implementation of the \texttt{nri} function in the \texttt{hsdar} R package.
 
 To account for geometric offsets within the hyperspectral data, which were reported with up to 1 m from \ac{ICGC}, a buffer of two meters around the centroid of each tree was used when extracting the reflectance values.
 A pixel was considered to fall into a tree's buffer zone if the centroid of the respective pixel was touched by the buffer.
@@ -496,7 +498,16 @@ The filter 'Information Gain' is only defined for nominal response variables:
 	H(Class) + H(Attribute) - H(Class, Attribute)
 \end{equation}
 
-where \(H\) is the conditional entropy of the response variable (class) or the feature (attribute), respectively.
+where \(H\) is the conditional entropy of the response variable (class or Y) or the feature (attribute or X), respectively.
+$H(X)$ is Shannon's Entropy \cite{shannon1948} for a variable X and $H(X, Y)$ is a joint Shannon's Entropy for a variable X with a condition to Y.
+$H(X)$ itself is defined as
+
+\begin{equation}
+H(X) = - \sum_{i=1}^{n} P(x_i)\log_bP(x_i)
+\end{equation}
+
+where $b$ is the base of the logarithm used (with $b$ commonly being set to 2).
+
 In order to use this method with a numeric response (percentage defoliation of trees), the variable was discretized into equal bins and treated as a class variable.
 After feature rank correlations of $> 0.9$ between different bin sizes were observed in a side analysis, \texttt{\(n_{bin}\) = 10} was found to be a reasonable setting to go with.
 
@@ -518,6 +529,10 @@ Extreme Gradient Boosting (commonly abbreviated as XGBoost) has shown promising 
 Penalized regression is a statistical modeling technique capable of dealing with highly-correlated covariates by penalizing the coefficients of the model \cite{hastie2001}.
 Common penalties are 'lasso' (L1) and 'ridge' (L2).
 Ridge does not remove variables from the model (penalization to zero) but just shrinks them to effectively zero, keeping them in the model.
+
+In total the benchmarking grid consisted of 156 experiments (6 feature sets $\times$ 3 ML algorithms $\times$ 8 feature-selection methods and for the L1/L2 models, 6 feature sets $\times$ 2 models.
+The selected hyperparameter settings are shown in \autoref{tab:hyperparameter_limits}.
+In addition the code which generated the matrix is available in the research compendium of this study (\url{10.5281/zenodo.2635403}).
 
 \subsubsection{Feature sets}
 
@@ -556,8 +571,9 @@ This strategy continues until a termination criterion, defined by the user, is r
 In this work, an initial design of 30 randomly composed hyperparameter settings in combination with a termination criterion of 70 iterations was used, resulting in a total budget of 100 evaluated hyperparameter settings per fold.
 The advantage of this tuning approach is a substantial reduction of the tuning budget that is required to find a setting close to the global optimization minimum.
 \ac{MBO} may outperform methods that do not use information from previous iterations, such as random search or grid search \cite{bergstra2012}.
+Tuning ranges are shown in \autoref{tab:hyperparameter_limits}.
 
-To optimize the number of features used for model fitting, the percentage of features was added as a hyperparameter during the optimization stage (\cite{binder2020}).
+To optimize the number of features used for model fitting, the percentage of features was added as a hyperparameter during the optimization stage \cite{binder2020}.
 For \ac{PCA}, the number of principal components was tuned instead.
 %The RF hyperparameter \texttt{\(m_{try}\)} was re-expressed as $m_{try} = p^x_{try}$.
 The RF hyperparameter \texttt{\(m_{try}\)} was re-expressed as $m_\textrm{try} = p_\textrm{sel}^t$ as a function of the number of selected features, $p_\textrm{sel}$.
@@ -570,8 +586,6 @@ A spatial nested cross-validation on the plot level was chosen to reduce the inf
 The \ac{RMSE} was chosen as the error measure.
 Each plot served as one fold within the cross-validation setting, resulting in four iterations in total.
 For the inner level (hyperparameter tuning), \(k - 1\) folds were used with \(k\) being the number of plots.
-
-In total the benchmarking grid consisted of 156 experiments (6 feature sets $\times$ 3 ML algorithms $\times$ 8 feature-selection methods and for the L1/L2 models, 6 feature sets $\times$ 2 models.
 
 \subsection{Feature importance and feature effects}
 
