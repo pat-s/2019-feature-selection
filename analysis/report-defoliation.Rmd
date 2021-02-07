@@ -17,6 +17,7 @@ knitr::opts_chunk$set(
   echo = FALSE
 )
 source(here::here("code/99-packages.R"))
+load_packages()
 sourceDirectory("R")
 
 # load drake objects
@@ -26,9 +27,8 @@ loadd(
   defoliation_df,
   defoliation_df_relative,
 
-  tune_xgboost
+  tune_xgboost_plan_project
 )
-library("rgdal")
 ```
 
 # Predicted defoliation (absolute)
@@ -52,13 +52,13 @@ The following vegetation indices have been used, selected by the internal variab
 The following shows the optimization path (RMSE) of the hyperparameter tuning for the XGBOOST model using 20 MBO iterations (with a starting design of 30).
 
 ```{r}
-suppressMessages(getOptPathY(tune_xgboost$opt.path))
+suppressMessages(getOptPathY(tune_xgboost_plan_project$opt.path))
 ```
 
 Some more details on the optimization path are presented below:
 
 ```{r}
-suppressMessages(plotOptPath(tune_xgboost$opt.path))
+suppressMessages(plotOptPath(tune_xgboost_plan_project$opt.path))
 ```
 
 # Predicted Defoliation (relative)
@@ -155,7 +155,10 @@ suppressWarnings(suppressMessages(print(plot)))
 2017
 
 ```{r}
-hist <- suppressWarnings(suppressMessages(ggplot(defoliation_df_relative[[1]], aes(x = defoliation)) +
+hist <- suppressWarnings(suppressMessages(ggplot(
+  defoliation_df_relative[[1]],
+  aes(x = defoliation)
+) +
   geom_histogram() +
   labs(x = "Relative defoliation of trees") +
   theme_pubr()))
@@ -165,7 +168,10 @@ suppressMessages(print(hist))
 2018
 
 ```{r}
-hist <- suppressWarnings(suppressMessages(ggplot(defoliation_df_relative[[2]], aes(x = defoliation)) +
+hist <- suppressWarnings(suppressMessages(ggplot(
+  defoliation_df_relative[[2]],
+  aes(x = defoliation)
+) +
   geom_histogram() +
   labs(x = "Relative defoliation of trees") +
   theme_pubr()))
@@ -173,5 +179,6 @@ suppressMessages(print(hist))
 ```
 
 ```{r echo = FALSE}
-system("rsync -rlptDivzog --chown=*:www-data --chmod=g+r,o+r /home/patrick/papers/2019-feature-selection/docs/figure/report-defoliation.Rmd/defol* patrick@jupiter.geogr.uni-jena.de:/home/www/life-healthy-forest/action-B1-spatial-mapping/defoliation-maps/")
+#system("rsync -rlptDivzog --chown=*:www-data --chmod=g+r,o+r /home/patrick/papers/2019-feature-selection/docs/figure/report-defoliation.Rmd/defol* patrick@jupiter.geogr.uni-jena.de:/home/www/life-healthy-forest/action-B1-spatial-mapping/defoliation-maps/")
 ```
+

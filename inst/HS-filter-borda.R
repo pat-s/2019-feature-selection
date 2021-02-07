@@ -52,7 +52,7 @@ ps_xgboost <- makeParamSet(
                           values = c("carscore", "cforest.importance", "FSelector_chi.squared", "FSelectorRcpp_gain.ratio",
                                      "FSelectorRcpp_information.gain", "FSelectorRcpp_symmetrical.uncertainty", "linear.correlation",
                                      "mrmr", "FSelector_oneR", "ranger.impurity",
-                                     "ranger.permutation", "rank.correlation", "FSelector_relief", "univariate.model.score",
+                                     "ranger.permutation", "rank.correlation", "FSelectorRcpp_relief", "univariate.model.score",
                                      "variance")),
   makeNumericParam("fw.perc", lower = 0, upper = 1)
 )
@@ -67,7 +67,7 @@ ps_svm <- makeParamSet(
                           values = c("carscore", "cforest.importance", "FSelector_chi.squared", "FSelectorRcpp_gain.ratio",
                                      "FSelectorRcpp_information.gain", "FSelectorRcpp_symmetrical.uncertainty", "linear.correlation",
                                      "mrmr", "FSelector_oneR", "ranger.impurity",
-                                     "ranger.permutation", "rank.correlation", "FSelector_relief", "univariate.model.score",
+                                     "ranger.permutation", "rank.correlation", "FSelectorRcpp_relief", "univariate.model.score",
                                      "variance"))
 )
 
