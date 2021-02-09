@@ -96,12 +96,12 @@ vi_data_corrected_buffer2_no_defol_no_response$defoliation <- NULL
 pca_vi <- DataExplorer::plot_prcomp(vi_data_corrected_buffer2_no_defol_no_response,
   variance_cap = 0.90,
   ggtheme = ggpubr::theme_pubclean(),
-  geom_label_args = list(size = 3),
+  geom_label_args = list(size = 3, nudge_y = 0.05),
   parallel = TRUE
 )
 pca_vi = pca_vi[[1]] +
   labs(title = "Target POV: 90%")
-pca_vi
+pca_vi[[1]]
 ```
 
 ### Corr
@@ -322,6 +322,7 @@ dist <- map(plots, ~ {
     dplyr::select(-plot)
   points <- SpatialPoints(
     coords = coords,
+    # EPSG: 25830
     proj4string = CRS("+proj=utm +zone=30 +ellps=WGS84 +datum=WGS84 +units=m +no_defs")
   )
   distance <- mean(as.dist(pointDistance(points,
