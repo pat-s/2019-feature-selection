@@ -45,3 +45,5 @@ See also our point-by-point replies for reviewer1 in the attached file.
 - Add line-numbers for peerreview mode
 - More prominent linking of hyperparameter and benchmark settings and the availability of a research compendium which shows the code used to generate the benchmark matrix
 - Clarify the information gain formula and add more detail to its formula definition (including references)
+- Discuss segmentation as an alternative to the use of a buffer for extracting hyperspectral data from trees.
+- Discuss possible data limitations more prominently
