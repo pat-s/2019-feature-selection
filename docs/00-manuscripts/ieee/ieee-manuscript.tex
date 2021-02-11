@@ -620,9 +620,10 @@ Besides the availability of code and manuscript sources, a static webpage is ava
 
 \subsection{Correlation analysis}
 
-Inspecting the results of the \ac{PCA} for all feature sets, HR showed a high correlation among variables with a \ac{POV} of 84\% in the first \ac{PC} and 14\% in the second \ac{PC}, summing up to a cumulative \ac{POV} of 98\% (\autoref{fig:pca-pov}).
-
-Feature sets VI (51\% PC1, 25\% PC2, 7\% PC3) and NRI (51\% PC1, 25\% PC2, 8\% PC3) showed a more diverse distribution across their respective \ac{PC}s.
+The PCA-based correlation analysis in \autoref{fig:pca-pov} shows that, depending on the feature set, between two (HR) and five (VI) \ac{PC} are needed to explain 90\% of variance.
+The less PCs are needed to reach a high proportion of variance explained the more similar the individual features are to each other.
+Hence, a high intra-feature correlation can be observed for feature set HR which reaches 98\% with only two PCs.
+Feature sets NRI and VI are more diverse and require four (NRI) and five (VI) PCs to explain 90\% of the variance in the data, respectively.
 
 \begin{figure} [t!]
 	\centering
@@ -781,6 +782,9 @@ However, when inspecting the fold level performances, it can be concluded that t
 This applied to all learners of this study.
 The overall performance achieved in this study can be classified as "fair".
 
+In addition, data quality issues (\autoref{subsec:data-quality}) might have an influence on model performances.
+These include the timing of the acquisition of the hyperspectral data (late phenological phase), field measurement errors when surveying defoliation, the influence of background reflectance (e.g. soil reflectance) and the possible geometrical offset of trees in the field.
+
 \subsubsection{Model differences}
 
 An interesting finding is the strength of the SVM algorithm when comparing its predictive performance to its competitors (\autoref{tab:best-learner-perf}).
@@ -872,16 +876,21 @@ Hence, a reflectance value of 100 would be considered high for B67 but low for B
 However, no baseline reflectance value for every feature exists since the absolute reflectance values depend on the sensor characteristics.
 ALE plots can be a powerful tool for interpreting feature importance of correlated features but might be limited in their interpretability because only relative comparisons can be conducted.
 
-\subsection{Data quality}
+\subsection{Data Quality}
+\label{subsec:data-quality}
 
 Environmental datasets always come with some constraints that can have potential influence on the modeling process and its outcome.
 The following paragraph discusses these.
-The decision to use a buffer of two meters for the extraction of reflectance values was a complex process.
+
+Finding a suitable approach to extract the remote sensing information from each tree was a complex process.
 Due to the reported geometric offset of up to 1 m within the hyperspectral data, the risk of assigning a value to an observation which would actually refer to a different observation was reasonably high.
-By using a buffer of two meters (or more), the probability of including information from other trees into the final value increases, blurring the actual value of the tree observation.
-However, when using no buffer at all, the difference between single, neighboring pixels might even be higher compared to a smoothed value composed out of a buffer.
-It was concluded that using a buffer of two meters is a good compromise between the inclusion of information from too many surrounding trees and not accounting for the geometric offset at all.
+Finally it was decided to apply a buffer around each recorded tree location and not to solely rely on the reported location during value extraction.
+By using a buffer of multiple meters, the probability of including information from other trees into the final value increases, blurring the actual value of the tree observation.
+However, when using no buffer at all, the difference between single, neighboring pixels might be quite high and involves the risk of including non-tree data.
+It was concluded that using a buffer of two meters can be a good compromise between the inclusion of information from too many surrounding trees and not accounting for the geometric offset at all.
 Even though no results showing the influence of multiple buffer values on the extraction were provided, it is hypothesized that the relationships between features would not change substantially, leading to almost identical model results.
+Besides using a buffer to extract the hyperspectral information, a segmentation could be considered.
+However, this method would require more effort for no clear added value in our view and move the focus of this manuscript more to data preprocessing and away from the focus on filter-based feature selection methods.
 
 Another point worth discussing is that the exact number of contributing pixels to the final index value of an observation cannot be determined precisely: it depends on the location of the tree within the pixel grid.
 According to the extract function of the raster package, a pixel is included if its centroid (and not just any part of the grid cell) falls inside the buffer.
@@ -1039,7 +1048,7 @@ This work was funded by the EU LIFE Healthy Forest project (LIFE14 ENV/ES/000179
 		\\
 		\specialcell{Model                                              \\ (package)}                & Hyperparameter              & Type    & Start     & End      & Default \\
 		\toprule
-		\multirow{3}{*}{\specialcell{RF                                 \\ (ranger)}}       & \texttt{$x_try$}    & dbl & 0         & 0.5      & -       \\
+		\multirow{3}{*}{\specialcell{RF                                 \\ (ranger)}}       & \texttt{$x_{try}$}    & dbl & 0         & 0.5      & -       \\
 		 & \texttt{min.node.size}      & int & 1        & 10      & 1   \\
 		 & \texttt{sample.fraction}    & dbl & 0.2      & 0.9     & 1   \\
 		\midrule

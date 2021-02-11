@@ -5,18 +5,31 @@ Although the general idea of the paper is sound, some major methodological and t
 
 > My main concerns are the general spatial relation of in-situ measurements with the hyperspectral imagery, which appears to be inconsistent as well as the overall performance of all models (RMSE of max. 28 %). With such low accuracies it should be thought of the wrong timing of the data acquisition (September to October – very late in the phenological phase to detect defoliation; + low sun angle in the northern hemisphere) as well as a strange sampling of trees (buffer of 2 meters instead of a proper segmentation or linear delineation). From the point of view of applied forestry, these issues have to be solved to gain a consistent and meaningful result, before tuning and comparing filters or ML algorithms.
 
-Thanks for sharing your concerns.
-Could you clarify what you mean in detail when saying "the general spatial relation of in-situ measurements with the hyperspectral imagery"?
+Thanks for reviewing our manuscript and sharing your expertise with us.
+We agree that the overall accuracies obtained across all models is not groundbreaking.
+However, we also believe that "success-bias" is a major issue in science which leads to rejection of studies due to low/fair accuracies of models.
+We think that this manuscript might suffer from this potentially due to the reported accuracies which might lead to the feeling of an "unsuccessful" study.
+Model accuracies depend on many factors (data, algorithm, preprocessing) and are therefore naturally limited by these factors.
+We believe that a correct methodology is more important than the overall achieved accuracy.
 
-We agree that the achieved accuracies should be labeled as "Fair" and not as "good" or better.
-We added a sentence to the discssion which explicitly does so.
-The acquisition of the data could certainly be a reason for this due to the points raised in your comment.
-However, this cannot be verified since there is no hyperspectral data available from other dates.
+We also agree that the sampling time of the in-situ data might be problematic with respect to phenology.
+Therefore we discussed this point in section "Data quality".
+Nevertheless, this was the data which was available and which, in our view, is good enough to conduct the presented analysis.
 
-Note that the buffer of 2 meter was not applied during sampling but to average the extracted values when matching the trees with the hyperspectral data (see "Methods - Derivation of indices").
-Unfortunately, we as authors, have no possibility to make any corrections at the data level.
-There are certainly things to improve/consider for future works if one would be in charge of data acquisition.
-In our case we tried to discuss the issues in the data (see section Discussion - Data quality) and tried to make the most out of it, keeping in mind that no real-world dataset is perfect.
+Thank you suggestion to use segmentation.
+We agree that applying a tree-crown segmentation first could potentially increase the accuracy of some models.
+However, the actual effect of such a preprocessing would be unclear and make the study more complex.
+In addition it would pull away focus from the actual main points of the study - the comparison of (ensemble) filter-based feature selection methods in combination with narrow-band remote sensing data.
+
+Last, we would like to point out that the main focus of this manuscript is about the comparison of filter methods - in a multi-algorithm setting based on hyperspectral data.
+It might not fulfill highest standards with respect to data quality from an applied forestry point of view.
+
+We have also added another paragraph mentioning potential data issues leading to reduced performances in the discussion:
+
+"In addition, data quality issues might have an influence on model performances.
+These include the timing of the acquisition of the hyperspectral data (late phenological phase), field measurement errors when surveying defoliation, the influence of background reflectance (e.g. soil reflectance) and the possible geometrical offset of trees in the field."
+
+We very much hope that the reviewer will be satisfied with our responses and the changes made to the manuscript to address the comments and openly communicate any remaining uncertainties.
 
 
 **Major Comments:**
@@ -80,14 +93,18 @@ The issue is with the potential offset of the hyperspectral image of up to 1m, p
 
 > - As the equation of the NRIs , the generic term of the normalized indices is used (NDVI). However, there is a variety of other structured types of indices – please justify your choice.
 
-This definition is based on the initial definition of the R package "hsdar" and its function `nri()` which sets the NDVI equation as the generic NRI formula.
-We added this information into the manuscript
+We would like to thank the reviewer for pointing out the existence of alternative base formulas for NRI calculation.
+In general the NRI concept is based on the "Optimized multiple narrow-band reflectance" (OMNBR) approach by [Thenkabail et al. (2000)](thenkabail2000) and also described in [Thenkabail et al 2018](https://www.taylorfrancis.com/books/hyperspectral-indices-image-classifications-agriculture-vegetation-prasad-thenkabail-john-lyon-alfredo-huete/e/10.1201/9781315159331).
+One reasons to use the NDVI base as the index for NRI calculation was the availability in the R package [{hsdar}](https://cran.r-project.org/web/packages/hsdar/index.html) in the function [nri()](https://rdrr.io/cran/hsdar/man/normalized.ratio.index.html) which uses the NDVI-index as the base.
+The use of NRI indices was thought as an addition to the existing feature sets (HR and VI) and using only a generic NDVI formula as the base was sufficient in our view.
 
 > - The RMSE alone is not a good quality measure, since it is highly dependent on the variance of the sample (as the authors describe themselves in the manuscript). Please supplement this measure with another one, e.g. R² (but there are more sophisticated ones around) to evaluate the quality of your results.
 
-Thanks for suggesting to take another look at the chosen measure.
-In fact, RMSE is agnostic to the variance of the sample by definition (due to normalization) in contrast to other measures such as R-squared.
-Also, adding multiple measures would open the box of multi-criteria evaluation which we would like to avoid.
+FIXME: schauen was bei r-sq im neuen run raus kommt.
+Thanks for suggesting to take another look at the chosen measure(s).
+We have chosen RMSE as it is defined in the unit of the response variable and the resulting value can be interpreted in a somewhat meaningful way.
+In contrast r-sq shows how much variance of the response variable has been explained by the model and might be more complex to interpret in the current case.
+Nevertheless we have added the r-sq values for the best performing models to supplement the RMSE measure.
 
 > - Moreover, I would suggest to show a few scatterplots (Observed vs predicted) of the models, e.g. from the best performing combination, to show effects, such as clustering of values or over/underprediction.
 
@@ -99,7 +116,7 @@ We also think such plots would add another layer of side-analysis which would no
 > - Fig.2: This figure is really small, perhaps you can enlarge it a bit, at least for a subset of one of the sites
 
 Thanks for noticing.
-The figure now spans across the full pagewidth.
+We modified the figure to now span across the full page width.
 In addition, some UI improvements were applied to the figure.
 
 > - III.B / 1) Filter methods: large parts of the text are general information on filters and no method – you should move it to the introduction section
@@ -120,20 +137,27 @@ We added a new table to the appendix listing all used vegetation indices, their 
 Thanks for reconsidering ALE plots in this study.
 We are aware that ALE plots are hard to interpret and not the main focus of this study.
 That is why we discussed them only briefly in the manuscript and put the figure into the appendix.
-We would prefer to keep them in the manuscript to make readers aware of their existence and advantages in such situations, possibly leading to more studies making use of ALE plots in a more prominent way.
+However, we would prefer to keep them in the manuscript to make readers aware of their existence and advantages in such situations, possibly leading to more studies making use of ALE plots in a more prominent way.
 
 > - You mention problems with low defoliation levels, but in practical terms these are the most important for early detection of a disease. Consider to sub-divide your sample in high and low defoliation levels and investigate on the detection rates, since to has some value for later application.
 
+Thanks for discussing the issue of low defoliation levels in this study.
 The problems we refer to relate to the lack of observations with a small defoliation value across most plots.
-By only having low defoliation values in one plot, the fitted models which predict on Laukiz2 (the plot with the most low defoliation values) will likely make poor predictions.
-Given the overall sample and that we want to build a general model to predict defoliation, we do not think that this suggestion would enhance our analysis.
+Due to the existence of low defoliation values in only one plot, the fitted models on all other plots, which predict on Laukiz2 (the plot with the most low defoliation values), will likely make poor predictions because they lack training data with low defoliation values.
+Because we aim to fit general models that span across all defoliation values, we would not be able to conduct the desired analyses and discussions by splitting the dataset in subsets containing only low or high defoliation values.
+In addition we would need to justify at which defoliation rate the data would be split.
+Moreover this would double the amount of datasets and hence the models to be fitted which would result in an unfeasible benchmark matrix setting.
 
 > - V.E: You should at least mention that a multi-temporal data-set might have a huge advantage + the SWIR bands are missing, which are mentioned in the body of literature of forest diseases as highly important.
 
 Thanks for discussing the importance of the sensors wavelength range.
 We agree that bands in the SWIR region could help in this study and in general when working with vegetation data.
 A multi-temporal dataset consisting of matching RS and ground-truth information might also help to enhance the performance of models in such scenarios, especially if different phenology stages are included.
-We have added a paragraph which discussed this shortcoming in section "Data Quality", thanks for mentioning!
+We have added a paragraph which discussed this shortcoming in section "Data Quality":
+
+"The available hyperspectral data covered a wavelength between 400 nm and 1000 nm.
+Hence, the wavelength range of the shortwave infrared (SWIR) region is not covered in this study.
+Given that this wavelength range is often used in forest health studies \cite{hais2019}, e.g. when calculating the \ac{NDMI} index \cite{gao1996}, this marks a clear limitation of the dataset at hand."
 
 > Last point: I do not state all small points I noted down, because this is almost impossible in an already fully formatted manuscript. Please provide next time a single-columned manuscript with a clear line numbering to make a reference in the text possible!
 
