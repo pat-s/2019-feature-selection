@@ -252,7 +252,7 @@ mosaic_clouds <- function(records) {
     st_polygon(list(cbind(c(0, 1, 1, 0, 0), c(0, 0, 1, 1, 0)))) %>%
     st_sfc() %>%
     st_sf(tibble(name = "Dummy")) %>%
-    st_set_crs("+proj=utm +zone=30 +datum=WGS84 +units=m +no_defs")
+    st_set_crs(4326)
 
   # Build cloud mask mosaic
   vec_mosaic_cloud_mask <-
@@ -265,7 +265,7 @@ mosaic_clouds <- function(records) {
     map(~ purrr::discard(., function(x) all(is.na(x)))) %>%
     map(~ do.call(rbind, .)) %>%
     map_if(~ is.null(.), ~vec_dummy_cloud_mask) %>%
-    map(possibly(~ st_set_crs(., "+proj=utm +zone=30 +datum=WGS84 +units=m +no_defs"), NA))
+    map(possibly(~ st_set_crs(., 4326), NA))
 
   # Set cloud mask filename
   file_mosaic_cloud_mask <-
@@ -308,7 +308,7 @@ mask_mosaic <- function(image_mosaic,
     lapply(FUN = sf::st_read, quiet = TRUE) %>%
     lapply(
       FUN = sf::st_set_crs,
-      value = "+proj=utm +zone=30 +datum=WGS84 +units=m +noread_defs"
+      value = 4326
     )
 
   # Mask cloud with aoi
@@ -627,6 +627,7 @@ prediction_raster <- function(data, year, relative = NULL) {
   all_spdf <- SpatialPixelsDataFrame(
     points = data[, c("x", "y")],
     data = as.data.frame(data[, "defoliation"]),
+    # EPSG: 4326
     proj4string = CRS("+proj=utm +zone=30 +datum=WGS84 +units=m +no_defs")
   )
 

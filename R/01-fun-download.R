@@ -69,7 +69,7 @@ download_hyperspectral <- function(url) {
     list.files("data/hyperspectral",
       full.names = TRUE, pattern = ".tif$"
     ),
-    ~ brick(.x)
+    ~ brick(.x, crs = 25830)
   )
   return(files)
 }
