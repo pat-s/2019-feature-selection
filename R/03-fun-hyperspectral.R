@@ -18,11 +18,11 @@
 process_hyperspec <- function(data, id, index, plots, name_out) {
 
   # for later
-  dir_create("data/hyperspectral/vi/")
-  dir_create("data/hyperspectral/ndvi/")
-  dir_create("data/hyperspectral/nri/")
+  fs::dir_create("data/hyperspectral/vi/")
+  fs::dir_create("data/hyperspectral/ndvi/")
+  fs::dir_create("data/hyperspectral/nri/")
 
-  out <- pmap(list(id, index, name_out), ~
+  out <- purrr::pmap(list(id, index, name_out), ~
   process_hyperspec_helper(
     data = data, id = ..1,
     index = ..2, plots = plots,
@@ -31,23 +31,25 @@ process_hyperspec <- function(data, id, index, plots, name_out) {
 
   cat("Finished processing.")
 
-  out %<>% set_names(name_out)
+  out %<>% purrr::set_names(name_out)
 
-  dir_create("data/raster/hs-preprocessed/")
+  fs::dir_create("data/raster/hs-preprocessed/")
 
-  # write to disk as otherwise it will be stored as a tmp file that is not accessible later on
-  iwalk(out, ~ writeRaster(.x, glue("data/raster/hs-preprocessed/hs-preprocessed-{.y}"),
+  # write to disk as otherwise it will be stored as a tmp file that is not
+  # accessible later on
+  purrr::iwalk(out, ~ raster::writeRaster(.x, 
+    glue::glue("data/raster/hs-preprocessed/hs-preprocessed-{.y}"),
     overwrite = TRUE
   ))
 
   cat("Finished writing.")
 
-  out <- map(list.files("data/raster/hs-preprocessed/",
+  out <- purrr::map(list.files("data/raster/hs-preprocessed/",
     pattern = ".grd",
     full.names = TRUE
-  ), ~ brick(.x))
+  ), ~ raster::brick(.x, crs = 25830))
 
-  out %<>% set_names(sort(name_out))
+  out %<>% purrr::set_names(sort(name_out))
 
   return(out)
 }
@@ -59,14 +61,14 @@ process_hyperspec_helper <- function(data, id, index, plots, name_out) {
   # project
   plots %>%
     dplyr::filter(Name == ignore(id)) %>%
-    st_transform(25830) %>%
+    sf::st_transform(25830) %>%
     as("Spatial") -> shape_single_plot
 
   image_masked <- image %>%
     raster::crop(shape_single_plot) %>%
     raster::mask(shape_single_plot) %>%
-    raster::projectRaster(crs = "+proj=utm +zone=30 +datum=WGS84 +units=m +no_defs")
-  cat(glue("Finished {name_out}."))
+    raster::projectRaster(crs = "EPSG:32630")
+  cat(glue::glue("Finished '{name_out}'.\n"))
 
   return(image_masked)
 }
@@ -117,23 +119,23 @@ extract_indices_to_plot <- function(plot_name,
   }
 
   veg_out %<>%
-    map2(seq_along(buffer), ~ setNames(.x, glue("bf{buffer}_{name}",
+    purrr::map2(seq_along(buffer), ~ setNames(.x, glue::glue("bf{buffer}_{name}",
       name = names(veg_out[[.y]])
     )))
 
   nbi_out %<>%
-    map2(seq_along(buffer), ~ setNames(.x, glue("bf{buffer}_{name}",
+    purrr::map2(seq_along(buffer), ~ setNames(.x, glue::glue("bf{buffer}_{name}",
       name = names(nbi_out[[.y]])
     )))
 
   # merge all data frames (buffers)
-  all_veg <- bind_cols(veg_out)
+  all_veg <- dplyr::bind_cols(veg_out)
 
-  all_nbi <- bind_cols(nbi_out)
+  all_nbi <- dplyr::bind_cols(nbi_out)
 
   tree_data[[plot_name]] %<>%
-    bind_cols(all_veg) %>%
-    bind_cols(all_nbi)
+    dplyr::bind_cols(all_veg) %>%
+    dplyr::bind_cols(all_nbi)
 
   return(tree_data[[plot_name]])
 }
@@ -152,7 +154,7 @@ extract_bands_to_plot <- function(plot_name,
                                   tree_data,
                                   hyperspectral_bands) {
   if (!is.null(buffer)) {
-    out_bands <- map(buffer, function(x) {
+    out_bands <- purrr::map(buffer, function(x) {
       raster::extract(hyperspectral_bands[[plot_name]][[5:126]],
         tree_data[[plot_name]],
         buffer = x,
@@ -175,20 +177,20 @@ extract_bands_to_plot <- function(plot_name,
     buffer <- 1
   }
   out_bands %<>%
-    map2(seq_along(buffer), ~ setNames(
+    purrr::map2(seq_along(buffer), ~ setNames(
       .x,
-      str_replace(
-        glue("{name}",
+      stringr::str_replace(
+        glue::glue("{name}",
           name = names(out_bands[[.y]])
         ), "B.*_S.", "B"
       )
     ))
 
   # merge all data frames (buffers)
-  out_bands <- bind_cols(out_bands)
+  out_bands <- dplyr::bind_cols(out_bands)
 
   tree_data[[plot_name]] %<>%
-    bind_cols(out_bands)
+    dplyr::bind_cols(out_bands)
 
   return(tree_data[[plot_name]])
 }
@@ -204,14 +206,14 @@ extract_bands_to_plot <- function(plot_name,
 #'
 #' @export
 calc_veg_indices <- function(hyperspecs, indices) {
-  veg_y <- future_lapply(seq_along(hyperspecs), FUN = function(ii) {
+  veg_y <- future.apply::future_lapply(seq_along(hyperspecs), FUN = function(ii) {
     vegindex(hyperspecs[[ii]], indices,
       filename =
-        glue("data/hyperspectral/vi/{names(hyperspecs)[[ii]]}.grd"),
+        glue::glue("data/hyperspectral/vi/{names(hyperspecs)[[ii]]}.grd"),
       bnames = indices, na.rm = TRUE
     )
   }) %>%
-    set_names(names(hyperspecs))
+    purrr::set_names(names(hyperspecs))
 }
 
 #' @title Calculate Normalized Ratio Indices
@@ -225,12 +227,12 @@ calc_veg_indices <- function(hyperspecs, indices) {
 #'
 #' @export
 calc_nri_indices <- function(hyperspecs, indices) {
-  y <- future_lapply(seq_along(hyperspecs), FUN = function(ii) {
+  y <- future.apply::future_lapply(seq_along(hyperspecs), FUN = function(ii) {
     nbi_raster(hyperspecs[[ii]],
       filename =
-        str_replace(glue("data/hyperspectral/nri/nri-{names(hyperspecs)[[ii]]}"), ".tif", ".grd"),
+        stringr::str_replace(glue::glue("data/hyperspectral/nri/nri-{names(hyperspecs)[[ii]]}"), ".tif", ".grd"),
       bnames_prefix = "NRI"
     )
   }) %>%
-    set_names(names(hyperspecs))
+    purrr::set_names(names(hyperspecs))
 }
