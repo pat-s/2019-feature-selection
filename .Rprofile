@@ -3,7 +3,17 @@ if (Sys.getenv("CI") == "") {
   source(file.path(Sys.getenv(if (.Platform$OS.type == "windows") "USERPROFILE" else "HOME"), ".vscode-R", "init.R"))
 }
 
+if ("httpgd" %in% .packages(all.available = TRUE)) {
+  options(vsc.plot = FALSE)
+  options(device = function(...) {
+    httpgd::hgd(silent = TRUE)
+    .vsc.browser(httpgd::hgd_url(), viewer = "Beside")
+  })
+}
+
 source("renv/activate.R")
+
+options(bitmapType = "cairo")
 
 options(
   drake_make_menu = FALSE,
@@ -16,7 +26,7 @@ options(
   radian.complete_while_typing = TRUE,
   scipen = 999,
 
-  clustermq.scheduler = "slurm",
+  # clustermq.scheduler = "slurm",
   clustermq.template = "slurm_clustermq.tmpl",
 
   precommit.executable = "/home/patrick/.local/bin/pre-commit",
