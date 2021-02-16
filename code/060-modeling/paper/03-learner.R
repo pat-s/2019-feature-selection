@@ -13,7 +13,7 @@ learners_plan <- drake_plan(
     makeLearner(
       "regr.xgboost",
       par.vals = list(
-        objective = "reg:linear",
+        objective = "reg:squarederror",
         eval_metric = "error"
       )
     )
