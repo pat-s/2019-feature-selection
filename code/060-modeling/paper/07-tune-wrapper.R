@@ -32,15 +32,15 @@ tune_wrapper_plan <- drake_plan(
   # we need to create the repeated objects outside of `ps_mbo` to be
   # picked up correctly
   ps_rf_filter_rep = rep(list(ps_rf_filter), length(filter_names)),
-  ps_rf_filter_xgboost = rep(list(ps_xgboost_filter), length(filter_names)),
-  ps_rf_filter_svm = rep(list(ps_svm_filter), length(filter_names)),
+  ps_xgboost_filter_rep = rep(list(ps_xgboost_filter), length(filter_names)),
+  ps_svm_filter_rep = rep(list(ps_svm_filter), length(filter_names)),
 
   # order is important here! Follows the order of 'filter_wrappers_all'
   ps_mbo = c(
     # simple filters
     ps_rf_filter_rep,
-    ps_rf_filter_xgboost,
-    ps_rf_filter_svm,
+    ps_xgboost_filter_rep,
+    ps_svm_filter_rep,
 
     # Borda
     list(ps_rf_filter),

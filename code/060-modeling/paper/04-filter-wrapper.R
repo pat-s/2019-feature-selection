@@ -22,7 +22,8 @@ filter_wrapper_plan <- drake_plan(
       fw.base.methods = c(
         "FSelectorRcpp_information.gain",
         "linear.correlation",
-        "praznik_MRMR", "praznik_CMIM",
+        "praznik_MRMR", 
+        "praznik_CMIM",
         "carscore",
         "FSelectorRcpp_relief"
       ),
