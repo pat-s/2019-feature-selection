@@ -65,7 +65,7 @@ task_7 = makeRegrTask(id = "all_plots", data = data_7,
 
 lrn_xgboost <- makeLearner("regr.xgboost",
                            par.vals = list(
-                             objective = "reg:linear",
+                             objective = "reg:squarederror",
                              eval_metric = "error"
                            ))
 

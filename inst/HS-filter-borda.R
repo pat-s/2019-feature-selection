@@ -24,7 +24,7 @@ task = makeRegrTask(id = "defoliation-all-plots", data = data,
 
 lrn_xgboost <- makeLearner("regr.xgboost",
                            par.vals = list(
-                             objective = "reg:linear",
+                             objective = "reg:squarederror",
                              eval_metric = "error"
                            )) %>%
   makeFilterWrapper(fw.method = "E-Borda", cache = TRUE)
