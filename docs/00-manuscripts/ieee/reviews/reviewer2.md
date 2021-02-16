@@ -17,7 +17,7 @@ We added two references to support the definition of the NRI index.
 
 > 2/In P4L31, please give more details of the formula (1) and add a corresponding reference.
 
-The formula is a generic one with the idea to create data-driven indices which can possibly find patterns in the data taht are not covered by traditional indices.
+The formula is a generic one with the idea to create data-driven indices which can possibly find patterns in the data that are not covered by traditional indices.
 It is based on the "Optimized multiple narrow-band reflectance" (OMNBR) approach by [Thenkabail et al. (2000)](thenkabail2000) and also described in [Thenkabail et al 2018](https://www.taylorfrancis.com/books/hyperspectral-indices-image-classifications-agriculture-vegetation-prasad-thenkabail-john-lyon-alfredo-huete/e/10.1201/9781315159331).
 In addition it was programmatically implemented in the R package [{hsdar}](https://cran.r-project.org/web/packages/hsdar/index.html) in the function [nri()](https://rdrr.io/cran/hsdar/man/normalized.ratio.index.html)
 NRIs can be calculated in various ways and are not limited to follow the NDVI index.
