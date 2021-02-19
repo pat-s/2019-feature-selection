@@ -477,16 +477,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree2516471cec05ba07ff05b31b3ac79218beb9b58atargetblank2516471a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/2516471cec05ba07ff05b31b3ac79218beb9b58a" target="_blank">2516471</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree46213574da8a924e59832a9b56d7a713a99112a9targetblank4621357a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/46213574da8a924e59832a9b56d7a713a99112a9" target="_blank">4621357</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree2516471cec05ba07ff05b31b3ac79218beb9b58atargetblank2516471a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree46213574da8a924e59832a9b56d7a713a99112a9targetblank4621357a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/pat-s/2019-feature-selection/tree/2516471cec05ba07ff05b31b3ac79218beb9b58a" target="_blank">2516471</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/pat-s/2019-feature-selection/tree/46213574da8a924e59832a9b56d7a713a99112a9" target="_blank">4621357</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -554,6 +554,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/46213574da8a924e59832a9b56d7a713a99112a9/analysis/about.Rmd" target="_blank">4621357</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2021-02-19
+</td>
+<td>
+workflowr::wflow_publish(“analysis/about.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pat-s/2019-feature-selection/27be6dc9f9d13ebc5e6127d82362a9e558d5e1f3/docs/about.html" target="_blank">27be6dc</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2021-02-19
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -1103,21 +1137,35 @@ Start workflowr project.
 </div>
 <div id="how-to-use" class="section level1">
 <h1>How to use</h1>
-<div id="read-the-code-access-the-data" class="section level2">
-<h2>Read the code, access the data</h2>
+<div id="reading-the-code-accessing-the-data" class="section level2">
+<h2>Reading the code, accessing the data</h2>
 <p>See the <a href="https://github.com/pat-s/paper_hyperspectral/tree/master/analysis"><code>code</code></a> directory on GitHub for the source code that generated the figures and statistical results contained in the manuscript. See the <a href="https://github.com/pat-s/paper_hyperspectral/tree/master/analysis/data"><code>data</code></a> directory for instructions how to access the raw data used in the manuscript.</p>
 </div>
-<div id="install-the-r-package" class="section level2">
-<h2>Install the R package</h2>
+<div id="installing-the-r-package" class="section level2">
+<h2>Installing the R package</h2>
 <p>This repository is organized as an R package, providing functions and raw data to reproduce and extend the analysis reported in the publication. Note that this package has been written explicitly for this project and is not suited a for more general use.</p>
 <p>This project is setup with a <a href="https://github.com/ropensci/drake">drake workflow</a>, ensuring reproducibility. Intermediate targets/objects will be stored in a hidden <code>.drake</code> directory.</p>
 <p>The R library of this project is managed by <a href="https://rstudio.github.io/renv/index.html">renv</a>. This makes sure that the exact same package versions are used when recreating the project. When calling <code>renv::restore()</code>, all required packages will be installed with their specific version.</p>
-<p>Please note that this project was built with R version 3.6.1 on a CentOS 7 operating system. Some packages from this project <strong>are not compatible with R versions prior version 3.6.0.</strong></p>
+<p>Please note that this project was built with R version 4.0.3 on a CentOS 7 operating system. Some packages from this project <strong>are not compatible with R versions prior version 3.6.0.</strong></p>
 <p>To clone the project, a working installation of <code>git</code> is required. Open a terminal in the directory of your choice and execute:</p>
 <pre class="sh"><code>git clone https://github.com/pat-s/2019-feature-selection.git</code></pre>
 <p>Then start R in this directory and run</p>
 <pre class="r"><code>renv::restore()
 r_make()</code></pre>
+</div>
+<div id="creating-targets-with-drake" class="section level2">
+<h2>Creating targets with {drake}</h2>
+<p>Calling <code>r_make()</code> will create targets specified in <code>drake_config(targets = &lt;target&gt;)</code> in <code>_drake.R</code> with the additional drake settings specified.</p>
+<p>Out of the 400+ targets in this project, the following targets are important:</p>
+<ul>
+<li><code>bm_aggregated_new_buffer2</code>: Aggregated benchmark results of all models using a 2 meter buffer for hyperspectral data extraction.</li>
+<li><code>eda_wfr</code>: Creates the <a href="https://pat-s.github.io/2019-feature-selection/eda.html">report which shows Exploratory Data Analysis (EDA) plots and tables</a>.</li>
+<li><code>eval_performance_wfr</code>: Creates the <a href="https://pat-s.github.io/2019-feature-selection/eval-performance.html">report which evaluates the model performances</a>.</li>
+<li><code>spectral_signatures_wfr</code>: Creates the <a href="https://pat-s.github.io/2019-feature-selection/spectral-signatures.html">report which inspects the spectral signatures of the hyperspectral data</a>.</li>
+<li><code>feature_importance_wfr</code>: Creates the <a href="https://pat-s.github.io/2019-feature-selection/feature-importance.html">report which inspects the feature importance of variables</a>.</li>
+<li><code>filter_correlations_wfr</code>: Creates the <a href="https://pat-s.github.io/2019-feature-selection/feature-importance.html">report which inspects correlations among filter methods</a>.</li>
+</ul>
+<p>Note that most reports require some/all fitted models. Creating these (e.g. target <code>benchmark_no_models_new_buffer2</code>) is a costly process and takes several days on a HPC and way longer on a single machine.</p>
 </div>
 </div>
 <div id="notes-and-resources" class="section level1">
