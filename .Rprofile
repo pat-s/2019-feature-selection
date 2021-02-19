@@ -26,7 +26,6 @@ options(
   radian.complete_while_typing = TRUE,
   scipen = 999,
 
-  # clustermq.scheduler = "slurm",
   clustermq.template = "slurm_clustermq.tmpl",
 
   precommit.executable = "/home/patrick/.local/bin/pre-commit",
@@ -44,9 +43,9 @@ if (interactive() && "tibble" %in% rownames(utils::installed.packages())) {
   }
 }
 
-runAllChunks <- function(rmd, envir = globalenv()) {
-  tempR <- tempfile(tmpdir = ".", fileext = ".R")
-  on.exit(unlink(tempR))
-  knitr::purl(rmd, output = tempR)
-  sys.source(tempR, envir = envir)
-}
+# runAllChunks <- function(rmd, envir = globalenv()) {
+#   tempR <- tempfile(tmpdir = ".", fileext = ".R")
+#   on.exit(unlink(tempR))
+#   knitr::purl(rmd, output = tempR)
+#   sys.source(tempR, envir = envir)
+# }
