@@ -4,7 +4,7 @@
 
 <!-- badges: start -->
 
-[![R version](https://img.shields.io/badge/R_Version-4.0.3-brightgreen.svg)](https://cran.r-project.org/) [![License](https://img.shields.io/github/license/mashape/apistatus.svg)](http://choosealicense.com/licenses/mit/)
+[![R version](https://img.shields.io/badge/R_Version-4.0.4-brightgreen.svg)](https://cran.r-project.org/) [![License](https://img.shields.io/github/license/mashape/apistatus.svg)](http://choosealicense.com/licenses/mit/)
 
 <!-- badges: end -->
 

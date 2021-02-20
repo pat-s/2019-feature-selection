@@ -8,6 +8,6 @@
 #SBATCH --array=1-{{ n_jobs }}
 
 cd /home/patrick/papers/2019-feature-selection/
-module load r-4.0.3-gcc-9.2.0-hkh5nyw
+module load r-4.0.4-gcc-9.2.0-udi7a3a
 
 CMQ_AUTH={{ auth }} R --no-save --no-restore -e 'clustermq:::worker("{{ master }}")'
