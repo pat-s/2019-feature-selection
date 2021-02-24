@@ -34,6 +34,7 @@ library("iml")
 
 # load drake objects
 loadd(
+  # Slurm resources suggestion: at least 20 cores and 2 GB / core = 40 GB pro job
   fi_permut_hr_buffer2,
   fi_permut_vi_buffer2,
 
