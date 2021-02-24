@@ -1,4 +1,5 @@
 feature_imp_plan <- drake_plan(
+  # Slurm resources suggestion: at least 20 cores and 2 GB / core = 40 GB pro job
   fi_permut_hr_buffer2 = target(feature_imp_parallel(task_new_buffer2[[1]],
     learner = "regr.ksvm", nmc = 100,
     measure = list(
@@ -6,6 +7,7 @@ feature_imp_plan <- drake_plan(
     )
   )),
 
+  # Slurm resources suggestion: at least 20 cores and 2 GB / core = 40 GB pro job
   fi_permut_vi_buffer2 = target(feature_imp_parallel(task_new_buffer2[[2]],
     learner = "regr.ksvm", nmc = 100,
     measure = list(
