@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
 <meta name="author" content="Patrick Schratz" />
@@ -34,6 +34,15 @@ div.section {
   padding-top: 12px;
 }
 </style>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -80,6 +89,7 @@ h6 {
 }
 </style>
 
+
 <link rel="stylesheet" href="style.css" type="text/css" />
 
 
@@ -96,7 +106,6 @@ code {
 }
 img {
   max-width:100%;
-  height: auto;
 }
 .tabbed-pane {
   padding-top: 12px;
@@ -245,6 +254,7 @@ $(document).ready(function () {
   border: none;
   display: inline-block;
   border-radius: 4px;
+  background-color: transparent;
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li {
@@ -256,18 +266,6 @@ $(document).ready(function () {
   display: none;
 }
 </style>
-
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-
-$(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
-  });
-});
-</script>
 
 <!-- code folding -->
 
@@ -415,7 +413,7 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-08-12
+<strong>Last updated:</strong> 2021-02-24
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -425,7 +423,7 @@ $(document).ready(function () {
 </p>
 <p>
 This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
-  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.1). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.2). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
 </p>
 <hr>
 </div>
@@ -506,16 +504,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree073e62afd42a52580106054dd382b2be53423585targetblank073e62aa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/073e62afd42a52580106054dd382b2be53423585" target="_blank">073e62a</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree73d0d8b6f548a331ab95243972373eec6bb9d237targetblank73d0d8ba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/73d0d8b6f548a331ab95243972373eec6bb9d237" target="_blank">73d0d8b</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree073e62afd42a52580106054dd382b2be53423585targetblank073e62aa" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree73d0d8b6f548a331ab95243972373eec6bb9d237targetblank73d0d8ba" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/pat-s/2019-feature-selection/tree/073e62afd42a52580106054dd382b2be53423585" target="_blank">073e62a</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/pat-s/2019-feature-selection/tree/73d0d8b6f548a331ab95243972373eec6bb9d237" target="_blank">73d0d8b</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -539,7 +537,10 @@ Ignored files:
     Ignored:    rosm.cache/
 
 Unstaged changes:
-    Modified:   analysis/report-defoliation.Rmd
+    Modified:   _drake.R
+    Modified:   analysis/eval-performance.Rmd
+    Modified:   code/060-modeling/paper/09-feature-importance.R
+    Modified:   code/090-reports.R
 
 </code></pre>
 <p>
@@ -578,6 +579,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/73d0d8b6f548a331ab95243972373eec6bb9d237/analysis/feature-importance.Rmd" target="_blank">73d0d8b</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2021-02-24
+</td>
+<td>
+wflow_publish(knitr_in(“analysis/feature-importance.Rmd”), view = FALSE,
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pat-s/2019-feature-selection/a9532999bf97763b02b6812cbddc57d08545944d/docs/feature-importance.html" target="_blank">a953299</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2020-08-12
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -1587,6 +1622,14 @@ add feature importance report
 <h1>Create a virtual Spectral Signature (mean) of vegetation using PROSAIL.</h1>
 <p>PROSAIL is a algorithm simulating Spectral Signature (mean)s of vegetation, see <code>?hsdar::PROSAIL</code>. Reflectance is scaled to 0-10 to be able to plot it in the same plot as the feature importance rankings -&gt; the axis limits for the y and z axis needs to match.</p>
 <p>PROSAIL returns a Spectral Signature (mean) from 400 nm to 2500 nm -&gt; we take the values only and subset to 400 nm - 1000 nm. Because we order from 1 - 10 with 1 being the best rank, we have to reverse the scaling of the reflectance values.</p>
+<pre><code>Warning in if (class(spectra) %in% c(&quot;RasterBrick&quot;, &quot;HyperSpecRaster&quot;)) {: the
+condition has length &gt; 1 and only the first element will be used</code></pre>
+<pre><code>Warning in if (fromRaster) matrix() else spectra: the condition has length &gt; 1
+and only the first element will be used</code></pre>
+<pre><code>Warning in if (fromRaster) spectra else new(&quot;RasterBrick&quot;): the condition has
+length &gt; 1 and only the first element will be used</code></pre>
+<pre><code>Warning in if (x@fromRaster) {: the condition has length &gt; 1 and only the first
+element will be used</code></pre>
 <p>Next we bind the simulated data with the feature importance rankings. To join both data.frames we need to round the reflectance centers of the bands to integers to match with the reflectance values created by PROSAIL.</p>
 <p>To label only a subset of the data, a custom data.frame is created.</p>
 </div>
@@ -1981,38 +2024,38 @@ pat-s
 <div id="grid-size-100" class="section level3">
 <h3>Grid size: 100</h3>
 <p>Top ten HR features from permutation Vimp</p>
-<pre><code>Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which
-will replace the existing scale.
-Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which
-will replace the existing scale.
-Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which
-will replace the existing scale.
-Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which
-will replace the existing scale.
-Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which
-will replace the existing scale.
-Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which
-will replace the existing scale.
-Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which
-will replace the existing scale.
-Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which
-will replace the existing scale.
-Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which
-will replace the existing scale.
-Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which
-will replace the existing scale.
-Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which
-will replace the existing scale.
-Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which
-will replace the existing scale.
-Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which
-will replace the existing scale.
-Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which
-will replace the existing scale.
-Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which
-will replace the existing scale.
-Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which
-will replace the existing scale.</code></pre>
+<pre><code>Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
+replace the existing scale.
+Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
+replace the existing scale.
+Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
+replace the existing scale.
+Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
+replace the existing scale.
+Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
+replace the existing scale.
+Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
+replace the existing scale.
+Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
+replace the existing scale.
+Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
+replace the existing scale.
+Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
+replace the existing scale.
+Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
+replace the existing scale.
+Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
+replace the existing scale.
+Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
+replace the existing scale.
+Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
+replace the existing scale.
+Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
+replace the existing scale.
+Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
+replace the existing scale.
+Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
+replace the existing scale.</code></pre>
 <p><img src="figure/feature-importance.Rmd/fi-hr-ale-1.png" width="100%" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-fi-hr-ale-1">
@@ -2176,40 +2219,40 @@ pat-s
 <div id="grid-size-20" class="section level3">
 <h3>Grid size: 20</h3>
 <p>Top ten HR features from permutation Vimp</p>
-<pre><code>Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which
-will replace the existing scale.
-Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which
-will replace the existing scale.
-Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which
-will replace the existing scale.
-Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which
-will replace the existing scale.
-Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which
-will replace the existing scale.
-Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which
-will replace the existing scale.
-Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which
-will replace the existing scale.
-Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which
-will replace the existing scale.
-Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which
-will replace the existing scale.
-Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which
-will replace the existing scale.
-Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which
-will replace the existing scale.
-Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which
-will replace the existing scale.
-Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which
-will replace the existing scale.
-Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which
-will replace the existing scale.
-Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which
-will replace the existing scale.
-Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which
-will replace the existing scale.
-Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which
-will replace the existing scale.</code></pre>
+<pre><code>Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
+replace the existing scale.
+Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
+replace the existing scale.
+Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
+replace the existing scale.
+Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
+replace the existing scale.
+Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
+replace the existing scale.
+Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
+replace the existing scale.
+Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
+replace the existing scale.
+Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
+replace the existing scale.
+Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
+replace the existing scale.
+Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
+replace the existing scale.
+Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
+replace the existing scale.
+Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
+replace the existing scale.
+Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
+replace the existing scale.
+Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
+replace the existing scale.
+Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
+replace the existing scale.
+Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
+replace the existing scale.
+Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
+replace the existing scale.</code></pre>
 <p><img src="figure/feature-importance.Rmd/unnamed-chunk-1-1.png" width="100%" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-1-1">
@@ -2387,34 +2430,34 @@ pat-s
 <div id="grid-size-100-1" class="section level3">
 <h3>Grid size: 100</h3>
 <p>Top ten VI features from permutation Vimp</p>
-<pre><code>Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which
-will replace the existing scale.
-Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which
-will replace the existing scale.
-Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which
-will replace the existing scale.
-Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which
-will replace the existing scale.
-Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which
-will replace the existing scale.
-Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which
-will replace the existing scale.
-Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which
-will replace the existing scale.
-Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which
-will replace the existing scale.
-Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which
-will replace the existing scale.
-Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which
-will replace the existing scale.
-Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which
-will replace the existing scale.
-Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which
-will replace the existing scale.
-Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which
-will replace the existing scale.
-Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which
-will replace the existing scale.</code></pre>
+<pre><code>Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
+replace the existing scale.
+Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
+replace the existing scale.
+Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
+replace the existing scale.
+Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
+replace the existing scale.
+Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
+replace the existing scale.
+Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
+replace the existing scale.
+Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
+replace the existing scale.
+Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
+replace the existing scale.
+Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
+replace the existing scale.
+Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
+replace the existing scale.
+Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
+replace the existing scale.
+Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
+replace the existing scale.
+Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
+replace the existing scale.
+Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
+replace the existing scale.</code></pre>
 <p><img src="figure/feature-importance.Rmd/fi-vi-ale-1.png" width="100%" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-fi-vi-ale-1">
@@ -2556,32 +2599,32 @@ pat-s
 <div id="grid-size-20-1" class="section level3">
 <h3>Grid size: 20</h3>
 <p>Top ten HR features from permutation Vimp</p>
-<pre><code>Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which
-will replace the existing scale.
-Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which
-will replace the existing scale.
-Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which
-will replace the existing scale.
-Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which
-will replace the existing scale.
-Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which
-will replace the existing scale.
-Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which
-will replace the existing scale.
-Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which
-will replace the existing scale.
-Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which
-will replace the existing scale.
-Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which
-will replace the existing scale.
-Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which
-will replace the existing scale.
-Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which
-will replace the existing scale.
-Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which
-will replace the existing scale.
-Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which
-will replace the existing scale.</code></pre>
+<pre><code>Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
+replace the existing scale.
+Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
+replace the existing scale.
+Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
+replace the existing scale.
+Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
+replace the existing scale.
+Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
+replace the existing scale.
+Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
+replace the existing scale.
+Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
+replace the existing scale.
+Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
+replace the existing scale.
+Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
+replace the existing scale.
+Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
+replace the existing scale.
+Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
+replace the existing scale.
+Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
+replace the existing scale.
+Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
+replace the existing scale.</code></pre>
 <p><img src="figure/feature-importance.Rmd/unnamed-chunk-2-1.png" width="100%" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-1">
@@ -2737,13 +2780,13 @@ pat-s
 </button>
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
-<pre><code>R version 3.6.1 (2019-07-05)
+<pre><code>R version 4.0.4 (2021-02-15)
 Platform: x86_64-pc-linux-gnu (64-bit)
 Running under: CentOS Linux 7 (Core)
 
 Matrix products: default
-BLAS:   /opt/spack/opt/spack/linux-centos7-x86_64/gcc-9.2.0/r-3.6.1-j25wr6zcofibs2zfjwg37357rjj26lqb/rlib/R/lib/libRblas.so
-LAPACK: /opt/spack/opt/spack/linux-centos7-x86_64/gcc-9.2.0/r-3.6.1-j25wr6zcofibs2zfjwg37357rjj26lqb/rlib/R/lib/libRlapack.so
+BLAS:   /opt/spack/opt/spack/linux-centos7-x86_64/gcc-9.2.0/r-4.0.4-udi7a3ahhtokdcoyqdbndhebeupt7hid/rlib/R/lib/libRblas.so
+LAPACK: /opt/spack/opt/spack/linux-centos7-x86_64/gcc-9.2.0/r-4.0.4-udi7a3ahhtokdcoyqdbndhebeupt7hid/rlib/R/lib/libRlapack.so
 
 locale:
  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
@@ -2754,52 +2797,59 @@ locale:
 [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
 
 attached base packages:
-[1] stats     graphics  grDevices utils     datasets  methods   base     
+[1] stats     graphics  grDevices datasets  utils     methods   base     
 
 other attached packages:
- [1] tidyselect_0.2.5 iml_0.10.0       patchwork_1.0.0  ggpmisc_0.3.3   
- [5] ggpubr_0.1.6     magrittr_1.5     dplyr_0.8.3      hsdar_0.5.2     
- [9] caret_6.0-81     ggplot2_3.3.0    lattice_0.20-38  signal_0.7-6    
-[13] rootSolve_1.7    rgdal_1.4-8      raster_3.0-12    sp_1.3-1        
-[17] drake_7.12.0    
+ [1] iml_0.10.1        patchwork_1.1.1   ggpmisc_0.3.8-1   ggpubr_0.4.0     
+ [5] dplyr_1.0.4       hsdar_0.5.2       caret_6.0-86      ggplot2_3.3.3    
+ [9] lattice_0.20-41   signal_0.7-6      rootSolve_1.8.2.1 rgdal_1.5-23     
+[13] raster_3.4-5      sp_1.4-5          usethis_2.0.0     magrittr_2.0.1   
+[17] drake_7.13.1     
 
 loaded via a namespace (and not attached):
-  [1] colorspace_1.4-0   smoof_1.5.1        class_7.3-15      
-  [4] rprojroot_1.3-2    fs_1.4.1           listenv_0.8.0     
-  [7] farver_2.0.3       ParamHelpers_1.12  ggrepel_0.8.0     
- [10] prodlim_2018.04.18 fansi_0.4.1        lubridate_1.7.4   
- [13] codetools_0.2-16   splines_3.6.1      knitr_1.23        
- [16] mco_1.0-15.1       jsonlite_1.6       workflowr_1.6.1   
- [19] Metrics_0.1.4      kernlab_0.9-27     mlrMBO_1.1.2      
- [22] compiler_3.6.1     httr_1.4.0         backports_1.1.5   
- [25] assertthat_0.2.1   Matrix_1.2-15      lazyeval_0.2.1    
- [28] cli_2.0.2          later_1.0.0        htmltools_0.3.6   
- [31] prettyunits_1.0.2  tools_3.6.1        igraph_1.2.4.1    
- [34] misc3d_0.8-4       gtable_0.3.0       glue_1.4.0        
- [37] reshape2_1.4.3     fastmatch_1.1-0    Rcpp_1.0.3        
- [40] parallelMap_1.4    vctrs_0.2.4        RJSONIO_1.3-1.1   
- [43] nlme_3.1-142       iterators_1.0.10   timeDate_3043.102 
- [46] gower_0.1.2        xfun_0.5           mlr_2.17.0.9001   
- [49] stringr_1.4.0      globals_0.12.5     lifecycle_0.1.0   
- [52] future_1.16.0      MASS_7.3-51.4      scales_1.1.0      
- [55] ipred_0.9-8        hms_0.5.3          promises_1.0.1    
- [58] parallel_3.6.1     plot3D_1.1.1       RColorBrewer_1.1-2
- [61] BBmisc_1.11        yaml_2.2.0         gridExtra_2.3     
- [64] DiceKriging_1.5.6  rpart_4.1-13       stringi_1.3.1     
- [67] foreach_1.4.4      checkmate_2.0.0    lhs_1.0.1         
- [70] filelock_1.0.2     lava_1.6.5         storr_1.2.1       
- [73] rlang_0.4.5        pkgconfig_2.0.3    evaluate_0.13     
- [76] purrr_0.3.4        prediction_0.3.14  labeling_0.3      
- [79] recipes_0.1.4      htmlwidgets_1.3    plyr_1.8.4        
- [82] R6_2.4.1           generics_0.0.2     base64url_1.4     
- [85] txtq_0.1.4         pillar_1.4.3       whisker_0.3-2     
- [88] withr_2.1.2        survival_2.43-3    nnet_7.3-12       
- [91] future.apply_1.4.0 tibble_2.1.3       crayon_1.3.4      
- [94] utf8_1.1.4         plotly_4.8.0       rmarkdown_1.13    
- [97] progress_1.2.0     grid_3.6.1         data.table_1.12.8 
-[100] git2r_0.26.1       ModelMetrics_1.2.2 digest_0.6.25     
-[103] tidyr_1.0.0        httpuv_1.4.5.1     stats4_3.6.1      
-[106] munsell_0.5.0      viridisLite_0.3.0 </code></pre>
+  [1] readxl_1.3.1         mlr_2.19.0           backports_1.2.1     
+  [4] fastmatch_1.1-0      workflowr_1.6.2      plyr_1.8.6          
+  [7] igraph_1.2.6         lazyeval_0.2.2       splines_4.0.4       
+ [10] storr_1.2.5          listenv_0.8.0        digest_0.6.27       
+ [13] foreach_1.5.1        htmltools_0.5.1.1    fansi_0.4.2         
+ [16] checkmate_2.0.0      BBmisc_1.11          base64url_1.4       
+ [19] openxlsx_4.2.3       Metrics_0.1.4        recipes_0.1.15      
+ [22] globals_0.14.0       gower_0.2.2          prettyunits_1.1.1   
+ [25] colorspace_2.0-0     ggrepel_0.9.1        haven_2.3.1         
+ [28] xfun_0.20            DiceKriging_1.5.8    tcltk_4.0.4         
+ [31] crayon_1.4.0         jsonlite_1.7.2       survival_3.2-7      
+ [34] iterators_1.0.13     glue_1.4.2           gtable_0.3.0        
+ [37] ipred_0.9-9          kernlab_0.9-29       car_3.0-10          
+ [40] future.apply_1.7.0   abind_1.4-5          scales_1.1.1        
+ [43] smoof_1.6.0.2        rstatix_0.6.0        Rcpp_1.0.6          
+ [46] viridisLite_0.3.0    progress_1.2.2       foreign_0.8-81      
+ [49] txtq_0.2.3           stats4_4.0.4         prediction_0.3.14   
+ [52] lava_1.6.8.1         prodlim_2019.11.13   htmlwidgets_1.5.3   
+ [55] httr_1.4.2           RColorBrewer_1.1-2   ellipsis_0.3.1      
+ [58] farver_2.0.3         pkgconfig_2.0.3      ParamHelpers_1.14   
+ [61] nnet_7.3-15          utf8_1.1.4           RJSONIO_1.3-1.4     
+ [64] labeling_0.4.2       tidyselect_1.1.0     rlang_0.4.10        
+ [67] reshape2_1.4.4       later_1.1.0.1        munsell_0.5.0       
+ [70] cellranger_1.1.0     tools_4.0.4          cli_2.3.0           
+ [73] generics_0.1.0       broom_0.7.4          evaluate_0.14       
+ [76] stringr_1.4.0        yaml_2.2.1           ModelMetrics_1.2.2.2
+ [79] knitr_1.31           fs_1.5.0             zip_2.1.1           
+ [82] purrr_0.3.4          future_1.21.0        nlme_3.1-152        
+ [85] whisker_0.4          compiler_4.0.4       rstudioapi_0.13     
+ [88] plotly_4.9.3         filelock_1.0.2       curl_4.3            
+ [91] ggsignif_0.6.0       lhs_1.1.1            tibble_3.0.6        
+ [94] stringi_1.5.3        highr_0.8            forcats_0.5.1       
+ [97] plot3D_1.3           Matrix_1.3-2         vctrs_0.3.6         
+[100] pillar_1.4.7         lifecycle_0.2.0      data.table_1.13.6   
+[103] httpuv_1.5.5         R6_2.5.0             promises_1.1.1      
+[106] renv_0.12.5-39       rio_0.5.16           parallelly_1.23.0   
+[109] codetools_0.2-18     MASS_7.3-53          assertthat_0.2.1    
+[112] rprojroot_2.0.2      withr_2.4.1          parallel_4.0.4      
+[115] hms_1.0.0            grid_4.0.4           rpart_4.1-15        
+[118] timeDate_3043.102    tidyr_1.1.2          class_7.3-18        
+[121] rmarkdown_2.6        misc3d_0.9-0         mco_1.15.6          
+[124] carData_3.0-4        git2r_0.28.0         parallelMap_1.5.0   
+[127] pROC_1.17.0.1        mlrMBO_1.1.5         lubridate_1.7.9.2   </code></pre>
 </div>
 </div>
 </div>
@@ -2826,7 +2876,7 @@ footer is added to webpages before the MathJax javascript. -->
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();
@@ -2834,6 +2884,23 @@ $(document).ready(function () {
 
 
 </script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
