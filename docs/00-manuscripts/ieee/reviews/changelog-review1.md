@@ -11,39 +11,58 @@ This is particularly useful when (1) mixed pixels are present, to which (2) disc
 
 We believe that it is difficult to make the case that this applies to our situation of airborne hyperspectral imaging in a forest plantations:
 
-1. We are confident that the extracted data corresponds to tree canopies.
-2. Within these canopies, there are no discrete constituent substances (e.g. photosynthetically active / inactive plant tissue). Plant pathologists would rather identify a continuum from healthy to diseased and finally dead or photosynthetically inactive leaves.
-3. As a consequence we don’t see this as an attempt to identify fractions, but as an overall assessment of plant health given the spectral evidence.
+1.  We are confident that the extracted data corresponds to tree canopies.
+2.  Within these canopies, there are no discrete constituent substances (e.g. photosynthetically active / inactive plant tissue). Plant pathologists would rather identify a continuum from healthy to diseased and finally dead or photosynthetically inactive leaves.
+3.  As a consequence we don't see this as an attempt to identify fractions, but as an overall assessment of plant health given the spectral evidence.
 
-Considering these points as well as the observation we gained from reviewing the literature  that modeling plant disease directly as a function of spectral predictors (and not endmember contributions) is quite common, we would like to avoid addressing the possibility of performing spectral unmixing using the methods proposed by Dr. Hong in the cited paper.
+Considering these points as well as the observation we gained from reviewing the literature that modeling plant disease directly as a function of spectral predictors (and not endmember contributions) is quite common, we would like to avoid addressing the possibility of performing spectral unmixing using the methods proposed by Dr. Hong in the cited paper.
 
 **Deep learning**
 
 We acknowledge the great potentials of deep learning in remote sensing image classification, and we acknowledge that the researcher cited by the reviewer, Dr. Hong, has made valuable contributions to this field in recent years, among many other authors.
-Nevertheless, the suggested papers don’t appear to be a good fit in the context of our manuscript, considering the following reasons:
-1. [Hong et al. 2020](https://ieeexplore.ieee.org/abstract/document/9174822?casa_token=pSZixnENWygAAAAA:69eHYXkFWC3ZSKRLRFvQhrLaRXwcsap0EXM0v72Fp33gi7hYtkj1otYLwFKe1WoFKIDZvnBbbmA) in IEEE TGRS, "More Diverse Means Better: Multimodal Deep Learning Meets Remote-Sensing Imagery Classification" proposes multi-modal deep learning, while the submitted manuscript pursues only a single modality, i.e. hyperspectral sensing, and there is no obvious additional data source that could be added to create a multi-modal classification task
-2. [Hong et al. 2020](https://ieeexplore.ieee.org/abstract/document/9170817/?casa_token=WfBdV-3H7YsAAAAA:5bZMwI-XqmkgIJMy59dvAiRcmLpe9uCBin9-o1QQ3FptmYXLUDXsaCDWsruolJS-l6r5FcgpBx4) in IEEE TGRS: "Graph Convolutional Networks for Hyperspectral Image Classification", i.e. modelling adjacencies, which is not the focus of the submitted manuscript, and to which we do not recognize a direct connection.
+Nevertheless, the suggested papers don't appear to be a good fit in the context of our manuscript, considering the following reasons: 1.
+[Hong et al. 2020](https://ieeexplore.ieee.org/abstract/document/9174822?casa_token=pSZixnENWygAAAAA:69eHYXkFWC3ZSKRLRFvQhrLaRXwcsap0EXM0v72Fp33gi7hYtkj1otYLwFKe1WoFKIDZvnBbbmA) in IEEE TGRS, "More Diverse Means Better: Multimodal Deep Learning Meets Remote-Sensing Imagery Classification" proposes multi-modal deep learning, while the submitted manuscript pursues only a single modality, i.e. hyperspectral sensing, and there is no obvious additional data source that could be added to create a multi-modal classification task 2.
+[Hong et al. 2020](https://ieeexplore.ieee.org/abstract/document/9170817/?casa_token=WfBdV-3H7YsAAAAA:5bZMwI-XqmkgIJMy59dvAiRcmLpe9uCBin9-o1QQ3FptmYXLUDXsaCDWsruolJS-l6r5FcgpBx4) in IEEE TGRS: "Graph Convolutional Networks for Hyperspectral Image Classification", i.e. modelling adjacencies, which is not the focus of the submitted manuscript, and to which we do not recognize a direct connection.
 
 Overall, from our point of view it would therefore not be appropriate to cite the suggested papers.
 
 See also our point-by-point replies for reviewer1 in the attached file.
 
+In addition to the point-by-point replies for each reviewer we have added a concise changelog summary listing all changes to the manuscript.
+We hope that this improved manuscript can now be considered for publication.
 
 ## Changelog
 
-- Add references for NRI index and explain its origin in more detail
-- Add table with all vegetation indices used
-- Study area figure now spans across two-columns
-- Enhanced study-area image labels and metadata appearance
-- Discuss the lack of SWIR range coverage
-- Discuss the lack of multi-temporal in-situ data (which includes the lack of different phenology stages)
-- Add PCA for all feature sets to showcase the information redundancy among the variables of each feature set (Fig. 3)
-- explicitly label the achieved performance as "fair"
-- In-situ data: add details how the data was surveyed
-- Explain why NDVI was chosen as the base for NRI calculation and add more references to explain the NRI concept
-- Add geometric, radiometric and atmospheric correction information to appendix F
-- Add line-numbers for peerreview mode
-- More prominent linking of hyperparameter and benchmark settings and the availability of a research compendium which shows the code used to generate the benchmark matrix
-- Clarify the information gain formula and add more detail to its formula definition (including references)
-- Discuss segmentation as an alternative to the use of a buffer for extracting hyperspectral data from trees.
-- Discuss possible data limitations more prominently
+-   Add references for NRI index and explain its origin in more detail
+
+-   Add table with all vegetation indices used
+
+-   Study area figure now spans across two-columns
+
+-   Enhanced study-area image labels and metadata appearance
+
+-   Discuss the lack of SWIR range coverage
+
+-   Discuss the lack of multi-temporal in-situ data (which includes the lack of different phenology stages)
+
+-   Add PCA for all feature sets to showcase the information redundancy among the variables of each feature set (Fig. 3)
+
+-   explicitly label the achieved performance as "fair"
+
+-   In-situ data: add details how the data was surveyed
+
+-   Explain why NDVI was chosen as the base for NRI calculation and add more references to explain the NRI concept
+
+-   Add geometric, radiometric and atmospheric correction information to appendix F
+
+-   Add line-numbers for peerreview mode
+
+-   More prominent linking of hyperparameter and benchmark settings and the availability of a research compendium which shows the code used to generate the benchmark matrix
+
+-   Clarify the information gain formula and add more detail to its formula definition (including references)
+
+-   Discuss segmentation as an alternative to the use of a buffer for extracting hyperspectral data from trees.
+
+-   Discuss possible data limitations more prominently
+
+-   Rerunning the analysis with R 4.0.4 (instead of 3.6.3) and updated R packages versions (including a new implemention of the RelieF algorithm) brought slight changes to the leaderboard: the SVM RelieF combinations dropped from 28.07 to 28.13, the best combination SVM infogain dropped from 27.99 to 28.02
