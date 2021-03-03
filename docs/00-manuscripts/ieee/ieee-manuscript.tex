@@ -402,18 +402,18 @@ Additional metadata information is available in \autoref{tab:hyperparameter_meta
 
 \subsection{Derivation of indices}
 
-To use the full potential of the hyperspectral data, all possible vegetation indices supported by the R package hsdar (89 in total) as well as all possible \ac{NRI} combinations were calculated.
+To use the full potential of the hyperspectral data, all possible vegetation indices supported by the R package hsdar (89 in total) as well as all possible \ac{NRI}s were calculated.
 
 NRIs follow the \ac{OMNBR} concept of data-driven information extraction from narrow-band indices of hyperspectral data \cite{thenkabail2000,thenkabail2018}.
-In principal any index can be used for this data-driven concept.
-Due to the popularity of the NDVI index in vegetation applications and the availability of this index in the \texttt{nri()} function of the \texttt{hsdar} R package, the following formula was applied to every available band combination:
+While various index formulations such as band ratios or normalized ratios are available, indices involving the same bands are strongly correlated.
+Since the widely-used NDVI index belongs to the family of normalized ratio indices (NRIs), which are implemented in the \texttt{hsdar} R package, we used the following NDI formula to combine all pairs of reflectances:
 
 \begin{equation}
 	NRI_{i,j} = \frac{band_{i} - band_{j}}{band_{i} + band_{j}}
 \end{equation}
 
 \noindent
-with \(i\) and \(j\) being the respective band numbers.
+where \(i\) and \(j\) are the respective band numbers.
 
 \bigbreak{}
 
