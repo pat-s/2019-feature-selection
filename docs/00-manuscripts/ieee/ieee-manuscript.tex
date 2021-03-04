@@ -349,8 +349,8 @@ Oiartzun has the most observations (n = 559) while Laukiz2 shows the largest are
 All plots besides Luiando are located within 100 km from the coast (\autoref{fig:study_area}).
 In total 1808 observations are available (Laukiz1 = 559, Laukiz2 = 451, Luiando = 301, Oiartzun = 497).
 Field surveys were conducted in September 2016.
-Defoliation was measured via visual inspection using 5\% intervals.
-No estimation error was recorded.
+Defoliation was assessed visually in the field by experienced forest pathologists using an established field protocol.
+Values were recorded at three levels of the tree and combined into an overall percentage. No estimation error was recorded.
 
 \begin{figure*} [ht!]
 	\begin{center}
@@ -783,7 +783,7 @@ This applied to all learners of this study.
 The overall performance achieved in this study can be classified as "fair".
 
 In addition, data quality issues (\autoref{subsec:data-quality}) might have an influence on model performances.
-These include the timing of the acquisition of the hyperspectral data (late phenological phase), field measurement errors when surveying defoliation, the influence of background reflectance (e.g. soil reflectance) and the possible geometrical offset of trees in the field.
+These include the timing of the acquisition of the hyperspectral data (late phenological phase), field measurement errors when surveying defoliation, the influence of background reflectance (e.g. soil reflectance) and the possible positional offset of measured GPS coordinates of trees.
 
 \subsubsection{Model differences}
 
@@ -1217,7 +1217,16 @@ This work was funded by the EU LIFE Healthy Forest project (LIFE14 ENV/ES/000179
 
 \section{Radiometric, Geometric and Atmospheric correction of hyperspectral data}
 
-The following information was provided externally by the company which was in charge for the image acquisition and preprocessing of the data.
+The following information was provided by the Institut Carogràfic i Geològic de Catalunya, which was in charge of image acquisition and data preprocessing.
+
+
+\textbf{Sensor Characteristics}
+
+\begin{quote}
+The AisaEAGLE II sensor was used for airborne image acquisition with a field of view of 37.7°.
+Its spectral resolution is 2.4 nm in the range from 400 to 1000 nm.
+\end{quote}
+
 
 \textbf{Radiometric Correction}
 
@@ -1241,12 +1250,12 @@ The ortorectified hyperspectral images were compared to orthoimages 1:5000 of Ge
 \textbf{Atmospheric Correction}
 
 \begin{quote}
-The radiance measured by and instrument depends on the illumination geometry and the reflective properties of the observed surface.
+The radiance measured by an instrument depends on the illumination geometry and the reflective properties of the observed surface.
 Radiation may be absorbed or scattered (Rayleigh and Mie scattering). Scattering is responsible of the adjacency effect, i.e., radiation coming from neighbors areas to the target pixel.
 The MODTRAN code was used to modelling the effect of the atmosphere on the radiation.
-To represent the aerosols of the study area it was used the rural model, and the optical thickness was estimated on pixels with a high vegetation cover.
+To represent the aerosols of the study area the rural model was used, and the optical thickness was estimated on pixels with a high vegetation cover.
 Columnar water vapor was estimated by a linear regression ratio where the spectral radiance of each pixel at the band of the maximum water absorption (~906 nm) is compared to its theoretical value in absence of absorption. Nonetheless, this technique is unreliable when a spectral resolution as the one required here is used.
-To solve that, a manual selection of the water vapor parameter was made according to the smoothness observed on the reflectance peak at 960 nm.
+To resolve this, the water vapor parameter was selected manually according to the smoothness observed on the reflectance peak at 960 nm.
 The mid-latitude summer atmosphere model was also used.
 The output of this procedure was reflectance from the target pixel scaled between 0 and 10,000.
 \end{quote}
