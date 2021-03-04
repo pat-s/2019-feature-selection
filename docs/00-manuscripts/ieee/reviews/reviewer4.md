@@ -153,7 +153,7 @@ Moreover this would double the amount of datasets and hence the models to be fit
 
 > - V.E: You should at least mention that a multi-temporal data-set might have a huge advantage + the SWIR bands are missing, which are mentioned in the body of literature of forest diseases as highly important.
 
-Thanks for discussing the importance of the sensors wavelength range.
+Thanks for discussing the importance of the sensor's wavelength range.
 We agree that bands in the SWIR region could help in this study and in general when working with vegetation data.
 A multi-temporal dataset consisting of matching RS and ground-truth information might also help to enhance the performance of models in such scenarios, especially if different phenology stages are included.
 We have added a paragraph which discussed this shortcoming in section "Data Quality":
