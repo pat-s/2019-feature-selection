@@ -13,8 +13,12 @@ Some detailed comments are as follows:
 We would like to thank the reviewer to consider discussing the Signal-to-Noise ratio (SNR) of the input data.
 Unfortunately the SNR is unknown to us and was not provided along with the spatial data from the company which acquired the images.
 To our knowledge there is no way to retrieve this information post-hoc.
-Hence we did not discuss this point in the manuscript.
-On the other we believe that not discussing the SNR of the hyperspectral data is not a heavy shortcoming in this study.
+We searched for it and also asked the company which was in charge for image acquisition for more information.
+We found a technical brochure showcasing more technical details about the AISA EAGLE sensor - though it seems to related to v1 of the sensor whereas in our case v2 was used: http://galileo.gogostudio.com/wp-content/uploads/2014/02/AisaEAGLE_datasheet_ver1-2013.pdf.
+We have some informal information that AISA sensors in general achieve SNR of 1000:1 (i.e. the signal is 1000 times stronger than the noise) leading us to the conclusion that this point should not be of practical relevance in this study.
+Also from a data science perspective, models average the reflectance values from multiple bands in different ways during the fitting process.
+Hence, even if there would be small issues with the SNR for individual values, these should get averaged out during the modeling.
+Combining all these points, we think that not discussing the SNR of the sensor in greater detail is justifiable.
 
 > 2. I also would like to see the information redundancy that existed in the original bands, as well as in the very high dimensional constructed 7471 NRIs.
 
