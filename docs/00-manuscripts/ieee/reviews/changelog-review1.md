@@ -33,36 +33,20 @@ We hope that this improved manuscript can now be considered for publication.
 
 ## Changelog
 
--   Add references for NRI index and explain its origin in more detail
-
--   Add table with all vegetation indices used
-
--   Study area figure now spans across two-columns
-
--   Enhanced study-area image labels and metadata appearance
-
--   Discuss the lack of SWIR range coverage
-
--   Discuss the lack of multi-temporal in-situ data (which includes the lack of different phenology stages)
-
--   Add PCA for all feature sets to showcase the information redundancy among the variables of each feature set (Fig. 3)
-
--   explicitly label the achieved performance as "fair"
-
--   In-situ data: add details how the data was surveyed
-
--   Explain why NDVI was chosen as the base for NRI calculation and add more references to explain the NRI concept
-
--   Add geometric, radiometric and atmospheric correction information to appendix F
-
--   Add line-numbers for peerreview mode
-
--   More prominent linking of hyperparameter and benchmark settings and the availability of a research compendium which shows the code used to generate the benchmark matrix
-
--   Clarify the information gain formula and add more detail to its formula definition (including references)
-
--   Discuss segmentation as an alternative to the use of a buffer for extracting hyperspectral data from trees.
-
--   Discuss possible data limitations more prominently
-
--   Rerunning the analysis with R 4.0.4 (instead of 3.6.3) and updated R packages versions (including a new implemention of the RelieF algorithm) brought slight changes to the leaderboard: the SVM RelieF combinations dropped from 28.07 to 28.13, the best combination SVM infogain dropped from 27.99 to 28.02
+- Added references for NRI index and explain its origin in more detail
+- Added table with all vegetation indices used
+- Study area figure (Fig. 2) now spans across two-columns.
+- Enhanced study-area image labels and metadata appearance.
+- Discussed the lack of SWIR range coverage in section "Data Quality".
+- Discussed the lack of multi-temporal in-situ data (which includes the lack of different phenology stages)
+- Added a new figure which shows the results of a PCA for all feature sets to showcase information redundancy among the variables for each feature set (Fig. 3).
+- Explicitly label the achieved model performances as "fair".
+- In-situ data: added more details on how the data was surveyed.
+- Explained why NDVI was chosen as the base for NRI calculation and added more references to explain the NRI concept.
+- Added geometric, radiometric and atmospheric correction information (Appendix F).
+- Add manual line-numbers for "review mode".
+- More prominent linking of hyperparameter and benchmark settings and the availability of a research compendium (which shows the code used to generate the benchmark matrix).
+- Clarified "information gain" filter formula and added more details and references with respect to its formula definition.
+- Discussed segmentation as an alternative to the buffer approach for extracting hyperspectral data from trees.
+- Discussed possible data limitations more prominently in section "Data quality".
+- Rerunning the analysis with R 4.0.4 (instead of 3.6.3) and updated R packages versions (including a new implemention of the RelieF algorithm) brought slight changes to the leaderboard: the SVM RelieF combinations dropped from 28.07 to 28.13, the best combination SVM infogain dropped from 27.99 to 28.02
