@@ -94,13 +94,13 @@ vi_data_corrected_buffer2_no_defol_no_response <- vi_data_corrected_buffer2
 vi_data_corrected_buffer2_no_defol_no_response$defoliation <- NULL
 
 pca_vi <- DataExplorer::plot_prcomp(vi_data_corrected_buffer2_no_defol_no_response,
-  variance_cap = 0.90,
+  variance_cap = 0.95,
   ggtheme = ggpubr::theme_pubclean(),
   geom_label_args = list(size = 2.5, nudge_y = 0.03),
   parallel = TRUE
 )
 pca_vi = pca_vi[[1]] +
-  labs(title = "Target POV: 90%")
+  labs(title = "Target POV: 95%")
 pca_vi[[1]]
 ```
 
@@ -149,13 +149,13 @@ nri_data_corrected_buffer2_no_response <- nri_data_corrected_buffer2
 nri_data_corrected_buffer2_no_response$defoliation <- NULL
 
 pca_nri <- DataExplorer::plot_prcomp(nri_data_corrected_buffer2_no_response,
-  variance_cap = 0.9,
+  variance_cap = 0.95,
   ggtheme = ggpubr::theme_pubclean(),
   geom_label_args = list(size = 2.5, nudge_y = 0.03),
   parallel = TRUE
 )
 pca_nri = pca_nri[[1]] + 
-  labs(title = "Target POV: 90%")
+  labs(title = "Target POV: 95%")
 pca_nri
 ```
 
@@ -209,7 +209,7 @@ pca_hr <- DataExplorer::plot_prcomp(bands_data_corrected_buffer2_no_response,
   ggtheme = ggpubr::theme_pubclean()
 )
 pca_hr = pca_hr[[1]] + 
-  labs(title = "Target POV: 90%")
+  labs(title = "Target POV: 95%")
 pca_hr
 ```
 
