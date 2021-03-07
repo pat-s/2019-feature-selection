@@ -1,6 +1,6 @@
 ---
 title: "Spectral signatures"
-output: 
+output:
   workflowr::wflow_html:
     includes:
       in_header: header.html
@@ -23,13 +23,13 @@ R.utils::sourceDirectory("R")
 library("drake")
 
 # load drake objects
-loadd(data_hs_preprocessed)
+loadd(data_hs_preprocessed_paper)
 library("hsdar")
 library("magrittr")
 library("purrr")
 ```
 
-Last update: 
+Last update:
 
 ```{r}
 date()
@@ -37,7 +37,7 @@ date()
 
 # Spectral signatures of plots
 
-Spectral signatures for plots 
+Spectral signatures for plots
 
 - Laukiz 1
 - Laukiz 2
@@ -45,14 +45,7 @@ Spectral signatures for plots
 - Oiartzun
 
 for the wavelength range of 400 nm - 1000 nm.
-Values represent the mean reflectance of all observations at the respective wavelength.
-
-```{r spectral-signatures-1}
-data_hs_preprocessed <- data_hs_preprocessed[c(
-  "laukiz1", "laukiz2",
-  "luiando", "oiartzun"
-)]
-```
+Values show the mean reflectance of all observations at the respective wavelength.
 
 ```{r spectral-signatures-2}
 wavelength <- c(
@@ -76,10 +69,11 @@ wavelength <- c(
 ```
 
 ```{r spectral-signatures-3 }
-speclibs <- map(data_hs_preprocessed, ~ speclib(.x, wavelength))
+speclibs <- purrr::map(data_hs_preprocessed_paper,
+  ~ hsdar::speclib(.x, wavelength))
 ```
 
-```{r spectral-signatures, dev=c("png", "pdf")}
+```{r spectral-signatures, dev=c("png", "pdf"), warning=FALSE}
 par(mfrow = c(2, 2))
 
 plot(speclibs[[1]], main = "Laukiz 1", ylim = c(0, 350))
