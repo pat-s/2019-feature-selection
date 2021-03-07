@@ -80,7 +80,7 @@ The R library of this project is managed by [renv](https://rstudio.github.io/ren
 This makes sure that the exact same package versions are used when recreating the project.
 When calling `renv::restore()`, all required packages will be installed with their specific version.
 
-Please note that this project was built with R version 4.0.3 on a CentOS 7 operating system.
+Please note that this project was built with R version 4.0.4 on a CentOS 7 operating system.
 Some packages from this project **are not compatible with R versions prior version 3.6.0.**
 
 To clone the project, a working installation of `git` is required.
