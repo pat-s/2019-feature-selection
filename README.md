@@ -46,6 +46,8 @@ After a required refactoring to the latest version of the package in November 20
 
 Calling `r_make()` will create targets specified in `drake_config(targets = <target>)` in `_drake.R` with the additional drake settings specified.
 
+**Important:** If you do not have access to a Slurm cluster, set `options(clustermq.scheduler = "multicore")` in `_drake.R` (around l.73).
+
 Out of the 400+ targets in this project, the following targets are important:
 
 -   `bm_aggregated_new_buffer2`: Aggregated benchmark results of all models using a 2 meter buffer for hyperspectral data extraction.
@@ -54,6 +56,7 @@ Out of the 400+ targets in this project, the following targets are important:
 -   `spectral_signatures_wfr`: Creates the [report which inspects the spectral signatures of the hyperspectral data](https://pat-s.github.io/2019-feature-selection/spectral-signatures.html).
 -   `feature_importance_wfr`: Creates the [report which inspects the feature importance of variables](https://pat-s.github.io/2019-feature-selection/feature-importance.html).
 -   `filter_correlations_wfr`: Creates the [report which inspects correlations among filter methods](https://pat-s.github.io/2019-feature-selection/feature-importance.html).
+- `task_reduced_cor`: List of all mlr tasks used for benchmarking.
 
 Note that most reports require some/all fitted models.
 Creating these (e.g. target `benchmark_no_models_new_buffer2`) is a costly process and takes several days on a HPC and way longer on a single machine.
