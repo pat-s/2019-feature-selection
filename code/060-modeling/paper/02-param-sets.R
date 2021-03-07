@@ -2,39 +2,46 @@ param_sets_plan <- drake_plan(
 
   # XGBOOST --------------------------------------------------------------------
   ps_xgboost_filter = target(
+    # https://machinelearningmastery.com/configure-gradient-boosting-algorithm/
     makeParamSet(
-      makeIntegerParam("nrounds", lower = 10, upper = 600),
-      makeNumericParam("colsample_bytree", lower = 0.3, upper = 0.7),
-      makeNumericParam("subsample", lower = 0.25, upper = 1),
-      makeIntegerParam("max_depth", lower = 1, upper = 10),
-      makeNumericParam("gamma", lower = 0, upper = 10),
-      makeNumericParam("eta", lower = 0.001, upper = 0.6),
-      makeNumericParam("min_child_weight", lower = 0, upper = 20),
+      makeNumericParam("eta", lower = 0.001, upper = 0.1),
+      makeNumericParam("gamma", lower = 0.05, upper = 10),
+      makeIntegerParam("max_depth", lower = 3, upper = 25),
+      makeNumericParam("min_child_weight", lower = 1, upper = 7),
+      makeNumericParam("subsample", lower = 0.6, upper = 1),
+      makeNumericParam("colsample_bytree", lower = 0.6, upper = 1),
+      makeNumericParam("alpha", lower = 0, upper = 1),
+      makeNumericParam("lambda", lower = 0.01, upper = 1),
+      makeIntegerParam("nrounds", lower = 10, upper = 100),
       makeNumericParam("fw.perc", lower = 0, upper = 1)
     )
   ),
 
   ps_xgboost = target(
     makeParamSet(
-      makeIntegerParam("nrounds", lower = 10, upper = 600),
-      makeNumericParam("colsample_bytree", lower = 0.3, upper = 0.7),
-      makeNumericParam("subsample", lower = 0.25, upper = 1),
-      makeIntegerParam("max_depth", lower = 1, upper = 10),
-      makeNumericParam("gamma", lower = 0, upper = 10),
-      makeNumericParam("eta", lower = 0.001, upper = 0.6),
-      makeNumericParam("min_child_weight", lower = 0, upper = 20)
+      makeNumericParam("eta", lower = 0.001, upper = 0.1),
+      makeNumericParam("gamma", lower = 0.05, upper = 10),
+      makeIntegerParam("max_depth", lower = 3, upper = 25),
+      makeNumericParam("min_child_weight", lower = 1, upper = 7),
+      makeNumericParam("subsample", lower = 0.6, upper = 1),
+      makeNumericParam("colsample_bytree", lower = 0.6, upper = 1),
+      makeNumericParam("alpha", lower = 0, upper = 1),
+      makeNumericParam("lambda", lower = 0.01, upper = 1),
+      makeIntegerParam("nrounds", lower = 10, upper = 100)
     )
   ),
 
   ps_xgboost_pca = target(
     makeParamSet(
-      makeIntegerParam("nrounds", lower = 10, upper = 600),
-      makeNumericParam("colsample_bytree", lower = 0.3, upper = 0.7),
-      makeNumericParam("subsample", lower = 0.25, upper = 1),
-      makeIntegerParam("max_depth", lower = 1, upper = 10),
-      makeNumericParam("gamma", lower = 0, upper = 10),
-      makeNumericParam("eta", lower = 0.001, upper = 0.6),
-      makeNumericParam("min_child_weight", lower = 0, upper = 20),
+      makeNumericParam("eta", lower = 0.001, upper = 0.1),
+      makeNumericParam("gamma", lower = 0.05, upper = 10),
+      makeIntegerParam("max_depth", lower = 3, upper = 25),
+      makeNumericParam("min_child_weight", lower = 1, upper = 7),
+      makeNumericParam("subsample", lower = 0.6, upper = 1),
+      makeNumericParam("colsample_bytree", lower = 0.6, upper = 1),
+      makeNumericParam("alpha", lower = 0, upper = 1),
+      makeNumericParam("lambda", lower = 0.01, upper = 1),
+      makeIntegerParam("nrounds", lower = 10, upper = 100),
       makeIntegerParam("ppc.pcaComp", lower = 1, upper = 10)
     )
   ),
