@@ -69,7 +69,8 @@ download_hyperspectral <- function(url) {
     curl::curl_download(url,
       destfile = glue::glue(tempdir(), "/hs.zip"), quiet = FALSE
     )
-    unzip(glue::glue(tempdir(), "/hs.zip"), exdir = "data/hyperspectral/")
+    unzip(glue::glue(tempdir(), "/hs.zip"), exdir = "data/hyperspectral/",
+      junkpaths = TRUE)
   }
 
   files <- purrr::map(

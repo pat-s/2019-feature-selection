@@ -65,7 +65,7 @@ The output of this procedure was reflectance from the target pixel scaled betwee
 
 **Acquisition days**
 
-"The image acquisitions were originally attempted during one day (29) but due to the variable meteorological conditions some stands had to be imaged the next day."
+"The image acquisitions were originally attempted during one day (29.10.2016) but due to the variable meteorological conditions some stands had to be imaged the next day."
 
 > - Please provide information on in-situ data. How was the defoliation measured? Is there an estimation error included?
 
