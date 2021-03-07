@@ -21,13 +21,14 @@ reports_plan_paper <- drake_plan(
     )
     copy_figures()
   }),
-  response_normality_wfr = target({
-    wflow_publish(knitr_in("analysis/response-normality.Rmd"),
-      view = FALSE,
-      verbose = TRUE
-    )
-    copy_figures()
-  }),
+  ### not used/published anymore since the whole idea is questionable
+  # response_normality_wfr = target({
+  #   wflow_publish(knitr_in("analysis/response-normality.Rmd"),
+  #     view = FALSE,
+  #     verbose = TRUE
+  #   )
+  #   copy_figures()
+  # }),
   feature_importance_wfr = target({
     wflow_publish(knitr_in("analysis/feature-importance.Rmd"),
       view = FALSE,
