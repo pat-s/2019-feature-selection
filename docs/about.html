@@ -386,7 +386,7 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-02-19
+<strong>Last updated:</strong> 2021-03-07
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -477,45 +477,38 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontreef944b046e6ea8d1b2f4c415c9a8c77bcc6c7cdcctargetblankf944b04a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/f944b046e6ea8d1b2f4c415c9a8c77bcc6c7cdcc" target="_blank">f944b04</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontreee67f93f296dd62ba834a1a3bf847c5648b6f6cdftargetblanke67f93fa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/e67f93f296dd62ba834a1a3bf847c5648b6f6cdf" target="_blank">e67f93f</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontreef944b046e6ea8d1b2f4c415c9a8c77bcc6c7cdcctargetblankf944b04a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontreee67f93f296dd62ba834a1a3bf847c5648b6f6cdftargetblanke67f93fa" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/pat-s/2019-feature-selection/tree/f944b046e6ea8d1b2f4c415c9a8c77bcc6c7cdcc" target="_blank">f944b04</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/pat-s/2019-feature-selection/tree/e67f93f296dd62ba834a1a3bf847c5648b6f6cdf" target="_blank">e67f93f</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 </p>
 <pre><code>
 Ignored files:
-    Ignored:    .Rhistory
+    Ignored:    .DS_Store
     Ignored:    .Rproj.user/
-    Ignored:    .Ruserdata/
     Ignored:    .drake/
-    Ignored:    .vscode/
-    Ignored:    analysis/rosm.cache/
     Ignored:    data/
-    Ignored:    inst/Benchmark for Filter Methods for Feature Selection in High-Dimensional  Classification Data.pdf
-    Ignored:    inst/study-area-map/._study-area.qgs
+    Ignored:    inst/.DS_Store
+    Ignored:    inst/study-area-map/.DS_Store
+    Ignored:    inst/study-area-map/data/
     Ignored:    inst/study-area-map/study-area.qgs~
     Ignored:    log/
     Ignored:    renv/library/
     Ignored:    renv/staging/
-    Ignored:    reviews/
-    Ignored:    rosm.cache/
 
 Unstaged changes:
-    Modified:   .Rprofile
-    Modified:   2019-feature-selection.Rproj
     Modified:   README.md
     Modified:   _drake.R
-    Modified:   analysis/style.css
-    Modified:   code/090-reports.R
+    Modified:   analysis/eda.Rmd
 
 </code></pre>
 <p>
@@ -554,6 +547,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/e67f93f296dd62ba834a1a3bf847c5648b6f6cdf/analysis/about.Rmd" target="_blank">e67f93f</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2021-03-07
+</td>
+<td>
+workflowr::wflow_publish(“analysis/about.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pat-s/2019-feature-selection/cdd8241452ede7eaa684f69db0345f2a55ab5136/docs/about.html" target="_blank">cdd8241</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2021-02-19
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -1163,7 +1190,7 @@ Start workflowr project.
 <p>This repository is organized as an R package, providing functions and raw data to reproduce and extend the analysis reported in the publication. Note that this package has been written explicitly for this project and is not suited a for more general use.</p>
 <p>This project is setup with a <a href="https://github.com/ropensci/drake">drake workflow</a>, ensuring reproducibility. Intermediate targets/objects will be stored in a hidden <code>.drake</code> directory.</p>
 <p>The R library of this project is managed by <a href="https://rstudio.github.io/renv/index.html">renv</a>. This makes sure that the exact same package versions are used when recreating the project. When calling <code>renv::restore()</code>, all required packages will be installed with their specific version.</p>
-<p>Please note that this project was built with R version 4.0.3 on a CentOS 7 operating system. Some packages from this project <strong>are not compatible with R versions prior version 3.6.0.</strong></p>
+<p>Please note that this project was built with R version 4.0.4 on a CentOS 7 operating system. Some packages from this project <strong>are not compatible with R versions prior version 3.6.0.</strong></p>
 <p>To clone the project, a working installation of <code>git</code> is required. Open a terminal in the directory of your choice and execute:</p>
 <pre class="sh"><code>git clone https://github.com/pat-s/2019-feature-selection.git</code></pre>
 <p>Then start R in this directory and run</p>
@@ -1198,21 +1225,16 @@ r_make()</code></pre>
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
 <pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>R version 4.0.3 (2020-10-10)
-Platform: x86_64-pc-linux-gnu (64-bit)
-Running under: CentOS Linux 7 (Core)
+<pre><code>R version 4.0.4 Patched (2021-02-17 r80031)
+Platform: x86_64-apple-darwin17.0 (64-bit)
+Running under: macOS Big Sur 10.16
 
 Matrix products: default
-BLAS:   /opt/spack/opt/spack/linux-centos7-x86_64/gcc-9.2.0/r-4.0.3-hkh5nywkwodhye5qvukisarvhbj264ob/rlib/R/lib/libRblas.so
-LAPACK: /opt/spack/opt/spack/linux-centos7-x86_64/gcc-9.2.0/r-4.0.3-hkh5nywkwodhye5qvukisarvhbj264ob/rlib/R/lib/libRlapack.so
+BLAS:   /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRblas.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRlapack.dylib
 
 locale:
- [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
- [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
- [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
- [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
- [9] LC_ADDRESS=C               LC_TELEPHONE=C            
-[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
 
 attached base packages:
 [1] stats     graphics  grDevices datasets  utils     methods   base     
@@ -1221,17 +1243,17 @@ other attached packages:
 [1] usethis_2.0.0  magrittr_2.0.1 drake_7.13.1  
 
 loaded via a namespace (and not attached):
- [1] Rcpp_1.0.6        git2r_0.28.0      later_1.1.0.1     compiler_4.0.3   
- [5] pillar_1.4.7      workflowr_1.6.2   prettyunits_1.1.1 tools_4.0.3      
+ [1] Rcpp_1.0.6        git2r_0.28.0      later_1.1.0.1     compiler_4.0.4   
+ [5] pillar_1.4.7      workflowr_1.6.2   prettyunits_1.1.1 tools_4.0.4      
  [9] progress_1.2.2    digest_0.6.27     evaluate_0.14     lifecycle_0.2.0  
 [13] tibble_3.0.6      pkgconfig_2.0.3   rlang_0.4.10      igraph_1.2.6     
 [17] cli_2.3.0         rstudioapi_0.13   filelock_1.0.2    yaml_2.2.1       
-[21] parallel_4.0.3    xfun_0.20         stringr_1.4.0     storr_1.2.5      
+[21] parallel_4.0.4    xfun_0.20         stringr_1.4.0     storr_1.2.5      
 [25] knitr_1.31        fs_1.5.0          vctrs_0.3.6       hms_1.0.0        
 [29] rprojroot_2.0.2   tidyselect_1.1.0  glue_1.4.2        R6_2.5.0         
 [33] base64url_1.4     rmarkdown_2.6     txtq_0.2.3        whisker_0.4      
 [37] purrr_0.3.4       promises_1.1.1    backports_1.2.1   ellipsis_0.3.1   
-[41] htmltools_0.5.1.1 assertthat_0.2.1  renv_0.12.5-39    httpuv_1.5.5     
+[41] htmltools_0.5.1.1 assertthat_0.2.1  renv_0.13.0       httpuv_1.5.5     
 [45] stringi_1.5.3     crayon_1.4.0     </code></pre>
 </div>
 </div>
