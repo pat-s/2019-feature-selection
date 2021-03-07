@@ -64,21 +64,38 @@ download_locations <- function(url) {
 #' `download_hyperspectral()`: Download hyperspectral data
 #' @template url
 #' @rdname download
-download_hyperspectral <- function(url) {
-  if (!file.exists("data/hyperspectral/B101_P1N_A090F03_ATM_S.tif")) {
-    curl::curl_download(url,
-      destfile = glue::glue(tempdir(), "/hs.zip"), quiet = FALSE
-    )
-    unzip(glue::glue(tempdir(), "/hs.zip"), exdir = "data/hyperspectral/",
-      junkpaths = TRUE)
-  }
+download_hyperspectral <- function(url, paper = TRUE) {
+  if (paper) {
+    if (!file.exists("data/hyperspectral/paper/B101_P1N_A090F03_ATM_S.tif")) {
+      curl::curl_download(url,
+        destfile = glue::glue(tempdir(), "/hs.zip"), quiet = FALSE
+      )
+      unzip(glue::glue(tempdir(), "/hs.zip"), exdir = "data/hyperspectral/paper",
+        junkpaths = TRUE)
+    }
 
-  files <- purrr::map(
-    list.files("data/hyperspectral",
-      full.names = TRUE, pattern = ".tif$"
-    ),
-    ~ raster::brick(.x)
-  )
+    files <- purrr::map(
+      list.files("data/hyperspectral/paper",
+        full.names = TRUE, pattern = ".tif$"
+      ),
+      ~ raster::brick(.x)
+    )
+  } else {
+    if (!file.exists("data/hyperspectral/all/B101_P1N_A090F03_ATM_S.tif")) {
+      curl::curl_download(url,
+        destfile = glue::glue(tempdir(), "/hs.zip"), quiet = FALSE
+      )
+      unzip(glue::glue(tempdir(), "/hs.zip"), exdir = "data/hyperspectral/all",
+        junkpaths = TRUE)
+    }
+
+    files <- purrr::map(
+      list.files("data/hyperspectral/all",
+        full.names = TRUE, pattern = ".tif$"
+      ),
+      ~ raster::brick(.x)
+    )
+  }
   return(files)
 }
 

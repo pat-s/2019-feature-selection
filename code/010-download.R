@@ -1,7 +1,7 @@
 download_data_plan <- drake_plan(
 
-  data_hs_raw = target(
-    download_hyperspectral("https://zenodo.org/record/3630302/files/hyperspectral.zip")
+  data_hs_raw_paper = target(
+    download_hyperspectral("https://zenodo.org/record/3630302/files/hyperspectral.zip", paper = TRUE)
   ),
 
   plot_locations = target(
