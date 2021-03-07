@@ -89,6 +89,20 @@
       "Repository": "CRAN",
       "Hash": "7ac7d2d1133bead1a5102819397e414d"
     },
+    "DiceKriging": {
+      "Package": "DiceKriging",
+      "Version": "1.5.8",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "518582eb72283b86888683cbaa070327"
+    },
+    "FSelectorRcpp": {
+      "Package": "FSelectorRcpp",
+      "Version": "0.3.8",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "e2b223de98d65a21a85f834ac182a81d"
+    },
     "Formula": {
       "Package": "Formula",
       "Version": "1.2-4",
@@ -355,6 +369,13 @@
       "Repository": "CRAN",
       "Hash": "7ff5c94cec207b3fd9774cfaa5157738"
     },
+    "care": {
+      "Package": "care",
+      "Version": "1.1.10",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "7ff7b9ddf554693b54e3a7fe8188211a"
+    },
     "caret": {
       "Package": "caret",
       "Version": "6.0-86",
@@ -452,6 +473,13 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "a31720f692920e635ecef0481d478247"
+    },
+    "corpcor": {
+      "Package": "corpcor",
+      "Version": "1.6.9",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "ae01381679f4511ca7a72d55fe175213"
     },
     "corrplot": {
       "Package": "corrplot",
@@ -934,6 +962,13 @@
       "Repository": "CRAN",
       "Hash": "6fdaa86d0700f8b3e92ee3c445a5a10d"
     },
+    "httpgd": {
+      "Package": "httpgd",
+      "Version": "1.0.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "9b8b2040f4f6121bd612b941b673710b"
+    },
     "httpuv": {
       "Package": "httpuv",
       "Version": "1.5.5",
@@ -1137,6 +1172,13 @@
       "Repository": "CRAN",
       "Hash": "5f2466f5127e0ce67e44bb381387eeca"
     },
+    "lpSolve": {
+      "Package": "lpSolve",
+      "Version": "5.6.15",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "90c3bc497e7d5ec9dbb863621be15abb"
+    },
     "lubridate": {
       "Package": "lubridate",
       "Version": "1.7.9.2",
@@ -1251,15 +1293,10 @@
     },
     "mlr": {
       "Package": "mlr",
-      "Version": "2.18.0.9002",
-      "Source": "GitHub",
-      "RemoteType": "github",
-      "RemoteHost": "api.github.com",
-      "RemoteRepo": "mlr",
-      "RemoteUsername": "mlr-org",
-      "RemoteRef": "HEAD",
-      "RemoteSha": "d24698ed24feaf0a281181b3d1cbfb99862e978e",
-      "Hash": "d7c3f1da04472d01d6725b66da714880"
+      "Version": "2.19.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "cf4429d0d8bb3c06fe8b07eb85ffead9"
     },
     "mlrMBO": {
       "Package": "mlrMBO",
@@ -1345,6 +1382,15 @@
       "Repository": "CRAN",
       "Hash": "e25078f6e770b81121672874474f69c0"
     },
+    "pak": {
+      "Package": "pak",
+      "Version": "0.1.2.9001",
+      "Source": "Local",
+      "Remotes": "r-lib/pkgdepends, r-lib/pkgcache, r-lib/ps",
+      "RemotePkgRef": "local::pak",
+      "RemoteType": "local",
+      "Hash": "bc2c54406c0d3d405fa195e9ea78c870"
+    },
     "parallelMap": {
       "Package": "parallelMap",
       "Version": "1.5.0",
@@ -1401,12 +1447,32 @@
       "Repository": "CRAN",
       "Hash": "725fcc30222d4d11ec68efb8ff11a9af"
     },
+    "pkgcache": {
+      "Package": "pkgcache",
+      "Version": "1.1.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "13db5f2a127c62f1e5d5d9bc90129ca9"
+    },
     "pkgconfig": {
       "Package": "pkgconfig",
       "Version": "2.0.3",
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "01f28d4278f15c76cddbea05899c5d6f"
+    },
+    "pkgdepends": {
+      "Package": "pkgdepends",
+      "Version": "0.0.0.9007",
+      "Source": "GitHub",
+      "Remotes": "r-lib/pkgcache, r-lib/cli",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteRepo": "pkgdepends",
+      "RemoteUsername": "r-lib",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "60f61d17d01faeaf5fdbf13891c82bc45bd3765c",
+      "Hash": "31f27d36542160b2c8f0dfcfa4f25083"
     },
     "pkgload": {
       "Package": "pkgload",
@@ -1620,15 +1686,10 @@
     },
     "renv": {
       "Package": "renv",
-      "Version": "0.12.5-39",
-      "Source": "GitHub",
-      "RemoteType": "github",
-      "RemoteUsername": "rstudio",
-      "RemoteRepo": "renv",
-      "RemoteRef": "HEAD",
-      "RemoteSha": "f64494b1129db7dae81677a973d9f179e290f0f1",
-      "RemoteHost": "api.github.com",
-      "Hash": "993d7aa4177ef0fca8a26a6de73d2082"
+      "Version": "0.13.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "9f10d9db5b50400c348920c5c603385e"
     },
     "reshape2": {
       "Package": "reshape2",
