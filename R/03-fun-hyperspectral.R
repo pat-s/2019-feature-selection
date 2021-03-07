@@ -15,17 +15,25 @@
 #'
 #' @name process_hyperspec
 #' @export
-process_hyperspec <- function(data, id, index, plots, name_out) {
+process_hyperspec <- function(data, id, index, plots, name_out, paper = TRUE) {
 
   # for later
   fs::dir_create("data/hyperspectral/vi/")
   fs::dir_create("data/hyperspectral/ndvi/")
   fs::dir_create("data/hyperspectral/nri/")
 
+  if (paper) {
+    index <- c(2, 2, 13, 7)
+    id <- c("Laukiz I", "Laukiz II")
+    name_out <- c("laukiz1", "laukiz2", "luiando", "oiartzun")
+  }
+
   out <- purrr::pmap(list(id, index, name_out), ~
   process_hyperspec_helper(
-    data = data, id = ..1,
-    index = ..2, plots = plots,
+    plots = plots,
+    data = data,
+    id = ..1,
+    index = ..2,
     name_out = ..3
   ))
 
@@ -95,7 +103,7 @@ extract_indices_to_plot <- function(plot_name,
                                     nri_indices) {
   veg_out <- list(
     raster::extract(veg_indices[[plot_name]],
-      tree_data_spatstat[[plot_name]],
+      tree_data[[plot_name]],
       method = "bilinear",
       fun = mean,
       df = TRUE,
