@@ -42,6 +42,4 @@ load_packages = function() {
   suppressPackageStartupMessages(library(forcats))
   suppressPackageStartupMessages(library(here))
   suppressPackageStartupMessages(library(cli))
-  suppressPackageStartupMessages(library(future.batchtools))
-  suppressPackageStartupMessages(library(terra))
 }

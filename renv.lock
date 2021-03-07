@@ -324,7 +324,7 @@
       "Package": "brio",
       "Version": "1.1.1",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "RSPM",
       "Hash": "36758510e65a457efeefa50e1e7f0576"
     },
     "broom": {
@@ -425,11 +425,18 @@
       "Repository": "CRAN",
       "Hash": "ebaa97ac99cc2daf04e77eecc7b781d7"
     },
+    "cluster": {
+      "Package": "cluster",
+      "Version": "2.1.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "db63a44aab5aadcb6bf2f129751d129a"
+    },
     "clustermq": {
       "Package": "clustermq",
       "Version": "0.8.95.1",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "RSPM",
       "Hash": "385cd5623e6f8f27dc79437398dceed1"
     },
     "codetools": {
@@ -464,7 +471,7 @@
       "Package": "conflicted",
       "Version": "1.0.4",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "RSPM",
       "Hash": "43c5107cc96f47043a56736768ecc59d"
     },
     "conquer": {
@@ -855,15 +862,21 @@
     "git2r": {
       "Package": "git2r",
       "Version": "0.28.0",
-      "Source": "Repository",
+      "Source": "CRAN",
       "Repository": "CRAN",
+      "RemoteType": "standard",
+      "RemotePkgRef": "git2r",
+      "RemoteRef": "git2r",
+      "RemoteRepos": "https://stat.ethz.ch/CRAN/",
+      "RemotePkgType": "macos",
+      "RemoteSha": "0.28.0",
       "Hash": "f64fd34026f6025de71a4354800e6d79"
     },
     "gitcreds": {
       "Package": "gitcreds",
       "Version": "0.1.1",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "RSPM",
       "Hash": "f3aefccc1cc50de6338146b62f115de8"
     },
     "glmnet": {
@@ -1316,7 +1329,7 @@
       "Package": "narray",
       "Version": "0.4.1",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "RSPM",
       "Hash": "b275f9d21e812b6338f4c3e9d70b2209"
     },
     "networkD3": {
@@ -1386,10 +1399,10 @@
       "Package": "pak",
       "Version": "0.1.2.9001",
       "Source": "Local",
+      "RemoteType": "local",
       "Remotes": "r-lib/pkgdepends, r-lib/pkgcache, r-lib/ps",
       "RemotePkgRef": "local::pak",
-      "RemoteType": "local",
-      "Hash": "bc2c54406c0d3d405fa195e9ea78c870"
+      "Hash": "82e6f0dcd22632c2a32367cb3adb7ef2"
     },
     "parallelMap": {
       "Package": "parallelMap",
@@ -1465,8 +1478,8 @@
       "Package": "pkgdepends",
       "Version": "0.0.0.9007",
       "Source": "GitHub",
-      "Remotes": "r-lib/pkgcache, r-lib/cli",
       "RemoteType": "github",
+      "Remotes": "r-lib/pkgcache, r-lib/cli",
       "RemoteHost": "api.github.com",
       "RemoteRepo": "pkgdepends",
       "RemoteUsername": "r-lib",
@@ -1687,9 +1700,14 @@
     "renv": {
       "Package": "renv",
       "Version": "0.13.0",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "9f10d9db5b50400c348920c5c603385e"
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteUsername": "rstudio",
+      "RemoteRepo": "renv",
+      "RemoteRef": "0.13.0",
+      "RemoteSha": "53290d76b17024affcf2f72990ab09b3a9aeaa7e",
+      "Hash": "e084a7c709d908173b2a703452eee1b5"
     },
     "reshape2": {
       "Package": "reshape2",
@@ -1758,7 +1776,7 @@
       "Package": "rmarkdown",
       "Version": "2.6",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "RSPM",
       "Hash": "bc4bac38960b446c183957bfd563e763"
     },
     "rootSolve": {
@@ -1828,7 +1846,7 @@
       "Package": "satellite",
       "Version": "1.0.2",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "RSPM",
       "Hash": "ee6f12377077643b0822de5130a9f597"
     },
     "scales": {
@@ -1893,6 +1911,13 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "dfd843ee98246cf932823acf613b05dd"
+    },
+    "spatial": {
+      "Package": "spatial",
+      "Version": "7.3-13",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "8d0918547149f72e78ae942ccd1fdbc7"
     },
     "splus2R": {
       "Package": "splus2R",
