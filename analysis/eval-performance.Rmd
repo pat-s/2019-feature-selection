@@ -65,7 +65,8 @@ df_perf <- getBMRPerformances(bm_aggregated_new_buffer2, as.df = TRUE) %>%
   )) %>%
   tidyr::separate(learner.id, c("learner_group", "filter"),
     remove = FALSE,
-    sep = " MBO "
+    sep = " MBO ", 
+    fill = "right",
   ) %>%
   mutate(learner_group = recode_factor(learner_group,
     `XGBOOST` = "XGBoost"
@@ -99,8 +100,8 @@ df_tab <- df %>%
   dplyr::rename(Plot = iter, RMSE = rmse) %>%
   dplyr::mutate(`Test Plot` = as.character(Plot)) %>%
   dplyr::mutate(`Test Plot` = forcats::fct_recode(`Test Plot`,
-    Laukiz1 = "1", Laukiz2 = "4",
-    Luiando = "3", Oiartzun = "2"
+    Laukiz1 = "2", Laukiz2 = "3",
+    Luiando = "1", Oiartzun = "4"
   )) %>%
   dplyr::mutate(RMSE = round(RMSE, 2))
 
