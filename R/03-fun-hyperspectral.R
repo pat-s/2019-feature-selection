@@ -22,12 +22,6 @@ process_hyperspec <- function(data, id, index, plots, name_out, paper = TRUE) {
   fs::dir_create("data/hyperspectral/ndvi/")
   fs::dir_create("data/hyperspectral/nri/")
 
-  if (paper) {
-    index <- c(2, 2, 13, 7)
-    id <- c("Laukiz I", "Laukiz II")
-    name_out <- c("laukiz1", "laukiz2", "luiando", "oiartzun")
-  }
-
   out <- purrr::pmap(list(id, index, name_out), ~
   process_hyperspec_helper(
     plots = plots,
@@ -63,10 +57,10 @@ process_hyperspec <- function(data, id, index, plots, name_out, paper = TRUE) {
 }
 
 #' @rdname process_hyperspec
-process_hyperspec_helper <- function(data, id, index, plots, name_out) {
+process_hyperspec_helper <- function(data, id = NULL, index = NULL, plots,
+                                     name_out) {
   image <- data[[index]]
 
-  # project
   shape_single_plot <- plots %>%
     dplyr::filter(Name == ignore(id)) %>%
     sf::st_transform("epsg:25830") %>%

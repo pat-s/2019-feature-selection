@@ -1,14 +1,14 @@
 hyperspectral_processing_plan <- drake_plan(
-  data_hs_preprocessed = target(
+  data_hs_preprocessed_paper = target(
     process_hyperspec(
       data = data_hs_raw_paper, plots = plot_locations,
-      name_out = name_out, index = index,
-      id = name_id
+      name_out = name_out_paper, index = index_paper,
+      id = name_id_paper
     )
   ),
 
   ndvi_rasters = target(
-    map(data_hs_preprocessed, ~ HyperSpecRaster(.x, wavelength)) %>%
+    map(data_hs_preprocessed_paper, ~ HyperSpecRaster(.x, wavelength)) %>%
       future_imap(~ vegindex(.x, "NDVI2",
         filename = glue("data/hyperspectral/ndvi/ndvi2-{.y}"),
         bnames = "NDVI"
@@ -16,12 +16,12 @@ hyperspectral_processing_plan <- drake_plan(
   ),
 
   veg_indices = target(
-    map(data_hs_preprocessed, ~ HyperSpecRaster(.x, wavelength)) %>%
+    map(data_hs_preprocessed_paper, ~ HyperSpecRaster(.x, wavelength)) %>%
       calc_veg_indices(indices)
   ),
 
   nri_indices = target(
-    map(data_hs_preprocessed, ~ HyperSpecRaster(.x, wavelength)) %>%
+    map(data_hs_preprocessed_paper, ~ HyperSpecRaster(.x, wavelength)) %>%
       calc_nri_indices(indices)
   ),
 
@@ -48,7 +48,7 @@ hyperspectral_processing_plan <- drake_plan(
       extract_bands_to_plot(plot_names,
         buffer = NULL,
         tree_data = tree_per_tree,
-        hyperspectral_bands = data_hs_preprocessed
+        hyperspectral_bands = data_hs_preprocessed_paper
       )
     ),
     dynamic = cross(
@@ -58,7 +58,7 @@ hyperspectral_processing_plan <- drake_plan(
 
   # spectral signatures for feature-importance.Rmd
   spec_sigs = target({
-    speclibs <- lapply(data_hs_preprocessed[c(
+    speclibs <- lapply(data_hs_preprocessed_paper[c(
       "laukiz1", "laukiz2",
       "luiando", "oiartzun"
     )], hsdar::speclib,

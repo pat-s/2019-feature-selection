@@ -8,12 +8,12 @@ download_data_plan <- drake_plan(
     download_locations("https://zenodo.org/record/3630302/files/plot-locations.gpkg")
   ),
 
-  tree_per_tree = target(
-    download_trees("https://zenodo.org/record/3630302/files/tree-in-situ-data.zip") %>%
-      set_names(c("laukiz1", "laukiz2", "luiando", "oiartzun"))
-  ),
+  # tree_per_tree = target(
+  #   download_trees("https://zenodo.org/record/3630302/files/tree-in-situ-data.zip") %>%
+  #     set_names(c("laukiz1", "laukiz2", "luiando", "oiartzun"))
+  # ),
 
-  tree_per_tree_corrected = target({
+  tree_per_tree = target({
     data_list <- download_trees("https://zenodo.org/record/3630302/files/tree-in-situ-data-corrected.zip") %>%
       map(~ dplyr::rename(., defoliation = DEFOLIATIO)) %>%
       map(~ st_transform(., 32630))
@@ -41,6 +41,10 @@ download_data_plan <- drake_plan(
     )
   ),
 
+  name_id_paper = target(
+    c("Laukiz I", "Laukiz II", "Ayala/Aiara", "Oiartzun")
+  ),
+
   name_out = target(
     c(
       "busturi", "laukiz1", "laukiz2", "laukiz3", "altube", "barazar",
@@ -52,6 +56,17 @@ download_data_plan <- drake_plan(
       "laricio-gatzaga", "azaceta", "gipuzkoa", "sequoia-legorreta",
       "douglas-albiztur"
     )
+  ),
+
+  name_out_paper = target(
+    c("laukiz1", "laukiz2", "luiando", "oiartzun")
+  ),
+
+  # this specifies the index of the list entry which corresponds to the HS
+  # raster of  either laukiz1, laukiz2, luiando or oairtzun processed in
+  # process_hyperspec_helper()
+  index_paper = target(
+    c(1, 1, 3, 2)
   ),
 
   index = target(

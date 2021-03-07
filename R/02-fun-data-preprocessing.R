@@ -18,10 +18,8 @@
 
 clean_single_plots <- function(data, cols_to_drop, remove_coords = FALSE) {
   tmp1 <- data %>%
-    # map(~ tibble::as_tibble(.x)) %<>%
     map(~ dplyr::select(.x, -contains("_ID"))) %>%
     map(~ dplyr::select(.x, -one_of(cols_to_drop)))
-  # map(~ na.omit(.x)) %>% # drops obs with NA
 
   if (remove_coords) {
     tmp1 %<>%
