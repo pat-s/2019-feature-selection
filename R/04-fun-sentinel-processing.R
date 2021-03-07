@@ -95,7 +95,7 @@ stack_bands <- function(records, image_unzip) {
         pattern = ".*_B08_10m.jp2",
         full.names = TRUE
       ) %>%
-      map(~ raster(.)) %>%
+      map(~ raster::brick(.)) %>%
       map(~ raster::aggregate(., fact = 2, fun = mean)) %>%
       stack()
 
@@ -105,7 +105,7 @@ stack_bands <- function(records, image_unzip) {
         pattern = ".*_B(02|03|04|05|06|07|8A|11|12)_20m.jp2",
         full.names = TRUE
       ) %>%
-      map(~ raster(.)) %>%
+      map(~ raster::brick(.)) %>%
       stack()
 
     scenes_60 <-
@@ -115,7 +115,7 @@ stack_bands <- function(records, image_unzip) {
         pattern = ".*_B08_10m.jp2",
         full.names = TRUE
       ) %>%
-      map(~ raster(.)) %>%
+      map(~ raster::brick(.)) %>%
       map(~ raster::aggregate(., fact = 2, fun = mean)) %>%
       stack()
 
@@ -125,7 +125,7 @@ stack_bands <- function(records, image_unzip) {
         pattern = ".*_B(02|03|04|05|06|07|8A|11|12)_20m.jp2",
         full.names = TRUE
       ) %>%
-      map(~ raster(.)) %>%
+      map(~ raster::brick(.)) %>%
       stack()
 
     scenes_60 <-
@@ -134,12 +134,12 @@ stack_bands <- function(records, image_unzip) {
         pattern = ".*_B(01|09)_60m.jp2",
         full.names = TRUE
       ) %>%
-      map(~ raster(.)) %>%
+      map(~ raster::brick(.)) %>%
       map(~ raster::disaggregate(., fact = 3)) %>%
       stack()
 
     ras_stack <-
-      stack(
+      raster::brick(
         scenes_60[[1]],
         scenes_20[[1]],
         scenes_20[[2]],
@@ -154,9 +154,9 @@ stack_bands <- function(records, image_unzip) {
         scenes_20[[9]]
       )
 
-    writeRaster(ras_stack, paste0(
+    raster::writeRaster(ras_stack, paste0(
       "data/sentinel/image_stack/",
-      str_remove(.x, ".SAFE"), ".tif"
+      stringr::str_remove(.x, ".SAFE"), ".tif"
     ),
     overwrite = TRUE
     )
@@ -191,7 +191,7 @@ copy_cloud <- function(records, image_unzip) {
   list(file_cloud_mask, records$filename) %>%
     future_pmap(~ file.copy(.x, paste0(
       "data/sentinel/image_stack/",
-      str_remove(.y, ".SAFE"),
+      stringr::str_remove(.y, ".SAFE"),
       "_cloud_mask.gml"
     )))
 
@@ -300,7 +300,7 @@ mask_mosaic <- function(image_mosaic,
   # Read mosaic
   ras_mosaic_stack <-
     image_mosaic %>%
-    lapply(FUN = raster::stack)
+    lapply(FUN = raster::brick)
 
   # Read cloud mask
   vec_mosaic_cloud_mask <-
@@ -437,12 +437,12 @@ calculate_vi <- function(image) {
   cat(glue::glue("Starting EVI {year}"))
 
   # EVI
-  image_stack <- lapply(image, raster::stack)
+  image_stack <- lapply(image, raster::brick)
   image_stack <- future.apply::future_lapply(image_stack,
     FUN = raster::calc,
     fun = function(x) 2.5 * (x[[8]] / 10000 - x[[4]] / 10000) / ((x[[8]] / 10000 + 6 * x[[4]] / 10000 - 7.5 * x[[2]] / 10000) + 1)
   )
-  image_stack <- raster::stack(image_stack)
+  image_stack <- raster::brick(image_stack)
   image_stack <- raster::calc(image_stack, fun = function(x) mean(x, na.rm = TRUE))
   raster::writeRaster(image_stack, glue::glue("data/sentinel/image_vi/EVI-{year}.tif"),
     overwrite = TRUE
@@ -463,7 +463,7 @@ calculate_vi <- function(image) {
       FUN = raster::calc,
       fun = function(x) ((x[[8]] / 10000)^2 - (x[[4]] / 10000)^2) / ((x[[8]] / 10000)^2 + (x[[4]] / 10000)^2)
     ) %>%
-    raster::stack() %>%
+    raster::brick() %>%
     raster::calc(fun = function(x) mean(x, na.rm = TRUE)) %>%
     raster::writeRaster(glue::glue("data/sentinel/image_vi/GDVI_2-{year}.tif"),
       overwrite = TRUE
@@ -472,12 +472,12 @@ calculate_vi <- function(image) {
   cat(glue::glue("Starting GDVI 3 {year}"))
   # GDVI 3
   image %>%
-    lapply(raster::stack) %>%
+    lapply(raster::brick) %>%
     future.apply::future_lapply(
       FUN = raster::calc,
       fun = function(x) ((x[[8]] / 10000)^3 - (x[[4]] / 10000)^3) / ((x[[8]] / 10000)^3 + (x[[4]] / 10000)^3)
     ) %>%
-    raster::stack() %>%
+    raster::brick() %>%
     raster::calc(fun = function(x) mean(x, na.rm = TRUE)) %>%
     raster::writeRaster(glue::glue("data/sentinel/image_vi/GDVI_3-{year}.tif"),
       overwrite = TRUE
@@ -486,12 +486,12 @@ calculate_vi <- function(image) {
   cat(glue("Starting GDVI 4 {year}"))
   # GDVI 4
   image %>%
-    lapply(raster::stack) %>%
+    lapply(raster::brick) %>%
     future.apply::future_lapply(
       FUN = raster::calc,
       fun = function(x) ((x[[8]] / 10000)^4 - (x[[4]] / 10000)^4) / ((x[[8]] / 10000)^4 + (x[[4]] / 10000)^4)
     ) %>%
-    raster::stack() %>%
+    raster::brick() %>%
     raster::calc(fun = function(x) mean(x, na.rm = TRUE)) %>%
     raster::writeRaster(glue::glue("data/sentinel/image_vi/GDVI_4-{year}.tif"),
       overwrite = TRUE
@@ -500,12 +500,12 @@ calculate_vi <- function(image) {
   cat("Starting mNDVI")
   # mNDVI
   image %>%
-    lapply(raster::stack) %>%
+    lapply(raster::brick) %>%
     future.apply::future_lapply(
       FUN = raster::calc,
       fun = function(x) (x[[8]] / 10000 - x[[4]] / 10000) / (x[[8]] / 10000 + x[[4]] / 10000 - 2 * x[[1]] / 10000)
     ) %>%
-    raster::stack() %>%
+    raster::brick() %>%
     raster::calc(fun = function(x) mean(x, na.rm = TRUE)) %>%
     raster::writeRaster(glue::glue("data/sentinel/image_vi/mNDVI-{year}.tif"),
       overwrite = TRUE
@@ -514,12 +514,12 @@ calculate_vi <- function(image) {
   cat(glue("Starting mSR{year}"))
   # mSR
   image %>%
-    lapply(raster::stack) %>%
+    lapply(raster::brick) %>%
     future.apply::future_lapply(
       FUN = raster::calc,
       fun = function(x) (x[[8]] / 10000 - x[[1]] / 10000) / (x[[4]] / 10000 - x[[1]] / 10000)
     ) %>%
-    raster::stack() %>%
+    raster::brick() %>%
     raster::calc(fun = function(x) mean(x, na.rm = TRUE)) %>%
     raster::writeRaster(glue::glue("data/sentinel/image_vi/mSR-{year}.tif"),
       overwrite = TRUE
@@ -528,12 +528,12 @@ calculate_vi <- function(image) {
   cat(glue("Starting D1 {year}"))
   # D1
   image %>%
-    lapply(raster::stack) %>%
+    lapply(raster::brick) %>%
     future.apply::future_lapply(
       FUN = raster::calc,
       fun = function(x) (x[[7]] / 10000) / (x[[5]] / 10000)
     ) %>%
-    raster::stack() %>%
+    raster::brick() %>%
     raster::calc(fun = function(x) mean(x, na.rm = TRUE)) %>%
     raster::writeRaster(glue::glue("data/sentinel/image_vi/D1-{year}.tif"),
       overwrite = TRUE

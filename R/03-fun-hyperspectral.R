@@ -37,7 +37,7 @@ process_hyperspec <- function(data, id, index, plots, name_out) {
 
   # write to disk as otherwise it will be stored as a tmp file that is not
   # accessible later on
-  purrr::iwalk(out, ~ raster::writeRaster(.x, 
+  purrr::iwalk(out, ~ raster::writeRaster(.x,
     glue::glue("data/raster/hs-preprocessed/hs-preprocessed-{.y}"),
     overwrite = TRUE
   ))
@@ -47,7 +47,7 @@ process_hyperspec <- function(data, id, index, plots, name_out) {
   out <- purrr::map(list.files("data/raster/hs-preprocessed/",
     pattern = ".grd",
     full.names = TRUE
-  ), ~ raster::brick(.x, crs = 25830))
+  ), ~ raster::brick(.x))
 
   out %<>% purrr::set_names(sort(name_out))
 
@@ -59,10 +59,10 @@ process_hyperspec_helper <- function(data, id, index, plots, name_out) {
   image <- data[[index]]
 
   # project
-  plots %>%
+  shape_single_plot <- plots %>%
     dplyr::filter(Name == ignore(id)) %>%
-    sf::st_transform(25830) %>%
-    as("Spatial") -> shape_single_plot
+    sf::st_transform("epsg:25830") %>%
+    as("Spatial")
 
   image_masked <- image %>%
     raster::crop(shape_single_plot) %>%
@@ -93,11 +93,10 @@ extract_indices_to_plot <- function(plot_name,
                                     tree_data,
                                     veg_indices,
                                     nri_indices) {
-
   veg_out <- list(
     raster::extract(veg_indices[[plot_name]],
-      tree_data[[plot_name]],
-      buffer = buffer,
+      tree_data_spatstat[[plot_name]],
+      method = "bilinear",
       fun = mean,
       df = TRUE,
       na.rm = TRUE
@@ -107,26 +106,29 @@ extract_indices_to_plot <- function(plot_name,
   nbi_out <- list(
     raster::extract(nri_indices[[plot_name]],
       tree_data[[plot_name]],
-      buffer = buffer,
-      fun = mean, df = TRUE,
+      method = "bilinear",
+      fun = mean,
+      df = TRUE,
       na.rm = TRUE
     )
   )
+
+  # coerce to data.frame
 
   # make the following work by giving buffer a value
   if (is.null(buffer)) {
     buffer <- 1
   }
 
-  veg_out %<>%
-    purrr::map2(seq_along(buffer), ~ setNames(.x, glue::glue("bf{buffer}_{name}",
-      name = names(veg_out[[.y]])
-    )))
-
-  nbi_out %<>%
-    purrr::map2(seq_along(buffer), ~ setNames(.x, glue::glue("bf{buffer}_{name}",
-      name = names(nbi_out[[.y]])
-    )))
+  # veg_out %<>%
+  #   purrr::map2(seq_along(buffer), ~ setNames(.x, glue::glue("bf{buffer}_{name}",
+  #     name = names(veg_out[[.y]])
+  #   )))
+  #
+  # nbi_out %<>%
+  #   purrr::map2(seq_along(buffer), ~ setNames(.x, glue::glue("bf{buffer}_{name}",
+  #     name = names(nbi_out[[.y]])
+  #   )))
 
   # merge all data frames (buffers)
   all_veg <- dplyr::bind_cols(veg_out)

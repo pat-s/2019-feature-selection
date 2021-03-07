@@ -71,6 +71,7 @@ hyperspectral_processing_plan <- drake_plan(
   buffer = c(1, 2, 3),
   plot_names = c("laukiz1", "laukiz2", "luiando", "oiartzun"),
 
+  # this target contains multiple buffers (!)
   trees_with_indices_corrected_buffer2 = target(
     list(
       extract_indices_to_plot(plot_names,
@@ -82,6 +83,20 @@ hyperspectral_processing_plan <- drake_plan(
     ),
     dynamic = cross(
       buffer, plot_names
+    )
+  ),
+
+  trees_with_indices_corrected_buffer07 = target(
+    list(
+      extract_indices_to_plot(plot_names,
+        buffer = 0.7,
+        tree_data = tree_per_tree_corrected,
+        veg_indices = veg_indices,
+        nri_indices = nri_indices
+      )
+    ),
+    dynamic = cross(
+      plot_names
     )
   ),
 
@@ -107,6 +122,19 @@ hyperspectral_processing_plan <- drake_plan(
     ),
     dynamic = cross(
       buffer, plot_names
+    )
+  ),
+
+  trees_with_bands_corrected_buffer07 = target(
+    list(
+      extract_bands_to_plot(plot_names,
+        buffer = 0.7,
+        tree_data = tree_per_tree_corrected,
+        hyperspectral_bands = data_hs_preprocessed
+      )
+    ),
+    dynamic = cross(
+      plot_names
     )
   ),
 
@@ -136,7 +164,7 @@ hyperspectral_processing_plan <- drake_plan(
         scale = max(x, na.rm = TRUE) / 2
       )
     })
-    spec_sig_num_scale_df = purrr::map_dfc(spec_sig_num_scale, cbind) %>%
+    spec_sig_num_scale_df <- purrr::map_dfc(spec_sig_num_scale, cbind) %>%
       set_colnames(c(
         "laukiz1", "laukiz2",
         "luiando", "oiartzun"

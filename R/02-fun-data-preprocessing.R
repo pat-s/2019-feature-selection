@@ -17,18 +17,29 @@
 #' @export
 
 clean_single_plots <- function(data, cols_to_drop, remove_coords = FALSE) {
-  data %<>%
-    map(~ as_tibble(.x)) %<>%
+  tmp1 <- data %>%
+    # map(~ tibble::as_tibble(.x)) %<>%
     map(~ dplyr::select(.x, -contains("_ID"))) %>%
-    map(~ dplyr::select(.x, -one_of(cols_to_drop))) %>%
-    map(~ select_if(.x, function(x) !any(is.na(x)))) # select all variables without NA
+    map(~ dplyr::select(.x, -one_of(cols_to_drop)))
+  # map(~ na.omit(.x)) %>% # drops obs with NA
 
   if (remove_coords) {
-    data %<>%
-      map(~ st_as_sf(.x, crs = 32630, coords = c("x", "y"))) %>%
-      map(~ st_set_geometry(.x, NULL))
+    tmp1 %<>%
+      map(~ sf::st_as_sf(.x, crs = 32630, coords = c("x", "y"))) %>%
+      map(~ sf::st_set_geometry(.x, NULL))
   }
-  return(data)
+
+  ### NAs
+  # with buffer = 0.7 we get one obs with NA for Oiartzun
+  # with buffers >= 1 we get no NAs in any plot
+  tmp2 <- tmp1 %>%
+    map(~ imputeTS::na_mean(.x)) %>% # impute NA
+    map(~ Filter(function(x) !any(is.na(x)), .x)) # select all variables without NA
+
+  # the base R impl above is way faster than dplyr here
+  # map(~ dplyr::select_if(.x, function(x) !any(is.na(x))))
+
+  return(tmp2)
 }
 
 # @details
