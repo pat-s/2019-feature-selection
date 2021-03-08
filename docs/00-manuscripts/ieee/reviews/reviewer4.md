@@ -12,13 +12,16 @@ We think that this manuscript might suffer from this potentially due to the repo
 Model accuracies depend on many factors (data, algorithm, preprocessing) and are therefore naturally limited by these factors.
 We believe that a correct methodology is more important than the overall achieved accuracy.
 
-We also agree that the image acquisition date may not be ideal with respect to phenology. As so often, the actual date was not entirely controlled by phenological considerations, but it got delayed due to the timing of project funding and other practical constraints. Nevertheless, the results do show that the data is useful for the purpose for which it was acquired.
+We also agree that the image acquisition date may not be ideal with respect to phenology.
+As so often, the actual date was not entirely controlled by phenological considerations, but it got delayed due to the timing of project funding and other practical constraints.
+Nevertheless, the results do show that the data is useful for the purpose for which it was acquired.
 We discuss this point in section "Data quality".
 
 The use of segmentation techniques is also an interesting recommendation.
 We agree that applying a tree-crown segmentation first could potentially increase the accuracy of some models.
 However, the actual effect of such a preprocessing would be unclear and make the study more complex, involving additional hyperparameters that control the behaviour of the segmentation algorithm.
-In addition it would draw the focus away from the actual main points of the study - the comparison of (ensemble) filter-based feature selection methods in combination with narrow-band remote sensing data. We therefore consider this an excellent recommendation for future work, and in particular for the application of the proposed techniques to more heterogeneous stands.
+In addition it would draw the focus away from the actual main points of the study - the comparison of (ensemble) filter-based feature selection methods in combination with narrow-band remote sensing data.
+We therefore consider this an excellent recommendation for future work, and in particular for the application of the proposed techniques to more heterogeneous stands.
 
 We have also added another paragraph mentioning potential data issues leading to reduced performances in the discussion:
 
@@ -71,7 +74,9 @@ The output of this procedure was reflectance from the target pixel scaled betwee
 
 > - Please provide information on in-situ data. How was the defoliation measured? Is there an estimation error included?
 
-Defoliation was assessed visually by experienced forest pahologists supervised by E. Iturritxa. Values were recorded at three levels of the tree in 5-percent intervals. These three values were averaged to obtain an overall percentage.
+Defoliation was assessed visually by experienced forest pahologists supervised by E. Iturritxa (co-author).
+Values were recorded at three levels of the tree in 5-percent intervals.
+These three values were averaged to obtain an overall percentage.
 No estimation error was recorded.
 We added this information to the section describing the in-situ data.
 
@@ -99,14 +104,18 @@ The issue is with the potential offset of the hyperspectral image of up to 1 m, 
 
 We would like to thank the reviewer for pointing out the existence of alternative base formulas for NRI calculation.
 In general the NRI concept is based on the "Optimized multiple narrow-band reflectance" (OMNBR) approach by [Thenkabail et al. (2000)](thenkabail2000) and also described in [Thenkabail et al 2018](https://www.taylorfrancis.com/books/hyperspectral-indices-image-classifications-agriculture-vegetation-prasad-thenkabail-john-lyon-alfredo-huete/e/10.1201/9781315159331).
-One reason to use the NDVI-type index formulation for NRI calculation was its availability in the R package [{hsdar}](https://cran.r-project.org/web/packages/hsdar/index.html) in the function [nri()](https://rdrr.io/cran/hsdar/man/normalized.ratio.index.html). Other indices, e.g. obtained by simple ratioing, would be expected to be very strongly correlated with the corresponding NRIs. Corresponding the already remarkably high dimensionality of feature space, it would be less likely that such further enhancement of feature space would lead to any improvements. Our data and code are of course available for follow-up studies that might focus on different feature extraction strategies.
+One reason to use the NDVI-type index formulation for NRI calculation was its availability in the R package [{hsdar}](https://cran.r-project.org/web/packages/hsdar/index.html) in the function [nri()](https://rdrr.io/cran/hsdar/man/normalized.ratio.index.html).
+Other indices, e.g. obtained by simple ratioing, would be expected to be very strongly correlated with the corresponding NRIs.
+Corresponding the already remarkably high dimensionality of feature space, it would be less likely that such further enhancement of feature space would lead to any improvements.
+Our data and code are of course available for follow-up studies that might focus on different feature extraction strategies.
 
 > - The RMSE alone is not a good quality measure, since it is highly dependent on the variance of the sample (as the authors describe themselves in the manuscript). Please supplement this measure with another one, e.g. R² (but there are more sophisticated ones around) to evaluate the quality of your results.
 
 FIXME: schauen was bei r-sq im neuen run raus kommt.
 Thanks for suggesting to take another look at the chosen measure(s).
 We have chosen RMSE as it is defined in the unit of the response variable and the resulting value can therefore be interpreted by domain experts.
-In contrast the $R^2$ shows how much variance of the response variable has been explained by the model and might be more complex to interpret in the current case. It may also be problematic to average $R^2$ values across multiple cross-validation test sets since each of them has a different variance of the response variable, which changes the denominator of $R^2$ between test sets.
+In contrast the $R^2$ shows how much variance of the response variable has been explained by the model and might be more complex to interpret in the current case.
+It may also be problematic to average $R^2$ values across multiple cross-validation test sets since each of them has a different variance of the response variable, which changes the denominator of $R^2$ between test sets.
 Nevertheless we have added the $R^2$ values for the best performing models to supplement the RMSE measure.
 
 > - Moreover, I would suggest to show a few scatterplots (Observed vs predicted) of the models, e.g. from the best performing combination, to show effects, such as clustering of values or over/underprediction.
