@@ -98,7 +98,7 @@ extract_indices_to_plot <- function(plot_name,
   veg_out <- list(
     raster::extract(veg_indices[[plot_name]],
       tree_data[[plot_name]],
-      method = "bilinear",
+      buffer = 1,
       fun = mean,
       df = TRUE,
       na.rm = TRUE
@@ -108,7 +108,7 @@ extract_indices_to_plot <- function(plot_name,
   nbi_out <- list(
     raster::extract(nri_indices[[plot_name]],
       tree_data[[plot_name]],
-      method = "bilinear",
+      buffer = 1,
       fun = mean,
       df = TRUE,
       na.rm = TRUE
