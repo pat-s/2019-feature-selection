@@ -350,7 +350,8 @@ Oiartzun has the most observations (n = 559) while Laukiz2 shows the largest are
 All plots besides Luiando are located within 100 km from the coast (\autoref{fig:study_area}).
 In total 1808 observations are available (Laukiz1 = 559, Laukiz2 = 451, Luiando = 301, Oiartzun = 497).
 Field surveys were conducted in September 2016.
-Defoliation was measured via visual inspection using 5\% intervals.
+Defoliation was assessed visually in the field by experienced forest pathologists using an established field protocol.
+Values were recorded at three levels of the tree and combined into an overall percentage.
 No estimation error was recorded.
 
 \begin{figure*} [ht!]
@@ -403,18 +404,18 @@ Additional metadata information is available in \autoref{tab:hyperparameter_meta
 
 \subsection{Derivation of indices}
 
-To use the full potential of the hyperspectral data, all possible vegetation indices supported by the R package hsdar (89 in total) as well as all possible \ac{NRI} combinations were calculated.
+To use the full potential of the hyperspectral data, all possible vegetation indices supported by the R package hsdar (89 in total) as well as all possible \ac{NRI}s were calculated.
 
 NRIs follow the \ac{OMNBR} concept of data-driven information extraction from narrow-band indices of hyperspectral data \cite{thenkabail2000,thenkabail2018}.
-In principal any index can be used for this data-driven concept.
-Due to the popularity of the NDVI index in vegetation applications and the availability of this index in the \texttt{nri()} function of the \texttt{hsdar} R package, the following formula was applied to every available band combination:
+While various index formulations such as band ratios or normalized ratios are available, indices involving the same bands are strongly correlated.
+Since the widely-used NDVI index belongs to the family of normalized ratio indices (NRIs), which are implemented in the \texttt{hsdar} R package, we used the following NDI formula to combine all pairs of reflectances:
 
 \begin{equation}
 	NRI_{i,j} = \frac{band_{i} - band_{j}}{band_{i} + band_{j}}
 \end{equation}
 
 \noindent
-with \(i\) and \(j\) being the respective band numbers.
+where \(i\) and \(j\) are the respective band numbers.
 
 \bigbreak{}
 
@@ -784,7 +785,7 @@ This applied to all learners of this study.
 The overall performance achieved in this study can be classified as "fair".
 
 In addition, data quality issues (\autoref{subsec:data-quality}) might have an influence on model performances.
-These include the timing of the acquisition of the hyperspectral data (late phenological phase), field measurement errors when surveying defoliation, the influence of background reflectance (e.g. soil reflectance) and the possible geometrical offset of trees in the field.
+These include the timing of the acquisition of the hyperspectral data (late phenological phase), field measurement errors when surveying defoliation, the influence of background reflectance (e.g. soil reflectance) and the possible positional offset of measured GPS coordinates of trees.
 
 \subsubsection{Model differences}
 
@@ -1218,7 +1219,16 @@ This work was funded by the EU LIFE Healthy Forest project (LIFE14 ENV/ES/000179
 
 \section{Radiometric, Geometric and Atmospheric correction of hyperspectral data}
 
-The following information was provided externally by the company which was in charge for the image acquisition and preprocessing of the data.
+The following information was provided by the Institut Carogràfic i Geològic de Catalunya, which was in charge of image acquisition and data preprocessing.
+
+
+\textbf{Sensor Characteristics}
+
+\begin{quote}
+The AISA EAGLE-II sensor was used for airborne image acquisition with a field of view of 37.7°.
+Its spectral resolution is 2.4 nm in the range from 400 to 1000 nm.
+\end{quote}
+
 
 \textbf{Radiometric Correction}
 
@@ -1242,12 +1252,12 @@ The ortorectified hyperspectral images were compared to orthoimages 1:5000 of Ge
 \textbf{Atmospheric Correction}
 
 \begin{quote}
-The radiance measured by and instrument depends on the illumination geometry and the reflective properties of the observed surface.
+The radiance measured by an instrument depends on the illumination geometry and the reflective properties of the observed surface.
 Radiation may be absorbed or scattered (Rayleigh and Mie scattering). Scattering is responsible of the adjacency effect, i.e., radiation coming from neighbors areas to the target pixel.
 The MODTRAN code was used to modelling the effect of the atmosphere on the radiation.
-To represent the aerosols of the study area it was used the rural model, and the optical thickness was estimated on pixels with a high vegetation cover.
+To represent the aerosols of the study area the rural model was used, and the optical thickness was estimated on pixels with a high vegetation cover.
 Columnar water vapor was estimated by a linear regression ratio where the spectral radiance of each pixel at the band of the maximum water absorption (~906 nm) is compared to its theoretical value in absence of absorption. Nonetheless, this technique is unreliable when a spectral resolution as the one required here is used.
-To solve that, a manual selection of the water vapor parameter was made according to the smoothness observed on the reflectance peak at 960 nm.
+To resolve this, the water vapor parameter was selected manually according to the smoothness observed on the reflectance peak at 960 nm.
 The mid-latitude summer atmosphere model was also used.
 The output of this procedure was reflectance from the target pixel scaled between 0 and 10,000.
 \end{quote}

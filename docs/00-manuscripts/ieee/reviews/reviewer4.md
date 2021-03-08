@@ -6,28 +6,27 @@ Although the general idea of the paper is sound, some major methodological and t
 > My main concerns are the general spatial relation of in-situ measurements with the hyperspectral imagery, which appears to be inconsistent as well as the overall performance of all models (RMSE of max. 28 %). With such low accuracies it should be thought of the wrong timing of the data acquisition (September to October – very late in the phenological phase to detect defoliation; + low sun angle in the northern hemisphere) as well as a strange sampling of trees (buffer of 2 meters instead of a proper segmentation or linear delineation). From the point of view of applied forestry, these issues have to be solved to gain a consistent and meaningful result, before tuning and comparing filters or ML algorithms.
 
 Thanks for reviewing our manuscript and sharing your expertise with us.
-We agree that the overall accuracies obtained across all models is not groundbreaking.
-However, we also believe that "success-bias" is a major issue in science which leads to rejection of studies due to low/fair accuracies of models.
+We agree that the predictive performances obtained are not overwhelming, and certainly lower than expected.
+However, we also believe that "success bias" is a major issue in science which leads to rejection of studies due to low/fair accuracies of models.
 We think that this manuscript might suffer from this potentially due to the reported accuracies which might lead to the feeling of an "unsuccessful" study.
 Model accuracies depend on many factors (data, algorithm, preprocessing) and are therefore naturally limited by these factors.
 We believe that a correct methodology is more important than the overall achieved accuracy.
 
-We also agree that the sampling time of the in-situ data might be problematic with respect to phenology.
-Therefore we discussed this point in section "Data quality".
-Nevertheless, this was the data which was available and which, in our view, is good enough to conduct the presented analysis.
+We also agree that the image acquisition date may not be ideal with respect to phenology.
+As so often, the actual date was not entirely controlled by phenological considerations, but it got delayed due to the timing of project funding and other practical constraints.
+Nevertheless, the results do show that the data is useful for the purpose for which it was acquired.
+We discuss this point in section "Data quality".
 
-Thank you suggestion to use segmentation.
+The use of segmentation techniques is also an interesting recommendation.
 We agree that applying a tree-crown segmentation first could potentially increase the accuracy of some models.
-However, the actual effect of such a preprocessing would be unclear and make the study more complex.
-In addition it would pull away focus from the actual main points of the study - the comparison of (ensemble) filter-based feature selection methods in combination with narrow-band remote sensing data.
-
-Last, we would like to point out that the main focus of this manuscript is about the comparison of filter methods - in a multi-algorithm setting based on hyperspectral data.
-It might not fulfill highest standards with respect to data quality from an applied forestry point of view.
+However, the actual effect of such a preprocessing would be unclear and make the study more complex, involving additional hyperparameters that control the behaviour of the segmentation algorithm.
+In addition it would draw the focus away from the actual main points of the study - the comparison of (ensemble) filter-based feature selection methods in combination with narrow-band remote sensing data.
+We therefore consider this an excellent recommendation for future work, and in particular for the application of the proposed techniques to more heterogeneous stands.
 
 We have also added another paragraph mentioning potential data issues leading to reduced performances in the discussion:
 
 "In addition, data quality issues might have an influence on model performances.
-These include the timing of the acquisition of the hyperspectral data (late phenological phase), field measurement errors when surveying defoliation, the influence of background reflectance (e.g. soil reflectance) and the possible geometrical offset of trees in the field."
+These include the timing of the acquisition of the hyperspectral data (late phenological phase), field measurement errors when surveying defoliation, the influence of background reflectance (e.g. soil reflectance) and the possible positional offset of measured GPS coordinates of trees."
 
 We very much hope that the reviewer will be satisfied with our responses and the changes made to the manuscript to address the comments and openly communicate any remaining uncertainties.
 
@@ -37,8 +36,14 @@ We very much hope that the reviewer will be satisfied with our responses and the
 > - Please proved more information of the hyperspectral data-set. How was the radiometric, atmospheric and geometric correction done? Why two acquisition dates?
 
 We agree that this is an important metadata information.
-Note that these preprocessing tasks were done externally and not by ourselves.
-Because we think that this detailed information on data preprocessing might extend the data section too much, we decided to add this information into appendix F.
+Note that these preprocessing tasks were done externally by an experienced, specialized service provider (Institut Cartogràfic i Geològic de Catalunya).
+Because we think that this detailed information on data preprocessing might extend the data section too much, we decided to add it to appendix F.
+
+**Sensor Characteristics**
+
+The AisaEAGLE II sensor was used for airborne image acquisition with a field of view of 37.7°.
+Its spectral resolution is 2.4 nm in the range from 400 to 1000 nm.
+
 
 **Radiometric Correction**
 
@@ -54,12 +59,12 @@ The ortorectified hyperspectral images were compared to orthoimages 1:5000 of Ge
 
 **Atmospheric Correction**
 
-"The radiance measured by and instrument depends on the illumination geometry and the reflective properties of the observed surface.
+"The radiance measured by an instrument depends on the illumination geometry and the reflective properties of the observed surface.
 Radiation may be absorbed or scattered (Rayleigh and Mie scattering). Scattering is responsible of the adjacency effect, i.e., radiation coming from neighbors areas to the target pixel.
 The MODTRAN code was used to modelling the effect of the atmosphere on the radiation.
-To represent the aerosols of the study area it was used the rural model, and the optical thickness was estimated on pixels with a high vegetation cover.
+To represent the aerosols of the study area the rural model was used, and the optical thickness was estimated on pixels with a high vegetation cover.
 Columnar water vapor was estimated by a linear regression ratio where the spectral radiance of each pixel at the band of the maximum water absorption (~906 nm) is compared to its theoretical value in absence of absorption. Nonetheless, this technique is unreliable when a spectral resolution as the one required here is used.
-To solve that, a manual selection of the water vapor parameter was made according to the smoothness observed on the reflectance peak at 960 nm.
+To resolve this, the water vapor parameter was selected manually according to the smoothness observed on the reflectance peak at 960 nm.
 The mid-latitude summer atmosphere model was also used.
 The output of this procedure was reflectance from the target pixel scaled between 0 and 10,000."
 
@@ -69,7 +74,9 @@ The output of this procedure was reflectance from the target pixel scaled betwee
 
 > - Please provide information on in-situ data. How was the defoliation measured? Is there an estimation error included?
 
-Defoliation was measured via visual inspection in the field using 5% intervals.
+Defoliation was assessed visually by experienced forest pahologists supervised by E. Iturritxa (co-author).
+Values were recorded at three levels of the tree in 5-percent intervals.
+These three values were averaged to obtain an overall percentage.
 No estimation error was recorded.
 We added this information to the section describing the in-situ data.
 
@@ -78,9 +85,11 @@ We added this information to the section describing the in-situ data.
 Thanks for pointing this out.
 It is true that the use of a buffer (or in fact the existence of a geometric offset) provides discussion potential in this work.
 There were long discussions among the authors if and how to tackle this problem.
-Not doing anything would have pushed the risk of including pixels without any tree information at all (e.g. bare ground).
-Including such false positives would have an substantial influence for the model due to the apparent difference of bare ground pixels compared to vegetation pixels.
-Therefore we concluded to use a buffer and by this to average the values of the neighboring pixels of each tree observation.
+<!--
+Not doing anything would have increased the risk of including pixels without any tree information at all (e.g. bare ground).
+Including such false positives would have a substantial influence for the model due to the strong difference of bare ground pixels compared to vegetation pixels.
+-->
+We concluded to use a buffer and by this to average the values of the neighboring pixels of each tree observation.
 We are aware that this blurs the extracted value to some degree but might as well prevent from including pure non-tree pixels.
 We also did a small exploratory analysis on the effect of the buffer size: https://pat-s.github.io/2019-feature-selection/eda.html#effects-of-different-buffer-sizes-when-extracting-values-to-trees.
 However we decided not to include this figure into the paper as no clear results can be drawn from it.
@@ -89,22 +98,25 @@ Additionally it would mainly cause more guessing and move focus away from the ma
 We think that there might not be a perfect solution to this and all proposed ones (including doing nothing at all) will have some downside.
 With respect to the suggestion to use segmentation: we agree that this would be an interesting option.
 However note that there is no problem identifying the trees or their exact location.
-The issue is with the potential offset of the hyperspectral image of up to 1m, possibly resulting in a non-match of tree and its actual corresponding pixel.
+The issue is with the potential offset of the hyperspectral image of up to 1 m, possibly resulting in a non-match of a tree point and its actual corresponding pixel.
 
 > - As the equation of the NRIs , the generic term of the normalized indices is used (NDVI). However, there is a variety of other structured types of indices – please justify your choice.
 
 We would like to thank the reviewer for pointing out the existence of alternative base formulas for NRI calculation.
 In general the NRI concept is based on the "Optimized multiple narrow-band reflectance" (OMNBR) approach by [Thenkabail et al. (2000)](thenkabail2000) and also described in [Thenkabail et al 2018](https://www.taylorfrancis.com/books/hyperspectral-indices-image-classifications-agriculture-vegetation-prasad-thenkabail-john-lyon-alfredo-huete/e/10.1201/9781315159331).
-One reasons to use the NDVI base as the index for NRI calculation was the availability in the R package [{hsdar}](https://cran.r-project.org/web/packages/hsdar/index.html) in the function [nri()](https://rdrr.io/cran/hsdar/man/normalized.ratio.index.html) which uses the NDVI-index as the base.
-The use of NRI indices was thought as an addition to the existing feature sets (HR and VI) and using only a generic NDVI formula as the base was sufficient in our view.
+One reason to use the NDVI-type index formulation for NRI calculation was its availability in the R package [{hsdar}](https://cran.r-project.org/web/packages/hsdar/index.html) in the function [nri()](https://rdrr.io/cran/hsdar/man/normalized.ratio.index.html).
+Other indices, e.g. obtained by simple ratioing, would be expected to be very strongly correlated with the corresponding NRIs.
+Corresponding the already remarkably high dimensionality of feature space, it would be less likely that such further enhancement of feature space would lead to any improvements.
+Our data and code are of course available for follow-up studies that might focus on different feature extraction strategies.
 
 > - The RMSE alone is not a good quality measure, since it is highly dependent on the variance of the sample (as the authors describe themselves in the manuscript). Please supplement this measure with another one, e.g. R² (but there are more sophisticated ones around) to evaluate the quality of your results.
 
 FIXME: schauen was bei r-sq im neuen run raus kommt.
 Thanks for suggesting to take another look at the chosen measure(s).
-We have chosen RMSE as it is defined in the unit of the response variable and the resulting value can be interpreted in a somewhat meaningful way.
-In contrast r-sq shows how much variance of the response variable has been explained by the model and might be more complex to interpret in the current case.
-Nevertheless we have added the r-sq values for the best performing models to supplement the RMSE measure.
+We have chosen RMSE as it is defined in the unit of the response variable and the resulting value can therefore be interpreted by domain experts.
+In contrast the $R^2$ shows how much variance of the response variable has been explained by the model and might be more complex to interpret in the current case.
+It may also be problematic to average $R^2$ values across multiple cross-validation test sets since each of them has a different variance of the response variable, which changes the denominator of $R^2$ between test sets.
+Nevertheless we have added the $R^2$ values for the best performing models to supplement the RMSE measure.
 
 > - Moreover, I would suggest to show a few scatterplots (Observed vs predicted) of the models, e.g. from the best performing combination, to show effects, such as clustering of values or over/underprediction.
 
@@ -150,7 +162,7 @@ Moreover this would double the amount of datasets and hence the models to be fit
 
 > - V.E: You should at least mention that a multi-temporal data-set might have a huge advantage + the SWIR bands are missing, which are mentioned in the body of literature of forest diseases as highly important.
 
-Thanks for discussing the importance of the sensors wavelength range.
+Thanks for discussing the importance of the sensor's wavelength range.
 We agree that bands in the SWIR region could help in this study and in general when working with vegetation data.
 A multi-temporal dataset consisting of matching RS and ground-truth information might also help to enhance the performance of models in such scenarios, especially if different phenology stages are included.
 We have added a paragraph which discussed this shortcoming in section "Data Quality":
