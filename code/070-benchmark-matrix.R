@@ -29,7 +29,7 @@ benchmark_plan <- drake_plan(
         setAggregation(expvar, test.mean)
       )
     ),
-    dynamic = cross(tune_wrappers_mbo_xg, task_reduced_cor),
+    dynamic = cross(tune_wrappers_mbo_xg, task_reduced_cor[[2]]),
     resources = list(ncpus = 4, memory = 3500, njobs = 174)
   ),
 

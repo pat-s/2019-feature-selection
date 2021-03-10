@@ -4,7 +4,7 @@ param_sets_plan <- drake_plan(
   ps_xgboost_filter = target(
     # https://machinelearningmastery.com/configure-gradient-boosting-algorithm/
     makeParamSet(
-      makeNumericParam("eta", lower = 0.001, upper = 0.1),
+      makeNumericParam("eta", lower = 0.1, upper = 1),
       makeNumericParam("gamma", lower = 0.05, upper = 10),
       makeIntegerParam("max_depth", lower = 3, upper = 25),
       makeNumericParam("min_child_weight", lower = 1, upper = 7),
@@ -19,7 +19,7 @@ param_sets_plan <- drake_plan(
 
   ps_xgboost = target(
     makeParamSet(
-      makeNumericParam("eta", lower = 0.001, upper = 0.1),
+      makeNumericParam("eta", lower = 0.1, upper = 1),
       makeNumericParam("gamma", lower = 0.05, upper = 10),
       makeIntegerParam("max_depth", lower = 3, upper = 25),
       makeNumericParam("min_child_weight", lower = 1, upper = 7),
@@ -33,7 +33,7 @@ param_sets_plan <- drake_plan(
 
   ps_xgboost_pca = target(
     makeParamSet(
-      makeNumericParam("eta", lower = 0.001, upper = 0.1),
+      makeNumericParam("eta", lower = 0.1, upper = 1),
       makeNumericParam("gamma", lower = 0.05, upper = 10),
       makeIntegerParam("max_depth", lower = 3, upper = 25),
       makeNumericParam("min_child_weight", lower = 1, upper = 7),

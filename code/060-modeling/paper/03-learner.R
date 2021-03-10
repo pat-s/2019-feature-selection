@@ -14,7 +14,8 @@ learners_plan <- drake_plan(
       "regr.xgboost",
       par.vals = list(
         objective = "reg:squarederror",
-        eval_metric = "error"
+        eval_metric = "error",
+        grow_policy = "lossguide" # https://towardsdatascience.com/build-xgboost-lightgbm-models-on-large-datasets-what-are-the-possible-solutions-bf882da2c27d
       )
     )
   ),
