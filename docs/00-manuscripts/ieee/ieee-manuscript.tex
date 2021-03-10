@@ -627,15 +627,15 @@ The less PCs are needed to reach a high proportion of variance explained the mor
 Hence, a high intra-feature correlation can be observed for feature set HR which reaches 98\% with only two PCs.
 Feature sets NRI and VI are more diverse and require four (NRI) and five (VI) PCs to explain 90\% of the variance in the data, respectively.
 
-\begin{figure} [t!]
-	\centering
-	\begin{center}
-		\includegraphics[width=0.48\textwidth] {pca-pov-comparison-1.pdf}
-		\caption{Proportion of variance explained by a Principal Component Analysis for all feature sets.
-		To show at least 2 PC for every feature set, the target POV was set to 98\% for VI and NRI and to 90\% for HR.}
-		\label{fig:pca-pov}
-	\end{center}
-\end{figure}
+% \begin{figure} [t!]
+% 	\centering
+% 	\begin{center}
+% 		\includegraphics[width=0.48\textwidth] {pca-pov-comparison-1.pdf}
+% 		\caption{Proportion of variance explained by a Principal Component Analysis for all feature sets.
+% 		To show at least 2 PC for every feature set, the target POV was set to 98\% for VI and NRI and to 90\% for HR.}
+% 		\label{fig:pca-pov}
+% 	\end{center}
+% \end{figure}
 
 \subsection{Predictive performance}
 
@@ -1221,52 +1221,36 @@ This work was funded by the EU LIFE Healthy Forest project (LIFE14 ENV/ES/000179
 
 The following information was provided by the Institut Carogràfic i Geològic de Catalunya, which was in charge of image acquisition and data preprocessing.
 
-
-\textbf{Sensor Characteristics}
-
-\begin{quote}
 The AISA EAGLE-II sensor was used for airborne image acquisition with a field of view of 37.7°.
-Its spectral resolution is 2.4 nm in the range from 400 to 1000 nm.
-\end{quote}
+Its spectral resolution is 2.4 nm and ranged from 400 to 1000 nm.
 
+The conversion of Digital Numbers (DN) to spectral radiance was made by using a software designed for the instrument.
+Images were originally scaled in 12 bits but were radiometrically calibrated to 16 bits, reserving the highest value (65535) for null values.
+The procedure was applied to the 23 previously selected images.
+Last, the geometric and atmospheric corrections were applied to the images.
 
-\textbf{Radiometric Correction}
-
-\begin{quote}
-The conversion of DNs to spectral radiance was made by using a software designed for the instrument.
-Images are originally scaled in 12 bits but they were radiometrically calibrated to 16 bits, reserving the highest value: 65535, for null values.
-The procedure was applied on the 23 previously selected images.
-Thereafter, the geometric and atmospheric corrections were further applied on them.
-\end{quote}
-
-\textbf{Geometric Correction}
-
-\begin{quote}
 The aim of this procedure was to reduce the positional errors of the images.
-The cartography of reference was GeoEuskadi, UTM, zone 30, datum ETRS-89.
-The position was accomplished by coupling an Applanix POS AV 410 system to the sensor, which integrates GPS and IMU systems.
-The system provides geographic coordinates of the terrain and relative coordinates of the aircraft (attitude) at each scanned line. Additionally a DSM from GeoEuskadi with a spatial resolution of 1 m was used.
-The ortorectified hyperspectral images were compared to orthoimages 1:5000 of GeoEuskadi and the RMSE was calculated, which was below the GSD in the across and along track directions
-\end{quote}
+The cartographic reference system in use was EPSG 25830.
+Positioning was done by coupling an Applanix POS AV 410 system to the sensor, integrating GPS and IMU systems.
+The system provides geographic coordinates of the terrain and relative coordinates of the aircraft (attitude) at each scanned line.
+Additionally a DSM from GeoEuskadi with a spatial resolution of 1 m was used.
+The ortorectified hyperspectral images were compared to orthoimages (1:5000) from GeoEuskadi.
+This comparison was used as the base to calculate RMSE, which was below the ground sampling distance in the across and along track directions.
 
-\textbf{Atmospheric Correction}
-
-\begin{quote}
 The radiance measured by an instrument depends on the illumination geometry and the reflective properties of the observed surface.
-Radiation may be absorbed or scattered (Rayleigh and Mie scattering). Scattering is responsible of the adjacency effect, i.e., radiation coming from neighbors areas to the target pixel.
-The MODTRAN code was used to modelling the effect of the atmosphere on the radiation.
-To represent the aerosols of the study area the rural model was used, and the optical thickness was estimated on pixels with a high vegetation cover.
-Columnar water vapor was estimated by a linear regression ratio where the spectral radiance of each pixel at the band of the maximum water absorption (~906 nm) is compared to its theoretical value in absence of absorption. Nonetheless, this technique is unreliable when a spectral resolution as the one required here is used.
+Radiation may be absorbed or scattered (Rayleigh and Mie scattering).
+Scattering is responsible for the adjacency effect, i.e., radiation coming from neighbors areas to the target pixel.
+The MODTRAN algorithm was used to model the effect of the atmosphere on the radiation.
+To represent the aerosols of the study area, the rural model was used.
+In addition the optical thickness was estimated on pixels with a high vegetation cover.
+Columnar water vapor was estimated by a linear regression ratio where the spectral radiance of each pixel at the band of the maximum water absorption (~906 nm) is compared to its theoretical value in absence of absorption.
+Nonetheless, this technique is unreliable in presence of a spectral resolution as in this case.
 To resolve this, the water vapor parameter was selected manually according to the smoothness observed on the reflectance peak at 960 nm.
-The mid-latitude summer atmosphere model was also used.
+This was combined with an mid-latitude summer atmosphere model.
 The output of this procedure was reflectance from the target pixel scaled between 0 and 10,000.
-\end{quote}
 
-\textbf{Acquisition days}
-
-\begin{quote}
-The image acquisitions were originally attempted during one day (29.10.2016) but due to the variable meteorological conditions some stands had to be imaged the next day.
-\end{quote}
+The image acquisitions were originally attempted during one day (29.10.2016).
+due to the variable meteorological conditions some stands had to be imaged one day later.
 
 \pagebreak
 
