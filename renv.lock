@@ -1404,10 +1404,15 @@
     },
     "mlr": {
       "Package": "mlr",
-      "Version": "2.19.0",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "cf4429d0d8bb3c06fe8b07eb85ffead9"
+      "Version": "2.19.0.9000",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteRepo": "mlr",
+      "RemoteUsername": "mlr-org",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "c91a43523603e31ba1dee2d963e0c5715e7dd3af",
+      "Hash": "54419999c594c9cbfb4cd6a0fa9a6ed6"
     },
     "mlrMBO": {
       "Package": "mlrMBO",
