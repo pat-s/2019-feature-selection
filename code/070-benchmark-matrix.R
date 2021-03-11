@@ -12,7 +12,7 @@ benchmark_plan <- drake_plan(
       keep(~ "SVM MBO MRMR" %in% .x$id)
   ),
 
-  tune_wrappers_mbo_xg = tune_wrappers_mbo[19:21],
+  tune_wrappers_mbo_sub = tune_wrappers_mbo[20],
 
   ### 174 targets
   # Learners:
@@ -39,8 +39,8 @@ benchmark_plan <- drake_plan(
   # 6     - hr_nri_vi
   benchmark_no_models = target(
     benchmark(
-      learners = tune_wrappers_mbo_xg[[1]],
-      tasks = task_reduced_cor,
+      learners = tune_wrappers_mbo_sub[[1]],
+      tasks = task_reduced_cor[[3]],
       models = FALSE,
       keep.pred = TRUE,
       resamplings = makeResampleDesc("CV", fixed = TRUE),
@@ -51,7 +51,9 @@ benchmark_plan <- drake_plan(
         setAggregation(expvar, test.mean)
       )
     ),
-    dynamic = cross(tune_wrappers_mbo_xg, task_reduced_cor[[2]])
+    dynamic = cross(tune_wrappers_mbo_sub#,
+    # task_reduced_cor
+    )
   ),
 
   tune_wrappers_mbo_inspect_tune = tune_wrappers_mbo[c(1, 20, 15)],
