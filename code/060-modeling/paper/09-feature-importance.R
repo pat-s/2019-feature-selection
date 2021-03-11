@@ -1,6 +1,6 @@
 feature_imp_plan <- drake_plan(
   # Slurm resources suggestion: at least 20 cores and 2 GB / core = 40 GB pro job
-  fi_permut_hr_buffer2 = target(feature_imp_parallel(task_new_buffer2[[1]],
+  fi_permut_hr_buffer2 = target(feature_imp_parallel(task[[1]],
     learner = "regr.ksvm", nmc = 100,
     measure = list(
       setAggregation(rmse, test.mean)
@@ -8,7 +8,7 @@ feature_imp_plan <- drake_plan(
   )),
 
   # Slurm resources suggestion: at least 20 cores and 2 GB / core = 40 GB pro job
-  fi_permut_vi_buffer2 = target(feature_imp_parallel(task_new_buffer2[[2]],
+  fi_permut_vi_buffer2 = target(feature_imp_parallel(task[[2]],
     learner = "regr.ksvm", nmc = 100,
     measure = list(
       setAggregation(rmse, test.mean)
@@ -63,11 +63,11 @@ feature_imp_plan <- drake_plan(
   fi_ale_hr_buffer2 = target({
     mod_hr <- mlr::train(
       tune_wrappers_mbo[[13]], # SVM MBO Car
-      task_new_buffer2_reduced_cor[[1]]
+      task_reduced_cor[[1]]
     )
     pred <- iml::Predictor$new(
       mod_hr, # SVM MBO Car fitted
-      task_new_buffer2_reduced_cor[[1]]$env$data,
+      task_reduced_cor[[1]]$env$data,
     )
     fe <- FeatureEffects$new(pred,
       method = "ale",
@@ -79,11 +79,11 @@ feature_imp_plan <- drake_plan(
     fi_ale_hr_buffer2_gs20 = target({
     mod_hr <- mlr::train(
       tune_wrappers_mbo[[13]], # SVM MBO Car
-      task_new_buffer2_reduced_cor[[1]]
+      task_reduced_cor[[1]]
     )
     pred <- iml::Predictor$new(
       mod_hr, # SVM MBO Car fitted
-      task_new_buffer2_reduced_cor[[1]]$env$data,
+      task_reduced_cor[[1]]$env$data,
     )
     fe <- FeatureEffects$new(pred,
       method = "ale",
@@ -95,11 +95,11 @@ feature_imp_plan <- drake_plan(
   fi_ale_vi_buffer2 = target({
     mod_hr <- mlr::train(
       tune_wrappers_mbo[[13]], # SVM MBO Car
-      task_new_buffer2_reduced_cor[[2]]
+      task_reduced_cor[[2]]
     )
     pred <- iml::Predictor$new(
       mod_hr, # SVM MBO Car fitted
-      task_new_buffer2_reduced_cor[[2]]$env$data,
+      task_reduced_cor[[2]]$env$data,
     )
     fe <- FeatureEffects$new(pred,
       method = "ale",
@@ -111,11 +111,11 @@ feature_imp_plan <- drake_plan(
     fi_ale_vi_buffer2_gs20 = target({
     mod_hr <- mlr::train(
       tune_wrappers_mbo[[13]], # SVM MBO Car
-      task_new_buffer2_reduced_cor[[2]]
+      task_reduced_cor[[2]]
     )
     pred <- iml::Predictor$new(
       mod_hr, # SVM MBO Car fitted
-      task_new_buffer2_reduced_cor[[2]]$env$data,
+      task_reduced_cor[[2]]$env$data,
     )
     fe <- FeatureEffects$new(pred,
       method = "ale",

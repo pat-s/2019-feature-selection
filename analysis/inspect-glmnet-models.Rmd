@@ -1,6 +1,6 @@
 ---
 title: "Inspecting {glmnet} performances"
-output: 
+output:
   workflowr::wflow_html:
     includes:
       in_header: header.html
@@ -33,12 +33,12 @@ fansi::set_knit_hooks(knitr::knit_hooks)
 # load drake objects
 loadd(
   benchmark_models_new_penalized_mbo_buffer2,
-  task_new_buffer2,
-  task_new_buffer2_reduced_cor
+  task,
+  task_reduced_cor
 )
 ```
 
-Last update: 
+Last update:
 
 ```{r, echo=FALSE, results='asis'}
 date()
@@ -47,11 +47,11 @@ date()
 ## General glmnet notes
 
 - {glmnet} does its own internal 10-fold CV optimization when using `cv.glmnet()`.
-  It iterates over `lambda` and chooses the most robust values for prediction via parameter `s` in `predict.glmnet()`. 
+  It iterates over `lambda` and chooses the most robust values for prediction via parameter `s` in `predict.glmnet()`.
   Supplying a custom lambda sequence does not make much sense since the internal heuristics are quite good (if one wants to use non-spatial optimization).
   See this [stats.stackexchange question](https://stats.stackexchange.com/a/415248/101464) for how lambda defaults are estimated.
-- To conduct a spatial optimization, one needs to use `glmnet()` directly. 
-  This implementation does not do an internal optimization for `lambda`  and hence `s` can/needs to be tuned directly by the user. 
+- To conduct a spatial optimization, one needs to use `glmnet()` directly.
+  This implementation does not do an internal optimization for `lambda`  and hence `s` can/needs to be tuned directly by the user.
   Because it is hard to come up with good tuning ranges in this case, one can fit a `cv.glmnet()` on the data and use the borders of the estimated `lambda` as upper and lower borders of the tuning space.
 
 ## Inspect fitted models during CV
@@ -88,8 +88,8 @@ To inspect further, let's refit a {glmnet} model directly on the training data o
 ```{r}
 train_inds_fold4 <- benchmark_models_new_penalized_mbo_buffer2[[8]][["results"]][["vi_buffer2"]][["Ridge-MBO"]][["pred"]][["instance"]][["train.inds"]][[4]]
 
-obs_train_f4 <- as.matrix(task_new_buffer2[[2]]$env$data[train_inds_fold4, getTaskFeatureNames(task_new_buffer2[[2]])])
-target_f4 <- getTaskTargets(task_new_buffer2[[2]])[train_inds_fold4]
+obs_train_f4 <- as.matrix(task[[2]]$env$data[train_inds_fold4, getTaskFeatureNames(task[[2]])])
+target_f4 <- getTaskTargets(task[[2]])[train_inds_fold4]
 ```
 
 Fit `cv.glmnet`
@@ -106,7 +106,7 @@ Predict on Laukiz 2 now.
 ```{r}
 pred_inds_fold4 <- benchmark_models_new_penalized_mbo_buffer2[[8]][["results"]][["vi_buffer2"]][["Ridge-MBO"]][["pred"]][["instance"]][["test.inds"]][[4]]
 
-obs_pred_f4 <- as.matrix(task_new_buffer2[[2]]$env$data[pred_inds_fold4, getTaskFeatureNames(task_new_buffer2[[2]])])
+obs_pred_f4 <- as.matrix(task[[2]]$env$data[pred_inds_fold4, getTaskFeatureNames(task[[2]])])
 
 pred <- predict(modf4, newx = obs_pred_f4, s = modf4$lambda.1se)
 ```
@@ -114,7 +114,7 @@ pred <- predict(modf4, newx = obs_pred_f4, s = modf4$lambda.1se)
 Calculate the error
 
 ```{r}
-truth <- task_new_buffer2[[2]]$env$data[pred_inds_fold4, "defoliation"]
+truth <- task[[2]]$env$data[pred_inds_fold4, "defoliation"]
 
 mlr:::measureRMSE(truth, pred)
 ```
@@ -191,7 +191,7 @@ For PDP we use a model trained with {mlr} and check for equality first.
 
 ```{r}
 lrn <- makeLearner("regr.cvglmnet", alpha = 0)
-task_f4 <- subsetTask(task_new_buffer2[[2]], train_inds_fold4)
+task_f4 <- subsetTask(task[[2]], train_inds_fold4)
 
 set.seed(1)
 mod_mlr <- train(lrn, task_f4)
@@ -246,8 +246,8 @@ To inspect further, let's refit a {glmnet} model directly on the training data o
 ```{r}
 train_inds_fold4 <- benchmark_models_new_penalized_mbo_buffer2[[8]][["results"]][["vi_buffer2"]][["Ridge-MBO"]][["pred"]][["instance"]][["train.inds"]][[4]]
 
-obs_train_f4 <- as.matrix(task_new_buffer2_reduced_cor[[2]]$env$data[train_inds_fold4, getTaskFeatureNames(task_new_buffer2_reduced_cor[[2]])])
-target_f4 <- getTaskTargets(task_new_buffer2_reduced_cor[[2]])[train_inds_fold4]
+obs_train_f4 <- as.matrix(task_reduced_cor[[2]]$env$data[train_inds_fold4, getTaskFeatureNames(task_reduced_cor[[2]])])
+target_f4 <- getTaskTargets(task_reduced_cor[[2]])[train_inds_fold4]
 ```
 
 Fit `cv.glmnet`
@@ -264,7 +264,7 @@ Predict on Laukiz 2 now.
 ```{r}
 pred_inds_fold4 <- benchmark_models_new_penalized_mbo_buffer2[[8]][["results"]][["vi_buffer2"]][["Ridge-MBO"]][["pred"]][["instance"]][["test.inds"]][[4]]
 
-obs_pred_f4 <- as.matrix(task_new_buffer2_reduced_cor[[2]]$env$data[pred_inds_fold4, getTaskFeatureNames(task_new_buffer2_reduced_cor[[2]])])
+obs_pred_f4 <- as.matrix(task_reduced_cor[[2]]$env$data[pred_inds_fold4, getTaskFeatureNames(task_reduced_cor[[2]])])
 
 pred <- predict(modf4, newx = obs_pred_f4, s = modf4$lambda.1se)
 ```
@@ -272,7 +272,7 @@ pred <- predict(modf4, newx = obs_pred_f4, s = modf4$lambda.1se)
 Calculate the error
 
 ```{r}
-truth <- task_new_buffer2_reduced_cor[[2]]$env$data[pred_inds_fold4, "defoliation"]
+truth <- task_reduced_cor[[2]]$env$data[pred_inds_fold4, "defoliation"]
 
 mlr:::measureRMSE(truth, pred)
 ```

@@ -1,11 +1,11 @@
 train_plan <- drake_plan(
   train_hr_xgboost = target(
-    train(xgboost_borda, task_new_buffer2[[1]])
+    train(xgboost_borda, task[[1]])
   ),
 
   iml_new_hr = target(Predictor$new(
     train_hr_xgboost,
-    task_new_buffer2[[1]]$env$data
+    task[[1]]$env$data
   )),
 
   iml_ale_hr = target({

@@ -26,9 +26,9 @@ filter_eda_plan <- drake_plan(
   ),
 
   task_list_filter = list(
-    task_new_buffer2[[1]],
-    task_new_buffer2[[2]],
-    task_new_buffer2[[3]]
+    task[[1]],
+    task[[2]],
+    task[[3]]
   ),
 
   filter_values = target(

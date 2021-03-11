@@ -12,9 +12,31 @@ benchmark_plan <- drake_plan(
       keep(~ "SVM MBO MRMR" %in% .x$id)
   ),
 
-  tune_wrappers_mbo_xg = tune_wrappers_mbo[7:12],
+  tune_wrappers_mbo_xg = tune_wrappers_mbo[19:21],
 
-  # 174 targets
+  ### 174 targets
+  # Learners:
+  # 1:6   - RF
+  # 7:12  - XGBOOST
+  # 13:18 - SVM
+  # 19    - RF MBO Borda: 19
+  # 20    - XGBOOST MBO Borda: 20
+  # 21    - SVM MBO Borda: 21
+  # 22    - RF MBO PCA: 22
+  # 23    - XGBOOST MBO PCA: 23
+  # 24    - SVM MBO PCA: 24
+  # 25    - RF MBO No Filter
+  # 26    - XGBOOST MBO No Filter
+  # 27    - SVM MBO No Filter
+  # 28    - Lasso MBO
+  # 29    - RIDGE MBO
+  # Tasks:
+  # 1     - hr
+  # 2     - vi
+  # 3     - nri
+  # 4     - hr_nri
+  # 5     - nri_vi
+  # 6     - hr_nri_vi
   benchmark_no_models = target(
     benchmark(
       learners = tune_wrappers_mbo_xg[[1]],
@@ -29,8 +51,7 @@ benchmark_plan <- drake_plan(
         setAggregation(expvar, test.mean)
       )
     ),
-    dynamic = cross(tune_wrappers_mbo_xg, task_reduced_cor[[2]]),
-    resources = list(ncpus = 4, memory = 3500, njobs = 174)
+    dynamic = cross(tune_wrappers_mbo_xg, task_reduced_cor[[2]])
   ),
 
   tune_wrappers_mbo_inspect_tune = tune_wrappers_mbo[c(1, 20, 15)],
