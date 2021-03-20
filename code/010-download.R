@@ -15,11 +15,11 @@ download_data_plan <- drake_plan(
 
   tree_per_tree = target({
     data_list <- download_trees("https://zenodo.org/record/3630302/files/tree-in-situ-data-corrected.zip") %>%
-      map(~ dplyr::rename(., defoliation = DEFOLIATIO)) %>%
-      map(~ st_transform(., 32630))
+      # purrr::map(~ dplyr::rename(., defoliation = DEFOLIATIO)) %>%
+      purrr::map(~ sf::st_transform(., 32630))
 
-    data_list[[1]] %<>% dplyr::rename(x = X, y = Y)
-    data_list[[3]] %<>% dplyr::rename(x = X, y = Y)
+    # data_list[[1]] %<>% dplyr::rename(x = X, y = Y)
+    # data_list[[3]] %<>% dplyr::rename(x = X, y = Y)
     data_list %<>%
       set_names(c("laukiz1", "laukiz2", "luiando", "oiartzun"))
   }),
