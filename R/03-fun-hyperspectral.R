@@ -47,7 +47,7 @@ process_hyperspec <- function(data, id, index, plots, name_out, paper = TRUE) {
   cat("Finished writing.")
 
   out <- purrr::map(list.files("data/raster/hs-preprocessed/",
-    pattern = ".grd",
+    pattern = "laukiz1.grd|laukiz2.grd|oiartzun.grd|luiando.grd",
     full.names = TRUE
   ), ~ raster::brick(.x))
 
