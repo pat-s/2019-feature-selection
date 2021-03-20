@@ -262,7 +262,7 @@
 	\acro{TPR}{true positive rate}
 	\acro{VI}{vegetation index}
 	\acro{XGBoost}{extreme gradient boosting}
-    \acro{PC}{principal component}
+	\acro{PC}{principal component}
 \end{acronym}
 \renewcommand{\IEEEiedlistdecl}{\relax}% reset back
 
@@ -505,7 +505,7 @@ $H(X)$ is Shannon's Entropy \cite{shannon1948} for a variable X and $H(X, Y)$ is
 $H(X)$ itself is defined as
 
 \begin{equation}
-H(X) = - \sum_{i=1}^{n} P(x_i)\log_bP(x_i)
+	H(X) = - \sum_{i=1}^{n} P(x_i)\log_bP(x_i)
 \end{equation}
 
 where $b$ is the base of the logarithm used (with $b$ commonly being set to 2).
@@ -1057,13 +1057,13 @@ This work was funded by the EU LIFE Healthy Forest project (LIFE14 ENV/ES/000179
 		\multirow{2}{*}{\specialcell{SVM                                \\ (kernlab)}}     & \texttt{C}                  & dbl & $2^{-10}$ & $2^{10}$ & 1       \\
 		 & \texttt{$\sigma$}           & dbl & $2^{-5}$ & $2^{5}$ & 1   \\
 		\midrule
-		\multirow{7}{*}{\specialcell{XGBoost                            \\ (xgboost)}} & \texttt{nrounds}            & int & 10        & 600      & -       \\
-		 & \texttt{colsample\_bytree}  & dbl & 0.3      & 0.7     & 1   \\
-		 & \texttt{subsample}          & dbl & 0.25     & 1       & 1   \\
-		 & \texttt{max\_depth}         & int & 1        & 10      & 6   \\
-		 & \texttt{gamma}              & int & 0        & 10      & 0   \\
-		 & \texttt{eta}                & dbl & 0.01     & 0.6     & 0.3 \\
-		 & \texttt{min\_child\_weight} & int & 0        & 20      & 1   \\
+		\multirow{7}{*}{\specialcell{XGBoost                            \\ (xgboost)}} & \texttt{nrounds}            & int & 10        & 70      & -       \\
+		 & \texttt{colsample\_bytree}  & dbl & 0.6      & 1       & 1   \\
+		 & \texttt{subsample}          & dbl & 0.6      & 1       & 1   \\
+		 & \texttt{max\_depth}         & int & 3        & 15      & 6   \\
+		 & \texttt{gamma}              & int & 0.05     & 10      & 0   \\
+		 & \texttt{eta}                & dbl & 0.1      & 1       & 0.3 \\
+		 & \texttt{min\_child\_weight} & int & 1        & 7       & 1   \\
 		\bottomrule
 	\end{tabularx}
 	\endgroup

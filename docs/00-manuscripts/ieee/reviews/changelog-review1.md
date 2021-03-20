@@ -49,4 +49,6 @@ We hope that this improved manuscript can now be considered for publication.
 - Clarified "information gain" filter formula and added more details and references with respect to its formula definition.
 - Discussed segmentation as an alternative to the buffer approach for extracting hyperspectral data from trees.
 - Discussed possible data limitations more prominently in section "Data quality".
-- Rerunning the analysis with R 4.0.4 (instead of 3.6.3) and updated R packages versions (including a new implemention of the RelieF algorithm) brought slight changes to the leaderboard: the SVM RelieF combinations dropped from 28.07 to 28.13, the best combination SVM infogain dropped from 27.99 to 28.02
+- Rerunning the analysis with R 4.0.4 (instead of 3.6.3) and updated R packages versions (including a new implementation of the RelieF algorithm) brought slight changes to the leaderboard: the SVM RelieF combinations dropped from 28.07 to 28.13, the best combination SVM infogain dropped from 27.99 to 28.02
+- Reduce buffer size for hyperspectral information extraction from 2 meters to 1 meter
+- Alter XGBOOST parameter set to reduce tuning time. Beforehand, many settings were taking up to 15 min per step which indicated non-optimal settings.

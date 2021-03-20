@@ -6,12 +6,13 @@ param_sets_plan <- drake_plan(
     makeParamSet(
       makeNumericParam("eta", lower = 0.1, upper = 1),
       makeNumericParam("gamma", lower = 0.05, upper = 10),
-      makeIntegerParam("max_depth", lower = 3, upper = 25),
+      makeIntegerParam("max_depth", lower = 3, upper = 15),
       makeNumericParam("min_child_weight", lower = 1, upper = 7),
       makeNumericParam("subsample", lower = 0.6, upper = 1),
       makeNumericParam("colsample_bytree", lower = 0.6, upper = 1),
       makeNumericParam("alpha", lower = 0, upper = 1),
       makeNumericParam("lambda", lower = 0.01, upper = 1),
+      # when upper = 100, tuning time increases substantially
       makeIntegerParam("nrounds", lower = 10, upper = 100),
       makeNumericParam("fw.perc", lower = 0, upper = 1)
     )
@@ -21,13 +22,14 @@ param_sets_plan <- drake_plan(
     makeParamSet(
       makeNumericParam("eta", lower = 0.1, upper = 1),
       makeNumericParam("gamma", lower = 0.05, upper = 10),
-      makeIntegerParam("max_depth", lower = 3, upper = 25),
+      makeIntegerParam("max_depth", lower = 3, upper = 15),
       makeNumericParam("min_child_weight", lower = 1, upper = 7),
       makeNumericParam("subsample", lower = 0.6, upper = 1),
       makeNumericParam("colsample_bytree", lower = 0.6, upper = 1),
       makeNumericParam("alpha", lower = 0, upper = 1),
       makeNumericParam("lambda", lower = 0.01, upper = 1),
-      makeIntegerParam("nrounds", lower = 10, upper = 100)
+      # when upper = 100, tuning time increases substantially
+      makeIntegerParam("nrounds", lower = 10, upper = 70)
     )
   ),
 
@@ -41,7 +43,7 @@ param_sets_plan <- drake_plan(
       makeNumericParam("colsample_bytree", lower = 0.6, upper = 1),
       makeNumericParam("alpha", lower = 0, upper = 1),
       makeNumericParam("lambda", lower = 0.01, upper = 1),
-      makeIntegerParam("nrounds", lower = 10, upper = 100),
+      makeIntegerParam("nrounds", lower = 1, upper = 2),
       makeIntegerParam("ppc.pcaComp", lower = 1, upper = 10)
     )
   ),
