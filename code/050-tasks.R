@@ -46,7 +46,7 @@ tasks_plan <- drake_plan(
       data = data[[1]],
       target = "defoliation",
       coordinates = coordinates_list[[1]],
-      blocking = factor(rep(1:4, c(559, 451, 301, 497))),
+      blocking = factor(rep(1:4, c(479, 451, 300, 529))),
     ),
     dynamic = map(
       data,
@@ -61,7 +61,7 @@ tasks_plan <- drake_plan(
       data = data_reduced_cor[[1]],
       target = "defoliation",
       coordinates = coordinates_list[[1]],
-      blocking = factor(rep(1:4, c(559, 451, 301, 497))),
+      blocking = factor(rep(1:4, c(479, 451, 300, 529))),
     ),
     dynamic = map(
       data_reduced_cor,
