@@ -275,7 +275,7 @@ table3 %>%
 
 ## (Plot) P1 Best learner/filter combs for all tasks
 
-```{r performance-results, warning=FALSE, dev = c("png", "pdf")}
+```{r performance-results, warning=FALSE, dev = c("png", "pdf"), out.width = "70%"}
 results_aggr <- df_perf %>%
   mutate(filter = replace(filter, is.na(filter), "NF")) %>%
   mutate(learner_group = recode_factor(learner_group, `XG` = "XGBoost")) %>%
@@ -295,7 +295,7 @@ results_aggr %>%
   # geom_jitter(aes(color = learner_group), size = 2, width = 0, height = 0.3) +
   # geom_dotplot(aes(fill = learner_group), binaxis="y",
   #                        stackdir="up") +
-  geom_beeswarm(groupOnX = FALSE, aes(color = learner_group), size = 3) +
+  ggbeeswarm2::geom_beeswarm(groupOnX = FALSE, aes(color = learner_group), size = 2.5) +
   scale_color_nejm(breaks = sort(levels(results_aggr$learner_group))) +
   labs(x = "RMSE", y = "Task", color = "Learner") +
   guides(size = FALSE) +
@@ -327,7 +327,7 @@ results_aggr %>%
 Showing the final effect of applying feature selection to a learner for each task.
 All filters are colored in the same way whereas using "no filter" appears in a different color.
 
-```{r filter-effect-all-vs-no-filter, warning=FALSE, dev = c("png", "pdf")}
+```{r filter-effect-all-vs-no-filter, warning=FALSE, dev = c("png", "pdf"), out.width = "70%"}
 results_aggr1 <- df_perf %>%
   filter(learner_group != "Ridge-MBO") %>%
   filter(learner_group != "Lasso-MBO") %>%
@@ -347,7 +347,7 @@ results_aggr1 <- df_perf %>%
 
 results_aggr1 %>%
   ggplot(aes(x = perf, y = learner_group)) +
-  geom_beeswarm(
+  ggbeeswarm2::geom_beeswarm(
     data = results_aggr1[results_aggr1$filter != "NF", ], size = 2.2, shape = 3,
     groupOnX = FALSE, aes(color = "Filter")
   ) +
