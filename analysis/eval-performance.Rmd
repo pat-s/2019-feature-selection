@@ -85,9 +85,9 @@ df_perf %<>%
 
 Fold performances of "SVM MBO No Filter" on the HR Task
 
-- Fold 1: Luiando
-- Fold 2: Laukiz1
-- Fold 3: Laukiz2
+- Fold 1: Laukiz1
+- Fold 2: Laukiz2
+- Fold 3: Luiando
 - Fold 4: Oiartzun
 
 ```{r}
@@ -100,8 +100,8 @@ df_tab <- df %>%
   dplyr::rename(Plot = iter, RMSE = rmse) %>%
   dplyr::mutate(`Test Plot` = as.character(Plot)) %>%
   dplyr::mutate(`Test Plot` = forcats::fct_recode(`Test Plot`,
-    Laukiz1 = "2", Laukiz2 = "3",
-    Luiando = "1", Oiartzun = "4"
+    Laukiz1 = "1", Laukiz2 = "2",
+    Luiando = "3", Oiartzun = "4"
   )) %>%
   dplyr::mutate(RMSE = round(RMSE, 2))
 
@@ -434,8 +434,8 @@ df_tbl <- getBMRTuneResults(bmr_inspect_tune, as.df = TRUE) %>%
   dplyr::rename("Features (\\%)" = fw.perc) %>%
   dplyr::mutate(`Test Plot` = as.character(Plot)) %>%
   dplyr::mutate(`Test Plot` = forcats::fct_recode(`Test Plot`,
-    Oiartzun = "2", Luiando = "3",
-    Laukiz1 = "1", Laukiz2 = "4"
+    Oiartzun = "4", Luiando = "3",
+    Laukiz1 = "1", Laukiz2 = "2"
   )) %>%
   dplyr::mutate(Learner = forcats::fct_recode(Learner,
     "RF \\\\ Car" = "RF MBO Car", "XGB \\\\ Borda" = "XGBOOST MBO Borda",
@@ -444,10 +444,10 @@ df_tbl <- getBMRTuneResults(bmr_inspect_tune, as.df = TRUE) %>%
   dplyr::mutate(Learner = as.character(Learner)) %>%
   dplyr::mutate(`Test Plot` = as.character(`Test Plot`)) %>%
   dplyr::mutate("\\#" = case_when(
-    `Test Plot` == "Laukiz1" ~ ceiling(`Features (\\%)` * 559),
+    `Test Plot` == "Laukiz1" ~ ceiling(`Features (\\%)` * 479),
     `Test Plot` == "Laukiz2" ~ ceiling(`Features (\\%)` * 451),
-    `Test Plot` == "Luiando" ~ ceiling(`Features (\\%)` * 301),
-    `Test Plot` == "Oiartzun" ~ ceiling(`Features (\\%)` * 497),
+    `Test Plot` == "Luiando" ~ ceiling(`Features (\\%)` * 300),
+    `Test Plot` == "Oiartzun" ~ ceiling(`Features (\\%)` * 529),
   )) %>% 
   dplyr::group_by(Learner) %>%
   dplyr::select(Learner, `Test Plot`, "Features (\\%)", "\\#", RMSE)
