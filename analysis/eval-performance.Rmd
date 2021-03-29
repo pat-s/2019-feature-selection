@@ -28,7 +28,7 @@ library("drake")
 
 # load drake objects
 loadd(
-  bm_aggregated_new_buffer2,
+  bm_aggregated,
 
   # for T4
   benchmark_tune_results_hr_nri_vi
@@ -53,15 +53,15 @@ date()
 ```
 
 ```{r, warning = FALSE}
-df_perf <- getBMRPerformances(bm_aggregated_new_buffer2, as.df = TRUE) %>%
+df_perf <- getBMRPerformances(bm_aggregated, as.df = TRUE) %>%
   mutate(task.id = recode_factor(task.id,
-    `hr_buffer2` = "HR",
-    `vi_buffer2` = "VI",
-    `nri_buffer2` = "NRI",
-    `nri_vi_buffer2` = "NRI-VI",
-    `hr_nri_buffer2` = "HR-NRI",
-    `hr_vi_buffer2` = "HR-VI",
-    `hr_nri_vi_buffer2` = "HR-NRI-VI",
+    `hr` = "HR",
+    `vi` = "VI",
+    `nri` = "NRI",
+    `nri_vi` = "NRI-VI",
+    `hr_nri` = "HR-NRI",
+    `hr_vi` = "HR-VI",
+    `hr_nri_vi` = "HR-NRI-VI",
   )) %>%
   tidyr::separate(learner.id, c("learner_group", "filter"),
     remove = FALSE,
@@ -91,8 +91,8 @@ Fold performances of "SVM MBO No Filter" on the HR Task
 - Fold 4: Oiartzun
 
 ```{r}
-df <- mlr::getBMRPerformances(bm_aggregated_new_buffer2,
-  "hr_buffer2", "SVM MBO No Filter",
+df <- mlr::getBMRPerformances(bm_aggregated,
+  "hr", "SVM MBO No Filter",
   as.df = TRUE
 )
 df_tab <- df %>%
