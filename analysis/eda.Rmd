@@ -99,7 +99,7 @@ pca_vi <- DataExplorer::plot_prcomp(vi_data_no_defol_no_response,
   geom_label_args = list(size = 2.5, nudge_y = 0.03),
   parallel = TRUE
 )
-pca_vi = pca_vi[[1]] +
+pca_vi <- pca_vi[[1]] +
   labs(title = "Target POV: 95%")
 pca_vi[[1]]
 ```
@@ -154,7 +154,7 @@ pca_nri <- DataExplorer::plot_prcomp(nri_data_no_response,
   geom_label_args = list(size = 2.5, nudge_y = 0.03),
   parallel = TRUE
 )
-pca_nri = pca_nri[[1]] +
+pca_nri <- pca_nri[[1]] +
   labs(title = "Target POV: 95%")
 pca_nri
 ```
@@ -208,7 +208,7 @@ pca_hr <- DataExplorer::plot_prcomp(bands_data_no_response,
   geom_label_args = list(size = 2.5, nudge_y = 0.03),
   ggtheme = ggpubr::theme_pubclean()
 )
-pca_hr = pca_hr[[1]] +
+pca_hr <- pca_hr[[1]] +
   labs(title = "Target POV: 95%")
 pca_hr
 ```
@@ -225,7 +225,7 @@ plot_correlation(bands_data)
 vi_data_plot <- vi_data %>%
   mutate(plot = factor(rep(
     c("Laukiz 1", "Laukiz 2", "Luiando", "Oiartzun"),
-    c(559, 451, 301, 497)
+    c(479, 451, 300, 529)
   )))
 ```
 
@@ -318,7 +318,7 @@ dist <- map(plots, ~ {
   coords <- coords_vi_nri_clean %>%
     mutate(plot = factor(rep(
       c("Laukiz 1", "Laukiz 2", "Luiando", "Oiartzun"),
-      c(559, 451, 301, 497)
+      c(479, 451, 300, 529)
     ))) %>%
     filter(plot == .x) %>%
     dplyr::select(-plot)
