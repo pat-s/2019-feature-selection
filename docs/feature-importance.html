@@ -413,7 +413,7 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-03-02
+<strong>Last updated:</strong> 2021-03-31
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -504,16 +504,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree303f12f01ce8b96da99abe38c9736a74117ae1c0targetblank303f12fa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/303f12f01ce8b96da99abe38c9736a74117ae1c0" target="_blank">303f12f</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontreee8dfdbbee5c26bcd0864d602cde916fe0883e138targetblanke8dfdbba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/e8dfdbbee5c26bcd0864d602cde916fe0883e138" target="_blank">e8dfdbb</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree303f12f01ce8b96da99abe38c9736a74117ae1c0targetblank303f12fa" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontreee8dfdbbee5c26bcd0864d602cde916fe0883e138targetblanke8dfdbba" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/pat-s/2019-feature-selection/tree/303f12f01ce8b96da99abe38c9736a74117ae1c0" target="_blank">303f12f</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/pat-s/2019-feature-selection/tree/e8dfdbbee5c26bcd0864d602cde916fe0883e138" target="_blank">e8dfdbb</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -525,6 +525,7 @@ Ignored files:
     Ignored:    .Ruserdata/
     Ignored:    .drake/
     Ignored:    .vscode/
+    Ignored:    analysis/figure/
     Ignored:    analysis/rosm.cache/
     Ignored:    data/
     Ignored:    inst/Benchmark for Filter Methods for Feature Selection in High-Dimensional  Classification Data.pdf
@@ -537,20 +538,10 @@ Ignored files:
     Ignored:    reviews/
     Ignored:    rosm.cache/
 
-Untracked files:
-    Untracked:  .future/
-    Untracked:  slurm_batchtools.tmpl
-    Untracked:  slurm_clustermq_future.tmpl
-
 Unstaged changes:
     Modified:   _drake.R
-    Modified:   analysis/eval-performance.Rmd
-    Modified:   code/071-benchmark-matrix-buffer2.R
-    Modified:   code/072-benchmark-matrix-no-buffer.R
-    Modified:   code/090-reports.R
-    Modified:   code/099-packages.R
-    Modified:   renv.lock
-    Modified:   renv/activate.R
+    Modified:   code/060-modeling/paper/09-feature-importance.R
+    Modified:   code/070-benchmark-matrix.R
 
 </code></pre>
 <p>
@@ -589,6 +580,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/e8dfdbbee5c26bcd0864d602cde916fe0883e138/analysis/feature-importance.Rmd" target="_blank">e8dfdbb</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2021-03-31
+</td>
+<td>
+wflow_publish(knitr_in(“analysis/feature-importance.Rmd”), view = FALSE,
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pat-s/2019-feature-selection/e50b35ca08b3434c73e3e6e6e36b7801f62c0cdc/docs/feature-importance.html" target="_blank">e50b35c</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2021-03-02
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -1617,46 +1642,38 @@ add feature importance report
 </div>
 </div>
 <p>Preview the ordered feature importance results for datasets “HR” and “VI”.</p>
-<pre><code># A tibble: 122 x 5
-   feature importance wavelength numeric_id  rank
-   &lt;chr&gt;        &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt; &lt;int&gt;
- 1 B69          1.57        724          69     1
- 2 B70          1.28        729.         70     2
- 3 B126         1.26        995.        126     3
- 4 B115         1.11        942.        115     4
- 5 B68          1.01        719.         68     5
- 6 B7           0.953       430.          7     6
- 7 B71          0.951       734.         71     7
- 8 B67          0.874       714.         67     8
- 9 B113         0.837       933         113     9
-10 B124         0.773       985.        124    10
-# … with 112 more rows</code></pre>
-<pre><code># A tibble: 89 x 3
+<pre><code># A tibble: 122 x 8
+   tree.number decoloration canker feature importance wavelength numeric_id
+         &lt;dbl&gt;        &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
+ 1        1.42        0.692   1.29 B69          0.820       724          69
+ 2        1.42        0.692   1.29 B70          0.661       729.         70
+ 3        1.42        0.692   1.29 B120         0.650       966.        120
+ 4        1.42        0.692   1.29 B118         0.582       957.        118
+ 5        1.42        0.692   1.29 B114         0.550       938.        114
+ 6        1.42        0.692   1.29 B115         0.503       942.        115
+ 7        1.42        0.692   1.29 B113         0.476       933         113
+ 8        1.42        0.692   1.29 B68          0.469       719.         68
+ 9        1.42        0.692   1.29 B126         0.458       995.        126
+10        1.42        0.692   1.29 B121         0.443       971         121
+# … with 112 more rows, and 1 more variable: rank &lt;int&gt;</code></pre>
+<pre><code># A tibble: 90 x 3
    feature    importance  rank
    &lt;chr&gt;           &lt;dbl&gt; &lt;int&gt;
- 1 Vogelmann2      1.79      1
- 2 Vogelmann4      1.47      2
- 3 Vogelmann       0.914     3
- 4 NPCI            0.717     4
- 5 Vogelmann3      0.707     5
- 6 D2              0.657     6
- 7 Datt3           0.637     7
- 8 PWI             0.545     8
- 9 SR7             0.526     9
-10 SRPI            0.509    10
-# … with 79 more rows</code></pre>
+ 1 Vogelmann2      1.90      1
+ 2 Vogelmann4      1.57      2
+ 3 Vogelmann       1.37      3
+ 4 Vogelmann3      0.775     4
+ 5 NPCI            0.518     5
+ 6 Carter          0.496     6
+ 7 D2              0.494     7
+ 8 SR7             0.440     8
+ 9 Datt            0.399     9
+10 Carter5         0.388    10
+# … with 80 more rows</code></pre>
 <div id="create-a-virtual-spectral-signature-mean-of-vegetation-using-prosail." class="section level1">
 <h1>Create a virtual Spectral Signature (mean) of vegetation using PROSAIL.</h1>
 <p>PROSAIL is a algorithm simulating Spectral Signature (mean)s of vegetation, see <code>?hsdar::PROSAIL</code>. Reflectance is scaled to 0-10 to be able to plot it in the same plot as the feature importance rankings -&gt; the axis limits for the y and z axis needs to match.</p>
 <p>PROSAIL returns a Spectral Signature (mean) from 400 nm to 2500 nm -&gt; we take the values only and subset to 400 nm - 1000 nm. Because we order from 1 - 10 with 1 being the best rank, we have to reverse the scaling of the reflectance values.</p>
-<pre><code>Warning in if (class(spectra) %in% c(&quot;RasterBrick&quot;, &quot;HyperSpecRaster&quot;)) {: the
-condition has length &gt; 1 and only the first element will be used</code></pre>
-<pre><code>Warning in if (fromRaster) matrix() else spectra: the condition has length &gt; 1
-and only the first element will be used</code></pre>
-<pre><code>Warning in if (fromRaster) spectra else new(&quot;RasterBrick&quot;): the condition has
-length &gt; 1 and only the first element will be used</code></pre>
-<pre><code>Warning in if (x@fromRaster) {: the condition has length &gt; 1 and only the first
-element will be used</code></pre>
 <p>Next we bind the simulated data with the feature importance rankings. To join both data.frames we need to round the reflectance centers of the bands to integers to match with the reflectance values created by PROSAIL.</p>
 <p>To label only a subset of the data, a custom data.frame is created.</p>
 </div>
@@ -2268,40 +2285,6 @@ pat-s
 <div id="grid-size-20" class="section level3">
 <h3>Grid size: 20</h3>
 <p>Top ten HR features from permutation Vimp</p>
-<pre><code>Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
-replace the existing scale.
-Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
-replace the existing scale.
-Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
-replace the existing scale.
-Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
-replace the existing scale.
-Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
-replace the existing scale.
-Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
-replace the existing scale.
-Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
-replace the existing scale.
-Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
-replace the existing scale.
-Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
-replace the existing scale.
-Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
-replace the existing scale.
-Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
-replace the existing scale.
-Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
-replace the existing scale.
-Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
-replace the existing scale.
-Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
-replace the existing scale.
-Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
-replace the existing scale.
-Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
-replace the existing scale.
-Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
-replace the existing scale.</code></pre>
 <p><img src="figure/feature-importance.Rmd/unnamed-chunk-1-1.png" width="100%" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-1-1">
@@ -2889,7 +2872,7 @@ other attached packages:
 [17] drake_7.13.1     
 
 loaded via a namespace (and not attached):
-  [1] readxl_1.3.1         mlr_2.19.0           backports_1.2.1     
+  [1] readxl_1.3.1         mlr_2.19.0.9000      backports_1.2.1     
   [4] fastmatch_1.1-0      workflowr_1.6.2      plyr_1.8.6          
   [7] igraph_1.2.6         lazyeval_0.2.2       splines_4.0.4       
  [10] storr_1.2.5          listenv_0.8.0        digest_0.6.27       
