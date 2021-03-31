@@ -35,13 +35,13 @@ library("iml")
 # load drake objects
 loadd(
   # Slurm resources suggestion: at least 20 cores and 2 GB / core = 40 GB pro job
-  fi_permut_hr_buffer2,
-  fi_permut_vi_buffer2,
+  fi_permut_hr,
+  fi_permut_vi,
 
-  fi_ale_hr_buffer2,
-  fi_ale_vi_buffer2,
-  fi_ale_hr_buffer2_gs20,
-  fi_ale_vi_buffer2_gs20,
+  fi_ale_hr,
+  fi_ale_vi,
+  fi_ale_hr_gs20,
+  fi_ale_vi_gs20,
 
   df_wavelengths_from_indices,
   spec_sigs
@@ -51,7 +51,7 @@ loadd(
 Preview the ordered feature importance results for datasets "HR" and "VI".
 
 ```{r feature-importance-1 }
-fi_ranked_hr <- fi_permut_hr_buffer2$res %>%
+fi_ranked_hr <- fi_permut_hr$res %>%
   tibble::rownames_to_column("measure") %>%
   tidyr::pivot_longer(
     cols = starts_with("B"),
@@ -64,10 +64,11 @@ fi_ranked_hr <- fi_permut_hr_buffer2$res %>%
   dplyr::select(-measure)
 fi_ranked_hr
 
-fi_ranked_vi <- fi_permut_vi_buffer2$res %>%
+fi_ranked_vi <- fi_permut_vi$res %>%
   tibble::rownames_to_column("measure") %>%
+  dplyr::select(-tree.number,-decoloration,-canker, -contains("ID..")) %>% 
   tidyr::pivot_longer(
-    cols = starts_with("B"),
+    cols = !measure,
     values_to = "importance", names_to = "feature"
   ) %>%
   # mutate(wavelength = seq(420, 995, 4.75)) %>%
@@ -86,7 +87,7 @@ Reflectance is scaled to 0-10 to be able to plot it in the same plot as the feat
 PROSAIL returns a Spectral Signature (mean) from 400 nm to 2500 nm -> we take the values only and subset to 400 nm - 1000 nm.
 Because we order from 1 - 10 with 1 being the best rank, we have to reverse the scaling of the reflectance values.
 
-```{r feature-importance-2 }
+```{r feature-importance-2, warning=FALSE}
 spectra_sim <- hsdar::PROSAIL()
 spectra_df <- data.frame(
   reflectance = as.vector(spectra_sim@spectra@spectra_ma),
@@ -107,30 +108,30 @@ To join both data.frames we need to round the reflectance centers of the bands t
 # round the wavelengths of the HR dataset to match with the simulated ones
 fi_ranked_hr$wavelength <- round(fi_ranked_hr$wavelength)
 
-data_hr_merged <- left_join(spectra_df, fi_ranked_hr, by = c("wavelength")) %>%
-  left_join(spec_sigs, by = c("wavelength")) %>%
-  mutate(class = "HR") %>%
-  mutate(reflectance = as.numeric(reflectance))
+data_hr_merged <- dplyr::left_join(spectra_df, fi_ranked_hr, by = c("wavelength")) %>%
+  dplyr::left_join(spec_sigs, by = c("wavelength")) %>%
+  dplyr::mutate(class = "HR") %>%
+  dplyr::mutate(reflectance = as.numeric(reflectance))
 ```
 
 To label only a subset of the data, a custom data.frame is created.
 
 ```{r feature-importance-4 }
 df_wavelengths_from_indices_imp <- df_wavelengths_from_indices %>%
-  left_join(fi_ranked_vi, by = c("class" = "feature")) %>%
+  dplyr::left_join(fi_ranked_vi, by = c("class" = "feature")) %>%
   na.omit()
 
 df_wavelengths_from_indices_label <- df_wavelengths_from_indices_imp %>%
   arrange(rank) %>%
-  group_by(class, rank) %>%
+  dplyr::group_by(class, rank) %>%
   dplyr::slice(1) %>%
   dplyr::ungroup() %>%
   dplyr::arrange(rank) %>%
   dplyr::slice(1:10)
 
 df_wavelengths_from_hr <- data_hr_merged %>%
-  arrange(rank) %>%
-  group_by(class, rank) %>%
+  dplyr::arrange(rank) %>%
+  dplyr::group_by(class, rank) %>%
   dplyr::slice(1) %>%
   dplyr::ungroup() %>%
   dplyr::arrange(rank) %>%
@@ -139,7 +140,7 @@ df_wavelengths_from_hr <- data_hr_merged %>%
   dplyr::rename(class = feature)
 
 df_label_all <- df_wavelengths_from_indices_label %>%
-  bind_rows(df_wavelengths_from_hr)
+  dplyr::bind_rows(df_wavelengths_from_hr)
 ```
 
 ```{r feature-importance-5, echo=FALSE}
@@ -470,7 +471,7 @@ ALE plots via package {iml}
 Top ten HR features from permutation Vimp
 
 ```{r fi-hr-ale, dev = c("png", "pdf"), warning=FALSE}
-ale_p1 = fi_ale_hr_buffer2$plot(
+ale_p1 = fi_ale_hr$plot(
   features = df_wavelengths_from_hr$class,
   ncol = 2
 ) & scale_y_continuous(
@@ -516,8 +517,8 @@ ale_p1
 
 Top ten HR features from permutation Vimp
 
-```{r, warning=FALSE}
-ale_p2 = fi_ale_hr_buffer2_gs20$plot(
+```{r, warning=FALSE, message=FALSE}
+ale_p2 = fi_ale_hr_gs20$plot(
   features = df_wavelengths_from_hr$class,
   ncol = 2
 ) & scale_y_continuous(
@@ -564,8 +565,8 @@ ale_p2
 Top ten VI features from permutation Vimp
 
 ```{r fi-vi-ale, dev = c("png", "pdf"), warning=FALSE}
-ale_p3 = fi_ale_vi_buffer2$plot(
-  features = paste0("bf2_", df_wavelengths_from_indices_label$class),
+ale_p3 = fi_ale_vi$plot(
+  features = df_wavelengths_from_indices_label$class,
   ncol = 2
 ) & scale_y_continuous(
   n.breaks = 2
@@ -600,8 +601,8 @@ ale_p3
 Top ten HR features from permutation Vimp
 
 ```{r, warning=FALSE}
-ale_p4 = fi_ale_vi_buffer2_gs20$plot(
-  features = paste0("bf2_", df_wavelengths_from_indices_label$class),
+ale_p4 = fi_ale_vi_gs20$plot(
+  features = df_wavelengths_from_indices_label$class,
   ncol = 2
 ) & scale_y_continuous(
   n.breaks = 2
