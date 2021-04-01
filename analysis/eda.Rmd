@@ -226,7 +226,7 @@ plot_correlation(bands_data)
 vi_data_plot <- vi_data %>%
   mutate(plot = factor(rep(
     c("Laukiz 1", "Laukiz 2", "Luiando", "Oiartzun"),
-    c(479, 451, 300, 529)
+    c(559, 451, 301, 497)
   )))
 ```
 
@@ -319,7 +319,7 @@ dist <- map(plots, ~ {
   coords <- coords_vi_nri_clean %>%
     mutate(plot = factor(rep(
       c("Laukiz 1", "Laukiz 2", "Luiando", "Oiartzun"),
-      c(479, 451, 300, 529)
+      c(559, 451, 301, 497)
     ))) %>%
     filter(plot == .x) %>%
     dplyr::select(-plot)
