@@ -320,6 +320,13 @@
       "Repository": "CRAN",
       "Hash": "0c54cf3a08cc0e550fbd64ad33166143"
     },
+    "batchtools": {
+      "Package": "batchtools",
+      "Version": "0.9.15",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "1f8105b6e7c01c37b58559fbf91425e3"
+    },
     "beeswarm": {
       "Package": "beeswarm",
       "Version": "0.2.3",
@@ -352,7 +359,7 @@
       "Package": "brio",
       "Version": "1.1.1",
       "Source": "Repository",
-      "Repository": "RSPM",
+      "Repository": "CRAN",
       "Hash": "36758510e65a457efeefa50e1e7f0576"
     },
     "broom": {
@@ -464,7 +471,7 @@
       "Package": "clustermq",
       "Version": "0.8.95.1",
       "Source": "Repository",
-      "Repository": "RSPM",
+      "Repository": "CRAN",
       "Hash": "385cd5623e6f8f27dc79437398dceed1"
     },
     "codetools": {
@@ -506,7 +513,7 @@
       "Package": "conflicted",
       "Version": "1.0.4",
       "Source": "Repository",
-      "Repository": "RSPM",
+      "Repository": "CRAN",
       "Hash": "43c5107cc96f47043a56736768ecc59d"
     },
     "conquer": {
@@ -775,12 +782,31 @@
       "Repository": "CRAN",
       "Hash": "7fb0dc1961807da107ab2078366052bd"
     },
+    "future.batchtools": {
+      "Package": "future.batchtools",
+      "Version": "0.10.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "ed6d40f78a5761934d6d3ba77d7ddac2"
+    },
     "future.callr": {
       "Package": "future.callr",
       "Version": "0.6.0",
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "444abad002c6dd780c3bbe7347de3222"
+    },
+    "future.clustermq": {
+      "Package": "future.clustermq",
+      "Version": "0.0.0-9000",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteRepo": "future.clustermq",
+      "RemoteUsername": "HenrikBengtsson",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "c7daaf7e26b17fbc5106c456bd44cdbb1d6f7551",
+      "Hash": "48a9866af2db2aaef914f8cbaee32dfe"
     },
     "gdalUtils": {
       "Package": "gdalUtils",
@@ -851,6 +877,18 @@
       "RemoteRef.1": "master",
       "RemoteSha.1": "6204183ca3284cb63cd106a3706e4b9854556dad",
       "Hash": "7fff5159bbb4461b81ea3f519a63aa0d"
+    },
+    "ggbeeswarm2": {
+      "Package": "ggbeeswarm2",
+      "Version": "0.7.0",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteUsername": "csdaw",
+      "RemoteRepo": "ggbeeswarm2",
+      "RemoteRef": "master",
+      "RemoteSha": "fff788f8d5a434bb683d4cf0482587718e20d9fe",
+      "Hash": "460a24df87e1a86125ad49c38387ada2"
     },
     "ggcorrplot": {
       "Package": "ggcorrplot",
@@ -925,21 +963,15 @@
     "git2r": {
       "Package": "git2r",
       "Version": "0.28.0",
-      "Source": "CRAN",
+      "Source": "Repository",
       "Repository": "CRAN",
-      "RemoteType": "standard",
-      "RemotePkgRef": "git2r",
-      "RemoteRef": "git2r",
-      "RemoteRepos": "https://stat.ethz.ch/CRAN/",
-      "RemotePkgType": "macos",
-      "RemoteSha": "0.28.0",
       "Hash": "f64fd34026f6025de71a4354800e6d79"
     },
     "gitcreds": {
       "Package": "gitcreds",
       "Version": "0.1.1",
       "Source": "Repository",
-      "Repository": "RSPM",
+      "Repository": "CRAN",
       "Hash": "f3aefccc1cc50de6338146b62f115de8"
     },
     "glmnet": {
@@ -1432,7 +1464,7 @@
       "Package": "narray",
       "Version": "0.4.1",
       "Source": "Repository",
-      "Repository": "RSPM",
+      "Repository": "CRAN",
       "Hash": "b275f9d21e812b6338f4c3e9d70b2209"
     },
     "networkD3": {
@@ -1502,10 +1534,10 @@
       "Package": "pak",
       "Version": "0.1.2.9001",
       "Source": "Local",
-      "RemoteType": "local",
       "Remotes": "r-lib/pkgdepends, r-lib/pkgcache, r-lib/ps",
       "RemotePkgRef": "local::pak",
-      "Hash": "82e6f0dcd22632c2a32367cb3adb7ef2"
+      "RemoteType": "local",
+      "Hash": "bc2c54406c0d3d405fa195e9ea78c870"
     },
     "parallelMap": {
       "Package": "parallelMap",
@@ -1581,8 +1613,8 @@
       "Package": "pkgdepends",
       "Version": "0.0.0.9007",
       "Source": "GitHub",
-      "RemoteType": "github",
       "Remotes": "r-lib/pkgcache, r-lib/cli",
+      "RemoteType": "github",
       "RemoteHost": "api.github.com",
       "RemoteRepo": "pkgdepends",
       "RemoteUsername": "r-lib",
@@ -1900,7 +1932,7 @@
       "Package": "rmarkdown",
       "Version": "2.6",
       "Source": "Repository",
-      "Repository": "RSPM",
+      "Repository": "CRAN",
       "Hash": "bc4bac38960b446c183957bfd563e763"
     },
     "rootSolve": {
@@ -1945,6 +1977,19 @@
       "Repository": "CRAN",
       "Hash": "7eb4d25cb9f8183f0c9e19704a3cf681"
     },
+    "rsthemes": {
+      "Package": "rsthemes",
+      "Version": "0.2.1.9000",
+      "Source": "GitHub",
+      "Remotes": "hrbrmstr/ipapi, rstudio/sass",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteRepo": "rsthemes",
+      "RemoteUsername": "gadenbuie",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "732126bfc5e120ac3a1ad166fc80e708580edcec",
+      "Hash": "dc09999c7a315e9408b7d4558e839612"
+    },
     "rstudioapi": {
       "Package": "rstudioapi",
       "Version": "0.13",
@@ -1970,7 +2015,7 @@
       "Package": "satellite",
       "Version": "1.0.2",
       "Source": "Repository",
-      "Repository": "RSPM",
+      "Repository": "CRAN",
       "Hash": "ee6f12377077643b0822de5130a9f597"
     },
     "scales": {
@@ -2096,7 +2141,7 @@
       "Package": "styler",
       "Version": "1.3.2",
       "Source": "Repository",
-      "Repository": "RSPM",
+      "Repository": "CRAN",
       "Hash": "60b23effde8d08a56a64ebeb92a32749"
     },
     "survival": {
@@ -2133,6 +2178,13 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "dc6e900d988101077b89a49cd801ba90"
+    },
+    "terra": {
+      "Package": "terra",
+      "Version": "1.0-10",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "dd4608fd5a58be6e75c9cfb86a3b780c"
     },
     "testthat": {
       "Package": "testthat",
