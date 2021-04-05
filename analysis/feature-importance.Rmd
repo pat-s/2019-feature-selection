@@ -66,7 +66,7 @@ fi_ranked_hr
 
 fi_ranked_vi <- fi_permut_vi$res %>%
   tibble::rownames_to_column("measure") %>%
-  dplyr::select(-tree.number,-decoloration,-canker, -contains("ID..")) %>% 
+  dplyr::select(-contains("ID..")) %>% 
   tidyr::pivot_longer(
     cols = !measure,
     values_to = "importance", names_to = "feature"
