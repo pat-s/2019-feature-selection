@@ -59,14 +59,14 @@ Takeaway:
 fv_all_vi <- map(filter_values[8:14], ~ .x[["data"]]) %>%
   dplyr::bind_rows() %>%
   dplyr::select(value, filter) %>%
-  mutate(id = rep(1:89, 7)) %>%
+  mutate(id = rep(1:90, 7)) %>%
   tidyr::spread(filter, value) %>%
   dplyr::select(-id)
 
 fv_all_vi_fselecrcpp <- map(filter_values_fselectorrcpp[4:6], ~ .x[["data"]]) %>%
   dplyr::bind_rows() %>%
   dplyr::select(value, filter) %>%
-  mutate(id = rep(1:89, 3)) %>%
+  mutate(id = rep(1:90, 3)) %>%
   tidyr::spread(filter, value) %>%
   dplyr::select(-id)
 
@@ -88,14 +88,14 @@ ggcorrplot(corr_vi,
 fv_all_nri <- map(filter_values[15:21], ~ .x[["data"]]) %>%
   dplyr::bind_rows() %>%
   dplyr::select(value, filter) %>%
-  mutate(id = rep(1:7381, 7)) %>%
+  mutate(id = rep(1:7875, 7)) %>%
   tidyr::spread(filter, value) %>%
   dplyr::select(-id)
 
 fv_all_nri_fselecrcpp <- map(filter_values_fselectorrcpp[7:9], ~ .x[["data"]]) %>%
   dplyr::bind_rows() %>%
   dplyr::select(value, filter) %>%
-  mutate(id = rep(1:7381, 3)) %>%
+  mutate(id = rep(1:7875, 3)) %>%
   tidyr::spread(filter, value) %>%
   dplyr::select(-id)
 
