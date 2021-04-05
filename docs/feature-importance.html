@@ -413,7 +413,7 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-03-31
+<strong>Last updated:</strong> 2021-04-05
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -504,16 +504,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontreee8dfdbbee5c26bcd0864d602cde916fe0883e138targetblanke8dfdbba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/e8dfdbbee5c26bcd0864d602cde916fe0883e138" target="_blank">e8dfdbb</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontreee1a05a2a63bda8a5d318f88a97e8ca45a2e885bdtargetblanke1a05a2a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/e1a05a2a63bda8a5d318f88a97e8ca45a2e885bd" target="_blank">e1a05a2</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontreee8dfdbbee5c26bcd0864d602cde916fe0883e138targetblanke8dfdbba" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontreee1a05a2a63bda8a5d318f88a97e8ca45a2e885bdtargetblanke1a05a2a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/pat-s/2019-feature-selection/tree/e8dfdbbee5c26bcd0864d602cde916fe0883e138" target="_blank">e8dfdbb</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/pat-s/2019-feature-selection/tree/e1a05a2a63bda8a5d318f88a97e8ca45a2e885bd" target="_blank">e1a05a2</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -525,7 +525,6 @@ Ignored files:
     Ignored:    .Ruserdata/
     Ignored:    .drake/
     Ignored:    .vscode/
-    Ignored:    analysis/figure/
     Ignored:    analysis/rosm.cache/
     Ignored:    data/
     Ignored:    inst/Benchmark for Filter Methods for Feature Selection in High-Dimensional  Classification Data.pdf
@@ -580,6 +579,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/e1a05a2a63bda8a5d318f88a97e8ca45a2e885bd/analysis/feature-importance.Rmd" target="_blank">e1a05a2</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2021-04-05
+</td>
+<td>
+wflow_publish(knitr_in(“analysis/feature-importance.Rmd”), view = FALSE,
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pat-s/2019-feature-selection/29bc678479cb9d16cb823a208d26261577c1d430/docs/feature-importance.html" target="_blank">29bc678</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2021-03-31
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1642,33 +1675,33 @@ add feature importance report
 </div>
 </div>
 <p>Preview the ordered feature importance results for datasets “HR” and “VI”.</p>
-<pre><code># A tibble: 122 x 8
-   tree.number decoloration canker feature importance wavelength numeric_id
-         &lt;dbl&gt;        &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
- 1        1.42        0.692   1.29 B69          0.820       724          69
- 2        1.42        0.692   1.29 B70          0.661       729.         70
- 3        1.42        0.692   1.29 B120         0.650       966.        120
- 4        1.42        0.692   1.29 B118         0.582       957.        118
- 5        1.42        0.692   1.29 B114         0.550       938.        114
- 6        1.42        0.692   1.29 B115         0.503       942.        115
- 7        1.42        0.692   1.29 B113         0.476       933         113
- 8        1.42        0.692   1.29 B68          0.469       719.         68
- 9        1.42        0.692   1.29 B126         0.458       995.        126
-10        1.42        0.692   1.29 B121         0.443       971         121
-# … with 112 more rows, and 1 more variable: rank &lt;int&gt;</code></pre>
+<pre><code># A tibble: 122 x 5
+   feature importance wavelength numeric_id  rank
+   &lt;chr&gt;        &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt; &lt;int&gt;
+ 1 B69          1.06        724          69     1
+ 2 B70          0.884       729.         70     2
+ 3 B71          0.635       734.         71     3
+ 4 B68          0.610       719.         68     4
+ 5 B118         0.546       957.        118     5
+ 6 B115         0.499       942.        115     6
+ 7 B109         0.473       914         109     7
+ 8 B117         0.443       952         117     8
+ 9 B113         0.436       933         113     9
+10 B114         0.401       938.        114    10
+# … with 112 more rows</code></pre>
 <pre><code># A tibble: 90 x 3
    feature    importance  rank
    &lt;chr&gt;           &lt;dbl&gt; &lt;int&gt;
- 1 Vogelmann2      1.90      1
- 2 Vogelmann4      1.57      2
- 3 Vogelmann       1.37      3
- 4 Vogelmann3      0.775     4
- 5 NPCI            0.518     5
- 6 Carter          0.496     6
- 7 D2              0.494     7
- 8 SR7             0.440     8
- 9 Datt            0.399     9
-10 Carter5         0.388    10
+ 1 Vogelmann2      1.93      1
+ 2 Vogelmann4      1.64      2
+ 3 Vogelmann       1.09      3
+ 4 D2              0.726     4
+ 5 Vogelmann3      0.687     5
+ 6 Carter          0.591     6
+ 7 Gitelson2       0.516     7
+ 8 Boochs2         0.504     8
+ 9 Carter5         0.445     9
+10 NPCI            0.396    10
 # … with 80 more rows</code></pre>
 <div id="create-a-virtual-spectral-signature-mean-of-vegetation-using-prosail." class="section level1">
 <h1>Create a virtual Spectral Signature (mean) of vegetation using PROSAIL.</h1>
@@ -1702,6 +1735,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/29bc678479cb9d16cb823a208d26261577c1d430/docs/figure/feature-importance.Rmd/fi-permut-vi-hr-1.png" target="_blank">29bc678</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2021-03-31
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/6f2584ee1e33a0774eb5358b6a3f90bf715d23b0/docs/figure/feature-importance.Rmd/fi-permut-vi-hr-1.png" target="_blank">6f2584e</a>
@@ -1892,6 +1936,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/29bc678479cb9d16cb823a208d26261577c1d430/docs/figure/feature-importance.Rmd/fi-permut-hr-abs-1.png" target="_blank">29bc678</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2021-03-31
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/77810eac7365aa981d44feb60dfbc61713091772/docs/figure/feature-importance.Rmd/fi-permut-hr-abs-1.png" target="_blank">77810ea</a>
 </td>
 <td>
@@ -2002,6 +2057,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/29bc678479cb9d16cb823a208d26261577c1d430/docs/figure/feature-importance.Rmd/fi-permut-vi-abs-1.png" target="_blank">29bc678</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2021-03-31
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/ac809cf98d84067228462add67272fed995c3c73/docs/figure/feature-importance.Rmd/fi-permut-vi-abs-1.png" target="_blank">ac809cf</a>
 </td>
 <td>
@@ -2054,6 +2120,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/29bc678479cb9d16cb823a208d26261577c1d430/docs/figure/feature-importance.Rmd/fi-hr-vi-abs-comb-1.png" target="_blank">29bc678</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2021-03-31
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/ac809cf98d84067228462add67272fed995c3c73/docs/figure/feature-importance.Rmd/fi-hr-vi-abs-comb-1.png" target="_blank">ac809cf</a>
@@ -2134,6 +2211,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/29bc678479cb9d16cb823a208d26261577c1d430/docs/figure/feature-importance.Rmd/fi-hr-ale-1.png" target="_blank">29bc678</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2021-03-31
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/6f2584ee1e33a0774eb5358b6a3f90bf715d23b0/docs/figure/feature-importance.Rmd/fi-hr-ale-1.png" target="_blank">6f2584e</a>
@@ -2308,6 +2396,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/29bc678479cb9d16cb823a208d26261577c1d430/docs/figure/feature-importance.Rmd/unnamed-chunk-1-1.png" target="_blank">29bc678</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2021-03-31
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/6f2584ee1e33a0774eb5358b6a3f90bf715d23b0/docs/figure/feature-importance.Rmd/unnamed-chunk-1-1.png" target="_blank">6f2584e</a>
@@ -2526,6 +2625,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/29bc678479cb9d16cb823a208d26261577c1d430/docs/figure/feature-importance.Rmd/fi-vi-ale-1.png" target="_blank">29bc678</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2021-03-31
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/6f2584ee1e33a0774eb5358b6a3f90bf715d23b0/docs/figure/feature-importance.Rmd/fi-vi-ale-1.png" target="_blank">6f2584e</a>
 </td>
 <td>
@@ -2702,6 +2812,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/29bc678479cb9d16cb823a208d26261577c1d430/docs/figure/feature-importance.Rmd/unnamed-chunk-2-1.png" target="_blank">29bc678</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2021-03-31
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/6f2584ee1e33a0774eb5358b6a3f90bf715d23b0/docs/figure/feature-importance.Rmd/unnamed-chunk-2-1.png" target="_blank">6f2584e</a>
