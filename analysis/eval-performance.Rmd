@@ -391,7 +391,7 @@ results_aggr2 <- df_perf %>%
 
 results_aggr2 %>%
   ggplot(aes(x = perf, y = learner_group)) +
-  geom_beeswarm(
+  ggbeeswarm2::geom_beeswarm(
     data = results_aggr2[results_aggr2$filter != "Borda", ],
     shape = 3, size = 2.2, aes(color = "Filter"),
     groupOnX = FALSE
