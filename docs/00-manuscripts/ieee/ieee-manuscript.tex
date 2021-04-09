@@ -370,10 +370,6 @@ Even though no estimation error was recorded in this study, \cite{maclean1982} e
 %	\end{center}
 %\end{figure}
 
-\subsection{Correlation among predictors}
-
-A \ac{PCA} was done to analyse the correlation within the variables of the different feature sets (\autoref{fig:pca-pov}).
-
 \subsection{Hyperspectral data}
 
 The airborne hyperspectral data was acquired during two flight campaigns which took place at noon on September 28th and October 5th 2016.
@@ -622,20 +618,10 @@ Besides the availability of code and manuscript sources, a static webpage is ava
 
 \subsection{Correlation analysis}
 
-The PCA-based correlation analysis in \autoref{fig:pca-pov} shows that, depending on the feature set, between two (HR) and five (VI) \ac{PC} are needed to explain 90\% of variance.
+The PCA-based correlation analysis showed that, depending on the feature set, between two (HR) and 42 (NRI) \ac{PC} are needed to explain 95\% of variance.
 The less PCs are needed to reach a high proportion of variance explained the more similar the individual features are to each other.
-Hence, a high intra-feature correlation can be observed for feature set HR which reaches 98\% with only two PCs.
-Feature sets NRI and VI are more diverse and require four (NRI) and five (VI) PCs to explain 90\% of the variance in the data, respectively.
-
-% \begin{figure} [t!]
-% 	\centering
-% 	\begin{center}
-% 		\includegraphics[width=0.48\textwidth] {pca-pov-comparison-1.pdf}
-% 		\caption{Proportion of variance explained by a Principal Component Analysis for all feature sets.
-% 		To show at least 2 PC for every feature set, the target POV was set to 98\% for VI and NRI and to 90\% for HR.}
-% 		\label{fig:pca-pov}
-% 	\end{center}
-% \end{figure}
+Hence, a high intra-feature correlation can be observed for feature set HR which reaches 96\% with only two PCs.
+Feature sets NRI and VI are more diverse and require 42 (NRI) and 12 (VI) PCs to explain 95\% of the variance in the data, respectively.
 
 \subsection{Predictive performance}
 
@@ -765,11 +751,6 @@ Overall, most features showed only a small importance with average decreases in 
 	\end{center}
 \end{figure*}
 
-\subsubsection{ALE Plots}
-
-Most ALE plots show a small absolute change in ALE compared to their respective mean effects (= 0) for all chosen features (less than $\pm 0.001$) (\autoref{fig:fi-hr-ale}).
-Also, a medium-to-high relative dynamic over the respective reflectance value range of each variable was observed.
-
 \section{Discussion}
 
 \subsection{Predictive Performance}
@@ -871,13 +852,6 @@ A possible explanation for the worse performances of most models scored on the V
 The majority of VI features covers the range between 550 nm - 800 nm.
 Only one index (PWI) covers information in the range beyond 900 nm.
 
-% ALE plots
-The ALE plots are hard to interpret because their values are interpreted on a relative scale and differ for each band.
-When linking band reflectance values against ALE values of a specific band, a value of 100 has a very different meaning in B67 than in B124 because for the latter, reflectance values of vegetation are naturally higher.
-Hence, a reflectance value of 100 would be considered high for B67 but low for B124 with respect to a spectral curve of vegetation.
-However, no baseline reflectance value for every feature exists since the absolute reflectance values depend on the sensor characteristics.
-ALE plots can be a powerful tool for interpreting feature importance of correlated features but might be limited in their interpretability because only relative comparisons can be conducted.
-
 \subsection{Data Quality}
 \label{subsec:data-quality}
 
@@ -935,7 +909,7 @@ Incorporating such (both spectral and structural) could be a possible enhancemen
 % write about hyperspectral remote sensing
 The field of (hyperspectral) remote sensing has a strong focus on using random forests for modeling in recent years \cite{belgiu2016}.
 However, in high-dimensional scenarios, tuning parameter \texttt{\(m_{try}\)} becomes computationally expensive.
-To account for this and the high dimensionality in general, studies used feature selection approaches like semi-supervised feature extraction \cite{xia2015}, wrapper methods \cite{fassnacht2014, feng2016, georganos2018}, PCA and adjusted feature selection \cite{rochac2016}.
+To account for this and the high dimensionality in general, studies used feature selection approaches like semi-supervised feature extraction \cite{xia2015}, wrapper methods \cite{fassnacht2014a, feng2016, georganos2018}, PCA and adjusted feature selection \cite{rochac2016}.
 However, no study that made use of filter methods in combination with hyperparameter tuning in the field of (hyperspectral) remote sensing could be found.
 Potential reasons for this gap could be an easier access to wrapper methods and a higher general awareness of such compared to filter methods.
 Applying the filter-based feature selection methodology shown in this study and its related code provided in the research compendium might be a helpful reference for future studies using hyperspectral remote sensing data.
@@ -999,14 +973,14 @@ This work was funded by the EU LIFE Healthy Forest project (LIFE14 ENV/ES/000179
 
 \appendices{}
 
-\section{SVM ALE plots for task HR}
+% \section{SVM ALE plots for task HR}
 
-\begin{figure} [ht]
-	\begin{center}
-		\includegraphics[width=0.48\textwidth] {fi-hr-ale-1.pdf}
-		\caption{ALE plots of SVM on dataset HR. The ten most important features from the permutation-based variable importance estimation were used. The y-axis shows the deviation to the mean prediction for each feature, with the mean prediction being centered at zero.}\label{fig:fi-hr-ale}
-	\end{center}
-\end{figure}
+% \begin{figure} [ht]
+% 	\begin{center}
+% 		\includegraphics[width=0.48\textwidth] {fi-hr-ale-1.pdf}
+% 		\caption{ALE plots of SVM on dataset HR. The ten most important features from the permutation-based variable importance estimation were used. The y-axis shows the deviation to the mean prediction for each feature, with the mean prediction being centered at zero.}\label{fig:fi-hr-ale}
+% 	\end{center}
+% \end{figure}
 
 %\section{SVM ALE plots for task VI}
 
@@ -1137,7 +1111,7 @@ This work was funded by the EU LIFE Healthy Forest project (LIFE14 ENV/ES/000179
 	mNDVI           &  $\frac{(R_{800}-R_{680})}{R_{800}+R_{680}-2 \times R_{445}}$ & \cite{sims2002a} \\
 	MPRI            & $\frac{R_{515}-R_{530}}{R_{515}+R_{530}}$                                                           & \cite{hernandez-clemente2011}\\
 	MSAVI           & \parbox{5.5cm}{$0.5 \times ((2\times R_{800}+1)^2-8\times (R_{800}-R_{670}))^{0.5}$}                & \cite{qi1994}\\
-	MSI             & $\frac{R_{1600}}{R_{817}}$                                                                          & \cite{huntjr1989}\\
+	MSI             & $\frac{R_{1600}}{R_{817}}$                                                                          & \cite{hunt1989}\\
 	mSR             & $\frac{R_{800}-R_{445}}{R_{680}-R_{445}}$                                                           & \cite{sims2002a} \\
 	mSR2            & $\frac{(R_{750}/R_{705})-1}{R_{750}/R_{705}+1)^{0.5}}$                                              & \cite{chen1996}\\
 	mSR705          & $\frac{R_{750}-R_{445}}{R_{705}-R_{445}}$                                                           & \cite{sims2002a} \\
@@ -1170,7 +1144,7 @@ This work was funded by the EU LIFE Healthy Forest project (LIFE14 ENV/ES/000179
 	& $\frac{700 + 40 \times ((R_{re} -R_{700})}{(R_{740}-R_{700}))}$ & \\
 	\midrule
 	SAVI           & $\frac{(1+L)\times (R_{800}-R_{670})}{(R_{800}+R_{670}+L)}$                                          & \cite{huete1988} \\
-	SIPI           & $\frac{R_{800}-R_{445}}{R_{800}-R_{680}}$                                                            & \cite{pen-uelas1995} \\
+	SIPI           & $\frac{R_{800}-R_{445}}{R_{800}-R_{680}}$                                                            & \cite{penuelasj.1995} \\
 	\midrule
 	SPVI           & \parbox{3.8cm}{$0.4 \times 3.7 \times (R_{800}-R_{670})-1.2 \times ((R_{530}-R_{670})^2)^{0.5}$}     & \cite{vincini2006} \\
 	\midrule
@@ -1183,7 +1157,7 @@ This work was funded by the EU LIFE Healthy Forest project (LIFE14 ENV/ES/000179
 	SR6            & $\frac{R_{750}}{R_{710}}$                                                                            & \cite{zarco-tejada1999} \\
 	SR7            & $\frac{R_{440}}{R_{690}}$                                                                            & \cite{lichtenthaler1996} \\
 	SR8            & $\frac{R_{515}}{R_{550}}$                                                                            & \cite{hernandez-clemente2012}\\
-	SRPI           & $\frac{R_{430}}{R_{680}}$                                                                            & \cite{pen-uelas1995}\\
+	SRPI           & $\frac{R_{430}}{R_{680}}$                                                                            & \cite{penuelasj.1995}\\
 	SRWI           & $\frac{R_{850}}{R_{1240}}$                                                                           & \cite{zarco-tejada2003a}\\
 	Sum\_Dr1       & $\sum_{i=626}^{795} D1_i$                                                                            & \cite{elvidge1995} \\
 	Sum\_Dr2       & $\sum_{i=680}^{780} D1_i$                                                                            & \cite{filella1994} \\
