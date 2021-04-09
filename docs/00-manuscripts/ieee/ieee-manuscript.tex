@@ -751,11 +751,6 @@ Overall, most features showed only a small importance with average decreases in 
 	\end{center}
 \end{figure*}
 
-\subsubsection{ALE Plots}
-
-Most ALE plots show a small absolute change in ALE compared to their respective mean effects (= 0) for all chosen features (less than $\pm 0.001$) (\autoref{fig:fi-hr-ale}).
-Also, a medium-to-high relative dynamic over the respective reflectance value range of each variable was observed.
-
 \section{Discussion}
 
 \subsection{Predictive Performance}
@@ -856,13 +851,6 @@ Looking at the spectral curves of the plots, apparent reflectance differences ca
 A possible explanation for the worse performances of most models scored on the VI dataset compared to all other feature sets could be the lack of features covering the area between 850 nm and 1000 nm (\autoref{fig:fi-permut-vi-hr}).
 The majority of VI features covers the range between 550 nm - 800 nm.
 Only one index (PWI) covers information in the range beyond 900 nm.
-
-% ALE plots
-The ALE plots are hard to interpret because their values are interpreted on a relative scale and differ for each band.
-When linking band reflectance values against ALE values of a specific band, a value of 100 has a very different meaning in B67 than in B124 because for the latter, reflectance values of vegetation are naturally higher.
-Hence, a reflectance value of 100 would be considered high for B67 but low for B124 with respect to a spectral curve of vegetation.
-However, no baseline reflectance value for every feature exists since the absolute reflectance values depend on the sensor characteristics.
-ALE plots can be a powerful tool for interpreting feature importance of correlated features but might be limited in their interpretability because only relative comparisons can be conducted.
 
 \subsection{Data Quality}
 \label{subsec:data-quality}
@@ -985,14 +973,14 @@ This work was funded by the EU LIFE Healthy Forest project (LIFE14 ENV/ES/000179
 
 \appendices{}
 
-\section{SVM ALE plots for task HR}
+% \section{SVM ALE plots for task HR}
 
-\begin{figure} [ht]
-	\begin{center}
-		\includegraphics[width=0.48\textwidth] {fi-hr-ale-1.pdf}
-		\caption{ALE plots of SVM on dataset HR. The ten most important features from the permutation-based variable importance estimation were used. The y-axis shows the deviation to the mean prediction for each feature, with the mean prediction being centered at zero.}\label{fig:fi-hr-ale}
-	\end{center}
-\end{figure}
+% \begin{figure} [ht]
+% 	\begin{center}
+% 		\includegraphics[width=0.48\textwidth] {fi-hr-ale-1.pdf}
+% 		\caption{ALE plots of SVM on dataset HR. The ten most important features from the permutation-based variable importance estimation were used. The y-axis shows the deviation to the mean prediction for each feature, with the mean prediction being centered at zero.}\label{fig:fi-hr-ale}
+% 	\end{center}
+% \end{figure}
 
 %\section{SVM ALE plots for task VI}
 
