@@ -1,7 +1,6 @@
 # see https://ropenscilabs.github.io/drake-manual/plans.html#large-plans
 
 benchmark_plan <- drake_plan(
-
   learners_penalized = list(
     lrn_lasso,
     lrn_ridge
@@ -39,8 +38,8 @@ benchmark_plan <- drake_plan(
   # 6     - hr_nri_vi
   benchmark_no_models = target(
     benchmark(
-      learners = tune_wrappers_mbo_sub[[1]],
-      tasks = task_reduced_cor[[3]],
+      learners = tune_wrappers_mbo,
+      tasks = task_reduced_cor,
       models = FALSE,
       keep.pred = TRUE,
       resamplings = makeResampleDesc("CV", fixed = TRUE),
@@ -51,8 +50,9 @@ benchmark_plan <- drake_plan(
         setAggregation(expvar, test.mean)
       )
     ),
-    dynamic = cross(tune_wrappers_mbo_sub#,
-    # task_reduced_cor
+    dynamic = cross(
+      tune_wrappers_mbo,
+      task_reduced_cor
     )
   ),
 
