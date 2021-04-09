@@ -370,10 +370,6 @@ Even though no estimation error was recorded in this study, \cite{maclean1982} e
 %	\end{center}
 %\end{figure}
 
-\subsection{Correlation among predictors}
-
-A \ac{PCA} was done to analyse the correlation within the variables of the different feature sets (\autoref{fig:pca-pov}).
-
 \subsection{Hyperspectral data}
 
 The airborne hyperspectral data was acquired during two flight campaigns which took place at noon on September 28th and October 5th 2016.
@@ -622,20 +618,10 @@ Besides the availability of code and manuscript sources, a static webpage is ava
 
 \subsection{Correlation analysis}
 
-The PCA-based correlation analysis in \autoref{fig:pca-pov} shows that, depending on the feature set, between two (HR) and five (VI) \ac{PC} are needed to explain 90\% of variance.
+The PCA-based correlation analysis showed that, depending on the feature set, between two (HR) and 42 (NRI) \ac{PC} are needed to explain 95\% of variance.
 The less PCs are needed to reach a high proportion of variance explained the more similar the individual features are to each other.
-Hence, a high intra-feature correlation can be observed for feature set HR which reaches 98\% with only two PCs.
-Feature sets NRI and VI are more diverse and require four (NRI) and five (VI) PCs to explain 90\% of the variance in the data, respectively.
-
-% \begin{figure} [t!]
-% 	\centering
-% 	\begin{center}
-% 		\includegraphics[width=0.48\textwidth] {pca-pov-comparison-1.pdf}
-% 		\caption{Proportion of variance explained by a Principal Component Analysis for all feature sets.
-% 		To show at least 2 PC for every feature set, the target POV was set to 98\% for VI and NRI and to 90\% for HR.}
-% 		\label{fig:pca-pov}
-% 	\end{center}
-% \end{figure}
+Hence, a high intra-feature correlation can be observed for feature set HR which reaches 96\% with only two PCs.
+Feature sets NRI and VI are more diverse and require 42 (NRI) and 12 (VI) PCs to explain 95\% of the variance in the data, respectively.
 
 \subsection{Predictive performance}
 
