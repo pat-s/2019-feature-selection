@@ -3,20 +3,20 @@
 \centering
 \caption{Best ten results among all combinations, sorted in ascending order of RMSE} 
 \label{tab:perf-top-10}
-\begin{tabular}{rlllrrr}
+\begin{tabular}{rlllrrrr}
   \hline
- & Task & Model & Filter & rsq & RMSE & SE \\ 
+ & Task & Model & Filter & rsq & expvar & RMSE & SE \\ 
   \hline
-1 & NRI & SVM & Info Gain & -0.07 & 28.03 & 19.13 \\ 
-  2 & HR-NRI-VI & SVM & Car & -9.31 & 28.11 & 19.14 \\ 
-  3 & HR-NRI & SVM & MRMR & -9.29 & 28.12 & 19.11 \\ 
-  4 & HR-NRI-VI & SVM & MRMR & -9.29 & 28.12 & 19.11 \\ 
-  5 & HR-NRI & SVM & CMIM & -9.30 & 28.12 & 19.12 \\ 
-  6 & HR & SVM & Info Gain & -3.04 & 28.12 & 19.12 \\ 
-  7 & HR & SVM & No Filter & -3.04 & 28.12 & 19.12 \\ 
-  8 & NRI-VI & SVM & No Filter & -0.15 & 28.12 & 19.12 \\ 
-  9 & HR-NRI & SVM & No Filter & -0.15 & 28.12 & 19.12 \\ 
-  10 & HR-NRI-VI & SVM & No Filter & -3.04 & 28.12 & 19.12 \\ 
+1 & HR-NRI-VI & SVM & Relief & -3.04 & 3.04 & 28.09 & 18.95 \\ 
+  2 & HR & SVM & Borda & -3.04 & 3.04 & 28.12 & 19.12 \\ 
+  3 & HR & SVM & Car & -0.15 & 0.15 & 28.12 & 19.12 \\ 
+  4 & HR & SVM & CMIM & -0.15 & 0.15 & 28.12 & 19.12 \\ 
+  5 & HR & SVM & Info Gain & -0.15 & 0.15 & 28.12 & 19.12 \\ 
+  6 & HR & SVM & MRMR & -0.17 & 0.17 & 28.12 & 19.12 \\ 
+  7 & HR & SVM & Relief & -0.17 & 0.17 & 28.12 & 19.12 \\ 
+  8 & HR-NRI-VI & SVM & CMIM & -9.33 & 9.33 & 28.12 & 19.18 \\ 
+  9 & HR-NRI-VI & SVM & Car & -9.30 & 9.30 & 28.12 & 19.12 \\ 
+  10 & NRI-VI & SVM & CMIM & -0.15 & 0.15 & 28.12 & 19.12 \\ 
    \hline
 \end{tabular}
 \end{table}
