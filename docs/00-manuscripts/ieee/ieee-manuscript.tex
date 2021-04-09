@@ -921,7 +921,7 @@ Incorporating such (both spectral and structural) could be a possible enhancemen
 % write about hyperspectral remote sensing
 The field of (hyperspectral) remote sensing has a strong focus on using random forests for modeling in recent years \cite{belgiu2016}.
 However, in high-dimensional scenarios, tuning parameter \texttt{\(m_{try}\)} becomes computationally expensive.
-To account for this and the high dimensionality in general, studies used feature selection approaches like semi-supervised feature extraction \cite{xia2015}, wrapper methods \cite{fassnacht2014, feng2016, georganos2018}, PCA and adjusted feature selection \cite{rochac2016}.
+To account for this and the high dimensionality in general, studies used feature selection approaches like semi-supervised feature extraction \cite{xia2015}, wrapper methods \cite{fassnacht2014a, feng2016, georganos2018}, PCA and adjusted feature selection \cite{rochac2016}.
 However, no study that made use of filter methods in combination with hyperparameter tuning in the field of (hyperspectral) remote sensing could be found.
 Potential reasons for this gap could be an easier access to wrapper methods and a higher general awareness of such compared to filter methods.
 Applying the filter-based feature selection methodology shown in this study and its related code provided in the research compendium might be a helpful reference for future studies using hyperspectral remote sensing data.
@@ -1123,7 +1123,7 @@ This work was funded by the EU LIFE Healthy Forest project (LIFE14 ENV/ES/000179
 	mNDVI           &  $\frac{(R_{800}-R_{680})}{R_{800}+R_{680}-2 \times R_{445}}$ & \cite{sims2002a} \\
 	MPRI            & $\frac{R_{515}-R_{530}}{R_{515}+R_{530}}$                                                           & \cite{hernandez-clemente2011}\\
 	MSAVI           & \parbox{5.5cm}{$0.5 \times ((2\times R_{800}+1)^2-8\times (R_{800}-R_{670}))^{0.5}$}                & \cite{qi1994}\\
-	MSI             & $\frac{R_{1600}}{R_{817}}$                                                                          & \cite{huntjr1989}\\
+	MSI             & $\frac{R_{1600}}{R_{817}}$                                                                          & \cite{hunt1989}\\
 	mSR             & $\frac{R_{800}-R_{445}}{R_{680}-R_{445}}$                                                           & \cite{sims2002a} \\
 	mSR2            & $\frac{(R_{750}/R_{705})-1}{R_{750}/R_{705}+1)^{0.5}}$                                              & \cite{chen1996}\\
 	mSR705          & $\frac{R_{750}-R_{445}}{R_{705}-R_{445}}$                                                           & \cite{sims2002a} \\
@@ -1156,7 +1156,7 @@ This work was funded by the EU LIFE Healthy Forest project (LIFE14 ENV/ES/000179
 	& $\frac{700 + 40 \times ((R_{re} -R_{700})}{(R_{740}-R_{700}))}$ & \\
 	\midrule
 	SAVI           & $\frac{(1+L)\times (R_{800}-R_{670})}{(R_{800}+R_{670}+L)}$                                          & \cite{huete1988} \\
-	SIPI           & $\frac{R_{800}-R_{445}}{R_{800}-R_{680}}$                                                            & \cite{pen-uelas1995} \\
+	SIPI           & $\frac{R_{800}-R_{445}}{R_{800}-R_{680}}$                                                            & \cite{penuelasj.1995} \\
 	\midrule
 	SPVI           & \parbox{3.8cm}{$0.4 \times 3.7 \times (R_{800}-R_{670})-1.2 \times ((R_{530}-R_{670})^2)^{0.5}$}     & \cite{vincini2006} \\
 	\midrule
@@ -1169,7 +1169,7 @@ This work was funded by the EU LIFE Healthy Forest project (LIFE14 ENV/ES/000179
 	SR6            & $\frac{R_{750}}{R_{710}}$                                                                            & \cite{zarco-tejada1999} \\
 	SR7            & $\frac{R_{440}}{R_{690}}$                                                                            & \cite{lichtenthaler1996} \\
 	SR8            & $\frac{R_{515}}{R_{550}}$                                                                            & \cite{hernandez-clemente2012}\\
-	SRPI           & $\frac{R_{430}}{R_{680}}$                                                                            & \cite{pen-uelas1995}\\
+	SRPI           & $\frac{R_{430}}{R_{680}}$                                                                            & \cite{penuelasj.1995}\\
 	SRWI           & $\frac{R_{850}}{R_{1240}}$                                                                           & \cite{zarco-tejada2003a}\\
 	Sum\_Dr1       & $\sum_{i=626}^{795} D1_i$                                                                            & \cite{elvidge1995} \\
 	Sum\_Dr2       & $\sum_{i=680}^{780} D1_i$                                                                            & \cite{filella1994} \\
