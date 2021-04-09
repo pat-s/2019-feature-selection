@@ -1,6 +1,6 @@
 feature_imp_plan <- drake_plan(
   # Slurm resources suggestion: at least 20 cores and 2 GB / core = 40 GB pro job
-  fi_permut_hr_buffer2 = target(feature_imp_parallel(task[[1]],
+  fi_permut_hr = target(feature_imp_parallel(task[[1]],
     learner = "regr.ksvm", nmc = 100,
     measure = list(
       setAggregation(rmse, test.mean)
@@ -8,7 +8,7 @@ feature_imp_plan <- drake_plan(
   )),
 
   # Slurm resources suggestion: at least 20 cores and 2 GB / core = 40 GB pro job
-  fi_permut_vi_buffer2 = target(feature_imp_parallel(task[[2]],
+  fi_permut_vi = target(feature_imp_parallel(task[[2]],
     learner = "regr.ksvm", nmc = 100,
     measure = list(
       setAggregation(rmse, test.mean)
@@ -60,7 +60,7 @@ feature_imp_plan <- drake_plan(
     return(df_wide_formatted)
   }),
 
-  fi_ale_hr_buffer2 = target({
+  fi_ale_hr = target({
     mod_hr <- mlr::train(
       tune_wrappers_mbo[[13]], # SVM MBO Car
       task_reduced_cor[[1]]
@@ -76,7 +76,7 @@ feature_imp_plan <- drake_plan(
     return(fe)
   }),
 
-    fi_ale_hr_buffer2_gs20 = target({
+    fi_ale_hr_gs20 = target({
     mod_hr <- mlr::train(
       tune_wrappers_mbo[[13]], # SVM MBO Car
       task_reduced_cor[[1]]
@@ -92,7 +92,7 @@ feature_imp_plan <- drake_plan(
     return(fe)
   }),
 
-  fi_ale_vi_buffer2 = target({
+  fi_ale_vi = target({
     mod_hr <- mlr::train(
       tune_wrappers_mbo[[13]], # SVM MBO Car
       task_reduced_cor[[2]]
@@ -108,7 +108,7 @@ feature_imp_plan <- drake_plan(
     return(fe)
   }),
 
-    fi_ale_vi_buffer2_gs20 = target({
+    fi_ale_vi_gs20 = target({
     mod_hr <- mlr::train(
       tune_wrappers_mbo[[13]], # SVM MBO Car
       task_reduced_cor[[2]]
