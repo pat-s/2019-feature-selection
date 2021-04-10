@@ -592,8 +592,8 @@ The correlation between covariates makes it challenging to calculate an unbiased
 Methods like \ac{PDP} or permutation-based approaches may produce unreliable estimates in such scenarios because unrealistic situations between covariates are created \cite{molnar2019}.
 The development of robust methods which enable an unbiased estimation of feature importance for highly correlated variables are subject to current research.
 
-In this work permutation-based feature importance and \ac{ALE} plots (HR only) were calculated to estimate feature importance / effects \cite{apley2019, molnar2019}.
-With the limitations of both methods in mind when applied to correlated features, the aim was to get a general overview of the feature importance of the hyperspectral bands while trying to avoid an over-interpretation of results.
+In this work permutation-based feature importance was calculated to estimate feature importance / effects \cite{apley2019}.
+With the limitations in mind when applied to correlated features, the aim was to get a general overview of the feature importance of the hyperspectral bands while trying to avoid an over-interpretation of results.
 The best-performing algorithm on the HR task (i.e. SVM) was used for the feature importance calculation.
 
 \subsection{Linking feature importance to wavelength regions}
@@ -628,9 +628,8 @@ Feature sets NRI and VI are more diverse and require 42 (NRI) and 12 (VI) PCs to
 % - RMSE around 27
 % - MBO tuned penalized methods are substantially worse
 Overall, the response variable \enquote{tree defoliation} could be modeled with an \ac{RMSE} of 28 percentage points (p.p.).
-SVM showed no differences in RMSE across feature sets whereas other learners (RF, SVM, XGBoost, lasso and ridge) differed up to seven percentage points (\autoref{fig:perf-result}).
-Ridge faced major issues in four tasks due to one observation which was predicted off the response scale (i.e. $> 100$).
-SVM showed the best overall performance with a mean difference of around three percentage points to the next best model (RF) (\autoref{tab:best-learner-perf}).
+SVM showed no differences in RMSE across feature sets whereas other learners (RF, SVM, XGBoost, lasso and ridge) differed up to five percentage points (\autoref{fig:perf-result}).
+SVM showed the best overall performance with a mean difference of around three percentage points to the next best model (XGBoost) (\autoref{tab:best-learner-perf}).
 Performance differences between test folds were large: Predicting on Luiando resulted in an RMSE of 9.0 p.p. for learner SVM (without filter) but up to 54.3 p.p. when testing on Laukiz2 (\autoref{tab:svm-single-fold-perf}).
 
 % feature sets
@@ -639,21 +638,20 @@ Performance differences between test folds were large: Predicting on Luiando res
 % - expert based feature sets show no better result than data-driven ones
 % - penalized methods seem to have problems with VI feature set
 The combination of feature sets showed small increases in performance for some learners.
-RF and XGBoost scored slightly better on the combined datasets HR-NRI and NRI-VI, respectively, compared to their standalone variants (HR, NRI, VI) (\autoref{fig:perf-result}).
-Datasets containing derived features only (VI, NRI) showed no improvement in performance compared to the raw hyperspectral band information (HR).
-All learners besides SVM showed a substantially worse performance on the VI dataset compared to all others (around five percentage points worse than their respective best performance).
+RF and XGBoost scored slightly better on the combined datasets HR-NRI, NRI-VI and HR-NRI-VI, respectively, compared to their standalone variants (NRI, VI) (\autoref{fig:perf-result}).
+However, the best performances for both RF and XGBoost were scored on HR only.
+Datasets containing derived features only (VI, NRI) showed no improvement in performance compared to the raw hyperspectral band information (HR) or combined feature sets.
 
 % learner
 % - SVM Car is the overall winner
-% - Ridge-CV hit and miss (hit = NRI, miss = VI)
+% - Lasso quite stable (varies within 1 - 4), ridge a bit more variable (2 - 6)
 % - all MBO penalized methods have no difference across tasks
-SVM combined with the \enquote{Carscore} filter achieved the best overall performance (RMSE of 27.98 p.p.) (\autoref{tab:perf-top-10}).
+SVM combined with the \enquote{Relief} filter achieved the best overall performance (RMSE of 28.09 p.p.) (\autoref{tab:perf-top-10}).
 %L1 penalized regression showed slightly better results in three out of six tasks when being optimized using the package internal 10-fold CV compared to MBO (RMSE of 50 vs 58).
-Regression with ridge penalty (L2) showed a high variance when comparing results across tasks: In four out of six tasks (all which VI variables and HR-NRI) the error was enormous (\autoref{tab:perf-worst-10}).
-For NRI and HR RMSE was 31.16 p.p. and 35.45 p.p., respectively.
-In all settings for which ridge showed such a high error, only one observation in one fold was predicted which such a high defoliation value (in the millions).
-The specific observation showed no obvious signs of being anomalous, e.g. extreme values in individual features or in principal components of features.
-This one outlier caused the error estimates of these folds and the average estimate across all folds to be off scale.
+Regression with ridge (L2) and lasso (L1) penalty showed their best performances on the NRI feature set (\autoref{tab:best-learner-perf}).
+Difference to other feature sets were very small for lasso (below one p.p.) and a bit higher for ridge (between two and five p.p. (VI)).
+XGBoost shows bad performances for some feature sets and fills the ten last places of the ranking (\autoref{tab:perf-worst-10}).
+Especially when combined with PCA, the algorithm was not able to achieve adequate performances.
 
 % filters
 % - influence varies based on algorithm and task (SVM no influence, RF medium, XGB medium)
@@ -661,29 +659,28 @@ This one outlier caused the error estimates of these folds and the average estim
 % - no advantage of ensemble borda filter compared to others
 Effects of filter methods on performance differed greatly between algorithms:
 SVM showed no variation in performance across filters (\autoref{fig:filter-effects-no-filter}).
-Using filters for RF showed a substantial increase in performance for all tasks with the exception of VI, for which the difference among all filters was also the smallest (\autoref{fig:filter-effects-no-filter}).
-XGBoost showed a high dependency on filtering the data: In 4 out of 6 tasks using no filter resulted in the worst or second worst performance.
-In contrast, using no filter on dataset NRI resulted in the best performance.
-XGBoost shows the highest overall differences between filters for a single task:
-for feature set HR, the range is up to 14 percentage points (\enquote{Carscore} vs. \enquote{no filter})(\autoref{fig:filter-effects-no-filter}).
+Using filters for RF showed a substantial increase in performance for all tasks with the exception of NRI, for which the difference among all filters was also the smallest (\autoref{fig:filter-effects-no-filter}).
+XGBoost showed a high dependency on filtering the data: In two out of six tasks using no filter resulted in the worst or second worst performance.
+XGBoost shows the highest overall differences between filters for a single task: for feature set HR, the range is up to 15 percentage points (\enquote{CMIM} vs. \enquote{no filter}) (\autoref{fig:filter-effects-no-filter}).
 
 % filter vs. no filter
 % - Substantial effect for XGBoost and RF
 % - SVM unaffected
-When comparing the usage of filters against using no filter at all, there was only one instance (XGBoost on the NRI task) where a model without filtering scored a better performance than the best filtered one (\autoref{fig:filter-effects-no-filter}).
-For SVM, all filters and \enquote{no filter} achieved the same performance on tasks VI and NRI even though \autoref{fig:perf-result} lists "No Filter" as the best option.
+When comparing the usage of filters against using no filter at all, there no instance where a model without filtering scored a better performance than the best filtered one (\autoref{fig:filter-effects-no-filter}).
+For SVM, all filters and \enquote{no filter} achieved roughly the same performance on all tasks.
 
 % Borda vs. other filters
 % - most often among the first best filters for each task
 % - never the best
-The Borda filter did not achieve the best performance for any learner across any task (\autoref{fig:filter-effects-borda}).
+The Borda filter achieved only in one instance (RF on HR-NRI-VI) the best performance among the used filters (\autoref{fig:filter-effects-borda}).
 For RF and XGBoost it most often ranked within the first 50\% with respect to all filters of a specific task.
-For XGBoost on the VI task, the Borda filter scored the second worst performance.
+For XGBoost on the NRI task, the Borda filter scored the second worst performance.
 
 % Selected percentage of features across plots
 Large differences were observed between the numbers of features selected during tuning for the subsequent fitting process.
-Most features were selected during optimization when training without Laukiz2 and least when Laukiz1 served as the test set (\autoref{tab:tune-perc-sel-features}).
-RF used only one feature when Luiando and Oiartzun served as the test data (0.00004 \% of 7675) while 34 and 230 features were seen as optimal during optimization when Laukiz1 and Laukiz2 were the test data, respectively.
+While for RF least features were selected when Oiartzun was the test set ($n = 2$), most features were used for this plot during model fitting for XGBoost and SVM (\autoref{tab:tune-perc-sel-features}).
+Most features were selected during optimization when training without Laukiz2 or Oiartzun and least when Laukiz1 served as the test set.
+RF used only two features when Oiartzun served as the test data (0.0028 \% of 7675) while 34 and 230 features were seen as optimal during optimization when Laukiz1 and Laukiz2 were the test data, respectively.
 In contrast, XGBoost and SVM used in all cases but Laukiz1 (less than 50 features; test set) more than two-thirds of all available features.
 
 % latex table top 10 absolute performances
@@ -706,7 +703,7 @@ In contrast, XGBoost and SVM used in all cases but Laukiz1 (less than 50 feature
 	\centering
 	\begin{center}
 		\includegraphics[width=0.48\textwidth] {performance-results-1.pdf}
-		\caption{Predictive performance (RMSE) of models across tasks. Suffix 'CV' denotes that the learner was optimized using internal 10-fold CV while prefix 'MBO' means that model-based optimization was used for hyperparameter optimization. Abbreviations on the vertical axis refer to the combinations of feature sets on which each model was scored on. Labels represent the feature selection method (NF = no filter, Car = 'Carscore', Info = 'Information Gain', Borda = 'Borda'). The second value of each label shows the RMSE value of the respective setting.}\label{fig:perf-result}
+		\caption{Predictive performance (RMSE) of models across tasks. Suffix 'MBO' means that model-based optimization was used for hyperparameter optimization. Abbreviations on the vertical axis refer to the combinations of feature sets on which each model was scored on. Labels represent the feature selection method (e.g. NF = no filter, Car = 'Carscore', Info Gain = 'Information Gain', Borda = 'Borda'). The second value of each label shows the RMSE value of the respective setting.}\label{fig:perf-result}
 	\end{center}
 \end{figure}
 
@@ -737,10 +734,10 @@ In contrast, XGBoost and SVM used in all cases but Laukiz1 (less than 50 feature
 % - All: Clustering around the red edge (700 - 750 nm)
 % - Overall highest: 1.7 RMSE decrease - not that much
 
-The most important features for datasets HR and VI showed an average decrease in RMSE of 1.57 p.p. (HR, B69) and 1.79 p.p (VI, Vogelmann2) (\autoref{fig:fi-permut-vi-hr}).
-For both datasets most features among the ten most important ones cluster around a wavelength range of 700 nm - 750 nm (the so called \enquote{red edge}).
+The most important features for datasets HR and VI showed an average decrease in RMSE of 1.06 p.p. (HR, B69) and 1.93 p.p (VI, Vogelmann2) (\autoref{fig:fi-permut-vi-hr}).
+For dataset HR most features cluster around the infrared region (920 nm - 1000 nm) (six out of ten) while for VI eight out of ten concentrate on the wavelength range of 700 nm - 750 nm (the so called \enquote{red edge}).
 For feature set HR, four features in the infrared region (920 nm - 1000 nm) were identified by the model to be most important (causing a mean decrease in RMSE of around 1 percentage point).
-Overall, most features showed only a small importance with average decreases in RMSE below 0.5 p.p..
+Overall, most features (excluding the top five respectively) showed only a small importance with average decreases in RMSE below 0.5 p.p..
 
 % permutation based var imp for datasets HR and VI
 \begin{figure*} [ht!]
@@ -755,7 +752,7 @@ Overall, most features showed only a small importance with average decreases in 
 
 \subsection{Predictive Performance}
 
-The best aggregated performance of this study (SVM + \enquote{Info Gain} filter, RMSE 27.99 p.p.) has to be seen in the light of model overfitting (see \autoref{subsec:perf-plot-char}).
+The best aggregated performance of this study (SVM + \enquote{Relief} filter, RMSE 28.09 p.p.) has to be seen in the light of model overfitting (see \autoref{subsec:perf-plot-char}).
 Leaving out the performance on Laukiz2 when aggregating results, the mean RMSE would be around 19 percentage points.
 However, leaving out a single plot would also change the prediction results for the other plots because the observations from Laukiz2 would not be available for model training.
 Due to the apparent presence of model overfitting in this study it can be postulated that more training data representing a greater variety of situations is needed.
@@ -771,17 +768,13 @@ These include the timing of the acquisition of the hyperspectral data (late phen
 \subsubsection{Model differences}
 
 An interesting finding is the strength of the SVM algorithm when comparing its predictive performance to its competitors (\autoref{tab:best-learner-perf}).
-These cluster around a performance of 31 p.p while SVM is able to score about 3 p.p. better than all other methods.
+These cluster around a performance of 31 p.p while SVM is able to score about three p.p. better than all other methods.
 However, we refrain from comparing these results (both relatively and absolute) to other studies since many study design points have an influence on the final result (optimization strategy, data characteristics, feature selection methods, etc.).
 
 Penalized methods showed promising performances, especially when taking runtime into account.
-When removing features with a correlation of nearly 1, lasso is able to score performances around 31 p.p. and shows, somewhat surprisingly, the best performance on the VI task.
-The same general conclusion applies to ridge if one discards the problematic results on four tasks.
-Regarding the problematic predictions of the ridge learner, a careful inspection of the hyperparameter optimization procedure of the fitted models ensured again that everything was correctly implemented.
-One observation turned out to be influential in causing the outlier prediction value even though careful multivariate exploratory data analysis showed no reason for flagging this observation a priori.
-It was therefore left in the model, but it should be acknowledged that this learner seemed particularly sensitive to the input data.
+When removing features with a correlation of nearly 1, lasso and ridge are able to score performances around 31 p.p..
 
-A potential limiting factor in this study could be the upper limit of 600 iterations used for the XGBoost algorithm (hyperparameter \texttt{nrounds}), especially for feature sets including NRIs (\autoref{tab:hyperparameter_limits}).
+A potential limiting factor in this study could be the upper limit of 70 iterations used for the XGBoost algorithm (hyperparameter \texttt{nrounds}), especially for feature sets including NRIs (\autoref{tab:hyperparameter_limits}).
 This setting was a compromise between runtime and tuning space extension with the goal to work well for most feature sets.
 It may be recommendable to increase this upper limit to a value closer to the number of features in the dataset in order to be able to exploit the full potential of this hyperparameter.
 
@@ -789,7 +782,7 @@ It may be recommendable to increase this upper limit to a value closer to the nu
 
 One objective of this study was whether expert-based or data-driven feature engineering has a positive influence on model performance.
 With respect to \autoref{fig:perf-result}, no overall positive or negative trend was found for all models that related to specific feature sets.
-The performance of RF and XGBoost on the VI feature set was about six percentage points lower than on others.
+The performance of RF and XGBoost on the VI feature set was around four to six percentage points lower than on others.
 One reason could be the lack of coverage in the wavelength area between 810 nm and 1000 nm (\autoref{fig:fi-permut-vi-hr}).
 In addition, for all learners but SVM a better performance was observed when NRI indices were included in the feature set (i.e. NRI-VI, HR-NRI, HR-NRI-VI).
 
@@ -817,25 +810,27 @@ More in-depth research is needed to investigate the effect of filters on other c
 % - Filters can also have a negative impact
 % - Filters are interesting for reducing runtime and improve interpretability, not only for performance
 The usefulness of filters with respect to predictive performance in this study varied.
-While the performance of some models (up to 5 p.p. for RF and XGBoost) was improved by specific filters, some models achieved a poorer performance with filters than without them (\autoref{fig:filter-effects-no-filter}).
-Since these negative cases were not caused by a specific filter method, it is recommended to test multiple filters in a study if filters are going to be used.
+While the performance of some models (up to five p.p. for RF and XGBoost) was improved by specific filters, some models achieved a poorer performance with filters than without them (\autoref{fig:filter-effects-no-filter}).
+No pattern with respect to lower scores related to a specific filter method could be found.
+Hence, it is recommended to test multiple filters in a study if filters are going to be used.
 While filters can improve the performance of models, they might be more interesting in other aspects than performance: reducing variables can reduce computational efforts in high-dimensional scenarios and might enhance the interpretability of models.
-Filters are a lot cheaper to compute than wrapper methods and the final feature subset selection can be added as an additional hyperparameter to the model optimization stage.
+Filters are a lot cheaper to compute than wrapper methods and the final feature subset selection can be integrated as an additional hyperparameter into the model optimization stage.
 
 % - Ensemble FS shows no advantage to simple methods -> always one simple filter which is better. Ensemble filters are good across many different datasets
 The models which used the Borda ensemble method in this study did not score better on average than models which used a single filter or no filter at all.
 Ensemble methods have higher stability and robustness than single ones and have shown promising results in \cite{drotar2017a}.
 Hence, their main advantage are stable performances across datasets with varying characteristics.
 Single filter methods might yield better model performances on certain datasets but fail on others.
-The fact that this study used multiple feature sets but only one dataset and tested many single filters could be a potential explanation why in almost all cases (besides XGBoost on task HR-NRI-VI) a single filter outperformed the ensemble filter.
+The fact that this study used multiple feature sets but only one dataset and tested many single filters could be a potential explanation why in all cases (besides RF on task HR-NRI-VI) a single filter outperformed the ensemble filter.
 However, studies which used ensemble filters are still rare and usually these are not compared against single filters \cite{ghosh2019}.
 In summary, Borda performs no better than a randomly selected filter method in this study.
 More case studies applying ensemble filter methods are needed to verify this finding.
 Nevertheless, ensemble filters can be a promising addition to a machine-learning feature-selection portfolio.
 
 % - PCA shows similar performance but probably requires tuning of main components -> check runtime!
-PCA, acting as a filter method in this work, did neither show the best nor worst result compared to other feature-selection approaches.
-It was able to reduce model fitting times substantially.
+PCA, acting as a filter method, more often showed less optimal results, especially for algorithms RF and XGBoost.
+Especially XGBoost had substantial problems when using PCA as a filter method and scored the worst four results (\autoref{tab:perf-worst-10}).
+However, PCA was able to reduce model fitting times substantially across all algorithms.
 Depending on the use case, PCA can be an interesting option to reduce dimensionality while keeping runtime low.
 However, information about the total number of features used by the model is lost when applying this technique.
 Since filter scores only need to be calculated once for a given dataset in a benchmark setting, the runtime advantage of a PCA vs. filter methods might in fact be negligible in practice.
@@ -863,7 +858,7 @@ Due to the reported geometric offset of up to one meter within the hyperspectral
 Also, to represent a tree with a crown diameter of around two meters accordingly, more than one square meter (= one pixel) is needed.
 It was concluded that using a buffer of one meter can be a good compromise between the inclusion of information from too many surrounding trees, mapping a single tree crown accordingly accounting for a possible geometric offset.
 The applied buffer only included a pixel value if the distance to the centroid of a pixel was smaller than the buffer radius.
-This resulted in almost all cases in four contributing pixels (= four square meters) for the extraction of hyperspectral information for a given tree.
+This results in almost all cases in four contributing pixels (= four square meters) for the extraction of hyperspectral information for a given tree.
 Even though no results showing the influence of different buffer values on the extraction were provided, it is hypothesized that the relationships between features would not change substantially, leading to almost identical model results.
 Besides using a buffer to extract the hyperspectral information, a segmentation could have been considered.
 However, this method would have required more effort for no clear added value in our view and would have moved the focus of this manuscript more to data preprocessing and away from the focus on filter-based feature selection methods.
@@ -965,7 +960,7 @@ However, assessing the feature importance for highly correlated features remains
 Results might be biased and should be taken with care to avoid overgeneralizing from individual studies.
 
 % What about the general potential of analyzing defol with hyperspectral data?
-Finally, the potential of predicting defoliation with the given study design was rather limited with respect to the average RMSE of 27 percentage points scored by the best performing model.
+Finally, the potential of predicting defoliation with the given study design was rather limited with respect to the average RMSE of 28 percentage points scored by the best performing model.
 More training data covering a wider range of defoliation values in a larger number of forest plantations is needed to train better models which can create more robust predictions.
 
 \section{Acknowledgments}
