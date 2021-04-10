@@ -5,18 +5,18 @@
 \label{tab:perf-worst-10}
 \begin{tabular}{rlllrrr}
   \hline
- & Task & Model & Filter & rsq & expvar & RMSE \\ 
+ & Task & Model & Filter & RMSE & SE (RMSE) & R^2 \\ 
   \hline
-1 & NRI-VI & XGBoost & PCA & -39.30 & 39.35 & 47.19 \\ 
-  2 & HR-NRI-VI & XGBoost & PCA & -5.30 & 5.25 & 46.30 \\ 
-  3 & NRI & XGBoost & PCA & -12.79 & 12.79 & 45.96 \\ 
-  4 & VI & XGBoost & PCA & -37.70 & 37.57 & 45.73 \\ 
-  5 & VI & XGBoost & No Filter & -5.24 & 5.24 & 45.08 \\ 
-  6 & HR & XGBoost & No Filter & -22.39 & 22.54 & 45.08 \\ 
-  7 & HR-NRI-VI & XGBoost & Relief & -4.80 & 4.76 & 44.76 \\ 
-  8 & HR-NRI & XGBoost & PCA & -9.12 & 9.18 & 43.14 \\ 
-  9 & HR-NRI & XGBoost & MRMR & -4.95 & 4.86 & 42.84 \\ 
-  10 & HR-NRI & XGBoost & Pearson & -20.70 & 21.00 & 42.44 \\ 
+1 & NRI-VI & XGBoost & PCA & 47.19 & 9.17 & -39.30 \\ 
+  2 & HR-NRI-VI & XGBoost & PCA & 46.30 & 5.79 & -5.30 \\ 
+  3 & NRI & XGBoost & PCA & 45.96 & 8.28 & -12.79 \\ 
+  4 & VI & XGBoost & PCA & 45.73 & 7.54 & -37.70 \\ 
+  5 & VI & XGBoost & No Filter & 45.08 & 6.95 & -5.24 \\ 
+  6 & HR & XGBoost & No Filter & 45.08 & 5.26 & -22.39 \\ 
+  7 & HR-NRI-VI & XGBoost & Relief & 44.76 & 5.54 & -4.80 \\ 
+  8 & HR-NRI & XGBoost & PCA & 43.14 & 7.21 & -9.12 \\ 
+  9 & HR-NRI & XGBoost & MRMR & 42.84 & 6.73 & -4.95 \\ 
+  10 & HR-NRI & XGBoost & Pearson & 42.44 & 6.45 & -20.70 \\ 
    \hline
 \end{tabular}
 \end{table}
