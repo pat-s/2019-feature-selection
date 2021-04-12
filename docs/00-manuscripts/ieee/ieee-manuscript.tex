@@ -679,9 +679,9 @@ For XGBoost on the NRI task, the Borda filter scored the second worst performanc
 % Selected percentage of features across plots
 Large differences were observed between the numbers of features selected during tuning for the subsequent fitting process across each learner and plot.
 While for RF least features were selected when Luiando or Oiartzun were the test set ($n = 1$), more than 90\% of all features were used for test sets Laukiz and Laukiz2 (\autoref{tab:tune-perc-sel-features}).
-Overall, SVM used the least features across all plots among all learners, with 24\% for test set Oiartzun being the highest single ploot value.
-Every learner behaved quite differently for each plot and no overall pattern could be observed.
 RF and XGBoost used very few features only when Oiartzun was the test set (one and three, respectively) whereas this was the plot for which SVM used most features ($n = 119$).
+Overall, SVM used the least features across all plots among all learners, with 24\% for test set Oiartzun being the highest single plot value.
+In general every learner behaved quite differently for each plot and no overall pattern could be observed.
 
 % latex table top 10 absolute performances
 \input{performance-top-10}
@@ -855,9 +855,8 @@ The following paragraph discusses these.
 
 Finding a suitable approach to extract the remote sensing information from each tree was a complex process.
 Due to the reported geometric offset of up to one meter within the hyperspectral data, the risk of assigning a value to an observation which would actually refer to a different, possibly non-tree, pixel was reasonably high.
-Also, to represent a tree with a crown diameter of around two meters accordingly, more than one square meter (= one pixel) is needed.
 It was concluded that using a buffer of one meter can be a good compromise between the inclusion of information from too many surrounding trees, mapping a single tree crown accordingly accounting for a possible geometric offset.
-The applied buffer only included a pixel value if the distance to the centroid of a pixel was smaller than the buffer radius.
+The applied buffer only included a pixel value if the distance to the centroid of a pixel was smaller than the buffer radius (i.e. <= 1m).
 This results in almost all cases in four contributing pixels (= four square meters) for the extraction of hyperspectral information for a given tree.
 Even though no results showing the influence of different buffer values on the extraction were provided, it is hypothesized that the relationships between features would not change substantially, leading to almost identical model results.
 Besides using a buffer to extract the hyperspectral information, a segmentation could have been considered.
@@ -866,7 +865,8 @@ However, this method would have required more effort for no clear added value in
 Another point worth discussing is that the exact number of contributing pixels to the final index value of an observation cannot be determined precisely: it depends on the location of the tree within the pixel grid.
 According to the extract function of the raster package, a pixel is included if its centroid (and not just any part of the grid cell) falls inside the buffer.
 As the buffer is circular, the total number of contributing pixels of each tree depends on the exact location of a tree within the pixel grid.
-If a tree observation is located on the border of the plot, some directions of the buffer will contain no values and the subsequent index value will be calculated with fewer pixels than if the tree observation is located in the middle of the plot.
+If a tree observation is located on the border of the plot, some directions of the buffer will contain no values (because the image coverage was cropped to the borders of the plot) and the subsequent index value will be calculated with fewer pixels than if the tree observation is located in the middle of the plot.
+However, in most cases each tree information should be composed out of four hyperspectral pixels.
 
 The available hyperspectral data covered a wavelength between 400 nm and 1000 nm.
 Hence, the wavelength range of the shortwave infrared (SWIR) region is not covered in this study.
@@ -880,8 +880,6 @@ The R package hsdar was used for the calculation of vegetation indices \cite{leh
 All indices that could be calculated with the given spectral range of the data (400 nm - 1000 nm) were used.
 This means even though \autoref{tab:vegindices} lists all available indices of the package, not all listed indices were used in this study.
 Even though this selection included a large number of indices, some possibly helpful indices might have been missed due to the restriction of the hyperspectral data.
-
-
 
 Overall, the magnitude of uncertainty introduced by the mentioned effects during index derivation cannot be quantified.
 Such limitations and uncertainties apply to most environmental studies and cannot be completely avoided.
