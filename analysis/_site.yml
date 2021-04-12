@@ -25,12 +25,6 @@ navbar:
       href: feature-importance.html
     - text: "Spectral signatures"
       href: spectral-signatures.html
-    - text: "Checking for normality of response"
-      href: response-normality.html
-    - text: Side Analysis
-      menu:
-      - text: "Inspect {glmnet} models"
-        href: inspect-glmnet-models.html
 
 output:
   workflowr::wflow_html:
