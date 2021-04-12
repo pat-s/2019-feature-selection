@@ -15,10 +15,6 @@ This [workflowr]() site contains all information and results about this research
 
 Project details can be found in the [About](about.html) page.
 
-**Result shortcuts**
-
-1. [Prediction maps of defoliation at trees](report-defoliation.html)
-
 Powered by [drake](https://github.com/ropensci/drake) + [workflowr](https://github.com/jdblischak/workflowr) + [mlr](https://github.com/mlr-org/mlr).
 
 # Acknowledgements

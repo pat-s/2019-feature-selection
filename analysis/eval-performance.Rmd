@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
   fig.align = "center",
   fig.width = 6.93,
   fig.height = 6.13,
-  out.width = "100%",
+  out.width = "70%",
   echo = FALSE
 )
 
@@ -122,7 +122,7 @@ df_tab %>%
 
 saveRDS(df_tab, here("docs/00-manuscripts/presentation/table-svm-single-plot.rda"))
 
-flextable::flextable(df_tab)
+DT::datatable(df_tab)
 ```
 
 ## (Table) T1 All leaner/filter/task combinations ordered by performance.
@@ -141,7 +141,7 @@ table1 <- df_perf %>%
     "Filter" = filter,
     "RMSE" = rmse_aggr,
     "SE (RMSE)" = se,
-    "R^2" = rsq,
+    "$R^2$" = rsq,
   ) %>%
   ungroup() %>%
   mutate(Filter = replace(Filter, is.na(Filter), "No Filter")) %>%
@@ -175,9 +175,7 @@ table1 %>%
 
 saveRDS(table1, here("docs/00-manuscripts/presentation/table-perf-top-10.rda"))
 
-table1 %>%
-  flextable() %>%
-  autofit()
+DT::datatable(table1)
 ```
 
 ## (Table) T2 Best learner/filter/task combination
@@ -202,7 +200,7 @@ table2 <- df_perf %>%
     "Filter" = filter,
     "RMSE" = rmse_aggr,
     "SE (RMSE)" = se,
-    "R^2" = rsq,
+    "$R^2$" = rsq,
   ) %>%
   select(-`Learner ID`) %>%
   relocate(RMSE, .after = Filter) %>%
@@ -232,9 +230,7 @@ table2 %>%
 
 saveRDS(table2, here("docs/00-manuscripts/presentation/table-best-learner-per-task.rda"))
 
-table2 %>%
-  flextable() %>%
-  autofit()
+DT::datatable(table2)
 ```
 
 ## (Table) T3 All leaner/filter/task combinations ordered descending by performance.
@@ -252,7 +248,7 @@ table3 <- df_perf %>%
     "Task" = task.id,
     "Filter" = filter,
     "RMSE" = rmse_aggr,
-    "R^2" = rsq,
+    "$R^2$" = rsq,
     "SE" = se,
     "SE (RMSE)" = se
   ) %>%
@@ -288,12 +284,7 @@ table3 %>%
 
 saveRDS(table3, here("docs/00-manuscripts/presentation/table-perf-worst-10.rda"))
 
-table3 %>%
-  ungroup() %>%
-  arrange(desc(RMSE)) %>%
-  slice(1:10) %>%
-  flextable() %>%
-  autofit()
+DT::datatable(table3)
 ```
 
 ## (Plot) P1 Best learner/filter combs for all tasks
@@ -397,7 +388,7 @@ results_aggr1 %>%
 Showing the final effect of applying feature selection to a learner for each task.
 All filters are summarized into a a single color whereas the "Borda" filter appears in its own color.
 
-```{r filter-effect-all-vs-borda-filter, warning=FALSE, dev = c("png", "pdf")}
+```{r filter-effect-all-vs-borda-filter, warning=FALSE, dev = c("png", "pdf"), out.width = "70%"}
 results_aggr2 <- df_perf %>%
   na.omit() %>%
   filter(learner_group != "Ridge-MBO") %>%
@@ -461,16 +452,16 @@ df_tbl <- getBMRTuneResults(bmr_inspect_tune, as.df = TRUE) %>%
     Laukiz1 = "1", Laukiz2 = "2"
   )) %>%
   dplyr::mutate(Learner = forcats::fct_recode(Learner,
-    "RF \\\\ Car" = "RF MBO Car", "XGB \\\\ Borda" = "XGBOOST MBO Borda",
+    "RF \\\\ Relief" = "RF MBO Relief", "XGB \\\\ CMIM" = "XGBOOST MBO CMIM",
     "SVM \\\\ Relief" = "SVM MBO Relief"
   )) %>%
   dplyr::mutate(Learner = as.character(Learner)) %>%
   dplyr::mutate(`Test Plot` = as.character(`Test Plot`)) %>%
   dplyr::mutate("\\#" = case_when(
-    `Test Plot` == "Laukiz1" ~ ceiling(`Features (\\%)` * 479),
+    `Test Plot` == "Laukiz1" ~ ceiling(`Features (\\%)` * 559),
     `Test Plot` == "Laukiz2" ~ ceiling(`Features (\\%)` * 451),
-    `Test Plot` == "Luiando" ~ ceiling(`Features (\\%)` * 300),
-    `Test Plot` == "Oiartzun" ~ ceiling(`Features (\\%)` * 529),
+    `Test Plot` == "Luiando" ~ ceiling(`Features (\\%)` * 301),
+    `Test Plot` == "Oiartzun" ~ ceiling(`Features (\\%)` * 497),
   )) %>%
   dplyr::group_by(Learner) %>%
   dplyr::select(Learner, `Test Plot`, "Features (\\%)", "\\#", RMSE)
@@ -488,7 +479,7 @@ df_tbl[[1]][first][1] <- gsub("\\\\midrule", "", df_tbl[[1]][first][1])
 table4 <- df_tbl %>%
   xtable::xtable(
     type = "latex",
-    caption = "Selected feature portions during tuning for selected learner-filter settings across folds for task HR-NRI-VI, sorted ascending by RMSE",
+    caption = "Selected feature portions during tuning for the best performing learner-filter settings (SVM Relief, RF Relief, XGBoost CMIM) across folds for task HR-NRI-VI, sorted ascending by RMSE.",
     label = "tab:tune-perc-sel-features",
     digits = c(0, 0, 0, 5, 0, 2)
   )
@@ -509,10 +500,7 @@ table4 %>%
 
 saveRDS(table4, here("docs/00-manuscripts/presentation/tune-perc-sel-feature.rda"))
 
-table4 %>%
-  flextable() %>%
-  autofit() %>%
-  fontsize(size = 13)
+DT::datatable(table4)
 ```
 
 Aggregated mean and standard deviation:
@@ -539,7 +527,5 @@ getBMRTuneResults(bmr_inspect_tune, as.df = TRUE) %>%
     "Mean (Features (%))" = mean(`Features (%)`),
     "SD (Features (%))" = sd(`Features (%)`)
   ) %>%
-  flextable() %>%
-  autofit() %>%
-  fontsize(size = 13)
+  DT::datatable()
 ```

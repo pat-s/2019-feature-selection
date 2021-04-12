@@ -56,7 +56,7 @@ benchmark_plan <- drake_plan(
     )
   ),
 
-  tune_wrappers_mbo_inspect_tune = tune_wrappers_mbo[c(1, 20, 15)],
+  tune_wrappers_mbo_inspect_tune = tune_wrappers_mbo[c(3, 12, 15)],
   task_hr_nri_vi = task_reduced_cor[6],
 
   benchmark_tune_results_hr_nri_vi = target(
@@ -74,9 +74,10 @@ benchmark_plan <- drake_plan(
       ),
       keep.extract = TRUE
     ),
+    # Best performing learners on HR-NRI-VI dataset
     # SVM: Relief
-    # RF: Car
-    # XG: Borda
+    # RF: Relief
+    # XG: CMIM
     dynamic = cross(tune_wrappers_mbo_inspect_tune, task_hr_nri_vi)
   ),
 
