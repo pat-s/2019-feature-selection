@@ -74,7 +74,7 @@ The output of this procedure was reflectance from the target pixel scaled betwee
 
 > - Please provide information on in-situ data. How was the defoliation measured? Is there an estimation error included?
 
-Defoliation was assessed visually by experienced forest pahologists supervised by E. Iturritxa (co-author).
+Defoliation was assessed visually by experienced forest pathologists supervised by E. Iturritxa (co-author).
 Values were recorded at three levels of the tree in 5-percent intervals.
 These three values were averaged to obtain an overall percentage.
 No estimation error was recorded.
