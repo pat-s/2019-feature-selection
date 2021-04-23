@@ -71,11 +71,15 @@ The output of this procedure was reflectance from the target pixel scaled betwee
 
 > - Please provide information on in-situ data. How was the defoliation measured? Is there an estimation error included?
 
-Defoliation was assessed visually by experienced forest pathologists supervised by E. Iturritxa (co-author).
-Values were recorded at three levels of the tree in 5-percent intervals.
+Defoliation was assessed visually by experienced forest pathologists supervised by E. Iturritxa (co-author) in September 2016.
+Defoliation was measured via visual inspection using 5\% intervals at three height levels (bottom, mid, top) with the help of a dedicated score card.
 These three values were averaged to obtain an overall percentage.
-No estimation error was recorded.
-We added this information to the section describing the in-situ data.
+No estimation error was recorded during the field surveys.
+
+Estimating the human observer error when assessing defoliation is an issue which is being discussed since many years [Innes 1993](https://doi.org/10.14214%2Fsf.a15668).
+Even though no estimation error was recorded in this study, [MacLean 1982](https://doi.org/10.1139%2Fx82-090) estimated human observer errors when assessing defoliation to range between 7\% - 18\%.
+
+We have added this information into the manuscript in Section 2.1 ("In-situ data").
 
 > - The sampling of a 2 meters buffer around a centroid of each tree seems to be not the best solution. I think the authors will have major problems with overlapping samples. Let’s take the site Laukitz 1, which is has a size (according to figure 2) of 50 m x 100 m = 5000 m². Given the buffer of 2 m, at least 4 m² are included in one sample (probably more). With a sample size of 559, I estimate 2236 m² of samples: There will be definitely pixels which belong to several samples. The authors should avoid this by using a segmentation (e.g. watershed) algorithm and receive exclusive samples of each tree crown. If there is no differentiation between crowns possible it is better to work with less samples that inconsistent ones.
 
