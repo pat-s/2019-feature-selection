@@ -24,13 +24,13 @@ Combining all these points, we think that not discussing the SNR of the sensor i
 
 Thanks for pointing towards the information redundancy characteristic of the dataset.
 We agree this is an interesting point to look at.
-We added the results of a PCA for all feature sets in Figure 3 and briefly described the results in the manuscript.
+We added the results of a PCA (95%) for all feature sets in described the results in the manuscript (section 4.1 "Correlation analysis").
 
-Depending on the feature set between two (HR) and five (VI) PCs are needed to explain 90% of the variance.
+Depending on the feature set between two (HR) and 42 (NRI) PCs are needed to explain 95% of the variance.
 Nevertheless, even the remaining fraction of variance can contain information that is relevant to predict the response variable.
 The fewer PCs are needed to reach a high proportion of variance explained, the more similar are the individual features to each other.
-Hence, a high feature correlation can be observed for feature set HR which only requires 2 PC to reach 90% of variance explained.
-Feature sets NRI and VI are more diverse and require four (NRI) and five (VI) PC to explain 90% of the variance in the data.
+Hence, a high feature correlation can be observed for feature set HR which only requires 2 PC to reach 95% of variance explained.
+Feature sets NRI and VI are more diverse and require 42 (NRI) and 12 (VI) PC to explain 95% of the variance in the data.
 
 > 3. RF is usually effected by the randomization of the training process, did you only run one shot, or it is the average result from multiple trails?
 
