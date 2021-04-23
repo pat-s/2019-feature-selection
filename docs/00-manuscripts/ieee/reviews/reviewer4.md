@@ -82,16 +82,16 @@ We added this information to the section describing the in-situ data.
 
 > - The sampling of a 2 meters buffer around a centroid of each tree seems to be not the best solution. I think the authors will have major problems with overlapping samples. Let’s take the site Laukitz 1, which is has a size (according to figure 2) of 50 m x 100 m = 5000 m². Given the buffer of 2 m, at least 4 m² are included in one sample (probably more). With a sample size of 559, I estimate 2236 m² of samples: There will be definitely pixels which belong to several samples. The authors should avoid this by using a segmentation (e.g. watershed) algorithm and receive exclusive samples of each tree crown. If there is no differentiation between crowns possible it is better to work with less samples that inconsistent ones.
 
-Thanks for pointing this out.
-It is true that the use of a buffer (or in fact the existence of a geometric offset) provides discussion potential in this work.
+Thanks for discussing the use of the 2m buffer in greater detail.
+We have reviewed the use of the 2m buffer and decided to reduce it to 1 m (which almost always results in four contributing pixels).
+This reduces the overlap of samples and still accounts for possible geometrical offsets which is a fair compromise in our view.
+Please see the paragraph below for more thoughts on this topic.
+
+We agree that the use of a buffer (or in fact the existence of a geometric offset) provides discussion potential in this work.
 There were long discussions among the authors if and how to tackle this problem.
-<!--
-Not doing anything would have increased the risk of including pixels without any tree information at all (e.g. bare ground).
-Including such false positives would have a substantial influence for the model due to the strong difference of bare ground pixels compared to vegetation pixels.
--->
 We concluded to use a buffer and by this to average the values of the neighboring pixels of each tree observation.
 We are aware that this blurs the extracted value to some degree but might as well prevent from including pure non-tree pixels.
-We also did a small exploratory analysis on the effect of the buffer size: https://pat-s.github.io/2019-feature-selection/eda.html#effects-of-different-buffer-sizes-when-extracting-values-to-trees.
+We also did a small exploratory analysis on the effect of the buffer size: <https://pat-s.github.io/2019-feature-selection/eda.html#effects-of-different-buffer-sizes-when-extracting-values-to-trees>.
 However we decided not to include this figure into the paper as no clear results can be drawn from it.
 Additionally it would mainly cause more guessing and move focus away from the main topic of the paper.
 
