@@ -4,7 +4,6 @@ We would like to thank the reviewer for taking time to review our manuscript.
 Please find our replies inline and a general statement to the point "spectral unmixing" and "deep learning" in the general reply of ours.
 
 > In this paper, the authors investigated the effectiveness and potential of feature selection in machine learning techniques with the application to forest health monitoring using HS data. Overall, the structure of this paper is well organized, and the presentation is relatively clear. However, there are some crucial issues that need to be carefully considered before a possible publication.
-
 > (1) In general, machine learning techniques consist of various methods, e.g., SVM, RF, etc. listed by the authors, and also well-known deep learning methods. The reviewer suggests adding the comparison of deep learning-based methods and at least adding the detailed discussion and analysis in the introduction part or related works by citing advanced and latest works, e.g., “More Diverse Means Better: Multimodal Deep Learning Meets Remote-Sensing Imagery Classification, IEEE Transactions on Geoscience and Remote Sensing, 2020, DOI: 10.1109/TGRS.2020.3016820.” and “Graph Convolutional Networks for Hyperspectral Image Classification, IEEE Transactions on Geoscience and Remote Sensing, 2020, DOI: 10.1109/TGRS.2020.3015157.”
 
 We would like to thank the reviewer to consider Deep Learning methods.

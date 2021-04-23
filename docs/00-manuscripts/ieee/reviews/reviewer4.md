@@ -1,8 +1,6 @@
 # Iteration 1
 
-> The manuscript TGRS-2020-01814, “Monitoring forest health using hyperspectral imagery: Does feature selection improve the performance of machine-learning techniques?” is comparing different ML algorithms to a tree defoliation in-situ data set of Monterey Pine in northern Spain together with hyperspectral imagery.
-Although the general idea of the paper is sound, some major methodological and technical issues have to be solved before publication.
-
+> The manuscript TGRS-2020-01814, “Monitoring forest health using hyperspectral imagery: Does feature selection improve the performance of machine-learning techniques?” is comparing different ML algorithms to a tree defoliation in-situ data set of Monterey Pine in northern Spain together with hyperspectral imagery.Although the general idea of the paper is sound, some major methodological and technical issues have to be solved before publication.
 > My main concerns are the general spatial relation of in-situ measurements with the hyperspectral imagery, which appears to be inconsistent as well as the overall performance of all models (RMSE of max. 28 %). With such low accuracies it should be thought of the wrong timing of the data acquisition (September to October – very late in the phenological phase to detect defoliation; + low sun angle in the northern hemisphere) as well as a strange sampling of trees (buffer of 2 meters instead of a proper segmentation or linear delineation). From the point of view of applied forestry, these issues have to be solved to gain a consistent and meaningful result, before tuning and comparing filters or ML algorithms.
 
 Thanks for reviewing our manuscript and sharing your expertise with us.
@@ -29,7 +27,6 @@ We have also added another paragraph mentioning potential data issues leading to
 These include the timing of the acquisition of the hyperspectral data (late phenological phase), field measurement errors when surveying defoliation, the influence of background reflectance (e.g. soil reflectance) and the possible positional offset of measured GPS coordinates of trees."
 
 We very much hope that the reviewer will be satisfied with our responses and the changes made to the manuscript to address the comments and openly communicate any remaining uncertainties.
-
 
 **Major Comments:**
 

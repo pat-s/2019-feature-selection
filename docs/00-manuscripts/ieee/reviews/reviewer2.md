@@ -4,13 +4,12 @@ Thanks for taking time to review our manuscript.
 Please find our replies inline.
 
 > This paper discussed the feature importance and feature combination when using filter-based machine learning methods to implement feature selection for hyperspectral remote sensing datasets.
-This paper aims at discussing a great open issue for hyperspectral image processing.
-However, theoretical analysis is insufficient.
-The innovation part of this paper is unclear.
-Moreover, there are some technical and theoretical issues unclarified.
-Therefore, this paper is not suitable for publication on IEEE TGRS.
-My comments are as follows.
-
+> This paper aims at discussing a great open issue for hyperspectral image processing.
+> However, theoretical analysis is insufficient.
+> The innovation part of this paper is unclear.
+> Moreover, there are some technical and theoretical issues unclarified.
+> Therefore, this paper is not suitable for publication on IEEE TGRS.
+> My comments are as follows.
 > 1/ In P1L48, is there any reference to support the NRI index?
 
 We added two references to support the definition of the NRI index.
