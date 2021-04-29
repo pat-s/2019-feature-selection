@@ -28,7 +28,7 @@ Overall, from our point of view it would therefore not be appropriate to cite th
 
 See also our point-by-point replies for reviewer1 in the attached file.
 
-In addition to the point-by-point replies for each reviewer we have added a concise changelog summary listing all changes to the manuscript.
+In addition to the point-by-point replies for each reviewer we have added a concise changelog summary listing all changes to the manuscript since the last submission.
 We hope that this improved manuscript can now be considered for publication.
 
 ## Changelog
@@ -49,6 +49,13 @@ We hope that this improved manuscript can now be considered for publication.
 - Clarified "information gain" filter formula and added more details and references with respect to its formula definition.
 - Discussed segmentation as an alternative to the buffer approach for extracting hyperspectral data from trees.
 - Discussed possible data limitations more prominently in section "Data quality".
-- Rerunning the analysis with R 4.0.4 (instead of 3.6.3) and updated R packages versions (including a new implementation of the RelieF algorithm) brought slight changes to the leaderboard: the SVM RelieF combinations dropped from 28.07 to 28.13, the best combination SVM infogain dropped from 27.99 to 28.02
-- Reduce buffer size for hyperspectral information extraction from 2 meters to 1 meter
-- Alter XGBOOST parameter set to reduce tuning time. Beforehand, many settings were taking up to 15 min per step which indicated non-optimal settings.
+- Rerunning the analysis with R 4.0.4 (instead of 3.6.3) and updated R packages versions (including a new implementation of the RelieF algorithm) brought slight changes to the leaderboard: e.g. the SVM RelieF combinations dropped from 28.07 to 28.13, the best learner SVM infogain dropped from 27.99 to 28.02
+- Reduced buffer size for hyperspectral information extraction from 2 meters to 1 meter
+- Altered XGBOOST parameter set to reduce tuning time. Beforehand, many settings were taking up to 15 min per step which indicated non-optimal settings.
+- Due to the reduction of the buffer size, the high error measures for learners "RIDGE-MBO" changed to reasonable ones
+- XGBOOST performances got a bit better, most likely due to the change of the hyperparameter ranges
+- By using a buffer of one meter, the list of most important variables (according to the permutation-based variable importance) changed slightly.
+  The overall pattern stayed the same.
+  For the HR feature set, the importance of the SWIR area decreased a bit and B7 fell out of the top ten most important features.
+  For feature set VI, the concentration on the NRI area increased slightly.
+- Remove ALE plots as they were only briefly addressed and did not contribute substantially to the analysis of the results
