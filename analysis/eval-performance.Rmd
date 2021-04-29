@@ -133,21 +133,19 @@ Overall leaderboard across all settings, sorted ascending by performance.
 table1 <- df_perf %>%
   group_by(learner.id, task.id, filter) %>%
   slice(which.min(rmse_aggr)) %>%
-  mutate(rsq = round(rsq, 3)) %>%
   dplyr::rename(
     "Model" = learner_group,
     "Learner ID" = learner.id,
     "Task" = task.id,
     "Filter" = filter,
     "RMSE" = rmse_aggr,
-    "SE (RMSE)" = se,
-    "$R^2$" = rsq,
+    "SE" = se
   ) %>%
   ungroup() %>%
   mutate(Filter = replace(Filter, is.na(Filter), "No Filter")) %>%
-  select(-iter, -`Learner ID`, -expvar) %>%
+  select(-iter, -`Learner ID`, -expvar, -rsq) %>%
   relocate(RMSE, .after = Filter) %>%
-  relocate(`SE (RMSE)`, .after = RMSE) %>%
+  relocate(`SE`, .after = RMSE) %>%
   mutate(RMSE = round(RMSE, 3)) %>%
   arrange(RMSE)
 
@@ -192,19 +190,17 @@ table2 <- df_perf %>%
   slice(which.min(rmse_aggr)) %>%
   mutate(filter = replace(filter, is.na(filter), "No Filter")) %>%
   arrange(rmse_aggr) %>%
-  mutate(rsq = round(rsq, 3)) %>%
   dplyr::rename(
     "Model" = learner_group,
     "Learner ID" = learner.id,
     "Task" = task.id,
     "Filter" = filter,
     "RMSE" = rmse_aggr,
-    "SE (RMSE)" = se,
-    "$R^2$" = rsq,
+    "SE" = se
   ) %>%
-  select(-`Learner ID`) %>%
+  select(-`Learner ID`, -rsq) %>%
   relocate(RMSE, .after = Filter) %>%
-  relocate(`SE (RMSE)`, .after = RMSE) %>%
+  relocate(`SE`, .after = RMSE) %>%
   select(-iter, -expvar)
 
 
@@ -241,22 +237,19 @@ Overall leaderboard across all settings, sorted descending by performance.
 table3 <- df_perf %>%
   group_by(learner.id, task.id, filter) %>%
   slice(which.min(rmse_aggr)) %>%
-  mutate(rsq = round(rsq, 3)) %>%
   dplyr::rename(
     "Model" = learner_group,
     "Learner ID" = learner.id,
     "Task" = task.id,
     "Filter" = filter,
     "RMSE" = rmse_aggr,
-    "$R^2$" = rsq,
     "SE" = se,
-    "SE (RMSE)" = se
   ) %>%
   ungroup() %>%
   mutate(Filter = replace(Filter, is.na(Filter), "No Filter")) %>%
-  select(-iter, -`Learner ID`, -expvar) %>%
+  select(-iter, -`Learner ID`, -expvar, -rsq) %>%
   relocate(RMSE, .after = Filter) %>%
-  relocate(`SE (RMSE)`, .after = RMSE) %>%
+  relocate(`SE`, .after = RMSE) %>%
   mutate(RMSE = round(RMSE, 3)) %>%
   arrange(RMSE)
 
