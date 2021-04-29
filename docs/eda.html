@@ -337,17 +337,6 @@ $(document).ready(function () {
     <li>
       <a href="spectral-signatures.html">Spectral signatures</a>
     </li>
-    <li>
-      <a href="response-normality.html">Checking for normality of response</a>
-    </li>
-    <li class="dropdown-submenu">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Side Analysis</a>
-      <ul class="dropdown-menu" role="menu">
-        <li>
-          <a href="inspect-glmnet-models.html">Inspect {glmnet} models</a>
-        </li>
-      </ul>
-    </li>
   </ul>
 </li>
       </ul>
@@ -419,7 +408,7 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-04-05
+<strong>Last updated:</strong> 2021-04-12
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -510,16 +499,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree295d8361e286a9a5e3c606b38fcc6e40f3229d01targetblank295d836a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/295d8361e286a9a5e3c606b38fcc6e40f3229d01" target="_blank">295d836</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontreed83e8cfdd1d23d2aff7e5591b979ea9410d36e63targetblankd83e8cfa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/d83e8cfdd1d23d2aff7e5591b979ea9410d36e63" target="_blank">d83e8cf</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree295d8361e286a9a5e3c606b38fcc6e40f3229d01targetblank295d836a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontreed83e8cfdd1d23d2aff7e5591b979ea9410d36e63targetblankd83e8cfa" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/pat-s/2019-feature-selection/tree/295d8361e286a9a5e3c606b38fcc6e40f3229d01" target="_blank">295d836</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/pat-s/2019-feature-selection/tree/d83e8cfdd1d23d2aff7e5591b979ea9410d36e63" target="_blank">d83e8cf</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -531,7 +520,6 @@ Ignored files:
     Ignored:    .Ruserdata/
     Ignored:    .drake/
     Ignored:    .vscode/
-    Ignored:    analysis/figure/
     Ignored:    analysis/rosm.cache/
     Ignored:    data/
     Ignored:    inst/Benchmark for Filter Methods for Feature Selection in High-Dimensional  Classification Data.pdf
@@ -544,10 +532,13 @@ Ignored files:
     Ignored:    reviews/
     Ignored:    rosm.cache/
 
+Untracked files:
+    Untracked:  test.R
+
 Unstaged changes:
     Modified:   _drake.R
-    Modified:   code/060-modeling/paper/09-feature-importance.R
-    Modified:   code/070-benchmark-matrix.R
+    Modified:   analysis/_site.yml
+    Modified:   analysis/spectral-signatures.Rmd
 
 </code></pre>
 <p>
@@ -586,6 +577,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/d83e8cfdd1d23d2aff7e5591b979ea9410d36e63/analysis/eda.Rmd" target="_blank">d83e8cf</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2021-04-12
+</td>
+<td>
+wflow_publish(knitr_in(“analysis/eda.Rmd”), view = FALSE, verbose = TRUE)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pat-s/2019-feature-selection/af4e9aa31f9b9531ce272996b8220279aed637ef/docs/eda.html" target="_blank">af4e9aa</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2021-04-05
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1822,7 +1847,7 @@ wflow_publish(knitr_in(“analysis/eda.Rmd”), view = FALSE)
 </div>
 <div id="histograms" class="section level3">
 <h3>Histograms</h3>
-<p><img src="figure/eda.Rmd/eda-2-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="figure/eda.Rmd/eda-2-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-eda-2-1">
 Past versions of eda-2-1.png
@@ -1845,6 +1870,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/af4e9aa31f9b9531ce272996b8220279aed637ef/docs/figure/eda.Rmd/eda-2-1.png" target="_blank">af4e9aa</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2021-04-05
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/58209670bbae57d1d64ad6c10bbdacbaf6f2f195/docs/figure/eda.Rmd/eda-2-1.png" target="_blank">5820967</a>
@@ -1992,7 +2028,7 @@ pat-s
 </table>
 </div>
 </div>
-<p><img src="figure/eda.Rmd/eda-2-2.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="figure/eda.Rmd/eda-2-2.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-eda-2-2">
 Past versions of eda-2-2.png
@@ -2015,6 +2051,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/af4e9aa31f9b9531ce272996b8220279aed637ef/docs/figure/eda.Rmd/eda-2-2.png" target="_blank">af4e9aa</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2021-04-05
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/58209670bbae57d1d64ad6c10bbdacbaf6f2f195/docs/figure/eda.Rmd/eda-2-2.png" target="_blank">5820967</a>
@@ -2195,7 +2242,7 @@ pat-s
 </table>
 </div>
 </div>
-<p><img src="figure/eda.Rmd/eda-2-3.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="figure/eda.Rmd/eda-2-3.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-eda-2-3">
 Past versions of eda-2-3.png
@@ -2218,6 +2265,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/af4e9aa31f9b9531ce272996b8220279aed637ef/docs/figure/eda.Rmd/eda-2-3.png" target="_blank">af4e9aa</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2021-04-05
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/58209670bbae57d1d64ad6c10bbdacbaf6f2f195/docs/figure/eda.Rmd/eda-2-3.png" target="_blank">5820967</a>
@@ -2365,7 +2423,7 @@ pat-s
 </table>
 </div>
 </div>
-<p><img src="figure/eda.Rmd/eda-2-4.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="figure/eda.Rmd/eda-2-4.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-eda-2-4">
 Past versions of eda-2-4.png
@@ -2388,6 +2446,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/af4e9aa31f9b9531ce272996b8220279aed637ef/docs/figure/eda.Rmd/eda-2-4.png" target="_blank">af4e9aa</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2021-04-05
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/58209670bbae57d1d64ad6c10bbdacbaf6f2f195/docs/figure/eda.Rmd/eda-2-4.png" target="_blank">5820967</a>
@@ -2557,7 +2626,7 @@ pat-s
 </table>
 </div>
 </div>
-<p><img src="figure/eda.Rmd/eda-2-5.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="figure/eda.Rmd/eda-2-5.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-eda-2-5">
 Past versions of eda-2-5.png
@@ -2580,6 +2649,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/af4e9aa31f9b9531ce272996b8220279aed637ef/docs/figure/eda.Rmd/eda-2-5.png" target="_blank">af4e9aa</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2021-04-05
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/58209670bbae57d1d64ad6c10bbdacbaf6f2f195/docs/figure/eda.Rmd/eda-2-5.png" target="_blank">5820967</a>
@@ -2749,7 +2829,7 @@ pat-s
 </table>
 </div>
 </div>
-<p><img src="figure/eda.Rmd/eda-2-6.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="figure/eda.Rmd/eda-2-6.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-eda-2-6">
 Past versions of eda-2-6.png
@@ -2772,6 +2852,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/af4e9aa31f9b9531ce272996b8220279aed637ef/docs/figure/eda.Rmd/eda-2-6.png" target="_blank">af4e9aa</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2021-04-05
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/58209670bbae57d1d64ad6c10bbdacbaf6f2f195/docs/figure/eda.Rmd/eda-2-6.png" target="_blank">5820967</a>
@@ -2944,7 +3035,7 @@ pat-s
 </div>
 <div id="pca" class="section level3">
 <h3>PCA</h3>
-<p><img src="figure/eda.Rmd/eda-3-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="figure/eda.Rmd/eda-3-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-eda-3-1">
 Past versions of eda-3-1.png
@@ -2967,6 +3058,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/af4e9aa31f9b9531ce272996b8220279aed637ef/docs/figure/eda.Rmd/eda-3-1.png" target="_blank">af4e9aa</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2021-04-05
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/58209670bbae57d1d64ad6c10bbdacbaf6f2f195/docs/figure/eda.Rmd/eda-3-1.png" target="_blank">5820967</a>
@@ -3191,7 +3293,7 @@ pat-s
 </table>
 </div>
 </div>
-<p><img src="figure/eda.Rmd/eda-3-2.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="figure/eda.Rmd/eda-3-2.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-eda-3-2">
 Past versions of eda-3-2.png
@@ -3214,6 +3316,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/af4e9aa31f9b9531ce272996b8220279aed637ef/docs/figure/eda.Rmd/eda-3-2.png" target="_blank">af4e9aa</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2021-04-05
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/58209670bbae57d1d64ad6c10bbdacbaf6f2f195/docs/figure/eda.Rmd/eda-3-2.png" target="_blank">5820967</a>
@@ -3405,7 +3518,7 @@ pat-s
 </table>
 </div>
 </div>
-<p><img src="figure/eda.Rmd/eda-3-3.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="figure/eda.Rmd/eda-3-3.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-eda-3-3">
 Past versions of eda-3-3.png
@@ -3428,6 +3541,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/af4e9aa31f9b9531ce272996b8220279aed637ef/docs/figure/eda.Rmd/eda-3-3.png" target="_blank">af4e9aa</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2021-04-05
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/58209670bbae57d1d64ad6c10bbdacbaf6f2f195/docs/figure/eda.Rmd/eda-3-3.png" target="_blank">5820967</a>
@@ -3536,7 +3660,7 @@ pat-s
 </div>
 <div id="corr" class="section level3">
 <h3>Corr</h3>
-<p><img src="figure/eda.Rmd/eda-4-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="figure/eda.Rmd/eda-4-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-eda-4-1">
 Past versions of eda-4-1.png
@@ -3559,6 +3683,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/af4e9aa31f9b9531ce272996b8220279aed637ef/docs/figure/eda.Rmd/eda-4-1.png" target="_blank">af4e9aa</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2021-04-05
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/58209670bbae57d1d64ad6c10bbdacbaf6f2f195/docs/figure/eda.Rmd/eda-4-1.png" target="_blank">5820967</a>
@@ -3772,7 +3907,7 @@ pat-s
 </div>
 <div id="pca-1" class="section level3">
 <h3>PCA</h3>
-<p><img src="figure/eda.Rmd/eda-6-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="figure/eda.Rmd/eda-6-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-eda-6-1">
 Past versions of eda-6-1.png
@@ -3795,6 +3930,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/af4e9aa31f9b9531ce272996b8220279aed637ef/docs/figure/eda.Rmd/eda-6-1.png" target="_blank">af4e9aa</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2021-04-05
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/58209670bbae57d1d64ad6c10bbdacbaf6f2f195/docs/figure/eda.Rmd/eda-6-1.png" target="_blank">5820967</a>
@@ -3997,7 +4143,7 @@ pat-s
 </table>
 </div>
 </div>
-<p><img src="figure/eda.Rmd/eda-6-2.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="figure/eda.Rmd/eda-6-2.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-eda-6-2">
 Past versions of eda-6-2.png
@@ -4020,6 +4166,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/af4e9aa31f9b9531ce272996b8220279aed637ef/docs/figure/eda.Rmd/eda-6-2.png" target="_blank">af4e9aa</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2021-04-05
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/58209670bbae57d1d64ad6c10bbdacbaf6f2f195/docs/figure/eda.Rmd/eda-6-2.png" target="_blank">5820967</a>
@@ -4200,7 +4357,7 @@ pat-s
 </table>
 </div>
 </div>
-<p><img src="figure/eda.Rmd/eda-6-3.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="figure/eda.Rmd/eda-6-3.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-eda-6-3">
 Past versions of eda-6-3.png
@@ -4223,6 +4380,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/af4e9aa31f9b9531ce272996b8220279aed637ef/docs/figure/eda.Rmd/eda-6-3.png" target="_blank">af4e9aa</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2021-04-05
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/58209670bbae57d1d64ad6c10bbdacbaf6f2f195/docs/figure/eda.Rmd/eda-6-3.png" target="_blank">5820967</a>
@@ -4315,7 +4483,7 @@ pat-s
 </table>
 </div>
 </div>
-<p><img src="figure/eda.Rmd/eda-6-4.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="figure/eda.Rmd/eda-6-4.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-eda-6-4">
 Past versions of eda-6-4.png
@@ -4338,6 +4506,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/af4e9aa31f9b9531ce272996b8220279aed637ef/docs/figure/eda.Rmd/eda-6-4.png" target="_blank">af4e9aa</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2021-04-05
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/58209670bbae57d1d64ad6c10bbdacbaf6f2f195/docs/figure/eda.Rmd/eda-6-4.png" target="_blank">5820967</a>
@@ -4375,7 +4554,7 @@ pat-s
 </table>
 </div>
 </div>
-<p><img src="figure/eda.Rmd/eda-6-5.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="figure/eda.Rmd/eda-6-5.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-eda-6-5">
 Past versions of eda-6-5.png
@@ -4398,6 +4577,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/af4e9aa31f9b9531ce272996b8220279aed637ef/docs/figure/eda.Rmd/eda-6-5.png" target="_blank">af4e9aa</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2021-04-05
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/58209670bbae57d1d64ad6c10bbdacbaf6f2f195/docs/figure/eda.Rmd/eda-6-5.png" target="_blank">5820967</a>
@@ -4435,7 +4625,7 @@ pat-s
 </table>
 </div>
 </div>
-<p><img src="figure/eda.Rmd/eda-6-6.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="figure/eda.Rmd/eda-6-6.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-eda-6-6">
 Past versions of eda-6-6.png
@@ -4458,6 +4648,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/af4e9aa31f9b9531ce272996b8220279aed637ef/docs/figure/eda.Rmd/eda-6-6.png" target="_blank">af4e9aa</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2021-04-05
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/58209670bbae57d1d64ad6c10bbdacbaf6f2f195/docs/figure/eda.Rmd/eda-6-6.png" target="_blank">5820967</a>
@@ -4495,7 +4696,7 @@ pat-s
 </table>
 </div>
 </div>
-<p><img src="figure/eda.Rmd/eda-6-7.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="figure/eda.Rmd/eda-6-7.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-eda-6-7">
 Past versions of eda-6-7.png
@@ -4518,6 +4719,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/af4e9aa31f9b9531ce272996b8220279aed637ef/docs/figure/eda.Rmd/eda-6-7.png" target="_blank">af4e9aa</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2021-04-05
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/58209670bbae57d1d64ad6c10bbdacbaf6f2f195/docs/figure/eda.Rmd/eda-6-7.png" target="_blank">5820967</a>
@@ -4610,7 +4822,7 @@ pat-s
 </div>
 <div id="histograms-2" class="section level3">
 <h3>Histograms</h3>
-<p><img src="figure/eda.Rmd/eda-9-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="figure/eda.Rmd/eda-9-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-eda-9-1">
 Past versions of eda-9-1.png
@@ -4633,6 +4845,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/af4e9aa31f9b9531ce272996b8220279aed637ef/docs/figure/eda.Rmd/eda-9-1.png" target="_blank">af4e9aa</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2021-04-05
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/58209670bbae57d1d64ad6c10bbdacbaf6f2f195/docs/figure/eda.Rmd/eda-9-1.png" target="_blank">5820967</a>
@@ -4758,7 +4981,7 @@ pat-s
 </table>
 </div>
 </div>
-<p><img src="figure/eda.Rmd/eda-9-2.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="figure/eda.Rmd/eda-9-2.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-eda-9-2">
 Past versions of eda-9-2.png
@@ -4781,6 +5004,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/af4e9aa31f9b9531ce272996b8220279aed637ef/docs/figure/eda.Rmd/eda-9-2.png" target="_blank">af4e9aa</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2021-04-05
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/58209670bbae57d1d64ad6c10bbdacbaf6f2f195/docs/figure/eda.Rmd/eda-9-2.png" target="_blank">5820967</a>
@@ -4906,7 +5140,7 @@ pat-s
 </table>
 </div>
 </div>
-<p><img src="figure/eda.Rmd/eda-9-3.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="figure/eda.Rmd/eda-9-3.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-eda-9-3">
 Past versions of eda-9-3.png
@@ -4929,6 +5163,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/af4e9aa31f9b9531ce272996b8220279aed637ef/docs/figure/eda.Rmd/eda-9-3.png" target="_blank">af4e9aa</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2021-04-05
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/58209670bbae57d1d64ad6c10bbdacbaf6f2f195/docs/figure/eda.Rmd/eda-9-3.png" target="_blank">5820967</a>
@@ -5043,7 +5288,7 @@ pat-s
 </table>
 </div>
 </div>
-<p><img src="figure/eda.Rmd/eda-9-4.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="figure/eda.Rmd/eda-9-4.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-eda-9-4">
 Past versions of eda-9-4.png
@@ -5066,6 +5311,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/af4e9aa31f9b9531ce272996b8220279aed637ef/docs/figure/eda.Rmd/eda-9-4.png" target="_blank">af4e9aa</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2021-04-05
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/58209670bbae57d1d64ad6c10bbdacbaf6f2f195/docs/figure/eda.Rmd/eda-9-4.png" target="_blank">5820967</a>
@@ -5180,7 +5436,7 @@ pat-s
 </table>
 </div>
 </div>
-<p><img src="figure/eda.Rmd/eda-9-5.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="figure/eda.Rmd/eda-9-5.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-eda-9-5">
 Past versions of eda-9-5.png
@@ -5203,6 +5459,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/af4e9aa31f9b9531ce272996b8220279aed637ef/docs/figure/eda.Rmd/eda-9-5.png" target="_blank">af4e9aa</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2021-04-05
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/58209670bbae57d1d64ad6c10bbdacbaf6f2f195/docs/figure/eda.Rmd/eda-9-5.png" target="_blank">5820967</a>
@@ -5317,7 +5584,7 @@ pat-s
 </table>
 </div>
 </div>
-<p><img src="figure/eda.Rmd/eda-9-6.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="figure/eda.Rmd/eda-9-6.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-eda-9-6">
 Past versions of eda-9-6.png
@@ -5340,6 +5607,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/af4e9aa31f9b9531ce272996b8220279aed637ef/docs/figure/eda.Rmd/eda-9-6.png" target="_blank">af4e9aa</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2021-04-05
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/58209670bbae57d1d64ad6c10bbdacbaf6f2f195/docs/figure/eda.Rmd/eda-9-6.png" target="_blank">5820967</a>
@@ -5454,7 +5732,7 @@ pat-s
 </table>
 </div>
 </div>
-<p><img src="figure/eda.Rmd/eda-9-7.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="figure/eda.Rmd/eda-9-7.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-eda-9-7">
 Past versions of eda-9-7.png
@@ -5477,6 +5755,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/af4e9aa31f9b9531ce272996b8220279aed637ef/docs/figure/eda.Rmd/eda-9-7.png" target="_blank">af4e9aa</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2021-04-05
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/58209670bbae57d1d64ad6c10bbdacbaf6f2f195/docs/figure/eda.Rmd/eda-9-7.png" target="_blank">5820967</a>
@@ -5591,7 +5880,7 @@ pat-s
 </table>
 </div>
 </div>
-<p><img src="figure/eda.Rmd/eda-9-8.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="figure/eda.Rmd/eda-9-8.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-eda-9-8">
 Past versions of eda-9-8.png
@@ -5614,6 +5903,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/af4e9aa31f9b9531ce272996b8220279aed637ef/docs/figure/eda.Rmd/eda-9-8.png" target="_blank">af4e9aa</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2021-04-05
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/58209670bbae57d1d64ad6c10bbdacbaf6f2f195/docs/figure/eda.Rmd/eda-9-8.png" target="_blank">5820967</a>
@@ -5731,7 +6031,7 @@ pat-s
 </div>
 <div id="pca-2" class="section level3">
 <h3>PCA</h3>
-<p><img src="figure/eda.Rmd/eda-10-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="figure/eda.Rmd/eda-10-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-eda-10-1">
 Past versions of eda-10-1.png
@@ -5754,6 +6054,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/af4e9aa31f9b9531ce272996b8220279aed637ef/docs/figure/eda.Rmd/eda-10-1.png" target="_blank">af4e9aa</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2021-04-05
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/58209670bbae57d1d64ad6c10bbdacbaf6f2f195/docs/figure/eda.Rmd/eda-10-1.png" target="_blank">5820967</a>
@@ -5945,7 +6256,7 @@ pat-s
 </table>
 </div>
 </div>
-<p><img src="figure/eda.Rmd/eda-10-2.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="figure/eda.Rmd/eda-10-2.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-eda-10-2">
 Past versions of eda-10-2.png
@@ -5968,6 +6279,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/af4e9aa31f9b9531ce272996b8220279aed637ef/docs/figure/eda.Rmd/eda-10-2.png" target="_blank">af4e9aa</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2021-04-05
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/58209670bbae57d1d64ad6c10bbdacbaf6f2f195/docs/figure/eda.Rmd/eda-10-2.png" target="_blank">5820967</a>
@@ -6104,7 +6426,7 @@ pat-s
 </table>
 </div>
 </div>
-<p><img src="figure/eda.Rmd/eda-10-3.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="figure/eda.Rmd/eda-10-3.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-eda-10-3">
 Past versions of eda-10-3.png
@@ -6127,6 +6449,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/af4e9aa31f9b9531ce272996b8220279aed637ef/docs/figure/eda.Rmd/eda-10-3.png" target="_blank">af4e9aa</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2021-04-05
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/58209670bbae57d1d64ad6c10bbdacbaf6f2f195/docs/figure/eda.Rmd/eda-10-3.png" target="_blank">5820967</a>
@@ -6211,7 +6544,7 @@ pat-s
 </div>
 <div id="corr-2" class="section level3">
 <h3>Corr</h3>
-<p><img src="figure/eda.Rmd/eda-11-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="figure/eda.Rmd/eda-11-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-eda-11-1">
 Past versions of eda-11-1.png
@@ -6234,6 +6567,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/af4e9aa31f9b9531ce272996b8220279aed637ef/docs/figure/eda.Rmd/eda-11-1.png" target="_blank">af4e9aa</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2021-04-05
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/58209670bbae57d1d64ad6c10bbdacbaf6f2f195/docs/figure/eda.Rmd/eda-11-1.png" target="_blank">5820967</a>
@@ -6423,7 +6767,7 @@ Warning in is.na(x): is.na() applied to non-(list or vector) of type
 
 Warning in is.na(x): is.na() applied to non-(list or vector) of type
 &#39;expression&#39;</code></pre>
-<p><img src="figure/eda.Rmd/defoliation-distribution-plot-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="figure/eda.Rmd/defoliation-distribution-plot-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-defoliation-distribution-plot-1">
 Past versions of defoliation-distribution-plot-1.png
@@ -6446,6 +6790,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/af4e9aa31f9b9531ce272996b8220279aed637ef/docs/figure/eda.Rmd/defoliation-distribution-plot-1.png" target="_blank">af4e9aa</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2021-04-05
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/58209670bbae57d1d64ad6c10bbdacbaf6f2f195/docs/figure/eda.Rmd/defoliation-distribution-plot-1.png" target="_blank">5820967</a>
@@ -6580,7 +6935,7 @@ $Oiartzun
 <div id="pca-feature-set-comparison" class="section level1">
 <h1>PCA feature set comparison</h1>
 <p>Comparing the “proportion of variance explained” (POV) for all feature sets.</p>
-<p><img src="figure/eda.Rmd/pca-pov-comparison-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="figure/eda.Rmd/pca-pov-comparison-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-pca-pov-comparison-1">
 Past versions of pca-pov-comparison-1.png
@@ -6603,6 +6958,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/af4e9aa31f9b9531ce272996b8220279aed637ef/docs/figure/eda.Rmd/pca-pov-comparison-1.png" target="_blank">af4e9aa</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2021-04-05
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/58209670bbae57d1d64ad6c10bbdacbaf6f2f195/docs/figure/eda.Rmd/pca-pov-comparison-1.png" target="_blank">5820967</a>
@@ -6699,9 +7065,9 @@ pat-s
 <div id="buffer-extraction-scenario-sketches" class="section level1">
 <h1>Buffer extraction scenario sketches</h1>
 <p>Standard scenario (somewhere within the pixel)</p>
-<p><img src="inst/tree-buffer-vis.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="inst/tree-buffer-vis.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Extreme scenario (at the border of one or multiple pixels)</p>
-<p><img src="inst/tree-buffer-vis-max.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="inst/tree-buffer-vis-max.png" width="70%" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -6735,28 +7101,27 @@ other attached packages:
 [13] magrittr_2.0.1     drake_7.13.1      
 
 loaded via a namespace (and not attached):
- [1] filelock_1.0.2    progress_1.2.2    rprojroot_2.0.2   tools_4.0.4      
- [5] backports_1.2.1   utf8_1.1.4        rgdal_1.5-23      R6_2.5.0         
- [9] colorspace_2.0-0  withr_2.4.1       tidyselect_1.1.0  gridExtra_2.3    
-[13] prettyunits_1.1.1 curl_4.3          compiler_4.0.4    git2r_0.28.0     
-[17] cli_2.3.0         labeling_0.4.2    scales_1.1.1      stringr_1.4.0    
-[21] digest_0.6.27     foreign_0.8-81    txtq_0.2.3        rmarkdown_2.6    
-[25] R.utils_2.10.1    rio_0.5.16        pkgconfig_2.0.3   htmltools_0.5.1.1
-[29] highr_0.8         htmlwidgets_1.5.3 rlang_0.4.10      readxl_1.3.1     
-[33] rstudioapi_0.13   generics_0.1.0    farver_2.0.3      zip_2.1.1        
-[37] car_3.0-10        R.oo_1.24.0       Rcpp_1.0.6        munsell_0.5.0    
-[41] fansi_0.4.2       abind_1.4-5       lifecycle_0.2.0   R.methodsS3_1.8.1
-[45] stringi_1.5.3     whisker_0.4       yaml_2.2.1        carData_3.0-4    
-[49] storr_1.2.5       plyr_1.8.6        grid_4.0.4        parallel_4.0.4   
-[53] promises_1.1.1    forcats_0.5.1     crayon_1.4.0      lattice_0.20-41  
-[57] haven_2.3.1       hms_1.0.0         pillar_1.4.7      igraph_1.2.6     
-[61] ggsignif_0.6.0    base64url_1.4     reshape2_1.4.4    codetools_0.2-18 
-[65] glue_1.4.2        evaluate_0.14     data.table_1.13.6 renv_0.13.0      
-[69] vctrs_0.3.6       httpuv_1.5.5      networkD3_0.4     cellranger_1.1.0 
-[73] gtable_0.3.0      tidyr_1.1.2       assertthat_0.2.1  xfun_0.20        
-[77] openxlsx_4.2.3    broom_0.7.4       e1071_1.7-4       rstatix_0.6.0    
-[81] later_1.1.0.1     class_7.3-18      tibble_3.0.6      workflowr_1.6.2  
-[85] ellipsis_0.3.1   </code></pre>
+ [1] tidyr_1.1.2       carData_3.0-4     R.utils_2.10.1    highr_0.8        
+ [5] base64url_1.4     renv_0.13.0       cellranger_1.1.0  yaml_2.2.1       
+ [9] progress_1.2.2    pillar_1.4.7      backports_1.2.1   lattice_0.20-41  
+[13] glue_1.4.2        digest_0.6.27     promises_1.1.1    ggsignif_0.6.0   
+[17] colorspace_2.0-0  plyr_1.8.6        htmltools_0.5.1.1 httpuv_1.5.5     
+[21] R.oo_1.24.0       pkgconfig_2.0.3   broom_0.7.4       haven_2.3.1      
+[25] scales_1.1.1      whisker_0.4       openxlsx_4.2.3    later_1.1.0.1    
+[29] rio_0.5.16        git2r_0.28.0      tibble_3.0.6      txtq_0.2.3       
+[33] farver_2.0.3      generics_0.1.0    car_3.0-10        ellipsis_0.3.1   
+[37] withr_2.4.1       cli_2.4.0         crayon_1.4.0      readxl_1.3.1     
+[41] evaluate_0.14     storr_1.2.5       R.methodsS3_1.8.1 fansi_0.4.2      
+[45] class_7.3-18      rstatix_0.6.0     forcats_0.5.1     foreign_0.8-81   
+[49] tools_4.0.4       data.table_1.13.6 prettyunits_1.1.1 hms_1.0.0        
+[53] lifecycle_0.2.0   stringr_1.4.0     munsell_0.5.0     zip_2.1.1        
+[57] e1071_1.7-4       networkD3_0.4     compiler_4.0.4    rlang_0.4.10     
+[61] grid_4.0.4        rstudioapi_0.13   htmlwidgets_1.5.3 igraph_1.2.6     
+[65] labeling_0.4.2    rmarkdown_2.6     gtable_0.3.0      codetools_0.2-18 
+[69] abind_1.4-5       curl_4.3          reshape2_1.4.4    R6_2.5.0         
+[73] gridExtra_2.3     rgdal_1.5-23      utf8_1.1.4        filelock_1.0.2   
+[77] workflowr_1.6.2   rprojroot_2.0.2   stringi_1.5.3     parallel_4.0.4   
+[81] Rcpp_1.0.6        vctrs_0.3.6       tidyselect_1.1.0  xfun_0.20        </code></pre>
 </div>
 </div>
 

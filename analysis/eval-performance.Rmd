@@ -133,21 +133,19 @@ Overall leaderboard across all settings, sorted ascending by performance.
 table1 <- df_perf %>%
   group_by(learner.id, task.id, filter) %>%
   slice(which.min(rmse_aggr)) %>%
-  mutate(rsq = round(rsq, 3)) %>%
   dplyr::rename(
     "Model" = learner_group,
     "Learner ID" = learner.id,
     "Task" = task.id,
     "Filter" = filter,
     "RMSE" = rmse_aggr,
-    "SE (RMSE)" = se,
-    "$R^2$" = rsq,
+    "SE" = se
   ) %>%
   ungroup() %>%
   mutate(Filter = replace(Filter, is.na(Filter), "No Filter")) %>%
-  select(-iter, -`Learner ID`, -expvar) %>%
+  select(-iter, -`Learner ID`, -expvar, -rsq) %>%
   relocate(RMSE, .after = Filter) %>%
-  relocate(`SE (RMSE)`, .after = RMSE) %>%
+  relocate(`SE`, .after = RMSE) %>%
   mutate(RMSE = round(RMSE, 3)) %>%
   arrange(RMSE)
 
@@ -192,19 +190,17 @@ table2 <- df_perf %>%
   slice(which.min(rmse_aggr)) %>%
   mutate(filter = replace(filter, is.na(filter), "No Filter")) %>%
   arrange(rmse_aggr) %>%
-  mutate(rsq = round(rsq, 3)) %>%
   dplyr::rename(
     "Model" = learner_group,
     "Learner ID" = learner.id,
     "Task" = task.id,
     "Filter" = filter,
     "RMSE" = rmse_aggr,
-    "SE (RMSE)" = se,
-    "$R^2$" = rsq,
+    "SE" = se
   ) %>%
-  select(-`Learner ID`) %>%
+  select(-`Learner ID`, -rsq) %>%
   relocate(RMSE, .after = Filter) %>%
-  relocate(`SE (RMSE)`, .after = RMSE) %>%
+  relocate(`SE`, .after = RMSE) %>%
   select(-iter, -expvar)
 
 
@@ -241,22 +237,19 @@ Overall leaderboard across all settings, sorted descending by performance.
 table3 <- df_perf %>%
   group_by(learner.id, task.id, filter) %>%
   slice(which.min(rmse_aggr)) %>%
-  mutate(rsq = round(rsq, 3)) %>%
   dplyr::rename(
     "Model" = learner_group,
     "Learner ID" = learner.id,
     "Task" = task.id,
     "Filter" = filter,
     "RMSE" = rmse_aggr,
-    "$R^2$" = rsq,
     "SE" = se,
-    "SE (RMSE)" = se
   ) %>%
   ungroup() %>%
   mutate(Filter = replace(Filter, is.na(Filter), "No Filter")) %>%
-  select(-iter, -`Learner ID`, -expvar) %>%
+  select(-iter, -`Learner ID`, -expvar, -rsq) %>%
   relocate(RMSE, .after = Filter) %>%
-  relocate(`SE (RMSE)`, .after = RMSE) %>%
+  relocate(`SE`, .after = RMSE) %>%
   mutate(RMSE = round(RMSE, 3)) %>%
   arrange(RMSE)
 
@@ -341,7 +334,7 @@ results_aggr %>%
 Showing the final effect of applying feature selection to a learner for each task.
 All filters are colored in the same way whereas using "no filter" appears in a different color.
 
-```{r filter-effect-all-vs-no-filter, warning=FALSE, dev = c("png", "pdf"), out.width = "70%"}
+```{r filter-effect-all-vs-no-filter, warning=FALSE, dev = c("png", "pdf"), out.width = "70%", message=FALSE}
 results_aggr1 <- df_perf %>%
   filter(learner_group != "Ridge-MBO") %>%
   filter(learner_group != "Lasso-MBO") %>%
@@ -388,7 +381,7 @@ results_aggr1 %>%
 Showing the final effect of applying feature selection to a learner for each task.
 All filters are summarized into a a single color whereas the "Borda" filter appears in its own color.
 
-```{r filter-effect-all-vs-borda-filter, warning=FALSE, dev = c("png", "pdf"), out.width = "70%"}
+```{r filter-effect-all-vs-borda-filter, warning=FALSE, dev = c("png", "pdf"), out.width = "70%", message=FALSE}
 results_aggr2 <- df_perf %>%
   na.omit() %>%
   filter(learner_group != "Ridge-MBO") %>%
@@ -513,12 +506,12 @@ getBMRTuneResults(bmr_inspect_tune, as.df = TRUE) %>%
   dplyr::rename("Features (%)" = fw.perc) %>%
   dplyr::mutate(Plot = as.character(Plot)) %>%
   dplyr::mutate(Plot = forcats::fct_recode(Plot,
-    Oiartzun = "2", Luiando = "3",
-    Laukiz1 = "1", Laukiz2 = "4"
+    Oiartzun = "4", Luiando = "3",
+    Laukiz1 = "1", Laukiz2 = "2"
   )) %>%
   dplyr::mutate(Learner = forcats::fct_recode(Learner,
-    "RF Car" = "RF MBO Car", "XGBoost Borda" = "XGBOOST MBO Borda",
-    "SVM Relief" = "SVM MBO Relief"
+    "RF \\\\ Relief" = "RF MBO Relief", "XGB \\\\ CMIM" = "XGBOOST MBO CMIM",
+    "SVM \\\\ Relief" = "SVM MBO Relief"
   )) %>%
   dplyr::mutate(Learner = as.character(Learner)) %>%
   dplyr::mutate(Plot = as.character(Plot)) %>%
