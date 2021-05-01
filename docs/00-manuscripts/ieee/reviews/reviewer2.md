@@ -3,14 +3,7 @@
 Thanks for taking time to review our manuscript.
 Please find our replies inline.
 
-> This paper discussed the feature importance and feature combination when using filter-based machine learning methods to implement feature selection for hyperspectral remote sensing datasets.
-> This paper aims at discussing a great open issue for hyperspectral image processing.
-> However, theoretical analysis is insufficient.
-> The innovation part of this paper is unclear.
-> Moreover, there are some technical and theoretical issues unclarified.
-> Therefore, this paper is not suitable for publication on IEEE TGRS.
-> My comments are as follows.
-> 1/ In P1L48, is there any reference to support the NRI index?
+> This paper discussed the feature importance and feature combination when using filter-based machine learning methods to implement feature selection for hyperspectral remote sensing datasets. This paper aims at discussing a great open issue for hyperspectral image processing. However, theoretical analysis is insufficient. The innovation part of this paper is unclear. Moreover, there are some technical and theoretical issues unclarified. Therefore, this paper is not suitable for publication on IEEE TGRS. My comments are as follows. 1/ In P1L48, is there any reference to support the NRI index?
 
 We added two references to support the definition of the NRI index.
 
@@ -59,7 +52,7 @@ Since hyperparameters implement penalization and shrinkage, their optimal values
 This is exactly the reason why model hyperparameters and feature selection hyperparameters were tuned jointly.
 In our manuscript we specifically state this by saying that "the percentage of features was added as a hyperparameter".
 
-This joint tuning is precisely *necessary* to address the second issue raised by the reviewer, the ability to separate hyperparameter from feature selection influences.
+This joint tuning is precisely _necessary_ to address the second issue raised by the reviewer, the ability to separate hyperparameter from feature selection influences.
 If we didn't re-tune the (model) hyperparameters for each feature selection setting, we'd be using non-optimal hyperparameter, which would be an unrealistic and unfair disadvantage for feature selection techniques.
 We are comparing feature selection techniques with each other, and with models without feature selection, under otherwise equal experimental conditions - i.e. optimal hyperparameters for all.
 

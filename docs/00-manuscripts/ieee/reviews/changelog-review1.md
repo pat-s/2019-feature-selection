@@ -1,23 +1,28 @@
 Dear Editor,
 
-We would like to thank Reviewer 1 for her/his valuable and insightful comments.
-We realize that this reviewer is very knowledgeable in the field of deep learning and spectral unmixing and has strong views regarding the importance of these topics based on the three publications by Dr. Danfeng Hong that we are asked to cite.
-With this in mind, we would like to clarify the following points beforehand in order to avoid misunderstandings and possible delays:
+Please find the replies to all reviewer suggestions/questions in their respective files (labeled as `reviewer<x>.md` where `<x>` is the reviewer number starting from 1).
+Also we have added a changelog section further down below summarizing all changes we have applied to the manuscript as a result of this review.
+Due to the amount of suggestions by four reviewers, the level of detail which we used to address these changes and the impact of the global pandemic it took us some time to resubmit our manuscript.
+However, we believe that the reviews have improved this work substantially and hope that it can be considered for publication now.
 
-**Spectral unmixing**
+In addition, we would like to thank Reviewer 1 for her/his valuable and insightful comments.
+We realize that this reviewer is very knowledgeable in the field of deep learning and spectral unmixing and has strong views regarding the importance of these topics based on the three publications by Dr. Danfeng Hong that we are asked to cite.
+With this in mind, we would like to clarify the following points in a general manner beforehand in order to avoid misunderstandings and possible delays:
+
+## Spectral unmixing
 
 The main purpose of spectral unmixing techniques is to identify the contribution of different materials to the recorded spectral signal.
 This is particularly useful when (1) mixed pixels are present, to which (2) discrete materials have contributed, and (3) when it is of interest to assess the contribution of each constituent substance, e.g. the fraction of area it covers, in order to create abundance maps (as in [Hong et al. 2019](https://ieeexplore.ieee.org/abstract/document/8528557)).
 
 We believe that it is difficult to make the case that this applies to our situation of airborne hyperspectral imaging in a forest plantations:
 
-1.  We are confident that the extracted data corresponds to tree canopies.
-2.  Within these canopies, there are no discrete constituent substances (e.g. photosynthetically active / inactive plant tissue). Plant pathologists would rather identify a continuum from healthy to diseased and finally dead or photosynthetically inactive leaves.
-3.  As a consequence we don't see this as an attempt to identify fractions, but as an overall assessment of plant health given the spectral evidence.
+1. We are confident that the extracted data corresponds to tree canopies.
+2. Within these canopies, there are no discrete constituent substances (e.g. photosynthetically active / inactive plant tissue). Plant pathologists would rather identify a continuum from healthy to diseased and finally dead or photosynthetically inactive leaves.
+3. As a consequence we don't see this as an attempt to identify fractions, but as an overall assessment of plant health given the spectral evidence.
 
 Considering these points as well as the observation we gained from reviewing the literature that modeling plant disease directly as a function of spectral predictors (and not endmember contributions) is quite common, we would like to avoid addressing the possibility of performing spectral unmixing using the methods proposed by Dr. Hong in the cited paper.
 
-**Deep learning**
+## Deep learning
 
 We acknowledge the great potentials of deep learning in remote sensing image classification, and we acknowledge that the researcher cited by the reviewer, Dr. Hong, has made valuable contributions to this field in recent years, among many other authors.
 Nevertheless, the suggested papers don't appear to be a good fit in the context of our manuscript, considering the following reasons: 1.
@@ -31,7 +36,7 @@ See also our point-by-point replies for reviewer1 in the attached file.
 In addition to the point-by-point replies for each reviewer we have added a concise changelog summary listing all changes to the manuscript since the last submission.
 We hope that this improved manuscript can now be considered for publication.
 
-## Changelog
+# Changelog
 
 - Added references for NRI index and explain its origin in more detail
 - Added table with all vegetation indices used

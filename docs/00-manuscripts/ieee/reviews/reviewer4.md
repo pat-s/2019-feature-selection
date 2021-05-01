@@ -1,4 +1,4 @@
-# Iteration 1
+# Reviewer 4 - Iteration 1
 
 > The manuscript TGRS-2020-01814, “Monitoring forest health using hyperspectral imagery: Does feature selection improve the performance of machine-learning techniques?” is comparing different ML algorithms to a tree defoliation in-situ data set of Monterey Pine in northern Spain together with hyperspectral imagery.Although the general idea of the paper is sound, some major methodological and technical issues have to be solved before publication.
 > My main concerns are the general spatial relation of in-situ measurements with the hyperspectral imagery, which appears to be inconsistent as well as the overall performance of all models (RMSE of max. 28 %). With such low accuracies it should be thought of the wrong timing of the data acquisition (September to October – very late in the phenological phase to detect defoliation; + low sun angle in the northern hemisphere) as well as a strange sampling of trees (buffer of 2 meters instead of a proper segmentation or linear delineation). From the point of view of applied forestry, these issues have to be solved to gain a consistent and meaningful result, before tuning and comparing filters or ML algorithms.
@@ -36,38 +36,37 @@ We agree that this is an important metadata information.
 Note that these preprocessing tasks were done externally by an experienced, specialized service provider (Institut Cartogràfic i Geològic de Catalunya).
 Because we think that this detailed information on data preprocessing might extend the data section too much, we decided to add it to appendix F.
 
-**Sensor Characteristics**
+- Sensor Characteristics
 
-The AisaEAGLE II sensor was used for airborne image acquisition with a field of view of 37.7°.
-Its spectral resolution is 2.4 nm in the range from 400 to 1000 nm.
+  The AisaEAGLE II sensor was used for airborne image acquisition with a field of view of 37.7°.
+  Its spectral resolution is 2.4 nm in the range from 400 to 1000 nm.
 
+- Radiometric Correction
 
-**Radiometric Correction**
+  "The conversion of DNs to spectral radiance was made by using a software designed for the instrument. Images are originally scaled in 12 bits but they were radiometrically calibrated to 16 bits, reserving the highest value: 65535, for null values.
+  The procedure was applied on the 23 previously selected images. Thereafter, the geometric and atmospheric corrections were further applied on them."
 
-"The conversion of DNs to spectral radiance was made by using a software designed for the instrument. Images are originally scaled in 12 bits but they were radiometrically calibrated to 16 bits, reserving the highest value: 65535, for null values.
-The procedure was applied on the 23 previously selected images. Thereafter, the geometric and atmospheric corrections were further applied on them."
+- Geometric Correction
 
-**Geometric Correction**
+  "The aim of this procedure was to reduce the positional errors of the images.
+  The cartography of reference was GeoEuskadi, UTM, zone 30, datum ETRS-89.
+  The position was accomplished by coupling an Applanix POS AV 410 system to the sensor, which integrates GPS and IMU systems. The system provides geographic coordinates of the terrain and relative coordinates of the aircraft (attitude) at each scanned line. Additionally a DSM from GeoEuskadi with a spatial resolution of 1 m was used.
+  The ortorectified hyperspectral images were compared to orthoimages 1:5000 of GeoEuskadi and the RMSE was calculated, which was below the GSD in the across and along track directions"
 
-"The aim of this procedure was to reduce the positional errors of the images.
-The cartography of reference was GeoEuskadi, UTM, zone 30, datum ETRS-89.
-The position was accomplished by coupling an Applanix POS AV 410 system to the sensor, which integrates GPS and IMU systems. The system provides geographic coordinates of the terrain and relative coordinates of the aircraft (attitude) at each scanned line. Additionally a DSM from GeoEuskadi with a spatial resolution of 1 m was used.
-The ortorectified hyperspectral images were compared to orthoimages 1:5000 of GeoEuskadi and the RMSE was calculated, which was below the GSD in the across and along track directions"
+- Atmospheric Correction
 
-**Atmospheric Correction**
+  "The radiance measured by an instrument depends on the illumination geometry and the reflective properties of the observed surface.
+  Radiation may be absorbed or scattered (Rayleigh and Mie scattering). Scattering is responsible of the adjacency effect, i.e., radiation coming from neighbors areas to the target pixel.
+  The MODTRAN code was used to modelling the effect of the atmosphere on the radiation.
+  To represent the aerosols of the study area the rural model was used, and the optical thickness was estimated on pixels with a high vegetation cover.
+  Columnar water vapor was estimated by a linear regression ratio where the spectral radiance of each pixel at the band of the maximum water absorption (~906 nm) is compared to its theoretical value in absence of absorption. Nonetheless, this technique is unreliable when a spectral resolution as the one required here is used.
+  To resolve this, the water vapor parameter was selected manually according to the smoothness observed on the reflectance peak at 960 nm.
+  The mid-latitude summer atmosphere model was also used.
+  The output of this procedure was reflectance from the target pixel scaled between 0 and 10,000."
 
-"The radiance measured by an instrument depends on the illumination geometry and the reflective properties of the observed surface.
-Radiation may be absorbed or scattered (Rayleigh and Mie scattering). Scattering is responsible of the adjacency effect, i.e., radiation coming from neighbors areas to the target pixel.
-The MODTRAN code was used to modelling the effect of the atmosphere on the radiation.
-To represent the aerosols of the study area the rural model was used, and the optical thickness was estimated on pixels with a high vegetation cover.
-Columnar water vapor was estimated by a linear regression ratio where the spectral radiance of each pixel at the band of the maximum water absorption (~906 nm) is compared to its theoretical value in absence of absorption. Nonetheless, this technique is unreliable when a spectral resolution as the one required here is used.
-To resolve this, the water vapor parameter was selected manually according to the smoothness observed on the reflectance peak at 960 nm.
-The mid-latitude summer atmosphere model was also used.
-The output of this procedure was reflectance from the target pixel scaled between 0 and 10,000."
+- Acquisition days
 
-**Acquisition days**
-
-"The image acquisitions were originally attempted during one day (29.10.2016) but due to the variable meteorological conditions some stands had to be imaged the next day."
+  "The image acquisitions were originally attempted during one day (29.10.2016) but due to the variable meteorological conditions some stands had to be imaged the next day."
 
 > - Please provide information on in-situ data. How was the defoliation measured? Is there an estimation error included?
 
@@ -112,9 +111,6 @@ Our data and code are of course available for follow-up studies that might focus
 
 > - The RMSE alone is not a good quality measure, since it is highly dependent on the variance of the sample (as the authors describe themselves in the manuscript). Please supplement this measure with another one, e.g. R² (but there are more sophisticated ones around) to evaluate the quality of your results.
 
-
-
-
 Thanks for suggesting to take another look at the chosen measure(s).
 We have chosen RMSE as it is defined in the unit of the response variable and the resulting value can therefore be interpreted by domain experts.
 We believe that RMSE as a single measure is a valid choice and cannot find where we describe a potential dependence of RMSE on the variance of the sample in the manuscript.
@@ -130,14 +126,14 @@ Thanks for suggesting to include observed vs. predicted plots to enhance this ar
 While this is in general an interesting evaluation approach if there is a single final prediction which can be compared against observed values, the comparison here would need take place on the partition levels of the cross-validation, hence with just subsets of the data.
 We also think such plots would add another layer of side-analysis which would not complement the overall scope of the article.
 
->   Minor comments:
-> - Fig.2: This figure is really small, perhaps you can enlarge it a bit, at least for a subset of one of the sites
+> Minor comments:
+> Fig.2: This figure is really small, perhaps you can enlarge it a bit, at least for a subset of one of the sites
 
 Thanks for noticing.
 We modified the figure to now span across the full page width.
 In addition, some UI improvements were applied to the figure.
 
-> - III.B / 1) Filter methods: large parts of the text are general information on filters and no method – you should move it to the introduction section
+> III.B / 1) Filter methods: large parts of the text are general information on filters and no method – you should move it to the introduction section
 
 Thanks for discussing the topic of filters and their role in this manuscript.
 Filters play an important role in this study which is why we explain their theory in general in the methods section.
@@ -180,7 +176,7 @@ Given that this wavelength range is often used in forest health studies \cite{ha
 > Last point: I do not state all small points I noted down, because this is almost impossible in an already fully formatted manuscript. Please provide next time a single-columned manuscript with a clear line numbering to make a reference in the text possible!
 
 We are sorry that you had trouble with the submitted manuscript format.
-We tried to submit the manuscript using the "draft" option in a one-column format in the first place (which has numbered lines and a larger linewidth).
-This submission was not accepted by the system for some reasons and we were asked to resubmit a PDF in the current form (without draft settings).
-We try to submit again in a format more suitable for review purposes.
-In case we miss something obvious with respect to LaTeX submissions, please contact us directly.
+We tried to submit the manuscript using the "draft" option of the IEEEtran LaTeX class in a one-column format in the first place (which has numbered lines and a larger linewidth).
+This submission was not accepted by the system for some reasons and we were asked to resubmit a PDF in the form you saw (without draft settings).
+For the revision we now have added line numbers manually for more comfortable review.
+In case you are aware of the optimal LaTeX settings for peer review, please let us know and we are happy to apply these.
