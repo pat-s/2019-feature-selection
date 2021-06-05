@@ -328,7 +328,7 @@ Considering these opportunities and challenges, the research questions of this s
 Airborne hyperspectral data with a spatial resolution of one meter and 126 spectral bands was available for four Monterey Pine (\textit{Pinus radiata D. Don}) plantations in northern Spain.
 The trees in the plots suffer from infections of pathogens such as \textit{Diplodia sapinea (Fr.) Fuckel}, \textit{Fusarium circinatum Nirenberg \& O'Donnell}, \textit{Armillaria mellea (Vahl) P. Kumm}, \textit{Heterobasidion annosum (Fr.) Bref}, \textit{Lecanosticta acicola (Thüm) Syd.} and \textit{Dothisthroma septosporum (Dorogin) M. Morelet} causing a spread of cankers or defoliation \cite{mesanza2016, iturritxa2017}.
 The last two fungi are mainly responsible for the foliation loss of the trees analyzed in this study \cite{iturritxa2014}.
-In-situ measurements of defoliation of trees (serving as a proxy for tree health) were collected to serve as the response variable \textit{defoliation} which ranges from 0 - 100 (in \%) (\autoref{fig:defol-distr}).
+In-situ measurements of defoliation of trees (serving as a proxy for tree health) were collected by visual inspection of experts in the field to serve as the response variable \textit{defoliation} which ranges from 0 - 100 (in \%) (\autoref{fig:defol-distr}).
 
 It is assumed that the fungi infect the trees through open wounds, possibly caused by previous hail damage \cite{iturritxa2014}.
 The dieback of these trees, which are mainly used as timber, causes high economic damages \cite{ganley2009}.
@@ -520,7 +520,7 @@ The following learners were used in this work:
 	\item  Support Vector Machine (SVM, RBF Kernel)
 \end{itemize}
 
-Random forest and {SVM} are well established algorithms widely used in (environmental) remote sensing.
+RF and SVM are well established algorithms widely used in (environmental) remote sensing.
 Extreme Gradient Boosting (commonly abbreviated as XGBoost) has shown promising results in benchmark studies in recent years.
 Penalized regression is a statistical modeling technique capable of dealing with highly-correlated covariates by penalizing the coefficients of the model \cite{hastie2001}.
 Common penalties are 'lasso' (L1) and 'ridge' (L2).
@@ -676,7 +676,7 @@ For XGBoost on the NRI task, the Borda filter scored the second worst performanc
 
 % Selected percentage of features across plots
 Large differences were observed between the numbers of features selected during tuning for the subsequent fitting process across each learner and plot.
-While for RF least features were selected when Luiando or Oiartzun were the test set ($n = 1$), more than 90\% of all features were used for test sets Laukiz and Laukiz2 (\autoref{tab:tune-perc-sel-features}).
+While for RF least features were selected when Luiando or Oiartzun were the test set ($n = 1$), more than 90\% of all features were used for test sets Laukiz1 and Laukiz2 (\autoref{tab:tune-perc-sel-features}).
 RF and XGBoost used very few features only when Oiartzun was the test set (one and three, respectively) whereas this was the plot for which SVM used most features ($n = 119$).
 Overall, SVM used the least features across all plots among all learners, with 24\% for test set Oiartzun being the highest single plot value.
 In general every learner behaved quite differently for each plot and no overall pattern could be observed.
@@ -898,7 +898,7 @@ Study results indicated that spectral features were found to be most helpful for
 Incorporating such (both spectral and structural) could be a possible enhancement for future works.
 
 % write about hyperspectral remote sensing
-The field of (hyperspectral) remote sensing has a strong focus on using random forests for modeling in recent years \cite{belgiu2016}.
+The field of (hyperspectral) remote sensing has a strong focus on using RF for modeling in recent years \cite{belgiu2016}.
 However, in high-dimensional scenarios, tuning parameter \texttt{\(m_{try}\)} becomes computationally expensive.
 To account for this and the high dimensionality in general, studies used feature selection approaches like semi-supervised feature extraction \cite{xia2015}, wrapper methods \cite{fassnacht2014a, feng2016, georganos2018}, PCA and adjusted feature selection \cite{rochac2016}.
 However, no study that made use of filter methods in combination with hyperparameter tuning in the field of (hyperspectral) remote sensing could be found.
@@ -911,7 +911,7 @@ When looking for remote sensing studies that compare multiple models, it turned 
 \cite{shendryk2016, ludwig2019} are more similar in their methodology but focus on a different response variable (woody cover).
 \cite{shendryk2016} used machine learning with \ac{ALS} data to study dieback of trees for eucalyptus forests.
 A grid search was used for hyperparameter tuning and \ac{FFS} for variable selection.
-\cite{ludwig2019} analyzed woody cover in South Africa using spatial \ac{CV} and \ac{FS} approach \cite{meyer2018} with a random forest classifier.
+\cite{ludwig2019} analyzed woody cover in South Africa using spatial \ac{CV} and \ac{FS} approach \cite{meyer2018} with a RF classifier.
 \cite{zandler2015} shows a similar setup: they used hyperspectral vegetation indices, a nested CV approach for performance estimation and estimated variable importance targeting woody biomass as the response.
 In the results, lasso showed the best performance among the chosen methods.
 However, the authors did not optimize the hyperparameters of RF which makes a fair comparison problematic since the other models used perform internal optimization.
