@@ -1,5 +1,5 @@
 % \documentclass[letterpaper, onecolumn, peerreview]{IEEEtran}
-\documentclass[peerreview]{IEEEtran}
+\documentclass[journal]{IEEEtran}
 
 \usepackage[switch]{lineno}
 
@@ -111,7 +111,7 @@
 \usepackage[detect-all]{siunitx}
 
 \begin{document}
-\linenumbers
+% \linenumbers
 %
 % paper title
 % Titles are generally capitalized except for words such as a, an, and, as,
@@ -167,7 +167,7 @@
 % space somehow managed to creep in.
 
 % The paper headers
-\markboth{IEEE Transactions on Geoscience and Remote Sensing}%
+\markboth{IEEE JOURNAL OF SELECTED TOPICS IN APPLIED EARTH OBSERVATIONS AND REMOTE SENSING}%
 {Shell \MakeLowercase{\textit{et al.}}: Bare Demo of IEEEtran.cls for IEEE Journals}
 % The only time the second header will appear is for the odd numbered pages
 % after the title page when using the twoside option.
@@ -190,10 +190,8 @@
 	Overall support vector machine (SVM) outperformed others such as random forest (RF), extreme gradient boosting (XGBoost), lasso (L1) and ridge (L2) regression by at least three percentage points.
 	The combination of certain feature sets showed small increases in predictive performance while no substantial differences between individual feature sets were observed.
 	For some combinations of learners and feature sets, filter methods achieved better predictive performances than the unfiltered feature sets, while ensemble filters did not have a substantial impact on performance.
-
 	Permutation-based feature importance estimated features around the red edge to be most important for the models.
 	However, the presence of features in the near-infrared region (800 nm - 1000 nm) was essential to achieve the best performances.
-
 	More training data and replication in similar benchmarking studies is needed for more generalizable conclusions.
 	Filter methods have the potential to be helpful in high-dimensional situations and are able to improve the interpretation of feature effects in fitted models, which is an essential constraint in environmental modeling studies.
 
@@ -279,7 +277,7 @@ This makes it possible to extend the benchmark comparison matrix of studies in a
 
 % link to forest health analysis and show exemplary studies
 
-Machine-learning methods in combination with remote sensing data are used in many environmental fields such as vegetation cover analysis or forest carbon storage mapping \cite{mascaro2014, urban2018}.
+ML methods in combination with remote sensing data are used in many environmental fields such as vegetation cover analysis or forest carbon storage mapping \cite{mascaro2014, urban2018}.
 The ability of predicting into unknown space qualifies these tools as a promising toolset for such tasks.
 One aspect of this research field is to enhance the understanding of biotic and abiotic stress triggers, for example by analyzing tree defoliation \cite{hawrylo2018}.
 
@@ -288,17 +286,17 @@ In such studies, the defoliation of trees serves as a proxy for forest health by
 
 Vegetation indices have shown the potential to provide valuable information when analyzing forest health \cite{jiang2014, adamczyk2015}.
 Most vegetation indices were developed with the aim of being sensitive to changes of specific wavelength regions, serving as a proxy for underlying plant processes.
-However, often enough indices developed for different purposes than the one to be analyzed can help to explain complex relationships.
-This emphasizes the need to extract as much information as possible from the available input data to generate promising features which can help to understand the modeled relationship.
+However, indices developed/applied for different purposes than the one to be analyzed (i.e. defoliation at pine trees) may help to explain complex underlying relationships which are not obvious on the first look.
+This emphasizes the need to extract as much information as possible from the available input data to generate promising features which can help to understand the modeled relationship \cite{thenkabail2018}.
 A less known index type which can be derived from spectral information is the \ac{NRI}.
-In contrast to most vegetation indices, \ac{NRI}s do not use an expert-based formula following environmental heuristics but instead makes use of a data-driven feature engineering approach by combining (all possible) combinations of spectral bands.
+In contrast to most vegetation indices, \ac{NRI}s do not use an expert-based formula following environmental heuristics but instead makes use of a data-driven feature engineering approach by combining (all possible) combinations of spectral bands \cite{thenkabail2000}.
 Especially when working with hyperspectral data, thousands of \ac{NRI} features can be derived this way.
 
 % now that we introduced the importance of remote sensing indices for forest health,
 
-Despite their popularity in environmental modeling, there are no studies so far which used machine-learning algorithms in combination with remote sensing data to analyze defoliation at the tree level.
+Despite their popularity in environmental modeling, there are no studies so far which used ML algorithms in combination with remote sensing data to analyze defoliation at the tree level.
 This study aims to close this gap by analyzing tree defoliation in northern Spain using airborne hyperspectral data.
-The methodology of this study uses machine-learning methods in combination with feature selection and hyperparameter tuning.
+The methodology of this study uses ML methods in combination with feature selection and hyperparameter tuning.
 In addition, feature importance and feature effects are evaluated.
 Incorporating the idea of creating data-driven \ac{NRI}s, this study also discusses the practical problems of high dimensionality in environmental modeling \cite{trunk1979, xu2016}.
 
@@ -307,7 +305,7 @@ Even though \ac{ML} algorithms are capable of handling highly correlated input v
 Feature selection approaches can help to address this issue, reducing possible noise in the feature space, simplify model interpretability and possibly enhance predictive performance \cite{cai2018}.
 
 % clarify the focus of this study
-This study shows how high-dimensional datasets can be handled effectively with machine-learning methods while still being able to interpret the fitted models.
+This study shows how high-dimensional datasets can be handled effectively with ML methods while still being able to interpret the fitted models.
 The predictive power of non-linear methods and their ability to handle highly correlated predictors is combined with common and new approaches for assessing feature importance and feature effects.
 However, this study clearly focuses on investigating the effects of filter methods and feature set types on predictive performance rather than on interpreting feature effects.
 
@@ -447,7 +445,7 @@ The goal is to optimize the number of ranked features to the point at which the 
 % Ensemble filter methods
 Besides the concept of choosing a specific filter method to rank variables, studies showed that combining several filters using statistical operations such as 'minimum' or 'mean' can enhance the predictive performance of the resulting models, especially when applied to multiple datasets \cite{abeel2010, drotar2017a}.
 This approach is referred to as 'ensemble filtering' \cite{dietterich2000}.
-Ensemble filters align with the recent rise of the 'ensemble' approach in machine learning which uses the idea of stacking to combine the predictions of multiple models, aiming to enhance predictive performance \cite{polikar2012, feurer2015, bolon-canedo2019}.
+Ensemble filters align with the recent rise of the 'ensemble' approach in ML which uses the idea of stacking to combine the predictions of multiple models, aiming to enhance predictive performance \cite{polikar2012, feurer2015, bolon-canedo2019}.
 In this work the 'Borda' ensemble filter was applied \cite{drotar2017a}.
 Its final feature order is determined by the sum of all single filters ranks.
 
@@ -825,7 +823,7 @@ The fact that this study used multiple feature sets but only one dataset and tes
 However, studies which used ensemble filters are still rare and usually these are not compared against single filters \cite{ghosh2019}.
 In summary, Borda performs no better than a randomly selected filter method in this study.
 More case studies applying ensemble filter methods are needed to verify this finding.
-Nevertheless, ensemble filters can be a promising addition to a machine-learning feature-selection portfolio.
+Nevertheless, ensemble filters can be a promising addition to a ML feature-selection portfolio.
 
 % - PCA shows similar performance but probably requires tuning of main components -> check runtime!
 PCA, acting as a filter method, more often showed less optimal results, especially for algorithms RF and XGBoost.
@@ -934,7 +932,7 @@ We hope that this work and its methodology raises awareness about the applicatio
 
 \section{Conclusion}
 
-This study analyzed defoliation of trees in northern Spain by using hyperspectral data as input for machine-learning models which used hyperparameter tuning and filter-based feature selection.
+This study analyzed defoliation of trees in northern Spain by using hyperspectral data as input for ML models which used hyperparameter tuning and filter-based feature selection.
 Substantial differences in performance occurred depending on which feature selection and machine learning methods were combined.
 SVM showed the most robust behavior across all highly-correlated datasets and was able to predict the response variable of this study substantially better than other methods.
 
