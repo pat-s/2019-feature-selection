@@ -854,7 +854,7 @@ Finding a suitable approach to extract the remote sensing information from each 
 Due to the reported geometric offset of up to one meter within the hyperspectral data, the risk of assigning a value to an observation which would actually refer to a different, possibly non-tree, pixel was reasonably high.
 It was concluded that using a buffer of one meter can be a good compromise between the inclusion of information from too many surrounding trees, mapping a single tree crown accordingly accounting for a possible geometric offset.
 The applied buffer only included a pixel value if the distance to the centroid of a pixel was smaller than the buffer radius (i.e. <= 1m).
-This results in almost all cases in four contributing pixels (= four square meters) for the extraction of hyperspectral information for a given tree.
+This results in all cases in four contributing pixels (= four square meters) for the extraction of hyperspectral information for a given tree.
 Even though no results showing the influence of different buffer values on the extraction were provided, it is hypothesized that the relationships between features would not change substantially, leading to almost identical model results.
 Besides using a buffer to extract the hyperspectral information, a segmentation could have been considered.
 However, this method would have required more effort for no clear added value in our view and would have moved the focus of this manuscript more to data preprocessing and away from the focus on filter-based feature selection methods.
