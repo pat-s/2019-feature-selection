@@ -1,5 +1,9 @@
 Dear Editor,
 
+this submission is a revised one initially submitted to the journal "IEEE Transaction on Geosciences and Remote Sensing" with the paper ID TGRS-2020-01814.
+Hence, reviewer replies are attached in the submission.
+Also there was a previous resubmission with the ID JSTARS-2021-00619 a few days ago which got rejected due to formating issues.
+
 Please find the replies to all reviewer suggestions/questions in their respective files (labeled as `reviewer<x>.md` where `<x>` is the reviewer number starting from 1).
 Also we have added a changelog section further down below summarizing all changes we have applied to the manuscript as a result of this review.
 Due to the amount of suggestions by four reviewers, the level of detail which we used to address these changes and the impact of the global pandemic it took us some time to resubmit our manuscript.
