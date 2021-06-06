@@ -1,11 +1,11 @@
 % \documentclass[letterpaper, onecolumn, peerreview]{IEEEtran}
-\documentclass[journal]{IEEEtran}
+\documentclass[final]{IEEEtran}
 
 \usepackage[switch]{lineno}
 
 % *** CITATION PACKAGES ***
 %
-\usepackage{cite}
+\usepackage[noadjust]{cite}
 \usepackage[hidelinks]{hyperref}
 % cite.sty was written by Donald Arseneau
 % V1.6 and later of IEEEtran pre-defines the format of the cite.sty package
@@ -527,7 +527,7 @@ Common penalties are 'lasso' (L1) and 'ridge' (L2).
 Ridge does not remove variables from the model (penalization to zero) but just shrinks them to effectively zero, keeping them in the model.
 
 In total the benchmarking grid consisted of 156 experiments (6 feature sets $\times$ 3 ML algorithms $\times$ 8 feature-selection methods and for the L1/L2 models, 6 feature sets $\times$ 2 models.
-The selected hyperparameter settings are shown in \autoref{tab:hyperparameter_limits}.
+The selected hyperparameter settings are shown in appendix \autoref{tab:hyperparameter_limits}.
 In addition the code which generated the matrix is available in the research compendium of this study (\url{10.5281/zenodo.2635403}).
 
 \subsubsection{Feature sets}
@@ -541,7 +541,7 @@ Three feature sets were used in this study, each representing a different approa
 \end{itemize}
 
 The idea of splitting the features into different sets originated from the question whether feature-engineered indices derived from reflectance values have a positive effect on model performance.
-\cite{pena2017} is an exemplary study which used this approach in a spectro-temporal setting.
+Peña et al. 2017 \cite{pena2017} is an exemplary study which used this approach in a spectro-temporal setting.
 Benchmarking learners on these feature sets while keeping all other variables such as model type, tuning strategy and partitioning method constant makes it possible to draw conclusions on their individual impact.
 However, rather than only looking at these three groups also combinations of such were taken into account:
 
@@ -616,8 +616,9 @@ Besides the availability of code and manuscript sources, a static webpage is ava
 
 \subsection{Correlation analysis}
 
-The PCA-based correlation analysis showed that, depending on the feature set, between two (HR) and 42 (NRI) \ac{PC} are needed to explain 95\% of variance.
+PCA was used for a correlation analysis of the feature sets by inspecting the accumulated percentages of the principal components.
 The fewer PCs are needed to reach a high proportion of variance explained the more similar the individual features are to each other.
+Results showed that, depending on the feature set, between two (HR) and 42 (NRI) \ac{PC} are needed to explain 95\% of variance.
 Hence, a high correlation can be observed for feature set HR which reaches 96\% with only two PCs.
 Feature sets NRI and VI are more diverse and require 42 (NRI) and 12 (VI) PCs to explain 95\% of the variance in the data, respectively.
 
