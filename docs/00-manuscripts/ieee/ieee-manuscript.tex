@@ -551,10 +551,7 @@ However, rather than only looking at these three groups also combinations of suc
 	\item HR + VI + NRI
 \end{itemize}
 
-Even though the feature-selection step should be solely left to the filter methods in this study, it was ensured a priori to account for features with a pairwise correlation of 1.
-Having such features within the data can cause undesired effects during model fitting and feature importance calculation.
-Hence, after having calculated all pair-wise correlations between features, for pairs which exceeded the threshold of $1 - 10^{-10}$, the feature with the largest mean absolute correlation across all variables was removed from the dataset.
-
+Individual features were finally removed from these feature sets if they were numerically equivalent to another feature based on their pairwise correlation being greater than $1 - 10^{-10}$.
 This preprocessing step reduced the number of covariates to 122 (HR), 86 (VI) and 7467 (NRI).
 
 \subsubsection{Hyperparameter Optimization}
@@ -614,13 +611,11 @@ Besides the availability of code and manuscript sources, a static webpage is ava
 
 \section{Results}
 
-\subsection{Correlation analysis}
+\subsection{PCA of feature sets}
 
-PCA was used for a correlation analysis of the feature sets by inspecting the accumulated percentages of the principal components.
-The fewer PCs are needed to reach a high proportion of variance explained the more similar the individual features are to each other.
-Results showed that, depending on the feature set, between two (HR) and 42 (NRI) \ac{PC} are needed to explain 95\% of variance.
-Hence, a high correlation can be observed for feature set HR which reaches 96\% with only two PCs.
-Feature sets NRI and VI are more diverse and require 42 (NRI) and 12 (VI) PCs to explain 95\% of the variance in the data, respectively.
+PCA was used to assess the complexity of the three feature sets.
+Depending on the feature set, 95\% of the variance is explained by two (HR), twelve (VI) and 42 (NRI) \ac{PC}s.
+HR features are therefore highly redundant, while the applied feature transformations enrich the data set, at least from an exploratory linear perspective.
 
 \subsection{Predictive performance}
 
