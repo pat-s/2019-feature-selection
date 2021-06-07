@@ -11,7 +11,7 @@ Its main use case is related to nitrogen- and water-limited sunflower leaves, wh
 
 We've changed the sentence as follows
 
-"However, indices developed/applied for different purposes than the one to be analyzed (i.e. defoliation at pine trees) may help to explain complex underlying relationships which are not obvious on the first look."
+"However, indices developed/applied for different purposes than the one to be analyzed (i.e. defoliation at pine trees) may help to explain complex underlying relationships which are not obvious at first."
 
 > Why didn't you conduct the derivative analysis?
 > Some vegetation indices were based on derivative spectra.
@@ -32,10 +32,11 @@ Thank you, we have added two references to this paragraph.
 > Which hyperparameters were optimized?
 > Why did you choose RBF Kernel for SVM?
 
-Table VIII lists all hyperparameters which were optimized, including their tuning ranges and default parameter values.
+Table VIII lists all hyperparameters that were optimized, including their tuning ranges and default parameter values.
 RBF kernel is the default SVM kernel in most implementation (and to our knowledge in all R implementation).
-It is a general purpose kernel which has proven to produce good results in other studies.
-In our view there was no need trying to experiment with custom kernels here; instead we focuses on optimizing hyperparameters $C$ and $\sigma$.
+It is a general-purpose kernel which has proven to produce good results in other studies. 
+The SVM's behaviour is known to be relatively insensitive to the specific choice of a kernel function, while the hyperparameters are of critical importance in determining the model's flexibility **(FIXME provide a reference, probably Bengio)**.
+We therefore focused on optimizing the hyperparameters $C$ and $\sigma$.
 
 > V. Discussion
 > Could you offer the spectral response function of the hyperspectral sensor?
