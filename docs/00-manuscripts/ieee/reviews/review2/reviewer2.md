@@ -6,21 +6,16 @@
 
 > The biggest problem I see in the hyperspectral data which were analyzed. The spectral signatures are too noisy and do not correspond to any physical basis. Such ups and downs are not justifiable and therefore the data must be filtered/smoothed beforehand - as usual in other studies.
 
-FIXME: Thought: I don't think we need to filter, we do not make any further analysis based on the spectral signatures and they are only shown for reference in Fig.9. It is unclear to me if such a smoothing would have a positive effect and it would probably cause changes in all results. 
+Image preprocessing is an important step that was handled in our case by an experienced external service provider, which applied any necessary radiometric, geometric and atmospheric corrections.
+Additional preprocessing steps in the spectral and spatial domains may potentially be beneficial ([Vaiphasa 2006](https://www.sciencedirect.com/science/article/pii/S0924271605001012?via%3Dihub)), but they also have the potential to introduce new artifacts, for example by propagating errors from one spectral band into adjacent ones through the application of spline methods.
+<!-- @alexanderbrenning: I think we need a ref for the last sentence because the spline argumentation is quite specific?: do you have one? I could not find one for it. -->
 
-ALEX: I'm not convinced that filtering is completely unproblematic as it may introduce artificial patterns as well. 
-There are probably different 'philosophies' for preprocessing spectral curves. <https://doi.org/10.1016/j.isprsjprs.2005.11.002>
+In this study we opted for a data-driven approach since feature selection techniques are designed to filter spectral characteristics that most reliably predict the response.
+The chosen machine learning models are furthermore capable of weighting or averaging the numerous features either explicitly or implicitly, depending on model architecture.
+It would be a topic for an interesting follow-up study to determine whether model-based spectral smoothing or data-driven approaches are more effective at using the available information.
+We believe that this goes well beyond the scope of our contribution.
 
-**Outline of possible response:** 
-
-Image preprocessing is an important step that was handled in our case by an experienced external service provider, which applied any necessary radiometric, geometric and atmospheric corrections. 
-Additional preprocessing steps in the spectral and spatial domains may potentially be beneficial, but they also have the potential to introduce new artifacts, for example by propagating errors from one spectral band into adjacent ones through the application of spline methods. 
-
-In this study we opted for a data-driven approach since feature selection techniques are designed to filter spectral characteristics that most reliably predict the response. 
-The chosen machine learning models are furthermore capable of weighting or averaging the numerous features either explicitly or implicitly, depending on model architecture. 
-It would be a topic for an interesting follow-up study to determine whether model-based spectral smoothing or data-driven approaches are more effective at using the available information. 
-We believe that this goes well beyond the scope of our contribution. 
-We should note that all code and data related to this publication is made available on zenodo, which will facilitate future research related to preprocessing steps or other more specific aspects.
+We would like to note that all code and data related to this publication is made available on Zenodo, which will facilitate future research related to preprocessing steps or other more specific aspects.
 
 > I would like to see examples of all damage classes from both the field response and the canopy delineated in the EO data.
 
@@ -46,8 +41,8 @@ FIXME:
 
 ALEX:
 Yes, that's the whole point of the discussion.
-The first half of the Discussion summarizes results - maybe this can be shortened to avoid redundancy. 
-But the response should also emphasize that the second half already relates our findings to the literature. 
+The first half of the Discussion summarizes results - maybe this can be shortened to avoid redundancy.
+But the response should also emphasize that the second half already relates our findings to the literature.
 This being said, small changes to the Discussion may be a good idea.
 
 > Abbreviations introduced should be used consistently afterward.
@@ -172,7 +167,7 @@ You might potentially misunderstand the content of this paragraph: we removed fe
 It is unclear to us what point you want to make here.
 
 FIXME - ALEX: Es geht wohl um den "Even though" Absatz, den finde ich auch alles andere als klar, vor allem "it was ensured a priori to account for features with...".
-Ich formuliere den Absatz mal um, folgender Response könnte dann funktionieren: 
+Ich formuliere den Absatz mal um, folgender Response könnte dann funktionieren:
 "Thank your for this comments, which we believe points to a misunderstanding since this paragraph was not very clear. The only point we make in this paragraph is that features that are obviously completely redundant were removed. No filter and no model will be able to retrieve useful information from features that have a correlation of 1 with another feature. We changed the paragraph to read as follows: 'Individual features were finally removed from these feature sets if they were numerically equivalent to another feature based on their pairwise correlation being greater than $1 - 10^{-10}$.'"
 
 > P6, C2, L47: not clear to me. Please explain.
@@ -197,11 +192,11 @@ Thanks, using the abbreviation now.
 
 This study is not about comparing filters to wrapper methods and there is no evidence why tasks with all input data should outperform others.
 If there would be, there would be no need a feature selection at all.
-Everyone is free to choose their method set and we hope you agree on this point with us.  
+Everyone is free to choose their method set and we hope you agree on this point with us.
 
-FIXME:  Bitte umformulieren, denn 'es kann doch jeder machen was er will' ist kein sachliches Argument. 
+FIXME:  Bitte umformulieren, denn 'es kann doch jeder machen was er will' ist kein sachliches Argument.
 Argumente: 1. Filter methods sind viel viel viel schneller als wrapper methods v.a. wenn das Modell selbst rechenintensiv ist (z.B. SVM, unser winner!);
-Argument 2. stepwise selection macht keine exhaustive search (2^p mögliche subsets bei p features), sondern wendet lediglich eine bei großen feature spaces sehr limitierte Suchheuristik an (Auswertung von maximal p(p+1)/2 Modellen). 
+Argument 2. stepwise selection macht keine exhaustive search (2^p mögliche subsets bei p features), sondern wendet lediglich eine bei großen feature spaces sehr limitierte Suchheuristik an (Auswertung von maximal p(p+1)/2 Modellen).
 Argument 2b: Unterschiedliche Optimierungsstrategien für wrapper methods zu vergleichen wäre eine separate Studie, deren Rechenintensität die vorliegende Studie um mehrere Zehnerpotenzen (orders of magnitude) übersteigen würde. -> future studies für Leute mit viel Zeit :-)
 
 > The order in Table 3 is not clear, 2 to 10 have the same RMSE. Also, the different SE in 8 is not clear.
