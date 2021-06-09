@@ -46,7 +46,7 @@ P: Hmpft, I thought its also fine to "discuss" the results within the study, not
 
 > Abbreviations introduced should be used consistently afterward.
 
-We harmonized the use of abbreviatons.
+We harmonized the use of abbreviations.
 
 > The citation style is sometimes strange and I am not sure if it meets the journal's requirements. If there are multiple sources, I would put all numbers in one square bracket. If the source is used in the body text, I think the name of the author should be also given.
 
