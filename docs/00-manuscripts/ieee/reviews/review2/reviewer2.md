@@ -19,12 +19,9 @@ We would like to note that all code and data related to this publication is made
 
 > I would like to see examples of all damage classes from both the field response and the canopy delineated in the EO data.
 
-FIXME:
-- Thought: Don't want to add so many pictures, also partly because we do not have this information.
-- Thought: We can offer to send him some in private if he wants to unmask? Or maybe add some to the data repository?
-
-ALEX:
-You can always include additional photos and maps in the response document.
+FIXME: Attach pictures when submitting!
+We attached some pictures taken in the field to our reply.
+Note that these should not be generalized as every tree could look different, especially with respect to defoliation caused by Diplodia (which causes brown coloring of the shoots).
 
 > It is not clear how the hyperspectral information was extracted for each tree. I expect that they had GNSS points for each tree. The approach of using a buffer to avoid the use of non-tree pixels is not correct. If the point is outside the tree crown also the have of the four pixels will be outside. On the other hand, if the pixel is on the tree crown the buffer can lead to include pixels from outside. Therefore, the tree crowns should (manual) delineated, and e.g. the mean of each object should be used!
 
