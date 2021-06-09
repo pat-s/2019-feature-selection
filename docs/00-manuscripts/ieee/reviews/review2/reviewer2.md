@@ -196,15 +196,19 @@ However, more recent studies try to make use of hybrid ensemble approaches which
 
 > The order in Table 3 is not clear, 2 to 10 have the same RMSE. Also, the different SE in 8 is not clear.
 
-The results in table VIII are simply the model results. They are highly similar for the SVM learner, which can happen and is just normal.
+The results in table VIII are simply the model results.
+They are highly similar for the SVM learner, which can happen and is not unusual.
 Learner SVM on the HR-NR-VI dataset has a slightly higher standard error.
 
 >Table IV: Why does PCA not work and again it is not clear why PCA based on VI only outperforms PCA based on HR-NRI-VI. Also, the better results (compared to PCA) without filters are not clear.
 
-If we would know why certain combinations of learners, feature sets and filters result in certain performances, we would have solved the issue of black-box modeling.
-It looks like PCA does not go very well with XGBoost - in our view this is everything one can draw from these non-optimal results in Table IV.
+Applying a filter or using more variables does not guarantee to result in a better performance.
+Exploring these differences was one motivation for the extensive benchmark matrix of this study.
+Often enough, model results do not follow a pattern one might have from previous modeling experiences.
+Explaining why model X is better than model Y can often not be fully determined.
+The case mentioned by you here might be one case for which this applies but there might be more to find in this extensive benchmark matrix, with the potential increasing when adding more settings to the matrix.
 
-FIXME: Geht das noch besser?
+Judging from the results, it looks like PCA does not go very well with XGBoost - in our view this is everything one can draw from these non-optimal results in Table IV.
 
 > P8, C1, Table VI: Why did you present these results based on the models without filters? I also want to see the best results using filters.
 
