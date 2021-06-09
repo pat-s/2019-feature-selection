@@ -61,18 +61,18 @@ We are using the following options
 
 which should be accepted by the journal and community judging from [this Texexchange post](https://tex.stackexchange.com/a/44086/104937).
 
-
 > Tables and Figures have to be understandable stand-alone. Therefore, the captions are often not sufficient. Please revise it and provide more details. Also, units are often missing and abbreviations are not explained.
 
 FIXME
 
 > The quality of the maps should be improved.
 
-FIXME Thought: Quite subjective, to me the map is fine.
+We've made some small tweaks to the maps even though we think it was fine before:
 
-ALEX: I also don't know what to improve. In Fig. 2 the big red dots representing the 'plot locations' are not particularly useful. But your map of the Basque Country is incorrect! The Basque Country has a big hole in the south! FIXME
-
-FIXME: Figure does not include a copyright statement for Bing maps!! Check terms of use, and regardless of their requirements, Bing maps should be mentioned as an image source.
+- Removed red plot indicators on plot maps
+- Referenced Bing Maps as the image source
+- Refined legend icon size
+- Added Burgos district to overview map (Burgos is not part of the Basque Country)
 
 > Page 2, Column 2, Line 22: Please use the already introduced abbreviation ML
 
