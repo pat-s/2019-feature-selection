@@ -230,11 +230,15 @@ FIXME: He's right about the strange RMSE results, need to look into it
 
 > P8, C2, Figure 3, include a unit for RMSE, change order of the learners (and also colors) Lasso and Ridge should be next to each other. Why did you include MBO in the name?
 
-- We omitted the unit for RMSE in all other tables/figures. Adding it only here would make things inconsistent. We believe that it should be clear to readers of the study that the unit is percentage points as it is mentioned in various places.
-- FIXME: check if MBO labels can be removed
-- We see no clear reason putting Lasso and Ridge next to each other, we rather prefer an alphabetical order here. Also we see no reasons to change the color palette.
+Thanks for suggesting possible improvements to Figure 3.
+We omitted the unit for RMSE in all other tables/figures.
+Adding it only here would make things inconsistent.
+We believe that it should be clear to readers of the study that the unit is percentage points as it is mentioned in various places.
 
-FIXME: ALEX: naja ridge und lasso sind ja beides lineare Modelle, insofern kann ich den Kommentar nachvollziehen. Einfacher zu lesen wäre die Abbildung, wenn die Legende grob in der Reihenfolge der Ergebnisse wäre: also SVM links. Dann wäre auch ridge rechts von lasso. Farbkontraste sind vielleicht z.T. etwas schwach, z.B. blau / lila, aber da kann ich nicht mit Expertise weiterhelfen. (Farbskala für Farbenblinde wäre nebenbei vielleicht umsetzbar...)
+Lasso and Ridge were appended with a "MBO" suffix to highlight the use of MBO for internal optimization in contrast to using their respective integrated tuning algorithms.
+The added value might not be fully clear, hence we removed the suffix.
+
+We have changed the color palette to "Viridis", a palette with support for colorblind people.
 
 > P9, Figure 4: The filters improved the results mainly for the task HR. For all others, the no Filter results are within the best results. Please explain how can a filter worsen the performance?
 
