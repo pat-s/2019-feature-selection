@@ -185,14 +185,14 @@ Thanks, using the abbreviation now.
 
 > P8, C1, Table III, and IV: From my point of view the Tasks with all input data should outperform the others if the feature selections work well. Therefore, I prefer wrapper algorithms and again I think they should be included for comparison (e.g. stepwise feature reduction based on the RF importance measure).
 
-This study is not about comparing filters to wrapper methods and there is no evidence why tasks with all input data should outperform others.
-If there would be, there would be no need a feature selection at all.
-Everyone is free to choose their method set and we hope you agree on this point with us.
-
-FIXME:  Bitte umformulieren, denn 'es kann doch jeder machen was er will' ist kein sachliches Argument.
-Argumente: 1. Filter methods sind viel viel viel schneller als wrapper methods v.a. wenn das Modell selbst rechenintensiv ist (z.B. SVM, unser winner!);
-Argument 2. stepwise selection macht keine exhaustive search (2^p mögliche subsets bei p features), sondern wendet lediglich eine bei großen feature spaces sehr limitierte Suchheuristik an (Auswertung von maximal p(p+1)/2 Modellen).
-Argument 2b: Unterschiedliche Optimierungsstrategien für wrapper methods zu vergleichen wäre eine separate Studie, deren Rechenintensität die vorliegende Studie um mehrere Zehnerpotenzen (orders of magnitude) übersteigen würde. -> future studies für Leute mit viel Zeit :-)
+Thanks for suggesting the use/comparison of wrapper methods.
+While feature selection wrappers can provide good results and enhance the predictive performance of a model, they also come with certain costs.
+They usually take way more time to compute and used with a computational intensive algorithm (e.g. XGBoost or SVM), fitting times become quite large.
+In contrast, filter methods are more efficient and can be cached after their first calculation.
+Also we wanted to avoid making a subjective pre-selection of feature selection methods in this study for an unbiased comparison and the evaluation of new ensemble filters (Borda).
+Comparing different feature selection strategies/categories (i.e. wrapper vs. filter) would be subject to a different study which has access to insane computational resources when operating with datasets of 7k or more features.
+Besides, such studies already exist, even with a subfocus on specific subareas of modeling ([Talavera 2005](https://link.springer.com/chapter/10.1007/11552253_40)).
+However, more recent studies try to make use of hybrid ensemble approaches which combine filter and wrapper methods ([Chen et al. 2020](https://onlinelibrary.wiley.com/doi/full/10.1111/exsy.12553)).
 
 > The order in Table 3 is not clear, 2 to 10 have the same RMSE. Also, the different SE in 8 is not clear.
 
