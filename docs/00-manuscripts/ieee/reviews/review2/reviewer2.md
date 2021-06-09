@@ -120,11 +120,9 @@ We have not found any instances of Laukiz1 or Laukiz2 with spaces between "Lauki
 
 > P4, Figure 2: Please revise the maps. Add a detailed view of the tree crowns. What is the background image? Single coordinates are not meaningful.
 
-We do not have custom images showing the plots from a birds-eye perspective; note that the hypespectral image resolution is 1 m, which does not provide any visual detail at the crown level.
+We do not have custom images showing the plots from a birds-eye perspective; note that the hyperspectral image resolution is 1 m, which does not provide any visual detail at the crown level.
 The background images shown are "Bing Aerial" maps queried from within QGIS.
 The purpose of these is not to show a high-resolution bird-eye view of the plots but just to give a rough overview of the plot area and its surroundings.
-
-FIXME: Figure does not include a copyright statement for Bing maps!! Check terms of use, and regardless of their requirements, Bing maps should be mentioned as an image source.
 
 > P4, C1, L44: Spatial resolution instead of geometric resolution?
 
