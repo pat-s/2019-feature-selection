@@ -242,20 +242,18 @@ We have changed the color palette to "Viridis", a palette with support for color
 
 > P9, Figure 4: The filters improved the results mainly for the task HR. For all others, the no Filter results are within the best results. Please explain how can a filter worsen the performance?
 
+Thanks for the detailed look on the results.
 There is no guarantee that the use of filters always improves the result, even though the selection of features is optimized via tuning.
 As mentioned and discussed in the study, the outcome is a combination of learner+dataset+filter and using a subset of features might not always result in the best performance.
 Also the ranking of certain filters might simply not have a positive effect and result in features being removed even though they would have been helpful to the model in the end.
 
 > P9, Figure 5: Why did you highlight Borda Filter?
 
-Because the use of ensemble filters (i.e. the Borda filter) is a central evaluation point of this work.
+ We highlighted the Borda filter because the use of ensemble filters (i.e. the Borda filter) is a central evaluation point of this work.
 
 > P10, Figure 6: As I mentioned in the general comments you have to apply smoothing before analyzing the spectral signatures. The peak around 950nm is also very strange.
 
-The spectral signatures are only displayed for reference and are not analyzed in more detail, therefore we believe that no smoothing is required here.
-The spike around 950nm is visible for all plots and even though the spectral signature of Oiartzun is substantially different compared to the other plots, this is what the data contains.
-
-FIXME: ALEX: Vielleicht eher nochmal auf den (vor mir modifizierten) Response zum general comment zum gleichen Thema Bezug nehmen. Ich finde es nicht überzeugend einfach zu sagen, dass wir smoothing nicht für nötig erachten. Wenn du eine physiologische Erklärung geben könntest, wäre das überzeugender, als seinen Einwand so abzubügeln...
+Please see our previous comment on this topic.
 
 > What does scaled Reflectance or in the caption normalized reflectance mean?
 
@@ -267,13 +265,14 @@ Thanks.
 
 > P11, C1, L56-58: PCA obtained the worst results!
 
-It did and this is what we wrote in l.52 - 56.
+Thanks for double-checking the results.
+Indeed PCA scored the worst results and this is what we wrote in l.52 - 56.
 It also reduced model fitting times, which is fair to mention.
-Your comment is not clear to us here.
 
 > P11, C2, L10-11: Instead of “not surprisingly” I would prefer citing other studies which obtained similar results.
 
-We believe that this statement does not need to backed up by additional references.
+Using references to proof statements is always a good idea.
+In this case however, we believe that this statement does not need to backed up by additional references.
 
 > P11, C2, L36-37: Sentence is not necessary.
 
@@ -281,8 +280,9 @@ Thanks, we removed it.
 
 > P11, C2, L48: Why only in almost all cases. I don’t see an option to get less or more pixels. Anyway, this approach is not a solution for your mentioned problem of pixels outside the tree. On the contrary, the method leads to the fact that neighboring pixels are included.
 
-As mentioned, we believe that this approach is a good compromise for the issue at hand and disagree with your view here.
 We agree that there are no possibilities to get a different number of pixels than exactly four and removed "almost" from the sentence.
+
+As mentioned in previous comments, we still believe that this approach is a good compromise for the issue at hand.
 
 > P13, C1, 56: Please avoid citations in the conclusion.
 
