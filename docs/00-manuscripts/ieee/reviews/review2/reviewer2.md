@@ -160,12 +160,10 @@ We manually added it even though it seems not officially supported by the citati
 
 > P6, C1, L33-38: I don’t agree. From my experience, the feature selection should be connected to the following method. Therefore, the importance of the features is not the same for all models. Also, high correlated input data are problematic for some algorithms but not for others.
 
-You might potentially misunderstand the content of this paragraph: we removed features with a pairwise correlation of 1.
-It is unclear to us what point you want to make here.
-
-FIXME - ALEX: Es geht wohl um den "Even though" Absatz, den finde ich auch alles andere als klar, vor allem "it was ensured a priori to account for features with...".
-Ich formuliere den Absatz mal um, folgender Response könnte dann funktionieren:
-"Thank your for this comments, which we believe points to a misunderstanding since this paragraph was not very clear. The only point we make in this paragraph is that features that are obviously completely redundant were removed. No filter and no model will be able to retrieve useful information from features that have a correlation of 1 with another feature. We changed the paragraph to read as follows: 'Individual features were finally removed from these feature sets if they were numerically equivalent to another feature based on their pairwise correlation being greater than $1 - 10^{-10}$.'"
+Thank your for this comments, which we believe points to a misunderstanding since this paragraph was not very clear.
+The only point we make in this paragraph is that features that are obviously completely redundant were removed.
+No filter and no model will be able to retrieve useful information from features that have a correlation of 1 with another feature.
+We changed the paragraph to read as follows: 'Some individual features were finally removed from these feature sets if they were numerically equivalent to another feature based on their pairwise correlation being greater than $1 - 10^{-10}$.'"
 
 > P6, C2, L47: not clear to me. Please explain.
 
