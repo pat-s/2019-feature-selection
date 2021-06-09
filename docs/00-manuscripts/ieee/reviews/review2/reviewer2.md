@@ -42,6 +42,8 @@ The first half of the Discussion summarizes results - maybe this can be shortene
 But the response should also emphasize that the second half already relates our findings to the literature.
 This being said, small changes to the Discussion may be a good idea.
 
+P: Hmpft, I thought its also fine to "discuss" the results within the study, not necessarlily and only compare it to other studies (and the comparison being one subsection/paragraph in the discussion section).
+
 > Abbreviations introduced should be used consistently afterward.
 
 We harmonized the use of abbreviatons.
