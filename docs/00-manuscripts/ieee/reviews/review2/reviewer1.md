@@ -34,8 +34,8 @@ Thank you, we have added two references to this paragraph.
 
 Table VIII lists all hyperparameters that were optimized, including their tuning ranges and default parameter values.
 RBF kernel is the default SVM kernel in most implementation (and to our knowledge in all R implementation).
-It is a general-purpose kernel which has proven to produce good results in other studies. 
-The SVM's behaviour is known to be relatively insensitive to the specific choice of a kernel function, while the hyperparameters are of critical importance in determining the model's flexibility **(FIXME provide a reference, probably Bengio)**.
+It is a general-purpose kernel which has proven to produce good results in other studies.
+The SVM's behaviour is known to be relatively insensitive to the specific choice of a kernel function, while the hyperparameters are of critical importance in determining the model's flexibility (see [Bergstra & Bengio 2012](bergstra2012)).
 We therefore focused on optimizing the hyperparameters $C$ and $\sigma$.
 
 > V. Discussion
