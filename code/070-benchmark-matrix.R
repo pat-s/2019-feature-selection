@@ -7,8 +7,9 @@ benchmark_plan <- drake_plan(
   ),
 
   learners_keep_models = list(
-    tune_wrappers_mbo %>%
-      keep(~ "SVM MBO MRMR" %in% .x$id)
+    # tune_wrappers_mbo %>%
+    #   keep(~ "SVM MBO MRMR" %in% .x$id)
+    tune_wrappers_mbo[[28]]
   ),
 
   tune_wrappers_mbo_sub = tune_wrappers_mbo[20],
@@ -29,6 +30,7 @@ benchmark_plan <- drake_plan(
   # 27    - SVM MBO No Filter
   # 28    - Lasso MBO
   # 29    - RIDGE MBO
+  # 30    - regr.featureless
   # Tasks:
   # 1     - hr
   # 2     - vi
@@ -51,7 +53,7 @@ benchmark_plan <- drake_plan(
       )
     ),
     dynamic = cross(
-      tune_wrappers_mbo,
+      append(tune_wrappers_mbo, list(makeLearner("regr.featureless"))),
       task_reduced_cor
     )
   ),
@@ -81,40 +83,6 @@ benchmark_plan <- drake_plan(
     dynamic = cross(tune_wrappers_mbo_inspect_tune, task_hr_nri_vi)
   ),
 
-  benchmark_models_penalized_mbo = target(
-    benchmark(
-      learners = learners_penalized,
-      tasks = task,
-      models = TRUE,
-      keep.pred = TRUE,
-      resamplings = makeResampleDesc("CV", fixed = TRUE),
-      show.info = TRUE,
-      measures = list(
-        setAggregation(rmse, test.mean),
-        setAggregation(rsq, test.mean),
-        setAggregation(expvar, test.mean)
-      )
-    ),
-    dynamic = cross(learners_penalized, task)
-  ),
-
-  benchmark_no_models_penalized_mbo = target(
-    benchmark(
-      learners = learners_penalized,
-      tasks = task,
-      models = FALSE,
-      keep.pred = TRUE,
-      resamplings = makeResampleDesc("CV", fixed = TRUE),
-      show.info = TRUE,
-      measures = list(
-        setAggregation(rmse, test.mean),
-        setAggregation(rsq, test.mean),
-        setAggregation(expvar, test.mean)
-      )
-    ),
-    dynamic = cross(learners_penalized, task)
-  ),
-
   # used in response-normality.Rmd
   benchmark_models = target(
     benchmark(
@@ -130,7 +98,7 @@ benchmark_plan <- drake_plan(
         setAggregation(expvar, test.mean)
       )
     ),
-    dynamic = cross(learners_keep_models[[1]], task)
+    dynamic = cross(learners_keep_models[[1]], task_reduced_cor)
   ),
 
 

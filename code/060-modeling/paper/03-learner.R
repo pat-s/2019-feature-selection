@@ -71,5 +71,12 @@ learners_plan <- drake_plan(
       lambda = seq(0, 10, 1),
       standardize = FALSE
     )
+  ),
+
+ # featureless
+  lrn_featureless = target(
+    makeLearner("regr.featureless",
+      id = "featureless"
+    )
   )
 )
