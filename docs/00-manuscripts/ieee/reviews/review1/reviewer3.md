@@ -3,18 +3,13 @@
 Thanks for taking time to review our manuscript.
 Please find our replies inline.
 
-> This study analyzed defoliation of trees in northern Spain by using hyperspectral data as input for machine learning models which used hyperparameter tuning and filter-based feature selection.
-The idea of this paper is interesting and the technical presentation sounds reasonable.
-However, I still feel that the paper is much more suitable for JSTARS since it focuses on very specific domain and application field, whereas the methodological novelty is not significant for publication in TGRS.
-Some detailed comments are as follows:
-
-> 1. I would like to see what is the SNR level of the hyperspectral data, because usually the SNR makes it possible or not to identify the hyperspectral information.
+> This study analyzed defoliation of trees in northern Spain by using hyperspectral data as input for machine learning models which used hyperparameter tuning and filter-based feature selection. The idea of this paper is interesting and the technical presentation sounds reasonable. However, I still feel that the paper is much more suitable for JSTARS since it focuses on very specific domain and application field, whereas the methodological novelty is not significant for publication in TGRS. Some detailed comments are as follows: 1. I would like to see what is the SNR level of the hyperspectral data, because usually the SNR makes it possible or not to identify the hyperspectral information.
 
 We would like to thank the reviewer to consider discussing the Signal-to-Noise ratio (SNR) of the input data.
 Unfortunately the SNR is unknown to us and was not provided along with the spatial data from the company which acquired the images.
 To our knowledge there is no way to retrieve this information post-hoc.
 We searched for it and also asked the company which was in charge for image acquisition for more information.
-We found a technical brochure showcasing more technical details about the AISA EAGLE sensor - though it seems to related to v1 of the sensor whereas in our case v2 was used: http://galileo.gogostudio.com/wp-content/uploads/2014/02/AisaEAGLE_datasheet_ver1-2013.pdf.
+We found a technical brochure showcasing more technical details about the AISA EAGLE sensor - though it seems to related to v1 of the sensor whereas in our case v2 was used: <http://galileo.gogostudio.com/wp-content/uploads/2014/02/AisaEAGLE_datasheet_ver1-2013.pdf>.
 We have some informal information that AISA sensors in general achieve SNR of 1000:1 (i.e. the signal is 1000 times stronger than the noise) leading us to the conclusion that this point should not be of practical relevance in this study.
 Also from a data science perspective, models average the reflectance values from multiple bands in different ways during the fitting process.
 Hence, even if there would be small issues with the SNR for individual values, these should get averaged out during the modeling.
@@ -24,13 +19,13 @@ Combining all these points, we think that not discussing the SNR of the sensor i
 
 Thanks for pointing towards the information redundancy characteristic of the dataset.
 We agree this is an interesting point to look at.
-We added the results of a PCA for all feature sets in Figure 3 and briefly described the results in the manuscript.
+We added the results of a PCA (95%) for all feature sets in described the results in the manuscript (section 4.1 "Correlation analysis").
 
-Depending on the feature set between two (HR) and five (VI) PCs are needed to explain 90% of the variance.
+Depending on the feature set between two (HR) and 42 (NRI) PCs are needed to explain 95% of the variance.
 Nevertheless, even the remaining fraction of variance can contain information that is relevant to predict the response variable.
 The fewer PCs are needed to reach a high proportion of variance explained, the more similar are the individual features to each other.
-Hence, a high feature correlation can be observed for feature set HR which only requires 2 PC to reach 90% of variance explained.
-Feature sets NRI and VI are more diverse and require four (NRI) and five (VI) PC to explain 90% of the variance in the data.
+Hence, a high feature correlation can be observed for feature set HR which only requires 2 PC to reach 95% of variance explained.
+Feature sets NRI and VI are more diverse and require 42 (NRI) and 12 (VI) PC to explain 95% of the variance in the data.
 
 > 3. RF is usually effected by the randomization of the training process, did you only run one shot, or it is the average result from multiple trails?
 

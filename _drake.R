@@ -60,7 +60,8 @@ plan_paper <- bind_plans(
 drake_config(plan_paper,
    targets = c(
      # replace this with the target name that should be computed
-     c("task_reduced_cor")
+    #  c("eda_wfr")
+    "benchmark_no_models"
    ),
   verbose = 1,
   lazy_load = "eager",
@@ -87,6 +88,7 @@ drake_config(plan_paper,
     ))
   ),
   garbage_collection = TRUE,
-  jobs = 4, parallelism = "clustermq",
+  jobs = 1,
+  parallelism = "clustermq",
   keep_going = FALSE, recover = FALSE, lock_envir = FALSE, lock_cache = FALSE
 )
