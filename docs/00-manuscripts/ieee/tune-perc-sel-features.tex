@@ -1,24 +1,24 @@
 % latex table generated in R 4.0.4 by xtable 1.8-4 package
 \begin{table}[ht!]
 \centering
-\caption{Selected feature portions during tuning for the best performing learner-filter settings (SVM Relief, RF Relief, XGBoost CMIM) across folds for task HR-NRI-VI, sorted ascending by RMSE.} 
+\caption{Selected feature portions during tuning for the best performing learner-filter settings (SVM Relief, RF Relief, XGBoost CMIM) across folds for task HR-NRI-VI, sorted by plot name. 	exttt{#} denotes the absolute number of features selected and 'Features (	exttt{%})' refers to the percentage relative to the overall features available (7675). Results were estimated in a separate model tuning step, not within the main cross-validation comparison.} 
 \label{tab:tune-perc-sel-features}
 \begin{tabular}{llrrr}
   \toprule
 Learner & Test Plot & Features (\%) & \# & RMSE \\ 
   \midrule
-\multirow{4}{*}{\specialcell{RF \\ Relief}} & Laukiz1 & 0.99973 & 559 & 41.73 \\ 
-   & Laukiz2 & 0.93371 & 422 & 17.12 \\ 
-   & Luiando & 0.00216 & 1 & 33.21 \\ 
-   & Oiartzun & 0.00004 & 1 & 37.20 \\ 
-  \midrule\multirow{4}{*}{\specialcell{XGB \\ CMIM}} & Laukiz1 & 0.30849 & 173 & 33.36 \\ 
-   & Laukiz2 & 0.98122 & 443 & 45.59 \\ 
-   & Luiando & 0.83613 & 252 & 41.01 \\ 
-   & Oiartzun & 0.00515 & 3 & 15.24 \\ 
-  \midrule\multirow{4}{*}{\specialcell{SVM \\ Relief}} & Laukiz1 & 0.00062 & 1 & 35.49 \\ 
-   & Laukiz2 & 0.04106 & 19 & 31.03 \\ 
-   & Luiando & 0.20735 & 63 & 37.19 \\ 
-   & Oiartzun & 0.23928 & 119 & 14.89 \\ 
+\multirow{4}{*}{\specialcell{RF \\ Relief}} & Luiando & 99.97268 & 301 & 41.73 \\ 
+   & Laukiz2 & 93.37086 & 422 & 17.12 \\ 
+   & Laukiz1 & 0.21573 & 2 & 33.21 \\ 
+   & Oiartzun & 0.00405 & 1 & 37.20 \\ 
+  \midrule\multirow{4}{*}{\specialcell{XGB \\ CMIM}} & Luiando & 30.84900 & 93 & 33.36 \\ 
+   & Laukiz1 & 98.12213 & 549 & 45.59 \\ 
+   & Oiartzun & 83.61298 & 416 & 41.01 \\ 
+   & Laukiz2 & 0.51526 & 3 & 15.24 \\ 
+  \midrule\multirow{4}{*}{\specialcell{SVM \\ Relief}} & Laukiz1 & 0.06200 & 1 & 35.49 \\ 
+   & Oiartzun & 4.10636 & 21 & 31.03 \\ 
+   & Luiando & 20.73514 & 63 & 37.19 \\ 
+   & Laukiz2 & 23.92820 & 108 & 14.89 \\ 
    \bottomrule
 \end{tabular}
 \end{table}
