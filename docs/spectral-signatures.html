@@ -337,17 +337,6 @@ $(document).ready(function () {
     <li>
       <a href="spectral-signatures.html">Spectral signatures</a>
     </li>
-    <li>
-      <a href="response-normality.html">Checking for normality of response</a>
-    </li>
-    <li class="dropdown-submenu">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Side Analysis</a>
-      <ul class="dropdown-menu" role="menu">
-        <li>
-          <a href="inspect-glmnet-models.html">Inspect {glmnet} models</a>
-        </li>
-      </ul>
-    </li>
   </ul>
 </li>
       </ul>
@@ -393,7 +382,7 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-03-31
+<strong>Last updated:</strong> 2021-06-12
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -484,16 +473,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree29bc678479cb9d16cb823a208d26261577c1d430targetblank29bc678a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/29bc678479cb9d16cb823a208d26261577c1d430" target="_blank">29bc678</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontreeb36276ee4d0fc0734f7628b8fbbeafde01c1550ctargetblankb36276ea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/b36276ee4d0fc0734f7628b8fbbeafde01c1550c" target="_blank">b36276e</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree29bc678479cb9d16cb823a208d26261577c1d430targetblank29bc678a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontreeb36276ee4d0fc0734f7628b8fbbeafde01c1550ctargetblankb36276ea" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/pat-s/2019-feature-selection/tree/29bc678479cb9d16cb823a208d26261577c1d430" target="_blank">29bc678</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/pat-s/2019-feature-selection/tree/b36276ee4d0fc0734f7628b8fbbeafde01c1550c" target="_blank">b36276e</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -517,10 +506,13 @@ Ignored files:
     Ignored:    reviews/
     Ignored:    rosm.cache/
 
+Untracked files:
+    Untracked:  loca_job.R
+
 Unstaged changes:
     Modified:   _drake.R
-    Modified:   code/060-modeling/paper/09-feature-importance.R
-    Modified:   code/070-benchmark-matrix.R
+    Modified:   renv.lock
+    Modified:   slurm_clustermq.tmpl
 
 </code></pre>
 <p>
@@ -559,6 +551,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/26420c376752223f30c50387b491efcd42fdf7e2/analysis/spectral-signatures.Rmd" target="_blank">26420c3</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2021-04-12
+</td>
+<td>
+update “inspect tuning” results Rmd
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pat-s/2019-feature-selection/4ea341d79e96c95e5ccfa6827534ea202f6f50d3/docs/spectral-signatures.html" target="_blank">4ea341d</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2021-03-31
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -1315,7 +1341,7 @@ add spectral signatures report
 </div>
 </div>
 <p>Last update:</p>
-<pre><code>[1] &quot;Wed Mar 31 16:11:40 2021&quot;</code></pre>
+<pre><code>[1] &quot;Sat Jun 12 23:24:11 2021&quot;</code></pre>
 <div id="spectral-signatures-of-plots" class="section level1">
 <h1>Spectral signatures of plots</h1>
 <p>Spectral signatures for plots</p>
@@ -1326,7 +1352,7 @@ add spectral signatures report
 <li>Oiartzun</li>
 </ul>
 <p>for the wavelength range of 400 nm - 1000 nm. Values show the mean reflectance of all observations at the respective wavelength.</p>
-<p><img src="figure/spectral-signatures.Rmd/spectral-signatures-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="figure/spectral-signatures.Rmd/spectral-signatures-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-spectral-signatures-1">
 Past versions of spectral-signatures-1.png
@@ -1349,6 +1375,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/4ea341d79e96c95e5ccfa6827534ea202f6f50d3/docs/figure/spectral-signatures.Rmd/spectral-signatures-1.png" target="_blank">4ea341d</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2021-03-31
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/c2c38d56ef623174931afca4773dc8ff5790d3a2/docs/figure/spectral-signatures.Rmd/spectral-signatures-1.png" target="_blank">c2c38d5</a>
@@ -1418,36 +1455,36 @@ other attached packages:
  [1] purrr_0.3.4       hsdar_0.5.2       caret_6.0-86      ggplot2_3.3.3    
  [5] lattice_0.20-41   signal_0.7-6      rootSolve_1.8.2.1 rgdal_1.5-23     
  [9] raster_3.4-5      sp_1.4-5          usethis_2.0.0     magrittr_2.0.1   
-[13] drake_7.13.1     
+[13] drake_7.13.2     
 
 loaded via a namespace (and not attached):
  [1] splines_4.0.4        foreach_1.5.1        R.utils_2.10.1      
- [4] prodlim_2019.11.13   assertthat_0.2.1     highr_0.8           
- [7] stats4_4.0.4         base64url_1.4        renv_0.13.0         
-[10] yaml_2.2.1           progress_1.2.2       ipred_0.9-9         
-[13] pillar_1.4.7         backports_1.2.1      glue_1.4.2          
-[16] pROC_1.17.0.1        digest_0.6.27        promises_1.1.1      
-[19] colorspace_2.0-0     recipes_0.1.15       htmltools_0.5.1.1   
-[22] httpuv_1.5.5         Matrix_1.3-2         R.oo_1.24.0         
-[25] plyr_1.8.6           timeDate_3043.102    pkgconfig_2.0.3     
-[28] scales_1.1.1         whisker_0.4          later_1.1.0.1       
-[31] gower_0.2.2          lava_1.6.8.1         git2r_0.28.0        
-[34] tibble_3.0.6         txtq_0.2.3           generics_0.1.0      
-[37] ellipsis_0.3.1       withr_2.4.1          nnet_7.3-15         
-[40] cli_2.3.0            survival_3.2-7       crayon_1.4.0        
-[43] evaluate_0.14        storr_1.2.5          R.methodsS3_1.8.1   
-[46] fs_1.5.0             nlme_3.1-152         MASS_7.3-53         
-[49] class_7.3-18         data.table_1.13.6    tools_4.0.4         
-[52] prettyunits_1.1.1    hms_1.0.0            lifecycle_0.2.0     
-[55] stringr_1.4.0        munsell_0.5.0        compiler_4.0.4      
-[58] rlang_0.4.10         grid_4.0.4           iterators_1.0.13    
-[61] rstudioapi_0.13      igraph_1.2.6         rmarkdown_2.6       
-[64] ModelMetrics_1.2.2.2 gtable_0.3.0         codetools_0.2-18    
-[67] reshape2_1.4.4       R6_2.5.0             lubridate_1.7.9.2   
-[70] knitr_1.31           dplyr_1.0.4          filelock_1.0.2      
-[73] workflowr_1.6.2      rprojroot_2.0.2      stringi_1.5.3       
-[76] parallel_4.0.4       Rcpp_1.0.6           vctrs_0.3.6         
-[79] rpart_4.1-15         tidyselect_1.1.0     xfun_0.20           </code></pre>
+ [4] prodlim_2019.11.13   highr_0.8            stats4_4.0.4        
+ [7] base64url_1.4        renv_0.13.2          yaml_2.2.1          
+[10] progress_1.2.2       ipred_0.9-9          pillar_1.4.7        
+[13] backports_1.2.1      glue_1.4.2           pROC_1.17.0.1       
+[16] digest_0.6.27        promises_1.1.1       colorspace_2.0-0    
+[19] recipes_0.1.15       htmltools_0.5.1.1    httpuv_1.5.5        
+[22] Matrix_1.3-2         R.oo_1.24.0          plyr_1.8.6          
+[25] timeDate_3043.102    pkgconfig_2.0.3      scales_1.1.1        
+[28] whisker_0.4          later_1.1.0.1        gower_0.2.2         
+[31] lava_1.6.8.1         git2r_0.28.0         tibble_3.0.6        
+[34] txtq_0.2.3           generics_0.1.0       ellipsis_0.3.1      
+[37] withr_2.4.1          nnet_7.3-15          cli_2.4.0           
+[40] survival_3.2-7       crayon_1.4.0         evaluate_0.14       
+[43] storr_1.2.5          R.methodsS3_1.8.1    fs_1.5.0            
+[46] nlme_3.1-152         MASS_7.3-53          class_7.3-18        
+[49] data.table_1.13.6    tools_4.0.4          prettyunits_1.1.1   
+[52] hms_1.0.0            lifecycle_0.2.0      stringr_1.4.0       
+[55] munsell_0.5.0        compiler_4.0.4       rlang_0.4.10        
+[58] grid_4.0.4           iterators_1.0.13     rstudioapi_0.13     
+[61] igraph_1.2.6         rmarkdown_2.6        ModelMetrics_1.2.2.2
+[64] gtable_0.3.0         codetools_0.2-18     reshape2_1.4.4      
+[67] R6_2.5.0             lubridate_1.7.9.2    knitr_1.31          
+[70] dplyr_1.0.4          filelock_1.0.2       workflowr_1.6.2     
+[73] rprojroot_2.0.2      stringi_1.5.3        parallel_4.0.4      
+[76] Rcpp_1.0.6           vctrs_0.3.6          rpart_4.1-15        
+[79] tidyselect_1.1.0     xfun_0.20           </code></pre>
 </div>
 </div>
 
