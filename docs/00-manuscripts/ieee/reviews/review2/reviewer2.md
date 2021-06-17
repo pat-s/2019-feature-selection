@@ -7,8 +7,8 @@
 > The biggest problem I see in the hyperspectral data which were analyzed. The spectral signatures are too noisy and do not correspond to any physical basis. Such ups and downs are not justifiable and therefore the data must be filtered/smoothed beforehand - as usual in other studies.
 
 Image preprocessing is an important step that was handled in our case by an experienced external service provider, which applied any necessary radiometric, geometric and atmospheric corrections.
-Additional preprocessing steps in the spectral and spatial domains may potentially be beneficial ([Vaiphasa 2006](https://www.sciencedirect.com/science/article/pii/S0924271605001012?via%3Dihub)), but they also have the potential to introduce new artifacts, for example by propagating errors from one spectral band into adjacent ones through the application of spline methods.
-<!-- @alexanderbrenning: I think we need a ref for the last sentence because the spline argumentation is quite specific?: do you have one? I could not find one for it. -->
+Additional preprocessing steps in the spectral and spatial domains may potentially be beneficial ([Vaiphasa 2006](https://www.sciencedirect.com/science/article/pii/S0924271605001012?via%3Dihub)), but smoothing techniques also have the potential to introduce new artifacts, for example by propagating errors from one spectral band into adjacent ones.
+<!-- @alexanderbrenning: I think we need a ref for the last sentence because the spline argumentation is quite specific?: do you have one? I could not find one for it. @pat-s Changed it to smoothing technique, which is really nearly synonymous. -->
 
 In this study we opted for a data-driven approach since feature selection techniques are designed to filter spectral characteristics that most reliably predict the response.
 The chosen machine learning models are furthermore capable of weighting or averaging the numerous features either explicitly or implicitly, depending on model architecture.
@@ -190,7 +190,7 @@ While feature selection wrappers can provide good results and enhance the predic
 They usually take way more time to compute and used with a computational intensive algorithm (e.g. XGBoost or SVM), fitting times become quite large.
 In contrast, filter methods are more efficient and can be cached after their first calculation.
 Also we wanted to avoid making a subjective pre-selection of feature selection methods in this study for an unbiased comparison and the evaluation of new ensemble filters (Borda).
-Comparing different feature selection strategies/categories (i.e. wrapper vs. filter) would be subject to a different study which has access to insane computational resources when operating with datasets of 7k or more features.
+Comparing different feature selection strategies/categories (i.e. wrapper vs. filter) would be subject of a different study which has access to an unreasonably larger amount computational resources when operating with datasets of 7k or more features.
 Besides, such studies already exist, even with a subfocus on specific subareas of modeling ([Talavera 2005](https://link.springer.com/chapter/10.1007/11552253_40)).
 However, more recent studies try to make use of hybrid ensemble approaches which combine filter and wrapper methods ([Chen et al. 2020](https://onlinelibrary.wiley.com/doi/full/10.1111/exsy.12553)).
 
@@ -279,8 +279,8 @@ It also reduced model fitting times, which is fair to mention.
 
 > P11, C2, L10-11: Instead of “not surprisingly” I would prefer citing other studies which obtained similar results.
 
-Using references to proof statements is always a good idea.
-In this case however, we believe that this statement does not need to backed up by additional references.
+Using references to support statements is usually a good idea.
+In this case however, we believe that this statement does not need to backed by additional references.
 
 > P11, C2, L36-37: Sentence is not necessary.
 

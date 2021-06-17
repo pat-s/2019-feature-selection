@@ -286,6 +286,9 @@ DT::datatable(table3)
 results_aggr <- df_perf %>%
   mutate(filter = replace(filter, is.na(filter), "NF")) %>%
   mutate(learner_group = recode_factor(learner_group, `XG` = "XGBoost")) %>%
+  mutate(learner_group = recode_factor(learner_group, `Ridge-MBO` = "Ridge")) %>%
+  mutate(learner_group = recode_factor(learner_group, `Lasso-MBO` = "Lasso")) %>%
+  # reorder by min RMSE (reviewer request)
   group_by(learner_group, filter, task.id) %>%
   ### get the best performance per learner and task
   # this group_by() & slice() approach is better than summarise() because we can
@@ -295,7 +298,9 @@ results_aggr <- df_perf %>%
   slice(which.min(rmse_aggr)) %>% # this groups the CV iters
   ungroup() %>%
   group_by(task.id, learner_group) %>%
-  slice(which.min(rmse_aggr))
+  slice(which.min(rmse_aggr)) %>% 
+  ungroup() %>% 
+  mutate(learner_group = fct_reorder(learner_group, .$rmse_aggr, min))
 
 results_aggr %>%
   ggplot(aes(x = rmse_aggr, y = task.id)) +
@@ -303,7 +308,10 @@ results_aggr %>%
   # geom_dotplot(aes(fill = learner_group), binaxis="y",
   #                        stackdir="up") +
   ggbeeswarm2::geom_beeswarm(groupOnX = FALSE, aes(color = learner_group), size = 2.5) +
-  scale_color_nejm(breaks = sort(levels(results_aggr$learner_group))) +
+  # scale_color_nejm(breaks = sort(levels(results_aggr$learner_group))) +
+  # scale_color_viridis_d(breaks = sort(levels(results_aggr$learner_group))) +
+  scale_color_viridis_d(breaks = results_aggr$learner_group) +
+  
   labs(x = "RMSE", y = "Task", color = "Learner") +
   guides(size = FALSE) +
   scale_x_continuous(limits = c(27, 40), breaks = seq(28, 40, 2)) +
@@ -431,19 +439,60 @@ results_aggr2 %>%
 
 The model/task combinations which were selected relate to the best performance of the respective algorithm on the HR-NRI-VI task in the overall benchmark.
 
+Fold IDs are different for each learner, i.e. a specific plot does not always resolve to "fold 1" for each learner.
+See `bmr_inspect_tune[["results"]][["hr_nri_vi"]][["RF MBO Relief"]][["pred"]][["instance"]][["test.inds"]]`.
+
+Thus, we need to manually label the fold IDs to plot names for each learner.
+
+**RF**
+
+Plot 1: Luiando
+Plot 2: Laukiz2
+Plot 3: Laukiz 1
+Plot 4: Oiartzun
+
+**SVM**
+
+Plot 1: Laukiz1
+Plot 2: Oiartzun
+Plot 3: Luiando
+Plot 4: Laukiz2
+
+**XGBoost**
+
+Plot 1: Luiando
+Plot 2: Laukiz1
+Plot 3: Oiartzun
+Plot 4: Laukiz2
+
 ```{r eval-performance-5}
 bmr_inspect_tune <- mergeBenchmarkResults(benchmark_tune_results_hr_nri_vi)
 
 df_tbl <- getBMRTuneResults(bmr_inspect_tune, as.df = TRUE) %>%
+  # replace iter IDs by individual fold names
+  dplyr::mutate(iter = as.character(iter)) %>% 
+  dplyr::mutate(iter = case_when(learner.id == "XGBOOST MBO CMIM" & iter == 1 ~ "Luiando",
+                                 learner.id == "XGBOOST MBO CMIM" & iter == 2 ~ "Laukiz1",
+                                 learner.id == "XGBOOST MBO CMIM" & iter == 3 ~ "Oiartzun",
+                                 learner.id == "XGBOOST MBO CMIM" & iter == 4 ~ "Laukiz2",
+                                 
+                                 learner.id == "SVM MBO Relief" & iter == 1 ~ "Laukiz1",
+                                 learner.id == "SVM MBO Relief" & iter == 2 ~ "Oiartzun",
+                                 learner.id == "SVM MBO Relief" & iter == 3 ~ "Luiando",
+                                 learner.id == "SVM MBO Relief" & iter == 4 ~ "Laukiz2",
+                                 
+                                 learner.id == "RF MBO Relief" & iter == 1 ~ "Luiando",
+                                 learner.id == "RF MBO Relief" & iter == 2 ~ "Laukiz2",
+                                 learner.id == "RF MBO Relief" & iter == 3 ~ "Laukiz1",
+                                 learner.id == "RF MBO Relief" & iter == 4 ~ "Oiartzun",
+                                 
+                                 TRUE ~ as.character(iter))) %>% 
   dplyr::rename(Learner = learner.id) %>%
   dplyr::rename(Plot = iter) %>%
   dplyr::rename(RMSE = rmse.test.mean) %>%
+  dplyr::mutate(fw.perc = fw.perc * 100) %>%
   dplyr::rename("Features (\\%)" = fw.perc) %>%
   dplyr::mutate(`Test Plot` = as.character(Plot)) %>%
-  dplyr::mutate(`Test Plot` = forcats::fct_recode(`Test Plot`,
-    Oiartzun = "4", Luiando = "3",
-    Laukiz1 = "1", Laukiz2 = "2"
-  )) %>%
   dplyr::mutate(Learner = forcats::fct_recode(Learner,
     "RF \\\\ Relief" = "RF MBO Relief", "XGB \\\\ CMIM" = "XGBOOST MBO CMIM",
     "SVM \\\\ Relief" = "SVM MBO Relief"
@@ -451,10 +500,10 @@ df_tbl <- getBMRTuneResults(bmr_inspect_tune, as.df = TRUE) %>%
   dplyr::mutate(Learner = as.character(Learner)) %>%
   dplyr::mutate(`Test Plot` = as.character(`Test Plot`)) %>%
   dplyr::mutate("\\#" = case_when(
-    `Test Plot` == "Laukiz1" ~ ceiling(`Features (\\%)` * 559),
-    `Test Plot` == "Laukiz2" ~ ceiling(`Features (\\%)` * 451),
-    `Test Plot` == "Luiando" ~ ceiling(`Features (\\%)` * 301),
-    `Test Plot` == "Oiartzun" ~ ceiling(`Features (\\%)` * 497),
+    `Test Plot` == "Laukiz1" ~ ceiling((`Features (\\%)` * 559) / 100),
+    `Test Plot` == "Laukiz2" ~ ceiling((`Features (\\%)` * 451) / 100),
+    `Test Plot` == "Luiando" ~ ceiling((`Features (\\%)` * 301) / 100),
+    `Test Plot` == "Oiartzun" ~ ceiling((`Features (\\%)` * 497) / 100),
   )) %>%
   dplyr::group_by(Learner) %>%
   dplyr::select(Learner, `Test Plot`, "Features (\\%)", "\\#", RMSE)
@@ -472,7 +521,7 @@ df_tbl[[1]][first][1] <- gsub("\\\\midrule", "", df_tbl[[1]][first][1])
 table4 <- df_tbl %>%
   xtable::xtable(
     type = "latex",
-    caption = "Selected feature portions during tuning for the best performing learner-filter settings (SVM Relief, RF Relief, XGBoost CMIM) across folds for task HR-NRI-VI, sorted ascending by RMSE.",
+    caption = "Selected feature portions during tuning for the best performing learner-filter settings (SVM Relief, RF Relief, XGBoost CMIM) across folds for task HR-NRI-VI, sorted by plot name. \texttt{#} denotes the absolute number of features selected and 'Features (\texttt{%})' refers to the percentage relative to the overall features available (7675). Results were estimated in a separate model tuning step, not within the main cross-validation comparison.",
     label = "tab:tune-perc-sel-features",
     digits = c(0, 0, 0, 5, 0, 2)
   )
