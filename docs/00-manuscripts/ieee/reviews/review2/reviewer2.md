@@ -222,11 +222,19 @@ Thanks, using the abbreviation now.
 
 > P8, C2 Table VII: Please explain Features (%) and values of 0.999, Values are sorted by test plots not ascending RMSE; # means the number of input data? RMSE Values are strange because higher as without filter and also the completely different results for the test plots are not clear to me: Luiandro achieved the best result without filter, Laukiz 2 (the worst without filter) the best result with RF, Oiartzum the best with XGB and SVM
 
-- `#` denote the absolute number of features used. We've updated the caption.
-- `features (%)` refer to the relative percentage of features used judging from the total amount of features (7675). However values were not in percent, we've updated them now. Thanks.
-- Correct, values are sorted by test plot name, we've updated it. Thanks.
+Thanks for discussing the results of Table VII.
 
-FIXME: He's right about the strange RMSE results, need to look into it
+`#` denotes the absolute number of features used. We've updated the caption.
+`features (%)` refer to the relative percentage of features selectecd during tuning judging from the total amount of features (7675).
+However values were not in percent, we've updated them now. Thanks.
+Values were sorted by test plot name which did not match the table caption, we've updated it. Thanks.
+
+In addition we discovered that some results were assigned to the wrong plots names.
+We've updated the table.
+
+The results shown here refers only the HR-NRI-VI task and we used the best learner combinations for this feature set.
+We assume that by saying "without filter" you mean that almost all features were used for the specific plot and learner combination as there are no "no filter" combinations present in this table.
+This table has the sole purpose of showcasing the variance within plots with respect to selected features during tuning and how these might differ among learners.
 
 > P8, C2, Figure 3, include a unit for RMSE, change order of the learners (and also colors) Lasso and Ridge should be next to each other. Why did you include MBO in the name?
 
