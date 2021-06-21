@@ -792,9 +792,13 @@ This caused overfitting on the medium-to-high values, degrading the model's pred
 When Laukiz2 was in the training set, the overall mean RMSE was reduced by up to 50\% with single fold performances as good as 9 p.p. RMSE (with Luiando as test set).
 
 The large differences of selected features per fold during tuning give interesting insights into internals of the used models (\autoref{tab:tune-perc-sel-features}).
+Values of selected feature percentages like 99.97268 \% in \autoref{tab:tune-perc-sel-features} emerge from the specific setting which got elected as the best setting during the tuning step.
+The value for the amount of features to select is initially defined by an internal surrogate learner of the MBO tuning method and can be any numeric value between 0 and 1.
+
 While in most cases, SVM and XGBoost require a substantial portion of all available features to achieve robust predictions, RF was able to achieve the best results with a relatively small amount of features.
 Realizing early that few features are needed during tuning to reach adequate performances can reduce the overall computational runtime substantially, especially when iterating over parameters such as $m_\textrm{try}$ whose optimum (and range) depends on the number of features.
 Hence, regardless of the potential advantage of using filters for increased predictive performance, it should be noted that these can have a strong positive effect on runtime, at least for RF in this study.
+
 
 Ultimately, the results of \autoref{tab:tune-perc-sel-features} should be taken with care as they rely on single model-filter combinations and are subject to random variation.
 More in-depth research is needed to investigate the effect of filters on other criteria than performance (such as runtime), leading to a multi-criteria optimization problem.
