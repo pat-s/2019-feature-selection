@@ -49,3 +49,4 @@ if (interactive() && "tibble" %in% rownames(utils::installed.packages())) {
 #   knitr::purl(rmd, output = tempR)
 #   sys.source(tempR, envir = envir)
 # }
+
