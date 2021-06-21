@@ -381,7 +381,7 @@ $(document).ready(function () {
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -390,7 +390,7 @@ $(document).ready(function () {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -399,10 +399,10 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-06-11
+<strong>Last updated:</strong> 2021-06-21
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>2019-feature-selection/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
@@ -418,12 +418,12 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+<p>The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
 </div>
 </div>
 </div>
@@ -490,16 +490,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree3f9cb9a23418b6bac7da3636bdf9cd9139817344targetblank3f9cb9aa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/3f9cb9a23418b6bac7da3636bdf9cd9139817344" target="_blank">3f9cb9a</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontreec9a19efb294e3f5e7cb8f6d9f549d0c4d108321dtargetblankc9a19efa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/c9a19efb294e3f5e7cb8f6d9f549d0c4d108321d" target="_blank">c9a19ef</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree3f9cb9a23418b6bac7da3636bdf9cd9139817344targetblank3f9cb9aa" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontreec9a19efb294e3f5e7cb8f6d9f549d0c4d108321dtargetblankc9a19efa" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/pat-s/2019-feature-selection/tree/3f9cb9a23418b6bac7da3636bdf9cd9139817344" target="_blank">3f9cb9a</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/pat-s/2019-feature-selection/tree/c9a19efb294e3f5e7cb8f6d9f549d0c4d108321d" target="_blank">c9a19ef</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -527,7 +527,11 @@ Untracked files:
     Untracked:  loca_job.R
 
 Unstaged changes:
+    Modified:   .Rprofile
     Modified:   _drake.R
+    Modified:   analysis/eval-performance.Rmd
+    Modified:   renv.lock
+    Modified:   slurm_clustermq.tmpl
 
 </code></pre>
 <p>
@@ -566,6 +570,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/c9a19efb294e3f5e7cb8f6d9f549d0c4d108321d/analysis/eval-performance.Rmd" target="_blank">c9a19ef</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2021-06-21
+</td>
+<td>
+upd feature sel table caption
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pat-s/2019-feature-selection/2c8ad6237bb080df523a194dad811264d88c69a8/docs/eval-performance.html" target="_blank">2c8ad62</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2021-06-11
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -2495,7 +2533,7 @@ add eval-performance report
 </div>
 </div>
 <p>Last update:</p>
-<pre><code>[1] &quot;Fri Jun 11 11:06:41 2021&quot;</code></pre>
+<pre><code>[1] &quot;Mon Jun 21 22:31:19 2021&quot;</code></pre>
 <p>Fold performances of “SVM MBO No Filter” on the HR Task</p>
 <ul>
 <li>Fold 1: Laukiz1</li>
@@ -2550,6 +2588,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/2c8ad6237bb080df523a194dad811264d88c69a8/docs/figure/eval-performance.Rmd/performance-results-1.png" target="_blank">2c8ad62</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2021-06-11
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/d63a11c32ef1030dd7df6bd32affb543df395cfc/docs/figure/eval-performance.Rmd/performance-results-1.png" target="_blank">d63a11c</a>
@@ -2847,6 +2896,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/2c8ad6237bb080df523a194dad811264d88c69a8/docs/figure/eval-performance.Rmd/filter-effect-all-vs-no-filter-1.png" target="_blank">2c8ad62</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2021-06-11
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/d63a11c32ef1030dd7df6bd32affb543df395cfc/docs/figure/eval-performance.Rmd/filter-effect-all-vs-no-filter-1.png" target="_blank">d63a11c</a>
 </td>
 <td>
@@ -3008,6 +3068,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/2c8ad6237bb080df523a194dad811264d88c69a8/docs/figure/eval-performance.Rmd/filter-effect-all-vs-borda-filter-1.png" target="_blank">2c8ad62</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2021-06-11
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/6bec2b4264e811e98d144cdebc9d4c0aca348d75/docs/figure/eval-performance.Rmd/filter-effect-all-vs-borda-filter-1.png" target="_blank">6bec2b4</a>
@@ -3172,14 +3243,35 @@ pat-s
 <p>The model/task combinations which were selected relate to the best performance of the respective algorithm on the HR-NRI-VI task in the overall benchmark.</p>
 <p>Fold IDs are different for each learner, i.e. a specific plot does not always resolve to “fold 1” for each learner. See <code>bmr_inspect_tune[["results"]][["hr_nri_vi"]][["RF MBO Relief"]][["pred"]][["instance"]][["test.inds"]]</code>.</p>
 <p>Thus, we need to manually label the fold IDs to plot names for each learner.</p>
+<p>Example for RF on fold 1 (Luiando):</p>
+<ul>
+<li>Percentage of selected features during tuning on all plots but Luiando: <code>bmr_inspect_tune[["results"]][["hr_nri_vi"]][["RF MBO Relief"]][["extract"]][[1]][["mbo.result"]][["x"]][["fw.perc"]]</code>: 99.972</li>
+<li>Overall features available in training set: sum(Laukiz1 + Laukiz2 + Oiartzun) = 1507</li>
+<li>Absolute number of selected features: 1507 * 0.99972 = 1507</li>
+</ul>
 <p><strong>RF</strong></p>
-<p>Plot 1: Luiando Plot 2: Laukiz2 Plot 3: Laukiz 1 Plot 4: Oiartzun</p>
+<ul>
+<li>Plot 1: Luiando</li>
+<li>Plot 2: Laukiz2</li>
+<li>Plot 3: Laukiz 1</li>
+<li>Plot 4: Oiartzun</li>
+</ul>
 <p><strong>SVM</strong></p>
-<p>Plot 1: Laukiz1 Plot 2: Oiartzun Plot 3: Luiando Plot 4: Laukiz2</p>
+<ul>
+<li>Plot 1: Laukiz1</li>
+<li>Plot 2: Oiartzun</li>
+<li>Plot 3: Luiando</li>
+<li>Plot 4: Laukiz2</li>
+</ul>
 <p><strong>XGBoost</strong></p>
-<p>Plot 1: Luiando Plot 2: Laukiz1 Plot 3: Oiartzun Plot 4: Laukiz2</p>
+<ul>
+<li>Plot 1: Luiando</li>
+<li>Plot 2: Laukiz1</li>
+<li>Plot 3: Oiartzun</li>
+<li>Plot 4: Laukiz2</li>
+</ul>
 <div id="htmlwidget-d2da756be61595dc4356" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-d2da756be61595dc4356">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10","11","12"],["\\multirow{4}{*}{\\specialcell{RF \\\\ Relief}}","","","","\\midrule\\multirow{4}{*}{\\specialcell{XGB \\\\ CMIM}}","","","","\\midrule\\multirow{4}{*}{\\specialcell{SVM \\\\ Relief}}","","",""],["Luiando","Laukiz2","Laukiz1","Oiartzun","Luiando","Laukiz1","Oiartzun","Laukiz2","Laukiz1","Oiartzun","Luiando","Laukiz2"],[99.9726842999715,93.3708602740943,0.215732533538655,0.00405115043503036,30.8490025076194,98.1221347491968,83.6129762802288,0.515264891932342,0.0619986394267103,4.10635906460966,20.735140549842,23.9282048750387],[301,422,2,1,93,549,416,3,1,21,63,108],[41.7287957803842,17.1189567236706,33.2149905636976,37.2017442811679,33.3603902727084,45.5852506899257,41.0075591225222,15.2373755032557,35.4901836690925,31.0317577898943,37.1893944133818,14.893998574648]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Learner<\/th>\n      <th>Test Plot<\/th>\n      <th>Features (\\%)<\/th>\n      <th>\\#<\/th>\n      <th>RMSE<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[3,4,5]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-d2da756be61595dc4356">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10","11","12"],["\\multirow{4}{*}{\\specialcell{RF \\\\ Relief}}","","","","\\midrule\\multirow{4}{*}{\\specialcell{SVM \\\\ Relief}}","","","","\\midrule\\multirow{4}{*}{\\specialcell{XGB \\\\ CMIM}}","","",""],["Laukiz1","Laukiz2","Luiando","Oiartzun","Laukiz1","Laukiz2","Luiando","Oiartzun","Laukiz1","Laukiz2","Luiando","Oiartzun"],[0.215732533538655,93.3708602740943,99.9726842999715,0.00405115043503036,0.0619986394267103,23.9282048750387,20.735140549842,4.10635906460966,98.1221347491968,0.515264891932342,30.8490025076194,83.6129762802288],["3/1249","1268/1357","1507/1507","1/1311","1/1249","325/1357","313/1507","54/1311","1226/1249","7/1357","465/1507","1097/1311"],[33.2149905636976,17.1189567236706,41.7287957803842,37.2017442811679,35.4901836690925,14.893998574648,37.1893944133818,31.0317577898943,45.5852506899257,15.2373755032557,33.3603902727084,41.0075591225222]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Learner<\/th>\n      <th>Test Plot<\/th>\n      <th>Features (\\%)<\/th>\n      <th>\\#<\/th>\n      <th>RMSE<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[3,5]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 <p>Aggregated mean and standard deviation:</p>
 <div id="htmlwidget-751bb1658165740fb006" style="width:100%;height:auto;" class="datatables html-widget"></div>
 <script type="application/json" data-for="htmlwidget-751bb1658165740fb006">{"x":{"filter":"none","data":[["1","2","3"],["RF \\\\ Relief","SVM \\\\ Relief","XGB \\\\ CMIM"],[0.483908320645099,0.122079257822293,0.532748446072443],[0.558152046185197,0.118776718137387,0.455271834991561]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Learner<\/th>\n      <th>Mean (Features (%))<\/th>\n      <th>SD (Features (%))<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
