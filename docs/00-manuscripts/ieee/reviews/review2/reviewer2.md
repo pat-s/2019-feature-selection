@@ -83,7 +83,7 @@ Thanks, we replaced all instances of machine-learning/machine learning with the 
 We've used the LaTeX citation style as recommended by the author instructions of the Journal.
 We are using the following options
 
-```
+```tex
 \documentclass[final]{IEEEtran}
 \usepackage[noadjust]{cite}
 \bibliographystyle{IEEEtran}
@@ -97,7 +97,6 @@ Thanks, we clarified the sentence as follows:
 "The ability of predicting into unknown space qualifies ML algorithms as a helpful tool for such environmental analyses."
 
 > P2, C2, L46: the index type is well known, but you are right, often not all possible combinations were tested.
-
 > P3, C1, L3, L17: ML instead of machine-learning
 
 Thanks, we replaced all instances of machine-learning/machine learning with the abbreviation ML.
@@ -112,7 +111,14 @@ We have added "by visual inspection of experts in the field" to make the data co
 
 > P3, C2, Figure 1, L36: The 5% intervals are clear for three test plots. Four Laukiz 2 the intervals between 0 and 15 are smaller. Please clarify. I am also not sure if you can use these values for a regression approach because they are not really metric data.
 
-FIXME: check this
+Thanks for taking such a close look at the data.
+The observed values for Laukiz2 are indeed smaller than for all other plots.
+The reason is that for plot Laukiz2 defoliation was observed at three different heights (bottom, middle, top) with the final value being composed out of the mathematical average of these three values.
+In contrast, the observation data from the other plots consisted of a single value only.
+This information was missing so far in the manuscript, we have rephrased the respective part as follows:
+
+"Defoliation was measured via visual inspection using 5\% intervals with the help of a dedicated score card.
+For Laukiz2, values at three height levels (bottom, mid, top) were available and averaged into an overall defoliation value, leading to values outside of the 5\% interval of the other three plots (e.g. 8.33 \%)."
 
 > P3, C2, L29: Standardize the spelling of the plot names (with or without spaces).
 
