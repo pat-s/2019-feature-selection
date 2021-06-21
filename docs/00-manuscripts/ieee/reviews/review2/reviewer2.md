@@ -8,7 +8,6 @@
 
 Image preprocessing is an important step that was handled in our case by an experienced external service provider, which applied any necessary radiometric, geometric and atmospheric corrections.
 Additional preprocessing steps in the spectral and spatial domains may potentially be beneficial ([Vaiphasa 2006](https://www.sciencedirect.com/science/article/pii/S0924271605001012?via%3Dihub)), but smoothing techniques also have the potential to introduce new artifacts, for example by propagating errors from one spectral band into adjacent ones.
-<!-- @alexanderbrenning: I think we need a ref for the last sentence because the spline argumentation is quite specific?: do you have one? I could not find one for it. @pat-s Changed it to smoothing technique, which is really nearly synonymous. -->
 
 In this study we opted for a data-driven approach since feature selection techniques are designed to filter spectral characteristics that most reliably predict the response.
 The chosen machine learning models are furthermore capable of weighting or averaging the numerous features either explicitly or implicitly, depending on model architecture.
@@ -230,12 +229,14 @@ Thanks, using the abbreviation now.
 
 Thanks for discussing the results of Table VII.
 
-`#` denotes the absolute number of features used. We've updated the caption.
-`features (%)` refer to the relative percentage of features selectecd during tuning judging from the total amount of features (7675).
+`#` denotes the absolute number of features used of the respective training set. We've updated the caption.
+`features (%)` refer to the relative percentage of features selected during tuning judging from the total amount of features of the respective training set which is the sum of all plots but the test set.
 However values were not in percent, we've updated them now. Thanks.
-Values were sorted by test plot name which did not match the table caption, we've updated it. Thanks.
+Values were sorted by test plot name which did not match the table caption.
+Now the table is sorted by learner and test plot.
+Thanks.
 
-In addition we discovered that some results were assigned to the wrong plots names.
+In addition we discovered that some results were assigned to the wrong plots names due to an issue in the code generating the table.
 We've updated the table.
 
 The results shown here refers only the HR-NRI-VI task and we used the best learner combinations for this feature set.
