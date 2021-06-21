@@ -444,26 +444,32 @@ See `bmr_inspect_tune[["results"]][["hr_nri_vi"]][["RF MBO Relief"]][["pred"]][[
 
 Thus, we need to manually label the fold IDs to plot names for each learner.
 
+Example for RF on fold 1 (Luiando):
+
+- Percentage of selected features during tuning on all plots but Luiando: `bmr_inspect_tune[["results"]][["hr_nri_vi"]][["RF MBO Relief"]][["extract"]][[1]][["mbo.result"]][["x"]][["fw.perc"]]`: 99.972
+- Overall features available in training set: sum(Laukiz1 + Laukiz2 + Oiartzun) = 1507
+- Absolute number of selected features: 1507 * 0.99972 = 1507
+
 **RF**
 
-Plot 1: Luiando
-Plot 2: Laukiz2
-Plot 3: Laukiz 1
-Plot 4: Oiartzun
+- Plot 1: Luiando
+- Plot 2: Laukiz2
+- Plot 3: Laukiz 1
+- Plot 4: Oiartzun
 
 **SVM**
 
-Plot 1: Laukiz1
-Plot 2: Oiartzun
-Plot 3: Luiando
-Plot 4: Laukiz2
+- Plot 1: Laukiz1
+- Plot 2: Oiartzun
+- Plot 3: Luiando
+- Plot 4: Laukiz2
 
 **XGBoost**
 
-Plot 1: Luiando
-Plot 2: Laukiz1
-Plot 3: Oiartzun
-Plot 4: Laukiz2
+- Plot 1: Luiando
+- Plot 2: Laukiz1
+- Plot 3: Oiartzun
+- Plot 4: Laukiz2
 
 ```{r eval-performance-5}
 bmr_inspect_tune <- mergeBenchmarkResults(benchmark_tune_results_hr_nri_vi)
@@ -500,12 +506,14 @@ df_tbl <- getBMRTuneResults(bmr_inspect_tune, as.df = TRUE) %>%
   dplyr::mutate(Learner = as.character(Learner)) %>%
   dplyr::mutate(`Test Plot` = as.character(`Test Plot`)) %>%
   dplyr::mutate("\\#" = case_when(
-    `Test Plot` == "Laukiz1" ~ ceiling((`Features (\\%)` * 559) / 100),
-    `Test Plot` == "Laukiz2" ~ ceiling((`Features (\\%)` * 451) / 100),
-    `Test Plot` == "Luiando" ~ ceiling((`Features (\\%)` * 301) / 100),
-    `Test Plot` == "Oiartzun" ~ ceiling((`Features (\\%)` * 497) / 100),
+    # numbers here are the respective sums of the training sets (without the mentioned plot acting as the test set)
+    `Test Plot` == "Laukiz1" ~ paste0(as.character(ceiling((`Features (\\%)` * 1249) / 100)), "/1249"),
+    `Test Plot` == "Laukiz2" ~ paste0(as.character(ceiling((`Features (\\%)` * 1357) / 100)),"/1357"),
+    `Test Plot` == "Luiando" ~ paste0(as.character(ceiling((`Features (\\%)` * 1507) / 100)),"/1507"),
+    `Test Plot` == "Oiartzun" ~ paste0(as.character(ceiling((`Features (\\%)` * 1311) / 100)),"/1311"),
   )) %>%
   dplyr::group_by(Learner) %>%
+  dplyr::arrange(Learner, `Test Plot`) %>% 
   dplyr::select(Learner, `Test Plot`, "Features (\\%)", "\\#", RMSE)
 
 rle.lengths <- rle(df_tbl[[1]])$lengths
@@ -521,7 +529,7 @@ df_tbl[[1]][first][1] <- gsub("\\\\midrule", "", df_tbl[[1]][first][1])
 table4 <- df_tbl %>%
   xtable::xtable(
     type = "latex",
-    caption = "Selected feature portions during tuning for the best performing learner-filter settings (SVM Relief, RF Relief, XGBoost CMIM) across folds for task HR-NRI-VI, sorted by plot name. \\texttt{#} denotes the absolute number of features selected and 'Features (\\texttt{%})' refers to the percentage relative to the overall features available (7675). Results were estimated in a separate model tuning step, not within the main cross-validation comparison.",
+    caption = "Selected feature portions during tuning for the best performing learner-filter settings (SVM Relief, RF Relief, XGBoost CMIM) across folds for task HR-NRI-VI, sorted by plot name. \\texttt{#} denotes the absolute number of features selected and 'Features (\\texttt{%})' refers to the percentage relative to the overall features available in the training sets for each plot (Laukiz1 = 1249, Laukiz2 = 1357, Luiando = 1507, Oiartzun = 1311). Results were estimated in a separate model tuning step, not within the main cross-validation comparison.",
     label = "tab:tune-perc-sel-features",
     digits = c(0, 0, 0, 5, 0, 2)
   )
