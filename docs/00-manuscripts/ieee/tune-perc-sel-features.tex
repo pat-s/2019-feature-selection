@@ -1,24 +1,24 @@
 % latex table generated in R 4.0.4 by xtable 1.8-4 package
 \begin{table}[ht!]
 \centering
-\caption{Selected feature portions during tuning for the best performing learner-filter settings (SVM Relief, RF Relief, XGBoost CMIM) across folds for task HR-NRI-VI, sorted by plot name. \texttt{#} denotes the absolute number of features selected and 'Features (\texttt{%})' refers to the percentage relative to the overall features available (7675). Results were estimated in a separate model tuning step, not within the main cross-validation comparison.} 
+\caption{Selected feature portions during tuning for the best performing learner-filter settings (SVM Relief, RF Relief, XGBoost CMIM) across folds for task HR-NRI-VI, sorted by plot name. \texttt{#} denotes the absolute number of features selected and 'Features (\texttt{%})' refers to the percentage relative to the overall features available in the training sets for each plot (Laukiz1 = 1249, Laukiz2 = 1357, Luiando = 1507, Oiartzun = 1311). Results were estimated in a separate model tuning step, not within the main cross-validation comparison.} 
 \label{tab:tune-perc-sel-features}
-\begin{tabular}{llrrr}
+\begin{tabular}{llrlr}
   \toprule
 Learner & Test Plot & Features (\%) & \# & RMSE \\ 
   \midrule
-\multirow{4}{*}{\specialcell{RF \\ Relief}} & Luiando & 99.97268 & 301 & 41.73 \\ 
-   & Laukiz2 & 93.37086 & 422 & 17.12 \\ 
-   & Laukiz1 & 0.21573 & 2 & 33.21 \\ 
-   & Oiartzun & 0.00405 & 1 & 37.20 \\ 
-  \midrule\multirow{4}{*}{\specialcell{XGB \\ CMIM}} & Luiando & 30.84900 & 93 & 33.36 \\ 
-   & Laukiz1 & 98.12213 & 549 & 45.59 \\ 
-   & Oiartzun & 83.61298 & 416 & 41.01 \\ 
-   & Laukiz2 & 0.51526 & 3 & 15.24 \\ 
-  \midrule\multirow{4}{*}{\specialcell{SVM \\ Relief}} & Laukiz1 & 0.06200 & 1 & 35.49 \\ 
-   & Oiartzun & 4.10636 & 21 & 31.03 \\ 
-   & Luiando & 20.73514 & 63 & 37.19 \\ 
-   & Laukiz2 & 23.92820 & 108 & 14.89 \\ 
+\multirow{4}{*}{\specialcell{RF \\ Relief}} & Laukiz1 & 0.21573 & 3/1249 & 33.21 \\ 
+   & Laukiz2 & 93.37086 & 1268/1357 & 17.12 \\ 
+   & Luiando & 99.97268 & 1507/1507 & 41.73 \\ 
+   & Oiartzun & 0.00405 & 1/1311 & 37.20 \\ 
+  \midrule\multirow{4}{*}{\specialcell{SVM \\ Relief}} & Laukiz1 & 0.06200 & 1/1249 & 35.49 \\ 
+   & Laukiz2 & 23.92820 & 325/1357 & 14.89 \\ 
+   & Luiando & 20.73514 & 313/1507 & 37.19 \\ 
+   & Oiartzun & 4.10636 & 54/1311 & 31.03 \\ 
+  \midrule\multirow{4}{*}{\specialcell{XGB \\ CMIM}} & Laukiz1 & 98.12213 & 1226/1249 & 45.59 \\ 
+   & Laukiz2 & 0.51526 & 7/1357 & 15.24 \\ 
+   & Luiando & 30.84900 & 465/1507 & 33.36 \\ 
+   & Oiartzun & 83.61298 & 1097/1311 & 41.01 \\ 
    \bottomrule
 \end{tabular}
 \end{table}
