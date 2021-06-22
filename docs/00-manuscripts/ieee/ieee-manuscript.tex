@@ -716,7 +716,7 @@ In general every learner behaved quite differently for each plot and no overall 
 	\centering
 	\begin{center}
 		\includegraphics[width=0.48\textwidth] {filter-effect-all-vs-borda-filter-1.pdf}
-		\caption{Predictive performances in RMSE when using the Borda filter method compared to all other filters for each learner across all tasks.}\label{fig:filter-effects-borda}
+		\caption{Predictive performances in RMSE (p.p.) when using the Borda filter method (blue dot) compared to any other filter (red cross) for each learner across all tasks.}\label{fig:filter-effects-borda}
 	\end{center}
 \end{figure}
 
@@ -799,7 +799,6 @@ While in most cases, SVM and XGBoost require a substantial portion of all availa
 Realizing early that few features are needed during tuning to reach adequate performances can reduce the overall computational runtime substantially, especially when iterating over parameters such as $m_\textrm{try}$ whose optimum (and range) depends on the number of features.
 Hence, regardless of the potential advantage of using filters for increased predictive performance, it should be noted that these can have a strong positive effect on runtime, at least for RF in this study.
 
-
 Ultimately, the results of \autoref{tab:tune-perc-sel-features} should be taken with care as they rely on single model-filter combinations and are subject to random variation.
 More in-depth research is needed to investigate the effect of filters on other criteria than performance (such as runtime), leading to a multi-criteria optimization problem.
 
@@ -853,7 +852,7 @@ Environmental datasets always come with some constraints that can have potential
 Finding a suitable approach to extract the remote sensing information from each tree was a complex process.
 Due to the reported geometric offset of up to one meter within the hyperspectral data, the risk of assigning a value to an observation which would actually refer to a different, possibly non-tree, pixel was reasonably high.
 It was concluded that using a buffer of one meter can be a good compromise between the inclusion of information from too many surrounding trees, mapping a single tree crown accordingly accounting for a possible geometric offset.
-The applied buffer only included a pixel value if the distance to the centroid of a pixel was smaller than the buffer radius (i.e. <= 1m).
+The applied buffer only included a pixel value if the distance to the centroid of a pixel was smaller than the buffer radius (i.e. $<= 1m$).
 This results in all cases in four contributing pixels (= four square meters) for the extraction of hyperspectral information for a given tree.
 Even though no results showing the influence of different buffer values on the extraction were provided, it is hypothesized that the relationships between features would not change substantially, leading to almost identical model results.
 Besides using a buffer to extract the hyperspectral information, a segmentation could have been considered.
@@ -889,7 +888,7 @@ Such limitations and uncertainties apply to most environmental studies and canno
 While most defoliation studies operate on the plot level using coarser-resolution multispectral satellite data \cite{townsend2012, debeurs2008, rengarajan2016}, there are also several recent studies using airborne or ground-based sensors at the tree level.
 Among these, \cite{meng2018, kalin2019} used ground-level methods such as \ac{ALS} or \ac{LiDAR}.
 
-Studies focusing on tree-level defoliation used ground-level methods such as \ac{ALS} or \ac{LiDAR}\cite{meng2018, kalin2019}.
+Studies focusing on tree-level defoliation used ground-level methods such as \ac{ALS} or \ac{LiDAR} \cite{meng2018, kalin2019}.
 \cite{meng2018} used \ac{OLS} regression methods while \cite{kalin2019} retrieved information from ground-level RGB photos using \ac{CNN}.
 However, both did not use spatial \ac{CV} and \cite{kalin2019} no \ac{FS}.
 \cite{goodbody2018} used a \ac{PLS} model with high-resolution \ac{DAP} to predict cumulative defoliation caused by the spruce budworm.
@@ -916,10 +915,10 @@ In the results, lasso showed the best performance among the chosen methods.
 However, the authors did not optimize the hyperparameters of RF which makes a fair comparison problematic since the other models used perform internal optimization.
 The discussion section of \cite{zandler2015} lists additional studies that made use of shrinkage models for high dimensional remote sensing modeling.
 
-In summary, no studies which used filter methods for \ac{FS} or made use of \ac{NRI} indices in their work and had a relation to tree health were found.
+In summary, no studies which used filter methods for \ac{FS} or made use of \ac{NRI} indices in their work and had a relation to tree health could be found.
 This might relate to the fact that most environmental datasets are not high-dimensional.
 In fact, many studies use fewer than ten features and issues related to correlations are often solved manually instead of relying on an automated approach.
-This can be subjective and may limit the reproducibility of results.
+This approach might suffer from subjectivity and may limit the reproducibility of results.
 
 Other fields (e.g. bioinformatics) face high-dimensional datasets more often.
 Hence more studies using (filter-based) feature-selection approaches can be found for this field \cite{guo2019, radovic2017}.
