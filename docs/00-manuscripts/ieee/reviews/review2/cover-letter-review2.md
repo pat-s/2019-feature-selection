@@ -3,7 +3,7 @@ Dear Editor,
 Please find the replies to all reviewer suggestions/questions in their respective files (labeled as `reviewer<x>.md` where `<x>` is the reviewer number starting from 1).
 Also we have added a changelog section further down below summarizing all changes we have applied to the manuscript as a result of this review.
 
-With respect to the many helpful remarks of both reviewers, we did not implement the following suggested changes:
+With respect to the many helpful remarks of both reviewers, we did not implement/agree on the following suggested changes:
 
 - The use of smoothing techniques as a preprocessing task for the hyperspectral data.
 - Adding the spectral response function of the hyperspectral sensor.
@@ -11,13 +11,13 @@ With respect to the many helpful remarks of both reviewers, we did not implement
 - A potentially inconsistent numbering of Figures / Tables.
 - The request to include wrapper methods for feature selection.
 
-We have outlined our reasons in detail in the respective in-line replies.
+We have outlined our reasons in detail in the respective in-line replies for each individual point.
 
-In summary, we believe that we have addressed most reviewer remarks and incorporated a lot of helpful ideas from the reviewers into the current version of the manuscript.
+In summary, we believe and hope to have addressed most reviewer remarks and that we incorporated a lot of helpful ideas from the reviewers into the current version of the manuscript and hope the manuscript can now be considered for publication.
 
 # Changelog
 
-- Updated caption of Table VII according to feedback from reviewer2
+- Updated captions of almost all table and figure captions according to feedback from reviewer2
 - Clarified the presence of inconsistent (= non 5% interval) defoliation values for plot Laukiz2
 - Updated the study area map according to feedback from reviewer2
 - Added a featureless learner to the benchmark results table as a baseline reference for performance comparison

@@ -337,7 +337,7 @@ The dieback of these trees, which are mainly used as timber, causes high economi
 	\centering
 	\begin{center}
 		\includegraphics[width=0.48\textwidth] {defoliation-distribution-plot-1.pdf}
-		\caption{Response variable \textit{defoliation} at trees for plots Laukiz1, Laukiz2, Luiando and Oiartzun. \texttt{n} corresponds to the total number of trees in the plot, $\bar{x}$ refers to the mean defoliation.}\label{fig:defol-distr}
+		\caption{Response variable "defoliation at trees" for plots Laukiz1, Laukiz2, Luiando and Oiartzun. \texttt{n} corresponds to the total number of trees in the plot, $\bar{x}$ refers to the mean defoliation, respectively. Values for Laukiz1, Luiando and Oiartzun were observed in 5\% intervals; for Laukiz2 defoliation was observed at multiple heights and then averaged, leading to smaller defoliation differences than 5\%.}\label{fig:defol-distr}
 	\end{center}
 \end{figure}
 
@@ -357,7 +357,7 @@ Even though no estimation error was recorded in this study, \cite{maclean1982} e
 	\begin{center}
 		\centering
 		\includegraphics[width=\textwidth] {study-area-hyperspectral.pdf}
-		\caption{Information about location, size and spatial distribution of trees for all plots used in this study.}\label{fig:study_area}
+		\caption{Study area maps showing information about location, size and spatial distribution of trees for all plots (Laukiz1, Laukiz2, Luiando, Oiartzun). The background maps used should give a visual impression of the individual plot area but do not necessarily represent the plot state during data acquisition.}\label{fig:study_area}
 	\end{center}
 \end{figure*}
 
@@ -470,7 +470,7 @@ Filter methods can be classified as follows (\autoref{tab:filter-methods}):
 % filter methods
 \begin{table}[b!]
 	\centering
-	\caption{List of filter methods used in this work}
+	\caption{List of filter methods used in this work, their categorization and scientific reference.}
 	\label{tab:filter-methods}
 	\begingroup\footnotesize
 	\begin{adjustbox}{width={0.48\textwidth},totalheight={\textheight},keepaspectratio}
@@ -698,7 +698,7 @@ In general every learner behaved quite differently for each plot and no overall 
 	\centering
 	\begin{center}
 		\includegraphics[width=0.48\textwidth] {performance-results-1.pdf}
-		\caption{Predictive performance (RMSE) of models across tasks. Suffix 'MBO' means that model-based optimization was used for hyperparameter optimization. Abbreviations on the vertical axis refer to the combinations of feature sets on which each model was scored on. Labels represent the feature selection method (e.g. NF = no filter, Car = 'Carscore', Info Gain = 'Information Gain', Borda = 'Borda'). The second value of each label shows the RMSE value of the respective setting.}\label{fig:perf-result}
+		\caption{Predictive performance in RMSE (p.p.) of models across tasks. Different feature sets are shown on the y-axis. Labels show the feature selection method (e.g. NF = no filter, Car = 'Carscore', Info Gain = 'Information Gain', Borda = 'Borda'). The second value of each label shows the RMSE value (p.p.) and the standard error (SE) of the respective setting.}\label{fig:perf-result}
 	\end{center}
 \end{figure}
 
@@ -707,7 +707,7 @@ In general every learner behaved quite differently for each plot and no overall 
 	\centering
 	\begin{center}
 		\includegraphics[width=0.48\textwidth] {filter-effect-all-vs-no-filter-1.pdf}
-		\caption{Model performances in RMSE when using no filter method compared to all other filters across all tasks.}\label{fig:filter-effects-no-filter}
+		\caption{Model performances in RMSE across all tasks, split up in facets, when using no filter method (blue dot) compared to any other filter method (red cross) for learners RF, SVM and XGBoost (XG)}\label{fig:filter-effects-no-filter}
 	\end{center}
 \end{figure}
 
@@ -982,33 +982,33 @@ This work was funded by the EU LIFE Healthy Forest project (LIFE14 ENV/ES/000179
 % \end{figure}
 
 \pagebreak
-\section{Correlation among filter methods}
+\section{}
 
 \begin{figure} [ht]
 	\begin{center}
 		\includegraphics[width=0.48\textwidth] {correlation-filter-nri-1.pdf}
-		\caption{Spearman correlations of NRI feature rankings obtained with different filters.}\label{fig:correlation-filters}
+		\caption{Spearman correlations of NRI feature rankings obtained with different filters. Filter names refer to the nomenclature used by the \texttt{mlr} R package. Underscores in names divide the terminology into their upstream R package and the actual filter name.}\label{fig:correlation-filters}
 	\end{center}
 \end{figure}
 
-\section{Effect of different \texorpdfstring{\(n_{bins}\)}{nbins} values on filter 'information gain'}
+\section{}
 
 \begin{figure} [ht]
 	\begin{center}
 		\includegraphics[width=0.48\textwidth] {correlation-nbins-1.pdf}
-		\caption{Spearman correlations of rankings obtained with the information gain filter using different \texttt{\(n_{bins}\)} values for discretization of the numeric response.}\label{fig:correlation-nbins}
+		\caption{Spearman correlations of rankings obtained with the information gain filter using different \texttt{\(n_{bins}\)} values for discretization of the numeric response. Filter names refer to the nomenclature used by the \texttt{mlr} R package. Underscores in names divide the terminology into their upstream R package and the actual filter name.}\label{fig:correlation-nbins}
 	\end{center}
 \end{figure}
 
 \pagebreak
 
-\section{Hyperparameter tuning ranges}
+\section{}
 
 % parameter limits
 \begin{table}[h!]
 	\centering
 	\caption[t]{Hyperparameter ranges and types for each model.
-		Hyperparameter notations from the respective R packages were used.}
+		Hyperparameter notations from the respective R packages are shown.}
 	\begingroup\scriptsize
 	\begin{tabularx}{.5\textwidth}{llXXrXX}
 		\\
@@ -1034,7 +1034,7 @@ This work was funded by the EU LIFE Healthy Forest project (LIFE14 ENV/ES/000179
 	\label{tab:hyperparameter_limits}
 \end{table}
 
-\section{Vegetation index formulas}
+\section{}
 
 \begingroup\scriptsize
 \setlength\tabcolsep{4pt}  % default value: 6pt
