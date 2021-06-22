@@ -103,12 +103,13 @@ df_tab <- df %>%
     Laukiz1 = "1", Laukiz2 = "2",
     Luiando = "3", Oiartzun = "4"
   )) %>%
+  dplyr::select(-Plot) %>% 
   dplyr::mutate(RMSE = round(RMSE, 2))
 
 df_tab %>%
   xtable::xtable(
     type = "latex",
-    caption = "Test fold performances for learner SVM on the HR dataset without using a filter. For each row, the model was trained on observations from all others plots but the given one and tested on the observations of the given plot.",
+    caption = "Test fold performances in RMSE (p.p.) for learner SVM on the HR dataset without using a filter, showcasing performance variance on the fold level. For each row, the model was trained on observations from all others plots but the given one and tested on the observations of the given plot.",
     label = "tab:svm-single-fold-perf"
   ) %>%
   print(
@@ -156,7 +157,7 @@ table1 %>%
   slice(1:10) %>%
   xtable(
     type = "latex",
-    caption = "Best ten results among all combinations, sorted in ascending order of RMSE",
+    caption = "Best ten results among all learner-task-filter combinations, sorted in decreasing order of RMSE (p.p.) and their respective standard error (SE).",
     label = "tab:perf-top-10"
   ) %>%
   print(
@@ -208,7 +209,7 @@ table2 <- df_perf %>%
 table2 %>%
   xtable(
     type = "latex",
-    caption = "Best performance of each learner across any task and filter method, sorted ascending by RMSE",
+    caption = "The overall best individual learner performance across any task and filter method for RF, SVM, XGBoost, Lasso and Ridge, sorted ascending by RMSE (p.p.) including the respective standard error (SE) of the cross-validation run.",
     label = "tab:best-learner-perf"
   ) %>%
   print(
@@ -260,7 +261,7 @@ table3 %>%
   slice(1:10) %>%
   xtable(
     type = "latex",
-    caption = "Worst ten results among all combinations, sorted in decreasing order of RMSE",
+    caption = "Worst ten results among all learner-task-filter combinations, sorted in decreasing order of RMSE (p.p.) and their respective standard error (SE).",
     label = "tab:perf-worst-10"
   ) %>%
   print(
@@ -529,7 +530,7 @@ df_tbl[[1]][first][1] <- gsub("\\\\midrule", "", df_tbl[[1]][first][1])
 table4 <- df_tbl %>%
   xtable::xtable(
     type = "latex",
-    caption = "Selected feature portions during tuning for the best performing learner-filter settings (SVM Relief, RF Relief, XGBoost CMIM) across folds for task HR-NRI-VI, sorted by plot name. \\texttt{#} denotes the absolute number of features selected and 'Features (\\texttt{%})' refers to the percentage relative to the overall features available in the training sets for each plot (Laukiz1 = 1249, Laukiz2 = 1357, Luiando = 1507, Oiartzun = 1311). Results were estimated in a separate model tuning step, not within the main cross-validation comparison.",
+    caption = "Selected feature portions during tuning for the best performing learner-filter settings (SVM Relief, RF Relief, XGBoost CMIM) across folds for task HR-NRI-VI, sorted by plot name. \\texttt{\\#} denotes the absolute number of features selected and 'Features (\\texttt{\\%})' refers to the percentage relative to the overall features available in the training sets for each plot (Laukiz1 = 1249, Laukiz2 = 1357, Luiando = 1507, Oiartzun = 1311). Results were estimated in a separate model tuning step, not within the main cross-validation comparison.",
     label = "tab:tune-perc-sel-features",
     digits = c(0, 0, 0, 5, 0, 2)
   )
