@@ -62,7 +62,19 @@ which should be accepted by the journal and community judging from [this Texexch
 
 > Tables and Figures have to be understandable stand-alone. Therefore, the captions are often not sufficient. Please revise it and provide more details. Also, units are often missing and abbreviations are not explained.
 
-FIXME
+We have updated the captions for the following figures and tables and hope they are more descriptive now and understandable standalone:
+
+- Fig. 1: "Response variable "defoliation at trees" for plots Laukiz1, Laukiz2, Luiando and Oiartzun. \texttt{n} corresponds to the total number of trees in the plot, $\bar{x}$ refers to the mean defoliation, respectively. Values for Laukiz1, Luiando and Oiartzun were observed in 5\% intervals, for Laukiz2 defoliation was observed at multiple heights and then averaged, leading to smaller defoliation differences than 5\%."
+- Fig. 2: "Study area maps showing information about location, size and spatial distribution of trees for all plots (Laukiz1, Laukiz2, Luiando, Oiartzun). The background maps used should give a visual impression of the individual plot area but do not necessarily represent the plot state during data acquisition."
+- Fig. 3: "Predictive performance in RMSE (p.p.) of models across tasks. Different feature sets are shown on the y-axis. Labels show the feature selection method (e.g. NF = no filter, Car = 'Carscore', Info Gain = 'Information Gain', Borda = 'Borda'). The second value of each label shows the RMSE value (p.p.) and the standard error (SE) of the respective setting."
+- Fig. 4: "Model performances in RMSE across all tasks, split up in facets, when using no filter method (blue dot) compared to any other filter method (red cross) for learners RF, SVM and XGBoost (XG)"
+- Table II: "List of filter methods used in this work, their categorization and scientific reference."
+- Table III: "Best ten results among all learner-task-filter combinations, sorted in decreasing order of RMSE (p.p.) and their respective standard error (SE)."
+- Table IV: "Worst ten results among all learner-task-filter combinations, sorted in decreasing order of RMSE (p.p.) and their respective standard error (SE)."
+- Table V: "The overall best individual learner performance across any task and filter method for RF, SVM, XGBoost, Lasso and Ridge, sorted ascending by RMSE (p.p.) including the respective standard error (SE) of the cross-validation run."
+- Table VI: "Test fold performances in RMSE (p.p.) for learner SVM on the HR dataset without using a filter, showcasing performance variance on the fold level. For each row, the model was trained on observations from all others plots but the given one and tested on the observations of the given plot."
+- Appendix A: "Spearman correlations of NRI feature rankings obtained with different filters. Filter names refer to the nomenclature used by the \texttt{mlr} R package. Underscores in names divide the terminology into their upstream R package and the actual filter name."
+- Appendix B: "Spearman correlations of rankings obtained with the information gain filter using different \texttt{\(n_{bins}\)} values for discretization of the numeric response. Filter names refer to the nomenclature used by the \texttt{mlr} R package. Underscores in names divide the terminology into their upstream R package and the actual filter name."
 
 > The quality of the maps should be improved.
 
