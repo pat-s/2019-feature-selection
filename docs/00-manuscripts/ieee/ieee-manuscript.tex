@@ -272,10 +272,10 @@
 % Link remote sensing and machine-learning
 
 \IEEEPARstart{T}{he} use of \ac{ML} algorithms for analyzing remote sensing data has seen a huge increase in the last decade \cite{lary2016}.
-Naturally, this coincided with the increased availability of remote sensing imagery, especially since the launch of the first Sentinel satellite in the year 2014.
+This coincided with the increased availability of remote sensing imagery, especially since the launch of the first Sentinel satellite in the year 2014, which serves as training and prediction data.
 At the same time, the implementation and usability of learning algorithms has been greatly simplified with many contributions from the open-source community.
 Scientists can nowadays process large amounts of (environmental) information with relative ease using various learning algorithms.
-This makes it possible to extend the benchmark comparison matrix of studies in a semi-automated way, possibly stumbling across unexpected findings of process settings that would never have been explored otherwise \cite{ma2015}.
+This makes it possible to easily extend benchmark comparison matrices of studies in a semi-automated way, possibly stumbling across unexpected findings of process settings that would not have been explored otherwise \cite{ma2015}.
 
 % link to forest health analysis and show exemplary studies
 
@@ -286,30 +286,31 @@ One aspect of this research field is to enhance the understanding of biotic and 
 Other approaches for analyzing forest health include change detection \cite{zhang2016} or describing the current health status of forests on a stand level \cite{townsend2012}.
 In such studies, the defoliation of trees serves as a proxy for forest health by describing the impact of biotic and abiotic pest triggers \cite{townsend2012, goodbody2018}.
 
+% introduce veg indices
 Vegetation indices have shown the potential to provide valuable information when analyzing forest health \cite{jiang2014, adamczyk2015}.
 Most vegetation indices were developed with the aim of being sensitive to changes of specific wavelength regions, serving as a proxy for underlying plant processes.
 However, indices developed/applied for different purposes than the one to be analyzed (i.e. defoliation at pine trees) may help to explain complex underlying relationships which are not obvious at first.
 This emphasizes the need to extract as much information as possible from the available input data to generate promising features which can help to understand the modeled relationship \cite{thenkabail2018}.
 A less known index type which can be derived from spectral information is the \ac{NRI}.
 In contrast to most vegetation indices, \ac{NRI}s do not use an expert-based formula following environmental heuristics but instead makes use of a data-driven feature engineering approach by combining (all possible) combinations of spectral bands \cite{thenkabail2000}.
-Especially when working with hyperspectral data, thousands of \ac{NRI} features can be derived this way.
+When working with hyperspectral data, thousands of \ac{NRI} features can be derived this way.
 
-% now that we introduced the importance of remote sensing indices for forest health,
-
+% now that we introduced the importance of remote sensing indices for forest health, explain what is new in this study
 Despite their popularity in environmental modeling, there are no studies so far which used ML algorithms in combination with remote sensing data to analyze defoliation at the tree level.
 This study aims to close this gap by analyzing tree defoliation in northern Spain using airborne hyperspectral data.
 The methodology of this study uses ML methods in combination with feature selection and hyperparameter tuning.
-In addition, feature importance and feature effects are evaluated.
+In addition, feature importance was analyzed.
 Incorporating the idea of creating data-driven \ac{NRI}s, this study also discusses the practical problems of high dimensionality in environmental modeling \cite{trunk1979, xu2016}.
 
 % mention why FS is used / important
 Even though \ac{ML} algorithms are capable of handling highly correlated input variables, model fitting becomes computationally more demanding, and model interpretation more complex.
 Feature selection approaches can help to address this issue, reducing possible noise in the feature space, simplify model interpretability and possibly enhance predictive performance \cite{cai2018}.
+Instead of using wrapper feature selection methods, this study focuses on the use of (ensemble) filter methods which were directly integrated into the hyperparameter optimization step during model creation.
 
 % clarify the focus of this study
-This study shows how high-dimensional datasets can be handled effectively with ML methods while still being able to interpret the fitted models.
+Overall, this study aims to show how high-dimensional datasets can be handled effectively with ML methods while still being able to interpret the fitted models.
 The predictive power of non-linear methods and their ability to handle highly correlated predictors is combined with common and new approaches for assessing feature importance and feature effects.
-However, this study clearly focuses on investigating the effects of filter methods and feature set types on predictive performance rather than on interpreting feature effects.
+Yet, this study focuses on investigating the effects of filter methods and feature set types on predictive performance rather than interpreting individual feature effects.
 
 Considering these opportunities and challenges, the research questions of this study are the following:
 
