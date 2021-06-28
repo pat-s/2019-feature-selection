@@ -20,7 +20,7 @@
       },
       {
         "Name": "CRAN",
-        "URL": "https://packagemanager.rstudio.com/cran/__linux__/centos7/latest"
+        "URL": "https://cran.uni-muenster.de/"
       }
     ]
   },
@@ -114,21 +114,21 @@
       "Package": "KernSmooth",
       "Version": "2.23-18",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "RSPM",
       "Hash": "9e703ad8bf0e99f3691f05da32dfe68b"
     },
     "MASS": {
       "Package": "MASS",
       "Version": "7.3-53",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "RSPM",
       "Hash": "d1bc1c8e9c0ace57ec9ffea01021d45f"
     },
     "Matrix": {
       "Package": "Matrix",
       "Version": "1.3-2",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "RSPM",
       "Hash": "ff280503079ad8623d3c4b1519b24ea2"
     },
     "MatrixModels": {
@@ -345,7 +345,7 @@
       "Package": "boot",
       "Version": "1.3-26",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "RSPM",
       "Hash": "b25485f57dee55a6190e008f66654907"
     },
     "brew": {
@@ -436,7 +436,7 @@
       "Package": "class",
       "Version": "7.3-18",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "RSPM",
       "Hash": "15ef288688a6919417ade6251deea2b3"
     },
     "classInt": {
@@ -464,7 +464,7 @@
       "Package": "cluster",
       "Version": "2.1.0",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "RSPM",
       "Hash": "db63a44aab5aadcb6bf2f129751d129a"
     },
     "clustermq": {
@@ -478,7 +478,7 @@
       "Package": "codetools",
       "Version": "0.2-18",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "RSPM",
       "Hash": "019388fc48e48b3da0d3a76ff94608a8"
     },
     "collections": {
@@ -744,7 +744,7 @@
       "Package": "foreign",
       "Version": "0.8-81",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "RSPM",
       "Hash": "74628ea7a3be5ee8a7b5bb0a8e84882e"
     },
     "fracdiff": {
@@ -1214,7 +1214,7 @@
       "Package": "lattice",
       "Version": "0.20-41",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "RSPM",
       "Hash": "fbd9285028b0263d76d18c95ae51a53d"
     },
     "lava": {
@@ -1319,7 +1319,7 @@
       "Package": "lpSolve",
       "Version": "5.6.15",
       "Source": "Repository",
-      "Repository": "RSPM",
+      "Repository": "CRAN",
       "Hash": "90c3bc497e7d5ec9dbb863621be15abb"
     },
     "lubridate": {
@@ -1403,7 +1403,7 @@
       "Package": "mgcv",
       "Version": "1.8-33",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "RSPM",
       "Hash": "eb7b6439bc6d812eed2cddba5edc6be3"
     },
     "mime": {
@@ -1478,7 +1478,7 @@
       "Package": "nlme",
       "Version": "3.1-152",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "RSPM",
       "Hash": "35de1ce639f20b5e10f7f46260730c65"
     },
     "nloptr": {
@@ -1492,7 +1492,7 @@
       "Package": "nnet",
       "Version": "7.3-15",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "RSPM",
       "Hash": "b67ac021b3fb3a4b69d0d3c2bc049e9f"
     },
     "numDeriv": {
@@ -1604,8 +1604,8 @@
       "Package": "pkgdepends",
       "Version": "0.0.0.9007",
       "Source": "GitHub",
-      "RemoteType": "github",
       "Remotes": "r-lib/pkgcache, r-lib/cli",
+      "RemoteType": "github",
       "RemoteHost": "api.github.com",
       "RemoteRepo": "pkgdepends",
       "RemoteUsername": "r-lib",
@@ -1841,7 +1841,7 @@
       "Package": "renv",
       "Version": "0.13.2",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "RSPM",
       "Hash": "079cb1f03ff972b30401ed05623cbe92"
     },
     "repr": {
@@ -1932,7 +1932,7 @@
       "Package": "rootSolve",
       "Version": "1.8.2.1",
       "Source": "Repository",
-      "Repository": "RSPM",
+      "Repository": "CRAN",
       "Hash": "d62eb8dc158952de565c611ea8498e4c"
     },
     "rosm": {
@@ -1953,7 +1953,7 @@
       "Package": "rpart",
       "Version": "4.1-15",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "RSPM",
       "Hash": "9787c1fcb680e655d062e7611cadf78e"
     },
     "rprojroot": {
@@ -1974,8 +1974,8 @@
       "Package": "rsthemes",
       "Version": "0.2.1.9000",
       "Source": "GitHub",
-      "RemoteType": "github",
       "Remotes": "hrbrmstr/ipapi, rstudio/sass",
+      "RemoteType": "github",
       "RemoteHost": "api.github.com",
       "RemoteRepo": "rsthemes",
       "RemoteUsername": "gadenbuie",
@@ -2078,7 +2078,7 @@
       "Package": "spatial",
       "Version": "7.3-13",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "RSPM",
       "Hash": "8d0918547149f72e78ae942ccd1fdbc7"
     },
     "splus2R": {
@@ -2141,7 +2141,7 @@
       "Package": "survival",
       "Version": "3.2-7",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "RSPM",
       "Hash": "39c4ac6d22dad33db0ee37b40810ea12"
     },
     "svglite": {
@@ -2171,13 +2171,6 @@
       "Source": "Repository",
       "Repository": "RSPM",
       "Hash": "dc6e900d988101077b89a49cd801ba90"
-    },
-    "terra": {
-      "Package": "terra",
-      "Version": "1.0-10",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "Hash": "dd4608fd5a58be6e75c9cfb86a3b780c"
     },
     "testthat": {
       "Package": "testthat",

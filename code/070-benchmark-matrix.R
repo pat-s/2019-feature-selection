@@ -13,6 +13,7 @@ benchmark_plan <- drake_plan(
   ),
 
   tune_wrappers_mbo_sub = tune_wrappers_mbo[20],
+  tune_wrappers_mbo1 = append(tune_wrappers_mbo, list(makeLearner("regr.featureless"))),
 
   ### 174 targets
   # Learners:
@@ -53,7 +54,7 @@ benchmark_plan <- drake_plan(
       )
     ),
     dynamic = cross(
-      append(tune_wrappers_mbo, list(makeLearner("regr.featureless"))),
+      tune_wrappers_mbo1,
       task_reduced_cor
     )
   ),
