@@ -399,7 +399,7 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-06-24
+<strong>Last updated:</strong> 2021-06-28
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -490,16 +490,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree501dac5eb208da3d01427e133cb75d24d84eb690targetblank501dac5a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/501dac5eb208da3d01427e133cb75d24d84eb690" target="_blank">501dac5</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree861ccc01647888aa409b28b3a4962f90f8774fe6targetblank861ccc0a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/861ccc01647888aa409b28b3a4962f90f8774fe6" target="_blank">861ccc0</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree501dac5eb208da3d01427e133cb75d24d84eb690targetblank501dac5a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree861ccc01647888aa409b28b3a4962f90f8774fe6targetblank861ccc0a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/pat-s/2019-feature-selection/tree/501dac5eb208da3d01427e133cb75d24d84eb690" target="_blank">501dac5</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/pat-s/2019-feature-selection/tree/861ccc01647888aa409b28b3a4962f90f8774fe6" target="_blank">861ccc0</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -511,6 +511,7 @@ Ignored files:
     Ignored:    .Ruserdata/
     Ignored:    .drake/
     Ignored:    .vscode/
+    Ignored:    analysis/figure/
     Ignored:    analysis/rosm.cache/
     Ignored:    data/
     Ignored:    inst/Benchmark for Filter Methods for Feature Selection in High-Dimensional  Classification Data.pdf
@@ -528,6 +529,7 @@ Untracked files:
 
 Unstaged changes:
     Modified:   _drake.R
+    Modified:   code/070-benchmark-matrix.R
     Modified:   renv.lock
 
 </code></pre>
@@ -567,6 +569,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/861ccc01647888aa409b28b3a4962f90f8774fe6/analysis/eval-performance.Rmd" target="_blank">861ccc0</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2021-06-28
+</td>
+<td>
+workflowr::wflow_publish(“analysis/eval-performance.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pat-s/2019-feature-selection/d4267fd5cd0650c5c1f6df694ee82fa78bf39ca6/docs/eval-performance.html" target="_blank">d4267fd</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2021-06-24
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -2598,7 +2634,7 @@ add eval-performance report
 </div>
 </div>
 <p>Last update:</p>
-<pre><code>[1] &quot;Thu Jun 24 11:37:07 2021&quot;</code></pre>
+<pre><code>[1] &quot;Mon Jun 28 20:47:20 2021&quot;</code></pre>
 <p>Fold performances of “SVM MBO No Filter” on the HR Task</p>
 <ul>
 <li>Fold 1: Laukiz1</li>
@@ -2653,6 +2689,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/d4267fd5cd0650c5c1f6df694ee82fa78bf39ca6/docs/figure/eval-performance.Rmd/performance-results-1.png" target="_blank">d4267fd</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2021-06-24
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/b24002acf2336f79878818fde3c81d97c2080fcb/docs/figure/eval-performance.Rmd/performance-results-1.png" target="_blank">b24002a</a>
@@ -2983,6 +3030,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/d4267fd5cd0650c5c1f6df694ee82fa78bf39ca6/docs/figure/eval-performance.Rmd/filter-effect-all-vs-no-filter-1.png" target="_blank">d4267fd</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2021-06-24
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/b24002acf2336f79878818fde3c81d97c2080fcb/docs/figure/eval-performance.Rmd/filter-effect-all-vs-no-filter-1.png" target="_blank">b24002a</a>
 </td>
 <td>
@@ -3166,6 +3224,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/d4267fd5cd0650c5c1f6df694ee82fa78bf39ca6/docs/figure/eval-performance.Rmd/filter-effect-all-vs-borda-filter-1.png" target="_blank">d4267fd</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2021-06-24
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/b24002acf2336f79878818fde3c81d97c2080fcb/docs/figure/eval-performance.Rmd/filter-effect-all-vs-borda-filter-1.png" target="_blank">b24002a</a>
@@ -3380,7 +3449,7 @@ pat-s
 <li>Plot 4: Laukiz2</li>
 </ul>
 <div id="htmlwidget-d2da756be61595dc4356" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-d2da756be61595dc4356">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10","11","12"],["\\multirow{4}{*}{\\specialcell{RF \\\\ Relief}}","","","","\\midrule\\multirow{4}{*}{\\specialcell{SVM \\\\ Relief}}","","","","\\midrule\\multirow{4}{*}{\\specialcell{XGB \\\\ CMIM}}","","",""],["Laukiz1","Laukiz2","Luiando","Oiartzun","Laukiz1","Laukiz2","Luiando","Oiartzun","Laukiz1","Laukiz2","Luiando","Oiartzun"],[0.215732533538655,93.3708602740943,99.9726842999715,0.00405115043503036,0.0619986394267103,23.9282048750387,20.735140549842,4.10635906460966,98.1221347491968,0.515264891932342,30.8490025076194,83.6129762802288],["3/1249","1268/1357","1507/1507","1/1311","1/1249","325/1357","313/1507","54/1311","1226/1249","7/1357","465/1507","1097/1311"],[33.2149905636976,17.1189567236706,41.7287957803842,37.2017442811679,35.4901836690925,14.893998574648,37.1893944133818,31.0317577898943,45.5852506899257,15.2373755032557,33.3603902727084,41.0075591225222]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Learner<\/th>\n      <th>Test Plot<\/th>\n      <th>Features (\\%)<\/th>\n      <th>\\#<\/th>\n      <th>RMSE<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[3,5]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-d2da756be61595dc4356">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10","11","12"],["\\multirow{4}{*}{\\specialcell{RF \\\\ Relief}}","","","","\\midrule\\multirow{4}{*}{\\specialcell{SVM \\\\ Relief}}","","","","\\midrule\\multirow{4}{*}{\\specialcell{XGB \\\\ CMIM}}","","",""],["Laukiz1","Laukiz2","Luiando","Oiartzun","Laukiz1","Laukiz2","Luiando","Oiartzun","Laukiz1","Laukiz2","Luiando","Oiartzun"],[0.215732533538655,93.3708602740943,99.9726842999715,0.00405115043503036,0.0619986394267103,23.9282048750387,20.735140549842,4.10635906460966,98.1221347491968,0.515264891932342,30.8490025076194,83.6129762802288],["3/1249","1268/1357","1507/1507","1/1311","1/1249","325/1357","313/1507","54/1311","1226/1249","7/1357","465/1507","1097/1311"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Learner<\/th>\n      <th>Test Plot<\/th>\n      <th>Features (\\%)<\/th>\n      <th>Features (\\#)<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":3},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 <p>Aggregated mean and standard deviation:</p>
 <div id="htmlwidget-751bb1658165740fb006" style="width:100%;height:auto;" class="datatables html-widget"></div>
 <script type="application/json" data-for="htmlwidget-751bb1658165740fb006">{"x":{"filter":"none","data":[["1","2","3"],["RF \\\\ Relief","SVM \\\\ Relief","XGB \\\\ CMIM"],[0.483908320645099,0.122079257822293,0.532748446072443],[0.558152046185197,0.118776718137387,0.455271834991561]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Learner<\/th>\n      <th>Mean (Features (%))<\/th>\n      <th>SD (Features (%))<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
