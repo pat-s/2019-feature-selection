@@ -506,7 +506,7 @@ df_tbl <- getBMRTuneResults(bmr_inspect_tune, as.df = TRUE) %>%
   )) %>%
   dplyr::mutate(Learner = as.character(Learner)) %>%
   dplyr::mutate(`Test Plot` = as.character(`Test Plot`)) %>%
-  dplyr::mutate("\\#" = case_when(
+  dplyr::mutate("Features (\\#)" = case_when(
     # numbers here are the respective sums of the training sets (without the mentioned plot acting as the test set)
     `Test Plot` == "Laukiz1" ~ paste0(as.character(ceiling((`Features (\\%)` * 1249) / 100)), "/1249"),
     `Test Plot` == "Laukiz2" ~ paste0(as.character(ceiling((`Features (\\%)` * 1357) / 100)),"/1357"),
@@ -515,7 +515,7 @@ df_tbl <- getBMRTuneResults(bmr_inspect_tune, as.df = TRUE) %>%
   )) %>%
   dplyr::group_by(Learner) %>%
   dplyr::arrange(Learner, `Test Plot`) %>% 
-  dplyr::select(Learner, `Test Plot`, "Features (\\%)", "\\#", RMSE)
+  dplyr::select(Learner, `Test Plot`, "Features (\\%)", "Features (\\#)")
 
 rle.lengths <- rle(df_tbl[[1]])$lengths
 first <- !duplicated(df_tbl[[1]])
@@ -530,9 +530,9 @@ df_tbl[[1]][first][1] <- gsub("\\\\midrule", "", df_tbl[[1]][first][1])
 table4 <- df_tbl %>%
   xtable::xtable(
     type = "latex",
-    caption = "Selected feature portions during tuning for the best performing learner-filter settings (SVM Relief, RF Relief, XGBoost CMIM) across folds for task HR-NRI-VI, sorted by plot name. \\texttt{\\#} denotes the absolute number of features selected and 'Features (\\texttt{\\%})' refers to the percentage relative to the overall features available in the training sets for each plot (Laukiz1 = 1249, Laukiz2 = 1357, Luiando = 1507, Oiartzun = 1311). Results were estimated in a separate model tuning step, not within the main cross-validation comparison.",
+    caption = "Selected feature portions during tuning for the best performing learner-filter settings (SVM Relief, RF Relief, XGBoost CMIM) across folds for task HR-NRI-VI, sorted by plot name. 'Features (\\texttt{\\#})' denotes the absolute number of features selected and 'Features (\\texttt{\\%})' refers to the percentage relative to the overall features available in the training sets for each plot (Laukiz1 = 1249, Laukiz2 = 1357, Luiando = 1507, Oiartzun = 1311). Results were estimated in a separate model tuning step, not within the main cross-validation comparison.",
     label = "tab:tune-perc-sel-features",
-    digits = c(0, 0, 0, 5, 0, 2)
+    digits = c(0, 0, 0, 5, 0)
   )
 
 # save to file
