@@ -143,7 +143,7 @@
 	and Alexander~Brenning
 	\thanks{P.Schratz, J.Muenchow, J.Cortés and A.Brenning are with the Department
 		of Geography, geographic information science group, Friedrich Schiller University Jena, Germany.}% <-this % stops a space
-	\thanks{B.Bischl is head of the computational statistics group at the Department of Statistics, Ludwig-Maximilian-Universität in Munich, Germany.}% <-this % stops a space
+	\thanks{B.Bischl is head of the computational statistics group at the Department of Statistics, Ludwig-Maximilians-Universität in Munich, Germany.}% <-this % stops a space
 	\thanks{E.Iturritxa is with NEIKER Tecnalia, Vitoria-Gasteiz, Spain.}% <-this % stops a space
 	%\thanks{Manuscript received April 19, 2005; revised August 26, 2015.}
 }
@@ -663,21 +663,21 @@ XGBoost shows the highest overall differences between filters for a single task:
 % filter vs. no filter
 % - Substantial effect for XGBoost and RF
 % - SVM unaffected
-When comparing the usage of filters against using no filter at all, there no instance where a model without filtering scored a better performance than the best filtered one (\autoref{fig:filter-effects-no-filter}).
+When comparing the usage of filters against using no filter at all, there were no instances where a model without filtering scored a better performance than the best filtered one (\autoref{fig:filter-effects-no-filter}).
 For SVM, all filters and \enquote{no filter} achieved roughly the same performance on all tasks.
 
 % Borda vs. other filters
 % - most often among the first best filters for each task
 % - never the best
-The Borda filter achieved only in one instance (RF on HR-NRI-VI) the best performance among the used filters (\autoref{fig:filter-effects-borda}).
+The Borda filter achieved in only one instance (RF on HR-NRI-VI) the best performance among the used filters (\autoref{fig:filter-effects-borda}).
 For RF and XGBoost it most often ranked within the first 50\% with respect to all filters of a specific task.
 For XGBoost on the NRI task, the Borda filter scored the second worst performance.
 
 % Selected percentage of features across plots
 Large differences were observed between the numbers of features selected during tuning for the subsequent fitting process across each learner and plot.
 While for RF least features were selected when Luiando or Oiartzun were the test set ($n = 1$), more than 90\% of all features were used for test sets Laukiz1 and Laukiz2 (\autoref{tab:tune-perc-sel-features}).
-RF and XGBoost used very few features only when Oiartzun was the test set (one and three, respectively) whereas this was the plot for which SVM used most features ($n = 119$).
-Overall, SVM used the least features across all plots among all learners, with 24\% for test set Oiartzun being the highest single plot value.
+RF and SVM used very few features only when Laukiz1 was the test set, (three and one, respectively) whereas this was the plot for which XGBoost used almost all features ($n = 1226$).
+Overall, SVM used the least features across all plots among all learners, with 24\% for test set Laukiz2 being the highest single plot value.
 In general every learner behaved quite differently for each plot and no overall pattern could be observed.
 
 % latex table top 10 absolute performances
