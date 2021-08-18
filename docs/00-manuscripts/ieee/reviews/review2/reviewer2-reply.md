@@ -18,7 +18,6 @@ We would like to note that all code and data related to this publication is made
 
 > I would like to see examples of all damage classes from both the field response and the canopy delineated in the EO data.
 
-FIXME: Attach pictures when submitting!
 We attached some pictures taken in the field to our reply.
 Note that these should not be generalized as every tree could look different, especially with respect to defoliation caused by Diplodia (which causes brown coloring of the shoots).
 
@@ -31,17 +30,21 @@ Manual delineation is an alternative approach which is fine to use but which we 
 
 > The discussion chapter is mainly a description of the results and doesn’t include a real discussion. I have to be revised and some parts should be shifted to the results. I want to see more comparison with other studies, both dealing with feature selection and hyperspectral data but also some tree health studies should be included.
 
-FIXME:
-- Thought: Does discussion always need to be mainly focus on comparison with other studies? There is even a section only related to this.
-- Thought: How to react to such a request?
+Thanks for sharing your thoughts related to the discussion section.
+We agree with the reviewer that the first part of the discussion deals with the results of this study.
+However, rather than describing the results as in the "Results" section, results are discussed and interpreted in the "Discussion" section.
+We believe that this is a good structural division and would like to avoid mixing result description and interpretation.
+With respect to discussing other studies, there is already a dedicated paragraph titled "Comparison to other studies" which discusses similar studies and includes 18 references.
+In a paragraph of this section we also note the following:
 
-ALEX:
-Yes, that's the whole point of the discussion.
-The first half of the Discussion summarizes results - maybe this can be shortened to avoid redundancy.
-But the response should also emphasize that the second half already relates our findings to the literature.
-This being said, small changes to the Discussion may be a good idea.
+"In summary, no studies which used filter methods for FS or made use of NRI indices in their work and had a relation to tree health could be found.
+This might relate to the fact that most environmental datasets are not high-dimensional.
+In fact, many studies use fewer than ten features and issues related to correlations are often solved manually instead of relying on an automated approach."
 
-P: Hmpft, I thought its also fine to "discuss" the results within the study, not necessarlily and only compare it to other studies (and the comparison being one subsection/paragraph in the discussion section).
+The terminology "real discussion" used by the reviewer furthermore indicates that their view of structuring a discussion might differ from ours and that we most likely cannot match the reviewers desired discussion structure perfectly.
+However, we believe that the general discussion structure of this manuscript is acceptable.
+
+Nevertheless, to showcase our willingness to incorporate constructive suggestions, we added more references to studies which used feature selection in combination with hyperspectral data ([Pal 2010](https://ieeexplore.ieee.org/abstract/document/5419028?casa_token=MpK3WG8ZqLEAAAAA:E7cICk6rfmT8H8jf4rzyFLPR0ijL5rm_idUOix_WvJyOB6uiZqAwanqkrSd8cIpvHT4lHxMMcd_w), [Keller 2016](https://ieeexplore.ieee.org/abstract/document/8071759)), added two more references showcasing that most studies only describe the loss of defoliation in the field rather than modeling it ([Hlebarska 2018](https://www.cabdirect.org/cabdirect/abstract/20183376613), [Kaya 2019](https://doaj.org/article/3d9b8162586c480caea4dd3e04753868)), and pruned sections "Model differences" and "Performance vs. plot characteristics" to have less potential overlap with the "Results" section.
 
 > Abbreviations introduced should be used consistently afterward.
 
@@ -64,17 +67,18 @@ which should be accepted by the journal and community judging from [this Texexch
 
 We have updated the captions for the following figures and tables and hope they are more descriptive now and understandable standalone:
 
-- Fig. 1: "Response variable "defoliation at trees" for plots Laukiz1, Laukiz2, Luiando and Oiartzun. \texttt{n} corresponds to the total number of trees in the plot, $\bar{x}$ refers to the mean defoliation, respectively. Values for Laukiz1, Luiando and Oiartzun were observed in 5\% intervals, for Laukiz2 defoliation was observed at multiple heights and then averaged, leading to smaller defoliation differences than 5\%."
+- Fig. 1: "Response variable "defoliation at trees" for plots Laukiz1, Laukiz2, Luiando and Oiartzun. n corresponds to the total number of trees in the plot, $\bar{x}$ refers to the mean defoliation, respectively. Values for Laukiz1, Luiando and Oiartzun were observed in 5\% intervals, for Laukiz2 defoliation was observed at multiple heights and then averaged, leading to smaller defoliation differences than 5\%."
 - Fig. 2: "Study area maps showing information about location, size and spatial distribution of trees for all plots (Laukiz1, Laukiz2, Luiando, Oiartzun). The background maps used should give a visual impression of the individual plot area but do not necessarily represent the plot state during data acquisition."
 - Fig. 3: "Predictive performance in RMSE (p.p.) of models across tasks. Different feature sets are shown on the y-axis. Labels show the feature selection method (e.g. NF = no filter, Car = 'Carscore', Info Gain = 'Information Gain', Borda = 'Borda'). The second value of each label shows the RMSE value (p.p.) and the standard error (SE) of the respective setting."
 - Fig. 4: "Model performances in RMSE across all tasks, split up in facets, when using no filter method (blue dot) compared to any other filter method (red cross) for learners RF, SVM and XGBoost (XG)"
+- Fig. 5: "Predictive performances in RMSE (p.p.) when using the Borda filter method (blue dot) compared to any other filter (red cross) for each learner across all tasks."
 - Table II: "List of filter methods used in this work, their categorization and scientific reference."
 - Table III: "Best ten results among all learner-task-filter combinations, sorted in decreasing order of RMSE (p.p.) and their respective standard error (SE)."
 - Table IV: "Worst ten results among all learner-task-filter combinations, sorted in decreasing order of RMSE (p.p.) and their respective standard error (SE)."
 - Table V: "The overall best individual learner performance across any task and filter method for RF, SVM, XGBoost, Lasso and Ridge, sorted ascending by RMSE (p.p.) including the respective standard error (SE) of the cross-validation run."
 - Table VI: "Test fold performances in RMSE (p.p.) for learner SVM on the HR dataset without using a filter, showcasing performance variance on the fold level. For each row, the model was trained on observations from all others plots but the given one and tested on the observations of the given plot."
-- Appendix A: "Spearman correlations of NRI feature rankings obtained with different filters. Filter names refer to the nomenclature used by the \texttt{mlr} R package. Underscores in names divide the terminology into their upstream R package and the actual filter name."
-- Appendix B: "Spearman correlations of rankings obtained with the information gain filter using different \texttt{\(n_{bins}\)} values for discretization of the numeric response. Filter names refer to the nomenclature used by the \texttt{mlr} R package. Underscores in names divide the terminology into their upstream R package and the actual filter name."
+- Appendix A: "Spearman correlations of NRI feature rankings obtained with different filters. Filter names refer to the nomenclature used by the mlr R package. Underscores in names divide the terminology into their upstream R package and the actual filter name."
+- Appendix B: "Spearman correlations of rankings obtained with the information gain filter using different $n_{bins}$ values for discretization of the numeric response. Filter names refer to the nomenclature used by the mlr R package. Underscores in names divide the terminology into their upstream R package and the actual filter name."
 
 > The quality of the maps should be improved.
 
@@ -237,7 +241,7 @@ At this point there is no added value to us in showing this information for all 
 
 Thanks, using the abbreviation now.
 
-> P8, C2 Table VII: Please explain Features (%) and values of 0.999, Values are sorted by test plots not ascending RMSE; # means the number of input data? RMSE Values are strange because higher as without filter and also the completely different results for the test plots are not clear to me: Luiandro achieved the best result without filter, Laukiz 2 (the worst without filter) the best result with RF, Oiartzum the best with XGB and SVM
+> P8, C2 Table VII: Please explain Features (%) and values of 0.999, Values are sorted by test plots not ascending RMSE; # means the number of input data? RMSE Values are strange because higher as without filter and also the completely different results for the test plots are not clear to me: Luiando achieved the best result without filter, Laukiz 2 (the worst without filter) the best result with RF, Oiartzun the best with XGB and SVM
 
 Thanks for discussing the results of Table VII.
 

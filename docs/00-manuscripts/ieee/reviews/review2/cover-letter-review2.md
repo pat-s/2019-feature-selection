@@ -28,3 +28,5 @@ In summary, we believe and hope to have addressed most reviewer remarks and that
 - Revised the use of abbreviations after feedback from reviewer2
 - Rephrased the usefulness of machine learning for this study
 - Added references to paragraph P.2, 2nd column on LL.47-5 as suggested by reviewer 1
+- Added references analyzing defoliation caused by Diplodia Sapinea to section "Comparison to other studies"
+- Pruned sections "Model differences" and "Performance vs. plot characteristics" to reduce potential overlaps with the "Results" section as indicated by reviewer2
