@@ -144,7 +144,7 @@ table1 <- df_perf %>%
   ) %>%
   ungroup() %>%
   mutate(Filter = replace(Filter, is.na(Filter), "No Filter")) %>%
-  select(-iter, -`Learner ID`, -expvar, -rsq) %>%
+  select(-iter, -`Learner ID`, -rsq) %>%
   relocate(RMSE, .after = Filter) %>%
   relocate(`SE`, .after = RMSE) %>%
   mutate(RMSE = round(RMSE, 3)) %>%
@@ -202,7 +202,7 @@ table2 <- df_perf %>%
   select(-`Learner ID`, -rsq) %>%
   relocate(RMSE, .after = Filter) %>%
   relocate(`SE`, .after = RMSE) %>%
-  select(-iter, -expvar)
+  select(-iter)
 
 
 # save as latex table
@@ -248,7 +248,7 @@ table3 <- df_perf %>%
   ) %>%
   ungroup() %>%
   mutate(Filter = replace(Filter, is.na(Filter), "No Filter")) %>%
-  select(-iter, -`Learner ID`, -expvar, -rsq) %>%
+  select(-iter, -`Learner ID`, -rsq) %>%
   relocate(RMSE, .after = Filter) %>%
   relocate(`SE`, .after = RMSE) %>%
   mutate(RMSE = round(RMSE, 3)) %>%
@@ -285,6 +285,7 @@ DT::datatable(table3)
 
 ```{r performance-results, warning=FALSE, dev = c("png", "pdf"), out.width = "70%"}
 results_aggr <- df_perf %>%
+  filter(learner.id != "regr.featureless") %>% 
   mutate(filter = replace(filter, is.na(filter), "NF")) %>%
   mutate(learner_group = recode_factor(learner_group, `XG` = "XGBoost")) %>%
   mutate(learner_group = recode_factor(learner_group, `Ridge-MBO` = "Ridge")) %>%
@@ -347,6 +348,7 @@ All filters are colored in the same way whereas using "no filter" appears in a d
 results_aggr1 <- df_perf %>%
   filter(learner_group != "Ridge-MBO") %>%
   filter(learner_group != "Lasso-MBO") %>%
+  filter(learner.id != "regr.featureless") %>%
   # mutate(filter = replace(filter, "No Filter", "NF")) %>%
   mutate(learner_group = as.factor(learner_group)) %>%
   mutate(learner_group = recode(learner_group, `XGBoost` = "XG")) %>%
@@ -357,9 +359,9 @@ results_aggr1 <- df_perf %>%
   # summarise() working
   summarise(perf = mean(rmse_aggr)) %>%
   ungroup() %>%
-  # we need to reverse the order on porpuse here so that ggplot reverses it
+  # we need to reverse the order on purpose here so that ggplot reverses it
   # again later
-  mutate(learner_group = fct_relevel(learner_group, "XGBoost", "SVM", "RF"))
+  mutate(learner_group = fct_relevel(learner_group, "XG", "SVM", "RF"))
 
 results_aggr1 %>%
   ggplot(aes(x = perf, y = learner_group)) +
@@ -395,6 +397,7 @@ results_aggr2 <- df_perf %>%
   na.omit() %>%
   filter(learner_group != "Ridge-MBO") %>%
   filter(learner_group != "Lasso-MBO") %>%
+  filter(learner.id != "regr.featureless") %>%
   mutate(learner_group = recode_factor(learner_group, `XGBoost` = "XG")) %>%
   group_by(learner_group, task.id, filter) %>%
   # we actually took the mean already in chunk 'aggr-perf'. This is only to get
@@ -403,7 +406,7 @@ results_aggr2 <- df_perf %>%
   ungroup() %>%
   # we need to reverse the order on porpuse here so that ggplot reverses it
   # again later
-  mutate(learner_group = fct_relevel(learner_group, "XGBoost", "SVM", "RF"))
+  mutate(learner_group = fct_relevel(learner_group, "XG", "SVM", "RF"))
 
 results_aggr2 %>%
   ggplot(aes(x = perf, y = learner_group)) +
