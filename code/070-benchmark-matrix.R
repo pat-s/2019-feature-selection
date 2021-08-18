@@ -41,7 +41,7 @@ benchmark_plan <- drake_plan(
   # 6     - hr_nri_vi
   benchmark_no_models = target(
     benchmark(
-      learners = tune_wrappers_mbo,
+      learners = tune_wrappers_mbo1[[1]],
       tasks = task_reduced_cor,
       models = FALSE,
       keep.pred = TRUE,
@@ -49,13 +49,12 @@ benchmark_plan <- drake_plan(
       show.info = TRUE,
       measures = list(
         setAggregation(rmse, test.mean),
-        setAggregation(rsq, test.mean),
-        setAggregation(expvar, test.mean)
+        setAggregation(rsq, test.mean)
       )
     ),
     dynamic = cross(
       tune_wrappers_mbo1,
-      task_reduced_cor
+      task_reduced_cor[[1]]
     )
   ),
 
@@ -96,7 +95,6 @@ benchmark_plan <- drake_plan(
       measures = list(
         setAggregation(rmse, test.mean),
         setAggregation(rsq, test.mean),
-        setAggregation(expvar, test.mean)
       )
     ),
     dynamic = cross(learners_keep_models[[1]], task_reduced_cor)
