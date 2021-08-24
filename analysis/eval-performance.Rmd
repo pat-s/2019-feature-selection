@@ -113,7 +113,7 @@ df_tab %>%
     label = "tab:svm-single-fold-perf"
   ) %>%
   print(
-    file = here::here("docs/00-manuscripts/ieee/performance-svm-single-plot.tex"),
+    file = here::here("docs/00-manuscripts/mdpi/performance-svm-single-plot.tex"),
     include.rownames = TRUE,
     latex.environments = c("center"),
     table.placement = "ht!",
@@ -161,7 +161,7 @@ table1 %>%
     label = "tab:perf-top-10"
   ) %>%
   print(
-    file = here("docs/00-manuscripts/ieee/performance-top-10.tex"),
+    file = here("docs/00-manuscripts/mdpi/performance-top-10.tex"),
     include.rownames = TRUE,
     latex.environments = c("center"),
     table.placement = "ht!",
@@ -213,7 +213,7 @@ table2 %>%
     label = "tab:best-learner-perf"
   ) %>%
   print(
-    file = here("docs/00-manuscripts/ieee/performance-best-per-learner.tex"),
+    file = here("docs/00-manuscripts/mdpi/performance-best-per-learner.tex"),
     include.rownames = TRUE,
     latex.environments = c("center"),
     table.placement = "ht!",
@@ -265,7 +265,7 @@ table3 %>%
     label = "tab:perf-worst-10"
   ) %>%
   print(
-    file = here("docs/00-manuscripts/ieee/performance-worst-10.tex"),
+    file = here("docs/00-manuscripts/mdpi/performance-worst-10.tex"),
     include.rownames = TRUE,
     latex.environments = c("center"),
     table.placement = "ht!",
@@ -541,7 +541,7 @@ table4 <- df_tbl %>%
 # save to file
 table4 %>%
   print(
-    file = here("docs/00-manuscripts/ieee/tune-perc-sel-features.tex"),
+    file = here("docs/00-manuscripts/mdpi/tune-perc-sel-features.tex"),
     include.rownames = FALSE,
     latex.environments = c("center"),
     table.placement = "ht!",
