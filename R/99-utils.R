@@ -50,59 +50,59 @@ copy_figures <- function() {
 
   file_cp_ts(
     here::here("docs/figure/eda.Rmd/defoliation-distribution-plot-1.pdf"),
-    here::here("docs/00-manuscripts/ieee/pdf/")
+    here::here("docs/00-manuscripts/mdpi/pdf/")
   )
 
   file_cp_ts(
     here::here("docs/figure/eda.Rmd/pca-pov-comparison-1.pdf"),
-    here::here("docs/00-manuscripts/ieee/pdf/")
+    here::here("docs/00-manuscripts/mdpi/pdf/")
   )
 
   # spectral-signatures.Rmd ----------------------------------------------------
 
   file_cp_ts(
     here::here("docs/figure/spectral-signatures.Rmd/spectral-signatures-1.pdf"),
-    here::here("docs/00-manuscripts/ieee/pdf/")
+    here::here("docs/00-manuscripts/mdpi/pdf/")
   )
 
   # eval-performance.Rmd -------------------------------------------------------
 
   file_cp_ts(
     here::here("docs/figure/eval-performance.Rmd/performance-results-1.pdf"),
-    here::here("docs/00-manuscripts/ieee/pdf/")
+    here::here("docs/00-manuscripts/mdpi/pdf/")
   )
   file_cp_ts(
     here::here("docs/figure/eval-performance.Rmd/filter-effect-all-vs-no-filter-1.pdf"),
-    here::here("docs/00-manuscripts/ieee/pdf/")
+    here::here("docs/00-manuscripts/mdpi/pdf/")
   )
   file_cp_ts(
     here::here("docs/figure/eval-performance.Rmd/filter-effect-all-vs-borda-filter-1.pdf"),
-    here::here("docs/00-manuscripts/ieee/pdf/")
+    here::here("docs/00-manuscripts/mdpi/pdf/")
   )
 
   # filter-correlation.Rmd -----------------------------------------------------
 
   file_cp_ts(
     here::here("docs/figure/filter-correlation.Rmd/correlation-nbins-1.pdf"),
-    here::here("docs/00-manuscripts/ieee/pdf/")
+    here::here("docs/00-manuscripts/mdpi/pdf/")
   )
   file_cp_ts(
     here::here("docs/figure/filter-correlation.Rmd/correlation-filter-nri-1.pdf"),
-    here::here("docs/00-manuscripts/ieee/pdf/")
+    here::here("docs/00-manuscripts/mdpi/pdf/")
   )
 
   # feature-importance.Rmd -----------------------------------------------------
 
   file_cp_ts(
     here::here("docs/figure/feature-importance.Rmd/fi-permut-vi-hr-1.pdf"),
-    here::here("docs/00-manuscripts/ieee/pdf/")
+    here::here("docs/00-manuscripts/mdpi/pdf/")
   )
   file_cp_ts(
     here::here("docs/figure/feature-importance.Rmd/fi-hr-ale-1.pdf"),
-    here::here("docs/00-manuscripts/ieee/pdf/")
+    here::here("docs/00-manuscripts/mdpi/pdf/")
   )
   file_cp_ts(
     here::here("docs/figure/feature-importance.Rmd/fi-vi-ale-1.pdf"),
-    here::here("docs/00-manuscripts/ieee/pdf/")
+    here::here("docs/00-manuscripts/mdpi/pdf/")
   )
 }
