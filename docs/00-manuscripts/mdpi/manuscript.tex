@@ -698,15 +698,15 @@ Overall, most features (excluding the top five respectively) showed only a small
 
 \subsection{Predictive Performance}
 
-The best aggregated performance of this study (SVM + \enquote{Relief} filter, RMSE 28.09 p.p.) has to be seen in the light of model overfitting (see \autoref{subsec:perf-plot-char}).
+The best aggregated performance of this study (SVM + \enquote{Relief} filter, RMSE 28.12 p.p.) has to be seen in the light of model overfitting (see \autoref{subsec:perf-plot-char}).
 Leaving out the performance on Laukiz2 when aggregating results, the mean RMSE would be around 19 p.p.
 However, leaving out a single plot would also change the prediction results for the other plots because the observations from Laukiz2 would not be available for model training.
 Due to the apparent presence of model overfitting in this study it can be postulated that more training data representing a greater variety of situations is needed.
 A model can only make robust predictions if it has learned relationships across the whole range of the response.
 Hence, care should be taken when predicting to the landscape scale using models fitted on this dataset due to their lack of generalizability caused by the limitations of the available training data.
-However, when inspecting the fold level performances, it can be concluded that the model performed reasonably well predicting defoliation greater than 50\% but failed for lower levels.
+However, when inspecting the fold level performances, it can be concluded that the models performed reasonably well predicting defoliation greater than 50\% but failed for lower levels.
 This applied to all learners of this study.
-The overall performance achieved in this study can be classified as "fair".
+The overall performance of all learners achieved in this study can be classified as "poor" given that only the SVM learner was able to outperform the featureless learner (\autoref{tab:best-learner-perf}).
 
 In addition, data quality issues (\autoref{subsec:data-quality}) might have an influence on model performances.
 These include the timing of the acquisition of the hyperspectral data (late phenological phase), field measurement errors when surveying defoliation, the influence of background reflectance (e.g. soil reflectance) and the possible positional offset of measured GPS coordinates of trees.
