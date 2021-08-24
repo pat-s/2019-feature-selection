@@ -453,8 +453,7 @@ $H(X)$ itself is defined as
 
 where $b$ is the base of the logarithm used (with $b$ commonly being set to 2).
 
-In order to use this method with a numeric response (percentage defoliation of trees), the variable was discretized into equal bins and treated as a class variable.
-After feature rank correlations of $> 0.9$ between different bin sizes were observed in a side analysis, \texttt{\(n_{bin}\) = 10} was found to be a reasonable setting to go with.
+In order to use this method with a numeric response (percentage defoliation of trees), the variable was discretized into equal bins \texttt{\(n_{bin}\) = 10} and treated as a class variable.
 
 \subsection{Benchmarking design}
 
@@ -1001,16 +1000,6 @@ The following abbreviations are used in this manuscript:\\
 	\begin{center}
 		\includegraphics[width=0.48\textwidth] {correlation-filter-nri-1.pdf}
 		\caption{Spearman correlations of NRI feature rankings obtained with different filters. Filter names refer to the nomenclature used by the \texttt{mlr} R package. Underscores in names divide the terminology into their upstream R package and the actual filter name.}\label{fig:correlation-filters}
-	\end{center}
-\end{figure}
-
-\pagebreak
-
-\subsection{}
-\begin{figure} [ht]
-	\begin{center}
-		\includegraphics[width=0.48\textwidth] {correlation-nbins-1.pdf}
-		\caption{Spearman correlations of rankings obtained with the information gain filter using different \texttt{\(n_{bins}\)} values for discretization of the numeric response. Filter names refer to the nomenclature used by the \texttt{mlr} R package. Underscores in names divide the terminology into their upstream R package and the actual filter name.}\label{fig:correlation-nbins}
 	\end{center}
 \end{figure}
 
