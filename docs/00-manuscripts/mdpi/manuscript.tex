@@ -52,11 +52,13 @@
 \usepackage{multirow}
 \usepackage{adjustbox}
 
+% \usepackage{supertabular}
+\usepackage{supertabular,booktabs}
+
 % line breaks in table cells
 \newcommand{\specialcell}[2][l]{%
   \begin{tabular}[#1]{@{}l@{}}#2\end{tabular}}
 
-\usepackage{xtab}
 \usepackage{csquotes}
 \usepackage[utf8]{inputenc}
 % enables custom font styles which are not available in IEEEtran by default
@@ -74,6 +76,9 @@
 % and their extensions so you won't have to specify these with
 % every instance of \includegraphics
 \DeclareGraphicsExtensions{.pdf,.jpg,.png}
+
+% suppress fancyhdr warnings
+\setlength{\headheight}{23.90979pt}
 
 % *** MATH PACKAGES ***
 %
@@ -112,7 +117,7 @@
 \address{%
 $^{1}$ \quad Friedrich Schiller University Jena, Department of Geography, GIScience group, Germany\\
 $^{2}$ \quad NEIKER Tecnalia, Spain\\
-$^{3}$ \quad Ludwig-Maximilians-Universiy Munich, Department of Statistics, Computational Statistics group, Germany
+$^{3}$ \quad Ludwig-Maximilians-University Munich, Department of Statistics, Computational Statistics group, Germany
 }
 
 % Contact information of the corresponding author
@@ -278,7 +283,7 @@ The dieback of these trees, which are mainly used as timber, causes high economi
 \begin{figure} [t!]
 	\centering
 	\begin{center}
-		\includegraphics[width=0.48\textwidth] {defoliation-distribution-plot-1.pdf}
+		\includegraphics[width=0.7\textwidth] {defoliation-distribution-plot-1.pdf}
 		\caption{Response variable "defoliation at trees" for plots Laukiz1, Laukiz2, Luiando and Oiartzun. \texttt{n} corresponds to the total number of trees in the plot, $\bar{x}$ refers to the mean defoliation, respectively. Values for Laukiz1, Luiando and Oiartzun were observed in 5\% intervals; for Laukiz2 defoliation was observed at multiple heights and then averaged, leading to smaller defoliation differences than 5\%.}\label{fig:defol-distr}
 	\end{center}
 \end{figure}
@@ -305,7 +310,7 @@ Even though no estimation error was recorded in this study, \cite{maclean1982} e
 
 %\begin{figure} [t!]
 %	\begin{center}
-%		\includegraphics[width=0.48\textwidth] {defol-grid-3000px.jpg}
+%		\includegraphics[width=0.7\textwidth] {defol-grid-3000px.jpg}
 %		\caption{Example trees showing different levels of defoliation as interpreted by the surveyor: 10 \% (top-left), 20 \% (top-right), 40 \% (bottom-left), 60-70 \% (bottom-right).}
 %		\label{fig:defol-trees}
 %	\end{center}
@@ -343,7 +348,7 @@ Research manuscripts reporting large datasets that are deposited in a publicly a
 
 Interventionary studies involving animals or humans, and other studies require ethical approval must list the authority that provided approval and the corresponding ethical approval code.
 \begin{quote}
-This is an example of a quote.
+	This is an example of a quote.
 \end{quote}
 
 \subsection{Derivation of indices}
@@ -421,7 +426,7 @@ Filter methods can be classified as follows (\autoref{tab:filter-methods}):
 	\caption{List of filter methods used in this work, their categorization and scientific reference.}
 	\label{tab:filter-methods}
 	\begingroup\footnotesize
-	\begin{adjustbox}{width={0.48\textwidth},totalheight={\textheight},keepaspectratio}
+	\begin{adjustbox}{width={0.7\textwidth},totalheight={\textheight},keepaspectratio}
 		\begin{tabular}{lll}
 			\\
 			Name                                         & Group                             & Ref.               \\
@@ -645,7 +650,7 @@ In general every learner behaved quite differently for each plot and no overall 
 \begin{figure} [t!]
 	\centering
 	\begin{center}
-		\includegraphics[width=0.48\textwidth] {performance-results-1.pdf}
+		\includegraphics[width=0.7\textwidth] {performance-results-1.pdf}
 		\caption{Predictive performance in RMSE (p.p.) of models across tasks. Different feature sets are shown on the y-axis. Labels show the feature selection method (e.g. NF = no filter, Car = 'Carscore', Info Gain = 'Information Gain', Borda = 'Borda'). The second value of each label shows the RMSE value (p.p.) and the standard error (SE) of the respective setting.}\label{fig:perf-result}
 	\end{center}
 \end{figure}
@@ -654,7 +659,7 @@ In general every learner behaved quite differently for each plot and no overall 
 \begin{figure} [t!]
 	\centering
 	\begin{center}
-		\includegraphics[width=0.48\textwidth] {filter-effect-all-vs-no-filter-1.pdf}
+		\includegraphics[width=0.7\textwidth] {filter-effect-all-vs-no-filter-1.pdf}
 		\caption{Model performances in RMSE across all tasks, split up in facets, when using no filter method (blue dot) compared to any other filter method (red cross) for learners RF, SVM and XGBoost (XG)}\label{fig:filter-effects-no-filter}
 	\end{center}
 \end{figure}
@@ -663,7 +668,7 @@ In general every learner behaved quite differently for each plot and no overall 
 \begin{figure} [t!]
 	\centering
 	\begin{center}
-		\includegraphics[width=0.48\textwidth] {filter-effect-all-vs-borda-filter-1.pdf}
+		\includegraphics[width=0.7\textwidth] {filter-effect-all-vs-borda-filter-1.pdf}
 		\caption{Predictive performances in RMSE (p.p.) when using the Borda filter method (blue dot) compared to any other filter (red cross) for each learner across all tasks.}\label{fig:filter-effects-borda}
 	\end{center}
 \end{figure}
@@ -933,59 +938,59 @@ More training data covering a wider range of defoliation values in a larger numb
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Optional
 \abbreviations{Abbreviations}{
-The following abbreviations are used in this manuscript:\\
+	The following abbreviations are used in this manuscript:\\
 
-\noindent
-\begin{tabular}{@{}ll}
-	AGB & above-ground biomass \\
-	ALE & accumulated local effects \\
-	ALS & airborne laser scanning \\
-	ANN & artificial neural network \\
-	AUROC & area under the receiver operating characteristics curve \\
-	BRT & boosted regression trees \\
-	CART & classification and regression trees \\
-	CNN & convolutional neural networks \\
-	CV & cross-validation \\
-	DAP & digital aerial photogrammetry \\
-	ENM & environmental niche modeling \\
-	FFS & forward feature selection \\
-	FPR & false positive rate \\
-	FS & feature selection \\
-	GAM & generalized additive model \\
-	GBM & gradient boosting machine \\
-	GLM & generalized linear model \\
-	ICGC & Institut Cartografic i Geologic de Catalunya \\
-	IQR & interquartile range \\
-	LiDAR & light detection and ranging \\
-	LOWESS & locally weighted scatter plot smoothing \\
-	MARS & multivariate adaptive regression splines \\
-	MBO & model-based optimization \\
-	MEM & maximum entropy model \\
-	ML & machine learning \\
-	NDII & normalized difference infrared index \\
-	NDMI & normalized difference moisture index \\
-	NIR & near-infrared \\
-	NRI & normalized ratio index \\
-	OLS & ordinary least squares \\
-	OMNBR & optimized multiple narrow-band reflectance \\
-	PCA & principal component analysis \\
-	PDP & partial dependence plots \\
-	PISR & potential incoming solar radiation \\
-	PLS & partial least-squares \\
-	POV & proportion of variance explained \\
-	RBF & radial basis function \\
-	RF & random forest \\
-	RMSE & root mean square error \\
-	RR & ridge regression \\
-	RSS & residual sum of squares \\
-	SAR & synthetic aperture radar \\
-	SDM & species distribution modeling \\
-	SMBO & sequential-based model optimization \\
-	SVM & support vector machine \\
-	TPR & true positive rate \\
-	VI & vegetation index \\
-	XGBoost & extreme gradient boosting
-\end{tabular}}
+	\noindent
+	\begin{tabular}{@{}ll}
+		AGB     & above-ground biomass                                    \\
+		ALE     & accumulated local effects                               \\
+		ALS     & airborne laser scanning                                 \\
+		ANN     & artificial neural network                               \\
+		AUROC   & area under the receiver operating characteristics curve \\
+		BRT     & boosted regression trees                                \\
+		CART    & classification and regression trees                     \\
+		CNN     & convolutional neural networks                           \\
+		CV      & cross-validation                                        \\
+		DAP     & digital aerial photogrammetry                           \\
+		ENM     & environmental niche modeling                            \\
+		FFS     & forward feature selection                               \\
+		FPR     & false positive rate                                     \\
+		FS      & feature selection                                       \\
+		GAM     & generalized additive model                              \\
+		GBM     & gradient boosting machine                               \\
+		GLM     & generalized linear model                                \\
+		ICGC    & Institut Cartografic i Geologic de Catalunya            \\
+		IQR     & interquartile range                                     \\
+		LiDAR   & light detection and ranging                             \\
+		LOWESS  & locally weighted scatter plot smoothing                 \\
+		MARS    & multivariate adaptive regression splines                \\
+		MBO     & model-based optimization                                \\
+		MEM     & maximum entropy model                                   \\
+		ML      & machine learning                                        \\
+		NDII    & normalized difference infrared index                    \\
+		NDMI    & normalized difference moisture index                    \\
+		NIR     & near-infrared                                           \\
+		NRI     & normalized ratio index                                  \\
+		OLS     & ordinary least squares                                  \\
+		OMNBR   & optimized multiple narrow-band reflectance              \\
+		PCA     & principal component analysis                            \\
+		PDP     & partial dependence plots                                \\
+		PISR    & potential incoming solar radiation                      \\
+		PLS     & partial least-squares                                   \\
+		POV     & proportion of variance explained                        \\
+		RBF     & radial basis function                                   \\
+		RF      & random forest                                           \\
+		RMSE    & root mean square error                                  \\
+		RR      & ridge regression                                        \\
+		RSS     & residual sum of squares                                 \\
+		SAR     & synthetic aperture radar                                \\
+		SDM     & species distribution modeling                           \\
+		SMBO    & sequential-based model optimization                     \\
+		SVM     & support vector machine                                  \\
+		TPR     & true positive rate                                      \\
+		VI      & vegetation index                                        \\
+		XGBoost & extreme gradient boosting
+	\end{tabular}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Optional
@@ -993,12 +998,12 @@ The following abbreviations are used in this manuscript:\\
 \appendixtitles{no} % Leave argument "no" if all appendix headings stay EMPTY (then no dot is printed after "Appendix A"). If the appendix sections contain a heading then change the argument to "yes".
 \appendixstart
 \appendix
-\section{}
+\section{Appendices}
 \subsection{}
 
 \begin{figure} [ht]
 	\begin{center}
-		\includegraphics[width=0.48\textwidth] {correlation-filter-nri-1.pdf}
+		\includegraphics[width=0.7\textwidth] {correlation-filter-nri-1.pdf}
 		\caption{Spearman correlations of NRI feature rankings obtained with different filters. Filter names refer to the nomenclature used by the \texttt{mlr} R package. Underscores in names divide the terminology into their upstream R package and the actual filter name.}\label{fig:correlation-filters}
 	\end{center}
 \end{figure}
@@ -1040,151 +1045,152 @@ The following abbreviations are used in this manuscript:\\
 
 \subsection{}
 
-\begingroup\scriptsize
-\setlength\tabcolsep{4pt}  % default value: 6pt
-\begin{table}
-	\caption[t]{List of available vegetation indices in the \texttt{hsdar} package.}
-\begin{xtabular*}{0.3\textwidth}{lll}
-	\bfseries{Name} & \bfseries{Formula}                                                                                  & \bfseries{Reference*}      \\
-	Boochs          & $D_{703}$                                                                                           & \cite{boochs1990}       \\
-	Boochs2         & $D_{720}$                                                                                           & \cite{boochs1990}       \\
-	CAI             & $0.5 \times (R_{2000} + R_{2200}) -R_{2100}$                                                        & \cite{nagler2003}       \\
-	\midrule
-	CARI            & $a = (R_{700}-R_{550}) / 150$                                                                       & \cite{walthall1994}          \\
-	& $b = R_{550}-(a\times 550)$                                                                                         &                                  \\
-	& $\frac{R_{700}\times | (a\times 670+R_{670}+b)}{R_{670}\times(a^2+1)| ^{0.5}}$                                      &                                  \\
-	\midrule
-	Carter          & $R_{695}/R_{420}$                                                                                   & \cite{carter1994}              \\
-	Carter2         & $R_{695}/R_{760}$                                                                                   & \cite{carter1994}              \\
-	Carter3         & $R_{605}/R_{760}$                                                                                   & \cite{carter1994}              \\
-	Carter4         & $R_{710}/R_{760}$                                                                                   & \cite{carter1994}              \\
-	Carter5         & $R_{695}/R_{670}$                                                                                   & \cite{carter1994}              \\
-	Carter6         & $R_{550}$                                                                                           & \cite{carter1994}              \\
-	CI              & $R_{675}\times R_{690}/R_{683}^2$                                                                   & \cite{zarco-tejada2003a} \\
-	CI2             & $R_{760}/R_{700}-1$                                                                                 & \cite{gitelson2003}     \\
-	ClAInt          & $\int_{600 nm}^{735 nm} R$                                                                          & \cite{oppelt2004}   \\
-	CRI1            & $1/R_{515}-1/R_{550}$                                                                               & \cite{gitelson2003}     \\
-	CRI2            & $1/R_{515}-1/R_{770}$                                                                               & \cite{gitelson2003}     \\
-	CRI3            & $1/R_{515}-1/R_{550}\times R_{770}$                                                                 & \cite{gitelson2003}     \\
-	CRI4            & $1/R_{515}-1/R_{700}\times R_{770}$                                                                 & \cite{gitelson2003}     \\
-	D1              & $D_{730}/D_{706}$                                                                                   & \cite{zarco-tejada2003a} \\
-	D2              & $D_{705}/D_{722}$                                                                                   & \cite{zarco-tejada2003a} \\
-	Datt            & $(R_{850}-R_{710})/(R_{850}-R_{680})$                                                               & \cite{datt1999}               \\
-	Datt2           & $R_{850}/R_{710}$                                                                                   & \cite{datt1999}               \\
-	Datt3           & $D_{754}/D_{704}$                                                                                   & \cite{datt1999}               \\
-	Datt4           & $R_{672}/(R_{550} \times R_{708})$                                                                  & \cite{datt1998}                \\
-	Datt5           & $R_{672}/R_{550}$                                                                                   & \cite{datt1998}                \\
-	Datt6           & $(R_{860})/(R_{550}\times R_{708})$                                                                 & \cite{datt1998}                \\
-	Datt7           & $(R_{860} - R_{2218})/(R_{860} - R_{1928})$                                                         & \cite{datt1999a}               \\
-	Datt8           & $(R_{860} - R_{1788})/(R_{860} - R_{1928})$                                                         & \cite{datt1999a}               \\
-	DD              & $(R_{749}-R_{720})-(R_{701}-R_{672})$                                                               & \cite{maire2004}     \\
-	DDn             & $2\times (R_{710}-R_{660}-R_{760})$                                                                 & \cite{lemaire2008}     \\
-	DPI             & $(D_{688}*D_{710})/D_{697}^2$                                                                       & \cite{zarco-tejada2003a} \\
-	DWSI1           & $R_{80}/R_{1660}$                                                                                   & \cite{apan2004}         \\
-	DWSI2           & $R_{1660}/R_{550}$                                                                                  & \cite{apan2004}         \\
-	DWSI3           & $R_{1660}/R_{680}$                                                                                  & \cite{apan2004}         \\
-	DWSI4           & $R_{550}/R_{680}$                                                                                   & \cite{apan2004}         \\
-	DWSI5           & $(R_{800} + R_{550})/(R_{1660} + R_{680})$                                                          & \cite{apan2004}         \\
-	EGFN            & $\frac{(\max(D_{650:750})-\max(D_{500:550}))}{(\max(D_{650:750})+\max(D_{500:550}))}$               & \cite{penuelas1994}     \\
-	EGFR            & $\max(D_{650:750})/\max(D_{500:550})$                                                               & \cite{penuelas1994}     \\
-	EVI             & $\frac{2.5\times ((R_{800}-R_{670}) }{ (R_{800}-(6\times R_{670})-(7.5\times R_{475})+1)}$          & \cite{huete1997a}        \\
-	GDVI            & $(R_{800}^n-R_{680}^n) / (R_{800}^n+R_{680}^n)$**                                                   & \cite{wu2014}                  \\
-	GI              & $R_{554}/R_{677}$                                                                                   & \cite{smith1995}        \\
-	Gitelson        & $1/R_{700}$                                                                                         & \cite{gitelson1999}     \\
-	Gitelson2       & $(R_{750}-R_{800}/R_{695}-R_{740})-1$                                                               & \cite{gitelson2003}   \\
-	GMI1            & $R_{750}/R_{550}$                                                                                   & \cite{gitelson2003}     \\
-	GMI2            & $R_{750}/R_{700}$                                                                                   & \cite{gitelson2003}     \\
-	Green NDVI      & $\frac{R_{800}-R_{550}}{R_{800}+R_{550}}$                                                           & \cite{gitelson1996}     \\
-	LWVI\_1         & $\frac{(R_{1094}-R_{983})}{(R_{1094}+R_{983})}$                                                     & \cite{galvao2005}       \\
-	LWVI\_2         & $\frac{R_{1094}-R_{1205}}{R_{1094}+R_{1205}}$                                                       & \cite{galvao2005}       \\
-	Maccioni        & $\frac{R_{780}-R_{710})}{R_{780}-R_{680}}$                                                          & \cite{maccioni2001}     \\
-	\midrule
-	MCARI           & \parbox{5.5cm}{$((R_{700}-R_{670})-0.2\times (R_{700}-R_{550})) \times (R_{700}/R_{670})$}          & \cite{daughtry2000}     \\
-	\midrule
-	MCARI2          & \parbox{5.5cm}{$((R_{750}-R_{705})-0.2 \times (R_{750}-R_{550})) \times (R_{750}/R_{705})$}         & \cite{wu2008a}           \\
-	\midrule
-	mND705          & $\frac{(R_{750}-R_{705})}{R_{750}+R_{705}-2\times R_{445}}$ & \cite{sims2002a} \\
-	mNDVI           &  $\frac{(R_{800}-R_{680})}{R_{800}+R_{680}-2 \times R_{445}}$ & \cite{sims2002a} \\
-	MPRI            & $\frac{R_{515}-R_{530}}{R_{515}+R_{530}}$                                                           & \cite{hernandez-clemente2011}\\
-	MSAVI           & \parbox{5.5cm}{$0.5 \times ((2\times R_{800}+1)^2-8\times (R_{800}-R_{670}))^{0.5}$}                & \cite{qi1994}\\
-	MSI             & $\frac{R_{1600}}{R_{817}}$                                                                          & \cite{hunt1989}\\
-	mSR             & $\frac{R_{800}-R_{445}}{R_{680}-R_{445}}$                                                           & \cite{sims2002a} \\
-	mSR2            & $\frac{(R_{750}/R_{705})-1}{R_{750}/R_{705}+1)^{0.5}}$                                              & \cite{chen1996}\\
-	mSR705          & $\frac{R_{750}-R_{445}}{R_{705}-R_{445}}$                                                           & \cite{sims2002a} \\
-	MTCI            & $\frac{R_{754}-R_{709}}{R_{709}-R_{681}}$                                                           & \cite{dash2007}\\
-	\midrule
-	MTVI            & \parbox{3.8cm}{$1.2 \times (1.2 \times (R_{800}-R_{550})-2.5 \times (R_{670}-R_{550}))$}            & \cite{haboudane2002}\\
-	\midrule
-	NDLI           & $\frac{log(1/R_{1754}) - log(1/R_{1680})}{log(1/R_{1754}) + log(1/R_{1680})}$                        & \cite{serrano2002} \\
-	NDNI           & $\frac{log(1/R_{1510}) - log(1/R_{1680})}{log(1/R_{1510}) + log(1/R_{1680})}$                        & \cite{serrano2002} \\
-	NDVI           & $\frac{R_{800}-R_{680}}{R_{800}+R_{680}}$                                                            & \cite{tucker1979} \\
-	NDVI2          & $\frac{R_{750}-R_{705}}{R_{750}+R_{705}}$                                                            & \cite{gitelson1994} \\
-	NDVI3          & $\frac{R_{682}-R_{553}}{R_{682}+R_{553}}$                                                            & \cite{guanter2005} \\
-	NDWI           & $\frac{R_{860}-R_{1240}}{R_{860}+R_{1240}}$                                                          & \cite{gao1996} \\
-	NPCI           & $\frac{R_{680}-R_{430}}{R_{680}+R_{430}}$                                                            & \cite{penuelas1994} \\
-	OSAVI          & $\frac{(1+0.16) \times (R_{800}-R_{670})}{R_{800}+R_{670}+0.16 }$                                    & \cite{rondeaux1996} \\
-	OSAVI2         & $\frac{(1+0.16)\times (R_{750}-R_{705})}{R_{750}+R_{705}+0.16) }$                                    & \cite{wu2008a} \\
-	PARS           & $\frac{R_{746}}{R_{513}}$                                                                            & \cite{chappelle1992} \\
-	PRI            & $\frac{R_{531}-R_{570}}{R_{531}+R_{570}}$                                                            & \cite{gamon1992}\\
-	PRI\_norm      & $\frac{PRI \times (-1) }{RDVI\times R_{700}/R_{670}}$                                                & \cite{zarco-tejada2013a}\\
-	PRI*CI2        & $PRI*CI2$                                                                                            & \cite{garrity2011} \\
-	PSRI           & $\frac{R_{678}-R_{500}}{R_{750}}$                                                                    & \cite{merzlyak1999} \\
-	PSSR           & $\frac{R_{800}}{R_{635}}$                                                                            & \cite{blackburn1998} \\
-	PSND           & $\frac{R_{800}-R_{470}}{R_{800}-R_{470})}$                                                           & \cite{blackburn1998} \\
-	PWI            & $\frac{R_{900}}{R_{970}}$                                                                            & \cite{penuelas1997} \\
-	RDVI           & $\frac{R_{800}-R_{670}}{ \sqrt{R_{800}+R_{670}}}$                                                    & \cite{roujean1995} \\
-	\midrule
-	REP\_LE        & \parbox{3.8cm}{Red-edge position through linear extrapolation}                                       & \cite{cho2006} \\
-	\midrule
-	REP\_Li        & $R_{re}=\frac{R_{670}+R_{780})}{2}$                                                                  & \cite{guyot1988} \\
-	& $\frac{700 + 40 \times ((R_{re} -R_{700})}{(R_{740}-R_{700}))}$ & \\
-	\midrule
-	SAVI           & $\frac{(1+L)\times (R_{800}-R_{670})}{(R_{800}+R_{670}+L)}$                                          & \cite{huete1988} \\
-	SIPI           & $\frac{R_{800}-R_{445}}{R_{800}-R_{680}}$                                                            & \cite{penuelasj.1995} \\
-	\midrule
-	SPVI           & \parbox{3.8cm}{$0.4 \times 3.7 \times (R_{800}-R_{670})-1.2 \times ((R_{530}-R_{670})^2)^{0.5}$}     & \cite{vincini2006} \\
-	\midrule
-	SR             & $\frac{R_{800}}{R_{680}}$                                                                            & \cite{jordan1969} \\
-	SR1            & $\frac{R_{750}}{R_{700}}$                                                                            & \cite{gitelson1997}\\
-	SR2            & $\frac{R_{752}}{R_{690}}$                                                                            & \cite{gitelson1997}\\
-	SR3            & $\frac{R_{750}}{R_{550}}$                                                                            & \cite{gitelson1997}\\
-	SR4            & $\frac{R_{700}}{R_{670}}$                                                                            & \cite{mcmurtrey1994} \\
-	SR5            & $\frac{R_{675}}{R_{700}}$                                                                            & \cite{chappelle1992} \\
-	SR6            & $\frac{R_{750}}{R_{710}}$                                                                            & \cite{zarco-tejada1999} \\
-	SR7            & $\frac{R_{440}}{R_{690}}$                                                                            & \cite{lichtenthaler1996} \\
-	SR8            & $\frac{R_{515}}{R_{550}}$                                                                            & \cite{hernandez-clemente2012}\\
-	SRPI           & $\frac{R_{430}}{R_{680}}$                                                                            & \cite{penuelasj.1995}\\
-	SRWI           & $\frac{R_{850}}{R_{1240}}$                                                                           & \cite{zarco-tejada2003a}\\
-	Sum\_Dr1       & $\sum_{i=626}^{795} D1_i$                                                                            & \cite{elvidge1995} \\
-	Sum\_Dr2       & $\sum_{i=680}^{780} D1_i$                                                                            & \cite{filella1994} \\
-	SWIR FI        & $\frac{R_{2133}^2}{R_{2225} \times R_{2209}^3}$                                                      & \cite{levin2007} \\
-	\midrule
-	SWIR LI        & \parbox{3.8cm}{$3.87  \times (R_{2210} - R_{2090}) - 27.51 \times (R_{2280} - R_{2090}) - 0.2$}      & \cite{lobell2001} \\
-	\midrule
-	SWIR SI        & \parbox{3.8cm}{$-41.59 \times (R_{2210} - R_{2090}) + 1.24 \times (R_{2280} - R_{2090}) + 0.64 $}    & \cite{lobell2001} \\
-	\midrule
-	SWIR VI        & \parbox{3.8cm}{$37.72  \times (R_{2210} - R_{2090}) + 6.27 \times (R_{2280} - R_{2090}) + 0.57$}     & \cite{lobell2001} \\
-	\midrule
-	TCARI          & \parbox{3.8cm}{$3*((R_{700}-R_{670})-0.2\times R_{700}-R_{550})\times (R_{700}/R_{670}))$}           & \cite{haboudane2002} \\
-	\midrule
-	TCARI/OSAVI    & TCARI/OSAVI                                                                                          & \cite{haboudane2002} \\
-	\midrule
-	TCARI2         & \parbox{3.8cm}{$3 \times ((R_{750}-R_{705})-0.2 \times (R_{750}-R_{550}) \times (R_{750}/R_{705}))$} & \cite{wu2008a} \\
-	\midrule
-	TCARI2/OSAVI2  & TCARI2/OSAVI2                                                                                        & \cite{wu2008a} \\
-	\midrule
-	TGI            & \parbox{3.8cm}{$-0.5 (190 (R_{670} - R_{550} ) - 120 (R_{670} - R_{480}))$}                          & \cite{hunt2013} \\
-	\midrule
-	TVI            &\parbox{3.8cm}{$0.5\times (120 \times (R_{750}-R_{550})-200 \times (R_{670}-R_{550}))$}               & \cite{broge2001} \\
-	\midrule
-	Vogelmann      & $\frac{R_{740}}{R_{720}}$                                                                            & \cite{vogelmann1993} \\
-	Vogelmann2     & $\frac{R_{734}-R_{747}}{R_{715}+R_{726})}$                                                           & \cite{vogelmann1993} \\
-	Vogelmann3     & $\frac{D_{715}}{D_{705}}$                                                                            & \cite{vogelmann1993} \\
-	Vogelmann4     & $\frac{R_{734}-R_{747}}{R_{715}+R_{720}}$                                                            & \cite{vogelmann1993} \\
-\end{xtabular*}
-\label{tab:vegindices}
-\end{table}
-\endgroup
+% \begingroup\scriptsize
+% \setlength\tabcolsep{4pt}  % default value: 6pt
+% vertical spacing between rows (default is 1)
+{\def\arraystretch{1.7}
+	\tablecaption{List of available vegetation indices in the \texttt{hsdar} package.}
+	\begin{supertabular}{lll}
+		% \begin{supertabular}{0.3\textwidth}{lll}
+		\bfseries{Name} & \bfseries{Formula}                                                                                   & \bfseries{Reference*}         \\
+		Boochs          & $D_{703}$                                                                                            & \cite{boochs1990}             \\
+		Boochs2         & $D_{720}$                                                                                            & \cite{boochs1990}             \\
+		CAI             & $0.5 \times (R_{2000} + R_{2200}) -R_{2100}$                                                         & \cite{nagler2003}             \\
+		\midrule
+		CARI            & $a = (R_{700}-R_{550}) / 150$                                                                        & \cite{walthall1994}           \\
+		& $b = R_{550}-(a\times 550)$                                                                          &                               \\
+		& $\frac{R_{700}\times | (a\times 670+R_{670}+b)}{R_{670}\times(a^2+1)| ^{0.5}}$                       &                               \\
+		\midrule
+		Carter          & $R_{695}/R_{420}$                                                                                    & \cite{carter1994}             \\
+		Carter2         & $R_{695}/R_{760}$                                                                                    & \cite{carter1994}             \\
+		Carter3         & $R_{605}/R_{760}$                                                                                    & \cite{carter1994}             \\
+		Carter4         & $R_{710}/R_{760}$                                                                                    & \cite{carter1994}             \\
+		Carter5         & $R_{695}/R_{670}$                                                                                    & \cite{carter1994}             \\
+		Carter6         & $R_{550}$                                                                                            & \cite{carter1994}             \\
+		CI              & $R_{675}\times R_{690}/R_{683}^2$                                                                    & \cite{zarco-tejada2003a}      \\
+		CI2             & $R_{760}/R_{700}-1$                                                                                  & \cite{gitelson2003}           \\
+		ClAInt          & $\int_{600 nm}^{735 nm} R$                                                                           & \cite{oppelt2004}             \\
+		CRI1            & $1/R_{515}-1/R_{550}$                                                                                & \cite{gitelson2003}           \\
+		CRI2            & $1/R_{515}-1/R_{770}$                                                                                & \cite{gitelson2003}           \\
+		CRI3            & $1/R_{515}-1/R_{550}\times R_{770}$                                                                  & \cite{gitelson2003}           \\
+		CRI4            & $1/R_{515}-1/R_{700}\times R_{770}$                                                                  & \cite{gitelson2003}           \\
+		D1              & $D_{730}/D_{706}$                                                                                    & \cite{zarco-tejada2003a}      \\
+		D2              & $D_{705}/D_{722}$                                                                                    & \cite{zarco-tejada2003a}      \\
+		Datt            & $(R_{850}-R_{710})/(R_{850}-R_{680})$                                                                & \cite{datt1999}               \\
+		Datt2           & $R_{850}/R_{710}$                                                                                    & \cite{datt1999}               \\
+		Datt3           & $D_{754}/D_{704}$                                                                                    & \cite{datt1999}               \\
+		Datt4           & $R_{672}/(R_{550} \times R_{708})$                                                                   & \cite{datt1998}               \\
+		Datt5           & $R_{672}/R_{550}$                                                                                    & \cite{datt1998}               \\
+		Datt6           & $(R_{860})/(R_{550}\times R_{708})$                                                                  & \cite{datt1998}               \\
+		Datt7           & $(R_{860} - R_{2218})/(R_{860} - R_{1928})$                                                          & \cite{datt1999a}              \\
+		Datt8           & $(R_{860} - R_{1788})/(R_{860} - R_{1928})$                                                          & \cite{datt1999a}              \\
+		DD              & $(R_{749}-R_{720})-(R_{701}-R_{672})$                                                                & \cite{maire2004}              \\
+		DDn             & $2\times (R_{710}-R_{660}-R_{760})$                                                                  & \cite{lemaire2008}            \\
+		DPI             & $(D_{688}*D_{710})/D_{697}^2$                                                                        & \cite{zarco-tejada2003a}      \\
+		DWSI1           & $R_{80}/R_{1660}$                                                                                    & \cite{apan2004}               \\
+		DWSI2           & $R_{1660}/R_{550}$                                                                                   & \cite{apan2004}               \\
+		DWSI3           & $R_{1660}/R_{680}$                                                                                   & \cite{apan2004}               \\
+		DWSI4           & $R_{550}/R_{680}$                                                                                    & \cite{apan2004}               \\
+		DWSI5           & $(R_{800} + R_{550})/(R_{1660} + R_{680})$                                                           & \cite{apan2004}               \\
+		EGFN            & $\frac{(\max(D_{650:750})-\max(D_{500:550}))}{(\max(D_{650:750})+\max(D_{500:550}))}$                & \cite{penuelas1994}           \\
+		EGFR            & $\max(D_{650:750})/\max(D_{500:550})$                                                                & \cite{penuelas1994}           \\
+		EVI             & $\frac{2.5\times ((R_{800}-R_{670}) }{ (R_{800}-(6\times R_{670})-(7.5\times R_{475})+1)}$           & \cite{huete1997a}             \\
+		GDVI            & $(R_{800}^n-R_{680}^n) / (R_{800}^n+R_{680}^n)$**                                                    & \cite{wu2014}                 \\
+		GI              & $R_{554}/R_{677}$                                                                                    & \cite{smith1995}              \\
+		Gitelson        & $1/R_{700}$                                                                                          & \cite{gitelson1999}           \\
+		Gitelson2       & $(R_{750}-R_{800}/R_{695}-R_{740})-1$                                                                & \cite{gitelson2003}           \\
+		GMI1            & $R_{750}/R_{550}$                                                                                    & \cite{gitelson2003}           \\
+		GMI2            & $R_{750}/R_{700}$                                                                                    & \cite{gitelson2003}           \\
+		Green NDVI      & $\frac{R_{800}-R_{550}}{R_{800}+R_{550}}$                                                            & \cite{gitelson1996}           \\
+		LWVI\_1         & $\frac{(R_{1094}-R_{983})}{(R_{1094}+R_{983})}$                                                      & \cite{galvao2005}             \\
+		LWVI\_2         & $\frac{R_{1094}-R_{1205}}{R_{1094}+R_{1205}}$                                                        & \cite{galvao2005}             \\
+		Maccioni        & $\frac{R_{780}-R_{710})}{R_{780}-R_{680}}$                                                           & \cite{maccioni2001}           \\
+		\midrule
+		MCARI           & \parbox{5.5cm}{$((R_{700}-R_{670})-0.2\times (R_{700}-R_{550})) \times (R_{700}/R_{670})$}           & \cite{daughtry2000}           \\
+		\midrule
+		MCARI2          & \parbox{5.5cm}{$((R_{750}-R_{705})-0.2 \times (R_{750}-R_{550})) \times (R_{750}/R_{705})$}          & \cite{wu2008a}                \\
+		\midrule
+		mND705          & $\frac{(R_{750}-R_{705})}{R_{750}+R_{705}-2\times R_{445}}$                                          & \cite{sims2002a}              \\
+		mNDVI           & $\frac{(R_{800}-R_{680})}{R_{800}+R_{680}-2 \times R_{445}}$                                         & \cite{sims2002a}              \\
+		MPRI            & $\frac{R_{515}-R_{530}}{R_{515}+R_{530}}$                                                            & \cite{hernandez-clemente2011} \\
+		MSAVI           & \parbox{5.5cm}{$0.5 \times ((2\times R_{800}+1)^2-8\times (R_{800}-R_{670}))^{0.5}$}                 & \cite{qi1994}                 \\
+		MSI             & $\frac{R_{1600}}{R_{817}}$                                                                           & \cite{hunt1989}               \\
+		mSR             & $\frac{R_{800}-R_{445}}{R_{680}-R_{445}}$                                                            & \cite{sims2002a}              \\
+		mSR2            & $\frac{(R_{750}/R_{705})-1}{R_{750}/R_{705}+1)^{0.5}}$                                               & \cite{chen1996}               \\
+		mSR705          & $\frac{R_{750}-R_{445}}{R_{705}-R_{445}}$                                                            & \cite{sims2002a}              \\
+		MTCI            & $\frac{R_{754}-R_{709}}{R_{709}-R_{681}}$                                                            & \cite{dash2007}               \\
+		\midrule
+		MTVI            & \parbox{3.8cm}{$1.2 \times (1.2 \times (R_{800}-R_{550})-2.5 \times (R_{670}-R_{550}))$}             & \cite{haboudane2002}          \\
+		\midrule
+		NDLI            & $\frac{log(1/R_{1754}) - log(1/R_{1680})}{log(1/R_{1754}) + log(1/R_{1680})}$                        & \cite{serrano2002}            \\
+		NDNI            & $\frac{log(1/R_{1510}) - log(1/R_{1680})}{log(1/R_{1510}) + log(1/R_{1680})}$                        & \cite{serrano2002}            \\
+		NDVI            & $\frac{R_{800}-R_{680}}{R_{800}+R_{680}}$                                                            & \cite{tucker1979}             \\
+		NDVI2           & $\frac{R_{750}-R_{705}}{R_{750}+R_{705}}$                                                            & \cite{gitelson1994}           \\
+		NDVI3           & $\frac{R_{682}-R_{553}}{R_{682}+R_{553}}$                                                            & \cite{guanter2005}            \\
+		NDWI            & $\frac{R_{860}-R_{1240}}{R_{860}+R_{1240}}$                                                          & \cite{gao1996}                \\
+		NPCI            & $\frac{R_{680}-R_{430}}{R_{680}+R_{430}}$                                                            & \cite{penuelas1994}           \\
+		OSAVI           & $\frac{(1+0.16) \times (R_{800}-R_{670})}{R_{800}+R_{670}+0.16 }$                                    & \cite{rondeaux1996}           \\
+		OSAVI2          & $\frac{(1+0.16)\times (R_{750}-R_{705})}{R_{750}+R_{705}+0.16) }$                                    & \cite{wu2008a}                \\
+		PARS            & $\frac{R_{746}}{R_{513}}$                                                                            & \cite{chappelle1992}          \\
+		PRI             & $\frac{R_{531}-R_{570}}{R_{531}+R_{570}}$                                                            & \cite{gamon1992}              \\
+		PRI\_norm       & $\frac{PRI \times (-1) }{RDVI\times R_{700}/R_{670}}$                                                & \cite{zarco-tejada2013a}      \\
+		PRI*CI2         & $PRI*CI2$                                                                                            & \cite{garrity2011}            \\
+		PSRI            & $\frac{R_{678}-R_{500}}{R_{750}}$                                                                    & \cite{merzlyak1999}           \\
+		PSSR            & $\frac{R_{800}}{R_{635}}$                                                                            & \cite{blackburn1998}          \\
+		PSND            & $\frac{R_{800}-R_{470}}{R_{800}-R_{470})}$                                                           & \cite{blackburn1998}          \\
+		PWI             & $\frac{R_{900}}{R_{970}}$                                                                            & \cite{penuelas1997}           \\
+		RDVI            & $\frac{R_{800}-R_{670}}{ \sqrt{R_{800}+R_{670}}}$                                                    & \cite{roujean1995}            \\
+		\midrule
+		REP\_LE         & \parbox{3.8cm}{Red-edge position through linear extrapolation}                                       & \cite{cho2006}                \\
+		\midrule
+		REP\_Li         & $R_{re}=\frac{R_{670}+R_{780})}{2}$                                                                  & \cite{guyot1988}              \\
+		& $\frac{700 + 40 \times ((R_{re} -R_{700})}{(R_{740}-R_{700}))}$                                      &                               \\
+		\midrule
+		SAVI            & $\frac{(1+L)\times (R_{800}-R_{670})}{(R_{800}+R_{670}+L)}$                                          & \cite{huete1988}              \\
+		SIPI            & $\frac{R_{800}-R_{445}}{R_{800}-R_{680}}$                                                            & \cite{penuelasj.1995}         \\
+		\midrule
+		SPVI            & \parbox{3.8cm}{$0.4 \times 3.7 \times (R_{800}-R_{670})-1.2 \times ((R_{530}-R_{670})^2)^{0.5}$}     & \cite{vincini2006}            \\
+		\midrule
+		SR              & $\frac{R_{800}}{R_{680}}$                                                                            & \cite{jordan1969}             \\
+		SR1             & $\frac{R_{750}}{R_{700}}$                                                                            & \cite{gitelson1997}           \\
+		SR2             & $\frac{R_{752}}{R_{690}}$                                                                            & \cite{gitelson1997}           \\
+		SR3             & $\frac{R_{750}}{R_{550}}$                                                                            & \cite{gitelson1997}           \\
+		SR4             & $\frac{R_{700}}{R_{670}}$                                                                            & \cite{mcmurtrey1994}          \\
+		SR5             & $\frac{R_{675}}{R_{700}}$                                                                            & \cite{chappelle1992}          \\
+		SR6             & $\frac{R_{750}}{R_{710}}$                                                                            & \cite{zarco-tejada1999}       \\
+		SR7             & $\frac{R_{440}}{R_{690}}$                                                                            & \cite{lichtenthaler1996}      \\
+		SR8             & $\frac{R_{515}}{R_{550}}$                                                                            & \cite{hernandez-clemente2012} \\
+		SRPI            & $\frac{R_{430}}{R_{680}}$                                                                            & \cite{penuelasj.1995}         \\
+		SRWI            & $\frac{R_{850}}{R_{1240}}$                                                                           & \cite{zarco-tejada2003a}      \\
+		Sum\_Dr1        & $\sum_{i=626}^{795} D1_i$                                                                            & \cite{elvidge1995}            \\
+		Sum\_Dr2        & $\sum_{i=680}^{780} D1_i$                                                                            & \cite{filella1994}            \\
+		SWIR FI         & $\frac{R_{2133}^2}{R_{2225} \times R_{2209}^3}$                                                      & \cite{levin2007}              \\
+		\midrule
+		SWIR LI         & \parbox{3.8cm}{$3.87  \times (R_{2210} - R_{2090}) - 27.51 \times (R_{2280} - R_{2090}) - 0.2$}      & \cite{lobell2001}             \\
+		\midrule
+		SWIR SI         & \parbox{3.8cm}{$-41.59 \times (R_{2210} - R_{2090}) + 1.24 \times (R_{2280} - R_{2090}) + 0.64 $}    & \cite{lobell2001}             \\
+		\midrule
+		SWIR VI         & \parbox{3.8cm}{$37.72  \times (R_{2210} - R_{2090}) + 6.27 \times (R_{2280} - R_{2090}) + 0.57$}     & \cite{lobell2001}             \\
+		\midrule
+		TCARI           & \parbox{3.8cm}{$3*((R_{700}-R_{670})-0.2\times R_{700}-R_{550})\times (R_{700}/R_{670}))$}           & \cite{haboudane2002}          \\
+		\midrule
+		TCARI/OSAVI     & TCARI/OSAVI                                                                                          & \cite{haboudane2002}          \\
+		\midrule
+		TCARI2          & \parbox{3.8cm}{$3 \times ((R_{750}-R_{705})-0.2 \times (R_{750}-R_{550}) \times (R_{750}/R_{705}))$} & \cite{wu2008a}                \\
+		\midrule
+		TCARI2/OSAVI2   & TCARI2/OSAVI2                                                                                        & \cite{wu2008a}                \\
+		\midrule
+		TGI             & \parbox{3.8cm}{$-0.5 (190 (R_{670} - R_{550} ) - 120 (R_{670} - R_{480}))$}                          & \cite{hunt2013}               \\
+		\midrule
+		TVI             & \parbox{3.8cm}{$0.5\times (120 \times (R_{750}-R_{550})-200 \times (R_{670}-R_{550}))$}              & \cite{broge2001}              \\
+		\midrule
+		Vogelmann       & $\frac{R_{740}}{R_{720}}$                                                                            & \cite{vogelmann1993}          \\
+		Vogelmann2      & $\frac{R_{734}-R_{747}}{R_{715}+R_{726})}$                                                           & \cite{vogelmann1993}          \\
+		Vogelmann3      & $\frac{D_{715}}{D_{705}}$                                                                            & \cite{vogelmann1993}          \\
+		Vogelmann4      & $\frac{R_{734}-R_{747}}{R_{715}+R_{720}}$                                                            & \cite{vogelmann1993}     \\
+	\end{supertabular}
+	\label{tab:vegindices}
+}
 
 \pagebreak
 
@@ -1247,43 +1253,43 @@ due to the variable meteorological conditions some stands had to be imaged one d
 \bio
 {\raisebox{-0.35cm}{\includegraphics[width=3.5cm,height=5.3cm,clip,keepaspectratio]{pschratz.jpeg}}}
 {\textbf{Patrick Schratz} is a Data Scientist working in Zurich, Switzerland.
-His area of expertise is applied machine learning, more specifically the field of environmental modeling.
-He is a PhD candidate in geographic information science in the Department of Geography at Friedrich Schiller University Jena where he conducts research in environmental modeling.
-At cynkra GmbH in Zurich, Patrick is an R consultant with many years of experience in the following fields: CI/CD, package development, DevOps tasks, machine learning and spatio-temporal data handling.}
+	His area of expertise is applied machine learning, more specifically the field of environmental modeling.
+	He is a PhD candidate in geographic information science in the Department of Geography at Friedrich Schiller University Jena where he conducts research in environmental modeling.
+	At cynkra GmbH in Zurich, Patrick is an R consultant with many years of experience in the following fields: CI/CD, package development, DevOps tasks, machine learning and spatio-temporal data handling.}
 
 \bio
 {\raisebox{-0.35cm}{\includegraphics[width=3.5cm,height=5.3cm,clip,keepaspectratio]{jmuenchow.jpg}}}
 {\textbf{Jannes Muenchow} is a GIScientist working in tropical ecology since 2007 with a special interest in ENSO, biodiversity, species distribution modeling and predictive mapping.
-He received his PhD from Friedrich-Alexander University Erlangen-Nürnberg (Germany) in 2013.
-He joined the business location department of a large consulting company as a geo-data scientist for more than two years until the prediction of a strong El Niño event brought him back to academia in 2016 (Friedrich Schiller University Jena).
-Currently, his research focuses on developing open source tools for ecology, geomorphology and qualitative GIS.
-He is a co-author of the book "Geocomputation with R".}
+	He received his PhD from Friedrich-Alexander University Erlangen-Nürnberg (Germany) in 2013.
+	He joined the business location department of a large consulting company as a geo-data scientist for more than two years until the prediction of a strong El Niño event brought him back to academia in 2016 (Friedrich Schiller University Jena).
+	Currently, his research focuses on developing open source tools for ecology, geomorphology and qualitative GIS.
+	He is a co-author of the book "Geocomputation with R".}
 
 \bio
 {\raisebox{-0.35cm}{\includegraphics[width=3.5cm,height=5.3cm,clip,keepaspectratio]{eiturritxa.jpg}}}
 {\textbf{Eugenia Iturritxa} received the Ecology and Ph.D degree in Plant Protection from the University of the Basque Country in 2001.
-Since 1999 her main research has focused on forest health, on the study of diverse species of native and introduced pathogenic fungi in forests and forest plantations.
-Her research the NEIKER research center includes the distribution of diseases, analysis of predisposing factors for them, genetic and phenotypic studies of populations and their epidemiology.}
+	Since 1999 her main research has focused on forest health, on the study of diverse species of native and introduced pathogenic fungi in forests and forest plantations.
+	Her research the NEIKER research center includes the distribution of diseases, analysis of predisposing factors for them, genetic and phenotypic studies of populations and their epidemiology.}
 
 \bio
 {\raisebox{-0.35cm}{\includegraphics[width=3.5cm,height=5.3cm,clip,keepaspectratio]{jcortes.png}}}
 {\textbf{José Cortés} received his B.S. in Mathematics and M.S. in Statistics from Arizona State University, Arizona, USA, in 2014 and 2016, respectively.
-Currently he is a PhD student at Friedrich Schiller University, Jena, Germany.
-He is a member of the International Max Planck Research School on Global Biogeochemical Cycles (IMPRS-gBGC), a joint program with the Max Planck Institute for Biogeochemistry.
-His research focuses on spatio-temporal trend detection in environmental data.}
+	Currently he is a PhD student at Friedrich Schiller University, Jena, Germany.
+	He is a member of the International Max Planck Research School on Global Biogeochemical Cycles (IMPRS-gBGC), a joint program with the Max Planck Institute for Biogeochemistry.
+	His research focuses on spatio-temporal trend detection in environmental data.}
 
 \bio
 {\raisebox{-0.35cm}{\includegraphics[width=3.5cm,height=5.3cm,clip,keepaspectratio]{bbischl.jpg}}}
 {\textbf{Bernd Bischl} obtained his Ph.D from Dortmund Technical University in 2013.
-He is a professor of Statistical Learning and Data Science in the Department of Statistics at Ludwig-Maximilians-Universität in Munich, Germany, and a director of the Munich Center for Machine Learning.
-His research interests include AutoML, model selection, interpretable ML and XAI.}
+	He is a professor of Statistical Learning and Data Science in the Department of Statistics at Ludwig-Maximilians-Universität in Munich, Germany, and a director of the Munich Center for Machine Learning.
+	His research interests include AutoML, model selection, interpretable ML and XAI.}
 
 \bio
 {\raisebox{-0.35cm}{\includegraphics[width=3.5cm,height=5.3cm,clip,keepaspectratio]{abrenning.jpg}}}
 {\textbf{Alexander Brenning} (Ph.D. 2005) graduated in mathematics at Technical University of Freiberg, Germany, and received his Ph.D. in geography from Humboldt-Universität zu Berlin.
-He served as an assistant professor and tenured associate professor in geomatics at the University of Waterloo, Ontario, Canada from 2007 until 2015, when he was appointed as a full professor in geographic information science at Friedrich Schiller University Jena, Germany.
-Dr. Brenning's research interests include statistical and machine-learning techniques for environmental modeling and remote sensing.
-He has also contributed to open-source geocomputation by developing R packages for spatial cross-validation and GIS coupling.}
+	He served as an assistant professor and tenured associate professor in geomatics at the University of Waterloo, Ontario, Canada from 2007 until 2015, when he was appointed as a full professor in geographic information science at Friedrich Schiller University Jena, Germany.
+	Dr. Brenning's research interests include statistical and machine-learning techniques for environmental modeling and remote sensing.
+	He has also contributed to open-source geocomputation by developing R packages for spatial cross-validation and GIS coupling.}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% for journal Sci
