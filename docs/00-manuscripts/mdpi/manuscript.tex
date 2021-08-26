@@ -471,6 +471,7 @@ The following learners were used in this work:
 	\item  Random Forest (RF)
 	\item  Penalized Regression (L1 (lasso) and L2 (ridge))
 	\item  Support Vector Machine (SVM, RBF Kernel)
+	\item  Featureless learner
 \end{itemize}
 
 RF and SVM are well established algorithms and widely used in (environmental) remote sensing.
@@ -478,6 +479,7 @@ Extreme Gradient Boosting (commonly abbreviated as XGBoost) has shown promising 
 Penalized regression is a statistical modeling technique capable of dealing with highly-correlated covariates by penalizing the coefficients of the model \cite{hastie2001}.
 Common penalties are 'lasso' (L1) and 'ridge' (L2).
 Ridge does not remove variables from the model (penalization to zero) but just shrinks them to effectively zero, keeping them in the model.
+In addition, for a baseline comparison purpose, a featureless learner was included.
 
 In total the benchmarking grid consisted of 156 experiments (6 feature sets $\times$ 3 ML algorithms $\times$ 8 feature-selection methods and for the L1/L2 models, 6 feature sets $\times$ 2 models.
 The selected hyperparameter settings are shown in appendix \autoref{tab:hyperparameter_limits}.
