@@ -103,7 +103,7 @@ df_tab <- df %>%
     Laukiz1 = "1", Laukiz2 = "2",
     Luiando = "3", Oiartzun = "4"
   )) %>%
-  dplyr::select(-Plot) %>% 
+  dplyr::select(-Plot) %>%
   dplyr::mutate(RMSE = round(RMSE, 2))
 
 df_tab %>%
@@ -191,6 +191,8 @@ table2 <- df_perf %>%
   slice(which.min(rmse_aggr)) %>%
   mutate(filter = replace(filter, is.na(filter), "No Filter")) %>%
   arrange(rmse_aggr) %>%
+  # remove Task info for featureless.learner
+  dplyr::mutate(task.id = case_when(learner.id == "regr.featureless" ~ "-", TRUE ~ as.character(task.id))) %>%
   dplyr::rename(
     "Model" = learner_group,
     "Learner ID" = learner.id,
@@ -203,6 +205,7 @@ table2 <- df_perf %>%
   relocate(RMSE, .after = Filter) %>%
   relocate(`SE`, .after = RMSE) %>%
   select(-iter)
+
 
 
 # save as latex table
@@ -285,7 +288,7 @@ DT::datatable(table3)
 
 ```{r performance-results, warning=FALSE, dev = c("png", "pdf"), out.width = "70%"}
 results_aggr <- df_perf %>%
-  filter(learner.id != "regr.featureless") %>% 
+  filter(learner.id != "regr.featureless") %>%
   mutate(filter = replace(filter, is.na(filter), "NF")) %>%
   mutate(learner_group = recode_factor(learner_group, `XG` = "XGBoost")) %>%
   mutate(learner_group = recode_factor(learner_group, `Ridge-MBO` = "Ridge")) %>%
@@ -300,8 +303,8 @@ results_aggr <- df_perf %>%
   slice(which.min(rmse_aggr)) %>% # this groups the CV iters
   ungroup() %>%
   group_by(task.id, learner_group) %>%
-  slice(which.min(rmse_aggr)) %>% 
-  ungroup() %>% 
+  slice(which.min(rmse_aggr)) %>%
+  ungroup() %>%
   mutate(learner_group = fct_reorder(learner_group, .$rmse_aggr, min))
 
 results_aggr %>%
@@ -313,7 +316,6 @@ results_aggr %>%
   # scale_color_nejm(breaks = sort(levels(results_aggr$learner_group))) +
   # scale_color_viridis_d(breaks = sort(levels(results_aggr$learner_group))) +
   scale_color_viridis_d(breaks = results_aggr$learner_group) +
-  
   labs(x = "RMSE", y = "Task", color = "Learner") +
   guides(size = FALSE) +
   scale_x_continuous(limits = c(27, 40), breaks = seq(28, 40, 2)) +
@@ -480,23 +482,25 @@ bmr_inspect_tune <- mergeBenchmarkResults(benchmark_tune_results_hr_nri_vi)
 
 df_tbl <- getBMRTuneResults(bmr_inspect_tune, as.df = TRUE) %>%
   # replace iter IDs by individual fold names
-  dplyr::mutate(iter = as.character(iter)) %>% 
-  dplyr::mutate(iter = case_when(learner.id == "XGBOOST MBO CMIM" & iter == 1 ~ "Luiando",
-                                 learner.id == "XGBOOST MBO CMIM" & iter == 2 ~ "Laukiz1",
-                                 learner.id == "XGBOOST MBO CMIM" & iter == 3 ~ "Oiartzun",
-                                 learner.id == "XGBOOST MBO CMIM" & iter == 4 ~ "Laukiz2",
-                                 
-                                 learner.id == "SVM MBO Relief" & iter == 1 ~ "Laukiz1",
-                                 learner.id == "SVM MBO Relief" & iter == 2 ~ "Oiartzun",
-                                 learner.id == "SVM MBO Relief" & iter == 3 ~ "Luiando",
-                                 learner.id == "SVM MBO Relief" & iter == 4 ~ "Laukiz2",
-                                 
-                                 learner.id == "RF MBO Relief" & iter == 1 ~ "Luiando",
-                                 learner.id == "RF MBO Relief" & iter == 2 ~ "Laukiz2",
-                                 learner.id == "RF MBO Relief" & iter == 3 ~ "Laukiz1",
-                                 learner.id == "RF MBO Relief" & iter == 4 ~ "Oiartzun",
-                                 
-                                 TRUE ~ as.character(iter))) %>% 
+  dplyr::mutate(iter = as.character(iter)) %>%
+  dplyr::mutate(iter = case_when(
+    learner.id == "XGBOOST MBO CMIM" & iter == 1 ~ "Luiando",
+    learner.id == "XGBOOST MBO CMIM" & iter == 2 ~ "Laukiz1",
+    learner.id == "XGBOOST MBO CMIM" & iter == 3 ~ "Oiartzun",
+    learner.id == "XGBOOST MBO CMIM" & iter == 4 ~ "Laukiz2",
+
+    learner.id == "SVM MBO Relief" & iter == 1 ~ "Laukiz1",
+    learner.id == "SVM MBO Relief" & iter == 2 ~ "Oiartzun",
+    learner.id == "SVM MBO Relief" & iter == 3 ~ "Luiando",
+    learner.id == "SVM MBO Relief" & iter == 4 ~ "Laukiz2",
+
+    learner.id == "RF MBO Relief" & iter == 1 ~ "Luiando",
+    learner.id == "RF MBO Relief" & iter == 2 ~ "Laukiz2",
+    learner.id == "RF MBO Relief" & iter == 3 ~ "Laukiz1",
+    learner.id == "RF MBO Relief" & iter == 4 ~ "Oiartzun",
+
+    TRUE ~ as.character(iter)
+  )) %>%
   dplyr::rename(Learner = learner.id) %>%
   dplyr::rename(Plot = iter) %>%
   dplyr::rename(RMSE = rmse.test.mean) %>%
@@ -512,12 +516,12 @@ df_tbl <- getBMRTuneResults(bmr_inspect_tune, as.df = TRUE) %>%
   dplyr::mutate("Features (\\#)" = case_when(
     # numbers here are the respective sums of the training sets (without the mentioned plot acting as the test set)
     `Test Plot` == "Laukiz1" ~ paste0(as.character(ceiling((`Features (\\%)` * 1249) / 100)), "/1249"),
-    `Test Plot` == "Laukiz2" ~ paste0(as.character(ceiling((`Features (\\%)` * 1357) / 100)),"/1357"),
-    `Test Plot` == "Luiando" ~ paste0(as.character(ceiling((`Features (\\%)` * 1507) / 100)),"/1507"),
-    `Test Plot` == "Oiartzun" ~ paste0(as.character(ceiling((`Features (\\%)` * 1311) / 100)),"/1311"),
+    `Test Plot` == "Laukiz2" ~ paste0(as.character(ceiling((`Features (\\%)` * 1357) / 100)), "/1357"),
+    `Test Plot` == "Luiando" ~ paste0(as.character(ceiling((`Features (\\%)` * 1507) / 100)), "/1507"),
+    `Test Plot` == "Oiartzun" ~ paste0(as.character(ceiling((`Features (\\%)` * 1311) / 100)), "/1311"),
   )) %>%
   dplyr::group_by(Learner) %>%
-  dplyr::arrange(Learner, `Test Plot`) %>% 
+  dplyr::arrange(Learner, `Test Plot`) %>%
   dplyr::select(Learner, `Test Plot`, "Features (\\%)", "Features (\\#)")
 
 rle.lengths <- rle(df_tbl[[1]])$lengths
