@@ -9,10 +9,10 @@ navbar:
     href: about.html
   - text: License
     href: license.html
-  - text: Project
-    menu:
-    - text: "Prediction of defoliation at trees"
-      href: report-defoliation.html
+  # - text: Project
+  #   menu:
+  #   - text: "Prediction of defoliation at trees"
+  #     href: report-defoliation.html
   - text: Paper
     menu:
     - text: "Exploratory data analysis"
