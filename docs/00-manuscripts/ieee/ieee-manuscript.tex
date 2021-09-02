@@ -625,8 +625,8 @@ HR features are therefore highly redundant, while the applied feature transforma
 % - RMSE around 27
 % - MBO tuned penalized methods are substantially worse
 Overall, the response variable \enquote{tree defoliation} could be modeled with an \ac{RMSE} of 28 percentage points (p.p.) (\autoref{fig:perf-result}).
-SVM showed almost no differences in RMSE across feature sets whereas other learners (RF, SVM, XGBoost, lasso and ridge) differed up to five p.p (\autoref{fig:perf-result}).
-SVM showed the best overall performance with a mean difference of around three p.p to the next best model (XGBoost) (\autoref{tab:best-learner-perf}).
+SVM showed almost no differences in RMSE across feature sets whereas other learners (RF, SVM, XGBoost, lasso and ridge) differed up to five p.p. (\autoref{fig:perf-result}).
+SVM showed the best overall performance with a mean difference of around three p.p. to the next best model (XGBoost) (\autoref{tab:best-learner-perf}).
 Performance differences between test folds were large: Predicting on Luiando resulted in an RMSE of 9.0 p.p. for learner SVM (without filter) but up to 54.3 p.p. when testing on Laukiz2 (\autoref{tab:svm-single-fold-perf}).
 
 % feature sets
@@ -658,7 +658,7 @@ Effects of filter methods on performance differed greatly between algorithms:
 SVM showed no variation in performance across filters (\autoref{fig:filter-effects-no-filter}).
 Using filters for RF showed a substantial increase in performance for all tasks with the exception of NRI, for which the difference among all filters was also the smallest (\autoref{fig:filter-effects-no-filter}).
 XGBoost showed a high dependency on filtering the data: In two out of six tasks using no filter resulted in the worst or second worst performance.
-XGBoost shows the highest overall differences between filters for a single task: for feature set HR, the range is up to 15 p.p (\enquote{CMIM} vs. \enquote{no filter}) (\autoref{fig:filter-effects-no-filter}).
+XGBoost shows the highest overall differences between filters for a single task: for feature set HR, the range is up to 15 p.p. (\enquote{CMIM} vs. \enquote{no filter}) (\autoref{fig:filter-effects-no-filter}).
 
 % filter vs. no filter
 % - Substantial effect for XGBoost and RF
@@ -731,7 +731,7 @@ In general every learner behaved quite differently for each plot and no overall 
 % - All: Clustering around the red edge (700 - 750 nm)
 % - Overall highest: 1.7 RMSE decrease - not that much
 
-The most important features for datasets HR and VI showed an average decrease in RMSE of 1.06 p.p. (HR, B69) and 1.93 p.p (VI, Vogelmann2) (\autoref{fig:fi-permut-vi-hr}).
+The most important features for datasets HR and VI showed an average decrease in RMSE of 1.06 p.p. (HR, B69) and 1.93 p.p. (VI, Vogelmann2) (\autoref{fig:fi-permut-vi-hr}).
 For dataset HR most features cluster around the infrared region (920 nm - 1000 nm) (six out of ten) while for VI eight out of ten concentrate on the wavelength range of 700 nm - 750 nm (the so called \enquote{red edge}).
 For feature set HR, four features in the infrared region (920 nm - 1000 nm) were identified by the model to be most important (causing a mean decrease in RMSE of around 1 p.p.).
 Overall, most features (excluding the top five respectively) showed only a small importance with average decreases in RMSE below 0.5 p.p..
@@ -765,7 +765,7 @@ These include the timing of the acquisition of the hyperspectral data (late phen
 \subsubsection{Model differences}
 
 An interesting finding is the strength of the SVM algorithm when comparing its predictive performance to its competitors (\autoref{tab:best-learner-perf}).
-These cluster around a performance of 31 p.p while SVM is able to score about three p.p. better than all other methods.
+These cluster around a performance of 31 p.p. while SVM is able to score about three p.p. better than all other methods.
 However, we refrain from comparing these results (both relatively and absolute) to other studies since many study design points have an influence on the final result (optimization strategy, data characteristics, feature selection methods, etc.).
 
 A potential limiting factor in this study could be the upper limit of 70 iterations used for the XGBoost algorithm (hyperparameter \texttt{nrounds}), especially for feature sets including NRIs (\autoref{tab:hyperparameter_limits}).
@@ -776,7 +776,7 @@ It may be recommendable to increase this upper limit to a value closer to the nu
 
 One objective of this study was whether expert-based or data-driven feature engineering has a positive influence on model performance.
 With respect to \autoref{fig:perf-result}, no overall positive or negative trend was found for all models that related to specific feature sets.
-The performance of RF and XGBoost on the VI feature set was around four to six p.p lower than on others.
+The performance of RF and XGBoost on the VI feature set was around four to six p.p. lower than on others.
 One reason could be the lack of coverage in the wavelength area between 810 nm and 1000 nm (\autoref{fig:fi-permut-vi-hr}).
 In addition, for all learners but SVM a better performance was observed when NRI indices were included in the feature set (i.e. NRI-VI, HR-NRI, HR-NRI-VI).
 
@@ -956,7 +956,7 @@ However, assessing the feature importance for highly correlated features remains
 Results might be biased and should be taken with care to avoid overgeneralizing from individual studies.
 
 % What about the general potential of analyzing defol with hyperspectral data?
-Finally, the potential of predicting defoliation with the given study design was rather limited with respect to the average RMSE of 28 p.p scored by the best performing model.
+Finally, the potential of predicting defoliation with the given study design was rather limited with respect to the average RMSE of 28 p.p. scored by the best performing model.
 More training data covering a wider range of defoliation values in a larger number of forest plantations is needed to train better models which can create more robust predictions.
 
 \section{Acknowledgments}
