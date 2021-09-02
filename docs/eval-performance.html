@@ -396,7 +396,7 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-08-24
+<strong>Last updated:</strong> 2021-09-02
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -487,16 +487,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontreed88d4f671feb6b100775ac3b2bdd4d7dde0537c1targetblankd88d4f6a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/d88d4f671feb6b100775ac3b2bdd4d7dde0537c1" target="_blank">d88d4f6</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree28e71ba63ea56cb0e67e1c2fd56b59e96ea02d5ctargetblank28e71baa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/28e71ba63ea56cb0e67e1c2fd56b59e96ea02d5c" target="_blank">28e71ba</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontreed88d4f671feb6b100775ac3b2bdd4d7dde0537c1targetblankd88d4f6a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree28e71ba63ea56cb0e67e1c2fd56b59e96ea02d5ctargetblank28e71baa" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/pat-s/2019-feature-selection/tree/d88d4f671feb6b100775ac3b2bdd4d7dde0537c1" target="_blank">d88d4f6</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/pat-s/2019-feature-selection/tree/28e71ba63ea56cb0e67e1c2fd56b59e96ea02d5c" target="_blank">28e71ba</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -519,9 +519,6 @@ Ignored files:
     Ignored:    renv/staging/
     Ignored:    reviews/
     Ignored:    rosm.cache/
-
-Untracked files:
-    Untracked:  loca_job.R
 
 Unstaged changes:
     Modified:   _drake.R
@@ -563,6 +560,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/28e71ba63ea56cb0e67e1c2fd56b59e96ea02d5c/analysis/eval-performance.Rmd" target="_blank">28e71ba</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2021-09-02
+</td>
+<td>
+wflow_publish(knitr_in(“analysis/eval-performance.Rmd”), view = FALSE,
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pat-s/2019-feature-selection/fc4dcb2a2657b4f5eb4e1a1bef702d500b7925aa/docs/eval-performance.html" target="_blank">fc4dcb2</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2021-08-24
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -2696,7 +2727,7 @@ add eval-performance report
 </div>
 </div>
 <p>Last update:</p>
-<pre><code>[1] &quot;Tue Aug 24 21:42:45 2021&quot;</code></pre>
+<pre><code>[1] &quot;Thu Sep  2 09:34:58 2021&quot;</code></pre>
 <p>Fold performances of “SVM MBO No Filter” on the HR Task</p>
 <ul>
 <li>Fold 1: Laukiz1</li>
@@ -2718,7 +2749,7 @@ add eval-performance report
 <p>*CV: L2 penalized regression using the internal 10-fold CV tuning of the <code>glmnet</code> package</p>
 <p>*MBO: L2 penalized regression using using MBO for hyperparameter optimization.</p>
 <div id="htmlwidget-9c8d53a755fd52490467" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-9c8d53a755fd52490467">{"x":{"filter":"none","data":[["1","2","3","4","5","6"],["HR","NRI","NRI","HR","HR","HR"],["SVM","Lasso-MBO","Ridge-MBO","regr.featureless","RF","XGBoost"],["Relief","No Filter","No Filter","No Filter","Relief","Car"],[28.119,31.165,31.165,31.165,31.246,34.071],[19.123,15.025,15.025,15.025,14.956,13.571]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Task<\/th>\n      <th>Model<\/th>\n      <th>Filter<\/th>\n      <th>RMSE<\/th>\n      <th>SE<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[4,5]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-9c8d53a755fd52490467">{"x":{"filter":"none","data":[["1","2","3","4","5","6"],["HR","NRI","NRI","-","HR","HR"],["SVM","Lasso-MBO","Ridge-MBO","regr.featureless","RF","XGBoost"],["Relief","No Filter","No Filter","No Filter","Relief","Car"],[28.119,31.165,31.165,31.165,31.246,34.071],[19.123,15.025,15.025,15.025,14.956,13.571]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Task<\/th>\n      <th>Model<\/th>\n      <th>Filter<\/th>\n      <th>RMSE<\/th>\n      <th>SE<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[4,5]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="table-t3-all-leanerfiltertask-combinations-ordered-descending-by-performance." class="section level2">
 <h2>(Table) T3 All leaner/filter/task combinations ordered descending by performance.</h2>
