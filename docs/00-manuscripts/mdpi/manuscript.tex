@@ -105,7 +105,7 @@
 \newcommand{\orcidauthorF}{0000-0001-6640-679X} % Add \orcidB{} behind the author's name
 
 % Authors, for the paper (add full first names)
-\Author{Patrick Schratz $^{1}$\orcidA{}*, Jannes Muenchow $^{1}$\orcidB{}, José Cortés $^{1}$\orcidC{}, Eugenia Iturritxa $^{2}$\orcidD{}, Bernd Bischl $^{3}$\orcidE{} and Alexander Brenning $^{1,}$\orcidF{}}
+\Author{Patrick Schratz $^{1}$\orcidA{}*, Jannes Muenchow $^{1}$\orcidB{}, Eugenia Iturritxa $^{2}$\orcidD{}, José Cortés $^{1}$\orcidC{}, Bernd Bischl $^{3}$\orcidE{} and Alexander Brenning $^{1,}$\orcidF{}}
 
 % MDPI internal command: Authors, for metadata in PDF
 \AuthorNames{Firstname Lastname, Firstname Lastname and Firstname Lastname}
@@ -342,15 +342,6 @@ Additional metadata information is available in \autoref{tab:hyperparameter_meta
 	\endgroup\label{tab:hyperparameter_metadata}
 \end{table}
 
-Materials and Methods should be described with sufficient details to allow others to replicate and build on published results. Please note that publication of your manuscript implicates that you must make all materials, data, computer code, and protocols associated with the publication available to readers. Please disclose at the submission stage any restrictions on the availability of materials or information. New methods and protocols should be described in detail while well-established methods can be briefly described and appropriately cited.
-
-Research manuscripts reporting large datasets that are deposited in a publicly avail-able database should specify where the data have been deposited and provide the relevant accession numbers. If the accession numbers have not yet been obtained at the time of submission, please state that they will be provided during review. They must be provided prior to publication.
-
-Interventionary studies involving animals or humans, and other studies require ethical approval must list the authority that provided approval and the corresponding ethical approval code.
-\begin{quote}
-	This is an example of a quote.
-\end{quote}
-
 \subsection{Derivation of indices}
 
 To use the full potential of the hyperspectral data, all possible vegetation indices supported by the R package hsdar (89 in total) as well as all possible \ac{NRI} combinations were calculated.
@@ -479,7 +470,7 @@ Extreme Gradient Boosting (commonly abbreviated as XGBoost) has shown promising 
 Penalized regression is a statistical modeling technique capable of dealing with highly-correlated covariates by penalizing the coefficients of the model \cite{hastie2001}.
 Common penalties are 'lasso' (L1) and 'ridge' (L2).
 Ridge does not remove variables from the model (penalization to zero) but just shrinks them to effectively zero, keeping them in the model.
-In addition, for a baseline comparison purpose, a featureless learner was included.
+A featureless learner was included for a baseline comparison.
 
 In total the benchmarking grid consisted of 156 experiments (6 feature sets $\times$ 3 ML algorithms $\times$ 8 feature-selection methods and for the L1/L2 models, 6 feature sets $\times$ 2 models.
 The selected hyperparameter settings are shown in appendix \autoref{tab:hyperparameter_limits}.
@@ -919,7 +910,7 @@ More training data covering a wider range of defoliation values in a larger numb
 \vspace{6pt}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\authorcontributions{Conceptualization, Patrick Schratz and Alexander Brenning; methodology, Patrick Schratz, José Cortés, Jannes Muenchow and Bernd Bischl; software, Patrick Schratz; validation, Patrick Schratz and Alexander Brenning; formal analysis, Patrick Schratz, Alexander Brenning, José Cortés and Bernd Bischl; investigation, Patrick Schratz; resources, Eugenia Iturritxa and Patrick Schratz; data curation, Patrick Schratz and Eugenia Iturritxa; writing---original draft preparation, Patrick Schratz; writing---review and editing, Patrick Schratz and Alexander Brenning; visualization, Patrick Schratz; supervision, Alexander Brenning and Bernd Bischl; project administration, Alexander Brenning; funding acquisition, Alexander Brenning. All authors have read and agreed to the published version of the manuscript.}
+\authorcontributions{Conceptualization, Patrick Schratz and Alexander Brenning; Data curation, Patrick Schratz and Eugenia Iturritxa; Formal analysis, Patrick Schratz, José Cortés, Bernd Bischl and Alexander Brenning; Funding acquisition, Alexander Brenning; Investigation, Patrick Schratz; Methodology, Patrick Schratz, Jannes Münchow, José Cortés and Bernd Bischl; Project administration, Alexander Brenning; Resources, Eugenia Iturritxa; Software, Patrick Schratz; Supervision, Bernd Bischl and Alexander Brenning; Validation, Patrick Schratz and Alexander Brenning; Visualization, Patrick Schratz; Writing – original draft, Patrick Schratz; Writing – review \& editing, Jannes Münchow, José Cortés and Alexander Brenning.}
 
 \funding{This work was funded by the EU LIFE Healthy Forest project (LIFE14 ENV/ES/000179) and the German Scholars Organization/Carl Zeiss Foundation.}
 
