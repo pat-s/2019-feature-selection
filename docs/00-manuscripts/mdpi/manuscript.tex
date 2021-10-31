@@ -236,13 +236,6 @@ A less known index type which can be derived from spectral information is the \a
 In contrast to most vegetation indices, \ac{NRI}s do not use an expert-based formula following environmental heuristics but instead makes use of a data-driven feature engineering approach by combining (all possible) combinations of spectral bands \cite{thenkabail2000}.
 When working with hyperspectral data, thousands of \ac{NRI} features can be derived this way.
 
-% now that we introduced the importance of remote sensing indices for forest health, explain what is new in this study
-Despite their popularity in environmental modeling, there are no studies so far which used ML algorithms in combination with remote sensing data to analyze defoliation at the tree level.
-This study aims to close this gap by analyzing tree defoliation in northern Spain using airborne hyperspectral data.
-The methodology of this study uses ML methods in combination with feature selection and hyperparameter tuning.
-In addition, feature importance was analyzed.
-Incorporating the idea of creating data-driven \ac{NRI}s, this study also discusses the practical problems of high dimensionality in environmental modeling \cite{trunk1979, xu2016}.
-
 % mention why FS is used / important
 Even though \ac{ML} algorithms are capable of handling highly correlated input variables, model fitting becomes computationally more demanding, and model interpretation more complex.
 Feature selection approaches can help to address this issue, reducing possible noise in the feature space, simplify model interpretability and possibly enhance predictive performance \cite{cai2018}.
@@ -266,6 +259,13 @@ Considering these opportunities and challenges, the research questions of this s
 	\item Which features are most important and how can these be interpreted in an environmental context?
 
 \end{itemize}
+
+% Explain what is new in this study and link to methodology
+Despite their popularity in environmental modeling, there are no studies so far which used ML algorithms in combination with remote sensing data to analyze defoliation at the tree level.
+This study aims to close this gap by analyzing tree defoliation in northern Spain using airborne hyperspectral data.
+The methodology of this study uses ML methods in combination with feature selection and hyperparameter tuning.
+In addition, feature importance was analyzed.
+Incorporating the idea of creating data-driven \ac{NRI}s, this study also discusses the practical problems of high dimensionality in environmental modeling \cite{trunk1979, xu2016}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Materials and Methods}
