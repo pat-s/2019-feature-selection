@@ -158,7 +158,8 @@ table1 %>%
   xtable(
     type = "latex",
     caption = "Best ten results among all learner-task-filter combinations, sorted in decreasing order of RMSE (p.p.) and their respective standard error (SE).",
-    label = "tab:perf-top-10"
+    label = "tab:perf-top-10",
+    digits = 3
   ) %>%
   print(
     file = here("docs/00-manuscripts/mdpi/performance-top-10.tex"),
@@ -213,7 +214,8 @@ table2 %>%
   xtable(
     type = "latex",
     caption = "The overall best individual learner performance across any task and filter method for RF, SVM, XGBoost, Lasso and Ridge, sorted ascending by RMSE (p.p.) including the respective standard error (SE) of the cross-validation run. For \texttt{regr.featureless} the Task is no applicable and was therefore removed.",
-    label = "tab:best-learner-perf"
+    label = "tab:best-learner-perf",
+    digits = 3
   ) %>%
   print(
     file = here("docs/00-manuscripts/mdpi/performance-best-per-learner.tex"),
@@ -265,7 +267,8 @@ table3 %>%
   xtable(
     type = "latex",
     caption = "Worst ten results among all learner-task-filter combinations, sorted in decreasing order of RMSE (p.p.) and their respective standard error (SE).",
-    label = "tab:perf-worst-10"
+    label = "tab:perf-worst-10",
+    digits = 3
   ) %>%
   print(
     file = here("docs/00-manuscripts/mdpi/performance-worst-10.tex"),
