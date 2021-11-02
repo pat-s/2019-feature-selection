@@ -305,18 +305,6 @@ $(document).ready(function () {
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Project
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="report-defoliation.html">Prediction of defoliation at trees</a>
-    </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     Paper
      
     <span class="caret"></span>
@@ -336,17 +324,6 @@ $(document).ready(function () {
     </li>
     <li>
       <a href="spectral-signatures.html">Spectral signatures</a>
-    </li>
-    <li>
-      <a href="response-normality.html">Checking for normality of response</a>
-    </li>
-    <li class="dropdown-submenu">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Side Analysis</a>
-      <ul class="dropdown-menu" role="menu">
-        <li>
-          <a href="inspect-glmnet-models.html">Inspect {glmnet} models</a>
-        </li>
-      </ul>
     </li>
   </ul>
 </li>
@@ -400,7 +377,7 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-04-05
+<strong>Last updated:</strong> 2021-11-02
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -491,16 +468,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree295d8361e286a9a5e3c606b38fcc6e40f3229d01targetblank295d836a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/295d8361e286a9a5e3c606b38fcc6e40f3229d01" target="_blank">295d836</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontreeb2df0fb90662e38faef8063df9e55a5acf213281targetblankb2df0fba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/2019-feature-selection/tree/b2df0fb90662e38faef8063df9e55a5acf213281" target="_blank">b2df0fb</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontree295d8361e286a9a5e3c606b38fcc6e40f3229d01targetblank295d836a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcompats2019featureselectiontreeb2df0fb90662e38faef8063df9e55a5acf213281targetblankb2df0fba" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/pat-s/2019-feature-selection/tree/295d8361e286a9a5e3c606b38fcc6e40f3229d01" target="_blank">295d836</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/pat-s/2019-feature-selection/tree/b2df0fb90662e38faef8063df9e55a5acf213281" target="_blank">b2df0fb</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -512,7 +489,6 @@ Ignored files:
     Ignored:    .Ruserdata/
     Ignored:    .drake/
     Ignored:    .vscode/
-    Ignored:    analysis/figure/
     Ignored:    analysis/rosm.cache/
     Ignored:    data/
     Ignored:    inst/Benchmark for Filter Methods for Feature Selection in High-Dimensional  Classification Data.pdf
@@ -527,8 +503,6 @@ Ignored files:
 
 Unstaged changes:
     Modified:   _drake.R
-    Modified:   code/060-modeling/paper/09-feature-importance.R
-    Modified:   code/070-benchmark-matrix.R
 
 </code></pre>
 <p>
@@ -567,6 +541,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pat-s/2019-feature-selection/6c153bc25e097da1a4696f5f0f40165c08711a25/docs/filter-correlation.html" target="_blank">6c153bc</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2021-04-05
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1173,6 +1164,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/6c153bc25e097da1a4696f5f0f40165c08711a25/docs/figure/filter-correlation.Rmd/filter-correlation-1-1.png" target="_blank">6c153bc</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2021-04-05
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/8b5e42288e529ac965f2a751afbdefaf586b9ff2/docs/figure/filter-correlation.Rmd/filter-correlation-1-1.png" target="_blank">8b5e422</a>
 </td>
 <td>
@@ -1325,6 +1327,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/6c153bc25e097da1a4696f5f0f40165c08711a25/docs/figure/filter-correlation.Rmd/correlation-filter-nri-1.png" target="_blank">6c153bc</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2021-04-05
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/8b5e42288e529ac965f2a751afbdefaf586b9ff2/docs/figure/filter-correlation.Rmd/correlation-filter-nri-1.png" target="_blank">8b5e422</a>
 </td>
 <td>
@@ -1463,6 +1476,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/6c153bc25e097da1a4696f5f0f40165c08711a25/docs/figure/filter-correlation.Rmd/filter-correlation-4-1.png" target="_blank">6c153bc</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2021-04-05
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/8b5e42288e529ac965f2a751afbdefaf586b9ff2/docs/figure/filter-correlation.Rmd/filter-correlation-4-1.png" target="_blank">8b5e422</a>
@@ -1622,6 +1646,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/pat-s/2019-feature-selection/blob/6c153bc25e097da1a4696f5f0f40165c08711a25/docs/figure/filter-correlation.Rmd/correlation-nbins-1.png" target="_blank">6c153bc</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2021-04-05
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/pat-s/2019-feature-selection/blob/8b5e42288e529ac965f2a751afbdefaf586b9ff2/docs/figure/filter-correlation.Rmd/correlation-nbins-1.png" target="_blank">8b5e422</a>
 </td>
 <td>
@@ -1697,24 +1732,24 @@ attached base packages:
 other attached packages:
  [1] fs_1.5.0         glue_1.4.2       purrr_0.3.4      ggcorrplot_0.1.3
  [5] ggplot2_3.3.3    tidyr_1.1.2      dplyr_1.0.4      usethis_2.0.0   
- [9] magrittr_2.0.1   drake_7.13.1    
+ [9] magrittr_2.0.1   drake_7.13.2    
 
 loaded via a namespace (and not attached):
  [1] storr_1.2.5       progress_1.2.2    tidyselect_1.1.0  xfun_0.20        
  [5] reshape2_1.4.4    colorspace_2.0-0  vctrs_0.3.6       generics_0.1.0   
  [9] htmltools_0.5.1.1 yaml_2.2.1        rlang_0.4.10      R.oo_1.24.0      
-[13] pillar_1.4.7      later_1.1.0.1     R.utils_2.10.1    txtq_0.2.3       
-[17] withr_2.4.1       plyr_1.8.6        lifecycle_0.2.0   stringr_1.4.0    
+[13] later_1.1.0.1     pillar_1.4.7      txtq_0.2.3        withr_2.4.1      
+[17] R.utils_2.10.1    plyr_1.8.6        lifecycle_0.2.0   stringr_1.4.0    
 [21] munsell_0.5.0     gtable_0.3.0      workflowr_1.6.2   R.methodsS3_1.8.1
 [25] evaluate_0.14     labeling_0.4.2    knitr_1.31        httpuv_1.5.5     
-[29] parallel_4.0.4    highr_0.8         Rcpp_1.0.6        renv_0.13.0      
+[29] parallel_4.0.4    highr_0.8         Rcpp_1.0.6        renv_0.13.2      
 [33] backports_1.2.1   promises_1.1.1    scales_1.1.1      filelock_1.0.2   
 [37] farver_2.0.3      hms_1.0.0         digest_0.6.27     stringi_1.5.3    
-[41] rprojroot_2.0.2   grid_4.0.4        cli_2.3.0         tools_4.0.4      
+[41] rprojroot_2.0.2   grid_4.0.4        cli_2.4.0         tools_4.0.4      
 [45] base64url_1.4     tibble_3.0.6      crayon_1.4.0      whisker_0.4      
 [49] pkgconfig_2.0.3   ellipsis_0.3.1    data.table_1.13.6 prettyunits_1.1.1
-[53] assertthat_0.2.1  rmarkdown_2.6     rstudioapi_0.13   R6_2.5.0         
-[57] igraph_1.2.6      compiler_4.0.4    git2r_0.28.0     </code></pre>
+[53] rmarkdown_2.6     rstudioapi_0.13   R6_2.5.0          igraph_1.2.6     
+[57] compiler_4.0.4    git2r_0.28.0     </code></pre>
 </div>
 </div>
 </div>
