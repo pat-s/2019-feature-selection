@@ -94,7 +94,7 @@ benchmark_plan <- drake_plan(
       show.info = TRUE,
       measures = list(
         setAggregation(rmse, test.mean),
-        setAggregation(rsq, test.mean),
+        setAggregation(rsq, test.mean)
       )
     ),
     dynamic = cross(learners_keep_models[[1]], task_reduced_cor)
