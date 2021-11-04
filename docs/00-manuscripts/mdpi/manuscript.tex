@@ -492,6 +492,10 @@ Three feature sets were used in this study, each representing a different approa
 The idea of splitting the features into different sets originated from the question whether feature-engineered indices derived from reflectance values have a positive effect on model performance.
 Peña et al. 2017 \cite{pena2017} is an exemplary study which used this approach in a spectro-temporal setting.
 Benchmarking learners on these feature sets while keeping all other variables such as model type, tuning strategy and partitioning method constant makes it possible to draw conclusions on their individual impact.
+Each feature set has distinct capabilities which differentiate them from the others.
+This can have both a positive and negative effect on the resulting performance which is one item this study aims to explore.
+For example, feature set VI misses certain parts of the spectral range as the defined indices only cover parts of such.
+Feature set NRI will introduce highly-correlated features which might cause issues for some algorithms.
 However, rather than only looking at these three groups, also the following combinations of such were taken into account:
 
 \begin{itemize}
