@@ -240,7 +240,7 @@ When working with hyperspectral data, thousands of \ac{NRI} features can be deri
 % mention why FS is used / important
 Even though \ac{ML} algorithms are capable of handling highly correlated input variables, model fitting becomes computationally more demanding, and model interpretation more complex.
 Feature selection approaches can help to address this issue, reducing possible noise in the feature space, simplify model interpretability and possibly enhance predictive performance \cite{cai2018}.
-Instead of using wrapper feature selection methods, this study focuses on the use of (ensemble) filter methods which were directly integrated into the hyperparameter optimization step during model creation.
+Instead of using wrapper feature selection methods, which add a substantial overhead to a nested model optimization approach, especially for datasets with many features, this study focuses on the use of (ensemble) filter methods which can be directly integrated into the hyperparameter optimization step during model creation.
 
 % clarify the focus of this study
 Overall, this study aims to show how high-dimensional datasets can be handled effectively with ML methods while still being able to interpret the fitted models.
@@ -376,7 +376,9 @@ High-dimensional, feature-rich datasets come with several challenges for both mo
 
 To reduce the feature space of a dataset, conceptually differing approaches exist: wrapper methods, filters, penalization methods (lasso and ridge) or \ac{PCA} \cite{bommert2020, das2001, guyon2003, jolliffe2016}.
 In contrast to wrapper methods, filters can be added to the hyperparameter optimization step and have a lower computational footprint.
-Due to the focus on filter methods in this manuscript, only this sub-group of feature selection methods will be introduced in greater detail in the following sections.
+In addition, filters are less known than wrapper methods and in recent years ensemble filters were introduced which have shown promising results compared to single filter algorithms \cite{drotar2017a}.
+These two points mainly led to the decision to focus on filter methods for this work and evaluate their effectiveness on highly-correlated, high-dimensional datasets.
+Due to this focus, only this sub-group of feature selection methods will be introduced in greater detail in the following sections.
 
 \subsubsection{Filter methods}
 
@@ -490,7 +492,7 @@ Three feature sets were used in this study, each representing a different approa
 The idea of splitting the features into different sets originated from the question whether feature-engineered indices derived from reflectance values have a positive effect on model performance.
 Peña et al. 2017 \cite{pena2017} is an exemplary study which used this approach in a spectro-temporal setting.
 Benchmarking learners on these feature sets while keeping all other variables such as model type, tuning strategy and partitioning method constant makes it possible to draw conclusions on their individual impact.
-However, rather than only looking at these three groups also combinations of such were taken into account:
+However, rather than only looking at these three groups, also the following combinations of such were taken into account:
 
 \begin{itemize}
 	\item HR + VI %chktex 13
@@ -500,6 +502,7 @@ However, rather than only looking at these three groups also combinations of suc
 
 Some individual features of such were removed before using the datasets for modelling when being numerically equivalent to another feature based on the pairwise correlation being greater than $1 - 10^{-10}$.
 This preprocessing step reduced the number of covariates to 122 (HR), 86 (VI) and 7467 (NRI).
+
 
 \subsubsection{Hyperparameter Optimization}
 
