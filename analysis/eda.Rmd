@@ -367,11 +367,11 @@ pca_vi / pca_nri / pca_hr *
 Standard scenario (somewhere within the pixel)
 
 ```{r buffer-scenarios-1, echo=FALSE}
-knitr::include_graphics("inst/tree-buffer-vis.png")
+knitr::include_graphics("docs/figure/tree-buffer-vis.png")
 ```
 
 Extreme scenario (at the border of one or multiple pixels)
 
 ```{r buffer-scenarios-2, echo=FALSE}
-knitr::include_graphics("inst/tree-buffer-vis-max.png")
+knitr::include_graphics("docs/figure/tree-buffer-vis-max.png")
 ```
