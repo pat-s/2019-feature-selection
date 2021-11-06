@@ -362,7 +362,7 @@ where \(i\) and \(j\) are the respective band numbers.
 To account for geometric offsets within the hyperspectral data, which were reported to be potentially up to one meter from \ac{ICGC}, a buffer of one meter around the centroid of each tree was used when extracting the reflectance values.
 A pixel was considered to fall into a tree's buffer zone if the centroid of the respective pixel was touched by the buffer.
 The pixel values of such were averaged and formed the final reflectance value of a single tree and were used as the base information to derive all additional feature sets.
-In total, \(\frac{121*122}{2} = 7471\) NRIs were calculated.
+In total, \(\frac{121*122}{2} = 7381\) NRIs were calculated.
 
 \subsection{Feature selection}
 
@@ -505,8 +505,9 @@ However, rather than only looking at these three groups, also the following comb
 \end{itemize}
 
 Some individual features of such were removed before using the datasets for modelling when being numerically equivalent to another feature based on the pairwise correlation being greater than $1 - 10^{-10}$.
-This preprocessing step reduced the number of covariates to 122 (HR), 86 (VI) and 7467 (NRI).
-
+This preprocessing step reduced the number of covariates for feature set VI to 86 (from 89).
+This decision was made to prevent issues for the subsequent tuning, filtering and model fitting steps which might occur when passing features with a pairwise correlation of (almost) one.
+Additional variable selection was solely devoted to the respective feature selection methods in this study.
 
 \subsubsection{Hyperparameter Optimization}
 
