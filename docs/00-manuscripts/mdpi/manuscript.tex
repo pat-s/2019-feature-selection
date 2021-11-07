@@ -170,7 +170,7 @@ Filter methods have the potential to be helpful in high-dimensional situations a
 	\acro{DAP}{digital aerial photogrammetry}
 	\acro{ENM}{environmental niche modeling}
 	\acro{FFS}{forward feature selection}
-	\acro{FPR}{false positive rate}
+	\acro{FPR}{false-positive rate}
 	\acro{FS}{feature selection}
 	\acro{GAM}{generalized additive model}
 	\acro{GBM}{gradient boosting machine}
@@ -178,7 +178,7 @@ Filter methods have the potential to be helpful in high-dimensional situations a
 	\acro{ICGC}{Institut Cartografic i Geologic de Catalunya}
 	\acro{IQR}{interquartile range}
 	\acro{LiDAR}{light detection and ranging}
-	\acro{LOWESS}{locally weighted scatter plot smoothing}
+	\acro{LOWESS}{locally weighted scatterplot smoothing}
 	\acro{MARS}{multivariate adaptive regression splines}
 	\acro{MBO}{model-based optimization}
 	\acro{MEM}{maximum entropy model}
@@ -192,7 +192,7 @@ Filter methods have the potential to be helpful in high-dimensional situations a
 	\acro{PCA}{principal component analysis}
 	\acro{PDP}{partial dependence plots}
 	\acro{PISR}{potential incoming solar radiation}
-	\acro{PLS}{partial least-squares}
+	\acro{PLS}{partial least squares}
 	\acro{POV}{proportion of variance explained}
 	\acro{RBF}{radial basis function}
 	\acro{RF}{random forest}
@@ -201,9 +201,9 @@ Filter methods have the potential to be helpful in high-dimensional situations a
 	\acro{RSS}{residual sum of squares}
 	\acro{SAR}{synthetic aperture radar}
 	\acro{SDM}{species distribution modeling}
-	\acro{SMBO}{sequential-based model optimization}
+	\acro{SMBO}{sequential model-based optimization}
 	\acro{SVM}{support vector machine}
-	\acro{TPR}{true positive rate}
+	\acro{TPR}{true-positive rate}
 	\acro{VI}{vegetation index}
 	\acro{XGBoost}{extreme gradient boosting}
 	\acro{PC}{principal component}
@@ -562,12 +562,12 @@ The filter implementations of the following packages have been used: praznik \ci
 Package mlr \cite{mlr} was used for all modeling related steps.
 drake \cite{drake} was used for structuring the work and reproducibility.
 This study is available as a research compendium on Zenodo (\url{10.5281/zenodo.2635403}).
-Besides the availability of code and manuscript sources, a static webpage is available at (\url{https://pat-s.github.io/2019-feature-selection}), listing more side-analyses that were carried out during the creation of this study.
+Apart from the availability of code and manuscript sources, a static webpage is available at (\url{https://pat-s.github.io/2019-feature-selection}), which includes additional side analyses that were carried out during the creation of this study.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Results}
 
-\subsection{PCA-based variance analysis of feature sets}
+\subsection{Principal component analysis of feature sets}
 
 PCA was used to assess the complexity of the three feature sets.
 Depending on the feature set, 95\% of the variance is explained by two (HR), twelve (VI) and 42 (NRI) \ac{PC}s.
@@ -598,9 +598,9 @@ Datasets containing derived features only (VI, NRI) showed no improvement in per
 % - all MBO penalized methods have no difference across tasks
 SVM combined with the \enquote{Relief} filter achieved the best overall performance (RMSE of 28.09 p.p.) (\autoref{tab:perf-top-10}).
 %L1 penalized regression showed slightly better results in three out of six tasks when being optimized using the package internal 10-fold CV compared to MBO (RMSE of 50 vs 58).
-Regression with ridge (L2) and lasso (L1) penalty showed their best performances on the NRI feature set (\autoref{tab:best-learner-perf}).
-Difference to other feature sets were very small for lasso (below one p.p.) and a bit higher for ridge (between two and five p.p. (VI)).
-XGBoost shows bad performances for some feature sets and fills the ten last places of the ranking (\autoref{tab:perf-worst-10}).
+Regression with ridge (L2) and lasso (L1) penalties showed their best performances on the NRI feature set (\autoref{tab:best-learner-perf}).
+Differences to other feature sets were very small for lasso (below one p.p.) and a bit larger for ridge regression (between two and five p.p.).
+XGBoost showed very poor performances for some feature sets and fills the ten last places of the ranking (\autoref{tab:perf-worst-10}).
 Especially when combined with PCA, the algorithm was not able to achieve adequate performances.
 
 % filters
@@ -609,9 +609,9 @@ Especially when combined with PCA, the algorithm was not able to achieve adequat
 % - no advantage of ensemble borda filter compared to others
 Effects of filter methods on performance differed greatly between algorithms:
 SVM showed no variation in performance across filters (\autoref{fig:filter-effects-no-filter}).
-Using filters for RF showed a substantial increase in performance for all tasks with the exception of NRI, for which the difference among all filters was also the smallest (\autoref{fig:filter-effects-no-filter}).
-XGBoost showed a high dependency on filtering the data: In two out of six tasks using no filter resulted in the worst or second worst performance.
-XGBoost shows the highest overall differences between filters for a single task: for feature set HR, the range is up to 15 p.p. (\enquote{CMIM} vs. \enquote{no filter}) (\autoref{fig:filter-effects-no-filter}).
+The use of filters with RF resulted in a substantial increase in performance in all tasks with the exception of NRI, in which the difference among all filters was also the smallest (\autoref{fig:filter-effects-no-filter}).
+XGBoost's performance depended strongly on feature selection: In two out of six tasks, using no filter resulted in the worst or second worst performance.
+XGBoost showed the highest overall differences between filters for a single task: for feature set HR, the range is up to 15 p.p. (\enquote{CMIM} vs. \enquote{no filter}) (\autoref{fig:filter-effects-no-filter}).
 
 % filter vs. no filter
 % - Substantial effect for XGBoost and RF
@@ -623,15 +623,15 @@ For SVM, all filters and \enquote{no filter} achieved roughly the same performan
 % - most often among the first best filters for each task
 % - never the best
 The Borda filter achieved in only one instance (RF on HR-NRI-VI) the best performance among the used filters (\autoref{fig:filter-effects-borda}).
-For RF and XGBoost it most often ranked within the first 50\% with respect to all filters of a specific task.
+For RF and XGBoost it most often ranked within the better half among all filters of a specific task.
 For XGBoost on the NRI task, the Borda filter scored the second worst performance.
 
 % Selected percentage of features across plots
-Large differences were observed between the numbers of features selected during tuning for the subsequent fitting process across each learner and plot.
-While for RF least features were selected when Luiando or Oiartzun were the test set ($n = 1$), more than 90\% of all features were used for test sets Laukiz1 and Laukiz2 (\autoref{tab:tune-perc-sel-features}).
+The number of features selected based on model tuning strongly varied across learners and plots.
+While for RF, the least features were selected when Luiando or Oiartzun was the test set ($n = 1$), more than 90\% of all features were used for test sets Laukiz1 and Laukiz2 (\autoref{tab:tune-perc-sel-features}).
 RF and SVM used very few features only when Laukiz1 was the test set, (three and one, respectively) whereas this was the plot for which XGBoost used almost all features ($n = 1226$).
-Overall, SVM used the least features across all plots among all learners, with 24\% for test set Laukiz2 being the highest single plot value.
-In general every learner behaved quite differently for each plot and no overall pattern could be observed.
+Overall, SVM used the least features across all plots and among all learners, the single highest fraction being 24\% for test set Laukiz2.
+In general, all learners behaved rather differently on the various plots, and therefore no overall pattern could be identified.
 
 % latex table top 10 absolute performances
 \input{performance-top-10}
@@ -653,7 +653,7 @@ In general every learner behaved quite differently for each plot and no overall 
 	\centering
 	\begin{center}
 		\includegraphics[width=0.7\textwidth] {performance-results-1.pdf}
-		\caption{Predictive performance in RMSE (p.p.) of models across tasks. Different feature sets are shown on the y-axis. Labels show the feature selection method (e.g. NF = no filter, Car = 'Carscore', Info Gain = 'Information Gain', Borda = 'Borda').}\label{fig:perf-result}
+		\caption{Predictive performance in RMSE (p.p.) of models across tasks. Different feature sets are shown on the y-axis. Labels show the feature selection method (e.g., NF = no filter, Car = 'Carscore', Info Gain = 'Information Gain', Borda = 'Borda').}\label{fig:perf-result}
 	\end{center}
 \end{figure}
 
@@ -685,9 +685,9 @@ In general every learner behaved quite differently for each plot and no overall 
 % - Overall highest: 1.7 RMSE decrease - not that much
 
 The most important features for datasets HR and VI showed an average decrease in RMSE of 1.06 p.p. (HR, B69) and 1.93 p.p. (VI, Vogelmann2) (\autoref{fig:fi-permut-vi-hr}).
-For dataset HR most features cluster around the infrared region (920 nm - 1000 nm) (six out of ten) while for VI eight out of ten concentrate on the wavelength range of 700 nm - 750 nm (the so called \enquote{red edge}).
-For feature set HR, four features in the infrared region (920 nm - 1000 nm) were identified by the model to be most important (causing a mean decrease in RMSE of around 1 p.p.).
-Overall, most features (excluding the top five respectively) showed only a small importance with average decreases in RMSE below 0.5 p.p..
+For the HR dataset, most (i.e., six out of ten) relevant features clustered around the infrared region (920 nm - 1000 nm), while for VI, eight out of ten concentrate within the wavelength range of 700 nm - 750 nm (the so called \enquote{red edge}).
+For HR, four features in the infrared region (920 nm - 1000 nm) were identified by the model to be most important, being assciated with a mean decrease in RMSE of around 1 p.p.
+Overall, apart from the top five features, the vast majority of features showed only a small importance with average decreases in RMSE below 0.5 p.p.
 
 % permutation based var imp for datasets HR and VI
 \begin{figure*} [ht!]
