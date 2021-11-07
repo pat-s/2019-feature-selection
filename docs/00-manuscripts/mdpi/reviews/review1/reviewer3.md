@@ -46,7 +46,7 @@ We are aware that some scientists prefer to introduce their methods in the intro
 Thanks for the feedback.
 The understanding of why filter methods are used in this manuscript is important and we are sorry if this was not mentioned clearly enough in the manuscript.
 
-In l.61, which already introduces the use and focus of filter methods, we rephrased to
+In l.61, which already introduces the use and focus of filter methods, we rephrased the text to
 
 "Instead of using wrapper feature selection methods, which add a substantial overhead to a nested model optimization approach, especially for datasets with many features, this study focuses on the use of (ensemble) filter methods which can be directly integrated into the hyperparameter optimization step during model creation."
 
@@ -65,21 +65,21 @@ In the objectives in the Introduction we state
 
 Which is a rephrased version of the question referred to in l.398.
 
-Design:
-Here I would like to flag three significant problems:
+> Design:
+> Here I would like to flag three significant problems:
 
 > Sampling of the hyperspectral data is based on points with 1m buffer (to account for a positioning error), which in practice translates to 4 pixels per tree, in most cases. I would suggest that this means that each tree might be very poorly represented. I assume that these trees have crowns wider than 1 -2 m, and that ~4 m2 (possibly with some spectral information from outside of the tree) might represent only a small fraction of the crown. I recommend revising this approach.
 
 Thanks for asking for clarification on this matter.
-A buffer of 1m always results in four contributing pixels for each tree.
-We've had an intense discussion internally about the correct sizing of a buffer (if at all), and came to the conclusion that using a buffer of 1m is the best compromise.
-Compromise because there will be no perfect solution; either we decide to not account for possible positioning errors which would increase the risk of using a pixel value which is not representing the tree at all (and possibly even bare ground, especially at the corners of the plot) or, by using a too large buffer, average out the actual tree reflectances by including too many surrounding pixels (and again possibly including bare ground).
+A buffer of 1 m radius always results in four contributing pixels for each tree.
+The authors discussed this issue very carefully and came to the conclusion that using a buffer of 1 m is the best compromise between ensuring that the data actually corresponds to the respective tree, and covering the tree's camopy as completely as possible.
+There has to be a trade-off because there will be no perfect solution; either we decide to not account for possible positioning errors which would increase the risk of using a pixel value which is not representing the tree at all (and possibly even bare ground, especially in the corners of the plot) or, by using a too large buffer, average out the actual tree reflectances by including too many surrounding pixels (and again possibly including bare ground).
 
-In our view, a buffer of 1m actually matches crown sizes of most trees quite well (please see the attached images for a better illustration).
-Tree crown sizes depend on the age of the tree and will vary across plots.
+In our view, a buffer of 1 m radius actually matches crown sizes of most trees quite well (please see the attached images for a better illustration).
+Actual tree crown sizes depend on the age of the tree and will vary across plots.
 These sample trees will also be included in the graphical abstract of this work.
-FIXME: add image
-FIXME: add image "tree buffer viz"
+*FIXME: add image*
+*FIXME: add image "tree buffer viz"*
 
 
 > The VI feature set is of completely different nature than HR and NRI, because the VIs only represent some portion of the analysed spectra, which is equivalent to elimination of a lot of features a priori, whereas in the case of the other sets this elimination occurs later.
@@ -87,13 +87,13 @@ FIXME: add image "tree buffer viz"
 Thanks for mentioning this.
 We agree that the VI dataset only covers parts of the spectral region and that this might be a potential disadvantage compared to the other feature sets.
 However, this is also part of the research question of this work, whether the different feature sets will show substantial differences, with the advantages and disadvantages of each taken into account.
-This is already briefly mentioned in section 4.4 in the discussion, however we also think its worth highlighting this more when introducing the feature sets.
+This is already briefly mentioned in section 4.4 in the discussion, however we also think it is worth highlighting this more explicitly when introducing the feature sets.
 We have added the following note to section 2.4.2 in the manuscript:
 
-"Each feature set has distinct capabilities which differentiate them from the others.
-This can have both a positive and negative effect on the resulting performance which is one item this study aims to explore.
-For example, feature set VI misses certain parts of the spectral range as the defined indices only cover parts of such.
-Feature set NRI will introduce highly-correlated features which might cause issues for some algorithms."
+"Each feature set has distinct capabilities which differentiates it from the others.
+This can have both a positive and negative effect on the resulting performance which is one issue this study aims to explore.
+For example, feature set VI misses certain parts of the spectral range as the chosen indices only use specific spectral bands.
+Feature set NRI will introduce highly correlated features, for which some algorithms may be more suitable than others."
 
 > Moreover it is not clear how many VIs were used, as it is only mentioned that the 400-1000 nm allowed to calculate only some of them.
 
@@ -104,11 +104,11 @@ This is already mentioned in l.126 in which we state
 > Computational requirements are not included in the comparison of variants, while constraints in this regards seem to have affected the results, as it was decided that 70 iterations for the XGBoost will be executed.
 
 Thanks for asking about computational resources.
-Computational requirements for executing code-driven studies always depend on the hardware resources at hand.
-These always differ (in CPU speed, cores and memory) and hence there is usually not much added value in describing this matter in greater detail.
+Computational requirements for executing computational studies always depend on the hardware resources at hand.
+These will always vary (in CPU time, cores and memory) and hence there is usually not much added value in describing this matter in greater detail.
 In our case, the analysis was run in parallel on a High-Performance Cluster with 6 nodes.
 There are different resources per node (from 32 cores, 128 GB to 48 cores, 256 GB).
-The runtime to execute all 156 settings was some days, however the resources of the cluster were shared with other scientists and the actual runtime at full capacity is therefore hard to estimate.
+The runtime to execute all 156 settings was several days, however the resources of the cluster were shared with other scientists and the actual runtime at full capacity is therefore hard to estimate.
 
 There were no restrictions with respect to runtime for the model optimization.
 One always needs to decide on tuning set ranges before optimizing and we ensured that our boundaries were not set in a way that the models are limited by these, i.e. in this particular case we have seen the hyperparameter `nrounds` to level off at earlier values and there was no justification to increase the right border of this hyperparameter.
@@ -120,9 +120,11 @@ However, algorithms always rely on a combination of hyperparameters and their op
 Thanks for requesting details for this part.
 During the inspection of this part we found an issue in the code which did not remove the four corrupted bands for the index calculation of the NRI and VI feature sets.
 Fixing this and re-running the benchmark lead to small changes in the performance of the benchmark combinations including these feature sets which we updated in the manuscript.
-We apologize for this mistake on our sight.
+We apologize for this mistake on our side.
 
-We have also clarified that only some VI indices were removed by the pairwise correlation check and why we choose this limit:
+*FIXME: The above statement is not a response to the reviewer's question. I'd mention the computations that you have re-run in the very general response to the editor since it will be obvious that some numbers have changed, if you look at the tables.*
+
+We have also clarified that only very few VIs were removed by the pairwise correlation check and why we choose this limit:
 
 "This preprocessing step reduced the number of covariates for feature set VI to 86 (from 89).
 This decision was made to prevent issues for the subsequent tuning, filtering and model fitting steps which might occur when passing features with a pairwise correlation of (almost) one.
@@ -131,15 +133,15 @@ Additional variable selection was solely devoted to the respective feature selec
 > Table 3. Please revise the results. RMSE and SE values are the same everywhere. Line 320 cites different RMSE value than what is in the table.
 
 Thanks for taking a close look on the results.
-In fact, the results for the best ten models are equal when rounding to the second digit.
-We've increased the table to use three digits now to showcase the small differences.
+In fact, the results for the best ten models are equal when rounding to two decimal places.
+We've increased the table to use three decimal places now to showcase the small differences.
 The wrong value in l.320 is an oversight on our side for which we apologize.
 We have corrected the value.
 
 > Figure 3. SE values not presented, but mentioned in the caption. Were RMSE the same for all SVM cases?
 
 Thanks for checking Figure 3 in detail.
-In fact, when rounding to two digits, results for SVM were identical for certain feature sets and learners.
+In fact, when rounding to two decimal places, results for SVM were identical for certain feature sets and learners.
 We have also increased the number of digits to three to highlight small differences here.
 With respect to the missing SE values: these were available in the plot in a previous version of the figure, however we decided to remove the information again as it made the figure overloaded in our view.
 We now removed the reference in the caption as well, thanks for catching this!
