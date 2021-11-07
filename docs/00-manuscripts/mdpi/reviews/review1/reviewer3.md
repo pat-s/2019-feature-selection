@@ -7,20 +7,29 @@ Are the methods adequately described? 							 (x)	( )	( )	( )
 Are the results clearly presented? 							 ( )	( )	(x)	( )
 Are the conclusions supported by the results? 						 (x)	( )	( )	( )
 
-This manuscript deals with analysis of hyper-spectral imagery with the aim to predict tree defoliation. It is not a typical research paper – it resembles more a technical/methodological document. As the authors state: “This study aims to show how high-dimensional datasets can be handled effectively with ML methods while still being able to interpret the fitted models”. This is a typical challenge for a researcher who applies ML, successfully resolved many times over. Therefore, the level of originality is low and inflated in places (NRI, line 49, is not a “less known index type”). Nevertheless the manuscript contains a significant amount of worthy material, despite suffering from being based on a relatively poor dataset. I would like to suggest that after a major revision the manuscript could be published in Remote Sensing.
+> This manuscript deals with analysis of hyper-spectral imagery with the aim to predict tree defoliation. It is not a typical research paper – it resembles more a technical/methodological document. As the authors state: “This study aims to show how high-dimensional datasets can be handled effectively with ML methods while still being able to interpret the fitted models”. This is a typical challenge for a researcher who applies ML, successfully resolved many times over. Therefore, the level of originality is low and inflated in places (NRI, line 49, is not a “less known index type”). Nevertheless the manuscript contains a significant amount of worthy material, despite suffering from being based on a relatively poor dataset. I would like to suggest that after a major revision the manuscript could be published in Remote Sensing.
 
-Title
+*FIXME: Add general 'big-picture' response*
+
+> Title
 
 > I find the title misleading, as the paper compares more variants to the ML application than just feature selection. Perhaps the sentence from Methods “The development of robust methods which enable an unbiased estimation of feature importance for highly correlated variables are subject to current research” is good clue about what the authors are after, and in such case it is placed in a wrong place.
 
 Thanks for the feedback.
 The main focus of the methodology is the comparison of different filter methods (including the ensemble filter method "Borda").
 Filters are a sub-category of feature selection methods.
-We believe that the title describes the study quite accurately in our view as we compare model performances of multiple high-dimensional feature sets without feature selection ("no filter") against various feature selection methods (filters, PCA, regularization).
-In contrast, the new proposed title would leave readers without an idea what the article is researching about and would solely focus on a interpretation of the results rather than describing the research design/research questions of the study.
-We came up with a new title based on your feedback which is as follows:
+We included several ML techniques in order to be able to determine whether the superiority of specific filter techniques - or lack of superiority - is valid across a wide range of ML models or specific to some types.
+The original title reflects this perspective, and that the manuscript's storyline is aligned with this focus as well.
+The issue of model interpretability is certainly an important discussion item, which is why it was addressed in the Discussion section; however, overall the paper focuses on measuring performance improvements, which is reflected by the title as well as the clear focus of the Results section on performance measures.
+We therefore prefer not to change the title.
 
+*FIXME: I wouldn't really want to change the title, and I think this justificaiton is OK. I also diasgree that a sentence or two somewhere deep down in the Discussion reveals what this paper is really about... Are you OK with contradicting the reviewer??*
+
+<!--
 "Monitoring forest health using hyperspectral imagery: Benchmarking machine learning models using filter-based feature selection on highly-correlated datasets."
+-->
+
+*FIXME: '...which is subject to current research' I think it would be appropriate to cite my arxiv preprint on interpretable ML in high-dimensional situations... <https://arxiv.org/abs/2104.04295>
 
 > Introduction is short in comparison to Methods and Discussion. The latter section seems to contain some paragraphs which point out to important relevant research and which would be better placed in the Introduction. Some parts of the Methods contain general remarks that seem to be also suited better for Introduction (such as the Filter Methods section).
 
