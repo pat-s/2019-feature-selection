@@ -9,7 +9,7 @@ Are the results clearly presented? ( )	(x)	( )	( )
 Are the conclusions supported by the results? ( )	( )	(x)	( )
 ```
 
-Establishing a quantitative linkage between defoliation and hyperspectral reflectance is useful in the monitor of forest health.
+> Establishing a quantitative linkage between defoliation and hyperspectral reflectance is useful in the monitor of forest health.
 Due to the highly correlated, feature-rich characteristics of hyperspectral data, feature selection has become a common procedure.
 However, given a real scenario, how to select a proper feature selection method is still an opening problem.
 This study empirically studied the effectiveness of six typical filter-based feature selection methods in the context of tree defoliation estimation using airborne hyperspectral data.
@@ -23,14 +23,18 @@ As mentioned in the "Methods" section, 89 vegetation indices were used in this s
 Listing all of these in a table within the manuscript body would mean to include a multi-page table which would break the reading flow of the manuscript.
 Hence we decided that placing the table in the appendix is probably the most concise way to include the information.
 
+*FIXME: The reviewer made a general comment concerning length and focus of the paper; lines 521-526 were just an example. Therefore a general response is needed, and possible additional changes to reduce length, possibly removing text that might distract the reader from the main topic of the paper.*
+
 > (2）The authors concluded that no clear pattern is found in terms of the behavior of the selected feature selection techniques in the experiments. The conclusion makes the contribution of the work a bit weak. The experimental results may be further analyzed from a positive perspective for the benefit of practical use of the feature selection methods.
 
 Thank you for the feedback.
 As often in science, results do not always present a clear and easy pattern which can be communicated in a definitive way.
 More often instead, results show a fuzzy picture which should also be communicated this way.
-We believe that there are more metrics to grade an article than only the subjective "success" of the results as this could potentially lead to a success biased view.
+Nevertheless, we are firmly convinced that the scientific community also needs to learn about research outcomes that are not exactly as expected, as this is necessary for scientific progress and avoids the well-known file drawer effect concerning unpublished research outcomes.
+On the upside, the absence of strong and unversal differences among feature selection techniques allows modelers to choose a methods based on criteria other than performance, such as, for example, computational efficiency, as pointed out in the Discussion.
+*FIXME: Regarding this last point, please check / ensure that this or a similar statement is included in the Discussion and/or Conclusion section.*
 
-With respect to positive practical recommendations of this study, we would like to highlight some already existing points throughout the discussion (l.421 - l.426, l.443 - l.455) as well as in the Methods section, e.g. when explaining why and how filters can be used instead of wrapper methods for feature selection. (section 2.3.1.) or why model-based optimization might be superior to similar methods such as random search (section 2.4.3).
+With respect to positive practical recommendations of this study, we would like to highlight some already existing points throughout the discussion (l.421 - l.426, l.443 - l.455) as well as in the Methods section, e.g. when explaining why and how filters can be used instead of wrapper methods for feature selection (section 2.3.1.), or why model-based optimization might be superior to simpler methods such as random search (section 2.4.3).
 Also we mentioned the ease of integration filter methods into the optimization step and avoiding another dedicated feature selection layer on top, which comes with additional computational overhead (l.442).
 
 > (3) The authors need to check the typo errors in the manuscript on the whole.  For example, in line 320, 28.09 p.p. can not be found in table 3 and RMSE in Table 3 may be wrongly placed.
@@ -41,4 +45,4 @@ The value itself (28.09) was in fact a typo as it should have been 28.12.
 We have corrected this in the manuscript and apologize for the oversight.
 As part of including feedback from other reviewers we also decided to use three digits instead of two for this table to better reflect differences between the model results.
 
-FIXME: maybe include more changes for this reviewer? Which?
+*FIXME: maybe include more changes for this reviewer? Which?*
