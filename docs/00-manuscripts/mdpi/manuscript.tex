@@ -117,7 +117,7 @@
 \address{%
 $^{1}$ \quad Friedrich Schiller University Jena, Department of Geography, GIScience group, Germany\\
 $^{2}$ \quad NEIKER Tecnalia, Spain\\
-$^{3}$ \quad Ludwig-Maximilians-University Munich, Department of Statistics, Computational Statistics group, Germany
+$^{3}$ \quad Ludwig-Maximilians-Universität München, Department of Statistics, Computational Statistics group, Germany
 }
 
 % Contact information of the corresponding author
@@ -131,12 +131,12 @@ $^{3}$ \quad Ludwig-Maximilians-University Munich, Department of Statistics, Com
 %\simplesumm{} % Simple summary
 
 % Abstract (Do not insert blank lines, i.e. \\)
-\abstract{This study analyzed highly-correlated, feature-rich datasets from hyperspectral remote sensing data using multiple machine and statistical-learning methods.
-The effect of filter-based feature-selection methods on predictive performance was compared.
+\abstract{This study analyzed highly correlated, feature-rich datasets from hyperspectral remote sensing data using multiple statistical and machine-learning methods.
+The effect of filter-based feature selection methods on predictive performance was compared.
 Also, the effect of multiple expert-based and data-driven feature sets, derived from the reflectance data, was investigated.
-Defoliation of trees (\%), derived from in-situ measurements in fall 2016, was modeled as a function of reflectance.
+Defoliation of trees (\%), derived from in-situ measurements from fall 2016, was modeled as a function of reflectance.
 Variable importance was assessed using permutation-based feature importance.
-Overall support vector machine (SVM) outperformed other algorithms such as random forest (RF), extreme gradient boosting (XGBoost), lasso (L1) and ridge (L2) regression by at least three percentage points.
+Overall, the support vector machine (SVM) outperformed other algorithms such as random forest (RF), extreme gradient boosting (XGBoost), lasso (L1) and ridge (L2) regression by at least three percentage points.
 The combination of certain feature sets showed small increases in predictive performance while no substantial differences between individual feature sets were observed.
 For some combinations of learners and feature sets, filter methods achieved better predictive performances than using no feature selection.
 Ensemble filters did not have a substantial impact on performance.
@@ -463,40 +463,40 @@ The following learners were used in this work:
 \begin{itemize}
 	\item  Extreme Gradient Boosting (XGBoost)
 	\item  Random Forest (RF)
-	\item  Penalized Regression (L1 (lasso) and L2 (ridge))
-	\item  Support Vector Machine (SVM, RBF Kernel)
+	\item  Penalized Regression (with L1 / lasso and L2 / ridge penalties)
+	\item  Support Vector Machine (SVM, radial basis function Kernel)
 	\item  Featureless learner
 \end{itemize}
 
-RF and SVM are well established algorithms and widely used in (environmental) remote sensing.
-Extreme Gradient Boosting (commonly abbreviated as XGBoost) has shown promising results in benchmark studies in recent years.
+RF and SVM are well-established algorithms and widely used in (environmental) remote sensing.
+Extreme Gradient Boosting (commonly abbreviated as XGBoost) has shown promising results in benchmarking studies in recent years.
 Penalized regression is a statistical modeling technique capable of dealing with highly-correlated covariates by penalizing the coefficients of the model \cite{hastie2001}.
 Common penalties are 'lasso' (L1) and 'ridge' (L2).
-Ridge does not remove variables from the model (penalization to zero) but just shrinks them to effectively zero, keeping them in the model.
+Ridge regression does not remove variables from the model (penalization to zero) but it just shrinks them towards zero, keeping them in the model.
 A featureless learner was included for a baseline comparison.
 
-In total the benchmarking grid consisted of 156 experiments (6 feature sets $\times$ 3 ML algorithms $\times$ 8 feature-selection methods and for the L1/L2 models, 6 feature sets $\times$ 2 models.
+In total, the benchmarking grid consisted of 156 experiments (6 feature sets $\times$ 3 ML algorithms $\times$ 8 feature-selection methods and for the L1/L2 models, 6 feature sets $\times$ 2 models.
 The selected hyperparameter settings are shown in appendix \autoref{tab:hyperparameter_limits}.
-In addition code and data are available in the research compendium of this study (\url{https://doi.org/10.5281/zenodo.2635403}) to support open and reproducible science.
+All code and data are included in the research compendium of this study (\url{https://doi.org/10.5281/zenodo.2635403}).
 
 \subsubsection{Feature sets}
 
 Three feature sets were used in this study, each representing a different approach to feature engineering:
 
 \begin{itemize}
-	\item The raw hyperspectral band information (HR): no feature engineering) %chktex 13
-	\item Vegetation Indices (\ac{VI}s): expert-based feature engineering)
-	\item Normalized Ratio Indices (\ac{NRI}s): data-driven feature engineering)
+	\item The raw hyperspectral band information (HR): no feature engineering %chktex 13
+	\item Vegetation Indices (\ac{VI}s): expert-based feature engineering
+	\item Normalized Ratio Indices (\ac{NRI}s): data-driven feature engineering
 \end{itemize}
 
 The idea of splitting the features into different sets originated from the question whether feature-engineered indices derived from reflectance values have a positive effect on model performance.
 Peña et al. 2017 \cite{pena2017} is an exemplary study which used this approach in a spectro-temporal setting.
 Benchmarking learners on these feature sets while keeping all other variables such as model type, tuning strategy and partitioning method constant makes it possible to draw conclusions on their individual impact.
-Each feature set has distinct capabilities which differentiate them from the others.
-This can have both a positive and negative effect on the resulting performance which is one item this study aims to explore.
-For example, feature set VI misses certain parts of the spectral range as the defined indices only cover parts of such.
-Feature set NRI will introduce highly-correlated features which might cause issues for some algorithms.
-However, rather than only looking at these three groups, also the following combinations of such were taken into account:
+Each feature set has distinct capabilities that differentiate it from the others.
+This can have both a positive and negative effect on the resulting performance, which is one item this study aims to explore.
+For example, feature set VI misses certain parts of the spectral range as the chosen indices only use specific spectral bands.
+Feature set NRI will introduce highly-correlated features, for which some algorithms may be more suitable than others.
+In addition to these feature sets, the following combinations of feature sets were also compared:
 
 \begin{itemize}
 	\item HR + VI %chktex 13
@@ -504,16 +504,16 @@ However, rather than only looking at these three groups, also the following comb
 	\item HR + VI + NRI
 \end{itemize}
 
-Some individual features of such were removed before using the datasets for modelling when being numerically equivalent to another feature based on the pairwise correlation being greater than $1 - 10^{-10}$.
+Some individual features were removed before using the datasets for modelling when being numerically equivalent to another feature based on the pairwise correlation being greater than $1 - 10^{-10}$.
 This preprocessing step reduced the number of covariates for feature set VI to 86 (from 89).
 This decision was made to prevent issues for the subsequent tuning, filtering and model fitting steps which might occur when passing features with a pairwise correlation of (almost) one.
-Additional variable selection was solely devoted to the respective feature selection methods in this study.
+Additional variable selection was solely devoted to the respective feature selection methods in this study. <!-- FIXME: I don't understand this sentence. -->
 
 \subsubsection{Hyperparameter Optimization}
 
 Hyperparameters were tuned using \ac{MBO} within a nested spatial \ac{CV} \cite{mlrmbo, binder2020, schratz2019}.
-In MBO first \textit{n} randomly chosen hyperparameter settings out of a user defined search space are composed.
-After these \textit{n} settings have been evaluated, one new setting, which is going to be evaluated next, is proposed by a fitted surrogate model (by default a kriging method).
+In MBO, first \textit{n} hyperparameter settings are randomly chosen from a user-defined search space.
+After these \textit{n} settings have been evaluated, one new setting, which is going to be evaluated next, is proposed by a fitted surrogate model (by default, a kriging method).
 This strategy continues until a termination criterion, defined by the user, is reached \cite{hutter2011, jones1998}.
 
 In this work, an initial design of 30 randomly composed hyperparameter settings in combination with a termination criterion of 70 iterations was used, resulting in a total budget of 100 evaluated hyperparameter settings per fold.
