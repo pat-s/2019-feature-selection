@@ -27,14 +27,23 @@ Defoliation is an important part of this manuscript and we've reviewed our intro
 "Defoliation" was already six times mentioned in the introduction section.
 Nevertheless, we have added more context to why defoliation can be a promising proxy for tree health in l.33 - l43.
 We hope that overall the provided information will now suffice to introduce the topic of defoliation to the reader.
-Please note that besides analyzing tree defoliation there is a strong focus on methodology in this work, which is why defoliation has been introduced in a brief way compared to tree defoliation studies found in forest ecology journals.
+Please note that besides analyzing tree defoliation there is a strong focus on methodology in this work, which is why defoliation has been introduced only briefly compared to tree defoliation studies found in forest ecology journals.
 
 > Lines 55-57, there are many studies using ML and hyperspectral data to assess defoliation. It seems that the authors didn't do any literature review on this topic?
 
 Thanks for sharing your expertise with us.
-We conducted a literature research on this topic as otherwise we would not have stated this fact.
+We reviewed the literature on this topic as otherwise we would not have stated this fact.
 However, it is always possible to miss certain publications along the way.
 If you are aware of specific studies which we have missed, we would be grateful for direct links to such so we can review these and possible include them in the manuscript.
+
+*FIXME: I did a quick google search and found the following manuscript that seem to be related to this work. Please take a closer look and do another search. Don't ask the reviewer questions because that means that you are looking for an opportunity to do a second round of revisions! I hope this round will do, if the reviewer comments are addressed carefully!*
+
+<https://www.mdpi.com/2072-4292/12/22/3828/pdf>
+
+<https://forestecosyst.springeropen.com/articles/10.1186/s40663-021-00328-6>
+
+<https://ieeexplore.ieee.org/document/6927931>
+
 
 > Lines 58-62 should be moved to the end of the introduction where you briefly introduce the overall methodology of your study.
 
