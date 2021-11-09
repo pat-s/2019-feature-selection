@@ -9,7 +9,23 @@ Are the conclusions supported by the results? 						 (x)	( )	( )	( )
 
 > This manuscript deals with analysis of hyper-spectral imagery with the aim to predict tree defoliation. It is not a typical research paper – it resembles more a technical/methodological document. As the authors state: “This study aims to show how high-dimensional datasets can be handled effectively with ML methods while still being able to interpret the fitted models”. This is a typical challenge for a researcher who applies ML, successfully resolved many times over. Therefore, the level of originality is low and inflated in places (NRI, line 49, is not a “less known index type”). Nevertheless the manuscript contains a significant amount of worthy material, despite suffering from being based on a relatively poor dataset. I would like to suggest that after a major revision the manuscript could be published in Remote Sensing.
 
-*FIXME: Add general 'big-picture' response*
+Thanks for reviewing this manuscript!
+This manuscript has a strong focus on methodology as it compares multiple feature selection methods, algorithms and datasets.
+The definition of a "typical" research paper is quite subjective and hard to define, yet, in our view this article fulfils the criteria of a common research paper in the applied spatial modelling field.
+
+> As the authors state: “This study aims to show how high-dimensional datasets can be handled effectively with ML methods while still being able to interpret the fitted models”. This is a typical challenge for a researcher who applies ML, successfully resolved many times over.
+
+Every modeling case is somewhat unique and while certainly specific tasks seem similar across studies, we could not find a study which used filter-based feature selection on a highly-correlated hyperspectral dataset.
+In addition our approach shows one way how to solve this challenge while there of course other legit ways to tackle this issue.
+Hence we think that this work is beneficial to the community and worth publishing.
+
+We are sorry that you find our classification of NRI indices "inflating".
+The interpretation whether NRI is a well-known index or not certainly varies within the community and target audience.
+Yet, we still believe that this attribution holds true and that NRI is a "less known index type" (e.g. when comparing with vegetation indices) as it is rarely used in the literature and also sparsely known within our local remote sensing community.
+
+We agree that the dataset in this work has some issues which are extensively discussed in the manuscript (see especially section 4.5).
+
+Please find our line-by-line replies below and thanks again for reviewing our manuscript!
 
 > Title
 
