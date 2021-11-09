@@ -64,7 +64,7 @@ In l.61, which already introduces the use and focus of filter methods, we rephra
 
 In l.151 we expanded the already existing explanation to
 
-"In addition, filters are less known than wrapper methods and in recent years ensemble filters were introduced which have shown promising results compared to single filter algorithms \cite{drotar2017a}.
+"In addition, filters are less known than wrapper methods and in recent years ensemble filters were introduced which have shown promising results compared to single filter algorithms \cite{drotar2017}.
 These two points mainly led to the decision to focus on filter methods for this work and evaluate their effectiveness on highly-correlated, high-dimensional datasets.
 Due to this focus, only this sub-group of feature selection methods will be introduced in greater detail in the following sections."
 
@@ -130,13 +130,8 @@ However, algorithms always rely on a combination of hyperparameters and their op
 > Line 231 – State by which % the number of features has been reduced through the analysis of pairwise correlation. Also, it would be worth discussing why do authors think that allowing most of the features to pass this test is better than eliminating them in subsequent, more computationally intensive, stage of the analysis.
 
 Thanks for requesting details for this part.
-During the inspection of this part we found an issue in the code which did not remove the four corrupted bands for the index calculation of the NRI and VI feature sets.
-Fixing this and re-running the benchmark lead to small changes in the performance of the benchmark combinations including these feature sets which we updated in the manuscript.
-We apologize for this mistake on our side.
-
-*FIXME: The above statement is not a response to the reviewer's question. I'd mention the computations that you have re-run in the very general response to the editor since it will be obvious that some numbers have changed, if you look at the tables.*
-
-We have also clarified that only very few VIs were removed by the pairwise correlation check and why we choose this limit:
+Due to an update in the code we had to rerun some benchmarks which also had some effect on the pairwise-correlation preprocessing step.
+We made it more clear how many VIs were removed by the pairwise correlation check and why we chose this limit:
 
 "This preprocessing step reduced the number of covariates for feature set VI to 86 (from 89).
 This decision was made to prevent issues for the subsequent tuning, filtering and model fitting steps which might occur when passing features with a pairwise correlation of (almost) one.
