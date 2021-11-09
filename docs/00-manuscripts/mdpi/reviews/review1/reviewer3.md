@@ -37,13 +37,7 @@ Filters are a sub-category of feature selection methods.
 We included several ML techniques in order to be able to determine whether the superiority of specific filter techniques - or lack of superiority - is valid across a wide range of ML models or specific to some types.
 The original title reflects this perspective, and that the manuscript's storyline is aligned with this focus as well.
 The issue of model interpretability is certainly an important discussion item, which is why it was addressed in the Discussion section; however, overall the paper focuses on measuring performance improvements, which is reflected by the title as well as the clear focus of the Results section on performance measures.
-We therefore prefer not to change the title.
-
-*FIXME: I wouldn't really want to change the title, and I think this justificaiton is OK. I also diasgree that a sentence or two somewhere deep down in the Discussion reveals what this paper is really about... Are you OK with contradicting the reviewer??*
-
-<!--
-"Monitoring forest health using hyperspectral imagery: Benchmarking machine learning models using filter-based feature selection on highly-correlated datasets."
--->
+We therefore prefer not to change the title but appreciate your remark to reconsider it.
 
 *FIXME: '...which is subject to current research' I think it would be appropriate to cite my arxiv preprint on interpretable ML in high-dimensional situations... <https://arxiv.org/abs/2104.04295>
 
