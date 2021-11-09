@@ -39,7 +39,9 @@ The original title reflects this perspective, and that the manuscript's storylin
 The issue of model interpretability is certainly an important discussion item, which is why it was addressed in the Discussion section; however, overall the paper focuses on measuring performance improvements, which is reflected by the title as well as the clear focus of the Results section on performance measures.
 We therefore prefer not to change the title but appreciate your remark to reconsider it.
 
-*FIXME: '...which is subject to current research' I think it would be appropriate to cite my arxiv preprint on interpretable ML in high-dimensional situations... <https://arxiv.org/abs/2104.04295>
+> '...which is subject to current research':
+
+We have added a reference (https://arxiv.org/abs/2104.04295) to this sentence in the manuscript which should strengthen this statement.
 
 > Introduction is short in comparison to Methods and Discussion. The latter section seems to contain some paragraphs which point out to important relevant research and which would be better placed in the Introduction. Some parts of the Methods contain general remarks that seem to be also suited better for Introduction (such as the Filter Methods section).
 

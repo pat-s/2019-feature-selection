@@ -8,3 +8,4 @@ Changelog
 - Rephrased the introduction and reasoning on why filters methods were chosen over wrapper methods as suggested by Reviewer3
 - Emphasize feature set differences earlier in the manuscript to underline the benchmarking idea of the study as suggested by Reviewer3
 - Explain in more detail why a pairwise-correlation variable selection was applied as a preprocessing step as suggested by Reviewer3
+- Add reference https://arxiv.org/abs/2104.04295 underlining the mentioned current research with respect to the development of robust methods for unbiased estimation of feature importance for highly correlated variables.

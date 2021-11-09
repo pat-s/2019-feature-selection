@@ -540,7 +540,7 @@ For the inner level (hyperparameter tuning), \(k - 1\) folds were used with \(k\
 Estimating feature importance for datasets with highly correlated features is a complicated task for which many different approaches, model-specific and agnostic, exist \cite{friedman2001, hastie2001, greenwell2018}.
 The correlation between covariates makes it challenging to calculate an unbiased estimate for single features \cite{molnar2019}.
 Methods like \ac{PDP} or permutation-based approaches may produce unreliable estimates in such scenarios because unrealistic situations between covariates are created \cite{molnar2019}.
-The development of robust methods which enable an unbiased estimation of feature importance for highly correlated variables are subject to current research.
+The development of robust methods which enable an unbiased estimation of feature importance for highly correlated variables are subject to current research \cite{brenning2021}.
 
 In this work permutation-based feature importance was calculated to estimate feature importance / effects \cite{apley2019}.
 With the limitations in mind when applied to correlated features, the aim was to get a general overview of the feature importance of the hyperspectral bands while trying to avoid an over-interpretation of results.
