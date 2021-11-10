@@ -19,11 +19,13 @@ However, as a scientific publication, I have three comments as follows.
 > (1) the manuscript is a bit lengthy. I suggest the authors revise the paper to make it more focused. For example, between lines 521-526, the selected indices can be directly listed in table 9 rather than using the way in the paper.
 
 Thank you for the feedback.
-As mentioned in the "Methods" section, 89 vegetation indices were used in this study.
+As mentioned in the "Methods" section, 89 vegetation indices were used in this study (with 86 remaining after a pairwise-correlation check).
 Listing all of these in a table within the manuscript body would mean to include a multi-page table which would break the reading flow of the manuscript.
 Hence we decided that placing the table in the appendix is probably the most concise way to include the information.
 
-*FIXME: The reviewer made a general comment concerning length and focus of the paper; lines 521-526 were just an example. Therefore a general response is needed, and possible additional changes to reduce length, possibly removing text that might distract the reader from the main topic of the paper.*
+With respect to length, the manuscript essentially ends on page 20 with the remaining pages being appendices and references.
+We believe that removing parts of the manuscript would introduce disturbance with respect to reading flow and content.
+In addition, we have not seen similar requests from other reviewers and therefore would prefer to not remove parts of the manuscript just for the sake of shortening the manuscript.
 
 > (2）The authors concluded that no clear pattern is found in terms of the behavior of the selected feature selection techniques in the experiments. The conclusion makes the contribution of the work a bit weak. The experimental results may be further analyzed from a positive perspective for the benefit of practical use of the feature selection methods.
 
