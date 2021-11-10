@@ -9,12 +9,11 @@ Are the results clearly presented? ( )	(x)	( )	( )
 Are the conclusions supported by the results? ( )	( )	(x)	( )
 ```
 
-> Establishing a quantitative linkage between defoliation and hyperspectral reflectance is useful in the monitor of forest health.
-Due to the highly correlated, feature-rich characteristics of hyperspectral data, feature selection has become a common procedure.
-However, given a real scenario, how to select a proper feature selection method is still an opening problem.
-This study empirically studied the effectiveness of six typical filter-based feature selection methods in the context of tree defoliation estimation using airborne hyperspectral data.
-The paper is well written and easy to follow.
-However, as a scientific publication, I have three comments as follows.
+> Establishing a quantitative linkage between defoliation and hyperspectral reflectance is useful in the monitor of forest health.Due to the highly correlated, feature-rich characteristics of hyperspectral data, feature selection has become a common procedure. However, given a real scenario, how to select a proper feature selection method is still an opening problem. This study empirically studied the effectiveness of six typical filter-based feature selection methods in the context of tree defoliation estimation using airborne hyperspectral data. The paper is well written and easy to follow. However, as a scientific publication, I have three comments as follows.
+
+Thanks for reviewing our manuscript!
+We are glad you are having an overall positive opinion on our work and enjoyed reading it.
+Please see our replies below.
 
 > (1) the manuscript is a bit lengthy. I suggest the authors revise the paper to make it more focused. For example, between lines 521-526, the selected indices can be directly listed in table 9 rather than using the way in the paper.
 
