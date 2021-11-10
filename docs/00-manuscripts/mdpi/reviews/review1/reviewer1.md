@@ -3,10 +3,10 @@
 ```sh
 Yes	Can be improved	Must be improved	Not applicable
 Does the introduction provide sufficient background and include all relevant references? ( )	(x)	( )	( )
-Is the research design appropriate? ( )	(x)	( )	( )
-Are the methods adequately described? ( )	(x)	( )	( )
-Are the results clearly presented? ( )	(x)	( )	( )
-Are the conclusions supported by the results? ( )	( )	(x)	( )
+Is the research design appropriate?							 ( )	(x)	( )	( )
+Are the methods adequately described? 							 ( )	(x)	( )	( )
+Are the results clearly presented? 							 ( )	(x)	( )	( )
+Are the conclusions supported by the results? 						 ( )	( )	(x)	( )
 ```
 
 > Establishing a quantitative linkage between defoliation and hyperspectral reflectance is useful in the monitor of forest health.Due to the highly correlated, feature-rich characteristics of hyperspectral data, feature selection has become a common procedure. However, given a real scenario, how to select a proper feature selection method is still an opening problem. This study empirically studied the effectiveness of six typical filter-based feature selection methods in the context of tree defoliation estimation using airborne hyperspectral data. The paper is well written and easy to follow. However, as a scientific publication, I have three comments as follows.
@@ -32,8 +32,9 @@ Thank you for the feedback.
 As often in science, results do not always present a clear and easy pattern which can be communicated in a definitive way.
 More often instead, results show a fuzzy picture which should also be communicated this way.
 Nevertheless, we are firmly convinced that the scientific community also needs to learn about research outcomes that are not exactly as expected, as this is necessary for scientific progress and avoids the well-known file drawer effect concerning unpublished research outcomes.
-On the upside, the absence of strong and unversal differences among feature selection techniques allows modelers to choose a methods based on criteria other than performance, such as, for example, computational efficiency, as pointed out in the Discussion.
-*FIXME: Regarding this last point, please check / ensure that this or a similar statement is included in the Discussion and/or Conclusion section.*
+On the upside, the absence of strong and universal differences among feature selection techniques allows modelers to choose a methods based on criteria other than performance, such as, for example, computational efficiency, as pointed out in the Discussion in section 4.3:
+
+"While filters can improve the performance of models, they might be more interesting in other aspects than performance: reducing variables can reduce computational efforts in high-dimensional scenarios and might enhance the interpretability of models.".
 
 With respect to positive practical recommendations of this study, we would like to highlight some already existing points throughout the discussion (l.421 - l.426, l.443 - l.455) as well as in the Methods section, e.g. when explaining why and how filters can be used instead of wrapper methods for feature selection (section 2.3.1.), or why model-based optimization might be superior to simpler methods such as random search (section 2.4.3).
 Also we mentioned the ease of integration filter methods into the optimization step and avoiding another dedicated feature selection layer on top, which comes with additional computational overhead (l.442).
