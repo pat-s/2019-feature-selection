@@ -9,3 +9,5 @@ Changelog
 - Emphasize feature set differences earlier in the manuscript to underline the benchmarking idea of the study as suggested by Reviewer3
 - Explain in more detail why a pairwise-correlation variable selection was applied as a preprocessing step as suggested by Reviewer3
 - Add reference https://arxiv.org/abs/2104.04295 underlining the mentioned current research with respect to the development of robust methods for unbiased estimation of feature importance for highly correlated variables.
+- Add additional references introducing other studies dealing with hyperspectral data, defoliation and tree health as suggested by reviewer 2
+- Add section "Practical implications on defoliation and tree health mapping" to address the effects of the results and the response variable more directly, originated from a comment of reviewer2
