@@ -8,7 +8,7 @@ hyperspectral_processing_plan <- drake_plan(
   ),
 
   ndvi_rasters = target(
-    map(data_hs_preprocessed_paper, ~ HyperSpecRaster(.x, wavelength)) %>%
+    map(data_hs_preprocessed_paper, ~ HyperSpecRaster(.x, wavelength_reduced)) %>%
       future_imap(~ vegindex(.x, "NDVI2",
         filename = glue("data/hyperspectral/ndvi/ndvi2-{.y}"),
         bnames = "NDVI"
@@ -16,12 +16,12 @@ hyperspectral_processing_plan <- drake_plan(
   ),
 
   veg_indices = target(
-    map(data_hs_preprocessed_paper, ~ HyperSpecRaster(.x, wavelength)) %>%
+    map(data_hs_preprocessed_paper, ~ HyperSpecRaster(.x, wavelength_reduced)) %>%
       calc_veg_indices(indices)
   ),
 
   nri_indices = target(
-    map(data_hs_preprocessed_paper, ~ HyperSpecRaster(.x, wavelength)) %>%
+    map(data_hs_preprocessed_paper, ~ HyperSpecRaster(.x, wavelength_reduced)) %>%
       calc_nri_indices(indices)
   ),
 
@@ -62,7 +62,7 @@ hyperspectral_processing_plan <- drake_plan(
       "laukiz1", "laukiz2",
       "luiando", "oiartzun"
     )], hsdar::speclib,
-    wavelength = wavelength
+    wavelength = wavelength_reduced
     )
     spec_sig_num <- lapply(speclibs, function(x) as.numeric(spectra(apply(x, FUN = mean, na.rm = TRUE)))[5:126])
     spec_sig_num_scale <- lapply(spec_sig_num, function(x) {

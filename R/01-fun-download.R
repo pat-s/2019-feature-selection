@@ -91,6 +91,24 @@ download_hyperspectral <- function(url, paper = TRUE) {
       ),
       ~ raster::brick(.x)
     )
+    if (!file.exists("data/hyperspectral/paper/122/B103_P1P_A090F04_ATM_S.tif")) {
+      fs::dir_create("data/hyperspectral/paper/122")
+      # we need to write them to disk to create a RasterBrick as follow up operations
+      # only work with bricks
+
+      names <- purrr::map_chr(files, ~ .x@file@name)
+
+      purrr::walk2(files, names, ~ raster::subset(.x, 5:126,
+        filename = sprintf("data/hyperspectral/paper/122/%s", basename(.y)),
+        progress = "text", overwrite = TRUE
+      ))
+    }
+    files <- purrr::map(
+      list.files("data/hyperspectral/paper/122",
+        full.names = TRUE, pattern = ".tif$"
+      ),
+      ~ raster::brick(.x)
+    )
   } else {
     if (!file.exists("data/hyperspectral/all/B101_P1N_A090F03_ATM_S.tif")) {
       curl::curl_download(url,

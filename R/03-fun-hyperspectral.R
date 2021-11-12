@@ -159,7 +159,7 @@ extract_bands_to_plot <- function(plot_name,
                                   hyperspectral_bands) {
   if (!is.null(buffer)) {
     out_bands <- purrr::map(buffer, function(x) {
-      raster::extract(hyperspectral_bands[[plot_name]][[5:126]],
+      raster::extract(hyperspectral_bands[[plot_name]],
         tree_data[[plot_name]],
         buffer = x,
         fun = mean,
@@ -168,7 +168,7 @@ extract_bands_to_plot <- function(plot_name,
       )
     })
   } else {
-    out_bands <- list(raster::extract(hyperspectral_bands[[plot_name]][[5:126]],
+    out_bands <- list(raster::extract(hyperspectral_bands[[plot_name]],
       tree_data[[plot_name]],
       fun = mean,
       df = TRUE,
