@@ -509,7 +509,7 @@ In addition to these feature sets, the following combinations of feature sets we
 Some individual features were removed before using the datasets for modeling when being numerically equivalent to another feature based on the pairwise correlation being greater than $1 - 10^{-10}$.
 This preprocessing step reduced the number of covariates for feature set~VI to 86 (from 89).
 This decision was made to prevent issues for the subsequent tuning, filtering and model fitting steps which might occur when passing features with a pairwise correlation of (almost) one.
-Additional variable selection was solely devoted to the respective feature selection methods in this study. <!-- FIXME: I don't understand this sentence. -->
+The remaining features were then used as input for the filter-based feature selection within the CV.
 
 \subsubsection{Hyperparameter Optimization}
 
@@ -590,18 +590,18 @@ Performance differences between test folds were large: Predicting on Luiando res
 % - expert based feature sets show no better result than data-driven ones
 % - penalized methods seem to have problems with VI feature set
 The combination of feature sets showed small increases in performance for some learners.
-RF and XGBoost scored slightly better on the combined datasets HR-NRI, NRI-VI and HR-NRI-VI, respectively, compared to their standalone variants (NRI, VI) (\autoref{fig:perf-result}).
-However, the best performances for both RF and XGBoost were scored on HR only.
-Datasets containing derived features only (VI, NRI) showed no improvement in performance compared to the raw hyperspectral band information (HR) or combined feature sets.
+XGBoost scored slightly better on the combined datasets HR-NRI, NRI-VI and HR-NRI-VI, respectively, compared to their standalone variants (NRI, VI) (\autoref{fig:perf-result}).
+However, the best performances for RF and XGBoost were scored on NRI and HR, respectively.
+RF showed a substantial performance increase when using only NRI compared to all other feature sets whereas for XGBoost the worst performances were associated with the VI and NRI only feature sets (\autoref{fig:perf-result}).
 
 % learner
-% - SVM Car is the overall winner
-% - Lasso quite stable (varies within 1 - 4), ridge a bit more variable (2 - 6)
-% - all MBO penalized methods have no difference across tasks
-SVM combined with the \enquote{Relief} filter achieved the best overall performance (RMSE of 28.09 p.p.) (\autoref{tab:perf-top-10}).
+% - SVM Info Gain is the overall winner
+% - Combined sets do not help for XBoost and Ridge
+% - RF NRI quite strong
+SVM combined with the \enquote{Information Gain} filter achieved the best overall performance (RMSE of 27.915 p.p.) (\autoref{tab:perf-top-10}).
 %L1 penalized regression showed slightly better results in three out of six tasks when being optimized using the package internal 10-fold CV compared to MBO (RMSE of 50 vs 58).
 Regression with ridge (L2) and lasso (L1) penalties showed their best performances on the NRI feature set (\autoref{tab:best-learner-perf}).
-Differences to other feature sets were very small for lasso (below one p.p.) and a bit larger for ridge regression (between two and five p.p.).
+Combining feature sets for lasso and ridge did not help to increase performance and while there was no subatantial difference for lasso, ridge scored around two percentage points on such.
 XGBoost showed very poor performances for some feature sets and fills the last\ ten places of the ranking (\autoref{tab:perf-worst-10}).
 Especially when combined with PCA, the algorithm was not able to achieve adequate performances.
 
@@ -611,24 +611,24 @@ Especially when combined with PCA, the algorithm was not able to achieve adequat
 % - no advantage of ensemble borda filter compared to others
 Effects of filter methods on performance differed greatly between algorithms:
 SVM showed no variation in performance across filters (\autoref{fig:filter-effects-no-filter}).
-The use of filters with RF resulted in a substantial increase in performance in all tasks with the exception of NRI, in which the difference between all filters was also the smallest (\autoref{fig:filter-effects-no-filter}).
-XGBoost's performance depended strongly on feature selection: In two out of six tasks, using no filter resulted in the worst or second\-/worst performance.
-XGBoost showed the highest overall differences between filters for a single task: for feature set HR, the range is up to 15 p.p. (\enquote{CMIM} vs. \enquote{no filter}) (\autoref{fig:filter-effects-no-filter}).
+The use of filters for RF resulted in a substantial increase in performance in all tasks, especially on the HR feature set where all filters showed an improved score compared to using no filter (\autoref{fig:filter-effects-no-filter}).
+XGBoost's performance depended strongly on feature selection: In two out of six tasks (HR, VI), using no filter resulted in the worst performance.
+XGBoost showed the highest overall differences between filters for a single task: for feature set HR, the range is up to 13 p.p. (\enquote{CMIM} vs. \enquote{no filter}) (\autoref{fig:filter-effects-no-filter}).
 
 % filter vs. no filter
 % - Substantial effect for XGBoost and RF
 % - SVM unaffected
-When comparing the usage of filters against using no filter at all, there were no instances where a model without filtering scored a better performance than the best filtered one (\autoref{fig:filter-effects-no-filter}).
+When comparing the usage of filters against using no filter at all, there were no instances in which a non-filtered model scored a better performance than the best filtered one (\autoref{fig:filter-effects-no-filter}).
 For SVM, all filters and \enquote{no filter} achieved roughly the same performance on all tasks.
 
 % Borda vs. other filters
 % - most often among the first best filters for each task
 % - never the best
-The Borda filter achieved in only one instance (RF on HR-NRI-VI) the best performance of\ all filters (\autoref{fig:filter-effects-borda}).
+The Borda filter was not able to score the best performance in any learner/filter setting (\autoref{fig:filter-effects-borda}).
 For RF and XGBoost, it most often ranked within the better half among all filters of a specific task.
-For XGBoost on the NRI task, the Borda filter scored the second\-/worst performance.
 
 % Selected percentage of features across plots
+FIXME:
 The number of features selected based on model tuning strongly varied across learners and plots.
 While for RF, the least features were selected when Luiando or Oiartzun was the test set ($n = 1$), more than 90\% of all features were used for test sets~Laukiz1 and Laukiz2 (\autoref{tab:tune-perc-sel-features}).
 RF and SVM used very few features only when Laukiz1 was the test set (three and one, respectively) whereas this was the plot for which XGBoost used almost all features ($n = 1226$).
@@ -686,6 +686,7 @@ In general, all learners behaved rather differently on the various plots, and th
 % - All: Clustering around the red edge (700 - 750 nm)
 % - Overall highest: 1.7 RMSE decrease - not that much
 
+FIXME:
 The most important features for datasets HR and VI showed an average decrease in RMSE of 1.06 p.p. (HR, B69) and 1.93 p.p. (VI, Vogelmann2) (\autoref{fig:fi-permut-vi-hr}).
 For the HR dataset, most (i.e., six out of ten) relevant features clustered around the infrared region (920~nm - 1000~nm), while for VI, eight out of ten concentrate within the wavelength range of 700~nm - 750~nm (the so\-/called \enquote{red edge}).
 For HR, four features in the infrared region (920~nm - 1000~nm) were identified by the model to be most important, being associated with a mean decrease in RMSE of around 1 p.p.
@@ -706,7 +707,7 @@ Overall, apart from the top five features, the vast majority of features showed 
 
 \subsection{Predictive Performance}
 
-The best aggregated performance of this study (SVM + \enquote{Relief} filter, RMSE~28.12 p.p.) has to be seen in the light of model overfitting (see \autoref{subsec:perf-plot-char}).
+The best aggregated performance of this study (SVM + \enquote{Info Gain} filter, RMSE~27.915 p.p.) has to be seen in the light of model overfitting (see \autoref{subsec:perf-plot-char}).
 Leaving out the performance on Laukiz2 when aggregating results, the mean RMSE would be around 19 p.p.
 However, leaving out a single plot would also change the prediction results for the other plots because the observations from Laukiz2 would not be available for model training.
 Due to the apparent presence of model overfitting in this study, it can be postulated that more training data representing a greater variety of situations is needed.
@@ -747,6 +748,7 @@ In the prediction scenario for Laukiz2, the model was trained on data containing
 This caused overfitting on the medium-to-high values, degrading the model's predictive performance in other scenarios.
 When Laukiz2 was in the training set, the overall mean RMSE was reduced by up to 50\% with single fold performances as good as 9 p.p. RMSE (with Luiando as test set).
 
+FIXME:
 Arbitrary seeming values of selected feature percentages like 99.97268\% in \autoref{tab:tune-perc-sel-features} emerge from the specific setting which got elected as the best setting during the tuning step.
 The specific value to benchmark during tuning is defined by the internal surrogate learner of the MBO tuning method in this study and can be any numeric value between 0 and 1 (interpreted as a\ percentage of available features).
 
@@ -774,7 +776,7 @@ The models which used the Borda ensemble method in this study did not score bett
 Ensemble methods have higher stability and robustness than single ones and have shown promising results in \cite{drotar2017}.
 Hence, their main advantage is stable performances across datasets with varying characteristics.
 Single filter methods might yield better model performances on certain datasets but fail on others.
-The fact that this study used multiple feature sets but only one dataset and tested many single filters could be a potential explanation why in all cases (besides RF on task HR-NRI-VI) a single filter outperformed the ensemble filter.
+The fact that this study used multiple feature sets but only one dataset and tested many single filters could be a potential explanation why in all cases a single filter outperformed the ensemble filter.
 However, studies which used ensemble filters are still rare and usually these are not compared against single filters \cite{ghosh2019}.
 In summary, Borda does\ not\ perform better than a randomly selected filter method in this study.
 More case studies applying ensemble filter methods are needed to verify this finding.
@@ -782,7 +784,7 @@ Nevertheless, ensemble filters can be a promising addition to a ML feature-selec
 
 % - PCA shows similar performance but probably requires tuning of main components -> check runtime!
 PCA, acting as a filter method, more often showed less optimal results, especially for algorithms RF and XGBoost.
-Especially XGBoost had substantial problems when using PCA as a filter method and scored the four\ worst results (\autoref{tab:perf-worst-10}).
+Especially XGBoost had substantial problems when using PCA as a filter method and scored four of the six worst results (\autoref{tab:perf-worst-10}).
 However, PCA was able to reduce model fitting times substantially across all algorithms.
 Depending on the use case, PCA can be an interesting option to reduce dimensionality while keeping runtime low.
 However, information about the total number of features used by the model is lost when applying this technique.
@@ -843,7 +845,6 @@ For example, due to the narrow bandwidth of the hyperspectral sensor small parts
 If spatial offset errors of the image data and possible background noise can be reduced (possibly by making use of image segmentation), we believe that model performances could be substantially enhanced.
 Such improved models, starting around an RMSE of 20\% and less, should be able to provide added value to support the long\-/term monitoring of forest health and early detection of fungi affected tree plots.
 Though overall the usage of defoliation as a proxy to forest health should be critically questioned as it comes with various practical issues, starting from potential offsets during data collection, varying leaf density due to tree age and differing effects between tree species, to just name a few.
-
 
 \subsection{Comparison to other studies}
 % - no environmental studies use filter methods, some use FFS
