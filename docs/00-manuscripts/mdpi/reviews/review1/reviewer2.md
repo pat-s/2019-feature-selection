@@ -54,3 +54,8 @@ Building upon these successful applications of hyperspectral remote sensing usag
 
 Thanks for the suggestion.
 We moved the mentioned paragraph to the end of the introduction.
+
+---
+
+Commenting on the remarks of grammar and style, we'd like to mention that we have used a professional software to check for style and grammar issues.
+We hope this improved the language quality of the manuscript.

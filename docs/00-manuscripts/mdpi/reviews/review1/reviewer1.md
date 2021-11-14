@@ -47,4 +47,5 @@ The value itself (28.09) was in fact a typo as it should have been 28.12.
 We have corrected this in the manuscript and apologize for the oversight.
 As part of including feedback from other reviewers we also decided to use three digits instead of two for this table to better reflect differences between the model results.
 
-FIXME: In addition we have used the professional language editing service of MDPI which should have made the manuscript better with respect to language and grammar.
+In addition we have used a professional software to check for style and grammar issues.
+We hope this improved the overall language quality of the manuscript.
