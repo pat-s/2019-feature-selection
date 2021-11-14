@@ -601,7 +601,7 @@ RF showed a substantial performance increase when using only NRI compared to all
 SVM combined with the \enquote{Information Gain} filter achieved the best overall performance (RMSE of 27.915 p.p.) (\autoref{tab:perf-top-10}).
 %L1 penalized regression showed slightly better results in three out of six tasks when being optimized using the package internal 10-fold CV compared to MBO (RMSE of 50 vs 58).
 Regression with ridge (L2) and lasso (L1) penalties showed their best performances on the NRI feature set (\autoref{tab:best-learner-perf}).
-Combining feature sets for lasso and ridge did not help to increase performance and while there was no subatantial difference for lasso, ridge scored around two percentage points on such.
+Combining feature sets for lasso and ridge did not help to increase performance, and while there was no substantial difference for lasso, the performance of ridge improved by around two percentage points.
 XGBoost showed very poor performances for some feature sets and fills the last\ ten places of the ranking (\autoref{tab:perf-worst-10}).
 Especially when combined with PCA, the algorithm was not able to achieve adequate performances.
 
@@ -624,14 +624,14 @@ For SVM, all filters and \enquote{no filter} achieved roughly the same performan
 % Borda vs. other filters
 % - most often among the first best filters for each task
 % - never the best
-The Borda filter was not able to score the best performance in any learner/filter setting (\autoref{fig:filter-effects-borda}).
+The Borda ensemble filter was not able to score the best performance in any learner/filter setting (\autoref{fig:filter-effects-borda}).
 For RF and XGBoost, it most often ranked within the better half among all filters of a specific task.
 
 % Selected percentage of features across plots
 The number of features selected during model optimization strongly varied across learners and plots.
-RF selected the least features of all three learners, and with the expection of Oiartzun, only one or two variables got selected.
-SVM used 210 features or more in all instances and varied between 16\% (Laukiz1) - 81\% (Oiartzun) (\autoref{tab:tune-perc-sel-features}).
-XGBoost also favored using several hundred features with the exeption of Laukiz2 for which only 14 (0.96\%) were selected.
+RF selected the least features of all three learners, and with the exception of Oiartzun, only one or two variables were selected.
+SVM used 210 features or more in all instances and selected between 16\% (Laukiz1) and 81\% (Oiartzun) of the features (\autoref{tab:tune-perc-sel-features}).
+XGBoost also favored using several hundred features with the exception of Laukiz2 for which only 14 (0.96\%) were selected.
 
 % latex table top 10 absolute performances
 \input{performance-top-10}
@@ -684,7 +684,7 @@ XGBoost also favored using several hundred features with the exeption of Laukiz2
 % - All: Clustering around the red edge (700 - 750 nm)
 % - Overall highest: 1.7 RMSE decrease - not that much
 
-The most important features for datasets HR and VI showed an average decrease in RMSE of 1.06 p.p. (HR, B65) and 1.93 p.p. (VI, Vogelmann2) (\autoref{fig:fi-permut-vi-hr}).
+The most important features for datasets HR and VI showed an average decrease in RMSE of 1.06 p.p. (HR, B65) and 1.93 p.p. (VI, Vogelmann2) when permuted (\autoref{fig:fi-permut-vi-hr}).
 For the HR dataset, most (i.e., six out of ten) relevant features clustered around the infrared region (920~nm - 1000~nm), while for VI, eight out of ten concentrate within the wavelength range of 700~nm - 750~nm (the so\-/called \enquote{red edge}).
 For HR, four features in the infrared region (920~nm - 1000~nm) were identified by the model to be most important, being associated with a mean decrease in RMSE of around 1 p.p.
 Overall, apart from the top five features, the vast majority of features showed only a small importance with average decreases in RMSE below 0.5 p.p.
