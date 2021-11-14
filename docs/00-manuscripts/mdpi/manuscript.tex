@@ -213,57 +213,57 @@ Nevertheless, more training data and replication in similar benchmarking studies
 \section{Introduction}
 
 The use of \ac{ML} algorithms for analyzing remote sensing data has seen a huge increase in the last decade \cite{lary2016}.
-This coincided with the increased availability of remote sensing imagery, especially since the launch of the first Sentinel satellite in the year 2014, which serves as training and prediction data.
+This coincided with the increased availability of remote sensing imagery, especially since the launch of the first Sentinel satellite in the year 2014.
 At the same time, the implementation and usability of learning algorithms has been greatly simplified with many contributions from the open-source community.
 Scientists can nowadays process large amounts of (environmental) information with relative ease using various learning algorithms.
-This makes it possible to easily extend benchmark comparison matrices of studies in a semi-automated way, possibly stumbling across unexpected findings of process settings that would not have been explored otherwise \cite{ma2015}.
+This makes it possible to easily extend benchmark comparison matrices of studies in a semi-automated way, possibly stumbling upon unexpected findings such as process settings that would not have been explored otherwise \cite{ma2015}.
 
 % link to forest health (defoliation) analysis and show exemplary studies
 
 ML methods in combination with remote sensing data are used in many environmental fields such as vegetation cover analysis or forest carbon storage mapping \cite{mascaro2014, urban2018}.
-The ability of predicting into unknown space qualifies ML algorithms as a helpful tool for such environmental analyses.
+The ability to predict these environmental variables in unknown regions qualifies ML algorithms as a helpful tool for such environmental analyses.
 One aspect of this research field is to enhance the understanding of biotic and abiotic stress triggers, for example by analyzing tree defoliation \cite{hawrylo2018}.
 Defoliation is known to be a proxy for pathogen and insect damage \cite{pollastrini2016}.
-While common symptoms are observable across species, some effects and their degree are species-specific \cite{gottardini2020}.
-Defoliation has also been shown to increase predisposition of tree death from secondary biotic factors of up to ten years after the actual defoliation event \cite{oliva2016}.
-Other approaches for analyzing forest health include change detection \cite{zhang2016} or describing the current health status of forests on a stand level \cite{townsend2012}.
+While common symptoms are observable across species, some effects and their degree of severity are species-specific \cite{gottardini2020}.
+Defoliation has also been shown to increase predisposition of tree death from secondary biotic factors up to ten years after the actual defoliation event \cite{oliva2016}.
+Other approaches for analyzing forest health include change detection \cite{zhang2016}, or describing the current health status of forests on a stand level \cite{townsend2012}.
 
 % introduce veg indices
 Vegetation indices have shown the potential to provide valuable information when analyzing forest health \cite{jiang2014, adamczyk2015}.
-Most vegetation indices were developed with the aim of being sensitive to changes of specific wavelength regions, serving as a proxy for underlying plant processes.
-However, indices developed/applied for different purposes than the one to be analyzed (i.e. defoliation at pine trees) may help to explain complex underlying relationships which are not obvious at first.
+Most vegetation indices were developed with the aim of being sensitive to changes in specific wavelength regions, serving proxies for underlying plant physiological processes.
+In some cases, indices developed for different purposes than the one to be analyzed (e.g., defoliation of pine trees) may help to explain complex underlying relationships that are not obvious at first.
 This emphasizes the need to extract as much information as possible from the available input data to generate promising features which can help to understand the modeled relationship \cite{thenkabail2018}.
-A less known index type which can be derived from spectral information is the \ac{NRI}.
-In contrast to most vegetation indices, \ac{NRI}s do not use an expert-based formula following environmental heuristics but instead makes use of a data-driven feature engineering approach by combining (all possible) combinations of spectral bands \cite{thenkabail2000}.
+A less known index type that can be derived from spectral information is the \ac{NRI}.
+In contrast to most vegetation indices, \ac{NRI}s do not use an expert-based formula following environmental heuristics; instead, they make use of a data-driven feature engineering approach by combining (all possible) combinations of spectral bands \cite{thenkabail2000}.
 When working with hyperspectral data, thousands of \ac{NRI} features can be derived this way.
 
 % mention why FS is used / important
-Even though \ac{ML} algorithms are capable of handling highly correlated input variables, model fitting becomes computationally more demanding, and model interpretation more complex.
-Feature selection approaches can help to address this issue, reducing possible noise in the feature space, simplify model interpretability and possibly enhance predictive performance \cite{cai2018}.
-Instead of using wrapper feature selection methods, which add a substantial overhead to a nested model optimization approach, especially for datasets with many features, this study focuses on the use of (ensemble) filter methods which can be directly integrated into the hyperparameter optimization step during model creation.
+Even though \ac{ML} algorithms are capable of handling highly correlated input variables, model fitting becomes computationally more demanding, and model interpretation more challenging.
+Feature selection approaches can help to address this issue, reducing possible noise in the feature space, simplifing model interpretability, and possibly enhancing predictive performance \cite{cai2018}.
+Instead of using wrapper feature selection methods, which add a substantial overhead to a nested model optimization approach, especially for datasets with many features, this study focuses on (ensemble) filter methods, which can be directly integrated into the hyperparameter optimization step during model construction.
 
 % clarify the focus of this study
-Overall, this study aims to show how high-dimensional datasets can be handled effectively with ML methods while still being able to interpret the fitted models.
+Overall, this study aims to show how high-dimensional datasets can be handled effectively with ML methods while still allowing the interpretation of the fitted models.
 The predictive power of non-linear methods and their ability to handle highly correlated predictors is combined with common and new approaches for assessing feature importance and feature effects.
-Yet, this study focuses on investigating the effects of filter methods and feature set types on predictive performance rather than interpreting individual feature effects.
+Yet, this study focuses mainly on investigating the effects of filter methods and feature set types on predictive performance rather than interpreting individual feature effects.
 
 Considering these opportunities and challenges, the research questions of this study are the following:
 
 \begin{itemize}
 
-	\item Do different (environmental) feature sets show differences in performance when modeling defoliation of trees?
+	\item How do different feature selection methods influence the predictive performance of ML models of the defoliation of trees?
+
+	\item Do different (environmental) feature sets show differences in performance?
 
 	\item Can predictive performance be substantially improved by combining feature sets?
 
-	\item How do different feature selection methods influence the predictive performance of the models?
-
-	\item Which features are most important and how can these be interpreted in an environmental context?
+	\item Which features are most important and how can these be interpreted in this context?
 
 \end{itemize}
 
 % Explain what is new in this study and link to methodology
-In recent years, various studies which have utilized hyperspectral data to analyze pest/fungi infections on trees were published:
-Pinto et al. \citep{pinto2020} successfully used hyperspectral imagery to characterize pest infections on peanut leaves using random forest while Yu et. al \cite{yu2021} aimed to detect Pine wilt disease in pine plots in China using vegetation indices derived from hyperspectral data.
+In recent years, various studies that have used hyperspectral data to analyze pest/fungi infections on trees have been published:
+Pinto et al. \citep{pinto2020} successfully used hyperspectral imagery to characterize pest infections on peanut leaves using random forest while Yu et. al \cite{yu2021} aimed to detect pine wilt disease in pine plots in China using vegetation indices derived from hyperspectral data.
 Other studies which applied hyperspectral data for forest health monitoring are \cite{lin2014,kayet2019,dash2017}.
 Building upon these successful applications of hyperspectral remote sensing usage in the field of leaf and tree health monitoring, this work analyses tree defoliation in northern Spain using airborne hyperspectral data.
 The methodology of this study uses ML methods in combination with feature selection and hyperparameter tuning.
