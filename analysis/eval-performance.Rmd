@@ -487,20 +487,20 @@ df_tbl <- getBMRTuneResults(bmr_inspect_tune, as.df = TRUE) %>%
   # replace iter IDs by individual fold names
   dplyr::mutate(iter = as.character(iter)) %>%
   dplyr::mutate(iter = case_when(
-    learner.id == "XGBOOST MBO CMIM" & iter == 1 ~ "Luiando",
-    learner.id == "XGBOOST MBO CMIM" & iter == 2 ~ "Laukiz1",
-    learner.id == "XGBOOST MBO CMIM" & iter == 3 ~ "Oiartzun",
-    learner.id == "XGBOOST MBO CMIM" & iter == 4 ~ "Laukiz2",
+    learner.id == "XGBOOST MBO Borda" & iter == 1 ~ "Luiando",
+    learner.id == "XGBOOST MBO Borda" & iter == 2 ~ "Laukiz1",
+    learner.id == "XGBOOST MBO Borda" & iter == 3 ~ "Oiartzun",
+    learner.id == "XGBOOST MBO Borda" & iter == 4 ~ "Laukiz2",
 
-    learner.id == "SVM MBO Relief" & iter == 1 ~ "Laukiz1",
-    learner.id == "SVM MBO Relief" & iter == 2 ~ "Oiartzun",
-    learner.id == "SVM MBO Relief" & iter == 3 ~ "Luiando",
-    learner.id == "SVM MBO Relief" & iter == 4 ~ "Laukiz2",
+    learner.id == "SVM MBO Car" & iter == 1 ~ "Laukiz1",
+    learner.id == "SVM MBO Car" & iter == 2 ~ "Oiartzun",
+    learner.id == "SVM MBO Car" & iter == 3 ~ "Luiando",
+    learner.id == "SVM MBO Car" & iter == 4 ~ "Laukiz2",
 
-    learner.id == "RF MBO Relief" & iter == 1 ~ "Luiando",
-    learner.id == "RF MBO Relief" & iter == 2 ~ "Laukiz2",
-    learner.id == "RF MBO Relief" & iter == 3 ~ "Laukiz1",
-    learner.id == "RF MBO Relief" & iter == 4 ~ "Oiartzun",
+    learner.id == "RF MBO Car" & iter == 1 ~ "Luiando",
+    learner.id == "RF MBO Car" & iter == 2 ~ "Laukiz2",
+    learner.id == "RF MBO Car" & iter == 3 ~ "Laukiz1",
+    learner.id == "RF MBO Car" & iter == 4 ~ "Oiartzun",
 
     TRUE ~ as.character(iter)
   )) %>%
@@ -511,8 +511,8 @@ df_tbl <- getBMRTuneResults(bmr_inspect_tune, as.df = TRUE) %>%
   dplyr::rename("Features (\\%)" = fw.perc) %>%
   dplyr::mutate(`Test Plot` = as.character(Plot)) %>%
   dplyr::mutate(Learner = forcats::fct_recode(Learner,
-    "RF \\\\ Relief" = "RF MBO Relief", "XGB \\\\ CMIM" = "XGBOOST MBO CMIM",
-    "SVM \\\\ Relief" = "SVM MBO Relief"
+    "RF \\\\ Car" = "RF MBO Car", "XGB \\\\ Borda" = "XGBOOST MBO Borda",
+    "SVM \\\\ Car" = "SVM MBO Car"
   )) %>%
   dplyr::mutate(Learner = as.character(Learner)) %>%
   dplyr::mutate(`Test Plot` = as.character(`Test Plot`)) %>%
