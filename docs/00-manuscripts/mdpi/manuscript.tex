@@ -761,24 +761,24 @@ More in-depth research is needed to investigate the effect of filters on other c
 % - Filters are interesting for reducing runtime and improve interpretability, not only for performance
 The usefulness of filters with respect to predictive performance in this study varied.
 While the performance of some models (up to five p.p. for RF and XGBoost) was improved by specific filters, some models achieved a poorer performance with filters than without them (\autoref{fig:filter-effects-no-filter}).
-No pattern with respect to lower scores related to a specific filter method could be found.
-Hence, it is recommended to test multiple filters in a study if filters are going to be used.
-While filters can improve the performance of models, they might be more interesting in other aspects than performance: reducing variables can reduce computational efforts in high-dimensional scenarios and might enhance the interpretability of models.
+There was no pattern of specific filters consistently resulting in better scores.
+Hence, it is recommended to test multiple filters in a study if it is intended to use filters.
+While filters can improve the performance of models, they may be more appealing based on other aspects than performance: Reducing variables can reduce computational efforts in high-dimensional scenarios and may enhance the interpretability of models.
 Filters are a lot cheaper to compute than wrapper methods, and the final feature subset selection can be integrated as an additional hyperparameter into the model optimization stage.
 
 % - Ensemble FS shows no advantage to simple methods -> always one simple filter which is better. Ensemble filters are good across many different datasets
-The models which used the Borda ensemble method in this study did not score better on average than models which used a single filter or no filter at all.
+Models that used the Borda ensemble method in this study did not perform better on average than models which used a single filter or no filter at all.
 Ensemble methods have higher stability and robustness than single ones and have shown promising results in \cite{drotar2017}.
-Hence, their main advantage is stable performances across datasets with varying characteristics.
+Hence, their expected main advantage is stable performances across datasets with varying characteristics.
 Single filter methods might yield better model performances on certain datasets but fail on others.
 The fact that this study used multiple feature sets but only one dataset and tested many single filters could be a potential explanation why in all cases a single filter outperformed the ensemble filter.
-However, studies which used ensemble filters are still rare and usually these are not compared against single filters \cite{ghosh2019}.
-In summary, Borda does\ not\ perform better than a randomly selected filter method in this study.
+However, studies which used ensemble filters are still rare, and these are usually not compared against single filters \cite{ghosh2019}.
+In summary, in this study Borda did\ not\ perform better than a randomly selected filter method.
 More case studies applying ensemble filter methods are needed to verify this finding.
 Nevertheless, ensemble filters can be a promising addition to a ML feature-selection portfolio.
 
 % - PCA shows similar performance but probably requires tuning of main components -> check runtime!
-PCA, acting as a filter method, more often showed less optimal results, especially for algorithms RF and XGBoost.
+PCA, acting as a filter method, more often showed less than optimal results, especially for algorithms RF and XGBoost.
 Especially XGBoost had substantial problems when using PCA as a filter method and scored four of the six worst results (\autoref{tab:perf-worst-10}).
 However, PCA was able to reduce model fitting times substantially across all algorithms.
 Depending on the use case, PCA can be an interesting option to reduce dimensionality while keeping runtime low.
@@ -791,7 +791,7 @@ Not surprisingly the most important features for both HR and VI datasets were id
 
 This area has the highest ability to distinguish between reflectances related to a high density/high foliage density and thus the health status of vegetation and its respective counterpart \cite{horler1983}.
 However, four out of ten of the most important features of dataset HR are located between 920~nm and 1000~nm.
-Looking at the spectral curves of the plots, apparent reflectance differences can be observed in this spectral area---especially for plot Oiartzun---which might explain why these features were considered important by the model.
+Looking at the spectral curves of the plots, apparent reflectance differences can be observed in this spectral range---especially for plot Oiartzun---, which might explain why these features were considered important by the model.
 
 A possible explanation for the poor performances of most models scored on the VI dataset compared to all other feature sets could be the lack of features covering the area between 850~nm and 1000~nm (\autoref{fig:fi-permut-vi-hr}).
 The majority of VI features covers the range between 550~nm - 800~nm.
@@ -802,32 +802,31 @@ Only one index (PWI) covers information in the range beyond 900~nm.
 
 Environmental datasets always come with some constraints that can have potential influence on the modeling process and its outcome.
 Finding a suitable approach to extract the remote sensing information from each tree was a complex process.
-Due to the reported geometric offset of up to one meter within the hyperspectral data, the risk of assigning a value to an observation which would actually refer to a different, possibly non-tree, pixel was reasonably high.
-It was concluded that using a buffer of one meter can be a good compromise between the inclusion of information from too many surrounding trees, mapping a single tree crown accordingly accounting for a possible geometric offset.
-The applied buffer only included a pixel value if the distance to the centroid of a pixel was smaller than the buffer radius (i.e., $<= 1m$).
+Due to the reported geometric offset of up to one meter within the hyperspectral data, the risk of assigning a value to an observation that would actually refer to a different, possibly non-tree, pixel was reasonably high.
+It was concluded that using a buffer radius of one meter can be a good compromise between the inclusion of information from too many surrounding trees and an under-coverage of the tree crown.
+With the chosen radius, we are confident that we were able to map individual tree crowns while accounting for a possible geometric offset.
+% The applied buffer only included a pixel value if the distance to the centroid of a pixel was smaller than the buffer radius (i.e., $<= 1m$).
 This results in all cases in four contributing pixels (= four square meters) for the extraction of hyperspectral information for a given tree.
 Even though no results showing the influence of different buffer values on the extraction were provided, it is hypothesized that the relationships between features would not change substantially, leading to almost identical model results.
-Besides using a buffer to extract the hyperspectral information, segmentation could have been considered.
-However, this method would have required more effort for no clear added value in our view and would have moved the focus of this manuscript more to data preprocessing and away from the focus on filter-based feature selection methods.
+Instead of using a buffer to extract the hyperspectral information, segmentation could have been considered.
+However, this method would have required more effort for no clear added value in our view and would have moved the focus of this manuscript more to data preprocessing and away from feature selection methods.
 
-Another point worth discussing is that the exact number of contributing pixels to the final index value of an observation cannot be determined precisely: it depends on the location of the tree within the pixel grid.
-According to the extract function of the raster package, a pixel is included if its centroid (and not just any part of the grid cell) falls inside the buffer.
-As the buffer is circular, the total number of contributing pixels of each tree depends on the exact location of a tree within the pixel grid.
-If a tree observation is located on the border of the plot, some directions of the buffer will contain no values (because the image coverage was cropped to the borders of the plot) and the subsequent index value will be calculated with fewer pixels than if the tree observation is located in the middle of the plot.
-However, in most cases each tree information should be composed out of four hyperspectral pixels.
+Trees located within grid cells on the border of a plot are a notable exception where the exact number of pixels contributing to the observation's feature value may be reduced since the image was cropped to the plot's extent.
+Cropping was applied to avoid the accidental inclusion of background data such as forest roads.
+However, this effect was deemed to be of negligible importance.
 
 The available hyperspectral data covered a wavelength between 400~nm and 1000~nm.
-Hence, the wavelength range of the shortwave infrared (SWIR) region is not covered in this study.
-Given that this wavelength range is often used in forest health studies \cite{hais2019}, e.g., when calculating the \ac{NDMI} index \cite{gao1996}, this marks a clear limitation of the dataset at hand.
+Hence, the spectral range of the shortwave infrared (SWIR) region is not covered in this study.
+Given that this range is often used in forest health studies \cite{hais2019}, e.g., when calculating the \ac{NDMI} index \cite{gao1996}, this marks a clear limitation of the dataset at hand.
 
-The dataset consists of in-situ data collected within September 2016 matched against remote sensing data acquired at the end of September 2016.
+The dataset consists of in-situ data collected during September 2016, which was matched against remote sensing data acquired at the end of September 2016.
 A multi-temporal dataset consisting of in-situ data from different phenology stages would possibly improve the achieved model performances.
-However, this would also require matching hyperspectral data of these additional timestamps.
+However, this would also require the costly acquisition of hyperspectral data of these additional timestamps.
 
-The R package hsdar was used for the calculation of vegetation indices \cite{lehnert2016}.
+The R package \texttt{hsdar} was used for the calculation of vegetation indices \cite{lehnert2016}.
 All indices that could be calculated with the given spectral range of the data (400~nm - 1000~nm) were used.
-This means even though \autoref{tab:vegindices} lists all available indices of the package, not all listed indices were used in this study.
-Even though this selection included a large number of indices, some possibly helpful indices might have been missed due to the restriction of the hyperspectral data.
+This means even though \autoref{tab:vegindices} lists all indices available in the package, not all listed indices were used in this study.
+Although this selection included a large number of indices, some possibly helpful indices might have been missed due to the restriction of the hyperspectral data.
 
 Overall, the magnitude of uncertainty introduced by the mentioned effects during index derivation cannot be quantified.
 Such limitations and uncertainties apply to most environmental studies and cannot be completely avoided.
@@ -836,10 +835,10 @@ Such limitations and uncertainties apply to most environmental studies and canno
 Even though this work has a strong methodological focus by comparing different benchmark settings on highly\ correlated feature sets, implications on tree health should be briefly discussed in the following.
 Due to the outlined dataset issues in \autoref{subsec:data-quality}, which are mainly responsible for the resulting poor model performances, the trained models are not suited for practical use, e.g., to predict defoliation in unknown areas, due to the high mapping uncertainty.
 Yet the general approach of utilizing hyperspectral data to classify the health status of trees partly led to promising results:
-For example, due to the narrow bandwidth of the hyperspectral sensor small parts of the spectra (mainly in the infrared region) were of higher importance to the models (e.g., see \autoref{fig:fi-permut-vi-hr}), meaning they helped the models to distinguish between low and high tree defoliation.
+For example, due to the narrow bandwidth of the hyperspectral sensor, small parts of the spectrum (mainly in the infrared region) were of higher importance to the models (e.g., see \autoref{fig:fi-permut-vi-hr}), meaning that they helped the models to distinguish between low and high tree defoliation.
 If spatial offset errors of the image data and possible background noise can be reduced (possibly by making use of image segmentation), we believe that model performances could be substantially enhanced.
-Such improved models, starting around an RMSE of 20\% and less, should be able to provide added value to support the long\-/term monitoring of forest health and early detection of fungi affected tree plots.
-Though overall the usage of defoliation as a proxy to forest health should be critically questioned as it comes with various practical issues, starting from potential offsets during data collection, varying leaf density due to tree age and differing effects between tree species, to just name a few.
+Such improved models, starting around an RMSE of 20\% and less, should be able to provide added value to support the long\-/term monitoring of forest health and early detection of fungi-affected tree plots.
+Nevertheless, overall the use of defoliation as a proxy for forest health should be critically reconsidered as it comes with various practical issues, starting from potential offsets during data collection, varying leaf density due to tree age and differing effects between tree species, to just name a few.
 
 \subsection{Comparison to other studies}
 % - no environmental studies use filter methods, some use FFS
@@ -853,26 +852,26 @@ Among these, \cite{meng2018, kalin2019} used ground-level methods such as \ac{AL
 % defoliation studies and what
 Studies focusing on tree-level defoliation mainly used ground-level methods such as \ac{ALS} or \ac{LiDAR} \cite{meng2018, kalin2019}.
 \cite{meng2018} used \ac{OLS} regression methods while \cite{kalin2019} retrieved information from ground-level RGB photos using \ac{CNN}.
-However, both did not use spatial \ac{CV} and \cite{kalin2019} no \ac{FS}.
+However, neither of them used spatial \ac{CV} for model assessment, and \cite{kalin2019} did not perform \ac{FS}.
 \cite{goodbody2018} used a \ac{PLS} model with high-resolution \ac{DAP} to predict cumulative defoliation caused by the spruce budworm.
 Study results indicated that spectral features were found to be most helpful for the model.
-Incorporating such (both spectral and structural) could be a possible enhancement for future works.
-No studies were found modeling defoliation caused by \textit{Diplodia sapinea (Fr.) Fuckel} with remote sensing data and most studies focused on describing the tree conditions based on local sampling \cite{hlebarska2018, kaya2019}.
+Incorporating such features (both spectral and structural) could be a possible enhancement for future works.
+No studies were found modeling defoliation caused by \textit{Diplodia sapinea (Fr.) Fuckel} with remote sensing data, and most studies focused on describing the tree conditions based on local sampling \cite{hlebarska2018, kaya2019}.
 
 % write about hyperspectral remote sensing
 The field of (hyperspectral) remote sensing has a strong focus on using RF for modeling in recent years \cite{belgiu2016}.
-However, in high-dimensional scenarios, tuning parameter \texttt{\(m_{try}\)} becomes computationally expensive.
+However, in high-dimensional scenarios, tuning the parameter \texttt{\(m_{try}\)} becomes computationally expensive.
 To account for this and the high dimensionality in general, studies used feature selection approaches like semi-supervised feature extraction \cite{xia2015}, wrapper methods \cite{fassnacht2014, feng2016, georganos2018}, PCA and adjusted feature selection \cite{rochac2016}.
 In general, applying feature selection methods on hyperspectral datasets has shown to be effective, regardless of the method used \cite{pal2010, keller2016}.
-However, no study that made explicit use of filter methods in combination with hyperparameter tuning in the field of (hyperspectral) remote sensing could be found.
-Potential reasons for this absence could be an easier programmatic access to wrapper methods, and a higher general awareness of such compared to filter methods.
+However, no studies were found that made explicit use of filter methods in combination with hyperparameter tuning in the field of (hyperspectral) remote sensing.
+Potential reasons for this absence could be an easier programmatic access to wrapper methods, and a higher general awareness of these compared to filter methods.
 Applying the filter-based feature selection methodology shown in this study and its related code provided in the research compendium might be a helpful reference for future studies using hyperspectral remote sensing data.
 
 % RS studies with more/other algorithms than RF
 When looking for remote sensing studies that compare multiple models, it turned out that these often operate in a low-dimensional predictor space \cite{xu2019} or use wrapper methods explicitly \cite{georganos2018}.
 
 \cite{shendryk2016, ludwig2019} are more similar in their methodology but focus on a different response variable (woody cover).
-\cite{shendryk2016} used machine learning with \ac{ALS} data to study dieback of trees for eucalyptus forests.
+\cite{shendryk2016} used machine learning with \ac{ALS} data to study dieback of trees in eucalyptus forests.
 A grid search was used for hyperparameter tuning and \ac{FFS} for variable selection.
 \cite{ludwig2019} analyzed woody cover in South Africa using spatial \ac{CV} and \ac{FS} approach \cite{meyer2018} with an RF classifier.
 \cite{zandler2015} shows a similar setup: they used hyperspectral vegetation indices, a nested CV approach for performance estimation and estimated variable importance targeting woody biomass as the response.
@@ -880,10 +879,10 @@ In the results, lasso showed the best performance among the chosen methods.
 However, the authors did not optimize the hyperparameters of RF which makes a fair comparison problematic since the other models used\ perform internal optimization.
 The discussion section of \cite{zandler2015} lists additional studies that made use of shrinkage models for high dimensional remote sensing modeling.
 
-In summary, no studies which used filter methods for \ac{FS} or made use of \ac{NRI} indices in their work and had a relation to tree health could be found.
+In summary, no studies could be found that used filter methods for \ac{FS} or made use of \ac{NRI} indices in their work and had a relation to tree health.
 This might relate to the fact that most environmental datasets are not high-dimensional.
 In fact, many studies use fewer than ten features and issues related to correlations are often solved manually instead of relying on an automated approach.
-This approach might suffer from subjectivity and may limit the reproducibility of results.
+These manual approaches might suffer from subjectivity and may limit the reproducibility of results.
 
 Other fields (e.g., bioinformatics) face high-dimensional datasets more often.
 Hence more studies using (filter-based) feature-selection approaches can be found for this field \cite{guo2019, radovic2017}.
