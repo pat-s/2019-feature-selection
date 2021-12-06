@@ -1,9 +1,7 @@
 download_data_plan <- drake_plan(
-
   data_hs_raw_paper = target(
     download_hyperspectral("https://zenodo.org/record/3630302/files/hyperspectral.zip", paper = TRUE)
   ),
-
   plot_locations = target(
     download_locations("https://zenodo.org/record/3630302/files/plot-locations.gpkg")
   ),
@@ -23,11 +21,9 @@ download_data_plan <- drake_plan(
     data_list %<>%
       set_names(c("laukiz1", "laukiz2", "luiando", "oiartzun"))
   }),
-
   forest_mask = target(
     download_forest_mask("https://zenodo.org/record/2653713/files/forest_mask.gpkg")
   ),
-
   name_id = target(
     c(
       "a busturi-axpe", "Laukiz I", "Laukiz II", "Laukiz III", "a altube",
@@ -40,11 +36,9 @@ download_data_plan <- drake_plan(
       "Sequoia Legorreta", "Douglas Albiztur"
     )
   ),
-
   name_id_paper = target(
     c("Laukiz I", "Laukiz II", "Ayala/Aiara", "Oiartzun")
   ),
-
   name_out = target(
     c(
       "busturi", "laukiz1", "laukiz2", "laukiz3", "altube", "barazar",
@@ -57,7 +51,6 @@ download_data_plan <- drake_plan(
       "douglas-albiztur"
     )
   ),
-
   name_out_paper = target(
     c("laukiz1", "laukiz2", "luiando", "oiartzun")
   ),
@@ -68,14 +61,12 @@ download_data_plan <- drake_plan(
   index_paper = target(
     c(1, 1, 3, 2)
   ),
-
   index = target(
     c(
       1, 2, 2, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 11, 12, 13, 14, 16, 16, 16,
       17, 17, 18, 20, 21, 22, 22, 23
     )
   ),
-
   wavelength = target(
     c(
       404.08, 408.5, 412.92, 417.36, 421.81, 426.27, 430.73, 435.2,
@@ -118,7 +109,6 @@ download_data_plan <- drake_plan(
       972.22, 977.04, 981.87, 986.68, 991.5, 996.31
     )
   ),
-
   indices = target(
     c(
       "Boochs", "Boochs2", "CARI", "Carter", "Carter2", "Carter3", "Carter4", "Carter5",

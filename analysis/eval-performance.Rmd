@@ -491,17 +491,14 @@ df_tbl <- getBMRTuneResults(bmr_inspect_tune, as.df = TRUE) %>%
     learner.id == "XGBOOST MBO Borda" & iter == 2 ~ "Laukiz1",
     learner.id == "XGBOOST MBO Borda" & iter == 3 ~ "Oiartzun",
     learner.id == "XGBOOST MBO Borda" & iter == 4 ~ "Laukiz2",
-
     learner.id == "SVM MBO Car" & iter == 1 ~ "Laukiz1",
     learner.id == "SVM MBO Car" & iter == 2 ~ "Oiartzun",
     learner.id == "SVM MBO Car" & iter == 3 ~ "Luiando",
     learner.id == "SVM MBO Car" & iter == 4 ~ "Laukiz2",
-
     learner.id == "RF MBO Car" & iter == 1 ~ "Luiando",
     learner.id == "RF MBO Car" & iter == 2 ~ "Laukiz2",
     learner.id == "RF MBO Car" & iter == 3 ~ "Laukiz1",
     learner.id == "RF MBO Car" & iter == 4 ~ "Oiartzun",
-
     TRUE ~ as.character(iter)
   )) %>%
   dplyr::rename(Learner = learner.id) %>%

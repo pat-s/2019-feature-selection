@@ -10,7 +10,7 @@ editor_options:
 # MIT License
 
 ```{r echo = FALSE, results='asis'}
-year = lubridate::year(lubridate::today())
+year <- lubridate::year(lubridate::today())
 cat(sprintf("Copyright (c) 2019-%s Patrick Schratz", year))
 ```
 

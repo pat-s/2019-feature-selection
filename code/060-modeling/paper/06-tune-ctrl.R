@@ -3,19 +3,16 @@
 # Plan -------------------------------------------------------------------------
 
 tune_ctrl_plan <- drake_plan(
-
   ps_filter = list(
     ps_rf_filter,
     ps_xgboost_filter,
     ps_svm_filter
   ),
-
   ps_pca = list(
     ps_rf_pca,
     ps_xgboost_pca,
     ps_svm_pca
   ),
-
   ps_no_filter = list(
     ps_rf,
     ps_xgboost,

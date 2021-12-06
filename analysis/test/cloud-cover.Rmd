@@ -5,9 +5,11 @@ author: "Marc Becker"
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_knit$set(base.dir = 'analysis/rmd/')
-knitr::opts_chunk$set(fig.retina = 3, fig.align = 'center', fig.width = 6.93, 
-                      fig.height = 6.13, out.width = "100%")
+knitr::opts_knit$set(base.dir = "analysis/rmd/")
+knitr::opts_chunk$set(
+  fig.retina = 3, fig.align = "center", fig.width = 6.93,
+  fig.height = 6.13, out.width = "100%"
+)
 source(here::here("code/99-packages.R"))
 
 loadd(records, aoi, cloud_mosaic)
@@ -17,40 +19,40 @@ loadd(records, aoi, cloud_mosaic)
 records %<>% split(records[[2]]$beginposition)
 
 # Unique dates
-date_scenes =  
+date_scenes <-
   records %>%
   map(~ dplyr::select(., beginposition)) %>%
   map(~ unique(.)) %>%
   map_chr(~ str_sub(., 1, 10))
 
 # Scenes per mosaic/ date
-count_scenes =
+count_scenes <-
   records %>%
   map_dbl(~ nrow(.))
 
 # Row number of mosaic
-row_scenes =
+row_scenes <-
   records %>%
   map(~ dplyr::select(., relativeorbitnumber)) %>%
   map(~ pull(.)) %>%
   map_chr(~ unique(.))
 
 # Calculate area of aoi
-aoi_area = st_area(aoi) %>%
+aoi_area <- st_area(aoi) %>%
   sum()
 
 # Calculate cloud cover
-cloud_scenes =
+cloud_scenes <-
   cloud_mosaic %>%
-  map(~ st_read(., quiet=TRUE)) %>%
+  map(~ st_read(., quiet = TRUE)) %>%
   map(~ st_set_crs(., 25830)) %>%
   map(~ st_intersection(st_buffer(., 0), aoi)) %>%
   map(possibly(~ st_union(.), NA)) %>%
   map(possibly(~ st_area(.), NA)) %>%
   map_dbl(possibly(~ sum(.), NA)) %>%
-  map_dbl(possibly(~ ./aoi_area, NA))
+  map_dbl(possibly(~ . / aoi_area, NA))
 
-ext_scenes =
+ext_scenes <-
   records %>%
   map(~ dplyr::select(., footprint)) %>%
   map_depth(2, ~ st_as_sfc(.)) %>%

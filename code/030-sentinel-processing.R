@@ -1,7 +1,6 @@
 sentinel_processing_plan <- drake_plan(
 
   # load area of interest ------------------------------------------------------
-
   aoi = target(
     download_aoi("https://zenodo.org/record/3476044/files/aoi.gpkg")
   ),
@@ -17,7 +16,6 @@ sentinel_processing_plan <- drake_plan(
     get_records(aoi, date = .x, processing_level = "Level-2Ap")) %>%
       rbind_list()
   ),
-
   records_2018 = target(
     map(list(
       c("2018-04-19", "2018-04-20"),

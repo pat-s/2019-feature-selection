@@ -5,13 +5,11 @@ benchmark_plan <- drake_plan(
     lrn_lasso,
     lrn_ridge
   ),
-
   learners_keep_models = list(
     # tune_wrappers_mbo %>%
     #   keep(~ "SVM MBO MRMR" %in% .x$id)
     tune_wrappers_mbo[[28]]
   ),
-
   tune_wrappers_mbo_sub = tune_wrappers_mbo[20],
   tune_wrappers_mbo1 = append(tune_wrappers_mbo, list(makeLearner("regr.featureless"))),
 
@@ -57,10 +55,8 @@ benchmark_plan <- drake_plan(
       task_reduced_cor[[1]]
     )
   ),
-
   tune_wrappers_mbo_inspect_tune = tune_wrappers_mbo[c(1, 13, 20)],
   task_hr_nri_vi = task_reduced_cor[6],
-
   benchmark_tune_results_hr_nri_vi = target(
     benchmark(
       learners = tune_wrappers_mbo_inspect_tune,
@@ -99,8 +95,6 @@ benchmark_plan <- drake_plan(
     ),
     dynamic = cross(learners_keep_models[[1]], task_reduced_cor)
   ),
-
-
   benchmark_models_penalized_mbo_trim_cor = target(
     benchmark(
       learners = learners_penalized,

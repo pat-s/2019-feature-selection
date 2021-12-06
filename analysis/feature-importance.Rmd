@@ -37,12 +37,10 @@ loadd(
   # Slurm resources suggestion: at least 20 cores and 2 GB / core = 40 GB pro job
   fi_permut_hr,
   fi_permut_vi,
-
   fi_ale_hr,
   fi_ale_vi,
   fi_ale_hr_gs20,
   fi_ale_vi_gs20,
-
   df_wavelengths_from_indices,
   spec_sigs
 )
@@ -66,7 +64,7 @@ fi_ranked_hr
 
 fi_ranked_vi <- fi_permut_vi$res %>%
   tibble::rownames_to_column("measure") %>%
-  dplyr::select(-contains("ID..")) %>% 
+  dplyr::select(-contains("ID..")) %>%
   tidyr::pivot_longer(
     cols = !measure,
     values_to = "importance", names_to = "feature"
@@ -203,7 +201,6 @@ plot_reflectance_imp_hr <- function(data) {
       size = 3,
       na.rm = TRUE
     ) +
-
     scale_color_manual(values = c(
       "HR: Rank 11:122" = "grey",
       "HR: Rank 1:10" = "black",
@@ -317,7 +314,6 @@ plot_reflectance_imp_vi <- function(data) {
       aes(x = wavelength, y = importance, group = class, color = "VI: Rank 11:89"),
       size = 0.2, linetype = "dashed"
     ) +
-
     scale_color_manual(values = c(
       "VI: Rank 11:89" = "grey",
       "VI: Rank 1:10" = "black",
@@ -471,7 +467,7 @@ ALE plots via package {iml}
 Top ten HR features from permutation Vimp
 
 ```{r fi-hr-ale, dev = c("png", "pdf"), warning=FALSE}
-ale_p1 = fi_ale_hr$plot(
+ale_p1 <- fi_ale_hr$plot(
   features = df_wavelengths_from_hr$class,
   ncol = 2
 ) & scale_y_continuous(
@@ -487,27 +483,27 @@ ale_p1 = fi_ale_hr$plot(
   )
 
 # Custom y axis breaks for subplots
-ale_p1[[2]] = ale_p1[[2]] + scale_y_continuous(
+ale_p1[[2]] <- ale_p1[[2]] + scale_y_continuous(
   n.breaks = 3
 )
 
-ale_p1[[3]] = ale_p1[[3]] + scale_y_continuous(
+ale_p1[[3]] <- ale_p1[[3]] + scale_y_continuous(
   n.breaks = 4
 )
 
-ale_p1[[7]] = ale_p1[[7]] + scale_y_continuous(
+ale_p1[[7]] <- ale_p1[[7]] + scale_y_continuous(
   n.breaks = 4
 )
 
-ale_p1[[8]] = ale_p1[[8]] + scale_y_continuous(
+ale_p1[[8]] <- ale_p1[[8]] + scale_y_continuous(
   n.breaks = 4
 )
 
-ale_p1[[9]] = ale_p1[[9]] + scale_y_continuous(
+ale_p1[[9]] <- ale_p1[[9]] + scale_y_continuous(
   n.breaks = 4
 )
 
-ale_p1[[10]] = ale_p1[[10]] + scale_y_continuous(
+ale_p1[[10]] <- ale_p1[[10]] + scale_y_continuous(
   n.breaks = 4
 )
 ale_p1
@@ -518,7 +514,7 @@ ale_p1
 Top ten HR features from permutation Vimp
 
 ```{r, warning=FALSE, message=FALSE}
-ale_p2 = fi_ale_hr_gs20$plot(
+ale_p2 <- fi_ale_hr_gs20$plot(
   features = df_wavelengths_from_hr$class,
   ncol = 2
 ) & scale_y_continuous(
@@ -534,25 +530,25 @@ ale_p2 = fi_ale_hr_gs20$plot(
   )
 
 # Custom y axis breaks for subplots
-ale_p2[[1]] = ale_p2[[1]] + scale_y_continuous(
+ale_p2[[1]] <- ale_p2[[1]] + scale_y_continuous(
   n.breaks = 4
 )
-ale_p2[[2]] = ale_p2[[2]] + scale_y_continuous(
+ale_p2[[2]] <- ale_p2[[2]] + scale_y_continuous(
   n.breaks = 5
 )
-ale_p2[[3]] = ale_p2[[3]] + scale_y_continuous(
+ale_p2[[3]] <- ale_p2[[3]] + scale_y_continuous(
   n.breaks = 4
 )
-ale_p2[[4]] = ale_p2[[4]] + scale_y_continuous(
+ale_p2[[4]] <- ale_p2[[4]] + scale_y_continuous(
   n.breaks = 4
 )
-ale_p2[[6]] = ale_p2[[6]] + scale_y_continuous(
+ale_p2[[6]] <- ale_p2[[6]] + scale_y_continuous(
   n.breaks = 4
 )
-ale_p2[[7]] = ale_p2[[7]] + scale_y_continuous(
+ale_p2[[7]] <- ale_p2[[7]] + scale_y_continuous(
   n.breaks = 4
 )
-ale_p2[[10]] = ale_p2[[10]] + scale_y_continuous(
+ale_p2[[10]] <- ale_p2[[10]] + scale_y_continuous(
   n.breaks = 3
 )
 ale_p2
@@ -565,7 +561,7 @@ ale_p2
 Top ten VI features from permutation Vimp
 
 ```{r fi-vi-ale, dev = c("png", "pdf"), warning=FALSE}
-ale_p3 = fi_ale_vi$plot(
+ale_p3 <- fi_ale_vi$plot(
   features = df_wavelengths_from_indices_label$class,
   ncol = 2
 ) & scale_y_continuous(
@@ -581,16 +577,16 @@ ale_p3 = fi_ale_vi$plot(
   )
 
 # Custom y axis breaks for subplots
-ale_p3[[1]] = ale_p3[[1]] + scale_y_continuous(
+ale_p3[[1]] <- ale_p3[[1]] + scale_y_continuous(
   n.breaks = 4
 )
-ale_p3[[2]] = ale_p3[[2]] + scale_y_continuous(
+ale_p3[[2]] <- ale_p3[[2]] + scale_y_continuous(
   n.breaks = 4
 )
-ale_p3[[3]] = ale_p3[[3]] + scale_y_continuous(
+ale_p3[[3]] <- ale_p3[[3]] + scale_y_continuous(
   n.breaks = 4
 )
-ale_p3[[4]] = ale_p3[[4]] + scale_y_continuous(
+ale_p3[[4]] <- ale_p3[[4]] + scale_y_continuous(
   n.breaks = 4
 )
 ale_p3
@@ -601,7 +597,7 @@ ale_p3
 Top ten HR features from permutation Vimp
 
 ```{r, warning=FALSE}
-ale_p4 = fi_ale_vi_gs20$plot(
+ale_p4 <- fi_ale_vi_gs20$plot(
   features = df_wavelengths_from_indices_label$class,
   ncol = 2
 ) & scale_y_continuous(
@@ -617,13 +613,13 @@ ale_p4 = fi_ale_vi_gs20$plot(
   )
 
 # Custom y axis breaks for subplots
-ale_p4[[2]] = ale_p3[[2]] + scale_y_continuous(
+ale_p4[[2]] <- ale_p3[[2]] + scale_y_continuous(
   n.breaks = 4
 )
-ale_p4[[3]] = ale_p3[[3]] + scale_y_continuous(
+ale_p4[[3]] <- ale_p3[[3]] + scale_y_continuous(
   n.breaks = 4
 )
-ale_p4[[4]] = ale_p3[[4]] + scale_y_continuous(
+ale_p4[[4]] <- ale_p3[[4]] + scale_y_continuous(
   n.breaks = 4
 )
 ale_p4

@@ -43,7 +43,6 @@ learners_plan <- drake_plan(
       standardize = FALSE
     )
   ),
-
   lrn_lassocv = target(
     makeLearner("regr.glmnet",
       id = "Lasso-CV",
@@ -63,7 +62,6 @@ learners_plan <- drake_plan(
       standardize = FALSE
     )
   ),
-
   lrn_ridgecv = target(
     makeLearner("regr.glmnet",
       id = "Ridge-CV",
@@ -73,7 +71,7 @@ learners_plan <- drake_plan(
     )
   ),
 
- # featureless
+  # featureless
   lrn_featureless = target(
     makeLearner("regr.featureless",
       id = "featureless"
