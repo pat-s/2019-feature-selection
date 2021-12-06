@@ -25,11 +25,8 @@ options(
   radian.tab_size = 2,
   radian.complete_while_typing = TRUE,
   scipen = 999,
-
   clustermq.template = "slurm_clustermq.tmpl",
-
   precommit.executable = "/home/patrick/.local/bin/pre-commit",
-
   renv.settings.auto.snapshot = TRUE
 )
 suppressMessages(require(drake))
@@ -49,4 +46,3 @@ if (interactive() && "tibble" %in% rownames(utils::installed.packages())) {
 #   knitr::purl(rmd, output = tempR)
 #   sys.source(tempR, envir = envir)
 # }
-

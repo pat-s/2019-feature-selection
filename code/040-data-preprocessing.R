@@ -46,7 +46,6 @@ data_preprocessing_plan <- drake_plan(
   coords_vi_nri_clean = target(
     as_tibble(rbindlist(data_clean_single_plots_coords[[1]]))
   ),
-
   data_bands_clean = target(
     as_tibble(rbindlist(data_clean_single_plots[[2]], fill = TRUE)) %>%
       Filter(function(x) !any(is.na(x)), .)
@@ -73,30 +72,24 @@ data_preprocessing_plan <- drake_plan(
   nri_data = target(
     split_into_feature_sets(data_trim_defoliation, "nri")
   ),
-
   vi_data = target(
     split_into_feature_sets(data_trim_defoliation, "vi")
   ),
-
   bands_data = target(
     split_into_feature_sets(data_trim_defoliation, "bands")
   ),
-
   nri_vi_data = target(
     cbind(nri_data, vi_data) %>%
       subset(select = which(!duplicated(names(.)))) # remove duplicate "defoliation" column
   ),
-
   hr_nri_data = target(
     cbind(bands_data, nri_data) %>%
       subset(select = which(!duplicated(names(.)))) # remove duplicate "defoliation" column
   ),
-
   hr_vi_data = target(
     cbind(bands_data, vi_data) %>%
       subset(select = which(!duplicated(names(.)))) # remove duplicate "defoliation" column
   ),
-
   hr_nri_vi_data = target(
     cbind(
       bands_data, nri_data,
@@ -121,7 +114,6 @@ data_preprocessing_plan <- drake_plan(
       nri_data
     }
   }),
-
   vi_data_trim_cor = target({
     inds <- caret::findCorrelation(cor(vi_data[, -1]),
       cutoff = 0.9999999999, exact = TRUE
@@ -133,7 +125,6 @@ data_preprocessing_plan <- drake_plan(
       vi_data
     }
   }),
-
   bands_data_trim_cor = target({
     inds <- caret::findCorrelation(cor(bands_data[, -1]),
       cutoff = 0.9999999999, exact = TRUE
@@ -145,7 +136,6 @@ data_preprocessing_plan <- drake_plan(
       bands_data
     }
   }),
-
   nri_vi_data_trim_cor = target({
     inds <- caret::findCorrelation(cor(nri_vi_data[, -1]),
       cutoff = 0.9999999999, exact = TRUE
@@ -157,7 +147,6 @@ data_preprocessing_plan <- drake_plan(
       nri_vi_data
     }
   }),
-
   hr_nri_data_trim_cor = target({
     inds <- caret::findCorrelation(cor(hr_nri_data[, -1]),
       cutoff = 0.9999999999, exact = TRUE
@@ -169,7 +158,6 @@ data_preprocessing_plan <- drake_plan(
       hr_nri_vi_data
     }
   }),
-
   hr_vi_data_trim_cor = target({
     inds <- caret::findCorrelation(cor(hr_vi_data[, -1]),
       cutoff = 0.9999999999, exact = TRUE
@@ -181,7 +169,6 @@ data_preprocessing_plan <- drake_plan(
       hr_vi_data
     }
   }),
-
   hr_nri_vi_data_trim_cor = target({
     inds <- caret::findCorrelation(cor(hr_nri_vi_data[, -1]),
       cutoff = 0.9999999999, exact = TRUE

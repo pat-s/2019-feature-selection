@@ -2,12 +2,10 @@ train_plan <- drake_plan(
   train_hr_xgboost = target(
     train(xgboost_borda, task[[1]])
   ),
-
   iml_new_hr = target(Predictor$new(
     train_hr_xgboost,
     task[[1]]$env$data
   )),
-
   iml_ale_hr = target({
     cl <- makePSOCKcluster(4)
     registerDoParallel(cl)

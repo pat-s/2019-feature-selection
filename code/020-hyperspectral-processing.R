@@ -6,7 +6,6 @@ hyperspectral_processing_plan <- drake_plan(
       id = name_id_paper
     )
   ),
-
   ndvi_rasters = target(
     map(data_hs_preprocessed_paper, ~ HyperSpecRaster(.x, wavelength_reduced)) %>%
       future_imap(~ vegindex(.x, "NDVI2",
@@ -14,12 +13,10 @@ hyperspectral_processing_plan <- drake_plan(
         bnames = "NDVI"
       ))
   ),
-
   veg_indices = target(
     map(data_hs_preprocessed_paper, ~ HyperSpecRaster(.x, wavelength_reduced)) %>%
       calc_veg_indices(indices)
   ),
-
   nri_indices = target(
     map(data_hs_preprocessed_paper, ~ HyperSpecRaster(.x, wavelength_reduced)) %>%
       calc_nri_indices(indices)
@@ -28,7 +25,6 @@ hyperspectral_processing_plan <- drake_plan(
   # corrected data from Jan 2020 -----------------------------------------------
 
   plot_names = c("laukiz1", "laukiz2", "luiando", "oiartzun"),
-
   trees_with_indices = target(
     list(
       extract_indices_to_plot(plot_names,
@@ -42,7 +38,6 @@ hyperspectral_processing_plan <- drake_plan(
       plot_names
     )
   ),
-
   trees_with_bands = target(
     list(
       extract_bands_to_plot(plot_names,

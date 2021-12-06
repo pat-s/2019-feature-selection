@@ -1,4 +1,4 @@
-load_packages = function() {
+load_packages <- function() {
   suppressPackageStartupMessages(library(drake))
   suppressPackageStartupMessages(library(rgdal))
   suppressPackageStartupMessages(library(hsdar))

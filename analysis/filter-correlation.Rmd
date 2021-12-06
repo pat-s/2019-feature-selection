@@ -32,7 +32,6 @@ R.utils::sourceDirectory("R")
 drake::loadd(
   filter_values,
   filter_values_fselectorrcpp,
-
   filter_info_gain_nbins
 )
 ```

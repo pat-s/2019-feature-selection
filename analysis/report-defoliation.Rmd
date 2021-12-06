@@ -26,7 +26,6 @@ loadd(
   defoliation_raster_relative,
   defoliation_df,
   defoliation_df_relative,
-
   tune_xgboost_plan_project
 )
 ```
@@ -179,6 +178,6 @@ suppressMessages(print(hist))
 ```
 
 ```{r echo = FALSE}
-#system("rsync -rlptDivzog --chown=*:www-data --chmod=g+r,o+r /home/patrick/papers/2019-feature-selection/docs/figure/report-defoliation.Rmd/defol* patrick@jupiter.geogr.uni-jena.de:/home/www/life-healthy-forest/action-B1-spatial-mapping/defoliation-maps/")
+# system("rsync -rlptDivzog --chown=*:www-data --chmod=g+r,o+r /home/patrick/papers/2019-feature-selection/docs/figure/report-defoliation.Rmd/defol* patrick@jupiter.geogr.uni-jena.de:/home/www/life-healthy-forest/action-B1-spatial-mapping/defoliation-maps/")
 ```
 

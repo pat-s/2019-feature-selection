@@ -69,8 +69,10 @@ wavelength <- c(
 ```
 
 ```{r spectral-signatures-3 }
-speclibs <- purrr::map(data_hs_preprocessed_paper,
-  ~ hsdar::speclib(.x, wavelength))
+speclibs <- purrr::map(
+  data_hs_preprocessed_paper,
+  ~ hsdar::speclib(.x, wavelength)
+)
 ```
 
 ```{r spectral-signatures, dev=c("png", "pdf"), warning=FALSE}

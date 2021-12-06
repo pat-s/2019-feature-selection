@@ -10,19 +10,17 @@ filter_wrapper_plan <- drake_plan(
     lrn_xgboost,
     lrn_svm
   ),
-
   filter_wrappers_single = target(
     makeFilterWrapper(learners[[1]], fw.method = filter_names, cache = TRUE),
     dynamic = cross(learners, filter_names)
   ),
-
   filter_wrappers_borda = target(
     makeFilterWrapper(learners[[1]],
       fw.method = "E-Borda", cache = TRUE,
       fw.base.methods = c(
         "FSelectorRcpp_information.gain",
         "linear.correlation",
-        "praznik_MRMR", 
+        "praznik_MRMR",
         "praznik_CMIM",
         "carscore",
         "FSelectorRcpp_relief"
@@ -34,12 +32,10 @@ filter_wrapper_plan <- drake_plan(
     ),
     dynamic = map(learners)
   ),
-
   pca_wrappers = target(
     makePreprocWrapperCaret(learners[[1]], ppc.pca = TRUE),
     dynamic = map(learners)
   ),
-
   filter_wrappers_all = target(c(
     filter_wrappers_single,
     filter_wrappers_borda,

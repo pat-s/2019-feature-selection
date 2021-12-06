@@ -35,10 +35,8 @@ R.utils::sourceDirectory("code")
 plan_paper <- bind_plans(
   download_data_plan,
   hyperspectral_processing_plan,
-
   data_preprocessing_plan,
   tasks_plan,
-
   filter_eda_plan,
   param_sets_plan,
   learners_plan,
@@ -46,10 +44,8 @@ plan_paper <- bind_plans(
   resampling_plan,
   tune_ctrl_plan,
   tune_wrapper_plan,
-
   benchmark_plan,
   bm_aggregated_plan,
-
   feature_imp_plan,
   reports_plan_paper
 )
@@ -58,11 +54,11 @@ plan_paper <- bind_plans(
 
 # config for long running tasks
 drake_config(plan_paper,
-   targets = c(
-     # replace this with the target name that should be computed
+  targets = c(
+    # replace this with the target name that should be computed
     #  c("eda_wfr")
     "benchmark_no_models"
-   ),
+  ),
   verbose = 1,
   lazy_load = "eager",
   packages = NULL,

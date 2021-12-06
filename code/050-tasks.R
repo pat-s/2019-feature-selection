@@ -1,5 +1,4 @@
 tasks_plan <- drake_plan(
-
   coordinates_list = list(
     coords_bands_clean,
     coords_vi_nri_clean,
@@ -8,7 +7,6 @@ tasks_plan <- drake_plan(
     coords_vi_nri_clean,
     coords_vi_nri_clean
   ),
-
   data =
     list(
       bands_data,
@@ -18,7 +16,6 @@ tasks_plan <- drake_plan(
       nri_vi_data,
       hr_nri_vi_data
     ),
-
   data_reduced_cor =
     list(
       bands_data_trim_cor,
@@ -39,7 +36,6 @@ tasks_plan <- drake_plan(
     "nri_vi",
     "hr_nri_vi"
   ),
-
   task = target(
     makeRegrTask(
       id = task_names,
@@ -54,7 +50,6 @@ tasks_plan <- drake_plan(
       coordinates_list
     )
   ),
-
   task_reduced_cor = target(
     makeRegrTask(
       id = task_names,

@@ -18,7 +18,6 @@ task_project_plan <- drake_plan(
       mutate(bf2_GDVI_2 = case_when(bf2_GDVI_2 < -4 ~ -4, TRUE ~ as.numeric(bf2_GDVI_2))) %>%
       mutate(bf2_mNDVI = case_when(bf2_mNDVI < -3 ~ -3, TRUE ~ as.numeric(bf2_mNDVI)))
   }),
-
   task_7_most_imp = target(
     makeRegrTask(
       id = "all_plots", data = data_7_most_imp,

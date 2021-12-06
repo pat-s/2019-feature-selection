@@ -36,11 +36,10 @@ reports_plan_paper <- drake_plan(
     )
     copy_figures()
   }),
-
   inspect_glmnet_wfr = target({
     wflow_publish(knitr_in("analysis/inspect-glmnet-models.Rmd"),
-                  view = FALSE,
-                  verbose = TRUE
+      view = FALSE,
+      verbose = TRUE
     )
     copy_figures()
   }),

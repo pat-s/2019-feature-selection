@@ -56,7 +56,6 @@ tune_wrapper_plan <- drake_plan(
     list(ps_rf),
     list(ps_xgboost),
     list(ps_svm),
-
     list(ps_lasso),
     list(ps_ridge)
   ),

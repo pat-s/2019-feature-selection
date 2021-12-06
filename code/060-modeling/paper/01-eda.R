@@ -14,7 +14,6 @@ filter_eda_plan <- drake_plan(
     "FSelectorRcpp_gain.ratio",
     "FSelectorRcpp_symmetrical.uncertainty"
   ),
-
   names_filter_values = c(
     "carscore",
     "FSelectorRcpp_relief",
@@ -24,13 +23,11 @@ filter_eda_plan <- drake_plan(
     "praznik_CMIM",
     "variance"
   ),
-
   task_list_filter = list(
     task[[1]],
     task[[2]],
     task[[3]]
   ),
-
   filter_values = target(
     generateFilterValuesData(
       task = task_list_filter[[1]],
@@ -38,7 +35,6 @@ filter_eda_plan <- drake_plan(
     ),
     dynamic = cross(task_list_filter, names_filter_values)
   ),
-
   filter_values_fselectorrcpp = target(
     generateFilterValuesData(
       task = task_list_filter[[1]],
@@ -47,9 +43,7 @@ filter_eda_plan <- drake_plan(
     ),
     dynamic = cross(task_list_filter, filters_FSelectorRcpp)
   ),
-
   nbins = seq(5, 30, 5),
-
   filter_info_gain_nbins = target(
     generateFilterValuesData(
       task = task_list_filter[[1]],

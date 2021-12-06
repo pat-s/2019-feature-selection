@@ -14,7 +14,6 @@ feature_imp_plan <- drake_plan(
       setAggregation(rmse, test.mean)
     )
   )),
-
   df_wavelengths_from_indices = target({
 
     # The table is a cleaned version from https://raw.githubusercontent.com/cran/hsdar/master/man/vegindex.Rd
@@ -59,7 +58,6 @@ feature_imp_plan <- drake_plan(
 
     return(df_wide_formatted)
   }),
-
   fi_ale_hr = target({
     mod_hr <- mlr::train(
       tune_wrappers_mbo[[13]], # SVM MBO Car
@@ -75,8 +73,7 @@ feature_imp_plan <- drake_plan(
     )
     return(fe)
   }),
-
-    fi_ale_hr_gs20 = target({
+  fi_ale_hr_gs20 = target({
     mod_hr <- mlr::train(
       tune_wrappers_mbo[[13]], # SVM MBO Car
       task_reduced_cor[[1]]
@@ -91,7 +88,6 @@ feature_imp_plan <- drake_plan(
     )
     return(fe)
   }),
-
   fi_ale_vi = target({
     mod_hr <- mlr::train(
       tune_wrappers_mbo[[13]], # SVM MBO Car
@@ -107,8 +103,7 @@ feature_imp_plan <- drake_plan(
     )
     return(fe)
   }),
-
-    fi_ale_vi_gs20 = target({
+  fi_ale_vi_gs20 = target({
     mod_hr <- mlr::train(
       tune_wrappers_mbo[[13]], # SVM MBO Car
       task_reduced_cor[[2]]

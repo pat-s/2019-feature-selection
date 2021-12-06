@@ -17,7 +17,6 @@ param_sets_plan <- drake_plan(
       makeNumericParam("fw.perc", lower = 0, upper = 1)
     )
   ),
-
   ps_xgboost = target(
     makeParamSet(
       makeNumericParam("eta", lower = 0.1, upper = 1),
@@ -32,7 +31,6 @@ param_sets_plan <- drake_plan(
       makeIntegerParam("nrounds", lower = 10, upper = 70)
     )
   ),
-
   ps_xgboost_pca = target(
     makeParamSet(
       makeNumericParam("eta", lower = 0.1, upper = 1),
@@ -63,7 +61,6 @@ param_sets_plan <- drake_plan(
       makeNumericParam("fw.perc", lower = 0, upper = 1)
     )
   ),
-
   ps_svm = target(
     makeParamSet(
       makeNumericParam("C",
@@ -76,7 +73,6 @@ param_sets_plan <- drake_plan(
       )
     )
   ),
-
   ps_svm_pca = target(
     makeParamSet(
       makeNumericParam("C",
@@ -101,7 +97,6 @@ param_sets_plan <- drake_plan(
       makeNumericParam("fw.perc", lower = 0, upper = 1)
     )
   ),
-
   ps_rf = target(
     makeParamSet(
       makeNumericParam("mtry.power", lower = 0, upper = 0.5),
@@ -109,7 +104,6 @@ param_sets_plan <- drake_plan(
       makeNumericParam("sample.fraction", lower = 0.2, upper = 0.9)
     )
   ),
-
   ps_rf_pca = target(
     makeParamSet(
       makeNumericParam("mtry.power", lower = 0, upper = 0.5),
@@ -152,7 +146,6 @@ param_sets_plan <- drake_plan(
       probs = c(0.10, 0.90)
     )
   }),
-
   ps_ridge = target(
     makeParamSet(
       makeNumericParam("s",
@@ -195,7 +188,6 @@ param_sets_plan <- drake_plan(
       probs = c(0.10, 0.90)
     )
   }),
-
   ps_lasso = target(
     makeParamSet(makeNumericParam("s",
       # lower = quan_lasso[1],

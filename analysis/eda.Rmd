@@ -28,10 +28,8 @@ R.utils::sourceDirectory("code")
 loadd(
   vi_data, nri_data,
   bands_data, coords_vi_nri_clean,
-
   filter_values,
   filter_info_gain_nbins,
-
   trees_with_bands,
   trees_with_bands_no_buffer
 )

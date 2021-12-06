@@ -20,7 +20,8 @@ get_records <- function(aoi, date, processing_level) {
   login_CopHub("be-marc", password = "ISQiwQDl")
 
   # Get records from Sentinel-2 in time range
-  records <- getSpatialData::get_records(time_range = date,
+  records <- getSpatialData::get_records(
+    time_range = date,
     products = "Sentinel-2", as_sf = FALSE
   )
 
