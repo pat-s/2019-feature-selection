@@ -349,3 +349,4 @@ TSWLatexianTemp*
 code/98-paper/*
 docs/00-manuscripts/ieee/ieee-manuscript.pdf
 _drake.R
+*.zip
