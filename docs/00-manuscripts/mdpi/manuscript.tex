@@ -744,8 +744,9 @@ This caused overfitting on the medium-to-high values, degrading the model's pred
 When Laukiz2 was in the training set, the overall mean RMSE was reduced by up to 50\% with single fold performances as good as 9 p.p. RMSE (with Luiando as test set).
 
 There was also no clear pattern in the percentage of features selected based on hyperparameter tuning (\autoref{tab:tune-perc-sel-features}).
-The specific performance value to benchmark against during tuning is defined by the internal surrogate learner of the MBO tuning method and can be any numeric value between 0 and 1 (interpreted as a\ percentage of available features) for the hyperparameter that controls the number of features.
-% Nevertheless, considering SVM's relative success, the use of at least a few hundred features from the combined feature set appears to be beneficial, or at least not harmful when the model's built-in regularization is capable of dealing with the resulting high-dimensional situation.
+The optimal value for the number of features (interpreted as a\ percentage of available features), which are selected from the ranked filter results, is determined by the internal surrogate learner of the MBO tuning method using the results from the previous tuning iterations.
+Due to this iterative approach MBO is in some ways able to evaluate how well a learning algorithm plays together with a certain amount of selected features and is subsequently able to adjust the number of variables to an optimal value.
+All in all, considering SVM's relative success, the use of at least a few hundred features from the combined feature set appears to be beneficial, or at least not harmful when the model's built-in regularization is capable of dealing with the resulting high-dimensional situation.
 
 % filters always reduce computation time
 Realizing early during hyperparameter optimization that only few features are needed to reach adequate performances can reduce the overall computational runtime substantially.

@@ -1,0 +1,20 @@
+% latex table generated in R 4.0.4 by xtable 1.8-4 package
+\begin{table}[ht!]
+\centering
+\caption{The overall best individual learner performance across any task and filter method for RF, SVM, XGBoost, Lasso and Ridge, sorted ascending by RMSE (p.p.) including the respective standard error (SE) of the cross-validation run.} 
+\label{tab:best-learner-perf}
+\scalebox{0.9}{
+\begin{tabular}{rlllrr}
+  \hline
+ & Task & Model & Filter & RMSE & SE \\ 
+  \hline
+1 & HR & SVM & Relief & 28.12 & 19.12 \\ 
+  2 & NRI & Lasso-MBO & No Filter & 31.16 & 15.03 \\ 
+  3 & NRI & Ridge-MBO & No Filter & 31.16 & 15.03 \\ 
+  4 & - & regr.featureless & No Filter & 31.16 & 15.03 \\ 
+  5 & HR & RF & Relief & 31.25 & 14.96 \\ 
+  6 & HR & XGBoost & Car & 34.07 & 13.57 \\ 
+   \hline
+\end{tabular}
+}
+\end{table}

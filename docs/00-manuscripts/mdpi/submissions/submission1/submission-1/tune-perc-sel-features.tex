@@ -1,0 +1,24 @@
+% latex table generated in R 4.0.4 by xtable 1.8-4 package
+\begin{table}[ht!]
+\centering
+\caption{Selected feature portions during tuning for the best performing learner-filter settings (SVM Relief, RF Relief, XGBoost CMIM) across folds for task HR-NRI-VI, sorted by plot name. 'Features (\texttt{\#})' denotes the absolute number of features selected and 'Features (\texttt{\%})' refers to the percentage relative to the overall features available in the training sets for each plot (Laukiz1 = 1249, Laukiz2 = 1357, Luiando = 1507, Oiartzun = 1311). Results were estimated in a separate model tuning step, not within the main cross-validation comparison.} 
+\label{tab:tune-perc-sel-features}
+\begin{tabular}{llrl}
+  \toprule
+Learner & Test Plot & Features (\%) & Features (\#) \\ 
+  \midrule
+\multirow{4}{*}{\specialcell{RF \\ Relief}} & Laukiz1 & 0.21573 & 3/1249 \\ 
+   & Laukiz2 & 93.37086 & 1268/1357 \\ 
+   & Luiando & 99.97268 & 1507/1507 \\ 
+   & Oiartzun & 0.00405 & 1/1311 \\ 
+  \midrule\multirow{4}{*}{\specialcell{SVM \\ Relief}} & Laukiz1 & 0.06200 & 1/1249 \\ 
+   & Laukiz2 & 23.92820 & 325/1357 \\ 
+   & Luiando & 20.73514 & 313/1507 \\ 
+   & Oiartzun & 4.10636 & 54/1311 \\ 
+  \midrule\multirow{4}{*}{\specialcell{XGB \\ CMIM}} & Laukiz1 & 98.12213 & 1226/1249 \\ 
+   & Laukiz2 & 0.51526 & 7/1357 \\ 
+   & Luiando & 30.84900 & 465/1507 \\ 
+   & Oiartzun & 83.61298 & 1097/1311 \\ 
+   \bottomrule
+\end{tabular}
+\end{table}

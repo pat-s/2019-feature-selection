@@ -90,8 +90,6 @@ There has to be a trade-off because there will be no perfect solution; either we
 In our view, a buffer of 1 m radius actually matches crown sizes of most trees quite well (please see the attached images for a better illustration).
 Actual tree crown sizes depend on the age of the tree and will vary across plots.
 These sample trees will also be included in the graphical abstract of this work.
-*FIXME: add image*
-*FIXME: add image "tree buffer viz"*
 
 
 > The VI feature set is of completely different nature than HR and NRI, because the VIs only represent some portion of the analysed spectra, which is equivalent to elimination of a lot of features a priori, whereas in the case of the other sets this elimination occurs later.
